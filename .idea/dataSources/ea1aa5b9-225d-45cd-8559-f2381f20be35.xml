@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mydb@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="mydb">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="phpmyadmin"/>
+    <schema id="7" parent="1" name="test"/>
+    <table id="8" parent="2" name="user"/>
+    <column id="9" parent="8" name="ID">
+      <Position>1</Position>
+      <Comment>用户编号</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="10" parent="8" name="Name">
+      <Position>2</Position>
+      <Comment>姓名</Comment>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="11" parent="8" name="Password">
+      <Position>3</Position>
+      <Comment>密码</Comment>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <column id="12" parent="8" name="Phone">
+      <Position>4</Position>
+      <Comment>手机号</Comment>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="13" parent="8" name="TimeCoin">
+      <Position>5</Position>
+      <Comment>时间币余额</Comment>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="14" parent="8" name="TimeVol">
+      <Position>6</Position>
+      <Comment>志愿者时间余额</Comment>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="15" parent="8" name="RegisterDate">
+      <Position>7</Position>
+      <Comment>注册时间</Comment>
+      <DataType>date|0</DataType>
+    </column>
+    <key id="16" parent="8" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
