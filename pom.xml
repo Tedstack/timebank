@@ -33,7 +33,11 @@
             <artifactId>spring-data-commons</artifactId>
             <version>1.13.8.RELEASE</version>
         </dependency>
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
 
     </dependencies>

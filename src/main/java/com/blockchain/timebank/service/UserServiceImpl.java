@@ -2,13 +2,14 @@ package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.UserDao;
 import com.blockchain.timebank.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
+@Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
-    UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
 
     public UserEntity saveUserEntity(UserEntity userEntity) {
