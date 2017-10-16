@@ -22,7 +22,7 @@ public class UserTest {
     public void testSaveUser() {
         UserEntity userEntity=new UserEntity();
         userEntity.setName("测试姓名");
-        userEntity.setPhone("测试号码");
+        userEntity.setPhone("测试号码");//重复的号码只能插入一次
         userEntity.setTimeCoin(0);
         userEntity.setTimeVol(0);
         userEntity.setPassword("测试密码");
@@ -35,8 +35,8 @@ public class UserTest {
     //根据id查找用户
     @Test
     public void testFindUserById() {
-        UserEntity userEntity=userService.findUserEntityById(1L);
-
+        long id=1L;
+        UserEntity userEntity=userService.findUserEntityById(id);
     }
 
 

@@ -15,6 +15,7 @@
 
         <mapping class="com.blockchain.timebank.entity.UserEntity"/>
         <mapping class="com.blockchain.timebank.entity.ServiceEntity"/>
+        <mapping class="com.blockchain.timebank.entity.TimeaccountEntity"/>
         <!-- DB schema will be updated if needed -->
         <!--<property name="hbm2ddl.auto">update</property>-->
 
