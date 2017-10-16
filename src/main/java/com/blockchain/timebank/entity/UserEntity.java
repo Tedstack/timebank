@@ -6,7 +6,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "user", schema = "mydb", catalog = "")
 public class UserEntity {
-    private int id;
+    private long id;
     private String name;
     private String password;
     private String phone;
@@ -15,17 +15,17 @@ public class UserEntity {
     private Date registerDate;
 
     @Id
-    @Column(name = "ID")
-    public int getId() {
+    @Column(name = "ID", nullable = false)
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = true, length = 20)
     public String getName() {
         return name;
     }
@@ -35,7 +35,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Password")
+    @Column(name = "Password", nullable = true, length = 45)
     public String getPassword() {
         return password;
     }
@@ -45,7 +45,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Phone")
+    @Column(name = "Phone", nullable = false, length = 20)
     public String getPhone() {
         return phone;
     }
@@ -55,7 +55,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "TimeCoin")
+    @Column(name = "TimeCoin", nullable = false, precision = 0)
     public double getTimeCoin() {
         return timeCoin;
     }
@@ -65,7 +65,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "TimeVol")
+    @Column(name = "TimeVol", nullable = false, precision = 0)
     public double getTimeVol() {
         return timeVol;
     }
@@ -75,7 +75,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "RegisterDate")
+    @Column(name = "RegisterDate", nullable = true)
     public Date getRegisterDate() {
         return registerDate;
     }
@@ -106,7 +106,7 @@ public class UserEntity {
     public int hashCode() {
         int result;
         long temp;
-        result = id;
+        result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);

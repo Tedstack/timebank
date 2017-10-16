@@ -15,7 +15,7 @@
     <column id="9" parent="8" name="ID">
       <Position>1</Position>
       <Comment>用户编号</Comment>
-      <DataType>int(11)|0</DataType>
+      <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
