@@ -4,7 +4,7 @@ CREATE TABLE `mydb`.`User` ( `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户
 # Service 服务种类表
 CREATE TABLE `mydb`.`Service` ( `ID` BIGINT NOT NULL AUTO_INCREMENT COMMENT '服务种类编号' , `Type` VARCHAR(45) NOT NULL COMMENT '服务类型' , `Name` VARCHAR(45) NOT NULL COMMENT '服务名称' , `Price` DOUBLE NOT NULL COMMENT '服务的参考价（时间元）' , `UpdateTime` DATETIME NULL COMMENT '价格更新表时间' , PRIMARY KEY (`ID`)) ENGINE = InnoDB COMMENT = '服务种类表';
 
-#TimeAccount 时间元表
+# TimeAccount 时间元表
 
 
 
