@@ -1,0 +1,442 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<title>预约下单</title>
+<link href="./getorder/dj_base_e89a179.css" rel="stylesheet"
+	type="text/css">
+<link href="./getorder/dj_order_eb5b64f.css" rel="stylesheet"
+	type="text/css">
+<link rel="stylesheet" href="./getorder/select.min.css">
+<link href="./getorder/base.css" rel="stylesheet" type="text/css">
+
+
+<style type="text/css">
+.btn_disable {
+	background-color: #ef9195;
+	color: #f9d3d5;
+}
+
+.order_s2 .btn_hide_shade:active {
+	background-color: white;
+}
+
+*, :before, :after {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+#pre_info_top {
+	height: 34px;
+	line-height: 34px;
+	padding-left: 15px;
+	font-family: "PingFangSC-Light";
+	font-size: 13px;
+	color: #846545;
+	background: #FBF1C2;
+	position: relative;
+}
+
+#pre_info_top span {
+	position: absolute;
+	width: 64px;
+	height: 34px;
+	line-height: 34px;
+	text-align: left;
+	top: 0;
+	right: 15px;
+}
+
+#pre_info_top i {
+	font-style: normal;
+	display: block;
+	height: 34px;
+	line-height: 34px;
+	position: absolute;
+	right: 15px;
+	top: -1px;
+	z-index: 1;
+}
+
+#pre_info {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+#pre_info .content {
+	position: absolute;
+	width: 270px;
+	height: 188px;
+	top: 50%;
+	left: 50%;
+	margin-top: -94px;
+	margin-left: -135px;
+	background: #fff;
+	border-radius: 2px;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease;
+	transition: opacity 0.3s ease;
+}
+
+#pre_info .content.fadeIn {
+	opacity: 1;
+}
+
+#pre_info .title {
+	height: 17px;
+	font-family: ".PingFang-SC-Regula", "Helvetica Neue", Helvetica, Arial,
+		"PingFang SC", "Heiti SC", "Hiragino Sans GB", "Microsoft YaHei",
+		sans-serif; r;
+	font-size: 17px;
+	color: #292D33;
+	line-height: 17px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+#pre_info ul {
+	margin: 12px 0 17px;
+	padding: 0 15px 0 25px;
+}
+
+#pre_info li {
+	list-style: none;
+	font-family: ".PingFang-SC-Regula";
+	font-size: 13px;
+	color: #292D33;
+	line-height: 17px;
+	margin-top: 5px;
+	position: relative;
+}
+
+#pre_info li::before {
+	content: '';
+	display: block;
+	width: 2px;
+	height: 2px;
+	background: #525A66;
+	position: absolute;
+	left: -8px;
+	top: 8px;
+	z-index: 1;
+	border-radius: 100%;
+	/*此处添加一行*/
+}
+
+#pre_info li:nth-child(1) {
+	margin-top: 0;
+}
+
+#pre_info .know {
+	height: 44px;
+	line-height: 44px;
+	font-family: ".PingFang-SC-Regula";
+	font-size: 16px;
+	color: #E6454A;
+	text-align: center;
+	position: relative;
+}
+
+#pre_info .know::after {
+	content: '';
+	display: block;
+	width: 200%;
+	height: 1px;
+	background: #E8EBF0;
+	-webkit-transform: scale(0.5);
+	transform: scale(0.5);
+	-webkit-transform-origin: 0 1px;
+	transform-origin: 0 1px;
+	position: absolute;
+	left: 0;
+	top: -1px;
+	z-index: 1;
+}
+
+#pre_info .know:active {
+	background: #F5F7FA;
+}
+
+.time-tip {
+	font-family: "PingFangSC-Light";
+	font-size: 10px;
+	color: #E6454A;
+	line-height: 10px;
+	margin-top: 5px;
+}
+
+.order_s2 .od_s2_line.newTip {
+	height: 60px;
+	line-height: auto;
+}
+
+.order_s2 .od_s2_line.newTip .expectTime {
+	line-height: 16px;
+	height: 16px;
+	font-size: 16px;
+}
+
+.order_s2 .newTip i.icon_f {
+	top: 15px;
+}
+</style>
+<style>
+*, .pet_top2 .info {
+	font-family: "PingFangSC-Light";
+}
+
+.pet_top2, .infolist .infobox dd, .bar_price span.sp_pr, .bar_price span.sp_dw,
+	.pet_top2 .tags span {
+	font-family: ".PingFang-SC-Regular";
+}
+
+.order_s2 .tssm .tit, .foopay .txt_twoline .line2 span:first-child {
+	color: #292D33;
+}
+
+.pet_top2 .price span, .foopay .txt_twoline .line2 span.price, .foopay div span.price
+	{
+	font-family: ".PingFang-SC-Regular";
+}
+</style>
+<style>
+@
+-moz-keyframes nodeInserted {
+	from {opacity: 0.99;
+}
+
+to {
+	opacity: 1;
+}
+
+}
+@
+-webkit-keyframes nodeInserted {
+	from {opacity: 0.99;
+}
+
+to {
+	opacity: 1;
+}
+
+}
+@
+-o-keyframes nodeInserted {
+	from {opacity: 0.99;
+}
+
+to {
+	opacity: 1;
+}
+
+}
+@
+keyframes nodeInserted {
+	from {opacity: 0.99;
+}
+
+to {
+	opacity: 1;
+}
+
+}
+embed, object {
+	animation-duration: .001s;
+	-ms-animation-duration: .001s;
+	-moz-animation-duration: .001s;
+	-webkit-animation-duration: .001s;
+	-o-animation-duration: .001s;
+	animation-name: nodeInserted;
+	-ms-animation-name: nodeInserted;
+	-moz-animation-name: nodeInserted;
+	-webkit-animation-name: nodeInserted;
+	-o-animation-name: nodeInserted;
+}
+</style>
+</head>
+<body class="bg_w">
+	<input type="hidden" id="uid" value="902087135491280896"
+		data-keyboard-init="1">
+	<input type="hidden" id="loginMobile" value="17621658230"
+		data-keyboard-init="1">
+	<input type="hidden" id="productId" value="765211"
+		data-keyboard-init="1">
+	<input type="hidden" id="userName" value="" data-keyboard-init="1">
+	<input type="hidden" id="address" value="" data-keyboard-init="1">
+	<input type="hidden" id="userLon" value="121.473662"
+		data-keyboard-init="1">
+	<input type="hidden" id="userLat" value="31.230372"
+		data-keyboard-init="1">
+	<input type="hidden" id="productLat" value="" data-keyboard-init="1">
+	<input type="hidden" id="productLng" value="" data-keyboard-init="1">
+	<input type="hidden" id="userMobile" value="17621658230"
+		data-keyboard-init="1">
+	<input type="hidden" id="serviceType" value="2" data-keyboard-init="1">
+	<input type="hidden" id="showType" value="0" data-keyboard-init="1">
+	<input type="hidden" id="num" value="1" data-keyboard-init="1">
+	<input type="hidden" id="expectedTime" value="" data-keyboard-init="1">
+	<input type="hidden" id="totalPrice" value="0.0" data-keyboard-init="1">
+	<input type="hidden" id="productName" value="电磁炉上门维修"
+		data-keyboard-init="1">
+	<input type="hidden" id="addressId" value="" data-keyboard-init="1">
+	<input type="hidden" id="freeFlag" value="false" data-keyboard-init="1">
+	<input type="hidden" id="businessId" value="230" data-keyboard-init="1">
+	<input type="hidden" id="productPrice" value="" data-keyboard-init="1">
+	<input type="hidden" id="cityId" value="2" data-keyboard-init="1">
+	<input type="hidden" id="cityName" value="上海" data-keyboard-init="1">
+	<input type="hidden" id="pAddress" value="上海" data-keyboard-init="1">
+	<input type="hidden" id="pLocation" value="121.4737,31.23037"
+		data-keyboard-init="1">
+	<input type="hidden" id="activityPrice" value="" data-keyboard-init="1">
+	<input type="hidden" id="purchaseNum" value="" data-keyboard-init="1">
+	<input type="hidden" id="remainNum" value="" data-keyboard-init="1">
+	<input type="hidden" id="remainBuyNum" value="" data-keyboard-init="1">
+	<input type="hidden" id="discountShare" value="" data-keyboard-init="1">
+	<input type="hidden" id="couponShare" value="" data-keyboard-init="1">
+	<input type="hidden" id="act" value="" data-keyboard-init="1">
+	<input type="hidden" id="serviceId" value="5409" data-keyboard-init="1">
+	<input type="hidden" id="advanceTime" value="" data-keyboard-init="1">
+	<input type="hidden" id="join" value="" data-keyboard-init="1">
+	<input type="hidden" id="activityId" value="0" data-keyboard-init="1">
+	<input type="hidden" id="groupId" value="0" data-keyboard-init="1">
+	<input type="hidden" id="weixinName" value="" data-keyboard-init="1">
+	<input type="hidden" id="weixinHeadimgurl" value=""
+		data-keyboard-init="1">
+	<input type="hidden" id="leagueActivityPrice" value=""
+		data-keyboard-init="1">
+	<input type="hidden" id="realAddress" value="" data-keyboard-init="1">
+	<input type="hidden" value="" id="isSecKill" data-keyboard-init="1">
+	<input type="hidden" id="customAddressId" value=""
+		data-keyboard-init="1">
+	<input type="hidden" id="provenance" value="" data-keyboard-init="1">
+	<input type="hidden" id="specFmt" value="[]" data-keyboard-init="1">
+	<input type="hidden" id="isSupplement" value="0" data-keyboard-init="1">
+	<input type="hidden" id="specJson" value="" data-keyboard-init="1">
+	<input type="hidden" id="specInfoIds" value="" data-keyboard-init="1">
+	<input type="hidden" id="specItemNames" value="" data-keyboard-init="1">
+	<input type="hidden" id="stocklng" value="121.4737"
+		data-keyboard-init="1">
+	<input type="hidden" id="stockLat" value="31.23037"
+		data-keyboard-init="1">
+	<input type="hidden" id="containCustomOn" value="true"
+		data-keyboard-init="1">
+
+	<input type="hidden" id="addrInfoEntityJson" value=""
+		data-keyboard-init="1">
+	<input type="hidden" id="initAddress" value="false"
+		data-keyboard-init="1">
+	<input type="hidden" id="tjztdomain" value="https://jzt.daojia.com"
+		data-keyboard-init="1">
+	<!-- 顶部提示 -->
+	<div id="pre_info_top" style="display: none">
+		本服务可能产生额外费用<span>预付须知</span><i>&gt;</i>
+	</div>
+	<div id="activityPriceText" style="display: none" class="bar_tip"></div>
+	<div class="mf mf_order_dc">
+		<div class="pet_top2 border_b">
+			<div class="pic">
+				<img src="./getorder/7fea3b27212c357b458019fd69aa5b50.jpg">
+			</div>
+			<div class="tit" style="padding-right: 0;">电磁炉上门维修</div>
+			<div id="specInfo" class="info">&nbsp;</div>
+			<div id="price" class="price">
+				<span>¥30</span>
+			</div>
+			<div id="tag" class="tags">
+				<span>上门服务</span>
+			</div>
+		</div>
+		<div class="bar_blank"></div>
+
+		<div class="order_s2">
+			<div
+				class="od_s2_line od_s2_buy border_b border_t border_left0 btn_hide_shade">
+				<i class="icon_f"></i>
+				<div class="txt">
+					<span>购买数量</span>
+					<!--<span class="hot">3件起购</span>-->
+				</div>
+
+				<div class="ctrl_num">
+					<div class="btn btn_sub btn_sub_disable">
+						<p></p>
+					</div>
+					<div class="num num_gray" id="currentNumber" style="color: black">1</div>
+					<div class="btn btn_add">
+						<p></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="order_kc order_kc_addr border_b" id="addressShow"
+				style="">
+				<i class="icon_f"></i>
+				<div id="selectAddress" class="txt">请选择服务地址</div>
+				<i class="icon_more"></i>
+			</div>
+
+			<div class="od_s2_line od_s2_time border_b border_left0"
+				id="chooseTime">
+				<i class="icon_f"></i>
+
+				<div class="txt expectTime">请选择上门时间</div>
+				<i class="icon_more"></i>
+				<div class="time-tip" style="display: none"></div>
+			</div>
+
+			<p class="lhh_line"></p>
+
+			<div class="order_kc order_kc_stu border_t border_b">
+				<i class="icon_f"></i> <label> <input id="myUserName"
+					type="text" placeholder="联系人姓名" maxlength="10" value=""
+					data-keyboard-init="1">
+				</label>
+			</div>
+			<div class="order_kc order_kc_tel border_b">
+				<i class="icon_f"></i> <label> <input id="myUserPhone"
+					type="tel" placeholder="联系人手机号" maxlength="11" value="17621658230"
+					data-keyboard-init="1">
+				</label>
+			</div>
+			<div class="order_kc order_kc_bz border_b">
+				<i class="icon_f"></i> <label> <input id="remark"
+					type="text" value="" placeholder="您有什么要求，请告知我们" maxlength="200"
+					data-keyboard-init="1">
+				</label>
+			</div>
+
+			<div class="tssm">
+				<div class="tit">温馨提示</div>
+				<ul>
+					<li><span class="color_r">请仔细核对您填写的手机号</span>，并保持电话畅通，商家会在服务开始前与此号码沟通服务具体事宜</li>
+					<li>支付时可使用代金券（仅限使用一张）、会员卡</li>
+
+					<li>发票由商家提供</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--吸底栏-->
+	<div class="foopay">
+		<a id="btn_submit" href="test.html" class="btn_submit">去支付</a>
+		<div id="txt_twoline" class="">
+			<div class="line2">
+				<span style="color: #292D33;">待支付:</span><span id="zongjiPrice"
+					class="price">¥30</span><span id="youHuiPrice"
+					style="padding-left: 10px;"></span>
+			</div>
+			<div id="cheapInfo" class="line1"></div>
+		</div>
+	</div>
+	<div class="h_foopay"></div>
+</body>
+</html>

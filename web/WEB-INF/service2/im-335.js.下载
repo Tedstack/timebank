@@ -1,0 +1,9 @@
+var domain = "https://jzt.daojia.com"; 
+//沙箱环境
+//var domain = "https://tjzt8.djtest.cn";
+var DJh5im ={
+"URL":"/home/im/index?entry=2",
+"redirect":function(uid,source,toappcode,servicecard){
+	window.location.href= domain + this.URL+"&touid="+uid+"&toappcode="+toappcode+"&source="+source+"&servicecard="+servicecard;
+	}
+}

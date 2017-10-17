@@ -1,0 +1,199 @@
+$(function () {
+    // 详情页
+    var collect_url;//判断是否收藏的url
+    var url;//请求url
+    var _this;//
+    var urlFlag;//
+    // 和rd对一下如何获取这些参数
+    var id = $('#id').val();//帖子id
+    var type;//0服务，1商家
+    var source;//业务；来源
+    var opsource = isOpsource();;//操作来源
+    /*
+     判断操作来源方法,是app还是微信
+     */
+    function isOpsource() {
+        if (isApp()) {
+            opsource = 1;
+        } else if(isWeixinBrowser()){
+            opsource = 3;
+        } else {
+            opsource = 3;
+        }
+        return opsource;
+    }
+    /*
+     判断是否是微信
+     */
+    function isWeixinBrowser() {
+        var ua = navigator.userAgent.toLowerCase();
+        return (/micromessenger/.test(ua)) ? true : false ;
+    }
+    /*
+     判断是否是app方法
+     */
+    function isApp() {
+        var ret = false;
+        var userAgent = navigator.userAgent;
+        var ua = userAgent.toLowerCase();
+        var cookiestr = document.cookie;
+        if (userAgent.indexOf('cdvsupport') >= 0 || cookiestr.indexOf('cdvsupport') >= 0 || ua.indexOf("daojia") != -1 || ua.indexOf("58app") != -1) {
+            ret = true;
+        }
+        return ret;
+    }
+    /*
+     判断是否收藏的方法
+     */
+    function collectdetailFlag() {
+        var signFlag =  DjUser.getUserInfo();
+        if(signFlag != null){
+            $.ajax({
+                type: "get",
+                dataType: "jsonp",
+                url: "https://jzt.daojia.com/home/collection/getCurrentStatus?type=2&source=6&id=" + id,
+                async: "false",
+                success: function (data) {
+                    if (data.code == '10000') {
+                        if (data.data.status == true) {
+                            $('.btn_favorites').addClass('btn_favorites_ed').html('已收藏')
+                        } else {
+                            // 看一下是添加什么类，dom上有什么，再决定
+                            $('.btn_favorites').removeClass('btn_favorites_ed').html("收藏");
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                },
+                timeout: 3e4
+            })
+        }
+    }
+    /*
+        toast方法
+     */
+    function hideshow(elem) {
+        var $tos = $('#mask_toast_msg');
+        var $toastId = $('#mask_toast');
+        $tos.html(elem);
+        $toastId.show();
+        setTimeout(function () {
+            $toastId.hide();
+        }, 1000)
+    }
+    /*
+     发送数据请求
+     */
+    function sendcollect(collect_url) {
+        $.ajax({
+            type: "get",
+            dataType: "jsonp",
+            url: collect_url,
+            success: function (data) {
+
+            },
+            error: function (err) {
+                console.log(err);
+            },
+            timeout: 3e4
+        })
+    }
+
+    // 详情页
+    // redirect：跳转的页面
+    // failFun：失败后需要回调的函数
+    // isAppRedirect:跳转成功后，采用app的跳转方式，还是走浏览器默认的跳转方式，true：app形式的跳转方式（只在app下有效），false：走浏览器默认的跳转方式
+    $('.btn_favorites').on('click', function (event) {
+        _this = $(this);
+        urlFlag = _this.hasClass('btn_favorites_ed');//判断是否
+        var signFlag =  DjUser.getUserInfo();
+        if (signFlag == null){
+            DjUser.login(window.location.href,true);
+        }else {
+            if (!urlFlag) {
+                collect_url = "https://jzt.daojia.com/home/collection/collection?id=" + id + "&type=2&source=6&openSource=" + opsource;
+                _this.addClass('btn_favorites_ed').html("已收藏");
+                hideshow('添加收藏成功');
+            } else {
+                collect_url = "https://jzt.daojia.com/home/collection/cancleCollection?id=" + id + "&type=2&source=6&openSource=" + opsource;
+                _this.removeClass('btn_favorites_ed').html("收藏");
+                hideshow('取消收藏成功');
+            }
+            sendcollect(collect_url);
+        }
+
+    });
+    /*
+     获取cookie方法
+     */
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+    // 判断是否为到家app
+    function isApp() {
+        var ret = false;
+        var userAgent = navigator.userAgent;
+        var ua = userAgent.toLowerCase();
+        var cookiestr = document.cookie;
+        if (userAgent.indexOf('cdvsupport') >= 0 || cookiestr.indexOf('cdvsupport') >= 0 || ua.indexOf("daojia") != -1 || ua.indexOf("58app") != -1) {
+            ret = true;
+        }
+        return ret;
+    }
+    // -----------------main---------------------------------------------------------------------------
+
+
+    // var appversionFlag = getCookie('dj_appversion');
+    // 要写一个版本控制的js小方法
+    function versionAppNum() {
+        var version = false;
+        var versionValue = getCookie('dj_appversion');
+        var appvlu1 = versionValue.split('.')[0];
+        var appvlu2 = versionValue.split('.')[1];
+        if(appvlu1 > 5){
+            version = true;
+        }else if(appvlu1 == 5){
+            if(appvlu2 >= 2){
+                version = true;
+            }
+        }
+        return version;
+    }
+
+    // if(isApp()){
+    //     if(appversionFlag == '5.2.0.0'){
+    //         $('.btn_favorites').show();
+    //         collectdetailFlag();
+    //     }else if(appversionFlag == '5.2.0'){
+    //         $('.btn_favorites').show();
+    //         collectdetailFlag();
+    //     }else if(appversionFlag == '5.2'){
+    //         $('.btn_favorites').show();
+    //         collectdetailFlag();
+    //     }else {
+    //         $('.btn_favorites').hide();
+    //     }
+    // }else {
+    //     $('.btn_favorites').show();
+    //     collectdetailFlag();
+    // }
+
+    if(isApp()){
+        if(versionAppNum()){
+            $('.btn_favorites').show();
+            collectdetailFlag();
+        }else{
+            $('.btn_favorites').hide();
+        }
+    }else {
+        $('.btn_favorites').show();
+        collectdetailFlag();
+    }
+
+
+})
