@@ -1,0 +1,358 @@
+var dayToChineseDay={0:'日',1:'一',2:'二',3:'三',4:'四',5:'五',6:'六'};
+function getCookie(name) {
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+function setCookie(name,value) {
+    var day = 30;
+    setCookie(name,value,day);
+}
+
+function removeCookie(name){
+    setCookie(name,'',0);
+}
+
+function setCookie(name,value,day){
+    var exp = new Date();
+    exp.setTime(exp.getTime() + day*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString()+";path=/";
+}
+
+/**
+ * 加法运算，避免数据相加小数点后产生多位数和计算精度损失。
+ *
+ * @param num1加数1 | num2加数2
+ */
+function numAdd(num1, num2) {
+    var baseNum, baseNum1, baseNum2;
+    try {
+        baseNum1 = num1.toString().split(".")[1].length;
+    } catch (e) {
+        baseNum1 = 0;
+    }
+    try {
+        baseNum2 = num2.toString().split(".")[1].length;
+    } catch (e) {
+        baseNum2 = 0;
+    }
+    baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
+    return (num1 * baseNum + num2 * baseNum) / baseNum;
+};
+
+function formatPriceNumber(priceNum){
+    if((priceNum+"").indexOf(".") > -1){
+        return new Number(priceNum).toFixed(2);
+    }else{
+        return priceNum;
+    }
+}
+
+//设置值
+function setLocalStorage(name,value){
+    window.localStorage.setItem(name,value);
+}
+//取值
+function getLocalStorage(name){
+    return window.localStorage.getItem(name) || '';
+}
+//移除值
+function removeLocalStorage(name){
+    window.localStorage.removeItem(name);
+}
+//移除所有值
+function removeAllLocalStorage(){
+    window.localStorage.clear();
+}
+
+//设置setLocalStorage 变量 json
+function setJsonlocals(name,key,value){
+    var datas = getLocalStorage(name)||'{}',
+        json = JSON.parse(datas);//eval("("+datas+")");
+    json[key]=value;
+    setLocalStorage(name,JSON.stringify(json));
+}
+//根据LocalStorage的key 取出单个值
+function getJsonlocals(name,key){
+    var datas = getLocalStorage(name)||'{}',
+        json=JSON.parse(datas);
+    return json[key];
+}
+//删除json对象单个值
+function removeJsonLocal(name,keys){
+    var datas = getLocalStorage(name)||'{}',
+        json =JSON.parse(datas),
+        args = keys.split(',');
+    for(var i=0;i<args.length;i++){
+        delete json[args[i]];
+    }
+    var jsonstr = JSON.stringify(json);
+    setLocalStorage(name,jsonstr);
+}
+//根据LocalStorage的key 取出所有值json对像
+function getJsonAllllocals(name){
+    var datas = getLocalStorage(name)||'{}';
+    json=JSON.parse(datas);
+    return json;
+}
+
+function toast(title){
+    $('.pop_ts').html(title).show();
+    self.setInterval(function(){$(".pop_ts").hide();}, 1000);
+}
+
+// 对Date的扩展，将 Date 转化为指定格式的String
+// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+// 例子：
+// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
+Date.prototype.Format = function (fmt) { //author: meizz
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "A+": dayToChineseDay[this.getDay()],
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+/**
+ * 减法运算，避免数据相减小数点后产生多位数和计算精度损失。
+ *
+ * @param num1被减数 | num2减数
+ */
+function numSub(num1, num2) {
+    var baseNum, baseNum1, baseNum2;
+    var precision;// 精度
+    try {
+        baseNum1 = num1.toString().split(".")[1].length;
+    } catch (e) {
+        baseNum1 = 0;
+    }
+    try {
+        baseNum2 = num2.toString().split(".")[1].length;
+    } catch (e) {
+        baseNum2 = 0;
+    }
+    baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
+    precision = (baseNum1 >= baseNum2) ? baseNum1 : baseNum2;
+    return ((num1 * baseNum - num2 * baseNum) / baseNum).toFixed(precision);
+};
+/**
+ * 乘法运算，避免数据相乘小数点后产生多位数和计算精度损失。
+ *
+ * @param num1被乘数 | num2乘数
+ */
+function numMulti(num1, num2) {
+    var baseNum = 0;
+    try {
+        baseNum += num1.toString().split(".")[1].length;
+    } catch (e) {
+    }
+    try {
+        baseNum += num2.toString().split(".")[1].length;
+    } catch (e) {
+    }
+    return Number(num1.toString().replace(".", "")) * Number(num2.toString().replace(".", "")) / Math.pow(10, baseNum);
+};
+/**
+ * 除法运算，避免数据相除小数点后产生多位数和计算精度损失。
+ *
+ * @param num1被除数 | num2除数
+ */
+function numDiv(num1, num2) {
+    var baseNum1 = 0, baseNum2 = 0;
+    var baseNum3, baseNum4;
+    try {
+        baseNum1 = num1.toString().split(".")[1].length;
+    } catch (e) {
+        baseNum1 = 0;
+    }
+    try {
+        baseNum2 = num2.toString().split(".")[1].length;
+    } catch (e) {
+        baseNum2 = 0;
+    }
+    with (Math) {
+        baseNum3 = Number(num1.toString().replace(".", ""));
+        baseNum4 = Number(num2.toString().replace(".", ""));
+        return (baseNum3 / baseNum4) * pow(10, baseNum2 - baseNum1);
+    }
+};
+
+function getAndroidVersion(ua){
+    var andrIndex = ua.indexOf('Android'),
+        version = 0;
+    if(andrIndex > 0 && (andrIndex+12) < ua.length){
+        version = parseFloat(ua.substr(andrIndex+8, 3));
+    }
+    return version;
+}
+
+function isWeiXin(){
+    var ua = window.navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function isApp(){
+    var caller = getCookie('caller'),
+        isApp = false;
+    if(caller && (caller == 'djios' || caller == 'djandroid')){
+        isApp = true;
+    }
+    return isApp;
+}
+
+function isLogin(){
+    var userInfo = DjUser.getUserInfo();
+    if(!userInfo){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function redirectNeedLogin(redirectUrl){
+    var userInfo = DjUser.getUserInfo();
+    if(userInfo){
+        window.location.href = redirectUrl;
+    }else{
+       /* if(redirectUrl.indexOf('&') > -1 || redirectUrl.indexOf('?') > -1){
+            redirectUrl += '&cf=pslogin';
+        }else{
+            redirectUrl += '?cf=pslogin';
+        }*/
+        if(isApp()){
+            setLocalStorage('afterLoginSuccessUrl', redirectUrl);
+            DjUser.login4callback(appLoginSuccess, loginFailed);
+        }else{
+            DjUser.prelogin(location.origin + redirectUrl, loginFailed, false);
+        }
+    }
+}
+
+function appLoginSuccess(data){
+    if(!data || data.code != 0){
+        alert('获取登录信息异常，请稍后再试');
+        return;
+    }
+    var user = DjUser.getUserInfo();
+    if(!user){
+        alert('获取登录信息异常，请稍后再试');
+        return;
+    }
+    var djfrttok = user.djfrttok;
+    if(!djfrttok){
+        alert('获取登录信息异常，请稍后再试');
+        return;
+    }
+    var redirectUrl = getLocalStorage('afterLoginSuccessUrl');
+    window.location.href = redirectUrl;
+}
+
+function loginFailed(data){
+    if(!data || data.desc !== 'usercancel'){
+        alert('登录失败，请稍后再试');
+    }
+}
+
+function logoutFailed(data){
+    alert('登出失败，请稍后再试');
+}
+
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+
+//替换url中的参数
+function changeURLArgBase(url,arg,arg_val){
+    var pattern=arg+'=([^&]*)';
+    var replaceText=arg+'='+arg_val;
+    if(url.match(pattern)){
+        //g: 全局匹配
+        //i: 忽略大小写
+        //gi: 以上组合
+        //var tmp='/('+ arg+'=)([^&]*)/gi';不区分大小写
+        var tmp='/('+ arg+'=)([^&]*)/g';//区分大小写
+        tmp=url.replace(eval(tmp),replaceText);
+        return tmp;
+    }else{
+        if(url.match('[\?]')){
+            return url+'&'+replaceText;
+        }else{
+            return url+'?'+replaceText;
+        }
+    }
+    return url+'\n'+arg+'\n'+arg_val;
+}
+
+function post(url, data, successFun, errorFun){
+    $.ajax({
+        url: url,
+        data: data,
+        type: "POST",
+        timeout: 7000,
+        dataType: "json",
+        success: successFun,
+        error: errorFun
+    });
+}
+
+function jsonp(url, successfun, errorfun){
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType: "jsonp",
+        success: successfun,
+        error: errorfun
+    });
+}
+
+function jumpPageForHttps(targetUrl) {
+    targetUrl = "https://" + document.domain + targetUrl;
+    jumpPagesCommon(targetUrl);
+}
+
+
+function jumpPageForHttp(targetUrl) {
+    targetUrl = "http://" + document.domain + targetUrl;
+    jumpPagesCommon(targetUrl);
+}
+
+function jumpPagesCommon(targetUrl) {
+    if (isApp()) {
+        window.location.href = "daojia://openUrl/jumpPage?url=" + encodeURIComponent(targetUrl);
+    } else {
+        window.location.href = targetUrl;
+    }
+}
+
+function replaceParamVal(url, paramName, paramValeue) {
+    var oUrl = url;
+    var re = eval('/(' + paramName + '=)([^&]*)/');
+    var nUrl = oUrl.replace(re, paramName + '=' + paramValeue);
+    return nUrl;
+}
+
+function removeParam(url, paramName) {
+    var oUrl = url;
+    var re = eval('/(' + paramName + '=)([^&]*)/gi');
+    var nUrl = oUrl.replace(re, "");
+    return nUrl;
+}

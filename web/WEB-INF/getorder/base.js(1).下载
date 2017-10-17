@@ -1,0 +1,282 @@
+(function () {
+
+  var JSON_RPC_ERROR = {
+    PARSE_ERROR: {
+      code: -32700,
+      message: 'Parse error'
+    },
+    INVALID_REQUEST: {
+      code: -32600,
+      message: 'Invalid Request'
+    },
+    METHOD_NOT_FOUND: {
+      code: -32601,
+      message: 'Method not found'
+    },
+    INVALID_PARAMS: {
+      code: -32602,
+      message: 'Invalid params'
+    },
+    INTERNAL_ERROR: {
+      code: -32603,
+      message: 'Internal error'
+    }
+  };
+
+  var methods = {};
+  var callbacks = {};
+  var idCounter = 1;
+  var isSupportNativeAPI = true;
+
+  if (!window.GJNativeAPI) {
+    window.GJNativeAPI = {}
+  }
+
+
+  // window.GJNativeAPI = window.GJNativeAPI || {};
+
+  if (!window.GJNativeAPI.send) {
+    (function () {
+      var buffer = [];
+
+      if (/ganji_\d*/.test(window.navigator.userAgent)) {
+        var timer = setTimeout(function () {
+          buffer.forEach(handleInternalError);
+          window.GJNativeAPI.send = handleInternalError;
+        }, 3000);
+
+        document.addEventListener('WebViewJavascriptBridgeReady', function () {
+          clearTimeout(timer);
+          setTimeout(function () {
+            buffer.forEach(window.GJNativeAPI.send);
+          }, 10);
+        }, false);
+
+        window.GJNativeAPI.send = function (message) {
+          buffer.push(message);
+        };
+        return;
+      }
+      isSupportNativeAPI = false;
+      window.GJNativeAPI.send = handleInternalError;
+    })();
+  }
+
+  window.GJNativeAPI.onMessage = window.GJNativeAPI.onMessage || function (message) {
+      window.console.log('native -> javascript: ' + message);
+      try {
+        message = JSON.parse(message);
+      } catch (ex) {
+        return send({
+          jsonrpc: '2.0',
+          error: JSON_RPC_ERROR.PARSE_ERROR,
+          id: null
+        });
+      }
+
+      if (message.method) {
+        executeMethod(message);
+      } else if (message.id) {
+        handleCallback(message);
+      }
+    };
+
+  function send(message) {
+    window.console.log('javascript -> native: ' + JSON.stringify(message));
+    window.GJNativeAPI.send(JSON.stringify(message));
+  }
+
+  function executeMethod(message) {
+    var fn = methods[message.method];
+
+    if (!fn) {
+      send({
+        jsonrpc: '2.0',
+        error: JSON_RPC_ERROR.METHOD_NOT_FOUND,
+        id: message.id || null
+      });
+      return;
+    }
+    setTimeout(function () {
+      try {
+        fn(message.params, function (err, result) {
+          if (!message.id) {
+            return;
+          }
+
+          if (err) {
+            send({
+              jsonrpc: '2.0',
+              error: {
+                code: err.code,
+                message: err.message
+              },
+              id: message.id
+            });
+          } else {
+            send({
+              jsonrpc: '2.0',
+              result: result,
+              id: message.id
+            });
+          }
+        });
+      } catch (ex) {
+        send({
+          jsonrpc: '2.0',
+          error: {
+            code: ex.code || -32000,
+            message: ex.message
+          },
+          id: message.id
+        });
+      }
+    }, 0);
+  }
+
+  function handleCallback(message) {
+    var callback = callbacks[message.id];
+    callbacks[message.id] = null;
+
+    if (!callback) {
+      return;
+    }
+    setTimeout(function () {
+      callback(message.error || null, message.result);
+    }, 0);
+  }
+
+  function handleInternalError(message) {
+    try {
+      message = JSON.parse(message);
+    } catch (ex) {
+      return;
+    }
+    if (message.id) {
+      handleCallback({
+        jsonrpc: '2.0',
+        error: JSON_RPC_ERROR.INTERNAL_ERROR,
+        id: message.id
+      });
+    }
+  }
+
+  if (!window.GJHybrid) {
+    window.GJHybrid = {}
+  }
+
+  // window.GJHybrid = window.GJHybrid || {};
+
+  window.GJHybrid.registerHandler = window.GJHybrid.registerHandler || function (name, fn) {
+      methods[name] = fn;
+    };
+
+  window.GJHybrid.invoke = window.GJHybrid.invoke || function (method, params, callback) {
+      var message = {
+        jsonrpc: '2.0',
+        method: method,
+        params: params
+      };
+      var id;
+
+      if (callback) {
+        id = 'jsonp_' + idCounter;
+        idCounter++;
+
+        callbacks[id] = callback;
+        message.id = id;
+      }
+
+      send(message);
+    };
+
+  window.GJHybrid.isSupport = window.GJHybrid.isSupport || function () {
+      return isSupportNativeAPI;
+    };
+
+  Object.keys(JSON_RPC_ERROR).forEach(function (key) {
+    window.GJHybrid[key] = JSON_RPC_ERROR[key];
+  });
+
+  // 客户端返回上一个native页面
+  window.GJHybrid.back = window.GJHybrid.back || function () {
+      window.GJHybrid.invoke('back');
+    }
+
+  var appback  = function(tagUrl){
+    window.GJHybrid && window.GJHybrid.invoke(
+      'webViewCallback',{
+        url:tagUrl
+      },
+      function (err, data) {
+        if(data){
+          if(typeof tagUrl == 'function'){
+            console.info("the data of goBack is "+data);
+            tagUrl.call(window, {
+              code: "0",
+              desc: "success"
+            });
+          }
+        }
+        if(err){
+          console.info("the err of goBack is "+err);
+        }
+      }
+    );
+  }
+
+  var urlParam = (function(window){
+    //匿名方法只对url执行一次解析
+    var args;
+    //解析search
+    var result = window.location.search.match(new RegExp("[\?\&][^\?\&]+=[^\?\&]+","g"));
+    if(result != null){
+      //将结果转换为 object
+      args = {};
+      for(var i = 0; i < result.length; i++){
+        var ele = result[i];
+        var inx = ele.indexOf("=");
+        args[ele.substring(1, inx)] = ele.substring(inx+1);
+      }
+    }
+    //返回function可多次调用
+    return function(key){
+      if(key && args){ //如果传key值 则返回对应的value
+        return args[key];
+      }
+      //默认返回全部
+      return args;
+    }
+  })(window);
+
+  var jumpPageList = ['passportweb.djtest.cn/thirdoauth/midjump','user.daojia.com/thirdoauth/midjump']
+  var isJumpPage = function(url){
+    if(urlParam('jumptype')){
+      return true
+    }
+    var ret = false
+    for(var i = 0; i < jumpPageList.length; i++){
+      var page = jumpPageList[i];
+      if(url.indexOf(page) > 0){
+        ret = true
+        break;
+      }
+    }
+    return ret
+  }
+
+  // 逐级返回
+  window.GJHybrid.registerHandler('back', function (param, callback) {
+    var referrer = window.document.referrer
+    if(history.length > 1 && referrer){
+      if(isJumpPage(referrer)){
+        callback(null, {preventDefault: 0});
+      }else{
+        callback(null, {preventDefault: 1});
+        window.history.go(-1);
+      }
+    }else{
+      appback()
+    }
+  });
+})();
