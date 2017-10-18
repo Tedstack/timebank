@@ -6,14 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security入门</title>
+  <title>Hello World!</title>
 </head>
 <body>
-<h1>欢迎使用Spring Security!</h1>
-<p>点击 <a th:href="@{/hello}">这里</a> 打个招呼吧</p>
+<h1>Hello world!</h1>
 </body>
 </html>
