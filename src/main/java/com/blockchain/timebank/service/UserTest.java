@@ -27,15 +27,14 @@ public class UserTest {
         userEntity.setTimeVol(0);
         userEntity.setPassword("测试密码");
         userEntity.setRegisterDate(new java.sql.Date(new Date().getTime()));
-        //userService.saveUserEntity(userEntity);
-        System.out.println("ok");
+        userService.saveUserEntity(userEntity);
     }
 
 
     //根据id查找用户
     @Test
     public void testFindUserById() {
-        //UserEntity userEntity = userService.findUserEntityById(1L);
+        UserEntity userEntity = userService.findUserEntityById(1L);
     }
 
 
