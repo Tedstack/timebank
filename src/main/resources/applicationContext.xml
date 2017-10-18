@@ -7,9 +7,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <context:component-scan base-package="com.blockchain.timebank"/>
-
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <jpa:repositories base-package="com.blockchain.timebank"  repository-impl-postfix="Impl" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager"/>
@@ -26,5 +23,9 @@
             </bean>
         </property>
     </bean>
+
+    <!--Spring会自动扫描base-package目录下的所有java文件，
+   如果扫描到有@Componet,@Service,@Controller,@Repository等这些类，则把这些类自动注册为bean-->
+    <context:component-scan base-package="com.blockchain.timebank"/>
 
 </beans>

@@ -14,6 +14,6 @@ public class TimeaccountServiceImpl implements TimeaccountService {
     TimeaccountDao timeaccountDao;
 
     public TimeaccountEntity findTimeaccountByUserId(Long userId) {
-        return null;
+        return timeaccountDao.findOne(userId);
     }
 }

@@ -20,14 +20,14 @@ public class UserTest {
     //保存用户
     @Test
     public void testSaveUser() {
-        UserEntity userEntity=new UserEntity();
+        UserEntity userEntity = new UserEntity();
         userEntity.setName("测试姓名");
         userEntity.setPhone("测试号码");//重复的号码只能插入一次
         userEntity.setTimeCoin(0);
         userEntity.setTimeVol(0);
         userEntity.setPassword("测试密码");
         userEntity.setRegisterDate(new java.sql.Date(new Date().getTime()));
-        userService.saveUserEntity(userEntity);
+        //userService.saveUserEntity(userEntity);
         System.out.println("ok");
     }
 
@@ -35,8 +35,7 @@ public class UserTest {
     //根据id查找用户
     @Test
     public void testFindUserById() {
-        long id=1L;
-        UserEntity userEntity=userService.findUserEntityById(id);
+        //UserEntity userEntity = userService.findUserEntityById(1L);
     }
 
 

@@ -1,8 +1,10 @@
 package com.blockchain.timebank.dao;
 
-import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.entity.TimeaccountEntity;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TimeaccountDao extends CrudRepository<UserEntity, Long> {
+@Repository
+public interface TimeaccountDao extends CrudRepository<TimeaccountEntity, Long> {
 
 }
