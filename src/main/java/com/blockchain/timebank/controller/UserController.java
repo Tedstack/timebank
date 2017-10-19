@@ -15,12 +15,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(ModelMap map) {
         return "index";
     }
 
-    @RequestMapping("/hello")
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {
         return "hello";
     }
@@ -30,6 +30,10 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(ModelMap map) {
+        return "index";
+    }
 
 
 }

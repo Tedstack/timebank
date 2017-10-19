@@ -16,10 +16,10 @@
 <div th:if="${param.error}">
     用户名或密码错
 </div>
-<div th:if="${param.logout}">
     您已注销成功
+    <div th:if="${param.logout}">
 </div>
-<form th:action="@{/login}" method="post">
+<form action="/login" method="get">
     <div><label> 用户名 : <input type="text" name="username"/> </label></div>
     <div><label> 密  码 : <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="登录"/></div>
