@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
         return userDao.findOne(id);
     }
 
+    public UserEntity findUserEntityByPhone(String phone) {
+        // TODO: 2017/10/20
+        return null;
+    }
+
     public UserEntity updateUserEntity(UserEntity userEntity) {
         return userDao.save(userEntity);
     }

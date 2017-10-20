@@ -8,6 +8,8 @@ public interface UserService {
 
     UserEntity findUserEntityById(Long id);
 
+    UserEntity findUserEntityByPhone(String phone);
+
     UserEntity updateUserEntity(UserEntity userEntity);
 
     void deleteById(Long id);

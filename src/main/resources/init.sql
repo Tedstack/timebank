@@ -12,6 +12,15 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`),
   ADD UNIQUE KEY `Phone` (`Phone`);
 
+#持久化登陆表
+CREATE TABLE persistent_logins (
+  username VARCHAR(64) NOT NULL,
+  series VARCHAR(64) NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  last_used TIMESTAMP NOT NULL,
+  PRIMARY KEY (series)
+);
+
 # Service 服务种类表
 CREATE TABLE `service` (
   `ID` bigint(20) NOT NULL COMMENT '服务种类编号',
