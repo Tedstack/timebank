@@ -25,10 +25,6 @@
         </property>
     </bean>
 
-
-    <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->
-    <mvc:annotation-driven />
-
     <!--Spring会自动扫描base-package目录下的所有java文件，
    如果扫描到有@Componet,@Service,@Controller,@Repository等这些类，则把这些类自动注册为bean-->
     <context:component-scan base-package="com.blockchain.timebank"/>

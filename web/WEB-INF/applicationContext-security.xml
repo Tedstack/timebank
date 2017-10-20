@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:security="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-4.0.xsd ">
+
+    <http auto-config="true" >
+        <intercept-url pattern="/login,/logout" access="isAnonymous()" />
+        <intercept-url pattern="/**" access="hasRole('ROLR_USER')" />
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/dba**" access="hasRole('ROLR_ADMIN') and hasRole('ROLR_DBA')" />
+        <form-login  login-page="/login" username-parameter="ssoId" password-parameter="password"
+                     authentication-success-handler-ref="customSuccessHandler"
+                     authentication-failure-url="/Access_Denied" />
+        <csrf/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="test" password="123456" authorities="ROLE_USER" />
+                <user name="admin" password="123456" authorities="ROLE_USER,ROLE_ADMIN" />
+                <user name="dba"   password="123456" authorities="ROLE_USER,ROLE_ADMIN,ROLE_DBA" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+
+</beans:beans>

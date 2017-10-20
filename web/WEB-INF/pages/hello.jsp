@@ -6,12 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-  <title>Hello World!</title>
-</head>
+<html>
 <body>
-<h1>Hello world!</h1>
+<h1>Title : ${title}</h1>
+<h1>Message : ${message}</h1>
 </body>
 </html>

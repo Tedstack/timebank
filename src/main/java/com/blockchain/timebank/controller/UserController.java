@@ -9,20 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(ModelMap map) {
-        return "index";
-    }
-
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public String hello() {
-        return "hello";
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String userRegister(ModelMap map) {
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
