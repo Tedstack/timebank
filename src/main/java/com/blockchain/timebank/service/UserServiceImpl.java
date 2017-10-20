@@ -21,8 +21,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserEntity findUserEntityByPhone(String phone) {
-        // TODO: 2017/10/20
-        return null;
+        return userDao.findUserEntityByPhone(phone);
     }
 
     public UserEntity updateUserEntity(UserEntity userEntity) {

@@ -156,7 +156,7 @@
     </header>
     <div id="wrapper" class="login-page">
         <div id="login_form" class="form">
-            <form class="login-form" method="post" action="/register">
+            <form class="login-form" method="post" action="/user/register">
                 <input type="text" placeholder="姓名" id="r_user_name" name="name"/>
                 <input type="password" placeholder="密码" id="r_password" name="password" />
                 <input type="text" placeholder="手机号" id="r_emial" name="phone"/>

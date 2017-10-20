@@ -27,12 +27,12 @@ public class UserController {
         return "register";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
     public String userLogin(ModelMap map) {
         return "/index";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
         UserEntity userEntity = new UserEntity();
         userEntity.setName(name);

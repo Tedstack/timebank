@@ -4,30 +4,14 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <jpa:repositories base-package="com.blockchain.timebank"  repository-impl-postfix="Impl" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager"/>
-
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="generateDdl" value="false"/>
-                <property name="showSql" value="true"/>
-            </bean>
-        </property>
-    </bean>
 
     <!--Spring会自动扫描base-package目录下的所有java文件，
    如果扫描到有@Componet,@Service,@Controller,@Repository等这些类，则把这些类自动注册为bean-->
-    <context:component-scan base-package="com.blockchain.timebank"/>
+    <context:component-scan base-package="com.blockchain.timebank.controller"/>
 
     <!--模型解析器，在请求视图时自动为其加上前后缀。例如：index表示的是/WEB-INF/pages/index.jsp-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
