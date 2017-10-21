@@ -6,17 +6,16 @@
     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-
-    <http auto-config="true" >
-        <intercept-url pattern="/login" access="isAnonymous()" />
-        <intercept-url pattern="/register" access="isAnonymous()" />
-        <intercept-url pattern="/" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/index" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/dba**" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_DBA')" />
-        <form-login  login-page="/login" username-parameter="phone" password-parameter="password"
-                     authentication-success-handler-ref="customSuccessHandler"
-                     authentication-failure-url="/Access_Denied" />
+    <http auto-config="true">
+        <intercept-url pattern="/login" access="isAnonymous()"/>
+        <intercept-url pattern="/register" access="isAnonymous()"/>
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/dba**" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_DBA')"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <!--<intercept-url pattern="/index" access="hasRole('ROLE_USER')" />-->
+        <form-login login-page="/login" username-parameter="phone" password-parameter="password"
+                    authentication-success-handler-ref="customSuccessHandler"
+                    authentication-failure-url="/login?error=1"/>
         <csrf disabled="true"/>
 
         <remember-me remember-me-cookie="remember-me" remember-me-parameter="remember-me"
@@ -24,27 +23,28 @@
                      token-validity-seconds="86400"/>
     </http>
 
+
     <!--<authentication-manager>-->
-        <!--<authentication-provider>-->
-            <!--<user-service>-->
-                <!--<user name="test" password="123456" authorities="ROLE_USER" />-->
-                <!--<user name="admin" password="123456" authorities="ROLE_USER,ROLE_ADMIN" />-->
-                <!--<user name="dba"   password="123456" authorities="ROLE_USER,ROLE_ADMIN,ROLE_DBA" />-->
-            <!--</user-service>-->
-        <!--</authentication-provider>-->
+    <!--<authentication-provider>-->
+    <!--<user-service>-->
+    <!--<user name="test" password="123456" authorities="ROLE_USER" />-->
+    <!--<user name="admin" password="123456" authorities="ROLE_USER,ROLE_ADMIN" />-->
+    <!--<user name="dba"   password="123456" authorities="ROLE_USER,ROLE_ADMIN,ROLE_DBA" />-->
+    <!--</user-service>-->
+    <!--</authentication-provider>-->
     <!--</authentication-manager>-->
 
-
-    <authentication-manager >
-        <authentication-provider ref="customAuthenticationProvider"/>
-    </authentication-manager>
 
     <!--<authentication-manager >-->
-        <!--<authentication-provider user-service-ref="customUserDetailsService"/>-->
+    <!--<authentication-provider ref="customAuthenticationProvider"/>-->
     <!--</authentication-manager>-->
 
-    <beans:bean id="customAuthenticationProvider" class="com.blockchain.timebank.config.CustomAuthenticationProvider" />
-    <beans:bean id="customSuccessHandler" class="com.blockchain.timebank.config.CustomSuccessHandler" />
-    <beans:bean id="customUserDetailsService" class="com.blockchain.timebank.config.CustomUserDetailsService" />
+    <authentication-manager>
+        <authentication-provider user-service-ref="customUserDetailsService"/>
+    </authentication-manager>
+
+    <beans:bean id="customAuthenticationProvider" class="com.blockchain.timebank.config.CustomAuthenticationProvider"/>
+    <beans:bean id="customSuccessHandler" class="com.blockchain.timebank.config.CustomSuccessHandler"/>
+    <beans:bean id="customUserDetailsService" class="com.blockchain.timebank.config.CustomUserDetailsService"/>
 
 </beans:beans>

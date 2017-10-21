@@ -11,6 +11,12 @@
     <title>时间银行</title>
 </head>
 <body>
-<h1>欢迎使用时间银行系统!</h1>
+<h1>欢迎使用时间银行系统!
+
+
+
+</h1>
+
+<a href="/logout">退出</a>
 </body>
 </html>
