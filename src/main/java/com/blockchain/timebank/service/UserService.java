@@ -10,6 +10,8 @@ public interface UserService {
 
     UserEntity findUserEntityByPhone(String phone);
 
+    UserEntity findUserEntityByPhoneAndPassword(String phone, String password);
+
     UserEntity updateUserEntity(UserEntity userEntity);
 
     void deleteById(Long id);

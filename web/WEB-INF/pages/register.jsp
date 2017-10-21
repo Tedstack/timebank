@@ -157,11 +157,21 @@
     <div id="wrapper" class="login-page">
         <div id="login_form" class="form">
             <form class="login-form" method="post" action="/user/register">
+                <%
+                    String error=(String)request.getAttribute("error");
+                    if(error!=null && error.length()>0){
+                %>
+                        <div class="form-group has-error">
+                            <label class="control-label"><i class="fa fa-times-circle-o"></i>&nbsp; ${error}</label>
+                        </div>
+                <%
+                    }
+                %>
                 <input type="text" placeholder="姓名" id="r_user_name" name="name"/>
                 <input type="password" placeholder="密码" id="r_password" name="password" />
                 <input type="text" placeholder="手机号" id="r_emial" name="phone"/>
                 <button id="create" type="submit">创建账户</button>
-                <p class="message">已经有了一个账户? <a href="./login.html">立刻登录</a></p>
+                <p class="message">已经有了一个账户? <a href="/login">立刻登录</a></p>
             </form>
         </div>
     </div>

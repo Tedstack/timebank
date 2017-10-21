@@ -17,6 +17,6 @@
 
 </h1>
 
-<a href="/logout">退出</a>
+<a href="/user/logout">退出</a>
 </body>
 </html>

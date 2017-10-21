@@ -24,6 +24,10 @@ public class UserServiceImpl implements UserService {
         return userDao.findUserEntityByPhone(phone);
     }
 
+    public UserEntity findUserEntityByPhoneAndPassword(String phone, String password) {
+        return userDao.findUserEntityByPhoneAndPassword(phone,password);
+    }
+
     public UserEntity updateUserEntity(UserEntity userEntity) {
         return userDao.save(userEntity);
     }

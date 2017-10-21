@@ -9,6 +9,8 @@
     <http auto-config="true">
         <intercept-url pattern="/login" access="isAnonymous()"/>
         <intercept-url pattern="/register" access="isAnonymous()"/>
+        <intercept-url pattern="/user/login" access="isAnonymous()"/>
+        <intercept-url pattern="/user/register" access="isAnonymous()"/>
         <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/dba**" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_DBA')"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
