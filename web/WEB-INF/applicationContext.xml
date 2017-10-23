@@ -24,7 +24,7 @@
     </bean>
 
     <!--Spring会自动扫描base-package目录下的所有java文件，
-   如果扫描到有@Componet,@Service,@Controller,@Repository等这些类，则把这些类自动注册为bean-->
+   如果扫描到有@Componet,@ServiceController,@Controller,@Repository等这些类，则把这些类自动注册为bean-->
     <context:component-scan base-package="com.blockchain.timebank.dao"/>
     <context:component-scan base-package="com.blockchain.timebank.entity"/>
     <context:component-scan base-package="com.blockchain.timebank.service"/>
