@@ -91,3 +91,11 @@ ALTER TABLE `order`
   ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
 
 
+# 显示已发布的服务信息视图
+CREATE VIEW view_publish_detail
+  as select publish.ID AS ID, publish.ServiceID as ServiceID, user.ID AS UserID,
+  publish.Price AS Price, publish.Description AS Description,
+  publish.Address AS Address, publish.BeginDate AS BeginDate, publish.EndDate AS EndDate,
+  Service.Type as ServiceType, Service.Name AS ServiceName, user.Name AS UserName
+  FROM publish,user,service
+WHERE publish.UserID =user.ID and publish.ServiceID=service.ID;

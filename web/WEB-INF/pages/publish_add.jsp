@@ -331,76 +331,77 @@
     </style>
 </head>
 <body>
-<section
-        style="overflow: hidden; position: relative; width: 100%; height: 100%;">
-    <section class="scroller"
-             style="box-sizing: border-box; padding-bottom: 1.48rem;">
-        <section class="line-viewer with-border"
-                 style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
-            <div class="publish-input thin">
-                <input type="text" placeholder="服务名称" maxlength="15"
-                       class="custom-input">
+<form action="/publish/add/submit" method="post">
+    <section style="overflow: hidden; position: relative; width: 100%; height: 100%;">
+        <section class="scroller"
+                 style="box-sizing: border-box; padding-bottom: 1.48rem;">
+            <section class="line-viewer with-border"
+                     style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
+                <div class="publish-input thin">
+                    <input type="text" placeholder="服务名称" maxlength="15"
+                           name="name"
+                           class="custom-input">
+                </div>
+            </section>
+            <section class="line-viewer with-border"
+                     style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
+                <div class="publish-input thin">
+                    <input type="text" placeholder="服务描述" maxlength="15"
+                           name="description"
+                           class="custom-input">
+                </div>
+            </section>
+            <section class="line-viewer with-border"
+                     style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
+                <div class="publish-input thin">
+                    <input type="date" placeholder="服务开始时间  格式：2017/03/04" maxlength="15"
+                           name="beginDate"
+                           class="custom-input">
+                </div>
+            </section>
+            <section class="line-viewer with-border"
+                     style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
+                <div class="publish-input thin">
+                    <input type="date" placeholder="服务结束时间 格式：2017/03/05" maxlength="15"
+                           name="endDate"
+                           class="custom-input">
+                </div>
+            </section>
+            <div class="publish-type">
+                <div class="publish-type-marker id3"></div>
+                <div class="publish-type-item active">志愿者服务</div>
+                <div class="publish-type-item disable">专业服务</div>
             </div>
+            <section class="line-viewer with-border"
+                     style="margin-left: 0.3rem; padding-left: 0px;">
+                <div class="line-viewer-title">时间币</div>
+                <div class="publish-input">
+                    <input type="text" placeholder="系统推荐价格为     时间币" maxlength="undefined"
+                           name="price"
+                           class="custom-input tar">
+                </div>
+            </section>
+            <section class="line-viewer with-border"
+                     style="margin-left: 0.3rem; padding-left: 0px;">
+                <div class="line-viewer-title">服务范围</div>
+                <div class="publish-input">
+                    <input type="text" placeholder="精确到区" maxlength="undefined"
+                           name="address"
+                           class="custom-input tar">
+                </div>
+            </section>
         </section>
-        <section class="line-viewer with-border"
-                 style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
-            <div class="publish-input thin">
-                <input type="text" placeholder="服务描述" maxlength="15"
-                       class="custom-input">
-            </div>
-        </section>
-        <section class="line-viewer with-border"
-                 style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
-            <div class="publish-input thin">
-                <input type="text" placeholder="服务开始时间  格式：20170304" maxlength="15"
-                       class="custom-input">
-            </div>
-        </section>
-        <section class="line-viewer with-border"
-                 style="margin-left: 0.3rem; padding-left: 0px; padding-top: 0.35rem; padding-bottom: 0.35rem;">
-            <div class="publish-input thin">
-                <input type="text" placeholder="服务结束时间 格式：20170305" maxlength="15"
-                       class="custom-input">
-            </div>
-        </section>
-        <div class="publish-type">
-            <div class="publish-type-marker id3"></div>
-            <div class="publish-type-item active">志愿者服务</div>
-            <div class="publish-type-item disable">专业服务</div>
+        <div class="publish-tip">
+            发布商品即代表您同意时间银行<a>《用户服务协议》</a>
         </div>
-        <section class="line-viewer with-border"
-                 style="margin-left: 0.3rem; padding-left: 0px;">
-            <div class="line-viewer-title">时间币</div>
-            <div class="publish-input">
-                <input type="text" placeholder="系统推荐价格为     时间币" maxlength="undefined"
-                       class="custom-input tar">
-            </div>
-        </section>
-        <section class="line-viewer with-border"
-                 style="margin-left: 0.3rem; padding-left: 0px;">
-            <div class="line-viewer-title">服务范围</div>
-            <div class="publish-input">
-                <input type="text" placeholder="精确到区" maxlength="undefined"
-                       class="custom-input tar">
-            </div>
-        </section>
     </section>
-    <section class="line-viewer with-border"
-             style="margin-left: 0.3rem; padding-left: 0px;">
-        <div class="line-viewer-title">服务范围</div>
-        <div class="publish-input">
-            <input type="text" placeholder="精确到区" maxlength="undefined"
-                   class="custom-input tar">
+    <section>
+        <div class="publish-button">
+            <button type="submit" class="publish-button-item">发布</button>
         </div>
     </section>
-    <div class="publish-tip">
-        发布商品即代表您同意时间银行<a>《用户服务协议》</a>
-    </div>
-</section>
-<div class="publish-button">
-    <div class="publish-button-item">发布</div>
-</div>
-</section>
+</form>
+
 
 
 <script type="text/javascript" src="../publish/vendor.bundle.SJCP-249.js.下载"></script>
@@ -408,4 +409,5 @@
 <script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
 
 
-</body></html>
+</body>
+</html>

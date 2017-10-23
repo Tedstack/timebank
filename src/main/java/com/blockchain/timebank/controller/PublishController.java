@@ -1,7 +1,9 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.entity.ViewPublishDetailEntity;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -26,6 +31,9 @@ public class PublishController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ViewPublishDetailDao viewPublishDetailDao;
+
     //发布服务页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {
@@ -35,27 +43,31 @@ public class PublishController {
     //发布服务显示列表
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(ModelMap map) {
-        List<PublishEntity> list=publishService.findAllPublishEntity();
-        map.addAttribute("list",list);
+        List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) viewPublishDetailDao.findAll();
+        map.addAttribute("list", list);
         return "publish_list";
     }
 
     //发布服务提交接口
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public String addSubmitPage(ModelMap map, @RequestParam String name, @RequestParam String description, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String address) {
-        PublishEntity publishEntity = new PublishEntity();
-        publishEntity.setAddress(address);
-        publishEntity.setDescription(description);
-        publishEntity.setUserId(getCurrentUser().getId());
-        publishEntity.setPrice(price);
-        publishEntity.setServiceId(0L);
-        publishEntity.setBeginDate(new Timestamp(System.currentTimeMillis()));
-        publishEntity.setEndDate(new Timestamp(System.currentTimeMillis()));
-        publishService.savePublishEntity(publishEntity);
+        try {
+            PublishEntity publishEntity = new PublishEntity();
+            publishEntity.setAddress(address);
+            publishEntity.setDescription(description);
+            publishEntity.setUserId(getCurrentUser().getId());
+            publishEntity.setPrice(price);
+            publishEntity.setServiceId(1L);//name
+            Date beginTime =new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endTime=new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);
+            publishEntity.setBeginDate(new Timestamp(beginTime.getTime()));
+            publishEntity.setEndDate(new Timestamp(endTime.getTime()));
+            publishService.savePublishEntity(publishEntity);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return "redirect:/publish/list";
     }
-
-
 
     public UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

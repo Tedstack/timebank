@@ -1,5 +1,5 @@
-<%@ page import="com.blockchain.timebank.entity.PublishEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/23
@@ -22,7 +22,9 @@
     <style>
         @
         -moz-keyframes nodeInserted {
-        from {opacity: 0.99;
+
+        from {
+            opacity: 0.99;
         }
 
         to {
@@ -32,7 +34,9 @@
         }
         @
         -webkit-keyframes nodeInserted {
-        from {opacity: 0.99;
+
+        from {
+            opacity: 0.99;
         }
 
         to {
@@ -42,7 +46,9 @@
         }
         @
         -o-keyframes nodeInserted {
-        from {opacity: 0.99;
+
+        from {
+            opacity: 0.99;
         }
 
         to {
@@ -52,7 +58,9 @@
         }
         @
         keyframes nodeInserted {
-        from {opacity: 0.99;
+
+        from {
+            opacity: 0.99;
         }
 
         to {
@@ -126,56 +134,63 @@
         <ul class="list_pet">
 
             <%
-                List<PublishEntity> list = (List<PublishEntity>)request.getAttribute("list");
-                for(PublishEntity publishEntity:list){
+                List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) request.getAttribute("list");
+                for (ViewPublishDetailEntity viewPublishEntity : list) {
             %>
-
-            <li id="list0" class="">
-
+            <li class="">
                 <div class="picbox"
-                                         style="background-image: url(&quot;https://images.daojia.com/dop/custom/7fea3b27212c357b458019fd69aa5b50.jpg@330w_246h&quot;);"></div>
+                     style="background-image: url(&quot;https://images.daojia.com/dop/custom/7fea3b27212c357b458019fd69aa5b50.jpg@330w_246h&quot;);"></div>
                 <div class="list-main">
                     <div class="tit">
-                        <span class="title_name" style="text-indent: 0px;"><a href="./order.html"> <%out.print(publishEntity.getServiceId());%></a></span>
+                        <span class="title_name" style="text-indent: 0px;"><a href="./order.html"> <%
+                            out.print(viewPublishEntity.getServiceName());%></a></span>
                     </div>
                     <div class="evaluate-info clearfix">
                     </div>
                     <div class="price clearfix">
-							<span class="pri_now"><span class="rmb">¥</span><span>30</span>
+							<span class="pri_now"><span class="rmb">¥</span><span><%
+                                out.print(viewPublishEntity.getPrice());%></span>
                                 <!----></span>
 
                     </div>
                     <div class="store-info">
-                        <div class="info">xxx</div>
-                        <div class="order-rate">闵行区</div>
+                        <div class="info"><%out.print(viewPublishEntity.getUserName());%></div>
+                        <div class="order-rate"><%out.print(viewPublishEntity.getAddress());%></div>
                     </div>
                 </div>
             </li>
 
             <%}%>
-            <li id="list1" class=""><div class="picbox" style="background-image: url(&quot;https://images.daojia.com/dop/custom/7e65cc6af37c2307a0f0f0d701927042.jpg@330w_246h&quot;);"></div>
+            <li id="list1" class="">
+                <div class="picbox"
+                     style="background-image: url(&quot;https://images.daojia.com/dop/custom/7e65cc6af37c2307a0f0f0d701927042.jpg@330w_246h&quot;);"></div>
                 <div class="list-main">
-                    <div class="tit">
-                        <!---->
-                        <span class="title_name" style="text-indent: 0px;">xx服务</span>
-                    </div>
-                    <div class="evaluate-info clearfix">
-                        <!---->
-                        <!---->
-                        <!---->
-                    </div>
-                    <div class="price clearfix">
+
+                    <div class="store-info">
+                        <div class="tit">
+                            <!---->
+                            <span class="title_name" style="text-indent: 0px;">xx服务</span>
+                        </div>
+                        <div class="evaluate-info clearfix">
+                            <!---->
+                            <!---->
+                            <!---->
+                        </div>
+                        <div class="price clearfix">
 							<span class="pri_now"><span class="rmb">¥</span><span>200</span>
                                 <!----></span>
 
+                        </div>
+                        <div class="store-info">
+                            <div class="info">xxx</div>
+                            <div class="order-rate">长宁区</div>
+                        </div>
                     </div>
-                    <div class="store-info">
-                        <div class="info">xxx</div>
-                        <div class="order-rate">长宁区</div>
-                    </div>
-                </div></li>
-            <li id="list2" class=""><div class="picbox"
-                                         style="background-image: url(&quot;https://images.daojia.com//dop2c/discovery/670e9871bf1983e9528c4e3943789a52.jpeg@330w_246h&quot;);"></div>
+            </li>
+
+            <li id="list2" class="">
+                <div class="picbox"
+                     style="background-image: url(&quot;https://images.daojia.com//dop2c/discovery/670e9871bf1983e9528c4e3943789a52.jpeg@330w_246h&quot;);"></div>
                 <div class="list-main">
                     <div class="tit">
                         <!---->
@@ -198,9 +213,11 @@
                         <div class="info">xxx</div>
                         <div class="order-rate">静安区</div>
                     </div>
-                </div></li>
-            <li id="list3" class="noBottom"><div class="picbox"
-                                                 style="background-image: url(&quot;https://images.daojia.com/dop/custom/ace0f908908b9fec8541f7f714b7608f.jpg@330w_246h&quot;);"></div>
+                </div>
+            </li>
+            <li id="list3" class="noBottom">
+                <div class="picbox"
+                     style="background-image: url(&quot;https://images.daojia.com/dop/custom/ace0f908908b9fec8541f7f714b7608f.jpg@330w_246h&quot;);"></div>
                 <div class="list-main">
                     <div class="tit">
 							<span
@@ -223,7 +240,8 @@
                         <div class="info">xxx</div>
                         <div class="order-rate">普陀区</div>
                     </div>
-                </div></li>
+                </div>
+            </li>
         </ul>
         <div class="loadmore-box" style="display: none;">
             <div class="pull_up_loading_more">
