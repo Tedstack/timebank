@@ -65,7 +65,7 @@ public class PublishController {
             publishEntity.setPrice(price);
             publishEntity.setServiceId(1L);//name
             Date beginTime =new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            Date endTime=new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);
+            Date endTime=new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
             publishEntity.setBeginDate(new Timestamp(beginTime.getTime()));
             publishEntity.setEndDate(new Timestamp(endTime.getTime()));
             publishService.savePublishEntity(publishEntity);
@@ -79,6 +79,7 @@ public class PublishController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {
             UserEntity userEntity = userService.findUserEntityByPhone(userDetails.getUsername());
+            System.out.println(userEntity.toString());
             return userEntity;
         } else {
             return null;
