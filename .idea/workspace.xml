@@ -7,9 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b7537a04-fd4f-4339-bb16-dea1e4d5d68b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/ea1aa5b9-225d-45cd-8559-f2381f20be35.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/ea1aa5b9-225d-45cd-8559-f2381f20be35.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/controller/PublishController.java" afterPath="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/controller/PublishController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/pages/publish_add.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/pages/publish_add.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/init.sql" afterPath="$PROJECT_DIR$/src/main/resources/init.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -36,65 +36,6 @@
         <item name="" type="eadb38e5:DatabaseStructure$Root" />
         <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
       </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-        <item name="order" type="e3449647:DbNodeDescriptor" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-        <item name="publish" type="e3449647:DbNodeDescriptor" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-        <item name="service" type="e3449647:DbNodeDescriptor" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-        <item name="timeaccount" type="e3449647:DbNodeDescriptor" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-        <item name="user" type="e3449647:DbNodeDescriptor" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-      </path>
-      <path>
-        <item name="" type="eadb38e5:DatabaseStructure$Root" />
-        <item name="mydb@localhost" type="e3449647:DbNodeDescriptor" />
-        <item name="mydb" type="e3449647:DbNodeDescriptor" />
-        <item name="" type="fce03ad6:DatabaseStructure$GroupNode" />
-        <item name="view_publish_detail" type="e3449647:DbNodeDescriptor" />
-      </path>
     </expand>
     <select />
   </component>
@@ -114,11 +55,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.sql" pinned="false" current-in-tab="false">
+      <file leaf-file-name="init.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/init.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-420">
-              <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+            <state relative-caret-position="-1316">
+              <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/ea1aa5b9-225d-45cd-8559-f2381f20be35/console.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="79" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -134,12 +85,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserEntity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/UserEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="-147">
+              <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+              <folding>
+                <element signature="e#444#445#0" expanded="true" />
+                <element signature="e#469#470#0" expanded="true" />
+                <element signature="e#503#504#0" expanded="true" />
+                <element signature="e#531#532#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -157,7 +113,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/service/PublishServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="15" column="71" lean-forward="true" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
+              <caret line="15" column="71" lean-forward="false" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
               <folding>
                 <element signature="e#462#463#0" expanded="true" />
                 <element signature="e#515#516#0" expanded="true" />
@@ -171,16 +127,6 @@
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="publish_category.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/publish_category.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="48" selection-end-column="14" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -201,7 +147,7 @@
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/blank.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="609">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -252,8 +198,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/service/PublishService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/service/PublishServiceImpl.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/publish.html" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/ea1aa5b9-225d-45cd-8559-f2381f20be35/console.sql" />
-        <option value="$PROJECT_DIR$/src/main/resources/init.sql" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/ea1aa5b9-225d-45cd-8559-f2381f20be35/console_1.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/dao/ViewPublishDetailDao.java" />
         <option value="$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.12.RELEASE/spring-beans-4.3.12.RELEASE.jar!/org/springframework/beans/factory/support/AbstractAutowireCapableBeanFactory.class" />
@@ -287,6 +231,8 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/pages/publish_add.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/controller/PublishController.java" />
         <option value="$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.3.12.RELEASE/spring-webmvc-4.3.12.RELEASE.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.class" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/ea1aa5b9-225d-45cd-8559-f2381f20be35/console.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/init.sql" />
       </list>
     </option>
   </component>
@@ -910,7 +856,7 @@
       <workItem from="1508735971958" duration="28964000" />
       <workItem from="1508821071013" duration="2798000" />
       <workItem from="1508823902086" duration="65000" />
-      <workItem from="1508824074049" duration="14159000" />
+      <workItem from="1508824074049" duration="14960000" />
     </task>
     <task id="LOCAL-00001" summary="添加用户接口">
       <created>1508124259006</created>
@@ -1024,7 +970,14 @@
       <option name="project" value="LOCAL" />
       <updated>1508833602076</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="对发布服务页面进行了修改">
+      <created>1508841994163</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1508841994163</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1060,11 +1013,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="201383000" />
+    <option name="totallyTimeSpent" value="202184000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1838306" sideWeight="0.114605546" order="8" side_tool="true" content_ui="tabs" />
@@ -1076,7 +1028,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.51106834" sideWeight="0.88539445" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51106834" sideWeight="0.88539445" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282002" sideWeight="0.5735608" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1087,8 +1039,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916266" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917467" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23347548" sideWeight="0.2992126" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23347548" sideWeight="0.7007874" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23347548" sideWeight="0.29689807" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Database Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34841195" sideWeight="0.7153518" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23347548" sideWeight="0.70310193" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -1098,7 +1051,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17910448" sideWeight="0.504698" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34870318" sideWeight="0.7153518" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917467" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1122,7 +1074,9 @@
     <MESSAGE value="与前端发布服务对接完成" />
     <MESSAGE value="修改页面" />
     <MESSAGE value="对用户信息详细描述" />
-    <option name="LAST_COMMIT_MESSAGE" value="对用户信息详细描述" />
+    <MESSAGE value="对发布服务页面进行了修改" />
+    <MESSAGE value="重新整理SQL，添加了主键自增" />
+    <option name="LAST_COMMIT_MESSAGE" value="重新整理SQL，添加了主键自增" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1139,7 +1093,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/1.html" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/1.13.8.RELEASE/spring-data-commons-1.13.8.RELEASE.jar!/org/springframework/data/repository/CrudRepository.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -1461,7 +1414,7 @@
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/blank.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1486,18 +1439,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/service/PublishServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="15" column="71" lean-forward="true" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
+          <caret line="15" column="71" lean-forward="false" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
           <folding>
             <element signature="e#462#463#0" expanded="true" />
             <element signature="e#515#516#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/32850cc4/ea1aa5b9-225d-45cd-8559-f2381f20be35/mydb.publish">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -1543,14 +1489,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/init.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-420">
-          <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/PublishEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -1561,8 +1499,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/UserEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state relative-caret-position="-147">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding>
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#469#470#0" expanded="true" />
+            <element signature="e#503#504#0" expanded="true" />
+            <element signature="e#531#532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/32850cc4/ea1aa5b9-225d-45cd-8559-f2381f20be35/mydb.publish">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/ea1aa5b9-225d-45cd-8559-f2381f20be35/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="79" column="41" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/init.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1316">
+          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
           <folding />
         </state>
       </provider>
