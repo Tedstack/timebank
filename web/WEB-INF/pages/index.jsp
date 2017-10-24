@@ -43,7 +43,7 @@
         </div>
 
     </div>
-    <jsp:include page="tabbar.jsp"/>
+    <jsp:include page="bottom_tabbar.jsp"/>
 </div>
 
 <!-- jQuery 3 -->

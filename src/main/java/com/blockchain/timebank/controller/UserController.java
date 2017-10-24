@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +21,14 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
-        return "user";
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("user", userEntity);
+        return "userinfo";
     }
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
+
+    // 登陆请求提交接口
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String userLogin(ModelMap map, @RequestParam String phone, @RequestParam String password) {
         if (phone.equals("") || password.equals("")) {
             map.addAttribute("error", "输入信息不能为空");
@@ -39,10 +44,11 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/user/logout", method = RequestMethod.GET)
+    // 登出请求
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(ModelMap map) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         map.addAttribute("logout", "已经为您安全退出！");
@@ -50,7 +56,8 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    // 注册请求接口
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
         if (phone.equals("") || name.equals("") || password.equals("")) {
             map.addAttribute("error", "输入信息不能为空");
@@ -72,6 +79,16 @@ public class UserController {
         } catch (Exception e) {
             map.addAttribute("error", "注册失败，重复的用户！");
             return "/register";
+        }
+    }
+
+    public UserEntity getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userDetails != null) {
+            UserEntity userEntity = userService.findUserEntityByPhone(userDetails.getUsername());
+            return userEntity;
+        } else {
+            return null;
         }
     }
 
