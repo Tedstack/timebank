@@ -34,6 +34,12 @@ public class PublishController {
     @Autowired
     ViewPublishDetailDao viewPublishDetailDao;
 
+    //服务种类页面
+    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    public String categoryPage(ModelMap map) {
+        return "publish_list";
+    }
+
     //发布服务页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {

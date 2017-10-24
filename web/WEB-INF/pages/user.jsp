@@ -1,4 +1,11 @@
-<html lang="en">
+<%--
+  Created by IntelliJ IDEA.
+  User: toyking
+  Date: 2017/10/24
+  Time: 14:59
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -83,5 +90,8 @@
     </a>
     <a href="javascript:;" class="weui-btn weui-btn_plain-primary">退出登录</a>
 </div>
+
+<jsp:include page="tabbar.jsp"/>
+
 </body>
 </html>
