@@ -18,7 +18,7 @@
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
-            <p>ToyKing</p>
+            <p>测试用户名</p>
         </div>
         <div class="weui-cell__ft">手机号</div>
     </div>
@@ -92,6 +92,15 @@
 </div>
 
 <jsp:include page="tabbar.jsp"/>
+
+<!-- jQuery 3 -->
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
+    });
+</script>
 
 </body>
 </html>

@@ -13,23 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
         return "user";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(ModelMap map) {
-        return "login";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPage(ModelMap map) {
-        return "register";
     }
 
     @RequestMapping(value = "/user/login", method = RequestMethod.POST)

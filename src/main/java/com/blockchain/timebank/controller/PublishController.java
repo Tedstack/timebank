@@ -37,7 +37,7 @@ public class PublishController {
     //服务种类页面
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
-        return "publish_list";
+        return "publish_category";
     }
 
     //发布服务页面

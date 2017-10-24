@@ -13,6 +13,8 @@
     <title>首页</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
+
+    <link rel="">
 </head>
 <body>
 
@@ -43,6 +45,15 @@
     </div>
     <jsp:include page="tabbar.jsp"/>
 </div>
+
+<!-- jQuery 3 -->
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.weui-tabbar:eq(0)').find('a:eq(0)').addClass("weui-bar__item_on");
+    });
+</script>
 
 </body>
 </html>

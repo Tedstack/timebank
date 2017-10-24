@@ -59,5 +59,14 @@
     <jsp:include page="tabbar.jsp"/>
 </div>
 
+<!-- jQuery 3 -->
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
+    });
+</script>
+
 </body>
 </html>
