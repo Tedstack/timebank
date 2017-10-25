@@ -8,9 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>我的信息</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
@@ -93,7 +92,7 @@
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__bd">
-                    <p>老年人认证</p>
+                    <p>专业服务技能认证</p>
                 </div>
                 <div class="weui-cell__ft"></div>
             </a>
@@ -103,8 +102,6 @@
 
     <jsp:include page="bottom_tabbar.jsp"/>
 </div>
-
-
 
 
 <!-- jQuery 3 -->

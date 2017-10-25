@@ -29,7 +29,7 @@
                     for (ViewPublishDetailEntity viewPublishEntity : list) {
                 %>
 
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <a href="<%out.print("/publish/detail?id="+viewPublishEntity.getId());%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" src="../img/志愿者服务.png" alt="">
                     </div>
