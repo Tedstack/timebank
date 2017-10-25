@@ -46,12 +46,21 @@ public class PublishController {
         return "publish_add";
     }
 
-    //发布服务显示列表
+    //服务显示列表
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(ModelMap map) {
         List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) viewPublishDetailDao.findAll();
         map.addAttribute("list", list);
         return "publish_list";
+    }
+
+    //服务详细列表
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public String detailPage(ModelMap map, @RequestParam long id) {
+        //System.out.println(id);
+        ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
+        map.addAttribute("detail", viewPublishDetailEntity);
+        return "publish_detail";
     }
 
     //发布服务提交接口
@@ -64,8 +73,8 @@ public class PublishController {
             publishEntity.setUserId(getCurrentUser().getId());
             publishEntity.setPrice(price);
             publishEntity.setServiceId(1L);//name
-            Date beginTime =new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            Date endTime=new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
             publishEntity.setBeginDate(new Timestamp(beginTime.getTime()));
             publishEntity.setEndDate(new Timestamp(endTime.getTime()));
             publishService.savePublishEntity(publishEntity);
