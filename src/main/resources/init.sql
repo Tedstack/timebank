@@ -1,33 +1,24 @@
 # User 用户表
 CREATE TABLE `user` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `Name` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '姓名',
-  `Password` varchar(45) COLLATE utf8_bin DEFAULT NULL COMMENT '密码',
-  `Phone` varchar(20) COLLATE utf8_bin NOT NULL COMMENT '手机号',
+  `Name` varchar(20) NULL COMMENT '姓名',
+  `Password` varchar(45) NULL COMMENT '密码',
+  `Phone` varchar(20) NOT NULL COMMENT '手机号',
   `TimeCoin` double NOT NULL COMMENT '时间币余额',
   `TimeVol` double NOT NULL COMMENT '志愿者时间余额',
-  `RegisterDate` date DEFAULT NULL COMMENT '注册时间',
+  `RegisterDate` date NULL COMMENT '注册时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
 ALTER TABLE `user`
   ADD UNIQUE KEY `Phone` (`Phone`);
 
-#持久化登陆表
-CREATE TABLE persistent_logins (
-  username VARCHAR(64) NOT NULL,
-  series VARCHAR(64) NOT NULL,
-  token VARCHAR(64) NOT NULL,
-  last_used TIMESTAMP NOT NULL,
-  PRIMARY KEY (series)
-);
-
 # ServiceController 服务种类表
 CREATE TABLE `service` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '服务种类编号',
-  `Type` varchar(45) COLLATE utf8_bin NOT NULL COMMENT '服务类型',
-  `Name` varchar(45) COLLATE utf8_bin NOT NULL COMMENT '服务名称',
+  `Type` varchar(45) NOT NULL COMMENT '服务类型',
+  `Name` varchar(45)  NOT NULL COMMENT '服务名称',
   `Price` double NOT NULL COMMENT '服务的参考价（时间元）',
-  `UpdateTime` datetime DEFAULT NULL COMMENT '价格更新表时间',
+  `UpdateTime` datetime NULL COMMENT '价格更新表时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='服务种类表';
 
@@ -66,12 +57,15 @@ ALTER TABLE `publish`
   ADD CONSTRAINT `publish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `publish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
 
-# Order 申请订单表
-CREATE TABLE `order` (
+# record 申请订单表
+CREATE TABLE `record` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `ApplyUserID` bigint(20) NOT NULL COMMENT '申请者ID',
   `ServiceUserID` bigint(20) NOT NULL COMMENT '服务者ID',
   `PublishID` bigint(20) NOT NULL COMMENT '发布服务ID',
+  `Address` varchar(100) NOT NULL COMMENT '上门地址',
+  `ApplyUserName` varchar(20) NOT NULL COMMENT '申请者姓名',
+  `Phone` varchar(20) NOT NULL COMMENT '手机号手机号',
   `PayWay` int NOT NULL COMMENT '支付方式',
   `BeginTime` datetime NULL COMMENT '开始时间',
   `EndTime` datetime NULL COMMENT '结束时间',
