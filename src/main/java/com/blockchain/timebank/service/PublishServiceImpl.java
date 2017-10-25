@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("publishService")
 public class PublishServiceImpl implements PublishService {
 
     @Autowired
@@ -20,5 +20,9 @@ public class PublishServiceImpl implements PublishService {
     public List<PublishEntity> findAllPublishEntity() {
         List<PublishEntity> list = (List<PublishEntity>) publishDao.findAll();
         return list;
+    }
+
+    public List<PublishEntity> findByUserID(long ID) {
+        return publishDao.findByUserId(ID);
     }
 }

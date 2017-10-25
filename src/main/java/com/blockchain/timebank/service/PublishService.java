@@ -8,4 +8,6 @@ public interface PublishService {
     PublishEntity savePublishEntity(PublishEntity publishEntity);
 
     List<PublishEntity> findAllPublishEntity();
+
+    public List<PublishEntity> findByUserID(long ID);
 }

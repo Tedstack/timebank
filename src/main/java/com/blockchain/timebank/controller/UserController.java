@@ -1,6 +1,10 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.entity.OrderEntity;
+import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.OrderService;
+import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,11 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    PublishService publishService;
+
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -80,6 +92,24 @@ public class UserController {
             map.addAttribute("error", "注册失败，重复的用户！");
             return "/register";
         }
+    }
+
+    //查询发布的服务的接口
+    @RequestMapping(value="/queryPublish",method = RequestMethod.GET)
+    public String queryPublish(ModelMap map){
+        List<PublishEntity> list = publishService.findByUserID(getCurrentUser().getId());
+        map.addAttribute("list", list);
+        return "service_posted_all";
+    }
+
+    //查询申请者申请订单的接口
+    @RequestMapping(value = "/queryOrder",method = RequestMethod.GET)
+    public String queryOrder(ModelMap map){
+        List<OrderEntity> list = orderService.findByApplyUserId(0);
+        map.addAttribute("list", list);
+        System.out.println(" d"+getCurrentUser().getId());
+        System.out.println(list.get(0).getApplyUserId());
+        return "service_requested_all";
     }
 
     public UserEntity getCurrentUser() {

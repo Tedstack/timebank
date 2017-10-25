@@ -63,13 +63,13 @@
         </div>
         <div class="weui-cells__title">服务</div>
         <div class="weui-cells">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a href="/user/queryPublish" class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__bd">
                     <p>已发布的服务</p>
                 </div>
                 <div class="weui-cell__ft"></div>
             </a>
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a href="/user/queryOrder" class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__bd">
                     <p>已申请的服务</p>
                 </div>
