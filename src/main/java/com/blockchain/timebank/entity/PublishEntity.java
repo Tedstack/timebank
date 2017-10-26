@@ -15,9 +15,6 @@ public class PublishEntity {
     private Timestamp beginDate;
     private Timestamp endDate;
 
-    @Transient
-    private ServiceEntity serviceEntity;
-
     @Id
     @Column(name = "ID", nullable = false)
     public long getId() {
@@ -98,14 +95,6 @@ public class PublishEntity {
         this.endDate = endDate;
     }
 
-    public ServiceEntity getServiceEntity() {
-        return serviceEntity;
-    }
-
-    public void setServiceEntity(ServiceEntity serviceEntity) {
-        this.serviceEntity = serviceEntity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -140,6 +129,4 @@ public class PublishEntity {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         return result;
     }
-
-
 }

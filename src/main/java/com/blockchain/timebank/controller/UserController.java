@@ -106,7 +106,7 @@ public class UserController {
 
         for(int i=0;i<list.size();i++){
             ServiceEntity serviceEntity = serviceService.findById(list.get(i).getServiceId());
-            list.get(i).setServiceEntity(serviceEntity);
+            //list.get(i).setServiceEntity(serviceEntity);
         }
 
         map.addAttribute("publishList", list);

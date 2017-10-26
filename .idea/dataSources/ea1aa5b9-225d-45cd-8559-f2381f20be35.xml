@@ -137,7 +137,7 @@
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="9" name="ApplyUserPhone">
+    <column id="33" parent="9" name="Phone">
       <Position>7</Position>
       <Comment>申请者手机号</Comment>
       <DataType>varchar(20)|0</DataType>
