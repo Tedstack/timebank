@@ -10,4 +10,6 @@ public interface PublishService {
     List<PublishEntity> findAllPublishEntity();
 
     public List<PublishEntity> findByUserID(long ID);
+
+    public PublishEntity findPublishEntityById(long ID);
 }

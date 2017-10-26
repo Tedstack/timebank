@@ -9,4 +9,6 @@ public interface RecordService {
     public RecordEntity saveRecordEntity(RecordEntity recordEntity);
 
     public List<RecordEntity> findByApplyUserId(long ID);
+
+    public List<RecordEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID,String status);
 }

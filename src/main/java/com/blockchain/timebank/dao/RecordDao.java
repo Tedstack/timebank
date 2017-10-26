@@ -10,4 +10,6 @@ import java.util.List;
 public interface RecordDao extends CrudRepository<RecordEntity, Long> {
 
     public List<RecordEntity> findByApplyUserId(long ID);
+
+    public List<RecordEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID,String status);
 }

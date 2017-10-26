@@ -10,4 +10,6 @@ import java.util.List;
 public interface PublishDao extends CrudRepository<PublishEntity, Long> {
 
     public List<PublishEntity> findByUserId(long ID);
+
+    public PublishEntity findPublishEntityById(long ID);
 }

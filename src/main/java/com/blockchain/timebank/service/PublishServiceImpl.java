@@ -25,4 +25,8 @@ public class PublishServiceImpl implements PublishService {
     public List<PublishEntity> findByUserID(long ID) {
         return publishDao.findByUserId(ID);
     }
+
+    public PublishEntity findPublishEntityById(long ID) {
+        return publishDao.findPublishEntityById(ID);
+    }
 }
