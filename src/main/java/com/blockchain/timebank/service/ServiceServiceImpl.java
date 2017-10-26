@@ -19,6 +19,10 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     public List<ServiceEntity> findAllServiceEntity() {
-        return (List<ServiceEntity> )serviceDao.findAll();
+        return (List<ServiceEntity>) serviceDao.findAll();
+    }
+
+    public ServiceEntity findFirstByTypeAndName(String type, String name) {
+        return serviceDao.findFirstByTypeAndName(type, name);
     }
 }

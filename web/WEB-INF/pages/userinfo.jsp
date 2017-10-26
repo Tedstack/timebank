@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>我的信息</title>
     <!-- 引入 WeUI -->
-    <link rel="stylesheet" href="../css/weui.min.css" />
+    <link rel="stylesheet" href="../css/weui.min.css"/>
 </head>
 <body>
 
@@ -75,7 +75,7 @@
                 <div class="weui-cell__ft"></div>
             </a>
         </div>
-        <div class="weui-cells__title">  </div>
+        <div class="weui-cells__title"></div>
         <div class="weui-cells__title">信息完善</div>
         <div class="weui-cells">
             <a class="weui-cell weui-cell_access" href="javascript:;">
@@ -96,7 +96,11 @@
                 </div>
                 <div class="weui-cell__ft"></div>
             </a>
-            <a href="/user/logout" class="weui-btn weui-btn_plain-primary">退出登录</a>
+
+            <div style="padding: 10px;">
+                <a href="/user/logout" class="weui-btn weui-btn_plain-primary">退出登录</a>
+            </div>
+
         </div>
     </div>
 

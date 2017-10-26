@@ -12,7 +12,7 @@ public class RecordEntity {
     private long publishId;
     private String address;
     private String applyUserName;
-    private String phone;
+    private String applyUserPhone;
     private int payWay;
     private Timestamp beginTime;
     private Timestamp endTime;
@@ -82,13 +82,13 @@ public class RecordEntity {
     }
 
     @Basic
-    @Column(name = "Phone", nullable = false, length = 20)
-    public String getPhone() {
-        return phone;
+    @Column(name = "ApplyUserPhone", nullable = false, length = 20)
+    public String getApplyUserPhone() {
+        return applyUserPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setApplyUserPhone(String applyUserPhone) {
+        this.applyUserPhone = applyUserPhone;
     }
 
     @Basic
@@ -176,7 +176,8 @@ public class RecordEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (applyUserName != null ? !applyUserName.equals(that.applyUserName) : that.applyUserName != null)
             return false;
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
+        if (applyUserPhone != null ? !applyUserPhone.equals(that.applyUserPhone) : that.applyUserPhone != null)
+            return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (actualBeginTime != null ? !actualBeginTime.equals(that.actualBeginTime) : that.actualBeginTime != null)
@@ -197,7 +198,7 @@ public class RecordEntity {
         result = 31 * result + (int) (publishId ^ (publishId >>> 32));
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (applyUserName != null ? applyUserName.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (applyUserPhone != null ? applyUserPhone.hashCode() : 0);
         result = 31 * result + payWay;
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);

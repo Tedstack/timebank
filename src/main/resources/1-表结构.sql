@@ -65,7 +65,7 @@ CREATE TABLE `record` (
   `PublishID` bigint(20) NOT NULL COMMENT '发布服务ID',
   `Address` varchar(100) NOT NULL COMMENT '上门地址',
   `ApplyUserName` varchar(20) NOT NULL COMMENT '申请者姓名',
-  `Phone` varchar(20) NOT NULL COMMENT '申请者手机号',
+  `ApplyUserPhone` varchar(20) NOT NULL COMMENT '申请者手机号',
   `PayWay` int NOT NULL COMMENT '支付方式',
   `BeginTime` datetime NULL COMMENT '开始时间',
   `EndTime` datetime NULL COMMENT '结束时间',

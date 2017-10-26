@@ -35,7 +35,16 @@
                     </div>
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%out.print(viewPublishEntity.getServiceName());%></h4>
-                        <div>¥&nbsp;<%out.print(viewPublishEntity.getPrice());%> （志愿者币V）</div>
+                        <div>¥
+                            <%
+                                out.print(viewPublishEntity.getPrice());
+                                if(request.getAttribute("type").toString().equals("志愿者服务")){
+                                    out.print("（志愿者币V）");
+                                }else{
+                                    out.print("（时间币C）");
+                                }
+                            %>
+                        </div>
                         <div><p class="weui-media-box__desc">
                             <%out.print(viewPublishEntity.getUserName());%> &nbsp;&nbsp;&nbsp;
                             <%out.print(viewPublishEntity.getAddress());%>

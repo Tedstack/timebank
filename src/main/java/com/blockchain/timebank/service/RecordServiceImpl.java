@@ -7,11 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("orderService")
+@Service
 public class RecordServiceImpl implements RecordService {
 
     @Autowired
     RecordDao recordDao;
+
+    public RecordEntity saveRecordEntity(RecordEntity recordEntity) {
+        return recordDao.save(recordEntity);
+    }
 
     public List<RecordEntity> findByApplyUserId(long ID) {
         return recordDao.findByApplyUserId(ID);

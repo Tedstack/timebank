@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServiceDao extends CrudRepository<ServiceEntity, Long> {
 
+    ServiceEntity findFirstByTypeAndName(String type, String name);
 
 }

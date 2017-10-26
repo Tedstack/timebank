@@ -8,4 +8,6 @@ public interface ServiceService {
     ServiceEntity saveServiceEntity(ServiceEntity serviceEntity);
 
     List<ServiceEntity> findAllServiceEntity();
+
+    ServiceEntity findFirstByTypeAndName(String type, String name);
 }

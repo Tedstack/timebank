@@ -26,14 +26,10 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="swiper_box sp_con">
-            <div class="oneimg" style="background-image: url(../img/陪聊服务示例图.jpg)">
+            <div class="oneimg" style="background-image: url('../img/陪聊服务示例图.jpg')">
             </div>
         </div>
         <div class="topinfo border_b">
-            <!--<div class="tit">陪聊</div>
-            <div class="price">
-                <span id="showPrice">时间币 30</span>
-            </div>-->
             <div class="tags tags_normal">
                 <span><%out.print(detail.getServiceName());%>服务</span>
             </div>
@@ -57,7 +53,11 @@
             </div>
             <div class="con_u"><%out.print(detail.getDescription());%></div>
         </div>
-        <a href="<%out.print("/order/apply?id="+detail.getId());%>" class="weui-btn weui-btn_primary">确认预约</a>
+
+        <div style="padding: 10px;">
+            <a href="<%out.print("/order/apply?id="+detail.getId());%>" class="weui-btn weui-btn_primary">开始预约</a>
+        </div>
+
     </div>
 
     <jsp:include page="bottom_tabbar.jsp"/>

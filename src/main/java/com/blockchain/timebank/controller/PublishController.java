@@ -2,9 +2,11 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.entity.PublishEntity;
+import com.blockchain.timebank.entity.ServiceEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.entity.ViewPublishDetailEntity;
 import com.blockchain.timebank.service.PublishService;
+import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +31,9 @@ public class PublishController {
     PublishService publishService;
 
     @Autowired
+    ServiceService serviceService;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -43,6 +48,8 @@ public class PublishController {
     //发布服务页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {
+        List<ServiceEntity> list = serviceService.findAllServiceEntity();
+        map.addAttribute("service_list", list);
         return "publish_add";
     }
 
@@ -66,14 +73,14 @@ public class PublishController {
 
     //发布服务提交接口
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
-    public String addSubmitPage(ModelMap map, @RequestParam String name, @RequestParam String description, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String address) {
+    public String addSubmitPage(ModelMap map, @RequestParam String serviceType, @RequestParam String serviceName, @RequestParam String description, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String address) {
         try {
             PublishEntity publishEntity = new PublishEntity();
             publishEntity.setAddress(address);
             publishEntity.setDescription(description);
             publishEntity.setUserId(getCurrentUser().getId());
             publishEntity.setPrice(price);
-            publishEntity.setServiceId(1L);//name
+            publishEntity.setServiceId(serviceService.findFirstByTypeAndName(serviceType, serviceName).getId());//serviceId
             Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
             Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
             publishEntity.setBeginDate(new Timestamp(beginTime.getTime()));
@@ -82,6 +89,7 @@ public class PublishController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        map.addAttribute("type", serviceType);
         return "redirect:/publish/list";
     }
 

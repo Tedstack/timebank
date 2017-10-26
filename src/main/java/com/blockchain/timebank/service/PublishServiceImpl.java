@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("publishService")
+@Service
 public class PublishServiceImpl implements PublishService {
 
     @Autowired

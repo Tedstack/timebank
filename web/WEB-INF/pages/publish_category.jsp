@@ -11,7 +11,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>服务种类</title>
-    <!-- 引入 WeUI -->
     <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
 </head>
 <body>
@@ -21,7 +20,7 @@
     <div class="weui-tab__panel">
 
         <div class="weui-panel">
-            <div class="weui-panel__hd">上海市 </div>
+            <div class="weui-panel__hd">服务种类</div>
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_small-appmsg">
                     <div class="weui-cells">
