@@ -10,9 +10,9 @@ public class RecordEntity {
     private long applyUserId;
     private long serviceUserId;
     private long publishId;
-    private String address;
+    private String applyAddress;
     private String applyUserName;
-    private String phone;
+    private String applyUserPhone;
     private int payWay;
     private Timestamp beginTime;
     private Timestamp endTime;
@@ -62,13 +62,13 @@ public class RecordEntity {
     }
 
     @Basic
-    @Column(name = "Address", nullable = false, length = 100)
-    public String getAddress() {
-        return address;
+    @Column(name = "ApplyAddress", nullable = false, length = 100)
+    public String getApplyAddress() {
+        return applyAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setApplyAddress(String applyAddress) {
+        this.applyAddress = applyAddress;
     }
 
     @Basic
@@ -82,13 +82,13 @@ public class RecordEntity {
     }
 
     @Basic
-    @Column(name = "Phone", nullable = false, length = 20)
-    public String getPhone() {
-        return phone;
+    @Column(name = "ApplyUserPhone", nullable = false, length = 20)
+    public String getApplyUserPhone() {
+        return applyUserPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setApplyUserPhone(String applyUserPhone) {
+        this.applyUserPhone = applyUserPhone;
     }
 
     @Basic
@@ -173,10 +173,11 @@ public class RecordEntity {
         if (serviceUserId != that.serviceUserId) return false;
         if (publishId != that.publishId) return false;
         if (payWay != that.payWay) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (applyAddress != null ? !applyAddress.equals(that.applyAddress) : that.applyAddress != null) return false;
         if (applyUserName != null ? !applyUserName.equals(that.applyUserName) : that.applyUserName != null)
             return false;
-        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
+        if (applyUserPhone != null ? !applyUserPhone.equals(that.applyUserPhone) : that.applyUserPhone != null)
+            return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (actualBeginTime != null ? !actualBeginTime.equals(that.actualBeginTime) : that.actualBeginTime != null)
@@ -195,9 +196,9 @@ public class RecordEntity {
         result = 31 * result + (int) (applyUserId ^ (applyUserId >>> 32));
         result = 31 * result + (int) (serviceUserId ^ (serviceUserId >>> 32));
         result = 31 * result + (int) (publishId ^ (publishId >>> 32));
-        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (applyAddress != null ? applyAddress.hashCode() : 0);
         result = 31 * result + (applyUserName != null ? applyUserName.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (applyUserPhone != null ? applyUserPhone.hashCode() : 0);
         result = 31 * result + payWay;
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);

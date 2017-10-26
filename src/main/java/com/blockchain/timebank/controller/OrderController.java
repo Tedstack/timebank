@@ -52,8 +52,8 @@ public class OrderController {
             recordEntity.setPublishId(publishId);
             recordEntity.setApplyUserId(getCurrentUser().getId());
             recordEntity.setApplyUserName(applyUserName);
-            recordEntity.setPhone(applyUserPhone);
-            recordEntity.setAddress(address);
+            recordEntity.setApplyUserPhone(applyUserPhone);
+            recordEntity.setApplyAddress(address);
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
             recordEntity.setBeginTime(new Timestamp(date.getTime()));
             recordEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));

@@ -125,9 +125,9 @@
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="31" parent="9" name="Address">
+    <column id="31" parent="9" name="ApplyAddress">
       <Position>5</Position>
-      <Comment>上门地址</Comment>
+      <Comment>上门服务地址</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
@@ -137,7 +137,7 @@
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="9" name="Phone">
+    <column id="33" parent="9" name="ApplyUserPhone">
       <Position>7</Position>
       <Comment>申请者手机号</Comment>
       <DataType>varchar(20)|0</DataType>
