@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.OrderEntity" %>
 <%@ page import="java.util.List" %>
-<html lang="en">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"

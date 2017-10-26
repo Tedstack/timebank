@@ -80,9 +80,15 @@ ALTER TABLE `record`
   ADD KEY `ServiceUserID` (`ServiceUserID`),
   ADD KEY `PublishID` (`PublishID`);
 ALTER TABLE `record`
+<<<<<<< HEAD
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
+=======
   ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
+>>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c
 
 
 # 显示已发布的服务信息视图

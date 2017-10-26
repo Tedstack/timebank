@@ -9,5 +9,7 @@ public interface ServiceService {
 
     List<ServiceEntity> findAllServiceEntity();
 
+    ServiceEntity findById(long id);
+
     ServiceEntity findFirstByTypeAndName(String type, String name);
 }

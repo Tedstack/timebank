@@ -1,10 +1,15 @@
 package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.entity.PublishEntity;
+<<<<<<< HEAD
+import com.blockchain.timebank.entity.ServiceEntity;
+=======
 import com.blockchain.timebank.entity.RecordEntity;
+>>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.PublishService;
+import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,6 +36,9 @@ public class UserController {
 
     @Autowired
     RecordService recordService;
+
+    @Autowired
+    ServiceService serviceService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -94,21 +103,30 @@ public class UserController {
         }
     }
 
-    //查询发布的服务的接口
+    //查询所有的发布服务的接口
     @RequestMapping(value="/queryPublish",method = RequestMethod.GET)
     public String queryPublish(ModelMap map){
         List<PublishEntity> list = publishService.findByUserID(getCurrentUser().getId());
-        map.addAttribute("list", list);
+
+        for(int i=0;i<list.size();i++){
+            ServiceEntity serviceEntity = serviceService.findById(list.get(i).getServiceId());
+            list.get(i).setServiceEntity(serviceEntity);
+        }
+
+        map.addAttribute("publishList", list);
         return "service_posted_all";
     }
 
     //查询申请者申请订单的接口
     @RequestMapping(value = "/queryOrder",method = RequestMethod.GET)
     public String queryOrder(ModelMap map){
+<<<<<<< HEAD
+        List<OrderEntity> list = orderService.findByApplyUserId(getCurrentUser().getId());
+
+=======
         List<RecordEntity> list = recordService.findByApplyUserId(0);
+>>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c
         map.addAttribute("list", list);
-        System.out.println(" d"+getCurrentUser().getId());
-        System.out.println(list.get(0).getApplyUserId());
         return "service_requested_all";
     }
 

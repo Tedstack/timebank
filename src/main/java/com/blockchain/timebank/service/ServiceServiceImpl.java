@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-@Service
+@Service("serviceService")
 public class ServiceServiceImpl implements ServiceService {
 
     @Autowired
@@ -25,4 +25,10 @@ public class ServiceServiceImpl implements ServiceService {
     public ServiceEntity findFirstByTypeAndName(String type, String name) {
         return serviceDao.findFirstByTypeAndName(type, name);
     }
+
+    public ServiceEntity findById(long id) {
+        return serviceDao.findById(id);
+    }
+
+
 }
