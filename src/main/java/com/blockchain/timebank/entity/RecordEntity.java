@@ -5,11 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "record", schema = "mydb", catalog = "")
-<<<<<<< HEAD:src/main/java/com/blockchain/timebank/entity/OrderEntity.java
-public class OrderEntity {
-=======
 public class RecordEntity {
->>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c:src/main/java/com/blockchain/timebank/entity/RecordEntity.java
     private long id;
     private long applyUserId;
     private long serviceUserId;

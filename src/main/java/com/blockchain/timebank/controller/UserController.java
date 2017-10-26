@@ -1,11 +1,8 @@
 package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.entity.PublishEntity;
-<<<<<<< HEAD
 import com.blockchain.timebank.entity.ServiceEntity;
-=======
 import com.blockchain.timebank.entity.RecordEntity;
->>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.PublishService;
@@ -22,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -120,12 +116,7 @@ public class UserController {
     //查询申请者申请订单的接口
     @RequestMapping(value = "/queryOrder",method = RequestMethod.GET)
     public String queryOrder(ModelMap map){
-<<<<<<< HEAD
-        List<OrderEntity> list = orderService.findByApplyUserId(getCurrentUser().getId());
-
-=======
         List<RecordEntity> list = recordService.findByApplyUserId(0);
->>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c
         map.addAttribute("list", list);
         return "service_requested_all";
     }
