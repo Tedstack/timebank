@@ -5,8 +5,18 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "record", schema = "mydb", catalog = "")
+<<<<<<< HEAD:src/main/java/com/blockchain/timebank/entity/OrderEntity.java
 public class OrderEntity {
+=======
+public class RecordEntity {
+>>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c:src/main/java/com/blockchain/timebank/entity/RecordEntity.java
     private long id;
+    private long applyUserId;
+    private long serviceUserId;
+    private long publishId;
+    private String address;
+    private String applyUserName;
+    private String phone;
     private int payWay;
     private Timestamp beginTime;
     private Timestamp endTime;
@@ -14,9 +24,6 @@ public class OrderEntity {
     private Timestamp actualEndTime;
     private Double payMoney;
     private String status;
-    private long applyUserId;
-    private long serviceUserId;
-    private long publishId;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -26,6 +33,66 @@ public class OrderEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "ApplyUserID", nullable = false)
+    public long getApplyUserId() {
+        return applyUserId;
+    }
+
+    public void setApplyUserId(long applyUserId) {
+        this.applyUserId = applyUserId;
+    }
+
+    @Basic
+    @Column(name = "ServiceUserID", nullable = false)
+    public long getServiceUserId() {
+        return serviceUserId;
+    }
+
+    public void setServiceUserId(long serviceUserId) {
+        this.serviceUserId = serviceUserId;
+    }
+
+    @Basic
+    @Column(name = "PublishID", nullable = false)
+    public long getPublishId() {
+        return publishId;
+    }
+
+    public void setPublishId(long publishId) {
+        this.publishId = publishId;
+    }
+
+    @Basic
+    @Column(name = "Address", nullable = false, length = 100)
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Basic
+    @Column(name = "ApplyUserName", nullable = false, length = 20)
+    public String getApplyUserName() {
+        return applyUserName;
+    }
+
+    public void setApplyUserName(String applyUserName) {
+        this.applyUserName = applyUserName;
+    }
+
+    @Basic
+    @Column(name = "Phone", nullable = false, length = 20)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Basic
@@ -103,10 +170,17 @@ public class OrderEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderEntity that = (OrderEntity) o;
+        RecordEntity that = (RecordEntity) o;
 
         if (id != that.id) return false;
+        if (applyUserId != that.applyUserId) return false;
+        if (serviceUserId != that.serviceUserId) return false;
+        if (publishId != that.publishId) return false;
         if (payWay != that.payWay) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (applyUserName != null ? !applyUserName.equals(that.applyUserName) : that.applyUserName != null)
+            return false;
+        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (actualBeginTime != null ? !actualBeginTime.equals(that.actualBeginTime) : that.actualBeginTime != null)
@@ -122,6 +196,12 @@ public class OrderEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (applyUserId ^ (applyUserId >>> 32));
+        result = 31 * result + (int) (serviceUserId ^ (serviceUserId >>> 32));
+        result = 31 * result + (int) (publishId ^ (publishId >>> 32));
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (applyUserName != null ? applyUserName.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + payWay;
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
@@ -130,35 +210,5 @@ public class OrderEntity {
         result = 31 * result + (payMoney != null ? payMoney.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "ApplyUserID", nullable = false)
-    public long getApplyUserId() {
-        return applyUserId;
-    }
-
-    public void setApplyUserId(long applyUserId) {
-        this.applyUserId = applyUserId;
-    }
-
-    @Basic
-    @Column(name = "ServiceUserID", nullable = false)
-    public long getServiceUserId() {
-        return serviceUserId;
-    }
-
-    public void setServiceUserId(long serviceUserId) {
-        this.serviceUserId = serviceUserId;
-    }
-
-    @Basic
-    @Column(name = "PublishID", nullable = false)
-    public long getPublishId() {
-        return publishId;
-    }
-
-    public void setPublishId(long publishId) {
-        this.publishId = publishId;
     }
 }

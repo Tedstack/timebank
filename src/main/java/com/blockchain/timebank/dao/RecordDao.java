@@ -1,13 +1,13 @@
 package com.blockchain.timebank.dao;
 
-import com.blockchain.timebank.entity.OrderEntity;
+import com.blockchain.timebank.entity.RecordEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OrderDao extends CrudRepository<OrderEntity, Long> {
+public interface RecordDao extends CrudRepository<RecordEntity, Long> {
 
-    public List<OrderEntity> findByApplyUserId(long ID);
+    public List<RecordEntity> findByApplyUserId(long ID);
 }

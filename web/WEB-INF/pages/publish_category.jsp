@@ -25,17 +25,31 @@
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_small-appmsg">
                     <div class="weui-cells">
-                        <a class="weui-cell weui-cell_access" href="/publish/list">
-                            <div class="weui-cell__hd"><img src="../img/志愿者服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
+                        <a class="weui-cell weui-cell_access" href="/publish/list?type=互助服务">
+                            <div class="weui-cell__hd"><img src="../img/服务类型/互助服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
+                            <div class="weui-cell__bd weui-cell_primary">
+                                <p>互助服务</p>
+                            </div>
+                            <span class="weui-cell__ft"></span>
+                        </a>
+                        <a class="weui-cell weui-cell_access" href="/publish/list?type=志愿者服务">
+                            <div class="weui-cell__hd"><img src="../img/服务类型/志愿者服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
                             <div class="weui-cell__bd weui-cell_primary">
                                 <p>志愿者服务</p>
                             </div>
                             <span class="weui-cell__ft"></span>
                         </a>
-                        <a class="weui-cell weui-cell_access" href="javascript:;">
-                            <div class="weui-cell__hd"><img src="../img/专业服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
+                        <a class="weui-cell weui-cell_access" href="/publish/list?type=专业服务">
+                            <div class="weui-cell__hd"><img src="../img/服务类型/专业服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
                             <div class="weui-cell__bd weui-cell_primary">
                                 <p>专业服务</p>
+                            </div>
+                            <span class="weui-cell__ft"></span>
+                        </a>
+                        <a class="weui-cell weui-cell_access" href="/publish/list?type=社区O2O服务">
+                            <div class="weui-cell__hd"><img src="../img/服务类型/社区O2O服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
+                            <div class="weui-cell__bd weui-cell_primary">
+                                <p>社区O2O服务</p>
                             </div>
                             <span class="weui-cell__ft"></span>
                         </a>

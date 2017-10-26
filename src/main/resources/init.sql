@@ -65,7 +65,7 @@ CREATE TABLE `record` (
   `PublishID` bigint(20) NOT NULL COMMENT '发布服务ID',
   `Address` varchar(100) NOT NULL COMMENT '上门地址',
   `ApplyUserName` varchar(20) NOT NULL COMMENT '申请者姓名',
-  `Phone` varchar(20) NOT NULL COMMENT '手机号手机号',
+  `Phone` varchar(20) NOT NULL COMMENT '申请者手机号',
   `PayWay` int NOT NULL COMMENT '支付方式',
   `BeginTime` datetime NULL COMMENT '开始时间',
   `EndTime` datetime NULL COMMENT '结束时间',
@@ -80,9 +80,15 @@ ALTER TABLE `record`
   ADD KEY `ServiceUserID` (`ServiceUserID`),
   ADD KEY `PublishID` (`PublishID`);
 ALTER TABLE `record`
+<<<<<<< HEAD
   ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
+=======
+  ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
+>>>>>>> fd97a1bbf2b924613061182510b2d4a48c5b7b0c
 
 
 # 显示已发布的服务信息视图
