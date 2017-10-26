@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="weui-form-preview__item">
                                     <label class="weui-form-preview__label">地理位置</label>
-                                    <span class="weui-form-preview__value"><%out.print(secondList1.get(i).getAddress());%></span>
+                                    <span class="weui-form-preview__value"><%out.print(secondList1.get(i).getApplyAddress());%></span>
                                 </div>
                             </div>
                             <div class="weui-panel__ft">
@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="weui-form-preview__item">
                                     <label class="weui-form-preview__label">服务地点</label>
-                                    <span class="weui-form-preview__value"><%out.print(thirdList1.get(i).getAddress());%></span>
+                                    <span class="weui-form-preview__value"><%out.print(thirdList1.get(i).getApplyAddress());%></span>
                                 </div>
                             </div>
                             <div class="weui-panel__ft">
