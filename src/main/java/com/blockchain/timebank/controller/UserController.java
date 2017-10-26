@@ -1,9 +1,9 @@
 package com.blockchain.timebank.controller;
 
-import com.blockchain.timebank.entity.OrderEntity;
 import com.blockchain.timebank.entity.PublishEntity;
+import com.blockchain.timebank.entity.RecordEntity;
 import com.blockchain.timebank.entity.UserEntity;
-import com.blockchain.timebank.service.OrderService;
+import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class UserController {
     PublishService publishService;
 
     @Autowired
-    OrderService orderService;
+    RecordService recordService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -105,7 +105,7 @@ public class UserController {
     //查询申请者申请订单的接口
     @RequestMapping(value = "/queryOrder",method = RequestMethod.GET)
     public String queryOrder(ModelMap map){
-        List<OrderEntity> list = orderService.findByApplyUserId(0);
+        List<RecordEntity> list = recordService.findByApplyUserId(0);
         map.addAttribute("list", list);
         System.out.println(" d"+getCurrentUser().getId());
         System.out.println(list.get(0).getApplyUserId());

@@ -2,10 +2,9 @@ package com.blockchain.timebank.controller;
 
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
-import com.blockchain.timebank.entity.OrderEntity;
 import com.blockchain.timebank.entity.PayWay;
+import com.blockchain.timebank.entity.RecordEntity;
 import com.blockchain.timebank.entity.UserEntity;
-import com.blockchain.timebank.entity.ViewPublishDetailEntity;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,7 +37,7 @@ public class OrderController {
     //申请服务页面
     @RequestMapping(value = "/apply/submit", method = RequestMethod.POST)
     public String applySubmit(ModelMap map, long id) {
-        OrderEntity orderEntity = new OrderEntity();
+        RecordEntity orderEntity = new RecordEntity();
         orderEntity.setApplyUserId(getCurrentUser().getId());
         orderEntity.setPayWay(PayWay.PAY_WAY_TIME_COIN);
         return "order_apply";

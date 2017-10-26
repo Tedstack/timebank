@@ -21,7 +21,7 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
-            <div class="weui-panel__hd">志愿者服务</div>
+            <div class="weui-panel__hd"><%out.print(request.getAttribute("type"));%></div>
             <div class="weui-panel__bd">
 
                 <%
@@ -31,7 +31,7 @@
 
                 <a href="<%out.print("/publish/detail?id="+viewPublishEntity.getId());%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" src="../img/志愿者服务.png" alt="">
+                        <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(viewPublishEntity.getServiceName());%>.png" alt="">
                     </div>
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%out.print(viewPublishEntity.getServiceName());%></h4>
