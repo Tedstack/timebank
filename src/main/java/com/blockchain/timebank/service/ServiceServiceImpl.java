@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-@Service
+@Service("serviceService")
 public class ServiceServiceImpl implements ServiceService {
 
     @Autowired
@@ -21,4 +21,10 @@ public class ServiceServiceImpl implements ServiceService {
     public List<ServiceEntity> findAllServiceEntity() {
         return (List<ServiceEntity> )serviceDao.findAll();
     }
+
+    public ServiceEntity findById(long id) {
+        return serviceDao.findById(id);
+    }
+
+
 }

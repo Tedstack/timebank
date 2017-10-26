@@ -8,4 +8,6 @@ public interface ServiceService {
     ServiceEntity saveServiceEntity(ServiceEntity serviceEntity);
 
     List<ServiceEntity> findAllServiceEntity();
+
+    public ServiceEntity findById(long id);
 }

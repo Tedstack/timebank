@@ -75,11 +75,11 @@ CREATE TABLE `record` (
   `Status` varchar(50) NOT NULL COMMENT '订单状态',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='申请订单表';
-ALTER TABLE `order`
+ALTER TABLE `record`
   ADD KEY `ApplyUserID` (`ApplyUserID`),
   ADD KEY `ServiceUserID` (`ServiceUserID`),
   ADD KEY `PublishID` (`PublishID`);
-ALTER TABLE `order`
+ALTER TABLE `record`
   ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `order_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `order_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
