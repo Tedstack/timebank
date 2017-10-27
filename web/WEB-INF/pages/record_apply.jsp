@@ -29,117 +29,125 @@
 
             <%--<div class="page">--%>
 
-                <input style="display: none" type="number" name="serviceUserId" value="<%=detailEntity.getUserId()%>"/>
-                <input style="display: none" type="number" name="publishId" value="<%=detailEntity.getId()%>"/>
+            <input style="display: none" type="number" name="serviceUserId" value="<%=detailEntity.getUserId()%>"/>
+            <input style="display: none" type="number" name="publishId" value="<%=detailEntity.getId()%>"/>
 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd"><p>姓名</p></div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="applyUserName" type="text"
-                               value="<%out.print(request.getAttribute("name"));%>"/>
-                    </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd"><p>姓名</p></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" name="applyUserName" type="text"
+                           value="<%out.print(request.getAttribute("name"));%>"/>
                 </div>
+            </div>
 
 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd"><p>手机号</p></div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
-                               value="<%out.print(request.getAttribute("phone"));%>"/>
-                    </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd"><p>手机号</p></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
+                           value="<%out.print(request.getAttribute("phone"));%>"/>
                 </div>
+            </div>
 
 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd"><p>服务地址</p></div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
-                    </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd"><p>服务地址</p></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
                 </div>
+            </div>
 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd"><p>开始时间</p></div>
-                    <div class="weui-cell__bd">
-                        <input class="weui-input" name="beginTime" type="datetime-local"/>
-                    </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd"><p>开始时间</p></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" name="beginTime" type="datetime-local" value="" placeholder=""/>
                 </div>
+            </div>
 
-                <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__bd">
-                        <p>服务时间</p>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="serveTime">
-                            <option value="1">1小时</option>
-                            <option value="2">2小时</option>
-                            <option value="3">3小时</option>
-                            <option value="4">4小时</option>
-                            <option value="5">5小时</option>
-                            <option value="6">6小时</option>
-                            <option value="7">7小时</option>
-                            <option value="8">8小时</option>
-                            <option value="9">9小时</option>
-                            <option value="10">10小时</option>
-                        </select>
-                    </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__bd">
+                    <p>服务时间</p>
                 </div>
-
-                <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__bd">
-                        <p>支付方式</p>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="payWay">
-                            <%
-                                if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                    out.print("<option value='1'>志愿者币V</option>");
-                                } else {
-                                    out.print("<option value='2'>时间币C</option>");
-                                }
-                            %>
-                        </select>
-                    </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="serveTime" id="select_serveTime">
+                        <option value="1">1小时</option>
+                        <option value="2">2小时</option>
+                        <option value="3">3小时</option>
+                        <option value="4">4小时</option>
+                        <option value="5">5小时</option>
+                        <option value="6">6小时</option>
+                        <option value="7">7小时</option>
+                        <option value="8">8小时</option>
+                        <option value="9">9小时</option>
+                        <option value="10">10小时</option>
+                    </select>
                 </div>
+            </div>
 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p><%out.print(detailEntity.getServiceType());%></p>
-                    </div>
-                    <div class="weui-cell__hd"><img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png"
-                                                    alt="" style="width:20px;margin-right:5px;display:block"></div>
-                    <div class="weui-cell__ft">
-                        <%out.print(detailEntity.getServiceName());%>服务
-                    </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__bd">
+                    <p>支付方式</p>
                 </div>
-
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p>服务单价</p>
-                    </div>
-                    <div class="weui-cell__ft">
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="payWay">
                         <%
-                            out.print(detailEntity.getPrice());
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                out.print("（志愿者币V/h）");
+                                out.print("<option value='1'>志愿者币V</option>");
                             } else {
-                                out.print("（时间币C/h）");
+                                out.print("<option value='2'>时间币C</option>");
                             }
                         %>
-                    </div>
+                    </select>
                 </div>
+            </div>
 
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p>预计付费</p>
-                    </div>
-                    <div class="weui-cell__ft">
-                        12 时间币C
-                    </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p><%out.print(detailEntity.getServiceType());%></p>
                 </div>
+                <div class="weui-cell__hd"><img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png"
+                                                alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__ft">
+                    <%out.print(detailEntity.getServiceName());%>服务
+                </div>
+            </div>
 
-                <div style="padding: 10px;">
-                    <button type="submit" class="weui-btn weui-btn_primary">提交订单</button>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>服务单价</p>
                 </div>
+                <div class="weui-cell__ft">
+                    <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
+                    <span><%
+                        if (detailEntity.getServiceType().equals("志愿者服务")) {
+                            out.print("（志愿者币V/h）");
+                        } else {
+                            out.print("（时间币C/h）");
+                        }
+                    %></span>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>预计付费</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <span id="sumPrice"><%out.print(detailEntity.getPrice());%></span>
+
+                    <span><%
+                        if (detailEntity.getServiceType().equals("志愿者服务")) {
+                            out.print("（志愿者币V/h）");
+                        } else {
+                            out.print("（时间币C/h）");
+                        }
+                    %></span>
+                </div>
+            </div>
+
+            <div style="padding: 10px;">
+                <button type="submit" class="weui-btn weui-btn_primary">提交订单</button>
+            </div>
 
             <%--</div>--%>
 
@@ -155,8 +163,12 @@
 <script>
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
+        $('#select_serveTime').change(function () {
+            var sum = $(this).val() * $('#eachPrice').text();
+            $('#sumPrice').text(sum);
+            console.log($('#eachPrice').text() + " " + sum);
+            console.log($(this).val() + " " + $('#eachPrice').val());
+        });
     });
-</script>
-
-</body>
+</script></body>
 </html>
