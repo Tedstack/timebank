@@ -26,10 +26,11 @@
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <div class="swiper_box sp_con">
-            <div class="oneimg" style="background-image: url('../img/陪聊服务示例图.jpg')">
-            </div>
+        <div style="padding: 15px;">
+            <img src="../img/服务名称/<%=detail.getServiceName()%>.png" alt="">
         </div>
+
+
         <div class="topinfo border_b">
             <div class="tags tags_normal">
                 <span><%out.print(detail.getServiceName());%>服务</span>
@@ -55,7 +56,7 @@
             <div class="con_u"><%out.print(detail.getDescription());%></div>
         </div>
 
-        <div style="padding: 10px;">
+        <div style="padding: 10px; margin-bottom: 20px;">
             <a href="<%out.print("/record/apply?id="+detail.getId());%>" class="weui-btn weui-btn_primary">开始预约</a>
         </div>
 

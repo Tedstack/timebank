@@ -98,7 +98,7 @@
                 <div class="weui-cell__ft"></div>
             </a>
 
-            <div style="padding: 10px;">
+            <div style="padding: 10px; margin-bottom: 20px;">
                 <a href="/user/logout" class="weui-btn weui-btn_plain-primary">退出登录</a>
             </div>
 
