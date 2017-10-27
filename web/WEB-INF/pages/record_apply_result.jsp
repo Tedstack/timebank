@@ -10,10 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
-    <link rel="stylesheet" href="../css/weui.css"/>
-    <link rel="stylesheet" href="../css/weui-example.css"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <title>申请结果</title>
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
 

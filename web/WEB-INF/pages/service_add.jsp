@@ -10,9 +10,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>添加服务</title>
-    <link rel="stylesheet" href="../css/weui.css"/>
-    <link rel="stylesheet" href="../css/weui-example.css"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
 

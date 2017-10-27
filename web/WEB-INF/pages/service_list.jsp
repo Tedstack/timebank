@@ -10,9 +10,9 @@
 <html>
 <head>
     <title>所有的服务</title>
-    <link rel="stylesheet" href="../css/weui.css"/>
-    <link rel="stylesheet" href="../css/weui-example.css"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" >
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
 

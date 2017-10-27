@@ -21,8 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/order")
-public class OrderController {
+@RequestMapping("/record")
+public class RecordController {
 
     @Autowired
     UserService userService;

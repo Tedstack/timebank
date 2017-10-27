@@ -11,23 +11,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>服务申请</title>
-    <link rel="stylesheet" href="../css/weui.css"/>
-    <link rel="stylesheet" href="../css/weui-example.css"/>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" >>
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
+
+<%
+    ViewPublishDetailEntity detailEntity = (ViewPublishDetailEntity) request.getAttribute("detail");
+%>
 
 
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
-        <%
-            ViewPublishDetailEntity detailEntity = (ViewPublishDetailEntity) request.getAttribute("detail");
-        %>
+        <form action="/record/apply/submit" method="post">
 
-        <form action="/order/apply/submit" method="post">
-
-            <div class="page">
+            <%--<div class="page">--%>
 
                 <input style="display: none" type="number" name="serviceUserId" value="<%=detailEntity.getUserId()%>"/>
                 <input style="display: none" type="number" name="publishId" value="<%=detailEntity.getId()%>"/>
@@ -141,7 +141,7 @@
                     <button type="submit" class="weui-btn weui-btn_primary">提交订单</button>
                 </div>
 
-            </div>
+            <%--</div>--%>
 
         </form>
 
