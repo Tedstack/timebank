@@ -44,7 +44,7 @@ public class RecordController {
     }
 
     //申请服务页面
-    @RequestMapping(value = "/apply/submit", method = RequestMethod.POST)
+    @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)
     public String applySubmit(ModelMap map, @RequestParam long serviceUserId, @RequestParam long publishId, @RequestParam String applyUserName, @RequestParam String applyUserPhone, @RequestParam String address, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam int payWay) {
         try {
             RecordEntity recordEntity = new RecordEntity();

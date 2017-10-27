@@ -17,7 +17,6 @@
 </head>
 <body>
 
-
 <div class="weui-msg">
     <div class="weui-msg__icon-area">
         <%
