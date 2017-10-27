@@ -11,8 +11,9 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>服务详情</title>
-    <!-- 引入 WeUI -->
-    <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/weui.css"/>
+    <link rel="stylesheet" href="../css/weui-example.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" >
     <link href="../css/dj_base_838a930.css" rel="stylesheet" type="text/css">
     <link href="../css/dj_dc_content_f60f458.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.0.min.css">
