@@ -96,10 +96,7 @@
                     <%}%>
 
                 </div>
-                <!--此处<br>-->
-                <br>
             </div>
-            <!--此处<br>-->
 
 
                 <!--待确认-->
@@ -110,8 +107,10 @@
                         %>
                         <div class="weui-form-preview">
                             <div class="weui-form-preview__hd">
+                                <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务价格</label>
                                 <em class="weui-form-preview__value">时间币：<%out.print(secondList2.get(i).getPrice());%></em>
+                                </div>
                             </div>
                             <div class="weui-form-preview__bd">
                                 <div class="weui-form-preview__item">
@@ -143,11 +142,8 @@
                             </div>
                         </div>
                         </div>
-
                         <%}%>
                     </div>
-                    <br>
-                </div>
 
                 <!--待服务-->
                 <div class="weui-panel__bd"id="unfinished" style="display:none">
@@ -187,10 +183,8 @@
                                 <!--跳转到二维码接口-->
                             </div>
                         </div>
-
                         <%}%>
                     </div>
-                    <br>
                 </div>
                 <!--待支付-->
                 <div class="weui-panel__bd"id="unpaid"  style="display:none">
@@ -231,7 +225,6 @@
                         </div>
 
                         <%}%>
-                        <br>
                     </div>
                 </div>
                 <!--已完成-->
@@ -282,12 +275,10 @@
                         </div>
 
                         <%}%>
-                        <br>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" class="navbar js_show">
