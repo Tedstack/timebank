@@ -47,7 +47,7 @@
                     待服务
                 </div>
                 <div class="weui-navbar__item"id="navbar4">
-                    待支付
+                    待收款
                 </div>
                 <div class="weui-navbar__item"id="navbar5">
                     已完成
@@ -138,9 +138,10 @@
                                 </a>
                             </div>
                             <div class="weui-form-preview__ft">
-                                <a class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">拒绝</a>
-                                <button type="submit" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">接受</button>
+                                <a class="weui-form-preview__btn weui-form-preview__btn_default" href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+secondList1.get(i).getId());%>" >拒绝</a>
+                                <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+secondList1.get(i).getId());%>">接受</a>
                             </div>
+                        </div>
                         </div>
 
                         <%}%>
@@ -247,6 +248,10 @@
                                 </div>
                             </div>
                             <div class="weui-form-preview__bd">
+                                <div class="weui-form-preview__item">
+                                    <label class="weui-form-preview__label">订单号</label>
+                                    <span class="weui-form-preview__value"><%out.print(fifthList1.get(i).getId());%></span>
+                                </div>
                                 <div class="weui-form-preview__item">
                                     <label class="weui-form-preview__label">服务实收款</label>
                                     <span class="weui-form-preview__value"><%out.print(fifthList1.get(i).getPayMoney());%></span>

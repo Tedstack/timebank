@@ -24,4 +24,12 @@ public class RecordServiceImpl implements RecordService {
     public List<RecordEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status) {
         return recordDao.findRecordEntitiesByServiceUserIdAndStatus(serviceUserID,status);
     }
+
+    public RecordEntity updateRecordEntity(RecordEntity recordEntity) {
+        return recordDao.save(recordEntity);
+    }
+
+    public RecordEntity findRecordEntityById(long ID) {
+        return recordDao.findRecordEntityById(ID);
+    }
 }

@@ -1,9 +1,12 @@
 package com.blockchain.timebank.controller;
 
 
+import com.blockchain.timebank.dao.RecordDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
+import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.RecordEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,10 @@ public class RecordController {
 
     @Autowired
     ViewPublishDetailDao viewPublishDetailDao;
+
+    @Autowired
+    PublishService publishService;
+
 
     //申请服务页面
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
@@ -66,6 +73,29 @@ public class RecordController {
             map.addAttribute("msg","error");
         }
         return "record_apply_result";
+    }
+
+    //服务者处理订单
+    @RequestMapping(value = "/handleApplicantRecord", method = RequestMethod.GET)
+    public String handleApplicantRecord(ModelMap map,@RequestParam long recordID,@RequestParam String handle){
+        RecordEntity recordEntity = recordService.findRecordEntityById(recordID);
+        if(handle.equals("refuse")){
+            recordEntity.setStatus("已拒绝");
+            recordService.updateRecordEntity(recordEntity);
+        }
+
+        if(handle.equals("confirm")){
+            recordEntity.setStatus("待服务");
+            recordService.updateRecordEntity(recordEntity);
+        }
+
+        UserEntity userEntity = userService.findUserEntityById(recordEntity.getApplyUserId());
+        PublishEntity publishEntity = publishService.findPublishEntityById(recordEntity.getPublishId());
+        map.addAttribute("userEntity",userEntity);
+        map.addAttribute("publishEntity",publishEntity);
+        map.addAttribute("recordEntity",recordEntity);
+
+        return "takendetails";
     }
 
     public UserEntity getCurrentUser() {
