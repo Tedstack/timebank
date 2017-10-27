@@ -45,22 +45,22 @@
                 <div class="weui-cells searchbar-result" id="searchResult" style="display: none;">
                     <div class="weui-cell weui-cell_access">
                         <div class="weui-cell__bd weui-cell_primary">
-                            <p>实时搜索文本</p>
+                            <p>互助服务</p>
                         </div>
                     </div>
                     <div class="weui-cell weui-cell_access">
                         <div class="weui-cell__bd weui-cell_primary">
-                            <p>实时搜索文本</p>
+                            <p>志愿者服务</p>
                         </div>
                     </div>
                     <div class="weui-cell weui-cell_access">
                         <div class="weui-cell__bd weui-cell_primary">
-                            <p>实时搜索文本</p>
+                            <p>专业服务</p>
                         </div>
                     </div>
                     <div class="weui-cell weui-cell_access">
                         <div class="weui-cell__bd weui-cell_primary">
-                            <p>实时搜索文本</p>
+                            <p>社区O2O服务</p>
                         </div>
                     </div>
                 </div>

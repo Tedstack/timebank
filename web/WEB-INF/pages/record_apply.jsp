@@ -33,7 +33,7 @@
                 <input style="display: none" type="number" name="publishId" value="<%=detailEntity.getId()%>"/>
 
                 <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                    <div class="weui-cell__bd"><p>姓名</p></div>
                     <div class="weui-cell__bd">
                         <input class="weui-input" name="applyUserName" type="text"
                                value="<%out.print(request.getAttribute("name"));%>"/>
@@ -42,7 +42,7 @@
 
 
                 <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+                    <div class="weui-cell__bd"><p>手机号</p></div>
                     <div class="weui-cell__bd">
                         <input class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
                                value="<%out.print(request.getAttribute("phone"));%>"/>
@@ -51,22 +51,22 @@
 
 
                 <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label">服务地址</label></div>
+                    <div class="weui-cell__bd"><p>服务地址</p></div>
                     <div class="weui-cell__bd">
                         <input class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
                     </div>
                 </div>
 
                 <div class="weui-cell">
-                    <div class="weui-cell__hd"><label for="" class="weui-label">开始时间</label></div>
+                    <div class="weui-cell__bd"><p>开始时间</p></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="beginTime" type="datetime-local" value="" placeholder=""/>
+                        <input class="weui-input" name="beginTime" type="datetime-local"/>
                     </div>
                 </div>
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__hd">
-                        <label for="" class="weui-label">服务时间</label>
+                    <div class="weui-cell__bd">
+                        <p>服务时间</p>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="serveTime">
@@ -85,8 +85,8 @@
                 </div>
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__hd">
-                        <label for="" class="weui-label">支付方式</label>
+                    <div class="weui-cell__bd">
+                        <p>支付方式</p>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="payWay">
