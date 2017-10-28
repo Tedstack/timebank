@@ -1,13 +1,11 @@
 package com.blockchain.timebank.controller;
 
-import com.blockchain.timebank.entity.PublishEntity;
-import com.blockchain.timebank.entity.ServiceEntity;
-import com.blockchain.timebank.entity.RecordEntity;
-import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -113,7 +111,7 @@ public class UserController {
         }
 
         //第二个list
-        List<RecordEntity> secondList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),"已申请");
+        List<RecordEntity> secondList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
         List<PublishEntity> secondList2 = new ArrayList<PublishEntity>();
         List<UserEntity> secondList3 = new ArrayList<UserEntity>();
 
@@ -126,7 +124,7 @@ public class UserController {
         }
 
         //第三个list
-        List<RecordEntity> thirdList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),"待服务");
+        List<RecordEntity> thirdList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.waitingService);
         List<UserEntity> thirdList2 = new ArrayList<UserEntity>();
 
         for(int i=0;i<thirdList1.size();i++){
@@ -135,7 +133,7 @@ public class UserController {
         }
 
         //第四个list
-        List<RecordEntity> fourthList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),"待支付");
+        List<RecordEntity> fourthList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.waitingPay);
         List<UserEntity> fourthList2 = new ArrayList<UserEntity>();
 
         for(int i=0;i<fourthList1.size();i++){
@@ -144,8 +142,8 @@ public class UserController {
         }
 
         //第五个list
-        List<RecordEntity> fifthList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),"已完成");
-        List<RecordEntity> fifthList2 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),"已拒绝");
+        List<RecordEntity> fifthList1 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<RecordEntity> fifthList2 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyRefuse);
         fifthList1.addAll(fifthList2);
         List<UserEntity> fifthList3 = new ArrayList<UserEntity>();
 
