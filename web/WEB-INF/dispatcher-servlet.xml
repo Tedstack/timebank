@@ -18,5 +18,6 @@
     </bean>
 
     <mvc:annotation-driven />
-    <mvc:resources mapping="/**" location="/WEB-INF/" cache-period="31556926"/>
+    <mvc:resources mapping="/**" location="/WEB-INF/" cache-period="86400"/>
+    <!--缓存一天-->
 </beans>

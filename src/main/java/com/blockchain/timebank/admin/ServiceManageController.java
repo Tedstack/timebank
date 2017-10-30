@@ -21,6 +21,6 @@ public class ServiceManageController {
     public String serviceListPage(ModelMap map) {
         List<ServiceEntity> list_service = serviceService.findAllServiceEntity();
         map.addAttribute("list_service", list_service);
-        return "../admin/service_manage";
+        return "../admin/service_list";
     }
 }

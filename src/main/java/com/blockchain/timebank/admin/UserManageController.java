@@ -21,7 +21,17 @@ public class UserManageController {
     public String userListPage(ModelMap map) {
         List<UserEntity> list_user = userService.findAll();
         map.addAttribute("list_user", list_user);
-        return "../admin/user_manage";
+        return "../admin/user_list";
     }
 
+    @RequestMapping(value = "/userAdd", method = RequestMethod.GET)
+    public String userAddPage(ModelMap map) {
+        return "../admin/user_add";
+    }
+
+
+    @RequestMapping(value = "/userAddMany", method = RequestMethod.GET)
+    public String userAddManyPage(ModelMap map) {
+        return "../admin/user_add_many";
+    }
 }

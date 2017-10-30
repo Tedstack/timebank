@@ -15,88 +15,138 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/admin/index">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" href="charts.html">
-                    <i class="fa fa-fw fa-area-chart"></i>
-                    <span class="nav-link-text">Charts</span>
-                </a>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" href="tables.html">
-                    <i class="fa fa-fw fa-table"></i>
-                    <span class="nav-link-text">Tables</span>
-                </a>
-            </li>
+
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-wrench"></i>
-                    <span class="nav-link-text">Components</span>
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUser" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span class="nav-link-text">用户管理</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                <ul class="sidenav-second-level collapse" id="collapseUser">
                     <li>
-                        <a href="navbar.html">Navbar</a>
+                        <a href="/admin/userList">用户列表</a>
                     </li>
                     <li>
-                        <a href="cards.html">Cards</a>
+                        <a href="/admin/userAdd">添加用户</a>
+                    </li>
+                    <li>
+                        <a href="/admin/userAddMany">批量导入</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-file"></i>
-                    <span class="nav-link-text">Example Pages</span>
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseService" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-cutlery"></i>
+                    <span class="nav-link-text">服务种类管理</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                <ul class="sidenav-second-level collapse" id="collapseService">
                     <li>
-                        <a href="login.html">Login Page</a>
+                        <a href="/admin/serviceList">服务种类列表</a>
                     </li>
                     <li>
-                        <a href="register.html">Registration Page</a>
-                    </li>
-                    <li>
-                        <a href="forgot-password.html">Forgot Password Page</a>
-                    </li>
-                    <li>
-                        <a href="blank.html">Blank Page</a>
+                        <a href="">添加服务</a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-sitemap"></i>
-                    <span class="nav-link-text">Menu Levels</span>
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRecord" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-calendar-check-o"></i>
+                    <span class="nav-link-text">订单管理</span>
                 </a>
-                <ul class="sidenav-second-level collapse" id="collapseMulti">
+                <ul class="sidenav-second-level collapse" id="collapseRecord">
                     <li>
-                        <a href="#">Second Level Item</a>
+                        <a href="">订单列表</a>
                     </li>
                     <li>
-                        <a href="#">Second Level Item</a>
-                    </li>
-                    <li>
-                        <a href="#">Second Level Item</a>
-                    </li>
-                    <li>
-                        <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
-                        <ul class="sidenav-third-level collapse" id="collapseMulti2">
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Third Level Item</a>
-                            </li>
-                        </ul>
+                        <a href="">帮助预约</a>
                     </li>
                 </ul>
             </li>
+
+
+            <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">--%>
+                <%--<a class="nav-link" href="charts.html">--%>
+                    <%--<i class="fa fa-fw fa-area-chart"></i>--%>
+                    <%--<span class="nav-link-text">Charts</span>--%>
+                <%--</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">--%>
+                <%--<a class="nav-link" href="tables.html">--%>
+                    <%--<i class="fa fa-fw fa-table"></i>--%>
+                    <%--<span class="nav-link-text">Tables</span>--%>
+                <%--</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">--%>
+                <%--<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">--%>
+                    <%--<i class="fa fa-fw fa-wrench"></i>--%>
+                    <%--<span class="nav-link-text">Components</span>--%>
+                <%--</a>--%>
+                <%--<ul class="sidenav-second-level collapse" id="collapseComponents">--%>
+                    <%--<li>--%>
+                        <%--<a href="navbar.html">Navbar</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a href="cards.html">Cards</a>--%>
+                    <%--</li>--%>
+                <%--</ul>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">--%>
+                <%--<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">--%>
+                    <%--<i class="fa fa-fw fa-file"></i>--%>
+                    <%--<span class="nav-link-text">Example Pages</span>--%>
+                <%--</a>--%>
+                <%--<ul class="sidenav-second-level collapse" id="collapseExamplePages">--%>
+                    <%--<li>--%>
+                        <%--<a href="login.html">Login Page</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a href="register.html">Registration Page</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a href="forgot-password.html">Forgot Password Page</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a href="blank.html">Blank Page</a>--%>
+                    <%--</li>--%>
+                <%--</ul>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">--%>
+                <%--<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">--%>
+                    <%--<i class="fa fa-fw fa-sitemap"></i>--%>
+                    <%--<span class="nav-link-text">Menu Levels</span>--%>
+                <%--</a>--%>
+                <%--<ul class="sidenav-second-level collapse" id="collapseMulti">--%>
+                    <%--<li>--%>
+                        <%--<a href="#">Second Level Item</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a href="#">Second Level Item</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a href="#">Second Level Item</a>--%>
+                    <%--</li>--%>
+                    <%--<li>--%>
+                        <%--<a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>--%>
+                        <%--<ul class="sidenav-third-level collapse" id="collapseMulti2">--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Third Level Item</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Third Level Item</a>--%>
+                            <%--</li>--%>
+                            <%--<li>--%>
+                                <%--<a href="#">Third Level Item</a>--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
+                    <%--</li>--%>
+                <%--</ul>--%>
+            <%--</li>--%>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
                 <a class="nav-link" href="#">
                     <i class="fa fa-fw fa-link"></i>
