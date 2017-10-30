@@ -1,9 +1,12 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.UserDao;
+import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +37,11 @@ public class UserServiceImpl implements UserService {
 
     public void deleteById(Long id) {
         userDao.delete(id);
+    }
+
+
+    public List<UserEntity> findAll(){
+        return (List<UserEntity>)userDao.findAll();
     }
 
 }

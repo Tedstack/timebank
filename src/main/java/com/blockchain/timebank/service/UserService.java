@@ -2,6 +2,8 @@ package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.entity.UserEntity;
 
+import java.util.List;
+
 public interface UserService {
 
     UserEntity saveUserEntity(UserEntity userEntity);
@@ -15,4 +17,6 @@ public interface UserService {
     UserEntity updateUserEntity(UserEntity userEntity);
 
     void deleteById(Long id);
+
+    List<UserEntity> findAll();
 }
