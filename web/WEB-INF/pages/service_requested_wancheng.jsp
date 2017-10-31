@@ -20,7 +20,7 @@
     List<ServiceEntity> serviceList = (List<ServiceEntity>) request.getAttribute("serviceList");
     List<UserEntity> serviceUserList = (List<UserEntity>) request.getAttribute("serviceUserList");
 %>
-%>
+
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
