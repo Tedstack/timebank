@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -39,49 +41,63 @@
             <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">服务种类列表</li>
+            <li class="breadcrumb-item active">已发布服务列表</li>
         </ol>
         <!-- Example DataTables Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 服务种类表
+                <i class="fa fa-table"></i> 服务发布表
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
+                            <th>ID</th>
+                            <th>发布人姓名</th>
+                            <th>发布人手机号</th>
                             <th>服务类型</th>
                             <th>服务名称</th>
-                            <th>服务推荐价格</th>
-                            <th>服务价格更新时间</th>
-                            <th>图标</th>
+                            <th>具体描述</th>
+                            <th>发布价格</th>
+                            <th>服务的范围</th>
+                            <th>生效时间</th>
+                            <th>失效时间</th>
                         </tr>
                         </thead>
                         <%--<tfoot>--%>
                         <%--<tr>--%>
-                            <%--<th>Name</th>--%>
-                            <%--<th>Position</th>--%>
-                            <%--<th>Office</th>--%>
-                            <%--<th>Age</th>--%>
-                            <%--<th>Start date</th>--%>
-                            <%--<th>Salary</th>--%>
+                        <%--<th>Name</th>--%>
+                        <%--<th>Position</th>--%>
+                        <%--<th>Office</th>--%>
+                        <%--<th>Age</th>--%>
+                        <%--<th>Start date</th>--%>
+                        <%--<th>Salary</th>--%>
                         <%--</tr>--%>
                         <%--</tfoot>--%>
                         <tbody>
 
 
                         <%
-                            List<ServiceEntity> list_service = (List<ServiceEntity>) request.getAttribute("list_service");
-                            for (ServiceEntity serviceEntity : list_service) {
+                            List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) request.getAttribute("list");
+                            for (ViewPublishDetailEntity detailEntity : list) {
                         %>
-                                <tr>
-                                    <td><%=serviceEntity.getType()%></td>
-                                    <td><%=serviceEntity.getName()%></td>
-                                    <td><%=serviceEntity.getPrice()%></td>
-                                    <td><%=serviceEntity.getUpdateTime()%></td>
-                                    <td><img src="../img/服务名称/<%=serviceEntity.getName()%>.png" height="25px"></td>
-                                </tr>
+                        <tr>
+                            <td><%=detailEntity.getId()%></td>
+                            <td><%=detailEntity.getUserName()%></td>
+                            <td><%=detailEntity.getUserPhone()%></td>
+                            <td><%=detailEntity.getServiceType()%></td>
+                            <td>
+                                <span><img src="../img/服务名称/<%=detailEntity.getServiceName()%>.png" height="25px"></span>
+                                &nbsp;<%=detailEntity.getServiceName()%>
+                            </td>
+                            <td><a href="">查看</a></td>
+                            <td><%=detailEntity.getPrice()%></td>
+                            <td><%=detailEntity.getAddress()%></td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getBeginDate()));%></td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getEndDate()));%></td>
+                            <%--<td></td>--%>
+                        </tr>
                         <%
                             }
                         %>

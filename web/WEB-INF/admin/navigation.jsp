@@ -31,6 +31,9 @@
                         <a href="/admin/userList">用户列表</a>
                     </li>
                     <li>
+                        <a href="">审核认证</a>
+                    </li>
+                    <li>
                         <a href="/admin/userAdd">添加用户</a>
                     </li>
                     <li>
@@ -41,7 +44,7 @@
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseService" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-cutlery"></i>
+                    <i class="fa fa-fw fa-gratipay"></i>
                     <span class="nav-link-text">服务种类管理</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseService">
@@ -49,7 +52,22 @@
                         <a href="/admin/serviceList">服务种类列表</a>
                     </li>
                     <li>
-                        <a href="">添加服务</a>
+                        <a href="">添加服务种类</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePublish" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                    <span class="nav-link-text">服务发布管理</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapsePublish">
+                    <li>
+                        <a href="/admin/publishList">已发布服务列表</a>
+                    </li>
+                    <li>
+                        <a href="">后台发布服务</a>
                     </li>
                 </ul>
             </li>
@@ -61,7 +79,7 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseRecord">
                     <li>
-                        <a href="">订单列表</a>
+                        <a href="/admin/recordList">订单列表</a>
                     </li>
                     <li>
                         <a href="">帮助预约</a>

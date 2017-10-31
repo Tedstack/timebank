@@ -7,6 +7,11 @@ CREATE TABLE `user` (
   `TimeCoin` double NOT NULL COMMENT '时间币余额',
   `TimeVol` double NOT NULL COMMENT '志愿者时间余额',
   `RegisterDate` date NULL COMMENT '注册时间',
+  `IDCard` varchar(20) NULL COMMENT '身份证号码',
+  `Sex` VARCHAR(10) NULL COMMENT '性别',
+  `Birth` VARCHAR(20) NULL COMMENT '出生年月日',
+  `QRCode` VARCHAR(20) NULL COMMENT '二维码',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
 ALTER TABLE `user`
@@ -19,6 +24,7 @@ CREATE TABLE `service` (
   `Name` varchar(45)  NOT NULL COMMENT '服务名称',
   `Price` double NOT NULL COMMENT '服务的参考价（时间元）',
   `UpdateTime` datetime NULL COMMENT '价格更新表时间',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='服务种类表';
 
@@ -29,6 +35,7 @@ CREATE TABLE `timeaccount` (
   `UserID` bigint(20) NOT NULL COMMENT '用户ID',
   `ServiceID` bigint(20) NOT NULL COMMENT '服务种类ID',
   `TimeAccount` double NOT NULL COMMENT '服务对应的时间元',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='时间元表';
 ALTER TABLE `timeaccount`
@@ -48,6 +55,7 @@ CREATE TABLE `publish` (
   `Address` varchar(100) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
   `BeginDate` datetime NOT NULL COMMENT '服务起始日期',
   `EndDate` datetime NOT NULL COMMENT '服务结束日期',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='发布服务表';
 ALTER TABLE `publish`
@@ -73,6 +81,7 @@ CREATE TABLE `record` (
   `ActualEndTime` datetime NULL COMMENT '实际结束时间',
   `PayMoney` double NULL COMMENT '实际支付金额',
   `Status` varchar(50) NOT NULL COMMENT '订单状态',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='申请订单表';
 ALTER TABLE `record`
@@ -85,11 +94,30 @@ ALTER TABLE `record`
   ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
 
 
-# 显示已发布的服务信息视图
+# 显示已发布的服务详细信息视图
 CREATE VIEW view_publish_detail
-  as select publish.ID AS ID, publish.ServiceID as ServiceID, user.ID AS UserID,
-            publish.Price AS Price, publish.Description AS Description,
-            publish.Address AS Address, publish.BeginDate AS BeginDate, publish.EndDate AS EndDate,
-            Service.Type as ServiceType, Service.Name AS ServiceName, user.Name AS UserName
-     FROM publish,user,service
-     WHERE publish.UserID =user.ID and publish.ServiceID=service.ID;
+  AS
+    SELECT
+      publish.ID          AS ID,
+      publish.ServiceID   AS ServiceID,
+      user.ID             AS UserID,
+      publish.Price       AS Price,
+      publish.Description AS Description,
+      publish.Address     AS Address,
+      publish.BeginDate   AS BeginDate,
+      publish.EndDate     AS EndDate,
+      Service.Type        AS ServiceType,
+      Service.Name        AS ServiceName,
+      user.Name           AS UserName,
+      user.Phone          AS UserPhone
+    FROM publish, user, service
+    WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;
+
+#显示已生成的RECORD的详细信息
+# CREATE VIEW view_record_detail
+#   AS
+#     SELECT
+#       record.ApplyUserID    AS ApplyUserID,
+#       record.ApplyUserName  AS ApplyUserName,
+#       record.ApplyUserPhone AS ApplyUserPhone,
+#       record.

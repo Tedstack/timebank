@@ -17,6 +17,7 @@ public class ViewPublishDetailEntity {
     private String serviceType;
     private String serviceName;
     private String userName;
+    private String userPhone;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -128,6 +129,16 @@ public class ViewPublishDetailEntity {
         this.userName = userName;
     }
 
+    @Basic
+    @Column(name = "UserPhone", nullable = false, length = 20)
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -146,6 +157,7 @@ public class ViewPublishDetailEntity {
         if (serviceType != null ? !serviceType.equals(that.serviceType) : that.serviceType != null) return false;
         if (serviceName != null ? !serviceName.equals(that.serviceName) : that.serviceName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
+        if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
 
         return true;
     }
@@ -166,6 +178,7 @@ public class ViewPublishDetailEntity {
         result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
         return result;
     }
 }

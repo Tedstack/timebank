@@ -13,6 +13,11 @@ public class UserEntity {
     private double timeCoin;
     private double timeVol;
     private Date registerDate;
+    private String idCard;
+    private String sex;
+    private String birth;
+    private String qrCode;
+    private String extra;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -84,6 +89,56 @@ public class UserEntity {
         this.registerDate = registerDate;
     }
 
+    @Basic
+    @Column(name = "IDCard", nullable = true, length = 20)
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    @Basic
+    @Column(name = "Sex", nullable = true, length = 10)
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @Basic
+    @Column(name = "Birth", nullable = true, length = 20)
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    @Basic
+    @Column(name = "QRCode", nullable = true, length = 20)
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    @Basic
+    @Column(name = "Extra", nullable = true, length = 50)
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,6 +153,11 @@ public class UserEntity {
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (registerDate != null ? !registerDate.equals(that.registerDate) : that.registerDate != null) return false;
+        if (idCard != null ? !idCard.equals(that.idCard) : that.idCard != null) return false;
+        if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
+        if (birth != null ? !birth.equals(that.birth) : that.birth != null) return false;
+        if (qrCode != null ? !qrCode.equals(that.qrCode) : that.qrCode != null) return false;
+        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
     }
@@ -115,6 +175,11 @@ public class UserEntity {
         temp = Double.doubleToLongBits(timeVol);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (registerDate != null ? registerDate.hashCode() : 0);
+        result = 31 * result + (idCard != null ? idCard.hashCode() : 0);
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
+        result = 31 * result + (birth != null ? birth.hashCode() : 0);
+        result = 31 * result + (qrCode != null ? qrCode.hashCode() : 0);
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 }

@@ -65,7 +65,6 @@ public class PublishController {
     //服务详细列表
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public String detailPage(ModelMap map, @RequestParam long id) {
-        //System.out.println(id);
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
         return "publish_detail";

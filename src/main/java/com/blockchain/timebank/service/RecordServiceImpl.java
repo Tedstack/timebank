@@ -13,6 +13,10 @@ public class RecordServiceImpl implements RecordService {
     @Autowired
     RecordDao recordDao;
 
+    public List<RecordEntity> findAll() {
+        return (List<RecordEntity>)recordDao.findAll();
+    }
+
     public RecordEntity saveRecordEntity(RecordEntity recordEntity) {
         return recordDao.save(recordEntity);
     }

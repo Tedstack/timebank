@@ -20,6 +20,7 @@ public class RecordEntity {
     private Timestamp actualEndTime;
     private Double payMoney;
     private String status;
+    private String extra;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -161,6 +162,16 @@ public class RecordEntity {
         this.status = status;
     }
 
+    @Basic
+    @Column(name = "Extra", nullable = true, length = 50)
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -186,6 +197,7 @@ public class RecordEntity {
             return false;
         if (payMoney != null ? !payMoney.equals(that.payMoney) : that.payMoney != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
     }
@@ -206,6 +218,7 @@ public class RecordEntity {
         result = 31 * result + (actualEndTime != null ? actualEndTime.hashCode() : 0);
         result = 31 * result + (payMoney != null ? payMoney.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 }

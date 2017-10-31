@@ -14,6 +14,7 @@ public class PublishEntity {
     private String address;
     private Timestamp beginDate;
     private Timestamp endDate;
+    private String extra;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -95,6 +96,16 @@ public class PublishEntity {
         this.endDate = endDate;
     }
 
+    @Basic
+    @Column(name = "Extra", nullable = true, length = 50)
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +121,7 @@ public class PublishEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
     }
@@ -127,6 +139,7 @@ public class PublishEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 }

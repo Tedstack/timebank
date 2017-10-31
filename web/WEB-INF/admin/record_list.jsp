@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
+<%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -60,28 +61,28 @@
                         </thead>
                         <%--<tfoot>--%>
                         <%--<tr>--%>
-                            <%--<th>Name</th>--%>
-                            <%--<th>Position</th>--%>
-                            <%--<th>Office</th>--%>
-                            <%--<th>Age</th>--%>
-                            <%--<th>Start date</th>--%>
-                            <%--<th>Salary</th>--%>
+                        <%--<th>Name</th>--%>
+                        <%--<th>Position</th>--%>
+                        <%--<th>Office</th>--%>
+                        <%--<th>Age</th>--%>
+                        <%--<th>Start date</th>--%>
+                        <%--<th>Salary</th>--%>
                         <%--</tr>--%>
                         <%--</tfoot>--%>
                         <tbody>
 
 
                         <%
-                            List<ServiceEntity> list_service = (List<ServiceEntity>) request.getAttribute("list_service");
+                            List<ServiceEntity> list_service = new ArrayList<>();
                             for (ServiceEntity serviceEntity : list_service) {
                         %>
-                                <tr>
-                                    <td><%=serviceEntity.getType()%></td>
-                                    <td><%=serviceEntity.getName()%></td>
-                                    <td><%=serviceEntity.getPrice()%></td>
-                                    <td><%=serviceEntity.getUpdateTime()%></td>
-                                    <td><img src="../img/服务名称/<%=serviceEntity.getName()%>.png" height="25px"></td>
-                                </tr>
+                        <tr>
+                            <td><%=serviceEntity.getType()%></td>
+                            <td><%=serviceEntity.getName()%></td>
+                            <td><%=serviceEntity.getPrice()%></td>
+                            <td><%=serviceEntity.getUpdateTime()%></td>
+                            <td><img src="../img/服务名称/<%=serviceEntity.getName()%>.png" height="40px"></td>
+                        </tr>
                         <%
                             }
                         %>

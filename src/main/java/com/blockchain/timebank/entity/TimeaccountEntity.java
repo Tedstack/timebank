@@ -9,6 +9,7 @@ public class TimeaccountEntity {
     private long userId;
     private long serviceId;
     private double timeAccount;
+    private String extra;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -50,6 +51,16 @@ public class TimeaccountEntity {
         this.timeAccount = timeAccount;
     }
 
+    @Basic
+    @Column(name = "Extra", nullable = true, length = 50)
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,6 +72,7 @@ public class TimeaccountEntity {
         if (userId != that.userId) return false;
         if (serviceId != that.serviceId) return false;
         if (Double.compare(that.timeAccount, timeAccount) != 0) return false;
+        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
     }
@@ -74,6 +86,7 @@ public class TimeaccountEntity {
         result = 31 * result + (int) (serviceId ^ (serviceId >>> 32));
         temp = Double.doubleToLongBits(timeAccount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 }

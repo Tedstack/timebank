@@ -11,6 +11,7 @@ public class ServiceEntity {
     private String name;
     private double price;
     private Timestamp updateTime;
+    private String extra;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -62,6 +63,16 @@ public class ServiceEntity {
         this.updateTime = updateTime;
     }
 
+    @Basic
+    @Column(name = "Extra", nullable = true, length = 50)
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,6 +85,7 @@ public class ServiceEntity {
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
+        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
     }
@@ -88,6 +100,7 @@ public class ServiceEntity {
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 }

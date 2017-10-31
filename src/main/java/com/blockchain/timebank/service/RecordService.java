@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface RecordService {
 
+    public List<RecordEntity> findAll();
+
     public RecordEntity saveRecordEntity(RecordEntity recordEntity);
 
     public List<RecordEntity> findByApplyUserId(long ID);
