@@ -98,7 +98,7 @@ public class UserController {
         }
     }
 
-    //查询所有的发布服务的接口
+    //查询用户所有的发布服务的接口
     @RequestMapping(value="/queryPublish",method = RequestMethod.GET)
     public String queryPublish(ModelMap map){
         //第一个list
@@ -170,12 +170,200 @@ public class UserController {
         return "service_posted_all";
     }
 
-    //查询申请者申请订单的接口
-    @RequestMapping(value = "/queryOrder",method = RequestMethod.GET)
-    public String queryOrder(ModelMap map){
-        List<RecordEntity> list = recordService.findByApplyUserId(0);
-        map.addAttribute("list", list);
-        return "service_requested_all";
+    /**
+     * 查询用户作为服务者 发布的服务
+     * @param map
+     * @return
+     */
+    //查询用户发布服务的接口：已发布
+    @RequestMapping(value = "/queryPublishAlreadyPublish",method = RequestMethod.GET)
+    public String queryPublishAlreadyPublish(ModelMap map){
+        List<PublishEntity> publishList = publishService.findByUserID(getCurrentUser().getId());
+        List<ServiceEntity> serviceList = new ArrayList<ServiceEntity>();
+
+        for(int i=0;i<publishList.size();i++){
+            ServiceEntity serviceEntity = serviceService.findById(publishList.get(i).getServiceId());
+            serviceList.add(serviceEntity);
+        }
+
+        map.addAttribute("publishList", publishList);
+        map.addAttribute("serviceList", serviceList);
+        return "service_posted_fabu";
+    }
+
+    //查询用户发布服务的接口：待确认
+    @RequestMapping(value = "/queryPublishWaitingConfirm",method = RequestMethod.GET)
+    public String queryPublishWaitingConfirm(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
+        List<PublishEntity> publishList = new ArrayList<PublishEntity>();
+        List<UserEntity> applyUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            PublishEntity publishEntity = publishService.findPublishEntityById(recordList.get(i).getPublishId());
+            publishList.add(publishEntity);
+
+            UserEntity userEntity = userService.findUserEntityById(recordList.get(i).getApplyUserId());
+            applyUserList.add(userEntity);
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("publishList", publishList);
+        map.addAttribute("applyUserList", applyUserList);
+        return "service_posted_queren";
+    }
+
+    //查询用户发布服务的接口：待服务
+    @RequestMapping(value = "/queryPublishWaitingService",method = RequestMethod.GET)
+    public String queryPublishWaitingService(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.waitingService);
+        List<UserEntity> applyUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            UserEntity userEntity = userService.findUserEntityById(recordList.get(i).getApplyUserId());
+            applyUserList.add(userEntity);
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("applyUserList", applyUserList);
+        return "service_posted_fuwu";
+    }
+
+    //查询用户发布服务的接口：待收款
+    @RequestMapping(value = "/queryPublishWaitingCollect",method = RequestMethod.GET)
+    public String queryPublishWaitingCollect(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.waitingPay);
+        List<UserEntity> applyUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            UserEntity userEntity = userService.findUserEntityById(recordList.get(i).getApplyUserId());
+            applyUserList.add(userEntity);
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("applyUserList", applyUserList);
+        return "service_posted_zhifu";
+    }
+
+    //查询用户发布服务的接口：已完成
+    @RequestMapping(value = "/queryPublishAlreadyComplete",method = RequestMethod.GET)
+    public String queryPublishAlreadyComplete(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<RecordEntity> recordList2 = recordService.findRecordEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyRefuse);
+        recordList.addAll(recordList2);
+        List<UserEntity> applyUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            UserEntity userEntity = userService.findUserEntityById(recordList.get(i).getApplyUserId());
+            applyUserList.add(userEntity);
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("applyUserList", applyUserList);
+
+        return "service_posted_wancheng";
+    }
+
+    /**
+     * 查村用户作为申请者 申请的订单
+     * @param map
+     * @return
+     */
+    //查询用户申请订单的接口：已申请
+    @RequestMapping(value = "/queryOrderAlreadyApply",method = RequestMethod.GET)
+    public String queryAlreadyApplyOrder(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyApply);
+        List<PublishEntity> publishList = new ArrayList<PublishEntity>();
+        List<ServiceEntity> serviceList = new ArrayList<ServiceEntity>();
+        List<UserEntity> serviceUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            PublishEntity publishEntity = publishService.findPublishEntityById(recordList.get(i).getPublishId());
+            publishList.add(publishEntity);
+
+            ServiceEntity serviceEntity = serviceService.findById(publishEntity.getServiceId());
+            serviceList.add(serviceEntity);
+
+            UserEntity serviceUserEntity = userService.findUserEntityById(recordList.get(i).getServiceUserId());
+            serviceUserList.add(serviceUserEntity);
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("publishList", publishList);
+        map.addAttribute("serviceList", serviceList);
+        map.addAttribute("serviceUserList", serviceUserList);
+        return "service_requested_yuyue";
+    }
+
+    //查询用户申请订单的接口：待上门
+    @RequestMapping(value = "/queryOrderWaitingService",method = RequestMethod.GET)
+    public String queryWaitingServiceOrder(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.waitingService);
+        List<PublishEntity> publishList = new ArrayList<PublishEntity>();
+        List<ServiceEntity> serviceList = new ArrayList<ServiceEntity>();
+        List<UserEntity> serviceUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            PublishEntity publishEntity = publishService.findPublishEntityById(recordList.get(i).getPublishId());
+            publishList.add(publishEntity);
+
+            UserEntity serviceUser = userService.findUserEntityById(recordList.get(i).getServiceUserId());
+            serviceUserList.add(serviceUser);
+
+            ServiceEntity serviceEntity = serviceService.findById(publishEntity.getServiceId());
+            serviceList.add(serviceEntity);
+
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("publishList", publishList);
+        map.addAttribute("serviceList", serviceList);
+        map.addAttribute("serviceUserList", serviceUserList);
+        return "service_requested_shangmen";
+    }
+
+    //查询用户申请订单的接口：待付款
+    @RequestMapping(value = "/queryOrderWaitingPay",method = RequestMethod.GET)
+    public String queryWaitingPayOrder(ModelMap map){
+        List<RecordEntity> recordList = recordService.findRecordEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.waitingPay);
+        List<UserEntity> serviceUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList.size();i++){
+            UserEntity serviceUser = userService.findUserEntityById(recordList.get(i).getServiceUserId());
+            serviceUserList.add(serviceUser);
+        }
+
+        map.addAttribute("recordList", recordList);
+        map.addAttribute("serviceUserList", serviceUserList);
+        return "service_requested_fukuan";
+    }
+
+    //查询用户申请订单的接口：已完成
+    @RequestMapping(value = "/queryOrderAlreadyComplete",method = RequestMethod.GET)
+    public String queryAlreadyCompleteOrder(ModelMap map){
+        List<RecordEntity> recordList1 = recordService.findRecordEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<RecordEntity> recordList2 = recordService.findRecordEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyRefuse);
+        recordList1.addAll(recordList2);
+
+        List<PublishEntity> publishList = new ArrayList<PublishEntity>();
+        List<ServiceEntity> serviceList = new ArrayList<ServiceEntity>();
+        List<UserEntity> serviceUserList = new ArrayList<UserEntity>();
+
+        for(int i=0;i<recordList1.size();i++){
+            PublishEntity publishEntity = publishService.findPublishEntityById(recordList1.get(i).getPublishId());
+            publishList.add(publishEntity);
+
+            ServiceEntity serviceEntity = serviceService.findById(publishEntity.getServiceId());
+            serviceList.add(serviceEntity);
+
+            UserEntity serviceUserEntity = userService.findUserEntityById(recordList1.get(i).getServiceUserId());
+            serviceUserList.add(serviceUserEntity);
+        }
+
+        map.addAttribute("recordList", recordList1);
+        map.addAttribute("publishList", publishList);
+        map.addAttribute("serviceList", serviceList);
+        map.addAttribute("serviceUserList", serviceUserList);
+        return "service_requested_wancheng";
     }
 
     public UserEntity getCurrentUser() {

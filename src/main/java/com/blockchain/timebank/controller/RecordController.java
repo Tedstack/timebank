@@ -3,6 +3,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.RecordDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
+import com.blockchain.timebank.entity.OrderStatus;
 import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.RecordEntity;
 import com.blockchain.timebank.entity.UserEntity;
@@ -80,12 +81,12 @@ public class RecordController {
     public String handleApplicantRecord(ModelMap map,@RequestParam long recordID,@RequestParam String handle){
         RecordEntity recordEntity = recordService.findRecordEntityById(recordID);
         if(handle.equals("refuse")){
-            recordEntity.setStatus("已拒绝");
+            recordEntity.setStatus(OrderStatus.alreadyRefuse);
             recordService.updateRecordEntity(recordEntity);
         }
 
         if(handle.equals("confirm")){
-            recordEntity.setStatus("待服务");
+            recordEntity.setStatus(OrderStatus.waitingService);
             recordService.updateRecordEntity(recordEntity);
         }
 

@@ -84,7 +84,7 @@
                     <div class="item active">
 
                         <!-- Slide Background -->
-                        <img src="../img/slider/slide1.jpeg" alt="Bootstrap Touch Slider" class="slide-image"/>
+                        <img src="../img/slider/slide1.png" alt="Bootstrap Touch Slider" class="slide-image"/>
                         <div class="bs-slider-overlay"></div>
                     </div>
                     <!-- End of Slide -->
@@ -93,7 +93,7 @@
                     <div class="item">
 
                         <!-- Slide Background -->
-                        <img src="../img/slider/slide2.jpeg" alt="Bootstrap Touch Slider" class="slide-image"/>
+                        <img src="../img/slider/slide2.png" alt="Bootstrap Touch Slider" class="slide-image"/>
                         <div class="bs-slider-overlay"></div>
                         <!-- Slide Text Layer -->
                     </div>
@@ -103,7 +103,7 @@
                     <div class="item">
 
                         <!-- Slide Background -->
-                        <img src="../img/slider/slide3.jpeg" alt="Bootstrap Touch Slider" class="slide-image"/>
+                        <img src="../img/slider/slide3.png" alt="Bootstrap Touch Slider" class="slide-image"/>
                         <div class="bs-slider-overlay"></div>
                         <!-- Slide Text Layer -->
                     </div>
