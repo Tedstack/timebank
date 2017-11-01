@@ -384,7 +384,7 @@ public class UserController {
         if(record.getApplyUserId()!=applyUser.getId()){
             status = "failure";
         }else{
-            Timestamp timestamp = new Timestamp(100000);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             if(record.getActualBeginTime()==null){
                 record.setActualBeginTime(timestamp);
             }else{
@@ -399,7 +399,7 @@ public class UserController {
                 String s = String.valueOf(l);
                 double d = Double.parseDouble(s);
                 double price = publishService.findPublishEntityById(record.getPublishId()).getPrice();
-                double money = price * (d/3600);
+                double money = price * (d/(3600*1000));
                 record.setPayMoney(money);
             }
 

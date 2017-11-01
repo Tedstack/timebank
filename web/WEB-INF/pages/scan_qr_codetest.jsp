@@ -13,7 +13,6 @@
 <form action="/user/serviceUserCompleteScan" method="GET">
     二维码: <input type="text" name="qrcode">
     <br />
-    时间: <input type="text" name="time" />
 
     recordID:<input type="text" name="recordID" />
 
