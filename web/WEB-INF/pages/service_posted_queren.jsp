@@ -48,8 +48,8 @@
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务价格</label>
-                                <em class="weui-form-preview__value"><%out.print(recordList.get(i).getPayMoney());%></em>
+                                <label class="weui-form-preview__label">订单号</label>
+                                <em class="weui-form-preview__value"><%out.print(recordList.get(i).getId());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
