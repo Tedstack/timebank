@@ -16,4 +16,6 @@ public interface RecordDao extends CrudRepository<RecordEntity, Long> {
     public List<RecordEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID,String status);
 
     public List<RecordEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID,String status);
+
+    public List<RecordEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID,long serviceUserID);
 }

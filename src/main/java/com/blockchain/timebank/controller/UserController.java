@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -364,6 +365,49 @@ public class UserController {
         map.addAttribute("serviceList", serviceList);
         map.addAttribute("serviceUserList", serviceUserList);
         return "service_requested_wancheng";
+    }
+
+    //服务者开始扫码
+    @RequestMapping(value = "/serviceUserStartScan",method = RequestMethod.GET)
+    public String serviceUserStartScan(ModelMap map,@RequestParam long recordID){
+
+        map.addAttribute("recordID",recordID);
+        return "scan_qr_codetest";
+    }
+
+    //服务者扫码结束
+    @RequestMapping(value = "/serviceUserCompleteScan",method = RequestMethod.GET)
+    public String serviceUserCompleteFirstScan(ModelMap map,@RequestParam String qrcode,@RequestParam long recordID){
+        String status = "";
+        UserEntity applyUser = userService.findUserEntityByQrCode(qrcode);
+        RecordEntity record = recordService.findRecordEntityById(recordID);
+        if(record.getApplyUserId()!=applyUser.getId()){
+            status = "failure";
+        }else{
+            Timestamp timestamp = new Timestamp(100000);
+            if(record.getActualBeginTime()==null){
+                record.setActualBeginTime(timestamp);
+            }else{
+                record.setActualEndTime(timestamp);
+                record.setStatus(OrderStatus.waitingPay);
+                Timestamp beginStamp = record.getActualBeginTime();
+                Timestamp endStamp = record.getActualEndTime();
+                long begin = beginStamp.getTime();
+                long end = endStamp.getTime();
+
+                long l = end - begin;
+                String s = String.valueOf(l);
+                double d = Double.parseDouble(s);
+                double price = publishService.findPublishEntityById(record.getPublishId()).getPrice();
+                double money = price * (d/3600);
+                record.setPayMoney(money);
+            }
+
+            recordService.updateRecordEntity(record);
+            status = "success";
+        }
+        map.addAttribute("status",status);
+        return "scan_qr_codetest2";
     }
 
     public UserEntity getCurrentUser() {

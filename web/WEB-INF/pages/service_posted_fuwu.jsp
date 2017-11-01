@@ -63,6 +63,20 @@
                                 <label class="weui-form-preview__label">服务地点</label>
                                 <span class="weui-form-preview__value"><%out.print(recordList.get(i).getApplyAddress());%></span>
                             </div>
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">扫码状态</label>
+                                <span class="weui-form-preview__value">
+                                    <%
+                                        if(recordList.get(i).getActualBeginTime()==null){
+                                            out.print("未扫码");
+                                        }else if(recordList.get(i).getActualEndTime()==null){
+                                            out.print("第一次扫码成功");
+                                        }else{
+                                            out.print("第二次扫码成功");
+                                        }
+                                    %>
+                                </span>
+                            </div>
                             <div class="weui-panel__ft">
                                 <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
                                     <div class="weui-cell__bd">查看更多</div>
@@ -71,7 +85,7 @@
                             </div>
                         </div>
                         <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">扫码开始</a>
+                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/user/serviceUserStartScan?recordID="+recordList.get(i).getId());%>">扫码开始</a>
 
                         </div>
                     </div>

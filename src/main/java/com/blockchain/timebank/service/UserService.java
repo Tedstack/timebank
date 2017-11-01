@@ -19,4 +19,6 @@ public interface UserService {
     void deleteById(Long id);
 
     List<UserEntity> findAll();
+
+    UserEntity findUserEntityByQrCode(String qrcode);
 }

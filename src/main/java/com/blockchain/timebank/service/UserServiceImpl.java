@@ -44,4 +44,8 @@ public class UserServiceImpl implements UserService {
         return (List<UserEntity>)userDao.findAll();
     }
 
+    public UserEntity findUserEntityByQrCode(String qrcode) {
+        return userDao.findUserEntityByQrCode(qrcode);
+    }
+
 }

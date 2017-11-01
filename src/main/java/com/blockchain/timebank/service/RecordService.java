@@ -19,4 +19,6 @@ public interface RecordService {
     public RecordEntity findRecordEntityById(long ID);
 
     public List<RecordEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID,String status);
+
+    public List<RecordEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID,long serviceUserID);
 }
