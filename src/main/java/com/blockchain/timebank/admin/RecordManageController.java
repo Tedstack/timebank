@@ -1,6 +1,7 @@
 package com.blockchain.timebank.admin;
 
-import com.blockchain.timebank.service.RecordService;
+import com.blockchain.timebank.dao.ViewRecordDetailDao;
+import com.blockchain.timebank.entity.ViewRecordDetailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,12 +15,12 @@ import java.util.List;
 public class RecordManageController {
 
     @Autowired
-    RecordService recordService;
+    ViewRecordDetailDao viewRecordDetailDao;
 
     @RequestMapping(value = "/recordList", method = RequestMethod.GET)
     public String recordListPage(ModelMap map) {
-        //List<RecordEntity>
-
+        List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>) viewRecordDetailDao.findAll();
+        map.addAttribute("list", list);
         return "../admin/record_list";
     }
 

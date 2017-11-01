@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -40,23 +42,28 @@
             <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">服务种类列表</li>
+            <li class="breadcrumb-item active">订单列表</li>
         </ol>
         <!-- Example DataTables Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 服务种类表
+                <i class="fa fa-table"></i> 订单表
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>服务类型</th>
+                            <th>预约姓名</th>
+                            <th>预约手机</th>
                             <th>服务名称</th>
-                            <th>服务推荐价格</th>
-                            <th>服务价格更新时间</th>
-                            <th>图标</th>
+                            <th>预约服务开始时间</th>
+                            <th>预约服务时长</th>
+                            <th>服务者姓名</th>
+                            <th>服务者手机</th>
+                            <th>实际服务开始时间</th>
+                            <th>实际服务时长</th>
+                            <th>订单状态</th>
                         </tr>
                         </thead>
                         <%--<tfoot>--%>
@@ -73,15 +80,42 @@
 
 
                         <%
-                            List<ServiceEntity> list_service = new ArrayList<>();
-                            for (ServiceEntity serviceEntity : list_service) {
+                            long off,hour;
+                            List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("list");
+                            for (ViewRecordDetailEntity detailEntity : list) {
                         %>
                         <tr>
-                            <td><%=serviceEntity.getType()%></td>
-                            <td><%=serviceEntity.getName()%></td>
-                            <td><%=serviceEntity.getPrice()%></td>
-                            <td><%=serviceEntity.getUpdateTime()%></td>
-                            <td><img src="../img/服务名称/<%=serviceEntity.getName()%>.png" height="40px"></td>
+                            <td><%=detailEntity.getApplyUserName()%></td>
+                            <td><%=detailEntity.getApplyUserPhone()%></td>
+                            <td>
+                                <span><%out.print(detailEntity.getServiceType()+" - "+detailEntity.getServiceName());%>&nbsp;</span>
+                                <span><img src="../img/服务名称/<%=detailEntity.getServiceName()%>.png" height="25px"></span>
+                            </td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getBeginTime()));%></td>
+                            <td><%
+                                off=detailEntity.getEndTime().getTime() - detailEntity.getBeginTime().getTime();
+                                hour=off/1000/60/60;
+                                out.print(hour+"小时");
+                            %></td>
+                            <td><%=detailEntity.getServiceUserName()%></td>
+                            <td><%=detailEntity.getServiceUserPhone()%></td>
+                            <td><%
+                                if(detailEntity.getActualBeginTime()!=null) {
+                                    out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getActualBeginTime()));
+                                }else{
+                                    out.print("null");
+                                }
+                            %></td>
+                            <td><%
+                                if(detailEntity.getActualBeginTime()!=null && detailEntity.getActualEndTime()!=null) {
+                                    off = detailEntity.getActualEndTime().getTime() - detailEntity.getActualBeginTime().getTime();
+                                    hour = off / 1000 / 60 / 60;
+                                    out.print(hour + "小时");
+                                }else{
+                                    out.print("null");
+                                }
+                            %></td>
+                            <td><%=detailEntity.getStatus()%></td>
                         </tr>
                         <%
                             }

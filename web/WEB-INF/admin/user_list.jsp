@@ -84,7 +84,7 @@
                                     <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
                                     <td><a href="javascript:void(0)">查看</a> </td>
                                     <td><%=userEntity.getRegisterDate()%></td>
-                                    <td>尚未认证</td>
+                                    <td>尚未认证（<a href="javascript:void(0)">帮助认证</a>）</td>
                                 </tr>
                         <%
                             }

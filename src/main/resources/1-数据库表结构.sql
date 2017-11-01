@@ -113,11 +113,30 @@ CREATE VIEW view_publish_detail
     FROM publish, user, service
     WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;
 
-#显示已生成的RECORD的详细信息
-# CREATE VIEW view_record_detail
-#   AS
-#     SELECT
-#       record.ApplyUserID    AS ApplyUserID,
-#       record.ApplyUserName  AS ApplyUserName,
-#       record.ApplyUserPhone AS ApplyUserPhone,
-#       record.
+# 显示已生成的RECORD的详细信息
+CREATE VIEW view_record_detail
+  AS
+    SELECT
+      record.ID              AS ID,               #订单编号
+      record.ApplyUserID     AS ApplyUserID,      #预约服务的用户ID
+      record.ApplyUserName   AS ApplyUserName,    #预约联系的姓名
+      record.ApplyUserPhone  AS ApplyUserPhone,   #预约联系的手机号
+      record.ApplyAddress    AS Address,          #预约上门服务的地址
+      record.BeginTime       AS BeginTime,        #预约开始服务的时间
+      record.EndTime         AS EndTime,          #预约结束服务的时间
+      record.ActualBeginTime AS ActualBeginTime,  #实际开始服务的时间
+      record.ActualEndTime   AS ActualEndTime,    #实际结束服务的时间
+      record.PayWay          AS PayWay,           #订单的付款方式
+      record.PayMoney        AS PayMoney,         #订单的实际付款金额
+      record.Status          AS Status,           #订单的状态
+      record.PublishID       AS PublishID,        #发布的编号
+      publish.Price          AS PublishPrice,     #发布的价格
+      publish.ServiceID      AS ServiceID,        #服务种类编号
+      service.Type           AS ServiceType,      #服务类型
+      service.Name           AS ServiceName,      #服务名称
+      record.ServiceUserID   AS ServiceUserID,    #服务者编号
+      serviceUser.Name       AS ServiceUserName,  #服务者姓名
+      serviceUser.Phone      AS ServiceUserPhone  #服务者手机号
+  FROM record, user AS serviceUser, publish, service
+  WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID
+  PRIMARY KEY (`ID`)
