@@ -1,8 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.PayWay" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -54,16 +53,17 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
+                            <th>订单状态</th>
                             <th>预约姓名</th>
                             <th>预约手机</th>
                             <th>服务名称</th>
-                            <th>预约服务开始时间</th>
+                            <th>预约开始时间</th>
                             <th>预约服务时长</th>
                             <th>服务者姓名</th>
                             <th>服务者手机</th>
-                            <th>实际服务开始时间</th>
+                            <th>服务单价</th>
+                            <th>实际开始时间</th>
                             <th>实际服务时长</th>
-                            <th>订单状态</th>
                         </tr>
                         </thead>
                         <%--<tfoot>--%>
@@ -85,6 +85,7 @@
                             for (ViewRecordDetailEntity detailEntity : list) {
                         %>
                         <tr>
+                            <td><%=detailEntity.getStatus()%></td>
                             <td><%=detailEntity.getApplyUserName()%></td>
                             <td><%=detailEntity.getApplyUserPhone()%></td>
                             <td>
@@ -99,6 +100,7 @@
                             %></td>
                             <td><%=detailEntity.getServiceUserName()%></td>
                             <td><%=detailEntity.getServiceUserPhone()%></td>
+                            <td><%out.print(detailEntity.getPublishPrice()+PayWay.getPayWayName(detailEntity.getPayWay()));%>/小时</td>
                             <td><%
                                 if(detailEntity.getActualBeginTime()!=null) {
                                     out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getActualBeginTime()));
@@ -115,7 +117,7 @@
                                     out.print("null");
                                 }
                             %></td>
-                            <td><%=detailEntity.getStatus()%></td>
+
                         </tr>
                         <%
                             }

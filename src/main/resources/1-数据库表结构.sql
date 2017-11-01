@@ -139,4 +139,3 @@ CREATE VIEW view_record_detail
       serviceUser.Phone      AS ServiceUserPhone  #服务者手机号
   FROM record, user AS serviceUser, publish, service
   WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID
-  PRIMARY KEY (`ID`)
