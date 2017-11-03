@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,8 +14,7 @@
 </head>
 <body>
 <%
-    List<RecordEntity> recordList = (List<RecordEntity>) request.getAttribute("recordList");
-    List<UserEntity> applyUserList = (List<UserEntity>) request.getAttribute("applyUserList");
+    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -40,27 +40,27 @@
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    for (int i=0;i<recordList.size();i++) {
+                    for (int i=0;i<recordDetailList.size();i++) {
                 %>
                 <div class="page__bd">
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">订单状态</label>
-                                <em class="weui-form-preview__value"><%out.print(recordList.get(i).getStatus());%></em>
+                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getStatus());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getId());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getId());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务实收款</label>
                                 <span class="weui-form-preview__value">
                                     <%
-                                        if(recordList.get(i).getStatus().equals("已完成")){
-                                            out.print(recordList.get(i).getPayMoney());
+                                        if(recordDetailList.get(i).getStatus().equals("已完成")){
+                                            out.print(recordDetailList.get(i).getPayMoney());
                                         }else{
                                             out.print("未进行服务，未产生费用");
                                         }
@@ -69,14 +69,14 @@
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务对象</label>
-                                <span class="weui-form-preview__value"><%out.print(applyUserList.get(i).getName());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getApplyUserName());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务时间</label>
                                 <span class="weui-form-preview__value">
                                      <%
-                                         if(recordList.get(i).getStatus().equals("已完成")){
-                                             out.print(recordList.get(i).getActualBeginTime()+"-"+recordList.get(i).getActualEndTime());
+                                         if(recordDetailList.get(i).getStatus().equals("已完成")){
+                                             out.print(recordDetailList.get(i).getActualBeginTime()+"-"+recordDetailList.get(i).getActualEndTime());
                                          }else{
                                              out.print("未进行服务，无服务时间");
                                          }
@@ -90,10 +90,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</a>
 
-                        </div>
                     </div>
                     <br>
                 </div>

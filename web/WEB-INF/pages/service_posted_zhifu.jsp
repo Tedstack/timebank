@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,8 +14,7 @@
 </head>
 <body>
 <%
-    List<RecordEntity> recordList = (List<RecordEntity>) request.getAttribute("recordList");
-    List<UserEntity> applyUserList = (List<UserEntity>) request.getAttribute("applyUserList");
+    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -40,28 +40,28 @@
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    for (int i=0;i<recordList.size();i++) {
+                    for (int i=0;i<recordDetailList.size();i++) {
                 %>
                 <div class="page__bd">
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务价格</label>
-                                <em class="weui-form-preview__value"><%out.print(recordList.get(i).getPayMoney());%></em>
+                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getPayMoney());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务对象</label>
-                                <span class="weui-form-preview__value"><%out.print(applyUserList.get(i).getName());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getApplyUserName());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">开始时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getActualBeginTime());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getActualBeginTime());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">结束时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getActualEndTime());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getActualEndTime());%></span>
                             </div>
                             <div class="weui-panel__ft">
                                 <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">

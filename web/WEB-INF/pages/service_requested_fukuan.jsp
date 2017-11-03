@@ -1,6 +1,5 @@
-<%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,8 +13,7 @@
 <body>
 
 <%
-    List<RecordEntity> recordList = (List<RecordEntity>) request.getAttribute("recordList");
-    List<UserEntity> serviceUserList = (List<UserEntity>) request.getAttribute("serviceUserList");
+    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -38,32 +36,32 @@
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    for (int i=0;i<recordList.size();i++) {
+                    for (int i=0;i<recordDetailList.size();i++) {
                 %>
                 <div class="page__bd">
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务金额</label>
-                                <em class="weui-form-preview__value"><%out.print(recordList.get(i).getPayMoney());%></em>
+                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getPayMoney());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getId());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getId());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务地点</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getApplyAddress());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务提供者</label>
-                                <span class="weui-form-preview__value"><%out.print(serviceUserList.get(i).getName());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getServiceUserName());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getActualBeginTime());%> - <%out.print(recordList.get(i).getActualEndTime());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getActualBeginTime());%> - <%out.print(recordDetailList.get(i).getActualEndTime());%></span>
                             </div>
                             <div class="weui-panel__ft">
                                 <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">

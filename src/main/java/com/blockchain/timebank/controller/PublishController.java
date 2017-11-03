@@ -1,6 +1,7 @@
 package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
+import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.ServiceEntity;
 import com.blockchain.timebank.entity.UserEntity;
@@ -38,6 +39,9 @@ public class PublishController {
 
     @Autowired
     ViewPublishDetailDao viewPublishDetailDao;
+
+    @Autowired
+    ViewRecordDetailDao viewRecordDetailDao;
 
     //服务种类页面
     @RequestMapping(value = "/category", method = RequestMethod.GET)

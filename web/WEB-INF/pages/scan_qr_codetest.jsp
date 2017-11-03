@@ -10,7 +10,7 @@
     long recordID = (long) request.getAttribute("recordID");
 %>
 "recordID:"<%out.print(recordID);%>
-<form action="/user/serviceUserCompleteScan" method="GET">
+<form action="/user/serviceUserCompleteScan" method="post">
     二维码: <input type="text" name="qrcode">
     <br />
 

@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,8 +14,7 @@
 </head>
 <body>
 <%
-    List<RecordEntity> recordList = (List<RecordEntity>) request.getAttribute("recordList");
-    List<UserEntity> applyUserList = (List<UserEntity>) request.getAttribute("applyUserList");
+    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -40,36 +40,36 @@
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    for (int i=0;i<recordList.size();i++) {
+                    for (int i=0;i<recordDetailList.size();i++) {
                 %>
                 <div class="page__bd">
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务对象</label>
-                                <em class="weui-form-preview__value"><%out.print(applyUserList.get(i).getName());%></em>
+                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getApplyUserName());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">开始时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getBeginTime());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getBeginTime());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">结束时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getEndTime());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getEndTime());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务地点</label>
-                                <span class="weui-form-preview__value"><%out.print(recordList.get(i).getApplyAddress());%></span>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">扫码状态</label>
                                 <span class="weui-form-preview__value">
                                     <%
-                                        if(recordList.get(i).getActualBeginTime()==null){
+                                        if(recordDetailList.get(i).getActualBeginTime()==null){
                                             out.print("未扫码");
-                                        }else if(recordList.get(i).getActualEndTime()==null){
+                                        }else if(recordDetailList.get(i).getActualEndTime()==null){
                                             out.print("第一次扫码成功");
                                         }else{
                                             out.print("第二次扫码成功");
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/user/serviceUserStartScan?recordID="+recordList.get(i).getId());%>">扫码开始</a>
+                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/user/serviceUserStartScan?recordID="+recordDetailList.get(i).getId());%>">扫码开始</a>
 
                         </div>
                     </div>
