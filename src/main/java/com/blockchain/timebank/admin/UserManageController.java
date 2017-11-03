@@ -48,12 +48,13 @@ public class UserManageController {
             userEntity.setName(name);
             userEntity.setPhone(phone);
             userEntity.setIdCard(idCard);
+            userEntity.setPassword(idCard.substring(12, idCard.length()));
             userEntity.setSex(sex);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             userEntity.setBirth(new Date(dateFormat.parse(birth).getTime()));
             userEntity.setQrCode(QRCode);
             userService.saveUserEntity(userEntity);
-            map.addAttribute("ok","添加成功！");
+            map.addAttribute("ok", "添加成功！");
             return "../admin/user_add";
         } catch (Exception e) {
             map.addAttribute("error", "添加失败，输入信息错误！");

@@ -69,12 +69,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>身份证号</label>
-                                            <input class="form-control" type="text" name="idCard" placeholder="请输入身份证号">
+                                            <input class="form-control" type="text" id="idCard" name="idCard"
+                                                   placeholder="请输入身份证号">
                                         </div>
                                         <div class="form-group">
                                             <label>性别</label> <br>
                                             <label class="checkbox-inline">
-                                                <input type="radio" name="sex" value="男" checked> 男
+                                                <input type="radio" name="sex" value="男" checked="checked"> 男
                                             </label>
                                             <label class="checkbox-inline">
                                                 <input type="radio" name="sex" value="女"> 女
@@ -82,7 +83,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>出生年月</label>
-                                            <input class="form-control" type="date" name="birth" placeholder="请输入出生年月">
+                                            <input class="form-control" type="date" id="birth" name="birth" placeholder="请输入出生年月">
                                         </div>
                                         <div class="form-group">
                                             <label>卡号</label>
@@ -143,6 +144,29 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
+
+    <script>
+        $("#idCard").change(function () {
+            var str = $(this).val();
+            if (str.length == 18) {
+                var t = str.substr(6, 4) + "-" + str.substr(10, 2) + "-" + str.substr(12, 2);
+                $("#birth").val(t);
+
+                var sex = str[16];
+                if(sex==1){
+                    $("input[name='sex']").eq(0).attr("checked","checked");
+                    $("input[name='sex']").eq(1).removeAttr("checked");
+                    $("input[name='sex']").eq(0).click();
+                }else{
+                    $("input[name='sex']").eq(0).removeAttr("checked");
+                    $("input[name='sex']").eq(1).attr("checked","checked");
+                    $("input[name='sex']").eq(1).click();
+                }
+            }
+        });
+
+    </script>
+
 </div>
 </body>
 
