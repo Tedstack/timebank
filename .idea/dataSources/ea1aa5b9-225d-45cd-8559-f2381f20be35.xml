@@ -371,7 +371,7 @@
     <column id="77" parent="12" name="Birth">
       <Position>10</Position>
       <Comment>出生年月日</Comment>
-      <DataType>varchar(20)|0</DataType>
+      <DataType>date|0</DataType>
     </column>
     <column id="78" parent="12" name="QRCode">
       <Position>11</Position>

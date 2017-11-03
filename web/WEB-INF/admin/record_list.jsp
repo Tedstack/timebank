@@ -56,6 +56,7 @@
                             <th>订单状态</th>
                             <th>预约姓名</th>
                             <th>预约手机</th>
+                            <th>服务类别</th>
                             <th>服务名称</th>
                             <th>预约开始时间</th>
                             <th>预约服务时长</th>
@@ -80,7 +81,7 @@
 
 
                         <%
-                            long off,hour;
+                            double off,hour;
                             List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("list");
                             for (ViewRecordDetailEntity detailEntity : list) {
                         %>
@@ -88,19 +89,20 @@
                             <td><%=detailEntity.getStatus()%></td>
                             <td><%=detailEntity.getApplyUserName()%></td>
                             <td><%=detailEntity.getApplyUserPhone()%></td>
+                            <td><%=detailEntity.getServiceType()%></td>
                             <td>
-                                <span><%out.print(detailEntity.getServiceType()+" - "+detailEntity.getServiceName());%>&nbsp;</span>
                                 <span><img src="../img/服务名称/<%=detailEntity.getServiceName()%>.png" height="25px"></span>
+                                &nbsp;<%=detailEntity.getServiceName()%>
                             </td>
                             <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getBeginTime()));%></td>
                             <td><%
                                 off=detailEntity.getEndTime().getTime() - detailEntity.getBeginTime().getTime();
                                 hour=off/1000/60/60;
-                                out.print(hour+"小时");
+                                out.print(hour+" 小时");
                             %></td>
                             <td><%=detailEntity.getServiceUserName()%></td>
                             <td><%=detailEntity.getServiceUserPhone()%></td>
-                            <td><%out.print(detailEntity.getPublishPrice()+PayWay.getPayWayName(detailEntity.getPayWay()));%>/小时</td>
+                            <td><%out.print(detailEntity.getPublishPrice()+" "+PayWay.getPayWayName(detailEntity.getPayWay()));%>/小时</td>
                             <td><%
                                 if(detailEntity.getActualBeginTime()!=null) {
                                     out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getActualBeginTime()));

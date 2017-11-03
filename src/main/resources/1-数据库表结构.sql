@@ -9,7 +9,7 @@ CREATE TABLE `user` (
   `RegisterDate` date NULL COMMENT '注册时间',
   `IDCard` varchar(20) NULL COMMENT '身份证号码',
   `Sex` VARCHAR(10) NULL COMMENT '性别',
-  `Birth` VARCHAR(20) NULL COMMENT '出生年月日',
+  `Birth` DATE NULL COMMENT '出生年月日',
   `QRCode` VARCHAR(20) NULL COMMENT '二维码',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)

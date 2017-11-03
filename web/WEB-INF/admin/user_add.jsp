@@ -35,10 +35,101 @@
             </li>
             <li class="breadcrumb-item active">添加用户</li>
         </ol>
-        <div class="row">
-            <div class="col-12">
-                <h1>暂未开放</h1>
-                <p>对不起，该功能正在测试中，尚未开放.</p>
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-user-circle-o"></i> 用户资料
+            </div>
+            <div class="card-body">
+                <%
+                    if (request.getAttribute("ok") != null) {
+                        out.print("<div class='alert alert-success' role='alert'>"
+                                + request.getAttribute("ok") + "</div>");
+                    }
+                    if (request.getAttribute("error") != null) {
+                        out.print("<div class='alert alert-danger' role='alert'>"
+                                + request.getAttribute("error") + "</div>");
+                    }
+                %>
+
+                <form action="/admin/userAddSubmit" method="post">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">基本信息</h4>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>姓名</label>
+                                            <input class="form-control" type="text" name="name" placeholder="请输入姓名">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>手机号</label>
+                                            <input class="form-control" type="text" name="phone" placeholder="请输入手机号">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>身份证号</label>
+                                            <input class="form-control" type="text" name="idCard" placeholder="请输入身份证号">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>性别</label> <br>
+                                            <label class="checkbox-inline">
+                                                <input type="radio" name="sex" value="男" checked> 男
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="radio" name="sex" value="女"> 女
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>出生年月</label>
+                                            <input class="form-control" type="date" name="birth" placeholder="请输入出生年月">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>卡号</label>
+                                            <input class="form-control" type="text" name="QRCode"
+                                                   placeholder="请输入要绑定的卡号">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title"><span><img src="img/实名认证.png"
+                                                                      style="height: 40px;">&nbsp;</span>实名认证</h4>
+                                    <h6 class="card-subtitle mb-2 text-muted">身份证照片上传</h6>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img class="img-thumbnail" data-src="holder.js/100px180/?text=Image cap"
+                                                     alt="Image cap [100%x180]"
+                                                     src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                                     data-holder-rendered="true" style="width: 100%;">
+                                                <button type="button" style="margin-top: 10px;"
+                                                        class="btn btn-primary btn-sm btn-block">上传正面照片
+                                                </button>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <img class="img-thumbnail" data-src="holder.js/100px180/?text=Image cap"
+                                                     alt="Image cap [100%x180]"
+                                                     src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                                     data-holder-rendered="true" style="width: 100%;">
+                                                <button type="button" style="margin-top: 10px;"
+                                                        class="btn btn-primary btn-sm btn-block">上传背面照片
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-block">添加</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@ public class UserEntity {
     private Date registerDate;
     private String idCard;
     private String sex;
-    private String birth;
+    private Date birth;
     private String qrCode;
     private String extra;
 
@@ -110,12 +110,12 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Birth", nullable = true, length = 20)
-    public String getBirth() {
+    @Column(name = "Birth", nullable = true)
+    public Date getBirth() {
         return birth;
     }
 
-    public void setBirth(String birth) {
+    public void setBirth(Date birth) {
         this.birth = birth;
     }
 
