@@ -52,7 +52,7 @@
                         <a href="/admin/serviceList">服务种类列表</a>
                     </li>
                     <li>
-                        <a href="">添加服务种类</a>
+                        <a href="/admin/serviceAdd">添加服务种类</a>
                     </li>
                 </ul>
             </li>
@@ -67,7 +67,7 @@
                         <a href="/admin/publishList">已发布服务列表</a>
                     </li>
                     <li>
-                        <a href="">后台发布服务</a>
+                        <a href="/admin/publishAdd">后台发布服务</a>
                     </li>
                 </ul>
             </li>

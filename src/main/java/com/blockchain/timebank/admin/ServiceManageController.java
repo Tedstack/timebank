@@ -23,4 +23,13 @@ public class ServiceManageController {
         map.addAttribute("list_service", list_service);
         return "../admin/service_list";
     }
+
+
+    @RequestMapping(value = "/serviceAdd", method = RequestMethod.GET)
+    public String serviceAddPage(ModelMap map) {
+        List<ServiceEntity> list_service = serviceService.findAllServiceEntity();
+        map.addAttribute("list_service", list_service);
+        return "../admin/service_add";
+    }
+
 }

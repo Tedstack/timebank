@@ -1,5 +1,5 @@
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>用户列表</title>
+    <title>服务种类列表</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -39,26 +39,23 @@
             <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">用户列表</li>
+            <li class="breadcrumb-item active">添加服务</li>
         </ol>
         <!-- Example DataTables Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 用户表
+                <i class="fa fa-table"></i> 服务种类表
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>姓名</th>
-                            <th>手机号</th>
-                            <th>志愿者币</th>
-                            <th>时间币</th>
-                            <th>时间</th>
-                            <th>注册时间</th>
-                            <th>实名认证信息</th>
-                            <th>操作</th>
+                            <th>服务类型</th>
+                            <th>服务名称</th>
+                            <th>服务推荐价格</th>
+                            <th>服务价格更新时间</th>
+                            <th>图标</th>
                         </tr>
                         </thead>
                         <%--<tfoot>--%>
@@ -75,30 +72,21 @@
 
 
                         <%
-                            List<UserEntity> list_user = (List<UserEntity>) request.getAttribute("list_user");
-                            for (UserEntity userEntity : list_user) {
+                            List<ServiceEntity> list_service = (List<ServiceEntity>) request.getAttribute("list_service");
+                            for (ServiceEntity serviceEntity : list_service) {
                         %>
                                 <tr>
-                                    <td><%=userEntity.getName()%></td>
-                                    <td><%=userEntity.getPhone()%></td>
-                                    <td><%=userEntity.getTimeVol()%>（志愿者币V）</td>
-                                    <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
-                                    <td><a href="javascript:void(0)">查看</a> </td>
-                                    <td><%=userEntity.getRegisterDate()%></td>
-                                    <td>尚未认证（<a href="javascript:void(0)">帮助认证</a>）</td>
-                                    <td>
-                                        <a href="/admin/userEdit?userId=<%out.print(userEntity.getId());%>" class="btn btn-primary btn-sm">编辑</a>
-
-                                        <a href="/admin/userVerify?userId=<%out.print(userEntity.getId());%>" class="btn btn-primary btn-sm">查看</a>
-                                    </td>
+                                    <td><%=serviceEntity.getType()%></td>
+                                    <td><%=serviceEntity.getName()%></td>
+                                    <td><%=serviceEntity.getPrice()%></td>
+                                    <td><%=serviceEntity.getUpdateTime()%></td>
+                                    <td><img src="../img/服务名称/<%=serviceEntity.getName()%>.png" height="25px"></td>
                                 </tr>
                         <%
                             }
                         %>
                         </tbody>
                     </table>
-
-
                 </div>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

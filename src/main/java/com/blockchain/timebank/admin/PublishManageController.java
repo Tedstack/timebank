@@ -18,10 +18,17 @@ public class PublishManageController {
     ViewPublishDetailDao viewPublishDetailDao;
 
     @RequestMapping(value = "/publishList", method = RequestMethod.GET)
-    public String recordListPage(ModelMap map) {
+    public String publishListPage(ModelMap map) {
         List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>)viewPublishDetailDao.findAll();
         map.addAttribute("list", list);
         return "../admin/publish_list";
+    }
+
+    @RequestMapping(value = "/publishAdd", method = RequestMethod.GET)
+    public String publishAddPage(ModelMap map) {
+        List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>)viewPublishDetailDao.findAll();
+        map.addAttribute("list", list);
+        return "../admin/publish_add";
     }
 
 }
