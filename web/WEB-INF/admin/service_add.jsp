@@ -1,5 +1,4 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -41,59 +40,80 @@
             </li>
             <li class="breadcrumb-item active">添加服务</li>
         </ol>
-        <!-- Example DataTables Card-->
+
+        <!-- Example Bar Chart Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 服务种类表
+                <i class="fa fa-bar-chart"></i> 添加服务种类
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>服务类型</th>
-                            <th>服务名称</th>
-                            <th>服务推荐价格</th>
-                            <th>服务价格更新时间</th>
-                            <th>图标</th>
-                        </tr>
-                        </thead>
-                        <%--<tfoot>--%>
-                        <%--<tr>--%>
-                            <%--<th>Name</th>--%>
-                            <%--<th>Position</th>--%>
-                            <%--<th>Office</th>--%>
-                            <%--<th>Age</th>--%>
-                            <%--<th>Start date</th>--%>
-                            <%--<th>Salary</th>--%>
-                        <%--</tr>--%>
-                        <%--</tfoot>--%>
-                        <tbody>
 
+                <form action="/admin/serviceAddSubmit" method="post">
+                    <%
+                        if (request.getAttribute("ok") != null) {
+                            out.print("<div class='alert alert-success' role='alert'>"
+                                    + request.getAttribute("ok") + "</div>");
+                        }
+                        if (request.getAttribute("error") != null) {
+                            out.print("<div class='alert alert-danger' role='alert'>"
+                                    + request.getAttribute("error") + "</div>");
+                        }
 
-                        <%
-                            List<ServiceEntity> list_service = (List<ServiceEntity>) request.getAttribute("list_service");
-                            for (ServiceEntity serviceEntity : list_service) {
-                        %>
-                                <tr>
-                                    <td><%=serviceEntity.getType()%></td>
-                                    <td><%=serviceEntity.getName()%></td>
-                                    <td><%=serviceEntity.getPrice()%></td>
-                                    <td><%=serviceEntity.getUpdateTime()%></td>
-                                    <td><img src="../img/服务名称/<%=serviceEntity.getName()%>.png" height="25px"></td>
-                                </tr>
-                        <%
-                            }
-                        %>
-                        </tbody>
-                    </table>
-                </div>
+                        List<String> types = (List<String>) request.getAttribute("types");
+                    %>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务类型</label>
+                        <div class="col-sm-2">
+                            <select name="type" id="service_type" class="form-control">
+                                <%
+                                    for (String type : types) {
+                                        out.print("<option value='" + type + "'>" + type + "</option>");
+                                    }
+                                %>
+                                <option value="自定义">自定义</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2" id="type_detail">
+                            <input class="form-control" type="text" name="type_detail" placeholder="请输入自定义名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务名称</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" name="name" placeholder="请输入名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务推荐价格</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="number" name="price" placeholder="请输入价格">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务收费方式</label>
+                        <div class="col-sm-2">
+                            <select name="price_type" id="price_type" class="form-control">
+                                <option value="时间币">时间币</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-primary btn-block">添 加</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <%--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>--%>
         </div>
+
     </div>
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
+
     <jsp:include page="footer.jsp"/>
 
     <!-- Bootstrap core JavaScript-->
@@ -108,6 +128,19 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#type_detail").hide();
+            $("#service_type").change(function () {
+                if ("自定义" == $(this).val()) {
+                    $("#type_detail").show();
+                } else {
+                    $("#type_detail").hide();
+                }
+            });
+        });
+    </script>
 </div>
 </body>
 

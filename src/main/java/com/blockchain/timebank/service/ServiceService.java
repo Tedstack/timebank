@@ -12,4 +12,6 @@ public interface ServiceService {
     ServiceEntity findById(long id);
 
     ServiceEntity findFirstByTypeAndName(String type, String name);
+
+    List<String> findAllServiceType();
 }
