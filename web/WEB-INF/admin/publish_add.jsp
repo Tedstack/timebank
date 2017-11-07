@@ -1,14 +1,8 @@
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
-<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: toyking
-  Date: 2017/10/28
-  Time: 15:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,75 +35,143 @@
             <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">已发布服务列表</li>
+            <li class="breadcrumb-item active">后台发布服务</li>
         </ol>
-        <!-- Example DataTables Card-->
+
+        <!-- Example Bar Chart Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 服务发布表
+                <i class="fa fa-bar-chart"></i> 服务信息
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>发布人姓名</th>
-                            <th>发布人手机号</th>
-                            <th>服务类型</th>
-                            <th>服务名称</th>
-                            <th>具体描述</th>
-                            <th>发布价格</th>
-                            <th>服务的范围</th>
-                            <th>生效时间</th>
-                            <th>失效时间</th>
-                        </tr>
-                        </thead>
-                        <%--<tfoot>--%>
-                        <%--<tr>--%>
-                        <%--<th>Name</th>--%>
-                        <%--<th>Position</th>--%>
-                        <%--<th>Office</th>--%>
-                        <%--<th>Age</th>--%>
-                        <%--<th>Start date</th>--%>
-                        <%--<th>Salary</th>--%>
-                        <%--</tr>--%>
-                        <%--</tfoot>--%>
-                        <tbody>
 
+                <form action="/admin/publishAddSubmit" method="post">
+                    <%
+                        if (request.getAttribute("ok") != null) {
+                            out.print("<div class='alert alert-success' role='alert'>"
+                                    + request.getAttribute("ok") + "</div>");
+                        }
+                        if (request.getAttribute("error") != null) {
+                            out.print("<div class='alert alert-danger' role='alert'>"
+                                    + request.getAttribute("error") + "</div>");
+                        }
 
-                        <%
-                            List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) request.getAttribute("list");
-                            for (ViewPublishDetailEntity detailEntity : list) {
-                        %>
-                        <tr>
-                            <td><%=detailEntity.getId()%></td>
-                            <td><%=detailEntity.getUserName()%></td>
-                            <td><%=detailEntity.getUserPhone()%></td>
-                            <td><%=detailEntity.getServiceType()%></td>
-                            <td>
-                                <span><img src="../img/服务名称/<%=detailEntity.getServiceName()%>.png" height="25px"></span>
-                                &nbsp;<%=detailEntity.getServiceName()%>
-                            </td>
-                            <td><a href="">查看</a></td>
-                            <td><%=detailEntity.getPrice()%></td>
-                            <td><%=detailEntity.getAddress()%></td>
-                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getBeginDate()));%></td>
-                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getEndDate()));%></td>
-                            <%--<td></td>--%>
-                        </tr>
-                        <%
-                            }
-                        %>
-                        </tbody>
-                    </table>
-                </div>
+                        Map<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+                        List<ServiceEntity> list = (List<ServiceEntity>) request.getAttribute("service_list");
+                        for (ServiceEntity service : list) {
+                            if (!map.containsKey(service.getType()))
+                                map.put(service.getType(), new ArrayList<String>());
+                            map.get(service.getType()).add(service.getName());
+                        }
+                    %>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务类型</label>
+                        <div class="col-sm-4">
+                            <select name="serviceType" id="service_type" class="form-control">
+                                <%
+                                    for (String type : map.keySet()) {
+                                        out.print("<option value='" + type + "'>" + type + "</option>");
+                                    }
+                                %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <%
+                        for (String type : map.keySet()) {
+                            List<String> names = map.get(type);
+                    %>
+
+                    <div class="form-group row ui-name" id="<%out.print(type);%>">
+                        <label class="col-sm-1 col-form-label">服务名称</label>
+                        <div class="col-sm-4">
+                            <select name="serviceName" class="form-control">
+                                <%
+                                    for (String name : names) {
+                                        out.print("<option value='" + name + "'>" + name + "</option>");
+                                    }
+                                %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <%
+                        }
+                    %>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">发布者手机号</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" name="phone" pattern="[0-9]*" placeholder="请输入手机号">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务描述</label>
+                        <div class="col-sm-4">
+                            <textarea class="form-control" name="description" placeholder="请输入描述" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">开始日期</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="date" name="beginDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">结束日期</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="date" name="endDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务价格</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="number" name="price" pattern="[0-9]*.[0-9]*" placeholder="请输入价格">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">服务范围</label>
+                        <div class="col-sm-4">
+                            <select name="address" id="address" class="form-control">
+                                <%--黄浦区、徐汇区、长宁区、静安区、普陀区、虹口区、杨浦区、宝山区、闵行区、嘉定区、浦东新区、松江区、金山区、青浦区、奉贤区、崇明区--%>
+                                <option value="黄浦区">黄浦区</option>
+                                <option value="徐汇区">徐汇区</option>
+                                <option value="长宁区">长宁区</option>
+                                <option value="静安区">静安区</option>
+                                <option value="普陀区">普陀区</option>
+                                <option value="虹口区">虹口区</option>
+                                <option value="杨浦区">杨浦区</option>
+                                <option value="宝山区">宝山区</option>
+                                <option value="闵行区">闵行区</option>
+                                <option value="嘉定区">嘉定区</option>
+                                <option value="浦东新区">浦东新区</option>
+                                <option value="松江区">松江区</option>
+                                <option value="金山区">金山区</option>
+                                <option value="青浦区">青浦区</option>
+                                <option value="奉贤区">奉贤区</option>
+                                <option value="崇明区">崇明区</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-primary btn-block">发 布</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <%--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>--%>
         </div>
+
     </div>
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
+
     <jsp:include page="footer.jsp"/>
 
     <!-- Bootstrap core JavaScript-->
@@ -124,6 +186,19 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.ui-name:gt(0)').hide();
+            $('.ui-name:gt(0)').find("select").attr("name", "");
+            $('#service_type').change(function () {
+                $('.ui-name').hide();
+                $('.ui-name').find("select").attr("name", "");
+                $('#' + $(this).val()).show();
+                $('#' + $(this).val()).find("select").attr("name", "serviceName");
+            });
+        });
+    </script>
 </div>
 </body>
 

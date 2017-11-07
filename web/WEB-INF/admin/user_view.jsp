@@ -1,10 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
-  Created by IntelliJ IDEA.
-  User: toyking
-  Date: 2017/10/28
-  Time: 15:10
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
