@@ -7,9 +7,6 @@ import java.sql.Timestamp;
 @Table(name = "record", schema = "mydb", catalog = "")
 public class RecordEntity {
     private long id;
-    private long applyUserId;
-    private long serviceUserId;
-    private long publishId;
     private String applyAddress;
     private String applyUserName;
     private String applyUserPhone;
@@ -19,6 +16,8 @@ public class RecordEntity {
     private Timestamp actualBeginTime;
     private Timestamp actualEndTime;
     private Double payMoney;
+    private Double rating;
+    private String comment;
     private String status;
     private String extra;
 
@@ -30,36 +29,6 @@ public class RecordEntity {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "ApplyUserID", nullable = false)
-    public long getApplyUserId() {
-        return applyUserId;
-    }
-
-    public void setApplyUserId(long applyUserId) {
-        this.applyUserId = applyUserId;
-    }
-
-    @Basic
-    @Column(name = "ServiceUserID", nullable = false)
-    public long getServiceUserId() {
-        return serviceUserId;
-    }
-
-    public void setServiceUserId(long serviceUserId) {
-        this.serviceUserId = serviceUserId;
-    }
-
-    @Basic
-    @Column(name = "PublishID", nullable = false)
-    public long getPublishId() {
-        return publishId;
-    }
-
-    public void setPublishId(long publishId) {
-        this.publishId = publishId;
     }
 
     @Basic
@@ -153,6 +122,26 @@ public class RecordEntity {
     }
 
     @Basic
+    @Column(name = "Rating", nullable = true, precision = 0)
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    @Basic
+    @Column(name = "Comment", nullable = true, length = 100)
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    @Basic
     @Column(name = "Status", nullable = false, length = 50)
     public String getStatus() {
         return status;
@@ -180,9 +169,6 @@ public class RecordEntity {
         RecordEntity that = (RecordEntity) o;
 
         if (id != that.id) return false;
-        if (applyUserId != that.applyUserId) return false;
-        if (serviceUserId != that.serviceUserId) return false;
-        if (publishId != that.publishId) return false;
         if (payWay != that.payWay) return false;
         if (applyAddress != null ? !applyAddress.equals(that.applyAddress) : that.applyAddress != null) return false;
         if (applyUserName != null ? !applyUserName.equals(that.applyUserName) : that.applyUserName != null)
@@ -196,6 +182,8 @@ public class RecordEntity {
         if (actualEndTime != null ? !actualEndTime.equals(that.actualEndTime) : that.actualEndTime != null)
             return false;
         if (payMoney != null ? !payMoney.equals(that.payMoney) : that.payMoney != null) return false;
+        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
@@ -205,9 +193,6 @@ public class RecordEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (applyUserId ^ (applyUserId >>> 32));
-        result = 31 * result + (int) (serviceUserId ^ (serviceUserId >>> 32));
-        result = 31 * result + (int) (publishId ^ (publishId >>> 32));
         result = 31 * result + (applyAddress != null ? applyAddress.hashCode() : 0);
         result = 31 * result + (applyUserName != null ? applyUserName.hashCode() : 0);
         result = 31 * result + (applyUserPhone != null ? applyUserPhone.hashCode() : 0);
@@ -217,6 +202,8 @@ public class RecordEntity {
         result = 31 * result + (actualBeginTime != null ? actualBeginTime.hashCode() : 0);
         result = 31 * result + (actualEndTime != null ? actualEndTime.hashCode() : 0);
         result = 31 * result + (payMoney != null ? payMoney.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;

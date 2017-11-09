@@ -6,10 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7537a04-fd4f-4339-bb16-dea1e4d5d68b" name="Default" comment="1. 后台新增了发布服务功能">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/ea1aa5b9-225d-45cd-8559-f2381f20be35.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/ea1aa5b9-225d-45cd-8559-f2381f20be35.xml" />
+    <list default="true" id="b7537a04-fd4f-4339-bb16-dea1e4d5d68b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/1-数据库表结构.sql" afterPath="$PROJECT_DIR$/src/main/resources/1-数据库表结构.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/RecordEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/RecordEntity.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -59,11 +58,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserManageController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserManageController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/admin/UserManageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="79" column="43" lean-forward="false" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
+            <state relative-caret-position="697">
+              <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1030#1031#0" expanded="true" />
@@ -71,6 +70,16 @@
                 <element signature="e#4028#4029#0" expanded="true" />
                 <element signature="e#4075#4076#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RecordEntity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/RecordEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -784,7 +793,7 @@
       <workItem from="1509328071456" duration="21537000" />
       <workItem from="1509413622650" duration="65664000" />
       <workItem from="1509933175387" duration="2892000" />
-      <workItem from="1509936093956" duration="38490000" />
+      <workItem from="1509936093956" duration="38586000" />
     </task>
     <task id="LOCAL-00001" summary="添加用户接口">
       <created>1508124259006</created>
@@ -1052,7 +1061,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510049613319</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="1. 数据库字段修改，在订单中添加了评论字段">
+      <created>1510196597764</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1510196597764</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1088,7 +1104,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="401647000" />
+    <option name="totallyTimeSpent" value="401743000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -1151,7 +1167,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="与登录界面对接" />
     <MESSAGE value="与登录注冊界面对接完成" />
     <MESSAGE value="与服务对接完成" />
     <MESSAGE value="与前端发布服务对接完成" />
@@ -1176,7 +1191,8 @@
     <MESSAGE value="1. 后台新增了添加用户资料更新功能" />
     <MESSAGE value="1. 后台新增了添加服务种类功能" />
     <MESSAGE value="1. 后台新增了发布服务功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 后台新增了发布服务功能" />
+    <MESSAGE value="1. 数据库字段修改，在订单中添加了评论字段" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 数据库字段修改，在订单中添加了评论字段" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1193,13 +1209,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="das://table:/32850cc4/ea1aa5b9-225d-45cd-8559-f2381f20be35/mydb.user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://table:/32850cc4/ea1aa5b9-225d-45cd-8559-f2381f20be35/mydb.user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1599,8 +1608,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/admin/UserManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="79" column="43" lean-forward="false" selection-start-line="79" selection-start-column="43" selection-end-line="79" selection-end-column="43" />
+        <state relative-caret-position="697">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1030#1031#0" expanded="true" />
@@ -1608,6 +1617,14 @@
             <element signature="e#4028#4029#0" expanded="true" />
             <element signature="e#4075#4076#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/RecordEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
