@@ -1,13 +1,13 @@
 # User 用户表
 CREATE TABLE `user` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `Name` varchar(20) NULL COMMENT '姓名',
-  `Password` varchar(45) NULL COMMENT '密码',
-  `Phone` varchar(20) NOT NULL COMMENT '手机号',
-  `TimeCoin` double NOT NULL COMMENT '时间币余额',
-  `TimeVol` double NOT NULL COMMENT '志愿者时间余额',
-  `RegisterDate` date NULL COMMENT '注册时间',
-  `IDCard` varchar(20) NULL COMMENT '身份证号码',
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+  `Name` VARCHAR(20) NULL COMMENT '姓名',
+  `Password` VARCHAR(45) NULL COMMENT '密码',
+  `Phone` VARCHAR(20) NOT NULL COMMENT '手机号',
+  `TimeCoin` DOUBLE NOT NULL COMMENT '时间币余额',
+  `TimeVol` DOUBLE NOT NULL COMMENT '志愿者时间余额',
+  `RegisterDate` DATE NULL COMMENT '注册时间',
+  `IDCard` VARCHAR(20) NULL COMMENT '身份证号码',
   `Sex` VARCHAR(10) NULL COMMENT '性别',
   `Birth` DATE NULL COMMENT '出生年月日',
   `QRCode` VARCHAR(20) NULL COMMENT '二维码',
@@ -19,11 +19,11 @@ ALTER TABLE `user`
 
 # ServiceController 服务种类表
 CREATE TABLE `service` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '服务种类编号',
-  `Type` varchar(45) NOT NULL COMMENT '服务类型',
-  `Name` varchar(45)  NOT NULL COMMENT '服务名称',
-  `Price` double NOT NULL COMMENT '服务的参考价（时间元）',
-  `UpdateTime` datetime NULL COMMENT '价格更新表时间',
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '服务种类编号',
+  `Type` VARCHAR(45) NOT NULL COMMENT '服务类型',
+  `Name` VARCHAR(45)  NOT NULL COMMENT '服务名称',
+  `Price` DOUBLE NOT NULL COMMENT '服务的参考价（时间元）',
+  `UpdateTime` DATETIME NULL COMMENT '价格更新表时间',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='服务种类表';
@@ -31,10 +31,10 @@ CREATE TABLE `service` (
 
 # TimeAccount 时间元表
 CREATE TABLE `timeaccount` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '记录编号',
-  `UserID` bigint(20) NOT NULL COMMENT '用户ID',
-  `ServiceID` bigint(20) NOT NULL COMMENT '服务种类ID',
-  `TimeAccount` double NOT NULL COMMENT '服务对应的时间元',
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '记录编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '用户ID',
+  `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
+  `TimeAccount` DOUBLE NOT NULL COMMENT '服务对应的时间元',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='时间元表';
@@ -47,14 +47,14 @@ ALTER TABLE `timeaccount`
 
 # Publish 发布服务表
 CREATE TABLE `publish` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `UserID` bigint(20) NOT NULL COMMENT '发布者ID',
-  `ServiceID` bigint(20) NOT NULL COMMENT '服务种类ID',
-  `Description` varchar(100) NULL COMMENT '发布描述',
-  `Price` double NOT NULL COMMENT '发布的价格',
-  `Address` varchar(100) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
-  `BeginDate` datetime NOT NULL COMMENT '服务起始日期',
-  `EndDate` datetime NOT NULL COMMENT '服务结束日期',
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
+  `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
+  `Description` VARCHAR(100) NULL COMMENT '发布描述',
+  `Price` DOUBLE NOT NULL COMMENT '发布的价格',
+  `Address` VARCHAR(100) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
+  `BeginDate` DATETIME NOT NULL COMMENT '服务起始日期',
+  `EndDate` DATETIME NOT NULL COMMENT '服务结束日期',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='发布服务表';
@@ -67,20 +67,22 @@ ALTER TABLE `publish`
 
 # record 申请订单表
 CREATE TABLE `record` (
-  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `ApplyUserID` bigint(20) NOT NULL COMMENT '申请者ID',
-  `ServiceUserID` bigint(20) NOT NULL COMMENT '服务者ID',
-  `PublishID` bigint(20) NOT NULL COMMENT '发布服务ID',
-  `ApplyAddress` varchar(100) NOT NULL COMMENT '上门服务地址',
-  `ApplyUserName` varchar(20) NOT NULL COMMENT '申请者姓名',
-  `ApplyUserPhone` varchar(20) NOT NULL COMMENT '申请者手机号',
-  `PayWay` int NOT NULL COMMENT '支付方式',
-  `BeginTime` datetime NULL COMMENT '开始时间',
-  `EndTime` datetime NULL COMMENT '结束时间',
-  `ActualBeginTime` datetime NULL COMMENT '实际开始时间',
-  `ActualEndTime` datetime NULL COMMENT '实际结束时间',
-  `PayMoney` double NULL COMMENT '实际支付金额',
-  `Status` varchar(50) NOT NULL COMMENT '订单状态',
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ApplyUserID` BIGINT(20) NOT NULL COMMENT '申请者ID',
+  `ServiceUserID` BIGINT(20) NOT NULL COMMENT '服务者ID',
+  `PublishID` BIGINT(20) NOT NULL COMMENT '发布服务ID',
+  `ApplyAddress` VARCHAR(100) NOT NULL COMMENT '上门服务地址',
+  `ApplyUserName` VARCHAR(20) NOT NULL COMMENT '申请者姓名',
+  `ApplyUserPhone` VARCHAR(20) NOT NULL COMMENT '申请者手机号',
+  `PayWay` INT NOT NULL COMMENT '支付方式',
+  `BeginTime` DATETIME NULL COMMENT '开始时间',
+  `EndTime` DATETIME NULL COMMENT '结束时间',
+  `ActualBeginTime` DATETIME NULL COMMENT '实际开始时间',
+  `ActualEndTime` DATETIME NULL COMMENT '实际结束时间',
+  `PayMoney` DOUBLE NULL COMMENT '实际支付金额',
+  `Rating` DOUBLE NULL COMMENT '服务满意度评分',
+  `Comment` VARCHAR(100) NULL COMMENT '服务评价',
+  `Status` VARCHAR(50) NOT NULL COMMENT '订单状态',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='申请订单表';
