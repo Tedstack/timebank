@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 @Table(name = "record", schema = "mydb", catalog = "")
 public class RecordEntity {
     private long id;
+    private long applyUserId;
+    private long serviceUserId;
+    private long publishId;
     private String applyAddress;
     private String applyUserName;
     private String applyUserPhone;
@@ -29,6 +32,36 @@ public class RecordEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "ApplyUserID", nullable = false)
+    public long getApplyUserId() {
+        return applyUserId;
+    }
+
+    public void setApplyUserId(long applyUserId) {
+        this.applyUserId = applyUserId;
+    }
+
+    @Basic
+    @Column(name = "ServiceUserID", nullable = false)
+    public long getServiceUserId() {
+        return serviceUserId;
+    }
+
+    public void setServiceUserId(long serviceUserId) {
+        this.serviceUserId = serviceUserId;
+    }
+
+    @Basic
+    @Column(name = "PublishID", nullable = false)
+    public long getPublishId() {
+        return publishId;
+    }
+
+    public void setPublishId(long publishId) {
+        this.publishId = publishId;
     }
 
     @Basic
@@ -169,6 +202,9 @@ public class RecordEntity {
         RecordEntity that = (RecordEntity) o;
 
         if (id != that.id) return false;
+        if (applyUserId != that.applyUserId) return false;
+        if (serviceUserId != that.serviceUserId) return false;
+        if (publishId != that.publishId) return false;
         if (payWay != that.payWay) return false;
         if (applyAddress != null ? !applyAddress.equals(that.applyAddress) : that.applyAddress != null) return false;
         if (applyUserName != null ? !applyUserName.equals(that.applyUserName) : that.applyUserName != null)
@@ -193,6 +229,9 @@ public class RecordEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (applyUserId ^ (applyUserId >>> 32));
+        result = 31 * result + (int) (serviceUserId ^ (serviceUserId >>> 32));
+        result = 31 * result + (int) (publishId ^ (publishId >>> 32));
         result = 31 * result + (applyAddress != null ? applyAddress.hashCode() : 0);
         result = 31 * result + (applyUserName != null ? applyUserName.hashCode() : 0);
         result = 31 * result + (applyUserPhone != null ? applyUserPhone.hashCode() : 0);
