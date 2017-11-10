@@ -30,7 +30,7 @@
         <div class="weui-msg__icon-area"><i class="weui-icon-waiting weui-icon_msg"></i></div>
         <div class="weui-msg__text-area">
             <h2 class="weui-msg__title">扫码服务</h2>
-            <p class="weui-msg__desc">第二次扫码结束服务</p>
+            <p class="weui-msg__desc">点击按钮开始扫码</p>
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
