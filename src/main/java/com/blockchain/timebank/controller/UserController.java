@@ -2,6 +2,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.scan.util.TokenThread;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.ServiceService;
@@ -210,10 +211,16 @@ public class UserController {
 
     //服务者开始扫码
     @RequestMapping(value = "/serviceUserStartScan",method = RequestMethod.GET)
-    public String serviceUserStartScan(ModelMap map,@RequestParam long recordID){
+    public String serviceUserStartScan(ModelMap map,@RequestParam long recordID) throws InterruptedException {
+        TokenThread.appId = "wxb0f6b07f01978a2a"; //获取servlet初始参数appid和appsecret
+        TokenThread.appSecret = "386ef712d87480fa1dc27a93995936eb";
+        System.out.println("appid:"+TokenThread.appId);
+        System.out.println("appSecret:"+TokenThread.appSecret);
+        Thread thread = new Thread(new TokenThread());
+        thread.start(); //启动进程
 
         map.addAttribute("recordID",recordID);
-        return "scan_qr_codetest";
+        return "returnRobot";
     }
 
     //服务者扫码结束
@@ -227,7 +234,6 @@ public class UserController {
         }else{
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             if(record.getActualBeginTime()==null){
-                System.out.println("record.getActualBeginTime()==null"+record.getActualBeginTime());
                 record.setActualBeginTime(timestamp);
             }else{
                 record.setActualEndTime(timestamp);

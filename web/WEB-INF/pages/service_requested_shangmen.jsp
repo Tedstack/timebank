@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
+    <title>待服务</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
@@ -24,7 +24,7 @@
                     已预约
                 </div>
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar2">
-                    待上门
+                    待服务
                 </div>
                 <div class="weui-navbar__item"id="navbar3">
                     待付款
