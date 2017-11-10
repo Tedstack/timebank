@@ -30,7 +30,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
+                <a href="/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">用户列表</li>
         </ol>
@@ -56,12 +56,12 @@
                         </thead>
                         <%--<tfoot>--%>
                         <%--<tr>--%>
-                            <%--<th>Name</th>--%>
-                            <%--<th>Position</th>--%>
-                            <%--<th>Office</th>--%>
-                            <%--<th>Age</th>--%>
-                            <%--<th>Start date</th>--%>
-                            <%--<th>Salary</th>--%>
+                        <%--<th>Name</th>--%>
+                        <%--<th>Position</th>--%>
+                        <%--<th>Office</th>--%>
+                        <%--<th>Age</th>--%>
+                        <%--<th>Start date</th>--%>
+                        <%--<th>Salary</th>--%>
                         <%--</tr>--%>
                         <%--</tfoot>--%>
                         <tbody>
@@ -71,20 +71,21 @@
                             List<UserEntity> list_user = (List<UserEntity>) request.getAttribute("list_user");
                             for (UserEntity userEntity : list_user) {
                         %>
-                                <tr>
-                                    <td><%=userEntity.getName()%></td>
-                                    <td><%=userEntity.getPhone()%></td>
-                                    <td><%=userEntity.getTimeVol()%>（志愿者币V）</td>
-                                    <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
-                                    <td><a href="javascript:void(0)">查看</a> </td>
-                                    <td><%=userEntity.getRegisterDate()%></td>
-                                    <td>尚未认证（<a href="javascript:void(0)">帮助认证</a>）</td>
-                                    <td>
-                                        <a href="/admin/userEdit?userId=<%out.print(userEntity.getId());%>" class="btn btn-primary btn-sm">编辑</a>
-
-                                        <a href="/admin/userVerify?userId=<%out.print(userEntity.getId());%>" class="btn btn-primary btn-sm">查看</a>
-                                    </td>
-                                </tr>
+                        <tr>
+                            <td><%=userEntity.getName()%></td>
+                            <td><%=userEntity.getPhone()%></td>
+                            <td><%=userEntity.getTimeVol()%>（志愿者币V）</td>
+                            <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
+                            <td><a href="javascript:void(0)">查看</a></td>
+                            <td><%=userEntity.getRegisterDate()%></td>
+                            <td>尚未认证（<a href="javascript:void(0)">帮助认证</a>）</td>
+                            <td>
+                                <a href="/admin/userView?userId=<%out.print(userEntity.getId());%>" target="_blank"
+                                   class="btn btn-primary btn-sm">查看</a>
+                                <a href="/admin/userEdit?userId=<%out.print(userEntity.getId());%>" target="_blank"
+                                   class="btn btn-primary btn-sm">编辑</a>
+                            </td>
+                        </tr>
                         <%
                             }
                         %>

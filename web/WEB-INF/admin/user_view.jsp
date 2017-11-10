@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>添加用户</title>
+    <title>用户详情</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -25,9 +25,9 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
+                <a href="/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">编辑用户</li>
+            <li class="breadcrumb-item active">查看用户</li>
         </ol>
         <!-- Area Chart Example-->
         <div class="card mb-3">
@@ -46,90 +46,79 @@
                     }
                     UserEntity user = (UserEntity) request.getAttribute("user");
                 %>
-
-                <form action="/admin/userEditSubmit" method="post">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">基本信息</h4>
                                 <div class="card-body">
-                                    <h4 class="card-title">基本信息</h4>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label>姓名</label>
-                                            <input class="form-control" type="text" name="name" placeholder="请输入姓名"
-                                                   value="<%out.print(user.getName());%>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>手机号</label>
-                                            <input class="form-control" type="text" name="phone" placeholder="请输入手机号"
-                                                   value="<%out.print(user.getPhone());%>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>身份证号</label>
-                                            <input class="form-control" type="text" id="idCard" name="idCard"
-                                                   placeholder="请输入身份证号"
-                                                   value="<%out.print(user.getIdCard());%>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>性别</label> <br>
-                                            <label class="checkbox-inline">
-                                                <input type="radio" name="sex" value="男" checked="checked"> 男
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="radio" name="sex" value="女"> 女
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>出生年月</label>
-                                            <input class="form-control" type="date" id="birth" name="birth"
-                                                   placeholder="请输入出生年月" value="<%out.print(user.getBirth());%>" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label>卡号</label>
-                                            <input class="form-control" type="text" name="QRCode"
-                                                   placeholder="请输入要绑定的卡号" value="<%out.print(user.getQrCode());%>">
-                                        </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">姓名：</label>
+                                        <label class="col-sm-4 col-form-label"><%out.print(user.getName());%></label>
                                     </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">手机号：</label>
+                                        <label class="col-sm-4 col-form-label"><%out.print(user.getPhone());%></label>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">身份证号：</label>
+                                        <label class="col-sm-4 col-form-label"><%out.print(user.getIdCard());%></label>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">性别：</label>
+                                        <label class="col-sm-4 col-form-label"><%out.print(user.getSex());%></label>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">出生年月：</label>
+                                        <label class="col-sm-4 col-form-label"><%out.print(user.getBirth());%></label>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">卡号：</label>
+                                        <label class="col-sm-4 col-form-label"><%out.print(user.getQrCode());%></label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title"><span><img src="img/实名认证.png"
-                                                                      style="height: 40px;">&nbsp;</span>实名认证</h4>
-                                    <h6 class="card-subtitle mb-2 text-muted">身份证照片上传</h6>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <img class="img-thumbnail" data-src="holder.js/100px180/?text=Image cap"
-                                                     alt="Image cap [100%x180]"
-                                                     src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                                                     data-holder-rendered="true" style="width: 100%;">
-                                                <button type="button" style="margin-top: 10px;"
-                                                        class="btn btn-primary btn-sm btn-block">上传正面照片
-                                                </button>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <img class="img-thumbnail" data-src="holder.js/100px180/?text=Image cap"
-                                                     alt="Image cap [100%x180]"
-                                                     src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-                                                     data-holder-rendered="true" style="width: 100%;">
-                                                <button type="button" style="margin-top: 10px;"
-                                                        class="btn btn-primary btn-sm btn-block">上传背面照片
-                                                </button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-block">提交</button>
                     </div>
-                </form>
+                    <div class="col-lg-6">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"><span><img src="img/实名认证.png"
+                                                                  style="height: 40px;">&nbsp;</span>实名认证</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">身份证照片</h6>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <img class="img-thumbnail" data-src="holder.js/100px180/?text=Image cap"
+                                                 alt="Image cap [100%x180]"
+                                                 src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                                 data-holder-rendered="true" style="width: 100%;">
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <img class="img-thumbnail" data-src="holder.js/100px180/?text=Image cap"
+                                                 alt="Image cap [100%x180]"
+                                                 src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+                                                 data-holder-rendered="true" style="width: 100%;">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

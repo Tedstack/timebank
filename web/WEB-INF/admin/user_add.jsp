@@ -24,7 +24,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Dashboard</a>
+                <a href="/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">添加用户</li>
         </ol>

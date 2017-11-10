@@ -43,6 +43,12 @@ public class UserManageController {
         return "../admin/user_edit";
     }
 
+    @RequestMapping(value = "/userView", method = RequestMethod.GET)
+    public String userViewPage(ModelMap map, @RequestParam long userId) {
+        map.addAttribute("user", userService.findUserEntityById(userId));
+        return "../admin/user_view";
+    }
+
 
     @RequestMapping(value = "/userAddSubmit", method = RequestMethod.POST)
     public String userAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String idCard, @RequestParam String sex, @RequestParam Date birth, @RequestParam String QRCode) {

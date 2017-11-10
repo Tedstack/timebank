@@ -31,7 +31,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
+                <a href="/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">已发布服务列表</li>
         </ol>
