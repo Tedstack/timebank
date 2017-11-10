@@ -31,7 +31,7 @@
                     待服务
                 </div>
                 <div class="weui-navbar__item"id="navbar4">
-                    待支付
+                    待收款
                 </div>
                 <div class="weui-navbar__item"id="navbar5">
                     已完成
