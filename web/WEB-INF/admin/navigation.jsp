@@ -82,7 +82,7 @@
                         <a href="/admin/recordList">订单列表</a>
                     </li>
                     <li>
-                        <a href="">帮助预约</a>
+                        <a href="/admin/recordAddChoosePublish">帮助预约</a>
                     </li>
                 </ul>
             </li>

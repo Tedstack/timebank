@@ -2,7 +2,6 @@ package com.blockchain.timebank.admin;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.entity.PublishEntity;
-import com.blockchain.timebank.entity.ServiceEntity;
 import com.blockchain.timebank.entity.ViewPublishDetailEntity;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.ServiceService;
@@ -40,6 +39,7 @@ public class PublishManageController {
     public String publishListPage(ModelMap map) {
         List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>)viewPublishDetailDao.findAll();
         map.addAttribute("list", list);
+        map.addAttribute("link_publishView","1");
         return "../admin/publish_list";
     }
 

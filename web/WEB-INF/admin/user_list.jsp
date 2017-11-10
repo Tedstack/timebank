@@ -50,7 +50,6 @@
                             <th>时间币</th>
                             <th>时间</th>
                             <th>注册时间</th>
-                            <th>实名认证信息</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -78,12 +77,15 @@
                             <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
                             <td><a href="javascript:void(0)">查看</a></td>
                             <td><%=userEntity.getRegisterDate()%></td>
-                            <td>尚未认证（<a href="javascript:void(0)">帮助认证</a>）</td>
                             <td>
-                                <a href="/admin/userView?userId=<%out.print(userEntity.getId());%>" target="_blank"
-                                   class="btn btn-primary btn-sm">查看</a>
-                                <a href="/admin/userEdit?userId=<%out.print(userEntity.getId());%>" target="_blank"
-                                   class="btn btn-primary btn-sm">编辑</a>
+                                <%
+                                    if (request.getAttribute("link_userView") != null) {
+                                        out.print("<a href='/admin/userView?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>查看</a> ");
+                                    }
+                                    if (request.getAttribute("link_userEdit") != null) {
+                                        out.print("<a href='/admin/userEdit?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>编辑</a> ");
+                                    }
+                                %>
                             </td>
                         </tr>
                         <%

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>服务种类列表</title>
+    <title>添加服务种类</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -82,7 +82,7 @@
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">服务推荐价格</label>
                         <div class="col-sm-2">
-                            <input class="form-control" type="number" name="price" placeholder="请输入价格">
+                            <input class="form-control" type="number" name="price" placeholder="请输入价格" required>
                         </div>
                     </div>
 

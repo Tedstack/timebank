@@ -46,15 +46,15 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>发布人姓名</th>
+                            <th>发布人</th>
                             <th>发布人手机号</th>
                             <th>服务类型</th>
                             <th>服务名称</th>
-                            <th>具体描述</th>
                             <th>发布价格</th>
                             <th>服务的范围</th>
                             <th>生效时间</th>
                             <th>失效时间</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <%--<tfoot>--%>
@@ -69,7 +69,6 @@
                         <%--</tfoot>--%>
                         <tbody>
 
-
                         <%
                             List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) request.getAttribute("list");
                             for (ViewPublishDetailEntity detailEntity : list) {
@@ -83,12 +82,20 @@
                                 <span><img src="../img/服务名称/<%=detailEntity.getServiceName()%>.png" height="25px"></span>
                                 &nbsp;<%=detailEntity.getServiceName()%>
                             </td>
-                            <td><a href="">查看</a></td>
                             <td><%=detailEntity.getPrice()%></td>
                             <td><%=detailEntity.getAddress()%></td>
                             <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getBeginDate()));%></td>
                             <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getEndDate()));%></td>
-                            <%--<td></td>--%>
+                            <td>
+                                <%
+                                    if (request.getAttribute("link_publishView") != null) {
+                                        out.print("<a href='' class='btn btn-primary btn-sm'>查看</a> ");
+                                    }
+                                    if (request.getAttribute("link_recordAdd") != null) {
+                                        out.print("<a href='/admin/recordAdd?publishId=" + detailEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>预约服务</a> ");
+                                    }
+                                %>
+                            </td>
                         </tr>
                         <%
                             }

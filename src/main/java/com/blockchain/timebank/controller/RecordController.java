@@ -66,7 +66,7 @@ public class RecordController {
             recordEntity.setBeginTime(new Timestamp(date.getTime()));
             recordEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
             recordEntity.setPayWay(payWay);
-            recordEntity.setStatus("已申请");
+            recordEntity.setStatus(OrderStatus.alreadyApply);
             recordService.saveRecordEntity(recordEntity);
             map.addAttribute("msg","ok");
         } catch (ParseException e) {

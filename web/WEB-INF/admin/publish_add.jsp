@@ -103,35 +103,35 @@
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">发布者手机号</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="phone" pattern="[0-9]*" placeholder="请输入手机号">
+                            <input class="form-control" type="text" name="phone" pattern="[0-9]*" placeholder="请输入手机号" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">服务描述</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" name="description" placeholder="请输入描述" rows="3"></textarea>
+                            <textarea class="form-control" name="description" placeholder="请输入描述" rows="3" required></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">开始日期</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="date" name="beginDate">
+                            <input class="form-control" type="date" name="beginDate" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">结束日期</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="date" name="endDate">
+                            <input class="form-control" type="date" name="endDate" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">服务价格</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="number" name="price" pattern="[0-9]*.[0-9]*" placeholder="请输入价格">
+                            <input class="form-control" type="text" name="price" pattern="[0-9]*.[0-9]*" placeholder="请输入价格" required>
                         </div>
                     </div>
 

@@ -23,6 +23,8 @@ public class UserManageController {
     public String userListPage(ModelMap map) {
         List<UserEntity> list_user = userService.findAll();
         map.addAttribute("list_user", list_user);
+        map.addAttribute("link_userView","1");
+        map.addAttribute("link_userEdit","1");
         return "../admin/user_list";
     }
 
@@ -47,6 +49,11 @@ public class UserManageController {
     public String userViewPage(ModelMap map, @RequestParam long userId) {
         map.addAttribute("user", userService.findUserEntityById(userId));
         return "../admin/user_view";
+    }
+
+    @RequestMapping(value = "/userAddMany", method = RequestMethod.GET)
+    public String userAddManyPage(ModelMap map) {
+        return "../admin/user_add_many";
     }
 
 
@@ -99,9 +106,4 @@ public class UserManageController {
         }
     }
 
-
-    @RequestMapping(value = "/userAddMany", method = RequestMethod.GET)
-    public String userAddManyPage(ModelMap map) {
-        return "../admin/user_add_many";
-    }
 }
