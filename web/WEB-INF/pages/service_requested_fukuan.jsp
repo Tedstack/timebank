@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</a>
+                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" id="payBtn" value=<%out.print(recordDetailList.get(i).getId());%>>支付</a>
                         </div>
                     </div>
                     <br>
@@ -103,6 +103,31 @@
         $("#navbar4").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="/user/queryOrderAlreadyComplete";
+        });
+        $("#payBtn").on('click',function () {
+            //alert($("#payBtn").attr("value"));
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: "http://www.hlb9978.com/user/applyUserPayRecord",
+                data: "&recordID=" + $("#payBtn").attr("value"),
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    showAlert("扫码成功",function () {
+                        goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                    })
+                },
+                error: function (xhr, type) {
+                    showAlert("扫码失败",function () {
+                        goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                    })
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
         });
     });
 </script>
