@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -225,6 +226,7 @@ public class UserController {
 
     //服务者扫码结束
     @RequestMapping(value = "/serviceUserCompleteScan",method = RequestMethod.POST)
+    @ResponseBody
     public String serviceUserCompleteFirstScan(ModelMap map,@RequestParam String qrcode,@RequestParam long recordID){
         String status = "";
         UserEntity applyUser = userService.findUserEntityByQrCode(qrcode);
@@ -257,8 +259,8 @@ public class UserController {
             recordService.updateRecordEntity(record);
             status = "success";
         }
-        map.addAttribute("status",status);
-        return "scan_qr_codetest2";
+        //map.addAttribute("status",status);
+        return status;
     }
 
     public UserEntity getCurrentUser() {
