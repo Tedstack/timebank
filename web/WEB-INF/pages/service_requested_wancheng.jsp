@@ -104,6 +104,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
+    <jsp:include page="bottom_tabbar.jsp"/>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">

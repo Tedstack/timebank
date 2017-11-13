@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface ViewRecordDetailDao extends CrudRepository<ViewRecordDetailEntity, Long> {
     public List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByServiceUserIdAndStatus(long serviceUserID,String status);
+
+    public List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByApplyUserIdAndStatus(long applyUserID,String status);
+
+    public ViewRecordDetailEntity findViewRecordDetailEntityById(long ID);
 }

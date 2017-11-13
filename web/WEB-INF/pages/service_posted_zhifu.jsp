@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>待支付</title>
+    <title>待收款</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
@@ -70,10 +70,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</a>
 
-                        </div>
                     </div>
                     <br>
                 </div>
@@ -83,6 +80,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
+    <jsp:include page="bottom_tabbar.jsp"/>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">

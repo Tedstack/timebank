@@ -55,6 +55,7 @@
                             //setTimeout("window.location.href(/"http://www.baidu.com/")",500);
                             //window.location.href = "http://www.baidu.com?t="+new Date().getTime();
                             //return View("register");
+
                             $.ajax({
                                 type: 'POST',
                                 cache: false,
@@ -64,9 +65,17 @@
                                     dialogLoading = showLoading();
                                 },
                                 success: function (data) {
-                                    showAlert("扫码成功",function () {
-                                        goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
-                                    })
+                                    if(data=="failure"){
+                                        showAlert("二维码与申请者不相符",function () {
+                                            goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                                        })
+                                    }
+                                    if(data=="success"){
+                                        showAlert("扫码成功",function () {
+                                            goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                                        })
+                                    }
+
                                 },
                                 error: function (xhr, type) {
                                     showAlert("扫码失败",function () {

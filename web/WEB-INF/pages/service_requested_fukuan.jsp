@@ -9,6 +9,9 @@
     <title>待付款</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 
@@ -71,7 +74,7 @@
                             </div>
                         </div>
                         <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</a>
+                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" id="payBtn" value=<%out.print(recordDetailList.get(i).getId());%>>支付</a>
                         </div>
                     </div>
                     <br>
@@ -82,6 +85,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
+    <jsp:include page="bottom_tabbar.jsp"/>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
@@ -103,6 +107,35 @@
         $("#navbar4").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="/user/queryOrderAlreadyComplete";
+        });
+        $("#payBtn").on('click',function () {
+            //location.href="/user/applyUserPayTimeCoin?recordID="+$("#payBtn").attr("value");
+            //alert($("#payBtn").attr("value"));
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: "http://www.hlb9978.com/user/applyUserPayTimeCoin",
+                //dataType:'JSONP',
+                data: "recordID=" + $("#payBtn").attr("value"),
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    //alert(data);
+                    showAlert("支付成功",function () {
+                        goTo("http://www.hlb9978.com/user/queryOrderAlreadyComplete");
+                    })
+                },
+                error: function (xhr, type) {
+                    //alert(type);
+                    showAlert("支付失败",function () {
+                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
+                    })
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
         });
     });
 </script>
