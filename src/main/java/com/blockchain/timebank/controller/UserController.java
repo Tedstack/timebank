@@ -3,12 +3,10 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.scan.util.TokenThread;
-import com.blockchain.timebank.service.RecordService;
-import com.blockchain.timebank.service.PublishService;
-import com.blockchain.timebank.service.ServiceService;
-import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.service.*;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,6 +40,9 @@ public class UserController {
 
     @Autowired
     ViewRecordDetailDao viewRecordDetailDao;
+
+    @Autowired
+    AccountService accountService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -175,7 +176,7 @@ public class UserController {
     //查询用户申请订单的接口：已申请
     @RequestMapping(value = "/queryOrderAlreadyApply",method = RequestMethod.GET)
     public String queryAlreadyApplyOrder(ModelMap map){
-        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
+        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
 
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_yuyue";
@@ -184,7 +185,7 @@ public class UserController {
     //查询用户申请订单的接口：待上门
     @RequestMapping(value = "/queryOrderWaitingService",method = RequestMethod.GET)
     public String queryWaitingServiceOrder(ModelMap map){
-        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingService);
+        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingService);
 
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_shangmen";
@@ -193,7 +194,7 @@ public class UserController {
     //查询用户申请订单的接口：待付款
     @RequestMapping(value = "/queryOrderWaitingPay",method = RequestMethod.GET)
     public String queryWaitingPayOrder(ModelMap map){
-        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingPay);
+        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingPay);
 
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_fukuan";
@@ -202,8 +203,8 @@ public class UserController {
     //查询用户申请订单的接口：已完成
     @RequestMapping(value = "/queryOrderAlreadyComplete",method = RequestMethod.GET)
     public String queryAlreadyCompleteOrder(ModelMap map){
-        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
-        List<ViewRecordDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
+        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
+        List<ViewRecordDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
         recordDetailList.addAll(recordDetailList2);
 
         map.addAttribute("recordDetailList", recordDetailList);
@@ -261,6 +262,19 @@ public class UserController {
         }
         //map.addAttribute("status",status);
         return status;
+    }
+
+    //申请志愿者服务的用户支付时间币
+    @RequestMapping(value = "/applyUserPayTimeCoin",method = RequestMethod.POST)
+    @ResponseBody
+    public void applyUserPayTimeCoin(ModelMap map,@RequestParam long recordID) {
+        ViewRecordDetailEntity viewRecordDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
+        if(viewRecordDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
+            if(getCurrentUser().getId()==viewRecordDetailEntity.getApplyUserId()){
+                accountService.payTimeCoin(recordID);
+            }
+        }
+
     }
 
     public UserEntity getCurrentUser() {

@@ -9,6 +9,9 @@
     <title>待付款</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 
@@ -105,23 +108,27 @@
             location.href="/user/queryOrderAlreadyComplete";
         });
         $("#payBtn").on('click',function () {
+            //location.href="/user/applyUserPayTimeCoin?recordID="+$("#payBtn").attr("value");
             //alert($("#payBtn").attr("value"));
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: "http://www.hlb9978.com/user/applyUserPayRecord",
-                data: "&recordID=" + $("#payBtn").attr("value"),
+                url: "http://www.hlb9978.com/user/applyUserPayTimeCoin",
+                //dataType:'JSONP',
+                data: "recordID=" + $("#payBtn").attr("value"),
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
-                    showAlert("扫码成功",function () {
-                        goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                    //alert(data);
+                    showAlert("支付成功",function () {
+                        goTo("http://www.hlb9978.com/user/queryOrderAlreadyComplete");
                     })
                 },
                 error: function (xhr, type) {
-                    showAlert("扫码失败",function () {
-                        goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                    //alert(type);
+                    showAlert("支付失败",function () {
+                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
                     })
                 },
                 complete: function (xhr, type) {
