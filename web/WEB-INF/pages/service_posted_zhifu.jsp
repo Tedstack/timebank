@@ -70,10 +70,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">支付</a>
 
-                        </div>
                     </div>
                     <br>
                 </div>
