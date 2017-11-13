@@ -6,84 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7537a04-fd4f-4339-bb16-dea1e4d5d68b" name="Default" comment="1. 后台管理新增了帮助预约功能">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/img/loading-sm.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/img/loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/css/fileinput-rtl.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/css/fileinput-rtl.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/css/fileinput.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/css/fileinput.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/examples/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/examples/index2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/fileinput.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/fileinput.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/LANG.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/ar.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/az.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/bg.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/ca.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/cr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/cz.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/da.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/de.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/el.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/es.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/et.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/fa.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/fi.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/fr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/gl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/hu.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/id.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/it.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/ja.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/kr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/kz.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/lt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/nl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/no.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/pl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/pt-BR.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/pt.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/ro.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/ru.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/sk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/sl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/sv.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/th.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/tr.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/uk.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/vi.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/zh-TW.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/locales/zh.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/plugins/piexif.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/plugins/piexif.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/plugins/purify.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/plugins/purify.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/plugins/sortable.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/js/plugins/sortable.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/nuget/Package.nuspec" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/nuget/build.bat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/scss/fileinput-rtl.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/scss/fileinput.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/scss/themes/explorer-fa/theme.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/scss/themes/explorer/theme.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer-fa/theme.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer-fa/theme.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer-fa/theme.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer-fa/theme.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer/theme.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer/theme.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer/theme.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/explorer/theme.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/fa/theme.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/fa/theme.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/gly/theme.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/vendor/file-input/themes/gly/theme.min.js" />
+    <list default="true" id="b7537a04-fd4f-4339-bb16-dea1e4d5d68b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/admin/UserManageController.java" afterPath="$PROJECT_DIR$/src/main/java/com/blockchain/timebank/admin/UserManageController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/admin/user_add.jsp" afterPath="$PROJECT_DIR$/web/WEB-INF/admin/user_add.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -129,10 +54,12 @@
       <file leaf-file-name="UserManageController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/admin/UserManageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="127" column="13" lean-forward="true" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
+            <state relative-caret-position="765">
+              <caret line="130" column="25" lean-forward="false" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1305#1306#0" expanded="true" />
+                <element signature="e#1347#1348#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -184,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/dispatcher-servlet.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
-              <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+              <caret line="17" column="11" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -194,7 +121,7 @@
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/applicationContext.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+              <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -785,6 +712,132 @@
       <recent name="com.blockchain.timebank.dao" />
     </key>
   </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/com/blockchain/timebank/controller/UserController.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/com/blockchain/timebank/dao/ViewRecordDetailDao.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/css/bootstrap-touch-slider.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/returnRobot.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_posted_fabu.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_posted_fuwu.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_posted_queren.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_posted_wancheng.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_posted_zhifu.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_requested_fukuan.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_requested_shangmen.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_requested_wancheng.jsp</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/WEB-INF/pages/service_requested_yuyue.jsp</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/AccountServiceException.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/com/blockchain/timebank/entity/ServiceType.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/com/blockchain/timebank/service/AccountService.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/main/java/com/blockchain/timebank/service/AccountServiceImpl.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -1069,7 +1122,7 @@
       <workItem from="1509936093956" duration="42329000" />
       <workItem from="1510213143318" duration="25288000" />
       <workItem from="1510538394724" duration="23000" />
-      <workItem from="1510538564761" duration="15639000" />
+      <workItem from="1510538564761" duration="15906000" />
     </task>
     <task id="LOCAL-00001" summary="添加用户接口">
       <created>1508124259006</created>
@@ -1372,7 +1425,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510307773857</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="1. 后台管理新增了上传照片模块">
+      <created>1510570792906</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1510570792906</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1408,7 +1468,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="446436000" />
+    <option name="totallyTimeSpent" value="446703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -1424,7 +1484,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36381134" sideWeight="0.74946696" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36381134" sideWeight="0.74946696" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22425409" sideWeight="0.71908313" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1471,7 +1531,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="与前端发布服务对接完成" />
     <MESSAGE value="修改页面" />
     <MESSAGE value="对用户信息详细描述" />
     <MESSAGE value="对发布服务页面进行了修改" />
@@ -1496,7 +1555,8 @@
     <MESSAGE value="1. 数据库字段修改，在订单中添加了评论字段" />
     <MESSAGE value="1. 修改了后台首页导航&#10;2. 修改了查看用户信息的功能" />
     <MESSAGE value="1. 后台管理新增了帮助预约功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. 后台管理新增了帮助预约功能" />
+    <MESSAGE value="1. 后台管理新增了上传照片模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. 后台管理新增了上传照片模块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1521,14 +1581,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/blank.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/pages/service_posted_wancheng.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="903">
@@ -1577,6 +1629,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1892,7 +1945,7 @@
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/dispatcher-servlet.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+          <caret line="17" column="11" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -1908,7 +1961,7 @@
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
-          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -1936,12 +1989,22 @@
         <state />
       </provider>
     </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.12.RELEASE/spring-web-4.3.12.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/blockchain/timebank/admin/UserManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="127" column="13" lean-forward="true" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
+        <state relative-caret-position="765">
+          <caret line="130" column="25" lean-forward="false" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1305#1306#0" expanded="true" />
+            <element signature="e#1347#1348#0" expanded="true" />
           </folding>
         </state>
       </provider>

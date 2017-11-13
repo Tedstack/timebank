@@ -128,7 +128,7 @@ public class UserManageController {
             }
         }
         model.addAttribute("fileUrl", "/upload/" + uploadPath + file.getOriginalFilename());
-        return "../admin/user_add";
+        return "redirect:/admin/user_add";
     }
 
 }
