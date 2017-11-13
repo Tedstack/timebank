@@ -8,7 +8,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
@@ -17,14 +20,17 @@ import java.util.List;
 public class UserManageController {
 
     @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
     UserService userService;
 
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
     public String userListPage(ModelMap map) {
         List<UserEntity> list_user = userService.findAll();
         map.addAttribute("list_user", list_user);
-        map.addAttribute("link_userView","1");
-        map.addAttribute("link_userEdit","1");
+        map.addAttribute("link_userView", "1");
+        map.addAttribute("link_userEdit", "1");
         return "../admin/user_list";
     }
 
@@ -104,6 +110,25 @@ public class UserManageController {
             map.addAttribute("ok", "信息更新成功！");
             return "../admin/user_edit";
         }
+    }
+
+
+    @RequestMapping(value = "/userUploadPhoto")
+    public String upload(ModelMap model, @RequestParam(value = "file", required = false) MultipartFile file) {
+        String uploadPath = request.getSession().getServletContext().getRealPath("/") + "upload/";// 文件保存路径
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdir();
+        // 判断文件是否为空
+        if (!file.isEmpty()) {
+            try {
+                // 转存文件
+                file.transferTo(new File(uploadPath + file.getOriginalFilename()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        model.addAttribute("fileUrl", "/upload/" + uploadPath + file.getOriginalFilename());
+        return "../admin/user_add";
     }
 
 }

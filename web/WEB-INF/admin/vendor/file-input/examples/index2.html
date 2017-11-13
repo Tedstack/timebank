@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- release v4.4.5, copyright 2014 - 2017 Kartik Visweswaran -->
+<!--suppress JSUnresolvedLibraryURL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Krajee JQuery Plugins - &copy; Kartik</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="../themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="../js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="../js/fileinput.js" type="text/javascript"></script>
+    <script src="../js/locales/zh.js" type="text/javascript"></script>
+    <script src="../themes/explorer-fa/theme.js" type="text/javascript"></script>
+    <script src="../themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="container kv-main">
+    <form enctype="multipart/form-data">
+        <div class="file-loading">
+            <input id="kv-explorer" type="file">
+        </div>
+        <br>
+    </form>
+
+
+    <form enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="file-loading">
+                <input id="file-0d" class="file" type="file">
+            </div>
+        </div>
+    </form>
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+<script>
+    $("#file-0d").fileinput({
+        language: 'zh', //设置语言
+        uploadUrl: "/api/file/upload", //上传的地址
+        allowedPreviewTypes: null,//默认是['image', 'html', 'text', 'video', 'audio', 'flash','object']
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        showCaption: true,//是否显示标题
+        browseClass: "btn btn-primary btn-lg", //按钮样式
+        uploadExtraData: {
+            path: "/test"
+        }
+    });
+
+    $(document).ready(function () {
+        $("#kv-explorer").fileinput({
+            language: 'zh', //设置语言
+            theme: 'explorer-fa',
+            uploadUrl: '#',
+            overwriteInitial: false,
+            initialPreviewAsData: true,
+            initialPreview: [
+                "http://lorempixel.com/1920/1080/nature/1",
+                "http://lorempixel.com/1920/1080/nature/2",
+                "http://lorempixel.com/1920/1080/nature/3"
+            ],
+            initialPreviewConfig: [
+                {caption: "nature-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+                {caption: "nature-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+                {caption: "nature-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+            ]
+        });
+    });
+</script>
+</html>

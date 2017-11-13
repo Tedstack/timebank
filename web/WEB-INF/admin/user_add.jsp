@@ -1,20 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="UTF-8"/>
     <title>添加用户</title>
-    <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom fonts for this template-->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Custom styles for this template-->
+    <link href="vendor/file-input/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="vendor/file-input/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/sb-admin.css" rel="stylesheet">
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/file-input/js/plugins/sortable.js" type="text/javascript"></script>
+    <script src="vendor/file-input/js/fileinput.js" type="text/javascript"></script>
+    <script src="vendor/file-input/js/locales/zh.js" type="text/javascript"></script>
+    <script src="vendor/file-input/themes/explorer-fa/theme.js" type="text/javascript"></script>
+    <script src="vendor/file-input/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            type="text/javascript"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -76,7 +80,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>出生年月</label>
-                                            <input class="form-control" type="date" id="birth" name="birth" placeholder="请输入出生年月">
+                                            <input class="form-control" type="date" id="birth" name="birth"
+                                                   placeholder="请输入出生年月">
                                         </div>
                                         <div class="form-group">
                                             <label>卡号</label>
@@ -101,8 +106,11 @@
                                                      alt="Image cap [100%x180]"
                                                      src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15f7fafd480%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15f7fafd480%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22110%22%20y%3D%2297.5%22%3EImage%20cap%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
                                                      data-holder-rendered="true" style="width: 100%;">
+                                                <!-- Button trigger modal -->
                                                 <button type="button" style="margin-top: 10px;"
-                                                        class="btn btn-primary btn-sm btn-block">上传正面照片
+                                                        class="btn btn-primary btn-sm btn-block" data-toggle="modal"
+                                                        data-target="#fileModal">
+                                                    上传正面照片
                                                 </button>
                                             </div>
 
@@ -130,37 +138,87 @@
 
     <jsp:include page="footer.jsp"/>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
 
-    <script>
-        $("#idCard").change(function () {
-            var str = $(this).val();
-            if (str.length == 18) {
-                var t = str.substr(6, 4) + "-" + str.substr(10, 2) + "-" + str.substr(12, 2);
-                $("#birth").val(t);
+    <!-- Modal -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">上传照片</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container kv-main">
+                        <form enctype="multipart/form-data">
+                            <div class="file-loading">
+                                <input id="kv-explorer" type="file" name="file">
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                var sex = str[16];
-                if(sex==1){
-                    $("input[name='sex']").eq(0).attr("checked","checked");
-                    $("input[name='sex']").eq(1).removeAttr("checked");
-                    $("input[name='sex']").eq(0).click();
-                }else{
-                    $("input[name='sex']").eq(0).removeAttr("checked");
-                    $("input[name='sex']").eq(1).attr("checked","checked");
-                    $("input[name='sex']").eq(1).click();
-                }
-            }
-        });
-
-    </script>
 
 </div>
+
+
 </body>
 
+
+<script>
+    $("#idCard").change(function () {
+        var str = $(this).val();
+        if (str.length == 18) {
+            var t = str.substr(6, 4) + "-" + str.substr(10, 2) + "-" + str.substr(12, 2);
+            $("#birth").val(t);
+
+            var sex = str[16];
+            if (sex == 1) {
+                $("input[name='sex']").eq(0).attr("checked", "checked");
+                $("input[name='sex']").eq(1).removeAttr("checked");
+                $("input[name='sex']").eq(0).click();
+            } else {
+                $("input[name='sex']").eq(0).removeAttr("checked");
+                $("input[name='sex']").eq(1).attr("checked", "checked");
+                $("input[name='sex']").eq(1).click();
+            }
+        }
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#kv-explorer").fileinput({
+            language: 'zh', //设置语言
+            theme: 'explorer-fa',
+            allowedPreviewTypes: ['image'],
+            allowedFileTypes: ['image'],
+            allowedFileExtensions:  ['jpg', 'png'],
+            uploadUrl: 'http://127.0.0.1:8080/admin/userUploadPhoto'
+//            overwriteInitial: false,
+//            initialPreviewAsData: true,
+//            initialPreview: [
+//                "http://lorempixel.com/1920/1080/nature/1",
+//                "http://lorempixel.com/1920/1080/nature/2",
+//                "http://lorempixel.com/1920/1080/nature/3"
+//            ],
+//            initialPreviewConfig: [
+//                {caption: "nature-1.jpg", size: 329892, width: "120px", url: "{$url}", key: 1},
+//                {caption: "nature-2.jpg", size: 872378, width: "120px", url: "{$url}", key: 2},
+//                {caption: "nature-3.jpg", size: 632762, width: "120px", url: "{$url}", key: 3}
+//            ]
+        });
+    });
+</script>
 </html>
