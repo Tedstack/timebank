@@ -107,6 +107,30 @@ public class UserController {
         }
     }
 
+    //跳转到修改个人信息页面
+    @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)
+    public String startModifyPersonalInfo(ModelMap map){
+
+        return "change_userinfo";
+    }
+
+    //修改个人信息
+    @RequestMapping(value = "/modifyPersonalInfo",method = RequestMethod.POST)
+    public String modifyPersonalInfo(ModelMap map,@RequestParam String qrcode){
+        System.out.println("qrcode:"+qrcode);
+        try{
+            UserEntity user = getCurrentUser();
+            user.setQrCode(qrcode);
+            userService.updateUserEntity(user);
+            map.addAttribute("msg","ok");
+        }catch (Exception e){
+            e.printStackTrace();
+            map.addAttribute("msg","error");
+        }
+
+        return "change_userinfo_result";
+    }
+
     /**
      * 查询用户作为服务者 发布的服务
      * @param map

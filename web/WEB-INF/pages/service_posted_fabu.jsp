@@ -45,7 +45,7 @@
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务类型/专业服务.png" alt="">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务名称/<%out.print(serviceList.get(i).getName());%>.png" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
