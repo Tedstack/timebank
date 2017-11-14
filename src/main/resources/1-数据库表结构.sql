@@ -11,6 +11,9 @@ CREATE TABLE `user` (
   `Sex` VARCHAR(10) NULL COMMENT '性别',
   `Birth` DATE NULL COMMENT '出生年月日',
   `QRCode` VARCHAR(20) NULL COMMENT '二维码',
+  `img1` VARCHAR(50) NULL COMMENT '正面照片文件名',
+  `img2` VARCHAR(50) NULL COMMENT '背面照片文件名',
+  `IsVerify` INT NULL COMMENT '是否已实名认证',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';

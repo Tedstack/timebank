@@ -46,26 +46,13 @@
                         <tr>
                             <th>姓名</th>
                             <th>手机号</th>
-                            <th>志愿者币</th>
-                            <th>时间币</th>
-                            <th>时间</th>
-                            <th>注册时间</th>
+                            <th>身份证号</th>
+                            <th>实名认证</th>
+                            <th>是否已审核</th>
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <%--<tfoot>--%>
-                        <%--<tr>--%>
-                        <%--<th>Name</th>--%>
-                        <%--<th>Position</th>--%>
-                        <%--<th>Office</th>--%>
-                        <%--<th>Age</th>--%>
-                        <%--<th>Start date</th>--%>
-                        <%--<th>Salary</th>--%>
-                        <%--</tr>--%>
-                        <%--</tfoot>--%>
                         <tbody>
-
-
                         <%
                             List<UserEntity> list_user = (List<UserEntity>) request.getAttribute("list_user");
                             for (UserEntity userEntity : list_user) {
@@ -75,12 +62,30 @@
                             </td>
                             <td><%=userEntity.getPhone()%>
                             </td>
-                            <td><%=userEntity.getTimeVol()%>（志愿者币V）</td>
-                            <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
-                            <td><a href="javascript:void(0)">查看</a></td>
                             <td>
                                 <%
-                                    out.print(userEntity.getRegisterDate() == null ? "（暂无）" : userEntity.getRegisterDate());
+                                    out.print(userEntity.getIdCard());
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    if (userEntity.getImg1() == null || userEntity.getImg2() == null) {
+                                        out.print("未上传照片");
+                                        out.print("<a href='/admin/userPhotoAdd?userId=" + userEntity.getId() + "' target='_blank'>（上传）</a> ");
+                                    } else {
+                                        out.print("已上传照片");
+                                        out.print("<a href='/admin/userPhotoAdd?userId=" + userEntity.getId() + "' target='_blank'>（查看）</a> ");
+                                    }
+
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    if (userEntity.getIsVerify() != null && userEntity.getIsVerify() != 0) {
+                                        out.print("已审核");
+                                    }else{
+                                        out.print("未审核");
+                                    }
                                 %>
                             </td>
                             <td>

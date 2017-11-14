@@ -31,7 +31,7 @@
                         <a href="/admin/userList">用户列表</a>
                     </li>
                     <li>
-                        <a href="">审核认证</a>
+                        <a href="/admin/userVerifyList">审核认证</a>
                     </li>
                     <li>
                         <a href="/admin/userAdd">添加用户</a>

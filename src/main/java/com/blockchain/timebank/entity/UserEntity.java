@@ -17,6 +17,9 @@ public class UserEntity {
     private String sex;
     private Date birth;
     private String qrCode;
+    private String img1;
+    private String img2;
+    private Integer isVerify;
     private String extra;
 
     @Id
@@ -130,6 +133,36 @@ public class UserEntity {
     }
 
     @Basic
+    @Column(name = "img1", nullable = true, length = 50)
+    public String getImg1() {
+        return img1;
+    }
+
+    public void setImg1(String img1) {
+        this.img1 = img1;
+    }
+
+    @Basic
+    @Column(name = "img2", nullable = true, length = 50)
+    public String getImg2() {
+        return img2;
+    }
+
+    public void setImg2(String img2) {
+        this.img2 = img2;
+    }
+
+    @Basic
+    @Column(name = "IsVerify", nullable = true)
+    public Integer getIsVerify() {
+        return isVerify;
+    }
+
+    public void setIsVerify(Integer isVerify) {
+        this.isVerify = isVerify;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -157,6 +190,9 @@ public class UserEntity {
         if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
         if (birth != null ? !birth.equals(that.birth) : that.birth != null) return false;
         if (qrCode != null ? !qrCode.equals(that.qrCode) : that.qrCode != null) return false;
+        if (img1 != null ? !img1.equals(that.img1) : that.img1 != null) return false;
+        if (img2 != null ? !img2.equals(that.img2) : that.img2 != null) return false;
+        if (isVerify != null ? !isVerify.equals(that.isVerify) : that.isVerify != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -179,6 +215,9 @@ public class UserEntity {
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (birth != null ? birth.hashCode() : 0);
         result = 31 * result + (qrCode != null ? qrCode.hashCode() : 0);
+        result = 31 * result + (img1 != null ? img1.hashCode() : 0);
+        result = 31 * result + (img2 != null ? img2.hashCode() : 0);
+        result = 31 * result + (isVerify != null ? isVerify.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

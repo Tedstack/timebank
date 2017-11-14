@@ -50,24 +50,31 @@ public class UserManageController {
 
     @RequestMapping(value = "/userView", method = RequestMethod.GET)
     public String userViewPage(ModelMap map, @RequestParam long userId) {
-        UserEntity user = userService.findUserEntityById(userId);
-        map.addAttribute("user", user);
-        if (user.getIdCard() == null || user.getIdCard().equals("")) {
-            map.addAttribute("error","身份证号未填写");
-        }
+        map.addAttribute("user", userService.findUserEntityById(userId));
         return "../admin/user_view";
     }
 
     @RequestMapping(value = "/userPhotoAdd", method = RequestMethod.GET)
     public String userAddPhotoPage(ModelMap map, @RequestParam long userId) {
-        map.addAttribute("user", userService.findUserEntityById(userId));
+        UserEntity user = userService.findUserEntityById(userId);
+        map.addAttribute("user", user);
+        if (user.getIdCard() == null || user.getIdCard().equals("")) {
+            map.addAttribute("error", "身份证号未填写，不能上传照片！");
+        }
         return "../admin/user_photo_add";
+    }
+
+    @RequestMapping(value = "/userVerifyList", method = RequestMethod.GET)
+    public String userVerifyPage(ModelMap map) {
+        List<UserEntity> list_user = userService.findAll();
+        map.addAttribute("list_user", list_user);
+        return "../admin/user_verify_list";
     }
 
     @RequestMapping(value = "/userVerify", method = RequestMethod.GET)
     public String userVerifyPage(ModelMap map, @RequestParam long userId) {
         map.addAttribute("user", userService.findUserEntityById(userId));
-        return "../admin/user_edit";
+        return "../admin/user_view";
     }
 
     @RequestMapping(value = "/userAddMany", method = RequestMethod.GET)
@@ -77,7 +84,7 @@ public class UserManageController {
 
 
     @RequestMapping(value = "/userAddSubmit", method = RequestMethod.POST)
-    public String userAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String idCard, @RequestParam String sex, @RequestParam Date birth, @RequestParam String QRCode) {
+    public String userAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam(required = false) String idCard, @RequestParam(required = false) String sex, @RequestParam(required = false) Date birth, @RequestParam(required = false) String QRCode) {
         if (phone.equals("") || name.equals("")) {
             map.addAttribute("error", "姓名和手机号不能为空");
             return "../admin/user_add";
@@ -86,7 +93,7 @@ public class UserManageController {
             map.addAttribute("error", "添加失败，手机号已经被注册！");
             return "../admin/user_add";
         }
-        if (userService.findUserEntityByIdCard(idCard) != null) {
+        if (idCard != null && userService.findUserEntityByIdCard(idCard) != null) {
             map.addAttribute("error", "添加失败，身份证号已经被注册！");
             return "../admin/user_add";
         }
@@ -132,15 +139,19 @@ public class UserManageController {
 
     @RequestMapping(value = "/userUploadPhoto")
     @ResponseBody
-    public Map<String, Object> upload(@RequestParam(value = "file", required = false) MultipartFile file, String idCard, String img) {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public Map<String, Object> upload(@RequestParam(value = "file", required = false) MultipartFile file, String idCard, int img) {
         File uploadDir = new File(getUploadPath());
         if (!uploadDir.exists()) uploadDir.mkdir();
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String fileName = idCard + "_" + img + suffix;
+        Map<String, Object> map = new HashMap<String, Object>();
+        UserEntity user = userService.findUserEntityByIdCard(idCard);
+        if (img == 1) user.setImg1(fileName);
+        else user.setImg2(fileName);
         try {
-            String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            String fileName = idCard + "_" + img + suffix;
             file.transferTo(new File(getUploadPath() + fileName));// 转存文件
             map.put("url", "/img/profile/" + fileName);
+            userService.saveUserEntity(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
