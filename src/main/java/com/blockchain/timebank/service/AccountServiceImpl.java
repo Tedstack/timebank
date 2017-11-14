@@ -20,24 +20,24 @@ public class AccountServiceImpl implements AccountService {
     RecordService recordService;
 
     @Transactional
-    public void payTimeCoin(long recordID) {
+    public void payTimeVol(long recordID) {
         //1.查询订单价格
         RecordEntity record = recordService.findRecordEntityById(recordID);
         double price = record.getPayMoney();
 
-        //2.扣除申请者时间币账户
+        //2.扣除申请者志愿者币账户
         UserEntity applyUser = userService.findUserEntityById(record.getApplyUserId());
-        if(applyUser.getTimeCoin()<price){
+        if(applyUser.getTimeVol()<price){
             throw new AccountServiceException("您的金额不足！");
         }
-        double timeCoin = applyUser.getTimeCoin() - price;
-        applyUser.setTimeCoin(timeCoin);
+        double timeVol = applyUser.getTimeVol() - price;
+        applyUser.setTimeVol(timeVol);
         userService.updateUserEntity(applyUser);
 
         //3.增加服务者时间币账户
         UserEntity serviceUser = userService.findUserEntityById(record.getServiceUserId());
-        double timeCoin2 = serviceUser.getTimeCoin() + price;
-        serviceUser.setTimeCoin(timeCoin2);
+        double timeVol2 = serviceUser.getTimeVol() + price;
+        serviceUser.setTimeVol(timeVol2);
         userService.updateUserEntity(serviceUser);
 
         //4.更改订单状态

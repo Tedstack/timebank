@@ -41,65 +41,32 @@
                 <%
                     for (int i=0;i<recordDetailList.size();i++) {
                 %>
-                <div class="page__bd">
-                    <div class="weui-form-preview">
-                        <div class="weui-form-preview__hd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务名称</label>
-                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getServiceName());%></em>
-                            </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务类型/志愿者服务.png" alt="">
                         </div>
-                        <div class="weui-form-preview__bd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getId());%></span>
+                        <div class="weui-media-box__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"><%out.print(recordDetailList.get(i).getServiceName());%></h4></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">取消</a></div>
                             </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务提供者</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getServiceUserName());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务地点</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getBeginTime());%> - <%out.print(recordDetailList.get(i).getEndTime());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">预计付费</label>
-                                <span class="weui-form-preview__value">
-                                    <%
-                                        Timestamp beginStamp = recordDetailList.get(i).getBeginTime();
-                                        Timestamp endStamp = recordDetailList.get(i).getEndTime();
-                                        long begin = beginStamp.getTime();
-                                        long end = endStamp.getTime();
+                            <p class="weui-media-box__desc">订单号：<%out.print(recordDetailList.get(i).getId());%></p>
+                            <p class="weui-media-box__desc">服务提供者：<%out.print(recordDetailList.get(i).getServiceUserName());%></p>
+                            <p class="weui-media-box__desc">时间：<%out.print(recordDetailList.get(i).getBeginTime());%> - <%out.print(recordDetailList.get(i).getEndTime());%></p>
+                            <ul class="weui-media-box__info">
+                                <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
+                            </ul>
+                        </div>
 
-                                        long l = end - begin;
-                                        String s = String.valueOf(l);
-                                        double d = Double.parseDouble(s);
-                                        double price = recordDetailList.get(i).getPublishPrice();
-                                        double money = price * (d/(3600*1000));
-
-                                        BigDecimal bg = new BigDecimal(money);
-                                        double convertedMoney = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                                        out.print(convertedMoney);
-                                    %>
-                                </span>
-                            </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">取消</a>
-                        </div>
                     </div>
-                    <br>
                 </div>
+                <img src="../img/底部.png" width="375" height="15">
+
+
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>

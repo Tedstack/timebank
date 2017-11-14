@@ -43,43 +43,37 @@
                 <%
                     for (int i=0;i<recordDetailList.size();i++) {
                 %>
-                <div class="page__bd">
-                    <div class="weui-form-preview">
-                        <div class="weui-form-preview__hd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">订单号</label>
-                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getId());%></em>
-                            </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务类型/志愿者服务.png" alt="">
                         </div>
-                        <div class="weui-form-preview__bd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">申请人</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getApplyUserName());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">开始时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getBeginTime());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">结束时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getEndTime());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">地理位置</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
-                            </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_default" href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+recordDetailList.get(i).getId());%>">拒绝</a>
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+recordDetailList.get(i).getId());%>">接受</a>
+                        <div class="weui-media-box__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">订单号<%out.print(recordDetailList.get(i).getId());%></h4></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
 
+                            </div>
+                            <p class="weui-media-box__desc"><%out.print(recordDetailList.get(i).getBeginTime());%></p>
+                            <p class="weui-media-box__desc"><%out.print(recordDetailList.get(i).getEndTime());%></p>
+                            <ul class="weui-media-box__info">
+                                <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserName());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
+                            </ul>
                         </div>
+                    </div>
+                    <div class="weui-form-preview__ft">
+                        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+recordDetailList.get(i).getId());%>">拒绝</a>
+                        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+recordDetailList.get(i).getId());%>">接受</a>
+
+                    </div>
+                </div>
+                <img src="../img/底部.png" width="375" height="15">
+
+
+
                     </div>
                     <br>
                 </div>

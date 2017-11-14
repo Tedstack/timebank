@@ -17,96 +17,95 @@
 <body>
 
 
-<div class="weui-tab">
+
     <div class="weui-tab__panel">
 
         <%
             UserEntity userEntity = (UserEntity) request.getAttribute("user");
         %>
-
-        <div class="weui-cells">
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p><%out.print(userEntity.getName());%></p>
-                </div>
-                <div class="weui-cell__ft"><%out.print(userEntity.getPhone());%></div>
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__hd"><img src="../img/我的.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+            <div class="weui-cell__bd">
+                <p><%out.print(userEntity.getName());%></p>
             </div>
-        </div>
-        <div class="weui-cells">
+            <div class="weui-cell__ft"><%out.print(userEntity.getPhone());%></div>
+        </a>
+        <img src="../img/底部.png" width="375" height="15">
+
+        <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__hd"><img src="../img/userdetails/新消息通知.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+            <div class="weui-cell__bd">
+                <p>新消息通知</p>
+            </div>
+        </a>
+
+        <img src="../img/底部.png" width="375" height="15">
+
             <a class="weui-cell weui-cell_access" href="javascript:;">
-                <div class="weui-cell__bd">
-                    <p>新消息通知</p>
-                </div>
-                <div class="weui-cell__ft"></div>
-            </a>
-        </div>
-        <div class="weui-cells__title">钱包</div>
-        <div class="weui-cells">
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/时间币.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>时间币余额</p>
                 </div>
                 <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%> C</div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/时间.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>时间</p>
                 </div>
                 <div class="weui-cell__ft">查看</div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/志愿者.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>志愿者币</p>
                 </div>
                 <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%> V</div>
             </a>
-        </div>
-        <div class="weui-cells__title">服务</div>
-        <div class="weui-cells">
+
+        <img src="../img/底部.png" width="375" height="15">
+
             <a href="/user/queryPublishAlreadyPublish" class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/发布的服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>已发布的服务</p>
                 </div>
-                <div class="weui-cell__ft"></div>
             </a>
             <a href="/user/queryOrderAlreadyApply" class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/发布的需求.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>已申请的服务</p>
                 </div>
-                <div class="weui-cell__ft"></div>
             </a>
-        </div>
-        <div class="weui-cells__title"></div>
-        <div class="weui-cells__title">信息完善</div>
-        <div class="weui-cells">
+        <img src="../img/底部.png" width="375" height="15">
+
             <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/实名认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>实名认证</p>
                 </div>
-                <div class="weui-cell__ft"></div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/志愿者认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>志愿者认证</p>
                 </div>
-                <div class="weui-cell__ft"></div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
+                <div class="weui-cell__hd"><img src="../img/userdetails/专业服务认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>专业服务技能认证</p>
                 </div>
-                <div class="weui-cell__ft"></div>
             </a>
 
             <div style="padding: 10px; margin-bottom: 20px;">
-                <a href="/user/logout" class="weui-btn weui-btn_plain-primary">退出登录</a>
+                <a href="/user/logout" class="weui-btn weui-btn_primary">退出登录</a>
             </div>
 
-        </div>
+
     </div>
 
     <jsp:include page="bottom_tabbar.jsp"/>
-</div>
 
 
 <!-- jQuery 3 -->

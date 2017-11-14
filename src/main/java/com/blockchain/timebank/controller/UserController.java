@@ -264,6 +264,15 @@ public class UserController {
         return status;
     }
 
+    //申请者开始付款
+    @RequestMapping(value = "/applyUserStartPay",method = RequestMethod.GET)
+    public String applyUserStartPay(ModelMap map,@RequestParam long recordID){
+        ViewRecordDetailEntity viewRecordDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
+
+        map.addAttribute("viewRecordDetailEntity",viewRecordDetailEntity);
+        return "service_posted_paydetails";
+    }
+
     //申请志愿者服务的用户支付时间币
     @RequestMapping(value = "/applyUserPayTimeCoin",method = RequestMethod.POST)
     @ResponseBody
@@ -271,7 +280,7 @@ public class UserController {
         ViewRecordDetailEntity viewRecordDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
         if(viewRecordDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
             if(getCurrentUser().getId()==viewRecordDetailEntity.getApplyUserId()){
-                accountService.payTimeCoin(recordID);
+                accountService.payTimeVol(recordID);
             }
         }
 
