@@ -74,7 +74,17 @@ public class UserManageController {
     @RequestMapping(value = "/userVerify", method = RequestMethod.GET)
     public String userVerifyPage(ModelMap map, @RequestParam long userId) {
         map.addAttribute("user", userService.findUserEntityById(userId));
-        return "../admin/user_view";
+        return "../admin/user_verify";
+    }
+
+    @RequestMapping(value = "/userVerifySubmit", method = RequestMethod.POST)
+    public String userVerifySubmit(ModelMap map, @RequestParam long userId, @RequestParam int isVerify) {
+        UserEntity userEntity = userService.findUserEntityById(userId);
+        userEntity.setIsVerify(isVerify);
+        userService.saveUserEntity(userEntity);
+        map.addAttribute("user", userEntity);
+        map.addAttribute("ok", "提交成功！");
+        return "../admin/user_verify";
     }
 
     @RequestMapping(value = "/userAddMany", method = RequestMethod.GET)

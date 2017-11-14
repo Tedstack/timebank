@@ -81,20 +81,19 @@
                             </td>
                             <td>
                                 <%
-                                    if (userEntity.getIsVerify() != null && userEntity.getIsVerify() != 0) {
-                                        out.print("已审核");
-                                    }else{
+                                    if (userEntity.getIsVerify() == null) {
                                         out.print("未审核");
+                                    } else if (userEntity.getIsVerify() == 0) {
+                                        out.print("审核未通过");
+                                    } else {
+                                        out.print("审核通过");
                                     }
                                 %>
                             </td>
                             <td>
                                 <%
-                                    if (request.getAttribute("link_userView") != null) {
-                                        out.print("<a href='/admin/userView?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>查看</a> ");
-                                    }
-                                    if (request.getAttribute("link_userEdit") != null) {
-                                        out.print("<a href='/admin/userEdit?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>编辑</a> ");
+                                    if (userEntity.getImg1() != null && userEntity.getImg2() != null && userEntity.getIsVerify() == null) {
+                                        out.print("<a href='/admin/userVerify?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>审核</a> ");
                                     }
                                 %>
                             </td>

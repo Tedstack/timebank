@@ -78,11 +78,12 @@
                                     } else {
                                         out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/空白身份证.jpg'>");
                                     }
-                                    if (user.getIdCard() != null && user.getIdCard().length() > 0) {
+                                    if (user.getIdCard() != null && user.getIdCard().length() > 0 && (user.getIsVerify() == null || user.getIsVerify() == 0)) {
                                 %>
-                                        <button type="button" style="margin-top: 10px;" id="btn_img1" class="btn btn-primary btn-sm btn-block">
-                                            上传正面照片
-                                        </button>
+                                <button type="button" style="margin-top: 10px;" id="btn_img1"
+                                        class="btn btn-primary btn-sm btn-block">
+                                    上传正面照片
+                                </button>
                                 <%
                                     }
                                 %>
@@ -96,11 +97,11 @@
                                     } else {
                                         out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='/img/空白身份证.jpg'>");
                                     }
-                                    if (user.getIdCard() != null && user.getIdCard().length() > 0) {
+                                    if (user.getIdCard() != null && user.getIdCard().length() > 0 && (user.getIsVerify() == null || user.getIsVerify() == 0)) {
                                 %>
-                                        <button type="button" style="margin-top: 10px;" id="btn_img2"
-                                                class="btn btn-primary btn-sm btn-block">上传背面照片
-                                        </button>
+                                <button type="button" style="margin-top: 10px;" id="btn_img2"
+                                        class="btn btn-primary btn-sm btn-block">上传背面照片
+                                </button>
                                 <%
                                     }
                                 %>
