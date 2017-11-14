@@ -11,5 +11,7 @@ public interface UserDao extends CrudRepository<UserEntity, Long> {
 
     UserEntity findUserEntityByPhoneAndPassword(String phone, String password);
 
-    UserEntity findUserEntityByQrCode(String qrcode);
+    UserEntity findUserEntityByQrCode(String qrCode);
+
+    UserEntity findUserEntityByIdCard(String idCard);
 }

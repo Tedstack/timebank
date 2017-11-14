@@ -100,7 +100,7 @@
                                 if(detailEntity.getActualBeginTime()!=null) {
                                     out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getActualBeginTime()));
                                 }else{
-                                    out.print("null");
+                                    out.print("（未开始）");
                                 }
                             %></td>
                             <td><%
@@ -109,7 +109,7 @@
                                     hour = off / 1000 / 60 / 60;
                                     out.print(hour + "小时");
                                 }else{
-                                    out.print("null");
+                                    out.print("（未开始）");
                                 }
                             %></td>
 

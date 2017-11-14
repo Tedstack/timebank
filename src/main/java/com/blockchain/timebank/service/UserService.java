@@ -20,5 +20,7 @@ public interface UserService {
 
     List<UserEntity> findAll();
 
-    UserEntity findUserEntityByQrCode(String qrcode);
+    UserEntity findUserEntityByQrCode(String qrcCode);
+
+    UserEntity findUserEntityByIdCard(String idCard);
 }

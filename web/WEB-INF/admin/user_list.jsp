@@ -50,6 +50,7 @@
                             <th>时间币</th>
                             <th>时间</th>
                             <th>注册时间</th>
+                            <th>实名认证</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -71,12 +72,25 @@
                             for (UserEntity userEntity : list_user) {
                         %>
                         <tr>
-                            <td><%=userEntity.getName()%></td>
-                            <td><%=userEntity.getPhone()%></td>
+                            <td><%=userEntity.getName()%>
+                            </td>
+                            <td><%=userEntity.getPhone()%>
+                            </td>
                             <td><%=userEntity.getTimeVol()%>（志愿者币V）</td>
                             <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
                             <td><a href="javascript:void(0)">查看</a></td>
-                            <td><%=userEntity.getRegisterDate()%></td>
+                            <td>
+                                <%
+                                    out.print(userEntity.getRegisterDate() == null ? "（暂无）" : userEntity.getRegisterDate());
+                                %>
+                            </td>
+                            <td>
+                                照片未上传
+                                <%
+                                    out.print("<a href='/admin/userPhotoAdd?userId=" + userEntity.getId() + "' target='_blank'>（查看）</a> ");
+                                %>
+
+                            </td>
                             <td>
                                 <%
                                     if (request.getAttribute("link_userView") != null) {

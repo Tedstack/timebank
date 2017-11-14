@@ -8,12 +8,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -45,16 +48,26 @@ public class UserManageController {
         return "../admin/user_edit";
     }
 
+    @RequestMapping(value = "/userView", method = RequestMethod.GET)
+    public String userViewPage(ModelMap map, @RequestParam long userId) {
+        UserEntity user = userService.findUserEntityById(userId);
+        map.addAttribute("user", user);
+        if (user.getIdCard() == null || user.getIdCard().equals("")) {
+            map.addAttribute("error","身份证号未填写");
+        }
+        return "../admin/user_view";
+    }
+
+    @RequestMapping(value = "/userPhotoAdd", method = RequestMethod.GET)
+    public String userAddPhotoPage(ModelMap map, @RequestParam long userId) {
+        map.addAttribute("user", userService.findUserEntityById(userId));
+        return "../admin/user_photo_add";
+    }
+
     @RequestMapping(value = "/userVerify", method = RequestMethod.GET)
     public String userVerifyPage(ModelMap map, @RequestParam long userId) {
         map.addAttribute("user", userService.findUserEntityById(userId));
         return "../admin/user_edit";
-    }
-
-    @RequestMapping(value = "/userView", method = RequestMethod.GET)
-    public String userViewPage(ModelMap map, @RequestParam long userId) {
-        map.addAttribute("user", userService.findUserEntityById(userId));
-        return "../admin/user_view";
     }
 
     @RequestMapping(value = "/userAddMany", method = RequestMethod.GET)
@@ -73,6 +86,10 @@ public class UserManageController {
             map.addAttribute("error", "添加失败，手机号已经被注册！");
             return "../admin/user_add";
         }
+        if (userService.findUserEntityByIdCard(idCard) != null) {
+            map.addAttribute("error", "添加失败，身份证号已经被注册！");
+            return "../admin/user_add";
+        }
         UserEntity userEntity = new UserEntity();
         userEntity.setName(name);
         userEntity.setPhone(phone);
@@ -81,7 +98,7 @@ public class UserManageController {
         userEntity.setSex(sex);
         userEntity.setBirth(birth);
         userEntity.setQrCode(QRCode);
-
+        userEntity.setRegisterDate(new Date(System.currentTimeMillis()));
         userService.updateUserEntity(userEntity);
         map.addAttribute("ok", "添加成功，用户初始密码为注册身份证的后6位！");
         return "../admin/user_add";
@@ -114,21 +131,25 @@ public class UserManageController {
 
 
     @RequestMapping(value = "/userUploadPhoto")
-    public String upload(ModelMap model, @RequestParam(value = "file", required = false) MultipartFile file) {
-        String uploadPath = request.getSession().getServletContext().getRealPath("/") + "upload/";// 文件保存路径
-        File uploadDir = new File(uploadPath);
+    @ResponseBody
+    public Map<String, Object> upload(@RequestParam(value = "file", required = false) MultipartFile file, String idCard, String img) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        File uploadDir = new File(getUploadPath());
         if (!uploadDir.exists()) uploadDir.mkdir();
-        // 判断文件是否为空
-        if (!file.isEmpty()) {
-            try {
-                // 转存文件
-                file.transferTo(new File(uploadPath + file.getOriginalFilename()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            String fileName = idCard + "_" + img + suffix;
+            file.transferTo(new File(getUploadPath() + fileName));// 转存文件
+            map.put("url", "/img/profile/" + fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        model.addAttribute("fileUrl", "/upload/" + uploadPath + file.getOriginalFilename());
-        return "redirect:/admin/user_add";
+        return map;
     }
 
+
+    // 文件上传路径
+    private String getUploadPath() {
+        return request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\";
+    }
 }

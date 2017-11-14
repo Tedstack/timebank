@@ -1,7 +1,6 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.UserDao;
-import com.blockchain.timebank.entity.PublishEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserEntity findUserEntityByPhoneAndPassword(String phone, String password) {
-        return userDao.findUserEntityByPhoneAndPassword(phone,password);
+        return userDao.findUserEntityByPhoneAndPassword(phone, password);
     }
 
     public UserEntity updateUserEntity(UserEntity userEntity) {
@@ -40,12 +39,16 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public List<UserEntity> findAll(){
-        return (List<UserEntity>)userDao.findAll();
+    public List<UserEntity> findAll() {
+        return (List<UserEntity>) userDao.findAll();
     }
 
-    public UserEntity findUserEntityByQrCode(String qrcode) {
-        return userDao.findUserEntityByQrCode(qrcode);
+    public UserEntity findUserEntityByQrCode(String qrCode) {
+        return userDao.findUserEntityByQrCode(qrCode);
+    }
+
+    public UserEntity findUserEntityByIdCard(String idCard) {
+        return userDao.findUserEntityByIdCard(idCard);
     }
 
 }

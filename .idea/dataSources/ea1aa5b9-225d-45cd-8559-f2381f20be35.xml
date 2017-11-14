@@ -9,581 +9,582 @@
     <schema id="3" parent="1" name="information_schema"/>
     <schema id="4" parent="1" name="mysql"/>
     <schema id="5" parent="1" name="performance_schema"/>
-    <schema id="6" parent="1" name="sys"/>
-    <table id="7" parent="2" name="publish">
+    <schema id="6" parent="1" name="phpmyadmin"/>
+    <schema id="7" parent="1" name="test"/>
+    <table id="8" parent="2" name="publish">
       <Comment>发布服务表</Comment>
     </table>
-    <table id="8" parent="2" name="record">
+    <table id="9" parent="2" name="record">
       <Comment>申请订单表</Comment>
     </table>
-    <table id="9" parent="2" name="service">
+    <table id="10" parent="2" name="service">
       <Comment>服务种类表</Comment>
     </table>
-    <table id="10" parent="2" name="timeaccount">
+    <table id="11" parent="2" name="timeaccount">
       <Comment>时间元表</Comment>
     </table>
-    <table id="11" parent="2" name="user">
+    <table id="12" parent="2" name="user">
       <Comment>用户表</Comment>
     </table>
-    <view id="12" parent="2" name="view_publish_detail">
+    <view id="13" parent="2" name="view_publish_detail">
       <Comment>VIEW</Comment>
     </view>
-    <view id="13" parent="2" name="view_record_detail">
+    <view id="14" parent="2" name="view_record_detail">
       <Comment>VIEW</Comment>
     </view>
-    <column id="14" parent="7" name="ID">
+    <column id="15" parent="8" name="ID">
       <Position>1</Position>
       <Comment>编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="15" parent="7" name="UserID">
+    <column id="16" parent="8" name="UserID">
       <Position>2</Position>
       <Comment>发布者ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="16" parent="7" name="ServiceID">
+    <column id="17" parent="8" name="ServiceID">
       <Position>3</Position>
       <Comment>服务种类ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="17" parent="7" name="Description">
+    <column id="18" parent="8" name="Description">
       <Position>4</Position>
       <Comment>发布描述</Comment>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="18" parent="7" name="Price">
+    <column id="19" parent="8" name="Price">
       <Position>5</Position>
       <Comment>发布的价格</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="7" name="Address">
+    <column id="20" parent="8" name="Address">
       <Position>6</Position>
       <Comment>服务地点（JSONARRAY，省，市，区/县）</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="20" parent="7" name="BeginDate">
+    <column id="21" parent="8" name="BeginDate">
       <Position>7</Position>
       <Comment>服务起始日期</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="21" parent="7" name="EndDate">
+    <column id="22" parent="8" name="EndDate">
       <Position>8</Position>
       <Comment>服务结束日期</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="7" name="Extra">
+    <column id="23" parent="8" name="Extra">
       <Position>9</Position>
       <Comment>其它保留字段</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <index id="23" parent="7" name="ServiceID">
+    <index id="24" parent="8" name="ServiceID">
       <ColNames>ServiceID</ColNames>
     </index>
-    <index id="24" parent="7" name="UserID">
+    <index id="25" parent="8" name="UserID">
       <ColNames>UserID</ColNames>
     </index>
-    <key id="25" parent="7" name="PRIMARY">
+    <key id="26" parent="8" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="26" parent="7" name="publish_ibfk_1">
+    <foreign-key id="27" parent="8" name="publish_ibfk_1">
       <ColNames>UserID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="27" parent="7" name="publish_ibfk_2">
+    <foreign-key id="28" parent="8" name="publish_ibfk_2">
       <ColNames>ServiceID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>service</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="28" parent="8" name="ID">
+    <column id="29" parent="9" name="ID">
       <Position>1</Position>
       <Comment>编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="29" parent="8" name="ApplyUserID">
+    <column id="30" parent="9" name="ApplyUserID">
       <Position>2</Position>
       <Comment>申请者ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="30" parent="8" name="ServiceUserID">
+    <column id="31" parent="9" name="ServiceUserID">
       <Position>3</Position>
       <Comment>服务者ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="31" parent="8" name="PublishID">
+    <column id="32" parent="9" name="PublishID">
       <Position>4</Position>
       <Comment>发布服务ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="32" parent="8" name="ApplyAddress">
+    <column id="33" parent="9" name="ApplyAddress">
       <Position>5</Position>
       <Comment>上门服务地址</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="8" name="ApplyUserName">
+    <column id="34" parent="9" name="ApplyUserName">
       <Position>6</Position>
       <Comment>申请者姓名</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="34" parent="8" name="ApplyUserPhone">
+    <column id="35" parent="9" name="ApplyUserPhone">
       <Position>7</Position>
       <Comment>申请者手机号</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="35" parent="8" name="PayWay">
+    <column id="36" parent="9" name="PayWay">
       <Position>8</Position>
       <Comment>支付方式</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="8" name="BeginTime">
+    <column id="37" parent="9" name="BeginTime">
       <Position>9</Position>
       <Comment>开始时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="37" parent="8" name="EndTime">
+    <column id="38" parent="9" name="EndTime">
       <Position>10</Position>
       <Comment>结束时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="38" parent="8" name="ActualBeginTime">
+    <column id="39" parent="9" name="ActualBeginTime">
       <Position>11</Position>
       <Comment>实际开始时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="39" parent="8" name="ActualEndTime">
+    <column id="40" parent="9" name="ActualEndTime">
       <Position>12</Position>
       <Comment>实际结束时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="40" parent="8" name="PayMoney">
+    <column id="41" parent="9" name="PayMoney">
       <Position>13</Position>
       <Comment>实际支付金额</Comment>
       <DataType>double|0</DataType>
     </column>
-    <column id="41" parent="8" name="Rating">
+    <column id="42" parent="9" name="Rating">
       <Position>14</Position>
       <Comment>服务满意度评分</Comment>
       <DataType>double|0</DataType>
     </column>
-    <column id="42" parent="8" name="Comment">
+    <column id="43" parent="9" name="Comment">
       <Position>15</Position>
       <Comment>服务评价</Comment>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="43" parent="8" name="Status">
+    <column id="44" parent="9" name="Status">
       <Position>16</Position>
       <Comment>订单状态</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="44" parent="8" name="Extra">
+    <column id="45" parent="9" name="Extra">
       <Position>17</Position>
       <Comment>其它保留字段</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <index id="45" parent="8" name="ApplyUserID">
+    <index id="46" parent="9" name="ApplyUserID">
       <ColNames>ApplyUserID</ColNames>
     </index>
-    <index id="46" parent="8" name="PublishID">
+    <index id="47" parent="9" name="PublishID">
       <ColNames>PublishID</ColNames>
     </index>
-    <index id="47" parent="8" name="ServiceUserID">
+    <index id="48" parent="9" name="ServiceUserID">
       <ColNames>ServiceUserID</ColNames>
     </index>
-    <key id="48" parent="8" name="PRIMARY">
+    <key id="49" parent="9" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="49" parent="8" name="record_ibfk_1">
+    <foreign-key id="50" parent="9" name="record_ibfk_1">
       <ColNames>ApplyUserID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="50" parent="8" name="record_ibfk_2">
+    <foreign-key id="51" parent="9" name="record_ibfk_2">
       <ColNames>ServiceUserID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="51" parent="8" name="record_ibfk_3">
+    <foreign-key id="52" parent="9" name="record_ibfk_3">
       <ColNames>PublishID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>publish</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="52" parent="9" name="ID">
+    <column id="53" parent="10" name="ID">
       <Position>1</Position>
       <Comment>服务种类编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="53" parent="9" name="Type">
+    <column id="54" parent="10" name="Type">
       <Position>2</Position>
       <Comment>服务类型</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="54" parent="9" name="Name">
+    <column id="55" parent="10" name="Name">
       <Position>3</Position>
       <Comment>服务名称</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="55" parent="9" name="Price">
+    <column id="56" parent="10" name="Price">
       <Position>4</Position>
       <Comment>服务的参考价（时间元）</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="56" parent="9" name="UpdateTime">
+    <column id="57" parent="10" name="UpdateTime">
       <Position>5</Position>
       <Comment>价格更新表时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="57" parent="9" name="Extra">
+    <column id="58" parent="10" name="Extra">
       <Position>6</Position>
       <Comment>其它保留字段</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <key id="58" parent="9" name="PRIMARY">
+    <key id="59" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="59" parent="10" name="ID">
+    <column id="60" parent="11" name="ID">
       <Position>1</Position>
       <Comment>记录编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="60" parent="10" name="UserID">
+    <column id="61" parent="11" name="UserID">
       <Position>2</Position>
       <Comment>用户ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="61" parent="10" name="ServiceID">
+    <column id="62" parent="11" name="ServiceID">
       <Position>3</Position>
       <Comment>服务种类ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="62" parent="10" name="TimeAccount">
+    <column id="63" parent="11" name="TimeAccount">
       <Position>4</Position>
       <Comment>服务对应的时间元</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="63" parent="10" name="Extra">
+    <column id="64" parent="11" name="Extra">
       <Position>5</Position>
       <Comment>其它保留字段</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <index id="64" parent="10" name="ServiceID">
+    <index id="65" parent="11" name="ServiceID">
       <ColNames>ServiceID</ColNames>
     </index>
-    <index id="65" parent="10" name="UserID">
+    <index id="66" parent="11" name="UserID">
       <ColNames>UserID</ColNames>
     </index>
-    <key id="66" parent="10" name="PRIMARY">
+    <key id="67" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="67" parent="10" name="timeaccount_ibfk_1">
+    <foreign-key id="68" parent="11" name="timeaccount_ibfk_1">
       <ColNames>UserID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <foreign-key id="68" parent="10" name="timeaccount_ibfk_2">
+    <foreign-key id="69" parent="11" name="timeaccount_ibfk_2">
       <ColNames>ServiceID</ColNames>
       <RefSchemaName>mydb</RefSchemaName>
       <RefTableName>service</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="69" parent="11" name="ID">
+    <column id="70" parent="12" name="ID">
       <Position>1</Position>
       <Comment>用户编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="70" parent="11" name="Name">
+    <column id="71" parent="12" name="Name">
       <Position>2</Position>
       <Comment>姓名</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="71" parent="11" name="Password">
+    <column id="72" parent="12" name="Password">
       <Position>3</Position>
       <Comment>密码</Comment>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="72" parent="11" name="Phone">
+    <column id="73" parent="12" name="Phone">
       <Position>4</Position>
       <Comment>手机号</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="73" parent="11" name="TimeCoin">
+    <column id="74" parent="12" name="TimeCoin">
       <Position>5</Position>
       <Comment>时间币余额</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="74" parent="11" name="TimeVol">
+    <column id="75" parent="12" name="TimeVol">
       <Position>6</Position>
       <Comment>志愿者时间余额</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="75" parent="11" name="RegisterDate">
+    <column id="76" parent="12" name="RegisterDate">
       <Position>7</Position>
       <Comment>注册时间</Comment>
       <DataType>date|0</DataType>
     </column>
-    <column id="76" parent="11" name="IDCard">
+    <column id="77" parent="12" name="IDCard">
       <Position>8</Position>
       <Comment>身份证号码</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="77" parent="11" name="Sex">
+    <column id="78" parent="12" name="Sex">
       <Position>9</Position>
       <Comment>性别</Comment>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <column id="78" parent="11" name="Birth">
+    <column id="79" parent="12" name="Birth">
       <Position>10</Position>
       <Comment>出生年月日</Comment>
       <DataType>date|0</DataType>
     </column>
-    <column id="79" parent="11" name="QRCode">
+    <column id="80" parent="12" name="QRCode">
       <Position>11</Position>
       <Comment>二维码</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="80" parent="11" name="Extra">
+    <column id="81" parent="12" name="Extra">
       <Position>12</Position>
       <Comment>其它保留字段</Comment>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <index id="81" parent="11" name="Phone">
+    <index id="82" parent="12" name="Phone">
       <ColNames>Phone</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="82" parent="11" name="PRIMARY">
+    <key id="83" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="83" parent="11" name="Phone">
+    <key id="84" parent="12" name="Phone">
       <ColNames>Phone</ColNames>
       <UnderlyingIndexName>Phone</UnderlyingIndexName>
     </key>
-    <column id="84" parent="12" name="ID">
+    <column id="85" parent="13" name="ID">
       <Position>1</Position>
       <Comment>编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="85" parent="12" name="ServiceID">
+    <column id="86" parent="13" name="ServiceID">
       <Position>2</Position>
       <Comment>服务种类ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="86" parent="12" name="UserID">
+    <column id="87" parent="13" name="UserID">
       <Position>3</Position>
       <Comment>用户编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="87" parent="12" name="Price">
+    <column id="88" parent="13" name="Price">
       <Position>4</Position>
       <Comment>发布的价格</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="88" parent="12" name="Description">
+    <column id="89" parent="13" name="Description">
       <Position>5</Position>
       <Comment>发布描述</Comment>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="89" parent="12" name="Address">
+    <column id="90" parent="13" name="Address">
       <Position>6</Position>
       <Comment>服务地点（JSONARRAY，省，市，区/县）</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="90" parent="12" name="BeginDate">
+    <column id="91" parent="13" name="BeginDate">
       <Position>7</Position>
       <Comment>服务起始日期</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="91" parent="12" name="EndDate">
+    <column id="92" parent="13" name="EndDate">
       <Position>8</Position>
       <Comment>服务结束日期</Comment>
       <DataType>datetime|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="92" parent="12" name="ServiceType">
+    <column id="93" parent="13" name="ServiceType">
       <Position>9</Position>
       <Comment>服务类型</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="93" parent="12" name="ServiceName">
+    <column id="94" parent="13" name="ServiceName">
       <Position>10</Position>
       <Comment>服务名称</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="94" parent="12" name="UserName">
+    <column id="95" parent="13" name="UserName">
       <Position>11</Position>
       <Comment>姓名</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="95" parent="12" name="UserPhone">
+    <column id="96" parent="13" name="UserPhone">
       <Position>12</Position>
       <Comment>手机号</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="96" parent="13" name="ID">
+    <column id="97" parent="14" name="ID">
       <Position>1</Position>
       <Comment>编号</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="97" parent="13" name="ApplyUserID">
+    <column id="98" parent="14" name="ApplyUserID">
       <Position>2</Position>
       <Comment>申请者ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="98" parent="13" name="ApplyUserName">
+    <column id="99" parent="14" name="ApplyUserName">
       <Position>3</Position>
       <Comment>申请者姓名</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="99" parent="13" name="ApplyUserPhone">
+    <column id="100" parent="14" name="ApplyUserPhone">
       <Position>4</Position>
       <Comment>申请者手机号</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="100" parent="13" name="Address">
+    <column id="101" parent="14" name="Address">
       <Position>5</Position>
       <Comment>上门服务地址</Comment>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="101" parent="13" name="BeginTime">
+    <column id="102" parent="14" name="BeginTime">
       <Position>6</Position>
       <Comment>开始时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="102" parent="13" name="EndTime">
+    <column id="103" parent="14" name="EndTime">
       <Position>7</Position>
       <Comment>结束时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="103" parent="13" name="ActualBeginTime">
+    <column id="104" parent="14" name="ActualBeginTime">
       <Position>8</Position>
       <Comment>实际开始时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="104" parent="13" name="ActualEndTime">
+    <column id="105" parent="14" name="ActualEndTime">
       <Position>9</Position>
       <Comment>实际结束时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="105" parent="13" name="PayWay">
+    <column id="106" parent="14" name="PayWay">
       <Position>10</Position>
       <Comment>支付方式</Comment>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="106" parent="13" name="PayMoney">
+    <column id="107" parent="14" name="PayMoney">
       <Position>11</Position>
       <Comment>实际支付金额</Comment>
       <DataType>double|0</DataType>
     </column>
-    <column id="107" parent="13" name="Status">
+    <column id="108" parent="14" name="Status">
       <Position>12</Position>
       <Comment>订单状态</Comment>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="108" parent="13" name="PublishID">
+    <column id="109" parent="14" name="PublishID">
       <Position>13</Position>
       <Comment>发布服务ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="109" parent="13" name="PublishPrice">
+    <column id="110" parent="14" name="PublishPrice">
       <Position>14</Position>
       <Comment>发布的价格</Comment>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="110" parent="13" name="ServiceID">
+    <column id="111" parent="14" name="ServiceID">
       <Position>15</Position>
       <Comment>服务种类ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="111" parent="13" name="ServiceType">
+    <column id="112" parent="14" name="ServiceType">
       <Position>16</Position>
       <Comment>服务类型</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="112" parent="13" name="ServiceName">
+    <column id="113" parent="14" name="ServiceName">
       <Position>17</Position>
       <Comment>服务名称</Comment>
       <DataType>varchar(45)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="113" parent="13" name="ServiceUserID">
+    <column id="114" parent="14" name="ServiceUserID">
       <Position>18</Position>
       <Comment>服务者ID</Comment>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="114" parent="13" name="ServiceUserName">
+    <column id="115" parent="14" name="ServiceUserName">
       <Position>19</Position>
       <Comment>姓名</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="115" parent="13" name="ServiceUserPhone">
+    <column id="116" parent="14" name="ServiceUserPhone">
       <Position>20</Position>
       <Comment>手机号</Comment>
       <DataType>varchar(20)|0</DataType>
