@@ -42,40 +42,29 @@
                 <%
                     for (int i=0;i<publishList.size();i++) {
                 %>
-                <div class="page__bd">
-                    <div class="weui-form-preview">
-                        <div class="weui-form-preview__hd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务名称</label>
-                                <em class="weui-form-preview__value"><%out.print(serviceList.get(i).getName());%></em>
-                            </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务类型/专业服务.png" alt="">
                         </div>
-                        <div class="weui-form-preview__bd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务类别</label>
-                                <span class="weui-form-preview__value"><%out.print(serviceList.get(i).getType());%></span>
+                        <div class="weui-media-box__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"><%out.print(serviceList.get(i).getName());%></h4></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">取消</a></div>
                             </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">有效期</label>
-                                <span class="weui-form-preview__value"><%out.print(publishList.get(i).getBeginDate());%> - <%out.print(publishList.get(i).getEndDate());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务范围</label>
-                                <span class="weui-form-preview__value"><%out.print(publishList.get(i).getAddress());%></span>
-                            </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">取消</a>
+                            <p class="weui-media-box__desc"><%out.print(serviceList.get(i).getType());%></p>
+                            <p class="weui-media-box__desc"><%out.print(publishList.get(i).getBeginDate());%> - <%out.print(publishList.get(i).getEndDate());%></p>
+                            <ul class="weui-media-box__info">
+                                <li class="weui-media-box__info__meta"><%out.print(publishList.get(i).getAddress());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">等待确认</li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
+                            </ul>
                         </div>
                     </div>
-                    <br>
                 </div>
+                <img src="../img/底部.png" width="375" height="15">
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>

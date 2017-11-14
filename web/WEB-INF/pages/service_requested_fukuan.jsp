@@ -18,6 +18,7 @@
 <%
     List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
 %>
+
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
@@ -41,44 +42,28 @@
                 <%
                     for (int i=0;i<recordDetailList.size();i++) {
                 %>
-                <div class="page__bd">
-                    <div class="weui-form-preview">
-                        <div class="weui-form-preview__hd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务金额</label>
-                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getPayMoney());%></em>
-                            </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务类型/志愿者服务.png" alt="">
                         </div>
-                        <div class="weui-form-preview__bd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getId());%></span>
+                        <div class="weui-media-box__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">金额<%out.print(recordDetailList.get(i).getPayMoney());%></h4></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"> <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/user/applyUserStartPay?recordID="+recordDetailList.get(i).getId());%>">支付</a></div>
                             </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务地点</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务提供者</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getServiceUserName());%></span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务时间</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getActualBeginTime());%> - <%out.print(recordDetailList.get(i).getActualEndTime());%></span>
-                            </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" id="payBtn" value=<%out.print(recordDetailList.get(i).getId());%>>支付</a>
+                            <p class="weui-media-box__desc">订单号：<%out.print(recordDetailList.get(i).getId());%></p>
+                            <p class="weui-media-box__desc">服务时间：<%out.print(recordDetailList.get(i).getActualBeginTime());%> - <%out.print(recordDetailList.get(i).getActualEndTime());%></p>
+                            <ul class="weui-media-box__info">
+                                <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">服务人：<%out.print(recordDetailList.get(i).getServiceUserName());%></li>
+                            </ul>
                         </div>
                     </div>
-                    <br>
                 </div>
+                <img src="../img/底部.png" width="375" height="15">
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
@@ -89,6 +74,7 @@
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    //var recordList=<%=recordDetailList%>;
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
@@ -108,7 +94,8 @@
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="/user/queryOrderAlreadyComplete";
         });
-        $("#payBtn").on('click',function () {
+
+        /*$("#payBtn").on('click',function () {
             //location.href="/user/applyUserPayTimeCoin?recordID="+$("#payBtn").attr("value");
             //alert($("#payBtn").attr("value"));
             $.ajax({
@@ -136,7 +123,7 @@
                     dialogLoading.hide();
                 }
             });
-        });
+        });*/
     });
 </script>
 

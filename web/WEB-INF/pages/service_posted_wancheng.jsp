@@ -92,7 +92,7 @@
                         </div>
 
                     </div>
-                    <br>
+                    <img src="../img/底部.png" width="375" height="15">
                 </div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
