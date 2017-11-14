@@ -66,7 +66,7 @@
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: "http://www.hlb9978.com/user/applyUserPayTimeCoin",
+                    url: "http://www.hlb9978.com/user/applyUserPayTimeVol",
                     //dataType:'JSONP',
                     data: "recordID=" + recordID,
                     beforeSend: function (XHR) {

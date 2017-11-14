@@ -273,8 +273,8 @@ public class UserController {
         return "service_posted_paydetails";
     }
 
-    //申请志愿者服务的用户支付时间币
-    @RequestMapping(value = "/applyUserPayTimeCoin",method = RequestMethod.POST)
+    //申请志愿者服务的用户支付志愿者币
+    @RequestMapping(value = "/applyUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
     public void applyUserPayTimeCoin(ModelMap map,@RequestParam long recordID) {
         ViewRecordDetailEntity viewRecordDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
