@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +62,8 @@ public class PublishController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(ModelMap map, @RequestParam String type) {
         List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
+        //倒序排列
+        Collections.reverse(list);
         map.addAttribute("list", list);
         map.addAttribute("type", type);
         return "publish_list";

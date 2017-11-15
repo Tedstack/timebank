@@ -125,18 +125,13 @@
                 </a>
 
             </div> <!--图片轮转结束-->
-
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>所有服务</p>
+                </div>
+            </div>
             <div class="weui-grids">
-
-                <a href="/publish/list?type=社区O2O服务" class="weui-grid">
-                    <div class="weui-grid__icon">
-                        <img src="../img/服务类型/社区O2O服务.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        社区O2O服务
-                    </p>
-                </a>
-
 
                 <a href="/publish/list?type=志愿者服务" class="weui-grid">
                     <div class="weui-grid__icon">
@@ -147,6 +142,14 @@
                     </p>
                 </a>
 
+                <a href="/publish/list?type=互助服务" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="../img/服务类型/互助服务.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        互助服务
+                    </p>
+                </a>
 
                 <a href="/publish/list?type=专业服务" class="weui-grid">
                     <div class="weui-grid__icon">
@@ -156,9 +159,15 @@
                         专业服务
                     </p>
                 </a>
-
+                <a href="/publish/list?type=社区O2O服务" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="../img/服务类型/社区O2O服务.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        社区O2O服务
+                    </p>
+                </a>
             </div>
-
         </div>
 
 

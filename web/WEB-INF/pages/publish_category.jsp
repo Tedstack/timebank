@@ -17,15 +17,21 @@
 </head>
 <body>
 
+<div class="weui-cell">
+    <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__bd">
+        <p>所有服务</p>
+    </div>
+</div>
+<a class="weui-cell weui-cell_access" href="/publish/list?type=志愿者服务">
+    <div class="weui-cell__hd"><img src="../img/服务类型/志愿者服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__bd weui-cell_primary">
+        <p>志愿者服务</p>
+    </div>
+    <span class="weui-cell__ft"></span>
+</a>
 
-<div class="weui-tab">
-    <div class="weui-tab__panel">
 
-        <div class="weui-panel">
-            <div class="weui-panel__hd">服务种类</div>
-            <div class="weui-panel__bd">
-                <div class="weui-media-box weui-media-box_small-appmsg">
-                    <div class="weui-cells">
                         <a class="weui-cell weui-cell_access" href="/publish/list?type=互助服务">
                             <div class="weui-cell__hd"><img src="../img/服务类型/互助服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
                             <div class="weui-cell__bd weui-cell_primary">
@@ -33,13 +39,7 @@
                             </div>
                             <span class="weui-cell__ft"></span>
                         </a>
-                        <a class="weui-cell weui-cell_access" href="/publish/list?type=志愿者服务">
-                            <div class="weui-cell__hd"><img src="../img/服务类型/志愿者服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
-                            <div class="weui-cell__bd weui-cell_primary">
-                                <p>志愿者服务</p>
-                            </div>
-                            <span class="weui-cell__ft"></span>
-                        </a>
+
                         <a class="weui-cell weui-cell_access" href="/publish/list?type=专业服务">
                             <div class="weui-cell__hd"><img src="../img/服务类型/专业服务.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
                             <div class="weui-cell__bd weui-cell_primary">
@@ -54,18 +54,35 @@
                             </div>
                             <span class="weui-cell__ft"></span>
                         </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div style="padding: 10px;">
-            <a href="/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
-        </div>
+                    <img src="../img/底部.png" width="375" height="15">
+
+<div class="weui-cell">
+    <div class="weui-cell__hd"><img src="../img/服务名称/我的服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__bd">
+        <p>我的服务</p>
+    </div>
+</div>
+<a href="/user/queryPublishAlreadyPublish" class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__hd"><img src="../img/userdetails/发布的服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__bd">
+        <p>已发布的服务</p>
+    </div>
+</a>
+<a href="/user/queryOrderAlreadyApply" class="weui-cell weui-cell_access" href="javascript:;">
+    <div class="weui-cell__hd"><img src="../img/userdetails/发布的需求.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+    <div class="weui-cell__bd">
+        <p>已申请的服务</p>
+    </div>
+</a>
+<img src="../img/底部.png" width="375" height="15">
+
+            <a href="/publish/add" class="weui-btn weui-btn_plain-primary">发布服务</a>
+
 
     </div>
     <jsp:include page="bottom_tabbar.jsp"/>
-</div>
+    </div>
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
