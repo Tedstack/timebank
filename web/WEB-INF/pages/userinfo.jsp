@@ -23,7 +23,7 @@
         <%
             UserEntity userEntity = (UserEntity) request.getAttribute("user");
         %>
-        <a class="weui-cell weui-cell_access" href="/user/startModifyPersonalInfo">
+        <a class="weui-cell weui-cell_access" href="javascript:;">
             <div class="weui-cell__hd"><img src="../img/我的.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p><%out.print(userEntity.getName());%></p>
@@ -61,21 +61,6 @@
                     <p>志愿者币</p>
                 </div>
                 <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%> V</div>
-            </a>
-
-        <img src="../img/底部.png" width="375" height="15">
-
-            <a href="/user/queryPublishAlreadyPublish" class="weui-cell weui-cell_access" href="javascript:;">
-                <div class="weui-cell__hd"><img src="../img/userdetails/发布的服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-                <div class="weui-cell__bd">
-                    <p>已发布的服务</p>
-                </div>
-            </a>
-            <a href="/user/queryOrderAlreadyApply" class="weui-cell weui-cell_access" href="javascript:;">
-                <div class="weui-cell__hd"><img src="../img/userdetails/发布的需求.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-                <div class="weui-cell__bd">
-                    <p>已申请的服务</p>
-                </div>
             </a>
         <img src="../img/底部.png" width="375" height="15">
 

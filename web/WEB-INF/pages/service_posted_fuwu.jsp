@@ -72,8 +72,17 @@
                         </div>
                     </div>
                 </div>
-                <a class="weui-btn weui-btn_primary" href="<%out.print("/user/serviceUserStartScan?recordID="+recordDetailList.get(i).getId());%>">扫码开始</a>
-
+                <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <div class="weui-flex">
+                        <div class="weui-flex__item"diaplay="none"></div>
+                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"><a href="<%out.print("/user/serviceUserStartScan?recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
+                    </div>
+                </div>
+                </div>
                 <img src="../img/底部.png" width="375" height="15">
 
 

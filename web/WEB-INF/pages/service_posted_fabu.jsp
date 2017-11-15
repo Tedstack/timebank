@@ -52,17 +52,28 @@
                                 <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"><%out.print(serviceList.get(i).getName());%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">取消</a></div>
                             </div>
                             <p class="weui-media-box__desc"><%out.print(serviceList.get(i).getType());%></p>
-                            <p class="weui-media-box__desc"><%out.print(publishList.get(i).getBeginDate());%> - <%out.print(publishList.get(i).getEndDate());%></p>
+                            <p class="weui-media-box__desc">开始时间 <%out.print(publishList.get(i).getBeginDate());%></p>
+                            <p class="weui-media-box__desc">结束时间 <%out.print(publishList.get(i).getEndDate());%></p>
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(publishList.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">等待确认</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">手机号</li>
                             </ul>
                         </div>
                     </div>
+                </div>
+                <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <div class="weui-flex">
+                        <div class="weui-flex__item"diaplay="none"></div>
+                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">查看</a></div>
+                        <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">删除</a></div>
+                    </div>
+                </div>
                 </div>
                 <img src="../img/底部.png" width="375" height="15">
                 <%}%>

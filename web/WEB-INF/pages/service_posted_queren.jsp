@@ -60,21 +60,23 @@
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserName());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">手机号</li>
                             </ul>
                         </div>
                     </div>
-                    <div class="weui-form-preview__ft">
-                        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+recordDetailList.get(i).getId());%>">拒绝</a>
-                        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+recordDetailList.get(i).getId());%>">接受</a>
-
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"><a href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
+                                <div class="weui-flex__item"><a href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <img src="../img/底部.png" width="375" height="15">
-
-
-
-
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
