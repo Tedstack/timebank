@@ -1,4 +1,7 @@
-<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/24
@@ -26,38 +29,90 @@
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <div style="padding: 15px;">
+       <!-- <div style="padding: 15px;">
             <img src="../img/服务名称/<%=detail.getServiceName()%>.png" alt="">
-        </div>
+        </div>-->
 
-
-        <div class="topinfo border_b">
-            <div class="tags tags_normal">
-                <span><%out.print(detail.getServiceName());%>服务</span>
-            </div>
-        </div>
+        <!--以下内容在右侧显示-->
         <div class="enterbar bar_shop border_b mt10" style="margin-bottom: 0;">
             <a href="javascript:void(0)">
                 <div class="shop-logo">
-                    <img src="../img/暂时使用商家.png" alt="">
+                    <img src="../img/服务名称/<%=detail.getServiceName()%>.png" alt="">
                 </div>
-                <div class="txt"><%out.print(detail.getUserName());%></div>
+                <div class="txt"><%out.print(detail.getServiceName());%></div>
                 <div class="tags-rz">
                     <span class="tag-sm">实名认证</span>
                 </div>
-                <i class="more"></i>
             </a>
+        </div>
+
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>服务类型</p>
+                </div>
+                <div class="weui-cell__ft"><%=detail.getServiceType()%></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>开始日期</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <%
+                        Timestamp timestamp = detail.getBeginDate();
+                        Date date = new Date(timestamp.getTime());
+                        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        out.print(bartDateFormat.format(date));
+                    %></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>结束日期</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <%
+                        Timestamp timestamp2 = detail.getEndDate();
+                        Date date2 = new Date(timestamp2.getTime());
+                        SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                        out.print(bartDateFormat2.format(date2));
+                    %></div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>服务价格</p>
+                </div>
+                <div class="weui-cell__ft"><%=detail.getPrice()%>元/小时</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>服务范围</p>
+                </div>
+                <div class="weui-cell__ft"><%=detail.getAddress()%></div>
+            </div>
         </div>
 
         <div class="block block_tcxq mt10">
             <div class="title">
-                <span>服务详情</span>
+                <span>详情描述</span>
             </div>
             <div class="con_u"><%out.print(detail.getDescription());%></div>
         </div>
 
+        <div class="block block_tcxq mt10">
+            <div class="title">
+                <span>历史评价</span>
+            </div>
+            <div class="con_u">服务态度非常好，会继续下一次预约</div>
+            <div class="con_u">聊天很愉快~~~</div>
+        </div>
+
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a href="<%out.print("/record/apply?id="+detail.getId());%>" class="weui-btn weui-btn_primary">开始预约</a>
+            <a href="<%out.print("/record/apply?id="+detail.getId());%>" class="weui-btn weui-btn_primary">确认预约</a>
         </div>
 
     </div>

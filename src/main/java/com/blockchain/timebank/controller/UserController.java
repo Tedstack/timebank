@@ -144,7 +144,7 @@ public class UserController {
     @RequestMapping(value = "/queryPublishAlreadyPublish",method = RequestMethod.GET)
     public String queryPublishAlreadyPublish(ModelMap map){
         List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserId(getCurrentUser().getId());
-        
+
         map.addAttribute("publishList", publishList);
         return "service_posted_fabu";
     }

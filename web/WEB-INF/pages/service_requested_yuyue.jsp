@@ -2,6 +2,8 @@
 <%@ page import="com.blockchain.timebank.entity.*" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -52,10 +54,22 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">订单号：<%out.print(recordDetailList.get(i).getId());%></p>
-                            <p class="weui-media-box__desc">服务提供者：<%out.print(recordDetailList.get(i).getServiceUserName());%></p>
-                            <p class="weui-media-box__desc">开始时间：<%out.print(recordDetailList.get(i).getBeginTime());%></p>
-                            <p class="weui-media-box__desc">开始时间： <%out.print(recordDetailList.get(i).getEndTime());%></p>
+                            <p class="weui-media-box__desc">订单编号 <%out.print(recordDetailList.get(i).getId());%></p>
+                            <p class="weui-media-box__desc">服务人员 <%out.print(recordDetailList.get(i).getServiceUserName());%></p>
+                            <p class="weui-media-box__desc">开始时间
+                                <%
+                                    Timestamp beginTimestamp = recordDetailList.get(i).getBeginTime();
+                                    Date date = new Date(beginTimestamp.getTime());
+                                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    out.print(bartDateFormat.format(date));
+                                %></p>
+                            <p class="weui-media-box__desc">结束时间
+                                <%
+                                    Timestamp endTimestamp = recordDetailList.get(i).getEndTime();
+                                    Date date2 = new Date(endTimestamp.getTime());
+                                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    out.print(bartDateFormat2.format(date2));
+                                %></p>
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>

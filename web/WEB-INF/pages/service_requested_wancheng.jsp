@@ -1,5 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.*" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -74,7 +77,15 @@
                                 <span class="weui-form-preview__value">
                                     <%
                                         if(recordDetailList.get(i).getStatus().equals("已完成")){
-                                            out.print(recordDetailList.get(i).getActualBeginTime()+" - "+recordDetailList.get(i).getActualEndTime());
+                                            Timestamp beginTimestamp = recordDetailList.get(i).getActualBeginTime();
+                                            Date date = new Date(beginTimestamp.getTime());
+                                            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+                                            Timestamp endTimestamp = recordDetailList.get(i).getActualEndTime();
+                                            Date date2 = new Date(endTimestamp.getTime());
+                                            SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+                                            out.print(bartDateFormat.format(date)+" - "+bartDateFormat2.format(date2));
                                         }else{
                                             out.print("未进行服务，无服务时间");
                                         }

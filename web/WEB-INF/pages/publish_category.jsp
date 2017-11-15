@@ -76,9 +76,11 @@
     </div>
 </a>
 <img src="../img/底部.png" width="375" height="15">
-
-            <a href="/publish/add" class="weui-btn weui-btn_plain-primary">发布服务</a>
-
+<div class="weui-tab__panel">
+<div style="...">
+    <a href="/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
+</div>
+</div>
 
     </div>
     <jsp:include page="bottom_tabbar.jsp"/>
