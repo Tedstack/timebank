@@ -11,4 +11,6 @@ public interface ViewPublishDetailDao extends CrudRepository<ViewPublishDetailEn
 
     public List<ViewPublishDetailEntity> findAllByServiceType(String serviceType);
 
+    public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserId(long userID);
+
 }

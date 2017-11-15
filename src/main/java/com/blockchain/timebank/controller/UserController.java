@@ -1,5 +1,6 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.scan.util.TokenThread;
@@ -40,6 +41,9 @@ public class UserController {
 
     @Autowired
     ViewRecordDetailDao viewRecordDetailDao;
+
+    @Autowired
+    ViewPublishDetailDao viewPublishDetailDao;
 
     @Autowired
     AccountService accountService;
@@ -139,16 +143,11 @@ public class UserController {
     //查询用户发布服务的接口：已发布
     @RequestMapping(value = "/queryPublishAlreadyPublish",method = RequestMethod.GET)
     public String queryPublishAlreadyPublish(ModelMap map){
-        List<PublishEntity> publishList = publishService.findByUserID(getCurrentUser().getId());
-        List<ServiceEntity> serviceList = new ArrayList<ServiceEntity>();
-
+        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserId(getCurrentUser().getId());
         for(int i=0;i<publishList.size();i++){
-            ServiceEntity serviceEntity = serviceService.findById(publishList.get(i).getServiceId());
-            serviceList.add(serviceEntity);
+            Timestamp beginDate = publishList.get(i).getBeginDate();
         }
-
         map.addAttribute("publishList", publishList);
-        map.addAttribute("serviceList", serviceList);
         return "service_posted_fabu";
     }
 

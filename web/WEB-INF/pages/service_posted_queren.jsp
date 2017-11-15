@@ -60,7 +60,7 @@
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserName());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">手机号</li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserPhone());%></li>
                             </ul>
                         </div>
                     </div>

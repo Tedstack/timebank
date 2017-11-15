@@ -23,7 +23,7 @@
         <%
             UserEntity userEntity = (UserEntity) request.getAttribute("user");
         %>
-        <a class="weui-cell weui-cell_access" href="javascript:;">
+        <a class="weui-cell weui-cell_access" href="/user/startModifyPersonalInfo">
             <div class="weui-cell__hd"><img src="../img/我的.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p><%out.print(userEntity.getName());%></p>

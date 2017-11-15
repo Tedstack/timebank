@@ -60,8 +60,8 @@
                     success:function(res){
                         //alert(JSON.stringify(res.resultStr));
                         //alert(res.resultStr);
-                        //$('#curqrcode').val(res.resultStr);
-                        qrcode = res.resultStr;
+                        $('#curqrcode').val(res.resultStr);
+                        //qrcode = res.resultStr;
                     }
                 }
             );
