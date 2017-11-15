@@ -69,7 +69,7 @@
                                 <%
                                     Timestamp endTimestamp = recordDetailList.get(i).getActualEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
-                                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yy-MM-dd HH:mm");
+                                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
 

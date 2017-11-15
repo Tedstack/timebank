@@ -1,4 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -42,7 +45,18 @@
         </p>
         <p>
             <label class="weui-form-preview__label">服务时长</label>
-            <span class="weui-form-preview__value"><%out.print(recordDetail.getActualBeginTime());%> - <%out.print(recordDetail.getActualEndTime());%></span>
+            <span class="weui-form-preview__value">
+                <%
+                    Timestamp beginTimestamp = recordDetail.getActualBeginTime();
+                    Date date = new Date(beginTimestamp.getTime());
+                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+                    Timestamp endTimestamp = recordDetail.getActualEndTime();
+                    Date date2 = new Date(endTimestamp.getTime());
+                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+                    out.print(bartDateFormat.format(date)+" -- "+bartDateFormat2.format(date2));
+                %></span>
         </p>
         <p>
             <label class="weui-form-preview__label">服务地点</label>
