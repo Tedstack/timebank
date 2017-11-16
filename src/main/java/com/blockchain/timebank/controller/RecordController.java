@@ -54,23 +54,29 @@ public class RecordController {
     @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)
     public String applySubmit(ModelMap map, @RequestParam long serviceUserId, @RequestParam long publishId, @RequestParam String applyUserName, @RequestParam String applyUserPhone, @RequestParam String address, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam int payWay) {
 
+        //判断余额是否充足
         double price = publishService.findPublishEntityById(publishId).getPrice();
         double sum = price * serveTime;
-        boolean status = true;
+        boolean hasMoney = true;
         if(payWay==1){
             if(getCurrentUser().getTimeVol()<sum){
-                map.addAttribute("detail","noMoney");
-                status = false;
+                hasMoney = false;
             }
         }
         if(payWay==2){
             if(getCurrentUser().getTimeCoin()<sum){
-                map.addAttribute("detail","noMoney");
-                status = false;
+                hasMoney = false;
             }
         }
 
-        if(status){
+        //判断是否申请自己的服务
+        boolean isOneself = false;
+        if(serviceUserId == getCurrentUser().getId()){
+            isOneself = true;
+        }
+
+
+        if(hasMoney){
             try {
                 RecordEntity recordEntity = new RecordEntity();
                 recordEntity.setServiceUserId(serviceUserId);
@@ -89,9 +95,16 @@ public class RecordController {
             } catch (ParseException e) {
                 e.printStackTrace();
                 map.addAttribute("msg","error");
+                map.addAttribute("detail","parseException");
             }
         }else{
             map.addAttribute("msg","error");
+            map.addAttribute("detail","noMoney");
+        }
+
+        if(isOneself){
+            map.addAttribute("msg","error");
+            map.addAttribute("detail","isOneself");
         }
 
         return "record_apply_result";

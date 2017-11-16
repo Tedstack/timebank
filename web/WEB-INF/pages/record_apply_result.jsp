@@ -32,7 +32,7 @@
     </div>
     <div class="weui-msg__text-area">
         <label class="weui-msg__title" id="status">预约成功</label>
-        <p class="weui-msg__desc">等待服务提供者确认<a href="/user/queryOrder">查看我的订单</a></p>
+        <p class="weui-msg__desc">等待服务提供者确认<a href="/user/queryOrderAlreadyApply">查看我的订单</a></p>
     </div>
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
@@ -52,8 +52,11 @@
         if(status==='error'){
             $('#status').html('预约失败');
         }
-        if(detail==='noMoney'){
+        if((status==='error')&&(detail==='noMoney')){
             $('#status').html('余额不足，请充值');
+        }
+        if((status==='error')&&(detail==='isOneself')){
+            $('#status').html('不能预约自己的服务');
         }
     });
 </script>
