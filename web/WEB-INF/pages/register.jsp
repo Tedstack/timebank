@@ -1,185 +1,78 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>注册</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../login/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="../login/css/htmleaf-demo.css">
-    <style type="text/css">
-        .login-page {
-            width: 360px;
-            padding: 8% 0 0;
-            margin: auto;
-        }
-        .form {
-            position: relative;
-            z-index: 1;
-            background: #FFFFFF;
-            max-width: 360px;
-            margin: 0 auto 100px;
-            padding: 45px;
-            text-align: center;
-            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-        }
-        .form input {
-            font-family: "Roboto", sans-serif;
-            outline: 0;
-            background: #f2f2f2;
-            width: 100%;
-            border: 0;
-            margin: 0 0 15px;
-            padding: 15px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        .form button {
-            font-family: "Microsoft YaHei","Roboto", sans-serif;
-            text-transform: uppercase;
-            outline: 0;
-            background: #4CAF50;
-            width: 100%;
-            border: 0;
-            padding: 15px;
-            color: #FFFFFF;
-            font-size: 14px;
-            -webkit-transition: all 0.3 ease;
-            transition: all 0.3 ease;
-            cursor: pointer;
-        }
-        .form button:hover,.form button:active,.form button:focus {
-            background: #43A047;
-        }
-        .form .message {
-            margin: 15px 0 0;
-            color: #b3b3b3;
-            font-size: 12px;
-        }
-        .form .message a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        .form .register-form {
-            display: none;
-        }
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        .container:before, .container:after {
-            content: "";
-            display: block;
-            clear: both;
-        }
-        .container .info {
-            margin: 50px auto;
-            text-align: center;
-        }
-        .container .info h1 {
-            margin: 0 0 15px;
-            padding: 0;
-            font-size: 36px;
-            font-weight: 300;
-            color: #1a1a1a;
-        }
-        .container .info span {
-            color: #4d4d4d;
-            font-size: 12px;
-        }
-        .container .info span a {
-            color: #000000;
-            text-decoration: none;
-        }
-        .container .info span .fa {
-            color: #EF3B3A;
-        }
-        body {
-            background: #76b852; /* fallback for old browsers */
-            background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-            background: -moz-linear-gradient(right, #76b852, #8DC26F);
-            background: -o-linear-gradient(right, #76b852, #8DC26F);
-            background: linear-gradient(to left, #76b852, #8DC26F);
-            font-family: "Roboto", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .shake_effect{
-            -webkit-animation-name: shake;
-            animation-name: shake;
-            -webkit-animation-duration: 1s;
-            animation-duration: 1s;
-        }
-        @-webkit-keyframes shake {
-            from, to {
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-
-            10%, 30%, 50%, 70%, 90% {
-                -webkit-transform: translate3d(-10px, 0, 0);
-                transform: translate3d(-10px, 0, 0);
-            }
-
-            20%, 40%, 60%, 80% {
-                -webkit-transform: translate3d(10px, 0, 0);
-                transform: translate3d(10px, 0, 0);
-            }
-        }
-
-        @keyframes shake {
-            from, to {
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-
-            10%, 30%, 50%, 70%, 90% {
-                -webkit-transform: translate3d(-10px, 0, 0);
-                transform: translate3d(-10px, 0, 0);
-            }
-
-            20%, 40%, 60%, 80% {
-                -webkit-transform: translate3d(10px, 0, 0);
-                transform: translate3d(10px, 0, 0);
-            }
-        }
-        p.center{
-            color: #fff;font-family: "Microsoft YaHei";
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>注册验证</title>
+    <!-- 引入 WeUI -->
+    <link href="../css/weui.min.css" rel="stylesheet" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
-<div class="htmleaf-container">
-    <header class="htmleaf-header">
-    </header>
-    <div id="wrapper" class="login-page">
-        <div id="login_form" class="form">
-            <form class="login-form" method="post" action="/user/register">
-                <%
-                    String error=(String)request.getAttribute("error");
-                    if(error!=null && error.length()>0){
-                %>
-                        <div class="form-group has-error">
-                            <label class="control-label"><i class="fa fa-times-circle-o"></i>&nbsp; ${error}</label>
-                        </div>
-                <%
-                    }
-                %>
-                <input type="text" placeholder="姓名" id="r_user_name" name="name"/>
-                <input type="password" placeholder="密码" id="r_password" name="password" />
-                <input type="text" placeholder="手机号" id="r_emial" name="phone"/>
-                <button id="create" type="submit">创建账户</button>
-                <p class="message">已经有了一个账户? <a href="/login">立刻登录</a></p>
-            </form>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="phone" placeholder="手机号"/>
         </div>
     </div>
 </div>
-
-<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="name" placeholder="姓名"/>
+        </div>
+    </div>
+</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="pwd1" placeholder="密码"/>
+        </div>
+    </div>
+</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="pwd2" placeholder="确认密码"/>
+        </div>
+    </div>
+</div>
+<div style="...">
+    <a href="javascript:;" class="weui-btn weui-btn_primary" id="create">创建</a>
+</div>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+        $("#create").on('click', function () {
+            var re = /^1\d{10}$/
+            var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
+            var temp1=document.getElementById("pwd1").value;
+            var temp2=document.getElementById("pwd2").value;
+            var phoneNumber=document.getElementById("phone").value;
+            //先判断两次输入的密码是否一致
+            if(temp1==temp2)
+            {
+                if (re.test(phoneNumber)) {
+                    if(passwordReg.test(temp1))
+                    {
+                        showAlert("注册信息全部正确");
+                    }
+                    else
+                    {
+                        showAlert("密码必须包含字母数字和符号且不低于6位");
+                    }
+                } else {
+                    showAlert("手机号格式不正确");
+                }
+            }
+            else
+            {
+                showAlert("您输入的两次密码不一致！");
+            }
+        });
 </script>
 </body>
 </html>
