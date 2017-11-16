@@ -21,15 +21,17 @@
     <div class="weui-msg__icon-area">
         <%
             String msg=(String)request.getAttribute("msg");
+            String detail=(String)request.getAttribute("detail");
             if(msg.equals("ok")){
                 out.print("<i class='weui-icon-success weui-icon_msg'></i>");
-            }else{
+            }
+            if(msg.equals("error")){
                 out.print("<i class='weui-icon-warn weui-icon_msg'></i>");
             }
         %>
     </div>
     <div class="weui-msg__text-area">
-        <h2 class="weui-msg__title">预约成功</h2>
+        <label class="weui-msg__title" id="status">预约成功</label>
         <p class="weui-msg__desc">等待服务提供者确认<a href="/user/queryOrder">查看我的订单</a></p>
     </div>
     <div class="weui-msg__opr-area">
@@ -39,5 +41,21 @@
     </div>
 </div>
 
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var status='<%=msg%>';
+    var detail='<%=detail%>';
+    $(function(){
+        if (status==='ok'){
+            $('#status').html('预约成功');
+        }
+        if(status==='error'){
+            $('#status').html('预约失败');
+        }
+        if(detail==='noMoney'){
+            $('#status').html('余额不足，请充值');
+        }
+    });
+</script>
 </body>
 </html>

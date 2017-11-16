@@ -3,10 +3,8 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.RecordDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
-import com.blockchain.timebank.entity.OrderStatus;
-import com.blockchain.timebank.entity.PublishEntity;
-import com.blockchain.timebank.entity.RecordEntity;
-import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.service.AccountService;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.UserService;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.security.auth.login.AccountException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,25 +53,47 @@ public class RecordController {
     //申请服务页面
     @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)
     public String applySubmit(ModelMap map, @RequestParam long serviceUserId, @RequestParam long publishId, @RequestParam String applyUserName, @RequestParam String applyUserPhone, @RequestParam String address, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam int payWay) {
-        try {
-            RecordEntity recordEntity = new RecordEntity();
-            recordEntity.setServiceUserId(serviceUserId);
-            recordEntity.setPublishId(publishId);
-            recordEntity.setApplyUserId(getCurrentUser().getId());
-            recordEntity.setApplyUserName(applyUserName);
-            recordEntity.setApplyUserPhone(applyUserPhone);
-            recordEntity.setApplyAddress(address);
-            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            recordEntity.setBeginTime(new Timestamp(date.getTime()));
-            recordEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
-            recordEntity.setPayWay(payWay);
-            recordEntity.setStatus(OrderStatus.alreadyApply);
-            recordService.saveRecordEntity(recordEntity);
-            map.addAttribute("msg","ok");
-        } catch (ParseException e) {
-            e.printStackTrace();
+
+        double price = publishService.findPublishEntityById(publishId).getPrice();
+        double sum = price * serveTime;
+        boolean status = true;
+        if(payWay==1){
+            if(getCurrentUser().getTimeVol()<sum){
+                map.addAttribute("detail","noMoney");
+                status = false;
+            }
+        }
+        if(payWay==2){
+            if(getCurrentUser().getTimeCoin()<sum){
+                map.addAttribute("detail","noMoney");
+                status = false;
+            }
+        }
+
+        if(status){
+            try {
+                RecordEntity recordEntity = new RecordEntity();
+                recordEntity.setServiceUserId(serviceUserId);
+                recordEntity.setPublishId(publishId);
+                recordEntity.setApplyUserId(getCurrentUser().getId());
+                recordEntity.setApplyUserName(applyUserName);
+                recordEntity.setApplyUserPhone(applyUserPhone);
+                recordEntity.setApplyAddress(address);
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+                recordEntity.setBeginTime(new Timestamp(date.getTime()));
+                recordEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
+                recordEntity.setPayWay(payWay);
+                recordEntity.setStatus(OrderStatus.alreadyApply);
+                recordService.saveRecordEntity(recordEntity);
+                map.addAttribute("msg","ok");
+            } catch (ParseException e) {
+                e.printStackTrace();
+                map.addAttribute("msg","error");
+            }
+        }else{
             map.addAttribute("msg","error");
         }
+
         return "record_apply_result";
     }
 
