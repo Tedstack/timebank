@@ -17,6 +17,8 @@
 </head>
 <body>
 
+<div class="weui-tab__panel">
+    <div style="...">
 <div class="weui-cell">
     <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
     <div class="weui-cell__bd">
@@ -54,9 +56,10 @@
                             </div>
                             <span class="weui-cell__ft"></span>
                         </a>
+    </div>
 
                     <img src="../img/底部.png" width="375" height="15">
-
+<div style="...">
 <div class="weui-cell">
     <div class="weui-cell__hd"><img src="../img/服务名称/我的服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
     <div class="weui-cell__bd">
@@ -81,10 +84,11 @@
     <a href="/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
 </div>
 </div>
+</div>
 
-    </div>
+</div>
     <jsp:include page="bottom_tabbar.jsp"/>
-    </div>
+
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>

@@ -92,9 +92,7 @@
                         </div>
                     </div>
                 </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">扫码开始</a>
-                        </div>
+
                 <img src="../img/底部.png" width="375" height="15">
                     </div>
                     <br>

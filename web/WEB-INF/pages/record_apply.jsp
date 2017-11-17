@@ -92,9 +92,9 @@
                     <select class="weui-select" name="payWay">
                         <%
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                out.print("<option value='1'>志愿者币V</option>");
+                                out.print("<option value='1'>志愿者币</option>");
                             } else {
-                                out.print("<option value='2'>时间币C</option>");
+                                out.print("<option value='2'>时间币</option>");
                             }
                         %>
                     </select>
@@ -120,9 +120,9 @@
                     <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
                     <span><%
                         if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者币V/h）");
+                            out.print("（志愿者币/h）");
                         } else {
-                            out.print("（时间币C/h）");
+                            out.print("（时间币/h）");
                         }
                     %></span>
                 </div>
@@ -137,9 +137,9 @@
 
                     <span><%
                         if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者币V/h）");
+                            out.print("（志愿者币/h）");
                         } else {
-                            out.print("（时间币C/h）");
+                            out.print("（时间币/h）");
                         }
                     %></span>
                 </div>

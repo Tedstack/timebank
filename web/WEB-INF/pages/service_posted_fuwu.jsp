@@ -76,11 +76,11 @@
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">
                                     <%
                                         if(recordDetailList.get(i).getActualBeginTime()==null){
-                                            out.print("未扫码");
+                                            out.print("已确认");
                                         }else if(recordDetailList.get(i).getActualEndTime()==null){
-                                            out.print("第一次扫码成功");
+                                            out.print("开始服务");
                                         }else{
-                                            out.print("第二次扫码成功");
+                                            out.print("结束服务");
                                         }
                                     %>
                                 </li>

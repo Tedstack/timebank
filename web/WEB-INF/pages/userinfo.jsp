@@ -46,7 +46,7 @@
                 <div class="weui-cell__bd">
                     <p>时间币余额</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%> C</div>
+                <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%> 时间币</div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__hd"><img src="../img/userdetails/时间.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
@@ -60,7 +60,7 @@
                 <div class="weui-cell__bd">
                     <p>志愿者币</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%> V</div>
+                <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%> 志愿者币</div>
             </a>
         <img src="../img/底部.png" width="375" height="15">
 
@@ -82,11 +82,17 @@
                     <p>专业服务技能认证</p>
                 </div>
             </a>
-
-            <div style="padding: 10px; margin-bottom: 20px;">
-                <a href="/user/logout" class="weui-btn weui-btn_primary">退出登录</a>
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <div class="weui-flex">
+                    <div class="weui-flex__item"diaplay="none"></div>
+                    <div class="weui-flex__item"display="none"></div>
+                    <div class="weui-flex__item"display="none"></div>
+                    <div class="weui-flex__item"display="none"></div>
+                    <div class="weui-flex__item"><a href="/user/logout" class="weui-btn weui-btn_mini weui-btn_primary">退出</a></div>
+                </div>
             </div>
-
+        </div>
 
     </div>
 

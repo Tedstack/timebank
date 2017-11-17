@@ -55,7 +55,6 @@
                                 <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">价格 <%out.print(recordDetailList.get(i).getPayMoney());%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"> <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="<%out.print("/user/applyUserStartPay?recordID="+recordDetailList.get(i).getId());%>">支付</a></div>
                             </div>
                             <p class="weui-media-box__desc">订单号编号 <%out.print(recordDetailList.get(i).getId());%></p>
                             <p class="weui-media-box__desc">开始时间
@@ -77,6 +76,17 @@
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">服务人：<%out.print(recordDetailList.get(i).getServiceUserName());%></li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="<%out.print("/user/applyUserStartPay?recordID="+recordDetailList.get(i).getId());%>">支付</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -103,11 +103,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="weui-form-preview__ft">
-                            <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">完成</a>
-                        </div>
                     </div>
-                    <br>
                 </div>
                 <img src="../img/底部.png" width="375" height="15">
 
