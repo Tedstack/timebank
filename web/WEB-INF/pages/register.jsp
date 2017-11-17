@@ -23,21 +23,21 @@
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="name" placeholder="姓名"/>
+            <input class="weui-input" type="text" id="name" placeholder="用户名"/>
         </div>
     </div>
 </div>
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="pwd1" placeholder="密码"/>
+            <input class="weui-input" type="password" id="pwd1" placeholder="密码"/>
         </div>
     </div>
 </div>
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="pwd2" placeholder="确认密码"/>
+            <input class="weui-input" type="password" id="pwd2" placeholder="确认密码"/>
         </div>
     </div>
 </div>
@@ -52,27 +52,100 @@
             var temp1=document.getElementById("pwd1").value;
             var temp2=document.getElementById("pwd2").value;
             var phoneNumber=document.getElementById("phone").value;
+            var userName = document.getElementById("name").value;
             //先判断两次输入的密码是否一致
-            if(temp1==temp2)
-            {
+
+            var userNameQualified = false;
+            var passwordQualified = false;
+            var phoneQualified = false;
+            var passwordEqual = false;
+
+            if(re.test(phoneNumber)){
+                phoneQualified = true;
+            }else{
+                showAlert("手机号格式不正确");
+            }
+
+            if(userName.length>1){
+                userNameQualified = true;
+            }else{
+                showAlert("用户名长度不能低于2位");
+            }
+
+            if(passwordReg.test(temp1)){
+                passwordQualified = true;
+            }else{
+                showAlert("密码必须包含字母数字和符号且不低于6位");
+            }
+
+            if(temp1==temp2) {
+                passwordEqual = true;
+            }else{
+                showAlert("您输入的两次密码不一致");
+            }
+
+            if(userNameQualified&&passwordQualified&&phoneQualified&&passwordEqual){
+                //showAlert("注册信息全部正确");
+                register(userName,phoneNumber,temp1);
+            }
+
+            /*if(temp1==temp2) {
                 if (re.test(phoneNumber)) {
-                    if(passwordReg.test(temp1))
-                    {
-                        showAlert("注册信息全部正确");
-                    }
-                    else
-                    {
+                    if(passwordReg.test(temp1)) {
+                        //showAlert("注册信息全部正确");
+                        register(document.getElementById("name").value,phoneNumber,temp1);
+                    } else {
                         showAlert("密码必须包含字母数字和符号且不低于6位");
                     }
                 } else {
                     showAlert("手机号格式不正确");
                 }
-            }
-            else
-            {
+            } else {
                 showAlert("您输入的两次密码不一致！");
-            }
+            }*/
         });
+        
+        function register(name,phone,password) {
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: "http://www.hlb9978.com/user/register",
+                //dataType:'JSONP',
+                data: "name=" + name + "&phone=" + phone + "&password=" + password,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    //alert(data);
+                    if(data==="phoneIsRegistered"){
+                        showAlert("手机号已被注册");
+                    }
+                    if(data==="userNameIsRegistered"){
+                        showAlert("用户名已被注册");
+                    }
+
+                    if(data==="success"){
+                        showAlert("注册成功",function () {
+                            goTo("http://www.hlb9978.com/logout");
+                        })
+                    }
+                    if(data==="failure"){
+                        showAlert("注册失败");
+                    }
+
+                },
+                error: function (xhr, type) {
+                    //alert(type);
+                    showAlert("注册失败",function () {
+                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
+                    })
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        }
+        
 </script>
 </body>
 </html>

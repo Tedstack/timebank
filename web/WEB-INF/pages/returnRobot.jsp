@@ -65,12 +65,12 @@
                                     dialogLoading = showLoading();
                                 },
                                 success: function (data) {
-                                    if(data=="failure"){
+                                    if(data==="notOneself"){
                                         showAlert("二维码与申请者不相符",function () {
                                             goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
                                         })
                                     }
-                                    if(data=="success"){
+                                    if(data==="success"){
                                         showAlert("扫码成功",function () {
                                             goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
                                         })

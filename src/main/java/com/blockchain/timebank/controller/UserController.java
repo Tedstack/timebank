@@ -84,8 +84,44 @@ public class UserController {
         return "/login";
     }
 
-
     // 注册请求接口
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
+        String status = "";
+        boolean phoneCorrect = true;
+        boolean nameCorrect = true;
+        System.out.println(name+" "+phone+" "+password);
+
+        if(userService.findUserEntityByPhone(phone) != null) {
+            phoneCorrect = false;
+            status = "phoneIsRegistered";
+        }
+
+        if(userService.findUserEntityByUserName(name)!=null){
+            nameCorrect = false;
+            status = "userNameIsRegistered";
+        }
+
+        if(phoneCorrect&&nameCorrect){
+            try {
+                UserEntity userEntity = new UserEntity();
+                userEntity.setName(name);
+                userEntity.setPhone(phone);
+                userEntity.setPassword(password);
+                userService.saveUserEntity(userEntity);
+                Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
+                SecurityContextHolder.getContext().setAuthentication(token);
+                status = "success";
+            } catch (Exception e) {
+                status = "failure";
+            }
+        }
+
+        return status;
+    }
+
+    /*// 注册请求接口
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
         if (phone.equals("") || name.equals("") || password.equals("")) {
@@ -109,7 +145,7 @@ public class UserController {
             map.addAttribute("error", "注册失败，重复的用户！");
             return "/register";
         }
-    }
+    }*/
 
     //跳转到修改个人信息页面
     @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)
@@ -254,7 +290,7 @@ public class UserController {
         UserEntity applyUser = userService.findUserEntityByQrCode(qrcode);
         RecordEntity record = recordService.findRecordEntityById(recordID);
         if(record.getApplyUserId()!=applyUser.getId()){
-            status = "failure";
+            status = "notOneself";
         }else{
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             if(record.getActualBeginTime()==null){

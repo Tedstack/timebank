@@ -1,6 +1,7 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.entity.UserEntity;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ public interface UserService {
     UserEntity findUserEntityById(Long id);
 
     UserEntity findUserEntityByPhone(String phone);
+
+    UserEntity findUserEntityByUserName(String userName);
 
     UserEntity findUserEntityByPhoneAndPassword(String phone, String password);
 
