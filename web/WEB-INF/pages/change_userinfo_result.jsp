@@ -29,7 +29,15 @@
         %>
     </div>
     <div class="weui-msg__text-area">
-        <h2 class="weui-msg__title">修改成功</h2>
+        <h2 class="weui-msg__title">
+            <%
+                if(msg.equals("ok")){
+                    out.print("修改成功");
+                }else{
+                    out.print("修改失败");
+                }
+            %>
+        </h2>
     </div>
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">

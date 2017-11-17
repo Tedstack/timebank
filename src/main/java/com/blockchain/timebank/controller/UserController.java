@@ -11,6 +11,7 @@ import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -150,24 +151,38 @@ public class UserController {
     //跳转到修改个人信息页面
     @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)
     public String startModifyPersonalInfo(ModelMap map){
+        UserEntity user = getCurrentUser();
 
+        map.addAttribute("user",user);
         return "change_userinfo";
     }
 
     //修改个人信息
     @RequestMapping(value = "/modifyPersonalInfo",method = RequestMethod.POST)
+    @ResponseBody
     public String modifyPersonalInfo(ModelMap map,@RequestParam String qrcode){
-        System.out.println("qrcode:"+qrcode);
-        try{
-            UserEntity user = getCurrentUser();
-            user.setQrCode(qrcode);
-            userService.updateUserEntity(user);
-            map.addAttribute("msg","ok");
-        }catch (Exception e){
-            e.printStackTrace();
-            map.addAttribute("msg","error");
+
+        String status = "";
+        if(userService.findUserEntityByQrCode(qrcode)==null){
+            try{
+                UserEntity user = getCurrentUser();
+                user.setQrCode(qrcode);
+                userService.updateUserEntity(user);
+                status = "ok";
+            }catch (Exception e){
+                status = "error";
+                e.printStackTrace();
+            }
+        }else{
+            status = "alreadyExist";
         }
 
+        return status;
+    }
+
+    @RequestMapping(value = "/endModifyPersonalInfo",method = RequestMethod.GET)
+    public String endModifyPersonalInfo(ModelMap map,@RequestParam String status){
+        map.addAttribute("msg",status);
         return "change_userinfo_result";
     }
 
