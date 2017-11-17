@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -91,7 +92,6 @@ public class UserController {
         String status = "";
         boolean phoneCorrect = true;
         boolean nameCorrect = true;
-        System.out.println(name+" "+phone+" "+password);
 
         if(userService.findUserEntityByPhone(phone) != null) {
             phoneCorrect = false;
@@ -181,6 +181,8 @@ public class UserController {
     public String queryPublishAlreadyPublish(ModelMap map){
         List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserId(getCurrentUser().getId());
 
+        //倒序排列
+        Collections.reverse(publishList);
         map.addAttribute("publishList", publishList);
         return "service_posted_fabu";
     }
@@ -190,6 +192,8 @@ public class UserController {
     public String queryPublishWaitingConfirm(ModelMap map){
         List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_posted_queren";
     }
@@ -199,6 +203,8 @@ public class UserController {
     public String queryPublishWaitingService(ModelMap map){
         List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingService);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_posted_fuwu";
     }
@@ -208,6 +214,8 @@ public class UserController {
     public String queryPublishWaitingCollect(ModelMap map){
         List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingPay);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_posted_zhifu";
     }
@@ -220,6 +228,8 @@ public class UserController {
 
         recordDetailList.addAll(recordDetailList2);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
 
         return "service_posted_wancheng";
@@ -235,6 +245,8 @@ public class UserController {
     public String queryAlreadyApplyOrder(ModelMap map){
         List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_yuyue";
     }
@@ -244,6 +256,8 @@ public class UserController {
     public String queryWaitingServiceOrder(ModelMap map){
         List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingService);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_shangmen";
     }
@@ -253,6 +267,8 @@ public class UserController {
     public String queryWaitingPayOrder(ModelMap map){
         List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingPay);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_fukuan";
     }
@@ -264,6 +280,8 @@ public class UserController {
         List<ViewRecordDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
         recordDetailList.addAll(recordDetailList2);
 
+        //倒序排列
+        Collections.reverse(recordDetailList);
         map.addAttribute("recordDetailList", recordDetailList);
         return "service_requested_wancheng";
     }
