@@ -111,8 +111,7 @@
                                     long ms = timestamp2.getTime() - timestamp.getTime();
 
                                     out.print(formatTime(ms/1000));
-                                %>
-                                </p>
+                                %></p>
 
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
