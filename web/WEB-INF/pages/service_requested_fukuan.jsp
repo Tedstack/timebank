@@ -21,6 +21,39 @@
 <%
     List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
 %>
+<%!
+    String formatTime(Long ms){
+        Integer mi = 60;
+        Integer hh = mi * 60;
+        Integer dd = hh * 24;
+
+        Long day = ms / dd;
+        Long hour = (ms - day * dd) / hh;
+        Long minute = (ms - day * dd - hour * hh) / mi;
+        Long second = (ms - day * dd - hour * hh - minute * mi) ;
+        //Long milliSecond = ms - day * dd - hour * hh - minute * mi - second * ss;
+
+        StringBuffer sb = new StringBuffer();
+        if(day > 0) {
+            sb.append(day+"天");
+        }
+        if(hour > 0) {
+            sb.append(hour+"小时");
+        }
+        if(minute > 0) {
+            sb.append(minute+"分");
+        } else {
+            sb.append(0+"分");
+        }
+        if(second > 0) {
+            sb.append(second+"秒");
+        } else {
+            sb.append(0+"秒");
+        }
+
+        return sb.toString();
+    }
+%>
 
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -71,6 +104,15 @@
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
+                            <p class="weui-media-box__desc">服务时长
+                                <%
+                                    Timestamp timestamp = recordDetailList.get(i).getActualBeginTime();
+                                    Timestamp timestamp2 = recordDetailList.get(i).getActualEndTime();
+                                    long ms = timestamp2.getTime() - timestamp.getTime();
+
+                                    out.print(formatTime(ms/1000));
+                                %>
+                                </p>
 
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
