@@ -76,6 +76,11 @@
 
             $("#commitBtn").on('click',function () {
                 var curqrcode = $('#curqrcode').text();
+                var re = /^1\d{8}$/
+                if(!re.test(curqrcode)) {
+                    showAlert("此二维码非邻里智助官方二维码！");
+                    return;
+                }
                 if(curqrcode!==""){
                     $.ajax({
                         type: 'POST',

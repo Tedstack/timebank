@@ -35,7 +35,7 @@
                 <div class="weui-navbar__item"id="navbar4">
                     待收款
                 </div>
-                <div class="weui-navbar__item weui-bar__item_on"id="navbar5">
+                <div class="weui-navbar__item weui-bar__item_on"id="navbar5" style="color: #7ACF41">
                     已完成
                 </div>
             </div>

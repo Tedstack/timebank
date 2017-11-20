@@ -48,14 +48,14 @@
 
         <div class="weui-cells">
             <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>服务类型</p>
                 </div>
                 <div class="weui-cell__ft"><%=detail.getServiceType()%></div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>开始日期</p>
                 </div>
@@ -68,7 +68,7 @@
                     %></div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>结束日期</p>
                 </div>
@@ -81,14 +81,14 @@
                     %></div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>服务价格</p>
                 </div>
                 <div class="weui-cell__ft"><%=detail.getPrice()%>元/小时</div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>服务范围</p>
                 </div>

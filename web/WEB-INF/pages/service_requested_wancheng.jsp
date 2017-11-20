@@ -46,7 +46,7 @@
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务状态</label>
-                                <em class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getStatus());%></em>
+                                <em class="weui-form-preview__value" style="color: #7ACF41"><%out.print(recordDetailList.get(i).getStatus());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务收费</label>
-                                <span class="weui-form-preview__value"><%
+                                <span class="weui-form-preview__value" style="color: #7ACF41"><%
                                     if(recordDetailList.get(i).getStatus().equals("已完成")){
                                         out.print(recordDetailList.get(i).getPayMoney());
                                     }else{
@@ -96,12 +96,7 @@
                                 <label class="weui-form-preview__label">服务地点</label>
                                 <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
                             </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
-                            </div>
+
                         </div>
                     </div>
                 </div>

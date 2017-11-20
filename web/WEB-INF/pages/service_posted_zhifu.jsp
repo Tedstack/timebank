@@ -32,7 +32,7 @@
                 <div class="weui-navbar__item"id="navbar3">
                     待服务
                 </div>
-                <div class="weui-navbar__item weui-bar__item_on"id="navbar4">
+                <div class="weui-navbar__item weui-bar__item_on"id="navbar4" style="color: #7ACF41">
                     待收款
                 </div>
                 <div class="weui-navbar__item"id="navbar5">
@@ -73,7 +73,7 @@
                                 %></p>
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserPhone());%></li>
                             </ul>
                         </div>
                     </div>

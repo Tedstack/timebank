@@ -186,6 +186,12 @@ public class UserController {
         return "change_userinfo_result";
     }
 
+    //实名认证
+    @RequestMapping(value = "/startRealNameAuth",method = RequestMethod.GET)
+    public String startRealNameAuth(ModelMap map){
+        return "realname_authentication";
+    }
+
     /**
      * 查询用户作为服务者 发布的服务
      * @param map

@@ -24,7 +24,7 @@
 <div class="weui-form-preview">
     <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label">付款金额</label>
-        <em class="weui-form-preview__value"><%out.print(recordDetail.getPayMoney());%></em>
+        <em class="weui-form-preview__value" style="color: #7ACF41"><%out.print(recordDetail.getPayMoney());%></em>
     </div>
     <div class="weui-form-preview__bd">
         <p>

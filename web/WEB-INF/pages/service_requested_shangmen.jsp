@@ -67,7 +67,7 @@
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <p class="weui-media-box__desc">预计付费
+                            <p class="weui-media-box__desc" style="color: #7ACF41">预计付费
                                 <%
                                     Timestamp beginStamp = recordDetailList.get(i).getBeginTime();
                                     Timestamp endStamp = recordDetailList.get(i).getEndTime();

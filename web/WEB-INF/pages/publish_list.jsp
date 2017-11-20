@@ -36,13 +36,13 @@
                     </div>
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%out.print(viewPublishEntity.getServiceName());%></h4>
-                        <div>¥
+                        <div style="color: #7ACF41;">¥
                             <%
                                 out.print(viewPublishEntity.getPrice());
                                 if(request.getAttribute("type").toString().equals("志愿者服务")){
-                                    out.print("（志愿者币V）");
+                                    out.print("（志愿者币）");
                                 }else{
-                                    out.print("（时间币C）");
+                                    out.print("（时间币）");
                                 }
                             %>
                         </div>

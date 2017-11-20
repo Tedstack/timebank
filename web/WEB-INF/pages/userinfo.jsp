@@ -24,7 +24,7 @@
             UserEntity userEntity = (UserEntity) request.getAttribute("user");
         %>
         <a class="weui-cell weui-cell_access" href="/user/startModifyPersonalInfo">
-            <div class="weui-cell__hd"><img src="../img/我的.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+            <div class="weui-cell__hd"><img src="../img/服务名称/我的.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p><%out.print(userEntity.getName());%></p>
             </div>
@@ -33,7 +33,7 @@
         <img src="../img/底部.png" width="375" height="15">
 
         <a class="weui-cell weui-cell_access" href="javascript:;">
-            <div class="weui-cell__hd"><img src="../img/userdetails/新消息通知.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+            <div class="weui-cell__hd"><img src="../img/userdetails/消息.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p>新消息通知</p>
             </div>
@@ -46,7 +46,7 @@
                 <div class="weui-cell__bd">
                     <p>时间币余额</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%> 时间币</div>
+                <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeCoin());%> 时间币</div>
             </a>
             <a class="weui-cell weui-cell_access" href="javascript:;">
                 <div class="weui-cell__hd"><img src="../img/userdetails/时间.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
@@ -60,7 +60,7 @@
                 <div class="weui-cell__bd">
                     <p>志愿者币</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%> 志愿者币</div>
+                <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeVol());%> 志愿者币</div>
             </a>
         <img src="../img/底部.png" width="375" height="15">
 
@@ -82,6 +82,7 @@
                     <p>专业服务技能认证</p>
                 </div>
             </a>
+        <img src="../img/底部.png" width="375" height="15">
         <div class="weui-cell">
             <div class="weui-cell__bd">
                 <div class="weui-flex">

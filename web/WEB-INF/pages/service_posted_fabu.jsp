@@ -23,7 +23,7 @@
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
             <div class="weui-navbar">
-                <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
+                <div class="weui-navbar__item weui-bar__item_on"id="navbar1"style="color: #7ACF41">
                     已发布
                 </div>
                 <div class="weui-navbar__item"id="navbar2">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"><%out.print(publishList.get(i).getServiceName());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title" style="color: #7ACF41;"><%out.print(publishList.get(i).getServiceName());%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
@@ -73,7 +73,7 @@
                                 %></p>
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(publishList.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">等待确认</li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"style="color: #7ACF41">等待确认</li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(publishList.get(i).getUserPhone());%></li>
                             </ul>
                         </div>
@@ -97,6 +97,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
+    <img src="../img/底部.png" width="375" height="100">
     <jsp:include page="bottom_tabbar.jsp"/>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>

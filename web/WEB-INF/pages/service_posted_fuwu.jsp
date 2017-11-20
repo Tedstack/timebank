@@ -29,7 +29,7 @@
                 <div class="weui-navbar__item"id="navbar2">
                     待确认
                 </div>
-                <div class="weui-navbar__item weui-bar__item_on"id="navbar3">
+                <div class="weui-navbar__item weui-bar__item_on"id="navbar3" style="color: #7ACF41">
                     待服务
                 </div>
                 <div class="weui-navbar__item"id="navbar4">
@@ -57,14 +57,14 @@
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
                             <p class="weui-media-box__desc">服务项目 <%out.print(recordDetailList.get(i).getServiceName());%></p>
-                            <p class="weui-media-box__desc">开始时间
+                            <p class="weui-media-box__desc" style="color: #7ACF41">开始时间
                                 <%
                                     Timestamp beginTimestamp = recordDetailList.get(i).getBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc">结束时间
+                            <p class="weui-media-box__desc"style="color: #7ACF41">结束时间
                                 <%
                                     Timestamp endTimestamp = recordDetailList.get(i).getEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
@@ -91,8 +91,8 @@
                 <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <div class="weui-flex">
-                        <div class="weui-flex__item"diaplay="none"></div>
-                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"><p>预计价格</p></div>
+                        <div class="weui-flex__item"><p>xx时间币</p></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"><a href="<%out.print("/user/serviceUserStartScan?recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
