@@ -1,3 +1,7 @@
+# 创建数据库
+CREATE DATABASE IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mydb`;
+
 # User 用户表
 CREATE TABLE `user` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
@@ -111,8 +115,8 @@ CREATE VIEW view_publish_detail
       publish.Address     AS Address,
       publish.BeginDate   AS BeginDate,
       publish.EndDate     AS EndDate,
-      Service.Type        AS ServiceType,
-      Service.Name        AS ServiceName,
+      service.Type        AS ServiceType,
+      service.Name        AS ServiceName,
       user.Name           AS UserName,
       user.Phone          AS UserPhone
     FROM publish, user, service

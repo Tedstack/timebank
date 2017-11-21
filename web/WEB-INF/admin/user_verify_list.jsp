@@ -30,7 +30,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">用户列表</li>
         </ol>
@@ -70,13 +70,18 @@
                             <td>
                                 <%
                                     if (userEntity.getImg1() == null || userEntity.getImg2() == null) {
-                                        out.print("未上传照片");
-                                        out.print("<a href='/admin/userPhotoAdd?userId=" + userEntity.getId() + "' target='_blank'>（上传）</a> ");
-                                    } else {
-                                        out.print("已上传照片");
-                                        out.print("<a href='/admin/userPhotoAdd?userId=" + userEntity.getId() + "' target='_blank'>（查看）</a> ");
+                                %>
+                                未上传照片
+                                <a href="${pageContext.request.contextPath}/admin/userPhotoAdd?userId=<%= userEntity.getId()%>"
+                                   target='_blank'>（上传）</a>
+                                <%
+                                } else {
+                                %>
+                                已上传照片
+                                <a href="${pageContext.request.contextPath}/admin/userPhotoAdd?userId=<%= userEntity.getId()%>"
+                                   target='_blank'>（查看）</a>
+                                <%
                                     }
-
                                 %>
                             </td>
                             <td>
@@ -93,7 +98,9 @@
                             <td>
                                 <%
                                     if (userEntity.getImg1() != null && userEntity.getImg2() != null && userEntity.getIsVerify() == null) {
-                                        out.print("<a href='/admin/userVerify?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>审核</a> ");
+                                %>
+                                        <a href="${pageContext.request.contextPath}/admin/userVerify?userId=<%=userEntity.getId()%>" target='_blank' class='btn btn-primary btn-sm'>审核</a>
+                                <%
                                     }
                                 %>
                             </td>

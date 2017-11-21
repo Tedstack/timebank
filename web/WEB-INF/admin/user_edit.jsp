@@ -23,7 +23,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">编辑用户</li>
         </ol>
@@ -45,7 +45,7 @@
                     UserEntity user = (UserEntity) request.getAttribute("user");
                 %>
 
-                <form action="/admin/userEditSubmit" method="post">
+                <form action="${pageContext.request.contextPath}/admin/userEditSubmit" method="post">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="card">

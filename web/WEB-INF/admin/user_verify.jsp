@@ -1,4 +1,5 @@
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +26,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">实名认证审核</li>
         </ol>
@@ -100,7 +101,7 @@
                                         <div class="col-lg-6">
                                             <%
                                                 if (user.getImg1() != null && user.getImg1().length() > 0) {
-                                                    out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/profile/" + user.getImg1() + "'>");
+                                                    out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/profile/" + user.getImg1() + "?time=" + new Date().getTime() + "'>");
                                                 } else {
                                                     out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/空白身份证.jpg'>");
                                                 }
@@ -110,9 +111,9 @@
                                         <div class="col-lg-6">
                                             <%
                                                 if (user.getImg2() != null && user.getImg2().length() > 0) {
-                                                    out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='/img/profile/" + user.getImg2() + "'>");
+                                                    out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='../img/profile/" + user.getImg2() + "?time=" + new Date().getTime() + "'>");
                                                 } else {
-                                                    out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='/img/空白身份证.jpg'>");
+                                                    out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='../img/空白身份证.jpg'>");
                                                 }
                                             %>
                                         </div>
@@ -124,7 +125,7 @@
                     </div>
                 </div>
 
-                <form action="/admin/userVerifySubmit" method="post">
+                <form action="${pageContext.request.contextPath}/admin/userVerifySubmit" method="post">
 
                     <input type="hidden" name="userId" value="<%=user.getId()%>">
 

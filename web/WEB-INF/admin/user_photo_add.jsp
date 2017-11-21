@@ -1,4 +1,5 @@
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +31,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">添加用户</li>
         </ol>
@@ -74,9 +75,9 @@
                             <div class="col-lg-6">
                                 <%
                                     if (user.getImg1() != null && user.getImg1().length() > 0) {
-                                        out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/profile/" + user.getImg1() + "'>");
+                                        out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='../img/profile/" + user.getImg1() + "?time=" + new Date().getTime() + "'>");
                                     } else {
-                                        out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/空白身份证.jpg'>");
+                                        out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='../img/空白身份证.jpg'>");
                                     }
                                     if (user.getIdCard() != null && user.getIdCard().length() > 0 && (user.getIsVerify() == null || user.getIsVerify() == 0)) {
                                 %>
@@ -93,9 +94,9 @@
 
                                 <%
                                     if (user.getImg2() != null && user.getImg2().length() > 0) {
-                                        out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='/img/profile/" + user.getImg2() + "'>");
+                                        out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='../img/profile/" + user.getImg2() + "?time=" + new Date().getTime() + "'>");
                                     } else {
-                                        out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='/img/空白身份证.jpg'>");
+                                        out.print("<img class='img-thumbnail' id='img2' style='width: 100%;' src='../img/空白身份证.jpg'>");
                                     }
                                     if (user.getIdCard() != null && user.getIdCard().length() > 0 && (user.getIsVerify() == null || user.getIsVerify() == 0)) {
                                 %>
@@ -170,7 +171,7 @@
             allowedFileTypes: ['image'],
             allowedFileExtensions: ['jpg', 'png'],
             maxFileSize: 2014 * 1000, //单位为kb，如果为0表示不限制文件大小
-            uploadUrl: '/admin/userUploadPhoto'
+            uploadUrl: '../admin/userUploadPhoto'
         }).on("fileuploaded", function (event, data, previewId, index) {
             if ($("#input_img").val() == 1) $("#img1").attr("src", data.response.url + "?time=" + new Date().getTime());//每次随机一个参数保证图片实时更新
             else $("#img2").attr("src", data.response.url + "?time=" + new Date().getTime());

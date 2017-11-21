@@ -33,7 +33,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">后台发布服务</li>
         </ol>
@@ -45,7 +45,7 @@
             </div>
             <div class="card-body">
 
-                <form action="/admin/publishAddSubmit" method="post">
+                <form action="${pageContext.request.contextPath}/admin/publishAddSubmit" method="post">
                     <%
                         if (request.getAttribute("ok") != null) {
                             out.print("<div class='alert alert-success' role='alert'>"
