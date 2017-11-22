@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -178,6 +181,52 @@ public class UserController {
         }
 
         return status;
+    }
+
+    //用户上传照片
+    @RequestMapping(value = "/uploadUserInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadUserInfo(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "file2", required = false) MultipartFile file2,String idNum){
+        String msg = "";
+
+        String idImg = null;
+        String idImg2 = null;
+        if (file != null && !file.isEmpty()&& file2 != null && !file2.isEmpty()) {
+            System.out.println("idNum"+idNum);
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\");
+            if (!uploadDir.exists()) uploadDir.mkdir();
+            String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            idImg = idNum + "_" + 1 + suffix1;
+
+            String suffix2 = file2.getOriginalFilename().substring(file2.getOriginalFilename().lastIndexOf("."));
+            idImg2 = idNum + "_" + 2 + suffix2;
+
+            // 构建上传目录及文件对象，不存在则自动创建
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\";
+            File imgFile = new File(path, idImg);
+            File imgFile2 = new File(path, idImg2);
+
+            // 保存文件
+            try {
+                UserEntity user = getCurrentUser();
+                user.setImg1(idImg);
+                user.setImg2(idImg2);
+                user.setIdCard(idNum);
+                file.transferTo(imgFile);
+                file2.transferTo(imgFile2);
+                userService.updateUserEntity(user);
+                msg = "success";
+            } catch (Exception e) {
+                msg = "failure";
+                e.printStackTrace();
+            }
+        }else{
+            msg = "failure";
+        }
+
+
+        return msg;
     }
 
     @RequestMapping(value = "/endModifyPersonalInfo",method = RequestMethod.GET)

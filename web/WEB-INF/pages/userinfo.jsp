@@ -64,7 +64,7 @@
             </a>
         <img src="../img/底部.png" width="375" height="15">
 
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="/user/startRealNameAuth">
                 <div class="weui-cell__hd"><img src="../img/userdetails/实名认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>实名认证</p>
