@@ -27,11 +27,15 @@
 %>
 <div class="page">
     <div class="weui-msg">
-        <div class="weui-msg__icon-area"><i class="weui-icon-waiting weui-icon_msg"></i></div>
-        <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">扫码服务</h2>
-            <p class="weui-msg__desc">点击按钮开始扫码</p>
+        <div class="weui-msg__icon-area">
+            <img src="../img/扫一扫示例2.png" width="250" height="250">
         </div>
+        <!--第一次扫码时h2和p内都显示/前的部分，第二次扫码显示后半部分-->
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title">扫码开始服务/扫码结束服务</h2>
+            <p class="weui-msg__desc">您这是第一次扫码，将开始服务，服务结束后，请及时进行第二次扫码/您这是第二次扫码，扫码成功后将结束此次服务</p>
+        </div>
+        <!--以上~~-->
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
                 <a class="weui-btn weui-btn_primary" id="button1">扫码</a>
