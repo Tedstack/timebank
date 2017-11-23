@@ -46,7 +46,7 @@
 <script type="text/javascript">
     var qrcode='<%=user.getQrCode()%>';
     $(function(){
-        if((qrcode!==null)&&(qrcode!=="")){
+        if((qrcode!=='null')&&(qrcode!=="")){
             $('#curqrcode').text(qrcode);
             $("#addBtn").text('无需添加');
             $("#commitBtn").hide();
