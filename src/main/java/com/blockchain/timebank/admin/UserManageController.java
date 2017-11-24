@@ -171,6 +171,6 @@ public class UserManageController {
 
     // 文件上传路径
     private String getUploadPath() {
-        return request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\";
+        return request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
     }
 }

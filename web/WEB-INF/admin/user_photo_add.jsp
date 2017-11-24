@@ -8,8 +8,7 @@
     <title>添加用户</title>
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/file-input/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all"
-          rel="stylesheet" type="text/css"/>
+    <link href="vendor/font-awesome/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="vendor/file-input/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/sb-admin.css" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -173,8 +172,9 @@
             maxFileSize: 2014 * 1000, //单位为kb，如果为0表示不限制文件大小
             uploadUrl: '../admin/userUploadPhoto'
         }).on("fileuploaded", function (event, data, previewId, index) {
-            if ($("#input_img").val() == 1) $("#img1").attr("src", data.response.url + "?time=" + new Date().getTime());//每次随机一个参数保证图片实时更新
-            else $("#img2").attr("src", data.response.url + "?time=" + new Date().getTime());
+            console.log(data.response.url);
+            if ($("#input_img").val() == 1) $("#img1").attr("src", "../" + data.response.url + "?time=" + new Date().getTime());//每次随机一个参数保证图片实时更新
+            else $("#img2").attr("src", "../" + data.response.url + "?time=" + new Date().getTime());
         });
 
         $("#btn_img1").click(function () {
