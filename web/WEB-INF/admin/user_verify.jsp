@@ -101,9 +101,9 @@
                                         <div class="col-lg-6">
                                             <%
                                                 if (user.getImg1() != null && user.getImg1().length() > 0) {
-                                                    out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/profile/" + user.getImg1() + "?time=" + new Date().getTime() + "'>");
+                                                    out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='../img/profile/" + user.getImg1() + "?time=" + new Date().getTime() + "'>");
                                                 } else {
-                                                    out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='/img/空白身份证.jpg'>");
+                                                    out.print("<img class='img-thumbnail' id='img1' style='width: 100%;' src='../img/空白身份证.jpg'>");
                                                 }
                                             %>
                                         </div>
