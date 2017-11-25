@@ -203,7 +203,7 @@ public class UserController {
             idImg2 = idNum + "_" + 2 + suffix2;
 
             // 构建上传目录及文件对象，不存在则自动创建
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\";
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
             File imgFile = new File(path, idImg);
             File imgFile2 = new File(path, idImg2);
 

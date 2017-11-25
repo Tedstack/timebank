@@ -6,6 +6,7 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.math.BigDecimal" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -84,7 +85,23 @@
                         <div class="weui-cell__bd">
                             <div class="weui-flex">
                                 <div class="weui-flex__item"><p>预计价格</p></div>
-                                <div class="weui-flex__item"><p>xx时间币</p></div>
+                                <div class="weui-flex__item"><p>
+                                    <%
+                                        Timestamp beginStamp = recordDetailList.get(i).getBeginTime();
+                                        Timestamp endStamp = recordDetailList.get(i).getEndTime();
+                                        long begin = beginStamp.getTime();
+                                        long end = endStamp.getTime();
+
+                                        long l = end - begin;
+                                        String s = String.valueOf(l);
+                                        double d = Double.parseDouble(s);
+                                        double price = recordDetailList.get(i).getPublishPrice();
+                                        double money = price * (d/(3600*1000));
+                                        BigDecimal bg = new BigDecimal(money);
+                                        double convertedMoney = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                                        out.print(convertedMoney);
+                                    %>
+                                </p></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"><a href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
                                 <div class="weui-flex__item"><a href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
