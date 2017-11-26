@@ -54,26 +54,24 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">订单编号 <%out.print(recordDetailList.get(i).getId());%></p>
-                            <p class="weui-media-box__desc">服务人员 <%out.print(recordDetailList.get(i).getServiceUserName());%></p>
-                            <p class="weui-media-box__desc"style="color: #7ACF41">开始时间
+                            <p class="weui-media-box__desc">订单编号: <%out.print(recordDetailList.get(i).getId());%></p>
+                            <p class="weui-media-box__desc">服务人员: <%out.print(recordDetailList.get(i).getServiceUserName());%></p>
+                            <p class="weui-media-box__desc"style="color: #7ACF41">开始时间:
                                 <%
                                     Timestamp beginTimestamp = recordDetailList.get(i).getBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc"style="color: #7ACF41">结束时间
+                            <p class="weui-media-box__desc"style="color: #7ACF41">结束时间:
                                 <%
                                     Timestamp endTimestamp = recordDetailList.get(i).getEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta" ><%out.print(recordDetailList.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getServiceUserPhone());%></li>
-                            </ul>
+                            <p class="weui-media-box__desc">服务地点:<%out.print(recordDetailList.get(i).getAddress());%></p>
+                            <p class="weui-media-box__desc">服务人手机号:暂时没有</p>
                         </div>
 
                     </div>

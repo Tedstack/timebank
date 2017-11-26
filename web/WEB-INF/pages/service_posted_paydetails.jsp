@@ -23,28 +23,28 @@
 
 <div class="weui-form-preview">
     <div class="weui-form-preview__hd">
-        <label class="weui-form-preview__label">付款金额</label>
+        <label class="weui-form-preview__label">付款金额:/label>
         <em class="weui-form-preview__value" style="color: #7ACF41"><%out.print(recordDetail.getPayMoney());%></em>
     </div>
     <div class="weui-form-preview__bd">
         <p>
-            <label class="weui-form-preview__label">订单编号</label>
+            <label class="weui-form-preview__label">订单编号:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getId());%></span>
         </p>
         <p>
-            <label class="weui-form-preview__label">服务类型</label>
+            <label class="weui-form-preview__label">服务类型:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceType());%></span>
         </p>
         <p>
-            <label class="weui-form-preview__label">服务名称</label>
+            <label class="weui-form-preview__label">服务名称:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceName());%></span>
         </p>
         <p>
-            <label class="weui-form-preview__label">服务人</label>
+            <label class="weui-form-preview__label">服务人:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceUserName());%></span>
         </p>
         <p>
-            <label class="weui-form-preview__label">服务时长</label>
+            <label class="weui-form-preview__label">服务时长:</label>
             <span class="weui-form-preview__value">
                 <%
                     Timestamp beginTimestamp = recordDetail.getActualBeginTime();
@@ -59,7 +59,7 @@
                 %></span>
         </p>
         <p>
-            <label class="weui-form-preview__label">服务地点</label>
+            <label class="weui-form-preview__label">服务地点:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getAddress());%></span>
         </p>
     </div>

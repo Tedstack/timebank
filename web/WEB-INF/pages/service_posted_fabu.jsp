@@ -57,25 +57,22 @@
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
                             <p class="weui-media-box__desc"><%out.print(publishList.get(i).getServiceType());%></p>
-                            <p class="weui-media-box__desc">开始时间
+                            <p class="weui-media-box__desc">开始时间:
                                 <%
                                     Timestamp timestamp = publishList.get(i).getBeginDate();
                                     Date date = new Date(timestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc">结束时间
+                            <p class="weui-media-box__desc">结束时间:
                                 <%
                                     Timestamp timestamp2 = publishList.get(i).getEndDate();
                                     Date date2 = new Date(timestamp2.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta"><%out.print(publishList.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"style="color: #7ACF41">等待确认</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(publishList.get(i).getUserPhone());%></li>
-                            </ul>
+                            <p class="weui-media-box__desc">服务范围:<%out.print(publishList.get(i).getAddress());%></p>
+                            <p class="weui-media-box__desc">预留联系方式:<%out.print(publishList.get(i).getUserPhone());%></p>
                         </div>
                     </div>
                 </div>

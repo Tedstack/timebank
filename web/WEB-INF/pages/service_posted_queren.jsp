@@ -59,32 +59,30 @@
                                 <div class="weui-flex__item"display="none"></div>
 
                             </div>
-                            <p class="weui-media-box__desc">服务项目 <%out.print(recordDetailList.get(i).getServiceName());%></p>
-                            <p class="weui-media-box__desc" style="color: #7ACF41">开始时间
+                            <p class="weui-media-box__desc">服务项目: <%out.print(recordDetailList.get(i).getServiceName());%></p>
+                            <p class="weui-media-box__desc" style="color: #7ACF41">开始时间:
                                 <%
                                     Timestamp beginTimestamp = recordDetailList.get(i).getBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc"style="color: #7ACF41">结束时间
+                            <p class="weui-media-box__desc"style="color: #7ACF41">结束时间:
                                 <%
                                     Timestamp endTimestamp = recordDetailList.get(i).getEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserName());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserPhone());%></li>
-                            </ul>
+                            <p class="weui-media-box__desc">服务地点: <%out.print(recordDetailList.get(i).getAddress());%></p>
+                            <p class="weui-media-box__desc">服务对象: <%out.print(recordDetailList.get(i).getApplyUserName());%></p>
+                            <p class="weui-media-box__desc" style="color: #7ACF41">申请者联系方式: <%out.print(recordDetailList.get(i).getApplyUserPhone());%></p>
                         </div>
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"><p>预计价格</p></div>
+                                <div class="weui-flex__item"><p>预估价:</p></div>
                                 <div class="weui-flex__item"><p>
                                     <%
                                         Timestamp beginStamp = recordDetailList.get(i).getBeginTime();

@@ -85,7 +85,7 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">价格 <%out.print(recordDetailList.get(i).getPayMoney());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">价格 <%out.print(recordDetailList.get(i).getPayMoney());%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>

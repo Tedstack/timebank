@@ -56,15 +56,15 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">服务对象 <%out.print(recordDetailList.get(i).getApplyUserName());%></p>
-                            <p class="weui-media-box__desc">开始时间
+                            <p class="weui-media-box__desc">服务对象: <%out.print(recordDetailList.get(i).getApplyUserName());%></p>
+                            <p class="weui-media-box__desc">开始时间:
                                 <%
                                     Timestamp beginTimestamp = recordDetailList.get(i).getActualBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc">结束时间
+                            <p class="weui-media-box__desc">结束时间:
                                 <%
                                     Timestamp endTimestamp = recordDetailList.get(i).getActualEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
@@ -73,7 +73,7 @@
                                 %></p>
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getApplyUserPhone());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
                             </ul>
                         </div>
                     </div>

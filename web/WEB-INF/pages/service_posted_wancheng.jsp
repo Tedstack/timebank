@@ -13,6 +13,7 @@
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>已完成</title>
     <!-- 引入 WeUI -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
 <body>
@@ -71,23 +72,34 @@
                                 </span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务对象</label>
+                                <label class="weui-form-preview__label">服务对象:</label>
                                 <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getApplyUserName());%></span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务时间</label>
+                                <label class="weui-form-preview__label">服务开始时间:</label>
                                 <span class="weui-form-preview__value">
                                      <%
                                          if(recordDetailList.get(i).getStatus().equals("已完成")){
                                              Timestamp beginTimestamp = recordDetailList.get(i).getActualBeginTime();
                                              Date date = new Date(beginTimestamp.getTime());
                                              SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
+                                             out.print(bartDateFormat.format(date));
+                                         }else{
+                                             out.print("未进行服务，无服务时间");
+                                         }
+                                     %>
+                                </span>
+                            </div>
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">服务结束时间</label>
+                                <span class="weui-form-preview__value">
+                                     <%
+                                         if(recordDetailList.get(i).getStatus().equals("已完成")){
                                              Timestamp endTimestamp = recordDetailList.get(i).getActualEndTime();
                                              Date date2 = new Date(endTimestamp.getTime());
                                              SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-                                             out.print(bartDateFormat.format(date)+" - "+bartDateFormat2.format(date2));
+                                             out.print(bartDateFormat2.format(date2));
                                          }else{
                                              out.print("未进行服务，无服务时间");
                                          }
