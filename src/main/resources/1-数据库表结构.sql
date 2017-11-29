@@ -20,7 +20,7 @@ CREATE TABLE `user` (
   `IsVerify` INT NULL COMMENT '是否已实名认证',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户表';
 ALTER TABLE `user`
   ADD UNIQUE KEY `Phone` (`Phone`);
 
@@ -33,7 +33,7 @@ CREATE TABLE `service` (
   `UpdateTime` DATETIME NULL COMMENT '价格更新表时间',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='服务种类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='服务种类表';
 
 
 # TimeAccount 时间元表
@@ -44,7 +44,7 @@ CREATE TABLE `timeaccount` (
   `TimeAccount` DOUBLE NOT NULL COMMENT '服务对应的时间元',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='时间元表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='时间元表';
 ALTER TABLE `timeaccount`
   ADD KEY `UserID` (`UserID`),
   ADD KEY `ServiceID` (`ServiceID`);
@@ -64,7 +64,7 @@ CREATE TABLE `publish` (
   `EndDate` DATETIME NOT NULL COMMENT '服务结束日期',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='发布服务表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='发布服务表';
 ALTER TABLE `publish`
   ADD KEY `UserID` (`UserID`),
   ADD KEY `ServiceID` (`ServiceID`);
@@ -92,7 +92,7 @@ CREATE TABLE `record` (
   `Status` VARCHAR(50) NOT NULL COMMENT '订单状态',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='申请订单表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='申请订单表';
 ALTER TABLE `record`
   ADD KEY `ApplyUserID` (`ApplyUserID`),
   ADD KEY `ServiceUserID` (`ServiceUserID`),
@@ -101,6 +101,41 @@ ALTER TABLE `record`
   ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
+
+# team 志愿者团体表
+CREATE TABLE `team` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `Name` VARCHAR(40) NOT NULL COMMENT '团体名称',
+  `ManagerUserID` BIGINT(20) NOT NULL COMMENT '团体管理者ID',
+  `Description` VARCHAR(200) NULL COMMENT '团体简介',
+  `CreateDate` DATE NOT NULL COMMENT '创建日期',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
+ALTER TABLE `team`
+  ADD KEY `ManagerUserID` (`ManagerUserID`);
+ALTER TABLE `team`
+  ADD CONSTRAINT `team_ibfk_1` FOREIGN KEY (`ManagerUserID`) REFERENCES `user` (`ID`);
+
+
+# activity 团体活动表
+CREATE TABLE `activityPublish` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `TeamID` BIGINT(20) NOT NULL COMMENT '发布活动的团体编号',
+  `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
+  `BeginTime` DATETIME NOT NULL COMMENT '活动时间',
+  `Address` VARCHAR(50) NOT NULL COMMENT '活动地点',
+  `Count` INT NOT NULL COMMENT '活动人数',
+  `ApplyEndTime` DATETIME NOT NULL COMMENT '申请截止时间',
+  `Description` VARCHAR(200) NULL COMMENT '活动简介',
+  `IsPublic` BOOL NOT NULL COMMENT '是否公开',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
+ALTER TABLE `activityPublish`
+  ADD KEY `TeamID` (`TeamID`);
+ALTER TABLE `activityPublish`
+  ADD CONSTRAINT `activityPublish_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `team` (`ID`);
 
 
 # 显示已发布的服务详细信息视图
@@ -147,4 +182,6 @@ CREATE VIEW view_record_detail
       serviceUser.Name       AS ServiceUserName,  #服务者姓名
       serviceUser.Phone      AS ServiceUserPhone  #服务者手机号
   FROM record, user AS serviceUser, publish, service
-  WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID
+  WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID;
+
+

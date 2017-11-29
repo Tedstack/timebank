@@ -124,7 +124,7 @@
 
     <script>
         $(document).ready(function () {
-            $("#type_detail").hide();
+            if ("自定义" != $("#service_type").val()) $("#type_detail").hide();
             $("#service_type").change(function () {
                 if ("自定义" == $(this).val()) {
                     $("#type_detail").show();

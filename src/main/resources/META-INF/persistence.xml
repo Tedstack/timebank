@@ -10,6 +10,8 @@
         <class>com.blockchain.timebank.entity.ViewPublishDetailEntity</class>
         <class>com.blockchain.timebank.entity.RecordEntity</class>
         <class>com.blockchain.timebank.entity.ViewRecordDetailEntity</class>
+        <class>com.blockchain.timebank.entity.ActivityPublishEntity</class>
+        <class>com.blockchain.timebank.entity.TeamEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb?characterEncoding=utf-8"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
