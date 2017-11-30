@@ -1,4 +1,3 @@
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %>
