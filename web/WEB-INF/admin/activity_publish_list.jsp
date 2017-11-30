@@ -1,5 +1,6 @@
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>服务种类列表</title>
+    <title>用户列表</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -31,29 +32,26 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
+                <a href="/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">已发布服务列表</li>
+            <li class="breadcrumb-item active">活动发布列表</li>
         </ol>
         <!-- Example DataTables Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 服务发布表
+                <i class="fa fa-table"></i> 活动发布表
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>发布人</th>
-                            <th>发布人手机号</th>
-                            <th>服务类型</th>
-                            <th>服务名称</th>
-                            <th>发布价格</th>
-                            <th>服务的范围</th>
-                            <th>生效时间</th>
-                            <th>失效时间</th>
+                            <th>名称</th>
+                            <th>时间</th>
+                            <th>地点</th>
+                            <th>人数</th>
+                            <th>申请截止时间</th>
+                            <th>是否公开</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -69,41 +67,32 @@
                         <%--</tfoot>--%>
                         <tbody>
 
+
                         <%
-                            List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) request.getAttribute("list");
-                            for (ViewPublishDetailEntity detailEntity : list) {
+                            List<ActivityPublishEntity> list = (List<ActivityPublishEntity>) request.getAttribute("list");
+                            for (ActivityPublishEntity activityPublishEntity : list) {
                         %>
                         <tr>
-                            <td><%=detailEntity.getId()%></td>
-                            <td><%=detailEntity.getUserName()%></td>
-                            <td><%=detailEntity.getUserPhone()%></td>
-                            <td><%=detailEntity.getServiceType()%></td>
-                            <td>
-                                <span><img src="../img/服务名称/<%=detailEntity.getServiceName()%>.png" height="25px"></span>
-                                &nbsp;<%=detailEntity.getServiceName()%>
-                            </td>
-                            <td><%=detailEntity.getPrice()%></td>
-                            <td><%=detailEntity.getAddress()%></td>
-                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getBeginDate()));%></td>
-                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd").format(detailEntity.getEndDate()));%></td>
+                            <td><%=activityPublishEntity.getName()%></td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityPublishEntity.getBeginTime()));%></td>
+                            <td><%=activityPublishEntity.getAddress()%></td>
+                            <td><%=activityPublishEntity.getCount()%></td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityPublishEntity.getApplyEndTime()));%></td>
                             <td>
                                 <%
-                                    if (request.getAttribute("link_publishView") != null) {
-                                        out.print("<a href='' class='btn btn-primary btn-sm'>查看</a> ");
-                                    }
-                                    if (request.getAttribute("link_recordAdd") != null) {
-                                %>
-                                        <a href='${pageContext.request.contextPath}/admin/recordAdd?publishId=<%=detailEntity.getId()%>' target='_blank' class='btn btn-primary btn-sm'>预约服务</a>
-                                <%
-                                    }
+                                    if(activityPublishEntity.isPublic()) out.print("是");
+                                    else out.print("否");
                                 %>
                             </td>
+                            <td></td>
                         </tr>
                         <%
                             }
                         %>
                         </tbody>
                     </table>
+
+
                 </div>
             </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

@@ -87,12 +87,43 @@
                 </ul>
             </li>
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-fw fa-link"></i>
-                    <span class="nav-link-text">Link</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseTeam" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-group"></i>
+                    <span class="nav-link-text">志愿者团体管理</span>
                 </a>
+                <ul class="sidenav-second-level collapse" id="collapseTeam">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/teamList">团体列表</a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/teamAdd">添加团体</a>
+                    </li>
+                </ul>
             </li>
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseActivity" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-handshake-o"></i>
+                    <span class="nav-link-text">团队活动管理</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseActivity">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/activityPublishList">团队活动列表</a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/activityPublishAdd">团队活动发布</a>
+                    </li>
+                </ul>
+            </li>
+
+
+        <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">--%>
+                <%--<a class="nav-link" href="#">--%>
+                    <%--<i class="fa fa-fw fa-link"></i>--%>
+                    <%--<span class="nav-link-text">Link</span>--%>
+                <%--</a>--%>
+            <%--</li>--%>
 
         </ul>
         <ul class="navbar-nav sidenav-toggler">

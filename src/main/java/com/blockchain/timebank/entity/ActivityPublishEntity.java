@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 @Table(name = "activityPublish", schema = "mydb", catalog = "")
 public class ActivityPublishEntity {
     private long id;
-    private long teamId;
     private String name;
     private Timestamp beginTime;
     private String address;
@@ -25,16 +24,6 @@ public class ActivityPublishEntity {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "TeamID", nullable = false)
-    public long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(long teamId) {
-        this.teamId = teamId;
     }
 
     @Basic
@@ -125,7 +114,6 @@ public class ActivityPublishEntity {
         ActivityPublishEntity that = (ActivityPublishEntity) o;
 
         if (id != that.id) return false;
-        if (teamId != that.teamId) return false;
         if (count != that.count) return false;
         if (isPublic != that.isPublic) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -141,7 +129,6 @@ public class ActivityPublishEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);

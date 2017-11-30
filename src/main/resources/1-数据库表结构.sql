@@ -121,7 +121,6 @@ ALTER TABLE `team`
 # activity 团体活动表
 CREATE TABLE `activityPublish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `TeamID` BIGINT(20) NOT NULL COMMENT '发布活动的团体编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
   `BeginTime` DATETIME NOT NULL COMMENT '活动时间',
   `Address` VARCHAR(50) NOT NULL COMMENT '活动地点',
@@ -132,10 +131,6 @@ CREATE TABLE `activityPublish` (
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
-ALTER TABLE `activityPublish`
-  ADD KEY `TeamID` (`TeamID`);
-ALTER TABLE `activityPublish`
-  ADD CONSTRAINT `activityPublish_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `team` (`ID`);
 
 
 # 显示已发布的服务详细信息视图
