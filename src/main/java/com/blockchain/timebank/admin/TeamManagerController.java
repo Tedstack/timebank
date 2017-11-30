@@ -1,6 +1,8 @@
 package com.blockchain.timebank.admin;
 
+import com.blockchain.timebank.dao.ViewTeamDetailDao;
 import com.blockchain.timebank.entity.TeamEntity;
+import com.blockchain.timebank.entity.ViewTeamDetailEntity;
 import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,9 +25,12 @@ public class TeamManagerController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ViewTeamDetailDao viewTeamDetailDao;
+
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
-        map.addAttribute("list", teamService.findAllTeamEntity());
+        map.addAttribute("list", viewTeamDetailDao.findAll());
         return "../admin/team_list";
     }
 

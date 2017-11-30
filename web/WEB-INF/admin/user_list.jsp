@@ -86,10 +86,14 @@
                             <td>
                                 <%
                                     if (request.getAttribute("link_userView") != null) {
-                                        out.print("<a href='../admin/userView?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>查看</a> ");
+                                %>
+                                        <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=userEntity.getId()%>' target='_blank' class='btn btn-primary btn-sm'>查看</a>
+                                <%
                                     }
                                     if (request.getAttribute("link_userEdit") != null) {
-                                        out.print("<a href='../admin/userEdit?userId=" + userEntity.getId() + "' target='_blank' class='btn btn-primary btn-sm'>编辑</a> ");
+                                %>
+                                        <a href='${pageContext.request.contextPath}/admin/userEdit?userId=<%=userEntity.getId()%>' target='_blank' class='btn btn-primary btn-sm'>编辑</a>
+                                <%
                                     }
                                 %>
                             </td>

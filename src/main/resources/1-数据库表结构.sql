@@ -179,4 +179,16 @@ CREATE VIEW view_record_detail
   FROM record, user AS serviceUser, publish, service
   WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID;
 
-
+# 显示志愿者团体表的详细信息视图
+CREATE VIEW view_team_detail
+  AS
+    SELECT
+      team.ID              AS ID,
+      team.Name            AS Name,
+      team.ManagerUserID   AS ManagerUserID,
+      user.Name            AS ManagerUserName,
+      user.Phone           AS ManagerUserPhone,
+      team.CreateDate      AS CreateDate,
+      team.Description     AS Description
+    FROM team, user
+    WHERE team.ManagerUserID = user.ID;

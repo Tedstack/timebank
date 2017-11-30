@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,13 +72,14 @@
 
 
                         <%
-                            List<TeamEntity> list = (List<TeamEntity>) request.getAttribute("list");
-                            for (TeamEntity teamEntity : list) {
+                            List<ViewTeamDetailEntity> list = (List<ViewTeamDetailEntity>) request.getAttribute("list");
+                            for (ViewTeamDetailEntity teamEntity : list) {
                         %>
                         <tr>
                             <td><%=teamEntity.getName()%>
                             </td>
-                            <td><%=teamEntity.getManagerUserId()%>
+                            <td>
+                                <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=teamEntity.getManagerUserId()%>' target='_blank' class='btn btn-link'><%=teamEntity.getManagerUserName()%></a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#descriptionModal" data-whatever="<%=teamEntity.getDescription()%>">查看</button>
