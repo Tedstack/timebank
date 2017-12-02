@@ -13,6 +13,7 @@ public class ViewTeamDetailEntity {
     private String managerUserPhone;
     private Date createDate;
     private String description;
+    private boolean isDeleted;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -84,6 +85,16 @@ public class ViewTeamDetailEntity {
         this.description = description;
     }
 
+    @Basic
+    @Column(name = "IsDeleted", nullable = false)
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +104,7 @@ public class ViewTeamDetailEntity {
 
         if (id != that.id) return false;
         if (managerUserId != that.managerUserId) return false;
+        if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (managerUserName != null ? !managerUserName.equals(that.managerUserName) : that.managerUserName != null)
             return false;
@@ -113,6 +125,7 @@ public class ViewTeamDetailEntity {
         result = 31 * result + (managerUserPhone != null ? managerUserPhone.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (isDeleted ? 1 : 0);
         return result;
     }
 }

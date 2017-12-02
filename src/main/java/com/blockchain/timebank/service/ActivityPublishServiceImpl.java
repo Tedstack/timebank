@@ -13,6 +13,10 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
     @Autowired
     ActivityPublishDao activityPublishDao;
 
+    public List<ActivityPublishEntity> findAllByDeleted(boolean isDeleted) {
+        return activityPublishDao.findAllByDeleted(isDeleted);
+    }
+
     public List<ActivityPublishEntity> findAllActivityPublishEntity() {
         return (List<ActivityPublishEntity>)activityPublishDao.findAll();
     }

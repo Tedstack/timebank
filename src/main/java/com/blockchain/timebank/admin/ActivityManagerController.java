@@ -23,7 +23,7 @@ public class ActivityManagerController {
 
     @RequestMapping(value = "/activityPublishList", method = RequestMethod.GET)
     public String activityPublishListPage(ModelMap map) {
-        map.addAttribute("list",activityPublishService.findAllActivityPublishEntity());
+        map.addAttribute("list",activityPublishService.findAllByDeleted(false));
         return "../admin/activity_publish_list";
     }
 
@@ -37,6 +37,7 @@ public class ActivityManagerController {
     public String activityPublishAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String description, @RequestParam String beginTime, @RequestParam String applyEndTime, @RequestParam String address, @RequestParam int peopleCount, @RequestParam boolean IsPublic) {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+            activityPublishEntity.setDeleted(false);
             activityPublishEntity.setName(name);
             activityPublishEntity.setDescription(description);
             Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));

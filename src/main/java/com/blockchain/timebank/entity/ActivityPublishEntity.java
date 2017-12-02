@@ -14,6 +14,7 @@ public class ActivityPublishEntity {
     private Timestamp applyEndTime;
     private String description;
     private boolean isPublic;
+    private boolean isDeleted;
     private String extra;
 
     @Id
@@ -97,6 +98,16 @@ public class ActivityPublishEntity {
     }
 
     @Basic
+    @Column(name = "IsDeleted", nullable = false)
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -116,6 +127,7 @@ public class ActivityPublishEntity {
         if (id != that.id) return false;
         if (count != that.count) return false;
         if (isPublic != that.isPublic) return false;
+        if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
@@ -136,6 +148,7 @@ public class ActivityPublishEntity {
         result = 31 * result + (applyEndTime != null ? applyEndTime.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (isPublic ? 1 : 0);
+        result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

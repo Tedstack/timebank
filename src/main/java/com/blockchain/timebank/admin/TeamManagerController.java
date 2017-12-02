@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,7 +29,7 @@ public class TeamManagerController {
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
-        map.addAttribute("list", viewTeamDetailDao.findAll());
+        map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         return "../admin/team_list";
     }
 
@@ -40,7 +39,7 @@ public class TeamManagerController {
     }
 
     @RequestMapping(value = "/teamAddSubmit", method = RequestMethod.POST)
-    public String teamAddPage(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String description) {
+    public String teamAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String description) {
         if (phone.equals("") || name.equals("")) {
             map.addAttribute("error", "团队名称和手机号不能为空");
             return "../admin/team_add";
@@ -50,6 +49,7 @@ public class TeamManagerController {
             return "../admin/team_add";
         }else {
             TeamEntity teamEntity = new TeamEntity();
+            teamEntity.setDeleted(false);
             teamEntity.setName(name);
             teamEntity.setManagerUserId(userService.findUserEntityByPhone(phone).getId());
             teamEntity.setDescription(description);
@@ -58,6 +58,48 @@ public class TeamManagerController {
             map.addAttribute("ok", "添加成功！");
             return "../admin/team_add";
         }
+    }
+
+    @RequestMapping(value = "/teamEdit", method = RequestMethod.GET)
+    public String teamEditPage(ModelMap map, @RequestParam long teamId) {
+        map.addAttribute("team",viewTeamDetailDao.findOne(teamId));
+        return "../admin/team_edit";
+    }
+
+    @RequestMapping(value = "/teamEditSubmit", method = RequestMethod.POST)
+    public String teamEditSubmit(ModelMap map, @RequestParam long teamId, @RequestParam String name, @RequestParam String phone, @RequestParam String description) {
+        ViewTeamDetailEntity teamDetail=viewTeamDetailDao.findOne(teamId);
+        teamDetail.setName(name);
+        teamDetail.setManagerUserPhone(phone);
+        teamDetail.setDescription(description);
+        map.addAttribute("team",teamDetail);
+        if (phone.equals("") || name.equals("")) {
+            map.addAttribute("error", "团队名称和手机号不能为空");
+            return "../admin/team_edit";
+        }
+        else if (userService.findUserEntityByPhone(phone) == null) {
+            map.addAttribute("error", "修改失败，管理者手机号不存在！");
+            return "../admin/team_edit";
+        }else {
+            TeamEntity teamEntity = teamService.findById(teamId);
+            teamEntity.setDeleted(false);
+            teamEntity.setName(name);
+            teamEntity.setManagerUserId(userService.findUserEntityByPhone(phone).getId());
+            teamEntity.setDescription(description);
+            teamEntity.setCreateDate(new Date(System.currentTimeMillis()));
+            teamService.saveTeamEntity(teamEntity);
+            map.addAttribute("ok", "修改成功！");
+            return "../admin/team_edit";
+        }
+    }
+
+
+    @RequestMapping(value = "/teamDeleteSubmit", method = RequestMethod.POST)
+    public String teamEditSubmit(ModelMap map, @RequestParam long teamId) {
+        TeamEntity teamEntity = teamService.findById(teamId);
+        teamEntity.setDeleted(true);
+        teamService.saveTeamEntity(teamEntity);
+        return "redirect:/admin/teamList";
     }
 
 }

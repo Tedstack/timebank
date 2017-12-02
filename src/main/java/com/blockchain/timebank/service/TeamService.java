@@ -8,4 +8,6 @@ public interface TeamService {
     List<TeamEntity> findAllTeamEntity();
 
     TeamEntity saveTeamEntity(TeamEntity teamEntity);
+
+    TeamEntity findById(long Id);
 }

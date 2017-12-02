@@ -1,7 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
-<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
 <%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -13,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>用户列表</title>
+    <title>志愿者团体列表</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -22,10 +19,6 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-
-
-
-
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -58,16 +51,6 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <%--<tfoot>--%>
-                        <%--<tr>--%>
-                        <%--<th>Name</th>--%>
-                        <%--<th>Position</th>--%>
-                        <%--<th>Office</th>--%>
-                        <%--<th>Age</th>--%>
-                        <%--<th>Start date</th>--%>
-                        <%--<th>Salary</th>--%>
-                        <%--</tr>--%>
-                        <%--</tfoot>--%>
                         <tbody>
 
 
@@ -85,7 +68,10 @@
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#descriptionModal" data-whatever="<%=teamEntity.getDescription()%>">查看</button>
                             </td>
                             <td><%=teamEntity.getCreateDate()%></td>
-                            <td><a href="javascript:void(0)">编辑</a></td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-whatever="<%=teamEntity.getId()%>">删除</button>
+                                <a href='${pageContext.request.contextPath}/admin/teamEdit?teamId=<%=teamEntity.getId()%>' target='_blank' class='btn btn-primary btn-sm'>编辑</a>
+                            </td>
                         </tr>
                         <%
                             }
@@ -122,6 +108,29 @@
         </div>
     </div>
 
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">提示信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>您确认要删除吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form action="${pageContext.request.contextPath}/admin/teamDeleteSubmit" method="post">
+                        <input style="display: none" name="teamId">
+                        <button type="submit" class="btn btn-danger">是的，确定删除！</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -141,7 +150,13 @@
             var button = $(event.relatedTarget); // Button that triggered the modal
             var description = button.data('whatever'); // Extract info from data-* attributes
             $(this).find('.modal-body p').text(description);
-        })
+        });
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var teamId = button.data('whatever');
+            $(this).find('.modal-footer input').val(teamId);
+        });
     </script>
 
 </div>

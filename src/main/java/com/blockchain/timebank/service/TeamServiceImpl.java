@@ -21,4 +21,8 @@ public class TeamServiceImpl implements TeamService {
         return teamDao.save(teamEntity);
     }
 
+    public TeamEntity findById(long Id) {
+        return teamDao.findOne(Id);
+    }
+
 }

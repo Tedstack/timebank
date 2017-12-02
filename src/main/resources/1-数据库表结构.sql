@@ -109,6 +109,7 @@ CREATE TABLE `team` (
   `ManagerUserID` BIGINT(20) NOT NULL COMMENT '团体管理者ID',
   `Description` VARCHAR(200) NULL COMMENT '团体简介',
   `CreateDate` DATE NOT NULL COMMENT '创建日期',
+  `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
@@ -128,6 +129,7 @@ CREATE TABLE `activityPublish` (
   `ApplyEndTime` DATETIME NOT NULL COMMENT '申请截止时间',
   `Description` VARCHAR(200) NULL COMMENT '活动简介',
   `IsPublic` BOOL NOT NULL COMMENT '是否公开',
+  `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
@@ -189,6 +191,7 @@ CREATE VIEW view_team_detail
       user.Name            AS ManagerUserName,
       user.Phone           AS ManagerUserPhone,
       team.CreateDate      AS CreateDate,
-      team.Description     AS Description
+      team.Description     AS Description,
+      team.IsDeleted       AS IsDeleted
     FROM team, user
     WHERE team.ManagerUserID = user.ID;

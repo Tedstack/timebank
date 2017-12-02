@@ -11,6 +11,7 @@ public class TeamEntity {
     private long managerUserId;
     private String description;
     private Date createDate;
+    private boolean isDeleted;
     private String extra;
 
     @Id
@@ -64,6 +65,16 @@ public class TeamEntity {
     }
 
     @Basic
+    @Column(name = "IsDeleted", nullable = false)
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -82,6 +93,7 @@ public class TeamEntity {
 
         if (id != that.id) return false;
         if (managerUserId != that.managerUserId) return false;
+        if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
@@ -97,6 +109,7 @@ public class TeamEntity {
         result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
+        result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
