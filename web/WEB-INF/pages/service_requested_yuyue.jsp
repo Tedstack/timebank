@@ -20,6 +20,13 @@
 
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
+            <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
+                <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
+                    <p><img src="../img/返回.png" width="20" height="15"alt="">已预约</p>
+                </div>
+                <div class="weui-flex__item"></div>
+                <div class="weui-flex__item"></div>
+            </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
                     已预约
