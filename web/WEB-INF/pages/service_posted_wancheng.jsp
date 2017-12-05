@@ -130,32 +130,45 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
-    <jsp:include page="bottom_tabbar.jsp"/>
+    <div class="weui-tabbar">
+        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
+            <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">首页</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
+            <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">服务</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
+            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我</p>
+        </a>
+    </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="/user/queryPublishAlreadyPublish";
+            location.href="queryPublishAlreadyPublish";
         });
         $("#navbar2").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="/user/queryPublishWaitingConfirm";
+            location.href="queryPublishWaitingConfirm";
 
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="/user/queryPublishWaitingService";
+            location.href="queryPublishWaitingService";
 
         });
         $("#navbar4").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="/user/queryPublishWaitingCollect";
+            location.href="queryPublishWaitingCollect";
         });
         $("#navbar5").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="/user/queryPublishAlreadyComplete";
+            location.href="queryPublishAlreadyComplete";
         });
     });
 </script>

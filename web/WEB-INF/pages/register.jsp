@@ -6,11 +6,11 @@
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>注册验证</title>
     <!-- 引入 WeUI -->
-    <link href="../css/weui.min.css" rel="stylesheet" />
-    <script src="../js/zepto/zepto.min.js"></script>
-    <script src="../js/zepto/weui.min.js"></script>
+    <link href="css/weui.min.css" rel="stylesheet" />
+    <script src="js/zepto/zepto.min.js"></script>
+    <script src="js/zepto/weui.min.js"></script>
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="../js/scan/function.js"></script>
+    <script src="js/scan/function.js"></script>
 </head>
 <body>
 <div class="weui-cells">
@@ -44,7 +44,7 @@
 <div style="...">
     <a href="javascript:;" class="weui-btn weui-btn_primary" id="create">创建</a>
 </div>
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
         $("#create").on('click', function () {
             var re = /^1\d{10}$/

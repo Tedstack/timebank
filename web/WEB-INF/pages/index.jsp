@@ -12,10 +12,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>首页</title>
-    <link rel="stylesheet" href="../css/weui.css">
-    <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/bootstrap-touch-slider.css" media="all">
+    <link rel="stylesheet" href="css/weui.css">
+    <link rel="stylesheet" href="css/weui-example.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">
 </head>
 <body>
 
@@ -84,7 +84,7 @@
                     <div class="item active">
 
                         <!-- Slide Background -->
-                        <img src="../img/slider/slide1.png" alt="Bootstrap Touch Slider" class="slide-image"/>
+                        <img src="img/slider/slide1.png" alt="Bootstrap Touch Slider" class="slide-image"/>
                         <div class="bs-slider-overlay"></div>
                     </div>
                     <!-- End of Slide -->
@@ -93,7 +93,7 @@
                     <div class="item">
 
                         <!-- Slide Background -->
-                        <img src="../img/slider/slide2.png" alt="Bootstrap Touch Slider" class="slide-image"/>
+                        <img src="img/slider/slide2.png" alt="Bootstrap Touch Slider" class="slide-image"/>
                         <div class="bs-slider-overlay"></div>
                         <!-- Slide Text Layer -->
                     </div>
@@ -103,7 +103,7 @@
                     <div class="item">
 
                         <!-- Slide Background -->
-                        <img src="../img/slider/slide3.png" alt="Bootstrap Touch Slider" class="slide-image"/>
+                        <img src="img/slider/slide3.png" alt="Bootstrap Touch Slider" class="slide-image"/>
                         <div class="bs-slider-overlay"></div>
                         <!-- Slide Text Layer -->
                     </div>
@@ -126,7 +126,7 @@
 
             </div> <!--图片轮转结束-->
             <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                <div class="weui-cell__hd"><img src="img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd" style="color: #7ACF41">
                     <p>所有服务</p>
                 </div>
@@ -135,7 +135,7 @@
 
                 <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-grid">
                     <div class="weui-grid__icon">
-                        <img src="../img/服务类型/志愿者服务.png" alt="">
+                        <img src="img/服务类型/志愿者服务.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         志愿者服务
@@ -144,7 +144,7 @@
 
                 <a href="${pageContext.request.contextPath}/publish/list?type=互助服务" class="weui-grid">
                     <div class="weui-grid__icon">
-                        <img src="../img/服务类型/互助.png" alt="">
+                        <img src="img/服务类型/互助.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         互助服务
@@ -153,7 +153,7 @@
 
                 <a href="${pageContext.request.contextPath}/publish/list?type=专业服务" class="weui-grid">
                     <div class="weui-grid__icon">
-                        <img src="../img/服务类型/专业.png" alt="">
+                        <img src="img/服务类型/专业.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         专业服务
@@ -161,7 +161,7 @@
                 </a>
                 <a href="${pageContext.request.contextPath}/publish/list?type=社区O2O服务" class="weui-grid">
                     <div class="weui-grid__icon">
-                        <img src="../img/服务类型/社区O2O.png" alt="">
+                        <img src="img/服务类型/社区O2O.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         社区O2O服务
@@ -178,11 +178,11 @@
 </div>
 
 
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script src="../js/bootstrap/jquery-1.11.0.min.js" type="text/javascript"></script>
-<script src="../js/bootstrap/bootstrap.min.js"></script>
-<script src="../js/bootstrap/jquery.touchSwipe.min.js"></script>
-<script src="../js/bootstrap/bootstrap-touch-slider.js"></script>
+<script src="js/jquery/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="js/bootstrap/jquery.touchSwipe.min.js"></script>
+<script src="js/bootstrap/bootstrap-touch-slider.js"></script>
 
 <script type="text/javascript" class="searchbar js_show">
     $(function () {
