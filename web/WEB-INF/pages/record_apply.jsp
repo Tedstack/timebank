@@ -25,7 +25,7 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
-        <form action="/record/applySubmit" method="post">
+        <form action="${pageContext.request.contextPath}/record/applySubmit" method="post">
 
             <%--<div class="page">--%>
 

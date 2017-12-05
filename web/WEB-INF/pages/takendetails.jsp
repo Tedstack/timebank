@@ -58,7 +58,7 @@
         </p>
     </div>
     <div class="weui-form-preview__ft">
-        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="/user/queryPublishWaitingConfirm">返回</a>
+        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="${pageContext.request.contextPath}/user/queryPublishWaitingConfirm">返回</a>
     </div>
 </div>
 </body>

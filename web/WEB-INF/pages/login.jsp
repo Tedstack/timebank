@@ -15,8 +15,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../login/css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="../login/css/htmleaf-demo.css">
+    <link rel="stylesheet" type="text/css" href="login/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="login/css/htmleaf-demo.css">
     <style type="text/css">
         .login-page {
             width: 360px;
@@ -185,7 +185,7 @@
     </header>
     <div id="wrapper" class="login-page">
         <div id="login_form" class="form">
-            <form class="login-form" action="/user/login" method="post">
+            <form class="login-form" action="${pageContext.request.contextPath}/user/login" method="post">
                 <%
                     String error=(String)request.getAttribute("error");
                     if(error!=null && error.length()>0){
@@ -210,15 +210,14 @@
                 <input type="text" placeholder="手机号" id="phone" name="phone"/>
                 <input type="password" placeholder="密码" id="password" name="password"/>
                 <button type="submit" id="login">登　录</button>
-                <p class="message">还没有账户? <a href="/register">立刻创建</a></p>
-                <p class="message">以游客身份登录 <a href="/index">查看</a></p>
+                <p class="message">还没有账户? <a href="${pageContext.request.contextPath}/register">立刻创建</a></p>
+                <p class="message">以游客身份登录 <a href="${pageContext.request.contextPath}/index">查看</a></p>
             </form>
         </div>
     </div>
 </div>
 
-<script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="login/js/jquery-2.1.1.min.js"><\/script>')</script>
 <script type="text/javascript">
 </script>
 </body>

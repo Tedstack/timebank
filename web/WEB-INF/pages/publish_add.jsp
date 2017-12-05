@@ -29,7 +29,7 @@
 
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <form action="/publish/add/submit" method="post">
+        <form action="${pageContext.request.contextPath}/publish/add/submit" method="post">
             <div class="weui-cells__title">发布服务</div>
 
             <div class="weui-cells weui-cells_form">

@@ -17,7 +17,7 @@
 <%--</div>--%>
 <div class="weui-footer">
     <p class="weui-footer__links">
-        <a href="/index" class="weui-footer__link">首页</a>
+        <a href="${pageContext.request.contextPath}/index" class="weui-footer__link">首页</a>
     </p>
     <p class="weui-footer__text">Copyright &copy; 2008-2017 时间银行</p>
 </div>

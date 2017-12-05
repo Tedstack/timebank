@@ -90,7 +90,7 @@
                     <div class="weui-flex__item"display="none"></div>
                     <div class="weui-flex__item"display="none"></div>
                     <div class="weui-flex__item"display="none"></div>
-                    <div class="weui-flex__item"><a href="/user/logout" class="weui-btn weui-btn_mini weui-btn_primary">退出</a></div>
+                    <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/logout" class="weui-btn weui-btn_mini weui-btn_primary">退出</a></div>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@
     String status = (String) request.getAttribute("status");
 %>
 "status:"<%out.print(status);%>
-<a href="/user/queryPublishWaitingService" class="weui-btn weui-btn_plain-default">返回</a>
+<a href="${pageContext.request.contextPath}/user/queryPublishWaitingService" class="weui-btn weui-btn_plain-default">返回</a>
 
 
 </body>
