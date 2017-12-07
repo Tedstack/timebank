@@ -9,6 +9,7 @@ public class ActivityPublishEntity {
     private long id;
     private String name;
     private Timestamp beginTime;
+    private Timestamp endTime;
     private String address;
     private int count;
     private Timestamp applyEndTime;
@@ -45,6 +46,16 @@ public class ActivityPublishEntity {
 
     public void setBeginTime(Timestamp beginTime) {
         this.beginTime = beginTime;
+    }
+
+    @Basic
+    @Column(name = "EndTime", nullable = true)
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     @Basic
@@ -130,6 +141,7 @@ public class ActivityPublishEntity {
         if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
+        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (applyEndTime != null ? !applyEndTime.equals(that.applyEndTime) : that.applyEndTime != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
@@ -143,6 +155,7 @@ public class ActivityPublishEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + count;
         result = 31 * result + (applyEndTime != null ? applyEndTime.hashCode() : 0);

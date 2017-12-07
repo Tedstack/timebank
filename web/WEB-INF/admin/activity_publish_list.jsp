@@ -46,7 +46,8 @@
                         <thead>
                         <tr>
                             <th>名称</th>
-                            <th>时间</th>
+                            <th>开始时间</th>
+                            <th>时长</th>
                             <th>地点</th>
                             <th>人数</th>
                             <th>申请截止时间</th>
@@ -74,6 +75,11 @@
                         <tr>
                             <td><%=activityPublishEntity.getName()%></td>
                             <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityPublishEntity.getBeginTime()));%></td>
+                            <td><%
+                                double off=activityPublishEntity.getEndTime().getTime() - activityPublishEntity.getBeginTime().getTime();
+                                double hour=off/1000/60/60;
+                                out.print(hour+" 小时");
+                            %></td>
                             <td><%=activityPublishEntity.getAddress()%></td>
                             <td><%=activityPublishEntity.getCount()%></td>
                             <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityPublishEntity.getApplyEndTime()));%></td>

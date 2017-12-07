@@ -68,9 +68,27 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">活动时间</label>
+                        <label class="col-sm-1 col-form-label">开始时间</label>
                         <div class="col-sm-4">
                             <input class="form-control" type="datetime-local" name="beginTime" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">活动时长</label>
+                        <div class="col-sm-4">
+                            <select name="serveTime" class="form-control">
+                                <option value="1">1小时</option>
+                                <option value="2">2小时</option>
+                                <option value="3">3小时</option>
+                                <option value="4">4小时</option>
+                                <option value="5">5小时</option>
+                                <option value="6">6小时</option>
+                                <option value="7">7小时</option>
+                                <option value="8">8小时</option>
+                                <option value="9">9小时</option>
+                                <option value="10">10小时</option>
+                            </select>
                         </div>
                     </div>
 

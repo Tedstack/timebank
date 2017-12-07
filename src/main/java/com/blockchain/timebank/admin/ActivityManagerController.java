@@ -34,7 +34,7 @@ public class ActivityManagerController {
     }
 
     @RequestMapping(value = "/activityPublishAddSubmit", method = RequestMethod.POST)
-    public String activityPublishAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String description, @RequestParam String beginTime, @RequestParam String applyEndTime, @RequestParam String address, @RequestParam int peopleCount, @RequestParam boolean IsPublic) {
+    public String activityPublishAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String description, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam String applyEndTime, @RequestParam String address, @RequestParam int peopleCount, @RequestParam boolean IsPublic) {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
             activityPublishEntity.setDeleted(false);
@@ -43,6 +43,7 @@ public class ActivityManagerController {
             Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
             Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
             activityPublishEntity.setBeginTime(new Timestamp(beginDate.getTime()));
+            activityPublishEntity.setEndTime(new Timestamp(beginDate.getTime() + serveTime * 60 * 60 * 1000));
             activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
             activityPublishEntity.setAddress(address);
             activityPublishEntity.setCount(peopleCount);

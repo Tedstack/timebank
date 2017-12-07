@@ -137,7 +137,8 @@ ALTER TABLE `teamUser`
 CREATE TABLE `activityPublish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
-  `BeginTime` DATETIME NOT NULL COMMENT '活动时间',
+  `BeginTime` DATETIME NOT NULL COMMENT '活动开始时间',
+  `EndTime` DATETIME NULL COMMENT '活动结束时间',
   `Address` VARCHAR(50) NOT NULL COMMENT '活动地点',
   `Count` INT NOT NULL COMMENT '活动人数',
   `ApplyEndTime` DATETIME NOT NULL COMMENT '申请截止时间',
