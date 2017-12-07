@@ -118,6 +118,20 @@ ALTER TABLE `team`
 ALTER TABLE `team`
   ADD CONSTRAINT `team_ibfk_1` FOREIGN KEY (`ManagerUserID`) REFERENCES `user` (`ID`);
 
+# teamuser 志愿者所属团体表
+CREATE TABLE `teamUser` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者所属团体表';
+ALTER TABLE `teamUser`
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `TeamID` (`TeamID`);
+ALTER TABLE `teamUser`
+  ADD CONSTRAINT `teamuser_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `teamuser_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `team` (`ID`);
 
 # activity 团体活动表
 CREATE TABLE `activityPublish` (
@@ -134,6 +148,22 @@ CREATE TABLE `activityPublish` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
 
+
+# 显示志愿者所属团体详细信息视图
+CREATE VIEW view_team_user_detail
+  AS
+    SELECT
+      teamUser.ID          AS ID,             #编号
+      teamUser.TeamID      AS TeamID,         #志愿者团体编号
+      teamUser.UserID      AS UserID,         #用户编号
+      team.ManagerUserID   AS ManagerUserID,  #团体管理者编号
+      team.Name            AS TeamName,       #团体名称
+      user.Name            AS UserName,       #用户姓名
+      user.Phone           AS UserPhone,      #用户手机号
+      user.Sex             AS UserSex,        #用户性别
+      user.Birth           AS UserBirth       #用户出生年月
+    FROM teamUser, team, user
+    WHERE teamUser.TeamID = team.ID AND teamUser.UserID = user.ID;
 
 # 显示已发布的服务详细信息视图
 CREATE VIEW view_publish_detail

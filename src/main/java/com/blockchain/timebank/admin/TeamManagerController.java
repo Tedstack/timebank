@@ -1,8 +1,10 @@
 package com.blockchain.timebank.admin;
 
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
+import com.blockchain.timebank.dao.ViewTeamUserDetailDao;
 import com.blockchain.timebank.entity.TeamEntity;
 import com.blockchain.timebank.entity.ViewTeamDetailEntity;
+import com.blockchain.timebank.entity.ViewTeamUserDetailEntity;
 import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class TeamManagerController {
 
     @Autowired
     ViewTeamDetailDao viewTeamDetailDao;
+
+    @Autowired
+    ViewTeamUserDetailDao viewTeamUserDetailDao;
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -100,6 +105,21 @@ public class TeamManagerController {
         teamEntity.setDeleted(true);
         teamService.saveTeamEntity(teamEntity);
         return "redirect:/admin/teamList";
+    }
+
+
+    @RequestMapping(value = "/teamUserList", method = RequestMethod.GET)
+    public String teamUserListPage(ModelMap map, @RequestParam long teamId) {
+        map.addAttribute("teamDetail", viewTeamDetailDao.findOne(teamId));
+        map.addAttribute("list", viewTeamUserDetailDao.findAllByTeamId(teamId));
+        return "../admin/team_user_list";
+    }
+
+
+    @RequestMapping(value = "/teamUserDeleteSubmit", method = RequestMethod.POST)
+    public String teamUserDeleteSubmit(ModelMap map, @RequestParam long teamId, @RequestParam long userId) {
+        // to do
+        return "../admin/team_user_list";
     }
 
 }

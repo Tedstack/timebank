@@ -13,11 +13,13 @@
         <class>com.blockchain.timebank.entity.ActivityPublishEntity</class>
         <class>com.blockchain.timebank.entity.TeamEntity</class>
         <class>com.blockchain.timebank.entity.ViewTeamDetailEntity</class>
+        <class>com.blockchain.timebank.entity.TeamUserEntity</class>
+        <class>com.blockchain.timebank.entity.ViewTeamUserDetailEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb?characterEncoding=utf-8"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
