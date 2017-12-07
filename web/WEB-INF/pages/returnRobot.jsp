@@ -63,7 +63,7 @@
                             $.ajax({
                                 type: 'POST',
                                 cache: false,
-                                url: "http://www.hlb9978.com/user/serviceUserCompleteScan",
+                                url: "http://www.coocir.com/timebank/user/serviceUserCompleteScan",
                                 data: "qrcode=" + res.resultStr + "&recordID=" + recordID,
                                 beforeSend: function (XHR) {
                                     dialogLoading = showLoading();
@@ -71,19 +71,19 @@
                                 success: function (data) {
                                     if(data==="notOneself"){
                                         showAlert("二维码与申请者不相符",function () {
-                                            goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                                            goTo("http://www.coocir.com/timebank/user/queryPublishWaitingService");
                                         })
                                     }
                                     if(data==="success"){
                                         showAlert("扫码成功",function () {
-                                            goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                                            goTo("http://www.coocir.com/timebank/user/queryPublishWaitingService");
                                         })
                                     }
 
                                 },
                                 error: function (xhr, type) {
                                     showAlert("扫码失败",function () {
-                                        goTo("http://www.hlb9978.com/user/queryPublishWaitingService");
+                                        goTo("http://www.coocir.com/timebank/user/queryPublishWaitingService");
                                     })
                                 },
                                 complete: function (xhr, type) {

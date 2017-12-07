@@ -108,8 +108,8 @@
                                     %>
                                 </p></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="<%out.print("/record/handleApplicantRecord?handle=refuse&recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
-                                <div class="weui-flex__item"><a href="<%out.print("/record/handleApplicantRecord?handle=confirm&recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=refuse&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=confirm&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
                             </div>
                         </div>
                     </div>

@@ -45,7 +45,7 @@
         //formData.append("userPwd", "123456");
 
         $.ajax({
-            url : 'http://www.hlb9978.com/user/uploadUserInfo',
+            url : 'http://www.coocir.com/timebank/user/uploadUserInfo',
             type : 'POST',
             data : formData,
             async : false,

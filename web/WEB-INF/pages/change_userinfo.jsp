@@ -85,7 +85,7 @@
                     $.ajax({
                         type: 'POST',
                         cache: false,
-                        url: "http://www.hlb9978.com/user/modifyPersonalInfo",
+                        url: "http://www.coocir.com/timebank/user/modifyPersonalInfo",
                         //dataType:'JSONP',
                         data: "qrcode=" + curqrcode,
                         beforeSend: function (XHR) {
@@ -94,7 +94,7 @@
                         success: function (data) {
                             if(data==="ok"){
                                 showAlert("更改成功",function () {
-                                    goTo("http://www.hlb9978.com/user/startModifyPersonalInfo");
+                                    goTo("http://www.coocir.com/timebank/user/startModifyPersonalInfo");
                                 })
                                 //showAlert("更改成功");
                             }else if(data==="error"){

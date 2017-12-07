@@ -115,7 +115,7 @@
                         </p></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
-                        <div class="weui-flex__item"><a href="<%out.print("/user/serviceUserStartScan?recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
+                        <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/serviceUserStartScan?recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
                     </div>
                 </div>
                 </div>

@@ -133,6 +133,14 @@
             </div>
             <div class="weui-grids">
 
+                <a href="${pageContext.request.contextPath}/record/activities" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/userdetails/专业服务认证.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        团体活动
+                    </p>
+                </a>
                 <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-grid">
                     <div class="weui-grid__icon">
                         <img src="img/服务类型/志愿者服务.png" alt="">

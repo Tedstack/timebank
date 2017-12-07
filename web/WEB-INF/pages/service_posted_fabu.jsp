@@ -89,7 +89,7 @@
                         <div class="weui-flex__item"diaplay="none"></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
-                        <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">查看</a></div>
+                        <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/rate" class="weui-btn weui-btn_mini weui-btn_default">查看</a></div>
                         <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">删除</a></div>
                     </div>
                 </div>

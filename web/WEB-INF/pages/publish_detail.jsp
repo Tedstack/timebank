@@ -112,8 +112,8 @@
         </div>
 
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a href="<%out.print("/record/apply?id="+detail.getId());%>" class="weui-btn weui-btn_primary">预约</a>
-        </div>
+            <a href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" class="weui-btn weui-btn_primary">预约</a>
+    </div>
 
     </div>
 

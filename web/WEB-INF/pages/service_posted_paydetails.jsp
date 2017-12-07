@@ -80,7 +80,7 @@
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: "http://www.hlb9978.com/user/applyUserPayTimeVol",
+                    url: "http://www.coocir.com/timebank/user/applyUserPayTimeVol",
                     //dataType:'JSONP',
                     data: "recordID=" + recordID,
                     beforeSend: function (XHR) {
@@ -89,7 +89,7 @@
                     success: function (data) {
                         //alert(data);
                         showAlert("支付成功",function () {
-                            goTo("http://www.hlb9978.com/user/queryOrderAlreadyComplete");
+                            goTo("http://www.coocir.com/timebank/user/queryOrderAlreadyComplete");
                         })
                     },
                     error: function (xhr, type) {

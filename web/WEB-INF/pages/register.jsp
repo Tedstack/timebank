@@ -46,6 +46,8 @@
 </div>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+        var url="${pageContext.request.contextPath}";
+
         $("#create").on('click', function () {
             var re = /^1\d{10}$/
             var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
@@ -109,7 +111,7 @@
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: "http://www.hlb9978.com/user/register",
+                url: "http://www.coocir.com/timebank/user/register",//url+"/user/registe";
                 //dataType:'JSONP',
                 data: "name=" + name + "&phone=" + phone + "&password=" + password,
                 beforeSend: function (XHR) {
@@ -126,7 +128,7 @@
 
                     if(data==="success"){
                         showAlert("注册成功",function () {
-                            goTo("http://www.hlb9978.com/logout");
+                            goTo("http://www.coocir.com/timebank/logout");
                         })
                     }
                     if(data==="failure"){

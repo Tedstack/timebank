@@ -23,7 +23,7 @@
         <%
             UserEntity userEntity = (UserEntity) request.getAttribute("user");
         %>
-        <a class="weui-cell weui-cell_access" href="/user/startModifyPersonalInfo">
+        <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/startModifyPersonalInfo">
             <div class="weui-cell__hd"><img src="../img/服务名称/我的.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p><%out.print(userEntity.getName());%></p>
@@ -64,7 +64,7 @@
             </a>
         <img src="../img/底部.png" width="375" height="15">
 
-            <a class="weui-cell weui-cell_access" href="/user/startRealNameAuth">
+            <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/startRealNameAuth">
                 <div class="weui-cell__hd"><img src="../img/userdetails/实名认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>实名认证</p>
@@ -86,10 +86,10 @@
         <div class="weui-cell">
             <div class="weui-cell__bd">
                 <div class="weui-flex">
-                    <div class="weui-flex__item"diaplay="none"></div>
-                    <div class="weui-flex__item"display="none"></div>
-                    <div class="weui-flex__item"display="none"></div>
-                    <div class="weui-flex__item"display="none"></div>
+                    <div class="weui-flex__item" display="none"></div>
+                    <div class="weui-flex__item" display="none"></div>
+                    <div class="weui-flex__item" display="none"></div>
+                    <div class="weui-flex__item" display="none"></div>
                     <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/logout" class="weui-btn weui-btn_mini weui-btn_primary">退出</a></div>
                 </div>
             </div>
