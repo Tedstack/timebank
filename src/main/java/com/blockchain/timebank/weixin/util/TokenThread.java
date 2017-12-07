@@ -1,10 +1,8 @@
-package com.blockchain.timebank.scan.util;
+package com.blockchain.timebank.weixin.util;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blockchain.timebank.scan.model.AccessToken;
-import com.blockchain.timebank.scan.model.JsapiTicket;
-import com.google.gson.Gson;
+import com.blockchain.timebank.weixin.model.AccessToken;
+import com.blockchain.timebank.weixin.model.JsapiTicket;
 
 /**
  * Created by xu on 2017/7/10.

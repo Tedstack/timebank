@@ -1,6 +1,6 @@
-package com.blockchain.timebank.scan.servlet;
+package com.blockchain.timebank.weixin.servlet;
 
-import com.blockchain.timebank.scan.util.CheckUtil;
+import com.blockchain.timebank.weixin.util.CheckUtil;
 
 import java.io.IOException;
 

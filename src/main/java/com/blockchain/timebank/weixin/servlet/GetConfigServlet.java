@@ -1,9 +1,9 @@
-package com.blockchain.timebank.scan.servlet;
+package com.blockchain.timebank.weixin.servlet;
 
 
 import com.alibaba.fastjson.JSON;
-import com.blockchain.timebank.scan.util.Sign;
-import com.blockchain.timebank.scan.util.TokenThread;
+import com.blockchain.timebank.weixin.util.Sign;
+import com.blockchain.timebank.weixin.util.TokenThread;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

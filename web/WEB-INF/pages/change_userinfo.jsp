@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.scan.util.TokenThread" %>
+<%@ page import="com.blockchain.timebank.weixin.util.TokenThread" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>

@@ -1,6 +1,6 @@
-package com.blockchain.timebank.scan.servlet;
+package com.blockchain.timebank.weixin.servlet;
 
-import com.blockchain.timebank.scan.util.TokenThread;
+import com.blockchain.timebank.weixin.util.TokenThread;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

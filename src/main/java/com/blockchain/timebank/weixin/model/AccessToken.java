@@ -1,4 +1,4 @@
-package com.blockchain.timebank.scan.model;
+package com.blockchain.timebank.weixin.model;
 
 /**
  * Created by xu on 2017/7/10.

@@ -1,4 +1,4 @@
-package com.blockchain.timebank.scan.util;
+package com.blockchain.timebank.weixin.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

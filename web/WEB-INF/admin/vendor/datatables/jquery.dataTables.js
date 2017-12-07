@@ -2255,7 +2255,7 @@
 						// If null, then this type can't apply to this column, so
 						// rather than testing all cells, break out. There is an
 						// exception for the last type which is `html`. We need to
-						// scan all rows since it is possible to mix string and HTML
+						// weixin all rows since it is possible to mix string and HTML
 						// types
 						if ( ! detectedType && j !== types.length-1 ) {
 							break;
