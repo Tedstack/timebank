@@ -38,6 +38,13 @@
                 <p>新消息通知</p>
             </div>
         </a>
+        <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/record/chooseteam">
+            <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+            <div class="weui-cell__bd">
+                <p>所属团体</p>
+            </div>
+            <div class="weui-cell__ft"style="">选择</div>
+        </a>
 
         <img src="../img/底部.png" width="375" height="15">
 
@@ -76,7 +83,7 @@
                     <p>志愿者认证</p>
                 </div>
             </a>
-            <a class="weui-cell weui-cell_access" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb0f6b07f01978a2a&redirect_uri=http%3A%2F%2Fwww.coocir.com%2Ftimebank%2Fuser%2Foauth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">
+            <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/index">
                 <div class="weui-cell__hd"><img src="../img/userdetails/专业服务认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>专业服务技能认证</p>
