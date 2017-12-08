@@ -63,15 +63,19 @@ public class UserController {
 
     // 登陆请求提交接口
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String userLogin(ModelMap map, @RequestParam String phone, @RequestParam String password) {
+    public String userLogin(ModelMap map, @RequestParam String phone, @RequestParam String password ,@RequestParam String openID) {
         if (phone.equals("") || password.equals("")) {
             map.addAttribute("error", "输入信息不能为空");
             return "login";
         }
-        if (userService.findUserEntityByPhoneAndPassword(phone, password) == null) {
+        UserEntity userEntity = userService.findUserEntityByPhoneAndPassword(phone, password);
+        if (userEntity == null) {
             map.addAttribute("error", "错误的用户名或者密码");
             return "login";
         } else {
+            userEntity.setOpenId(openID);
+            userService.updateUserEntity(userEntity);
+
             Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
             SecurityContextHolder.getContext().setAuthentication(token);
             return "redirect:/index";
@@ -92,7 +96,7 @@ public class UserController {
     // 注册请求接口
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
+    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password ,@RequestParam String openID) {
         String status = "";
         boolean phoneCorrect = true;
         boolean nameCorrect = true;
@@ -113,6 +117,9 @@ public class UserController {
                 userEntity.setName(name);
                 userEntity.setPhone(phone);
                 userEntity.setPassword(password);
+                if(openID!=null){
+                    userEntity.setOpenId(openID);
+                }
                 userService.saveUserEntity(userEntity);
                 Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
                 SecurityContextHolder.getContext().setAuthentication(token);

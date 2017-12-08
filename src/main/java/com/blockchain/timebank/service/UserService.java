@@ -26,4 +26,6 @@ public interface UserService {
     UserEntity findUserEntityByQrCode(String qrcCode);
 
     UserEntity findUserEntityByIdCard(String idCard);
+
+    UserEntity findUserEntityByOpenID(String openID);
 }

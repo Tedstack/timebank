@@ -14,6 +14,9 @@
     <script src="js/scan/configs.js"></script>
 </head>
 <body>
+<%
+    String openID = (String) request.getAttribute("openID");
+%>
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
@@ -47,6 +50,7 @@
 </div>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+        var openID='<%=openID%>';
         var contextPath="${pageContext.request.contextPath}";
 
         $("#create").on('click', function () {
@@ -116,7 +120,7 @@
                 cache: false,
                 url: targetUrl,
                 //dataType:'JSONP',
-                data: "name=" + name + "&phone=" + phone + "&password=" + password,
+                data: "name=" + name + "&phone=" + phone + "&password=" + password +"&openID=" +openID,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

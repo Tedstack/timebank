@@ -16,4 +16,6 @@ public interface UserDao extends CrudRepository<UserEntity, Long> {
     UserEntity findUserEntityByIdCard(String idCard);
 
     UserEntity findUserEntityByName(String name);
+
+    UserEntity findUserEntityByOpenId(String openID);
 }

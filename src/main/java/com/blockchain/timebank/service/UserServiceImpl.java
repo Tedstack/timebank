@@ -55,4 +55,8 @@ public class UserServiceImpl implements UserService {
         return userDao.findUserEntityByIdCard(idCard);
     }
 
+    public UserEntity findUserEntityByOpenID(String openID) {
+        return userDao.findUserEntityByOpenId(openID);
+    }
+
 }
