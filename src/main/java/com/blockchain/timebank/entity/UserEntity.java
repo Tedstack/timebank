@@ -20,6 +20,7 @@ public class UserEntity {
     private String img1;
     private String img2;
     private Integer isVerify;
+    private String openId;
     private String extra;
 
     @Id
@@ -163,6 +164,16 @@ public class UserEntity {
     }
 
     @Basic
+    @Column(name = "OpenID", nullable = true, length = 50)
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -193,6 +204,7 @@ public class UserEntity {
         if (img1 != null ? !img1.equals(that.img1) : that.img1 != null) return false;
         if (img2 != null ? !img2.equals(that.img2) : that.img2 != null) return false;
         if (isVerify != null ? !isVerify.equals(that.isVerify) : that.isVerify != null) return false;
+        if (openId != null ? !openId.equals(that.openId) : that.openId != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -218,6 +230,7 @@ public class UserEntity {
         result = 31 * result + (img1 != null ? img1.hashCode() : 0);
         result = 31 * result + (img2 != null ? img2.hashCode() : 0);
         result = 31 * result + (isVerify != null ? isVerify.hashCode() : 0);
+        result = 31 * result + (openId != null ? openId.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
