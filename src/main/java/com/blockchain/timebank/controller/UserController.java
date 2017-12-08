@@ -3,6 +3,10 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.weixin.model.SNSUserInfo;
+import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
+import com.blockchain.timebank.weixin.util.AdvancedUtil;
+import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
 import com.blockchain.timebank.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +89,38 @@ public class UserController {
         return "/login";
     }
 
+    // 微信授权
+    @RequestMapping(value = "/oauth", method = RequestMethod.GET)
+    public String oauth(ModelMap map, @RequestParam String code) {
+
+        System.out.println("授权码："+ code);
+
+        // 用户同意授权
+        if(null != code) {
+            // 用code换取access_token（同时会得到OpenID）
+            WeixinOauth2Token wot = AdvancedUtil.getOAuth2AceessToken(Configs.APPID, Configs.APPSECRET, code);
+            System.out.println("用户的OPENID：" + wot.getOpenId());
+
+            String openId = wot.getOpenId();
+            String accessToken = wot.getAccessToken();
+            // 获取用户基本信息
+            SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+            System.out.println("昵称：" + snsUserInfo.getNickName());
+
+            map.addAttribute("openId",wot.getOpenId());
+            map.addAttribute("nickname",snsUserInfo.getNickName());
+            map.addAttribute("sex",snsUserInfo.getSex());
+            map.addAttribute("headimgurl",snsUserInfo.getHeadimgurl());
+            map.addAttribute("city",snsUserInfo.getCity());
+
+        }
+
+        /*Authentication token = new UsernamePasswordAuthenticationToken("18621269886", "123456");
+        SecurityContextHolder.getContext().setAuthentication(token);
+        return "weixin_info";*/
+        return "weixinInfo";
+    }
+
     // 注册请求接口
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
@@ -120,32 +156,6 @@ public class UserController {
 
         return status;
     }
-
-    /*// 注册请求接口
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
-        if (phone.equals("") || name.equals("") || password.equals("")) {
-            map.addAttribute("error", "输入信息不能为空");
-            return "/register";
-        }
-        if (userService.findUserEntityByPhone(phone) != null) {
-            map.addAttribute("error", "注册失败，手机号已经被注册！");
-            return "/register";
-        }
-        try {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setName(name);
-            userEntity.setPhone(phone);
-            userEntity.setPassword(password);
-            userService.saveUserEntity(userEntity);
-            Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
-            SecurityContextHolder.getContext().setAuthentication(token);
-            return "/index";
-        } catch (Exception e) {
-            map.addAttribute("error", "注册失败，重复的用户！");
-            return "/register";
-        }
-    }*/
 
     //跳转到修改个人信息页面
     @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)

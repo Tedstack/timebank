@@ -1,5 +1,6 @@
 <%@ page import="com.blockchain.timebank.weixin.util.TokenThread" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
+<%@ page import="com.blockchain.timebank.weixin.util.Configs" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,6 +16,7 @@
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/refundRobot.js"></script>
+    <script src="../js/scan/configs.js"></script>
 </head>
 <body>
 <%
@@ -45,6 +47,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     var qrcode='<%=user.getQrCode()%>';
+    var contextPath="${pageContext.request.contextPath}";
     $(function(){
         if((qrcode!=='null')&&(qrcode!=="")){
             $('#curqrcode').text(qrcode);
@@ -53,10 +56,9 @@
         }else{
             $("#addBtn").on('click',function () {
                 <%
-                    TokenThread.appId = "wxb0f6b07f01978a2a"; //获取servlet初始参数appid和appsecret
-                    TokenThread.appSecret = "386ef712d87480fa1dc27a93995936eb";
-                    System.out.println("appid:"+TokenThread.appId);
-                    System.out.println("appSecret:"+TokenThread.appSecret);
+                    TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+                    TokenThread.appSecret = Configs.APPSECRET;
+
                     Thread thread = new Thread(new TokenThread());
                     thread.start(); //启动进程
                 %>
@@ -75,6 +77,8 @@
             });
 
             $("#commitBtn").on('click',function () {
+                var targetUrl = "http://"+getDomainName()+contextPath+"/user/modifyPersonalInfo";
+                var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/startModifyPersonalInfo";
                 var curqrcode = $('#curqrcode').text();
                 var re = /^[a-zA-Z]\d{8}$/
                 if(!re.test(curqrcode)) {
@@ -85,7 +89,7 @@
                     $.ajax({
                         type: 'POST',
                         cache: false,
-                        url: "http://www.coocir.com/timebank/user/modifyPersonalInfo",
+                        url: targetUrl,
                         //dataType:'JSONP',
                         data: "qrcode=" + curqrcode,
                         beforeSend: function (XHR) {
@@ -94,7 +98,7 @@
                         success: function (data) {
                             if(data==="ok"){
                                 showAlert("更改成功",function () {
-                                    goTo("http://www.coocir.com/timebank/user/startModifyPersonalInfo");
+                                    goTo(targetUrl2);
                                 })
                                 //showAlert("更改成功");
                             }else if(data==="error"){

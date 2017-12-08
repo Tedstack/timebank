@@ -8,9 +8,9 @@ import com.blockchain.timebank.weixin.model.JsapiTicket;
  * Created by xu on 2017/7/10.
  */
 public class TokenThread implements Runnable {
-    public static String appId = "wxb0f6b07f01978a2a";
+    public static String appId = Configs.APPID;
 
-    public static String appSecret= "386ef712d87480fa1dc27a93995936eb";
+    public static String appSecret= Configs.APPSECRET;
 
     public static AccessToken accessToken = null;
 
