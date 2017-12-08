@@ -89,38 +89,6 @@ public class UserController {
         return "/login";
     }
 
-    // 微信授权
-    @RequestMapping(value = "/oauth", method = RequestMethod.GET)
-    public String oauth(ModelMap map, @RequestParam String code) {
-
-        System.out.println("授权码："+ code);
-
-        // 用户同意授权
-        if(null != code) {
-            // 用code换取access_token（同时会得到OpenID）
-            WeixinOauth2Token wot = AdvancedUtil.getOAuth2AceessToken(Configs.APPID, Configs.APPSECRET, code);
-            System.out.println("用户的OPENID：" + wot.getOpenId());
-
-            String openId = wot.getOpenId();
-            String accessToken = wot.getAccessToken();
-            // 获取用户基本信息
-            SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
-            System.out.println("昵称：" + snsUserInfo.getNickName());
-
-            map.addAttribute("openId",wot.getOpenId());
-            map.addAttribute("nickname",snsUserInfo.getNickName());
-            map.addAttribute("sex",snsUserInfo.getSex());
-            map.addAttribute("headimgurl",snsUserInfo.getHeadimgurl());
-            map.addAttribute("city",snsUserInfo.getCity());
-
-        }
-
-        /*Authentication token = new UsernamePasswordAuthenticationToken("18621269886", "123456");
-        SecurityContextHolder.getContext().setAuthentication(token);
-        return "weixin_info";*/
-        return "weixinInfo";
-    }
-
     // 注册请求接口
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody

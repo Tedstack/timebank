@@ -31,19 +31,19 @@ public class IndexController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(ModelMap map,@RequestParam String code) {
-        System.out.println("ÊÚÈ¨Âë£º"+ code);
+        System.out.println("æˆæƒç ï¼š"+ code);
 
-        // ÓÃ»§Í¬ÒâÊÚÈ¨
+        // ç”¨æˆ·åŒæ„æˆæƒ
         if(null != code) {
-            // ÓÃcode»»È¡access_token£¨Í¬Ê±»áµÃµ½OpenID£©
+            // ç”¨codeæ¢å–access_tokenï¼ˆåŒæ—¶ä¼šå¾—åˆ°OpenIDï¼‰
             WeixinOauth2Token wot = AdvancedUtil.getOAuth2AceessToken(Configs.APPID, Configs.APPSECRET, code);
-            System.out.println("ÓÃ»§µÄOPENID£º" + wot.getOpenId());
+            System.out.println("ç”¨æˆ·çš„OPENIDï¼š" + wot.getOpenId());
 
             String openId = wot.getOpenId();
             String accessToken = wot.getAccessToken();
-            // »ñÈ¡ÓÃ»§»ù±¾ĞÅÏ¢
+            // è·å–ç”¨æˆ·åŸºæœ¬ä¿¡æ¯
             SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
-            System.out.println("êÇ³Æ£º" + snsUserInfo.getNickName());
+            System.out.println("æ˜µç§°ï¼š" + snsUserInfo.getNickName());
 
             map.addAttribute("openId",wot.getOpenId());
             map.addAttribute("nickname",snsUserInfo.getNickName());
