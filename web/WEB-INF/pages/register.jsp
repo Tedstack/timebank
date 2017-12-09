@@ -16,6 +16,7 @@
 <body>
 <%
     String openID = (String) request.getAttribute("openID");
+    String code = (String) request.getAttribute("code");
 %>
 <div class="weui-cells">
     <div class="weui-cell">
@@ -51,11 +52,12 @@
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
         var openID='<%=openID%>';
+        var code='<%=code%>';
         var contextPath="${pageContext.request.contextPath}";
 
         $("#create").on('click', function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/user/register";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/logout";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/login";
             var re = /^1\d{10}$/
             var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
             var temp1=document.getElementById("pwd1").value;
@@ -135,7 +137,7 @@
 
                     if(data==="success"){
                         showAlert("注册成功",function () {
-                            goTo(targetUrl2);
+                            goTo(targetUrl2+"?code="+code);
                         })
                     }
                     if(data==="failure"){

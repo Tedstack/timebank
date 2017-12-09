@@ -39,11 +39,10 @@ public class IndexController {
         if(null != code) {
             // 用code换取access_token（同时会得到OpenID）
             WeixinOauth2Token wot = AdvancedUtil.getOAuth2AceessToken(Configs.APPID, Configs.APPSECRET, code);
-            System.out.println("用户的OPENID：" + wot.getOpenId());
+            if(wot!=null){
+                System.out.println("用户的OPENID：" + wot.getOpenId());
 
-            String openId = wot.getOpenId();
-
-            if(openId!=null){
+                String openId = wot.getOpenId();
                 UserEntity userEntity = userService.findUserEntityByOpenID(wot.getOpenId());
                 if(userEntity!=null){
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
@@ -54,6 +53,7 @@ public class IndexController {
             }else{
                 map.addAttribute("openID","noID");
             }
+
         }
         return "login";
     }
@@ -66,21 +66,27 @@ public class IndexController {
         if(null != code) {
             // 用code换取access_token（同时会得到OpenID）
             WeixinOauth2Token wot = AdvancedUtil.getOAuth2AceessToken(Configs.APPID, Configs.APPSECRET, code);
-            System.out.println("用户的OPENID：" + wot.getOpenId());
+            if(wot!=null){
+                System.out.println("用户的OPENID：" + wot.getOpenId());
 
-            String openId = wot.getOpenId();
-            String accessToken = wot.getAccessToken();
-            // 获取用户基本信息
-            SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
-            System.out.println("昵称：" + snsUserInfo.getNickName());
+                String openId = wot.getOpenId();
+                String accessToken = wot.getAccessToken();
+                // 获取用户基本信息
+                SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+                System.out.println("昵称：" + snsUserInfo.getNickName());
 
-            map.addAttribute("openID",wot.getOpenId());
-            map.addAttribute("nickname",snsUserInfo.getNickName());
-            map.addAttribute("sex",snsUserInfo.getSex());
-            map.addAttribute("headimgurl",snsUserInfo.getHeadimgurl());
-            map.addAttribute("city",snsUserInfo.getCity());
+                map.addAttribute("code",code);
+                map.addAttribute("openID",wot.getOpenId());
+            }else{
+                map.addAttribute("code",code);
+                map.addAttribute("openID","noID");
+            }
 
+        }else{
+            map.addAttribute("code","noCode");
+            map.addAttribute("openID","noID");
         }
+
         return "register";
     }
 

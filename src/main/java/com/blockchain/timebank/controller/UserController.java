@@ -87,6 +87,10 @@ public class UserController {
     public String logoutPage(ModelMap map) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
+            UserEntity user = getCurrentUser();
+            user.setOpenId(null);
+            userService.updateUserEntity(user);
+
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         map.addAttribute("logout", "已经为您安全退出！");
