@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mydb`;
 
-# User 用户表
+# user 用户表
 CREATE TABLE `user` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '用户编号',
   `Name` VARCHAR(20) NULL COMMENT '姓名',
@@ -25,7 +25,20 @@ CREATE TABLE `user` (
 ALTER TABLE `user`
   ADD UNIQUE KEY `Phone` (`Phone`);
 
-# ServiceController 服务种类表
+# userAuth 用户权限表
+CREATE TABLE `userAuth` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
+  `Authority` VARCHAR(50) NOT NULL COMMENT '用户所拥有的权限',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户权限表';
+ALTER TABLE `userAuth`
+  ADD KEY `UserID` (`UserID`);
+ALTER TABLE `userAuth`
+  ADD CONSTRAINT `userAuth_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
+
+# service 服务种类表
 CREATE TABLE `service` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '服务种类编号',
   `Type` VARCHAR(45) NOT NULL COMMENT '服务类型',
@@ -37,7 +50,7 @@ CREATE TABLE `service` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='服务种类表';
 
 
-# TimeAccount 时间元表
+# timeaccount 时间元表
 CREATE TABLE `timeaccount` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '记录编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '用户ID',
@@ -53,7 +66,7 @@ ALTER TABLE `timeaccount`
   ADD CONSTRAINT `timeaccount_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `timeaccount_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
 
-# Publish 发布服务表
+# publish 发布服务表
 CREATE TABLE `publish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
