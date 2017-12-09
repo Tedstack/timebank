@@ -1,6 +1,5 @@
 package com.blockchain.timebank.controller;
 
-import com.blockchain.timebank.config.UserRole;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
@@ -13,7 +12,6 @@ import com.blockchain.timebank.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -28,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,10 +33,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    UserService userService;
-
-    @Autowired
-    UserAuthService userAuthService;
+    private UserService userService;
 
     @Autowired
     PublishService publishService;
@@ -85,7 +78,7 @@ public class UserController {
 
             Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
             SecurityContextHolder.getContext().setAuthentication(token);
-            return determineTargetUrl(phone);
+            return "redirect:/index";
         }
     }
 
@@ -449,23 +442,6 @@ public class UserController {
             return userEntity;
         } else {
             return null;
-        }
-    }
-
-    private String determineTargetUrl(String phone) {
-        UserEntity userEntity = userService.findUserEntityByPhone(phone);
-        List<UserAuthEntity> userAuthEntities = userAuthService.findAllByUserId(userEntity.getId());
-        List<String> roles = new ArrayList<String>();
-        for (UserAuthEntity userAuthEntity : userAuthEntities) {
-            System.out.println(userAuthEntity.getAuthority());
-            roles.add(userAuthEntity.getAuthority());
-        }
-        if (roles.contains(UserRole.ROLE_DBA)) {
-            return "redirect:/db/index";
-        } else if (roles.contains(UserRole.ROLE_ADMIN)) {
-            return "redirect:/admin/index";
-        }else {
-            return "redirect:/index";
         }
     }
 

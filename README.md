@@ -9,5 +9,5 @@
 
 
 一些参考资料：
-1. 如何搭建远程访问的Mysql服务器：http://blog.csdn.net/zhiaini06/article/details/45287687
-2. 
+1. 如何搭建远程访问的Mysql服务器：https://www.cnblogs.com/thinkingandworkinghard/p/7813504.html
+2.  

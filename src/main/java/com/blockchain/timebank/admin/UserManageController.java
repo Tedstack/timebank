@@ -1,8 +1,14 @@
 package com.blockchain.timebank.admin;
 
+import com.blockchain.timebank.config.UserRole;
+import com.blockchain.timebank.entity.UserAuthEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.UserAuthService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +33,50 @@ public class UserManageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserAuthService userAuthService;
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(ModelMap map) {
+        return "../admin/user_login";
+    }
+
+    @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
+    public String loginSubmit(ModelMap map, @RequestParam String phone, @RequestParam String password) {
+        if (phone.equals("") || password.equals("")) {
+            map.addAttribute("error", "输入信息不能为空");
+            return "../admin/user_login";
+        }
+        UserEntity userEntity = userService.findUserEntityByPhoneAndPassword(phone, password);
+        if (userEntity == null) {
+            map.addAttribute("error", "错误的用户名或者密码");
+            return "../admin/user_login";
+        } else {
+            List<UserAuthEntity> userAuthEntities = userAuthService.findAllByUserId(userEntity.getId());
+            for (UserAuthEntity userAuthEntity:userAuthEntities) {
+                if(userAuthEntity.getAuthority().equals(UserRole.ROLE_ADMIN)) {
+                    Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
+                    SecurityContextHolder.getContext().setAuthentication(token);
+                    return "redirect:/admin/index";
+                }
+            }
+            map.addAttribute("error", "无访问权限！");
+            return "../admin/user_login";
+        }
+    }
+
+    // 登出请求
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(ModelMap map) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+        map.addAttribute("ok", "已经为您安全退出！");
+        return "../admin/user_login";
+    }
+
 
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
     public String userListPage(ModelMap map) {

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexManageController {
 
     @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
-    public String serviceListPage(ModelMap map) {
+    public String indexPage(ModelMap map) {
         return "../admin/index";
     }
+
+
 }
