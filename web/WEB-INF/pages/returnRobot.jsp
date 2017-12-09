@@ -20,6 +20,7 @@
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/refundRobot.js"></script>
+    <script src="../js/scan/configs.js"></script>
 </head>
 <body>
 <%
@@ -45,8 +46,11 @@
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var contextPath="${pageContext.request.contextPath}";
     $(function() {
             $("#button1").on('click', function () {
+                var targetUrl = "http://"+getDomainName()+contextPath+"/user/serviceUserCompleteScan";
+                var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryPublishWaitingService";
                 wx.scanQRCode(
                     {
                         needResult:1,
@@ -63,7 +67,7 @@
                             $.ajax({
                                 type: 'POST',
                                 cache: false,
-                                url: "http://www.coocir.com/timebank/user/serviceUserCompleteScan",
+                                url: targetUrl,
                                 data: "qrcode=" + res.resultStr + "&recordID=" + recordID,
                                 beforeSend: function (XHR) {
                                     dialogLoading = showLoading();
@@ -71,19 +75,19 @@
                                 success: function (data) {
                                     if(data==="notOneself"){
                                         showAlert("二维码与申请者不相符",function () {
-                                            goTo("http://www.coocir.com/timebank/user/queryPublishWaitingService");
+                                            goTo(targetUrl2);
                                         })
                                     }
                                     if(data==="success"){
                                         showAlert("扫码成功",function () {
-                                            goTo("http://www.coocir.com/timebank/user/queryPublishWaitingService");
+                                            goTo(targetUrl2);
                                         })
                                     }
 
                                 },
                                 error: function (xhr, type) {
                                     showAlert("扫码失败",function () {
-                                        goTo("http://www.coocir.com/timebank/user/queryPublishWaitingService");
+                                        goTo(targetUrl2);
                                     })
                                 },
                                 complete: function (xhr, type) {

@@ -8,9 +8,9 @@ import com.blockchain.timebank.weixin.model.JsapiTicket;
  * Created by xu on 2017/7/10.
  */
 public class TokenThread implements Runnable {
-    public static String appId = "wxb0f6b07f01978a2a";
+    public static String appId = Configs.APPID;
 
-    public static String appSecret= "386ef712d87480fa1dc27a93995936eb";
+    public static String appSecret= Configs.APPSECRET;
 
     public static AccessToken accessToken = null;
 
@@ -33,7 +33,7 @@ public class TokenThread implements Runnable {
                     Thread.sleep(1000 * 3); //获取的access_token为空 休眠3秒
                 }
             } catch (Exception e) {
-                System.out.println("发生异常：" + e.getMessage());
+                //System.out.println("发生异常：" + e.getMessage());
                 e.printStackTrace();
                 try {
                     Thread.sleep(1000 * 10); //发生异常休眠1秒
@@ -52,11 +52,11 @@ public class TokenThread implements Runnable {
         NetWorkHelper netHelper = new NetWorkHelper();
         String Url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",this.appId,this.appSecret);
         String result = netHelper.getHttpsResponse(Url,"");
-        System.out.println("getAccessToken:"+result);
+        //System.out.println("getAccessToken:"+result);
 
         //response.getWriter().println(result);
         JSONObject json = JSONObject.parseObject(result);
-        System.out.println("getAccessToken json:"+json);
+        //System.out.println("getAccessToken json:"+json);
 
         AccessToken token = new AccessToken();
         token.setAccessToken(json.getString("access_token"));
@@ -72,9 +72,9 @@ public class TokenThread implements Runnable {
         NetWorkHelper netHelper = new NetWorkHelper();
         String Url = js_api_ticket_url.replace("ACCESS_TOKEN",this.getAccessToken().getAccessToken());
         String result = netHelper.getHttpsResponse(Url,"");
-        System.out.println("getJsapiTicket:"+result);
+        //System.out.println("getJsapiTicket:"+result);
         JSONObject json = JSONObject.parseObject(result);
-        System.out.println(json);
+        //System.out.println(json);
 
         JsapiTicket jsapiTicket = new JsapiTicket();
         jsapiTicket.setJsapiTicket(json.getString("ticket"));

@@ -11,8 +11,13 @@
     <script src="js/zepto/weui.min.js"></script>
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="js/scan/function.js"></script>
+    <script src="js/scan/configs.js"></script>
 </head>
 <body>
+<%
+    String openID = (String) request.getAttribute("openID");
+    String code = (String) request.getAttribute("code");
+%>
 <div class="weui-cells">
     <div class="weui-cell">
         <div class="weui-cell__bd">
@@ -46,9 +51,13 @@
 </div>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-        var url="${pageContext.request.contextPath}";
+        var openID='<%=openID%>';
+        var code='<%=code%>';
+        var contextPath="${pageContext.request.contextPath}";
 
         $("#create").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/user/register";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/login";
             var re = /^1\d{10}$/
             var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
             var temp1=document.getElementById("pwd1").value;
@@ -80,15 +89,15 @@
                 showAlert("密码必须包含字母数字和符号且不低于6位");
             }
 
-            if(temp1==temp2) {
+            if(temp1===temp2) {
                 passwordEqual = true;
             }else{
                 showAlert("您输入的两次密码不一致");
             }
 
             if(userNameQualified&&passwordQualified&&phoneQualified&&passwordEqual){
-                //showAlert("注册信息全部正确");
-                register(userName,phoneNumber,temp1);
+                //showAlert(targetUrl);
+                register(userName,phoneNumber,temp1,targetUrl,targetUrl2);
             }
 
             /*if(temp1==temp2) {
@@ -107,13 +116,13 @@
             }*/
         });
         
-        function register(name,phone,password) {
+        function register(name,phone,password,targetUrl,targetUrl2) {
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: "http://www.coocir.com/timebank/user/register",//url+"/user/registe";
+                url: targetUrl,
                 //dataType:'JSONP',
-                data: "name=" + name + "&phone=" + phone + "&password=" + password,
+                data: "name=" + name + "&phone=" + phone + "&password=" + password +"&openID=" +openID,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -128,7 +137,7 @@
 
                     if(data==="success"){
                         showAlert("注册成功",function () {
-                            goTo("http://www.coocir.com/timebank/logout");
+                            goTo(targetUrl2+"?code="+code);
                         })
                     }
                     if(data==="failure"){

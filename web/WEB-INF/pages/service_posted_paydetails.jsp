@@ -14,6 +14,7 @@
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
 </head>
 <body>
 <%
@@ -64,23 +65,26 @@
         </p>
     </div>
     <div class="weui-form-preview__ft">
-        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="/user/queryOrderWaitingPay">返回</a>
+        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="${pageContext.request.contextPath}/user/queryOrderWaitingPay">返回</a>
         <a class="weui-form-preview__btn weui-form-preview__btn_primary" id="payBtn">支付</a>
     </div>
 </div>
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var contextPath="${pageContext.request.contextPath}";
     var type='<%=recordDetail.getServiceType()%>';
     var recordID = '<%=recordDetail.getId()%>';
     $(function(){
         $("#payBtn").on('click',function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/user/applyUserPayTimeVol";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryOrderAlreadyComplete";
             var volunteerService = '志愿者服务';
             if(type === volunteerService){
                 $.ajax({
                     type: 'POST',
                     cache: false,
-                    url: "http://www.coocir.com/timebank/user/applyUserPayTimeVol",
+                    url: targetUrl,
                     //dataType:'JSONP',
                     data: "recordID=" + recordID,
                     beforeSend: function (XHR) {
@@ -89,7 +93,7 @@
                     success: function (data) {
                         //alert(data);
                         showAlert("支付成功",function () {
-                            goTo("http://www.coocir.com/timebank/user/queryOrderAlreadyComplete");
+                            goTo(targetUrl2);
                         })
                     },
                     error: function (xhr, type) {

@@ -25,7 +25,7 @@
             <div class="weui-panel__bd">
 
 
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <a href="${pageContext.request.contextPath}/record/detail_activities" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
                     </div>
@@ -42,7 +42,7 @@
                     </div>
                 </a>
 
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <a href="${pageContext.request.contextPath}/record/detail_activities" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
                     </div>
@@ -59,7 +59,7 @@
                     </div>
                 </a>
 
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+                <a href="${pageContext.request.contextPath}/record/detail_activities" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
                     </div>

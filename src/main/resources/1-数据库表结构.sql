@@ -18,6 +18,7 @@ CREATE TABLE `user` (
   `img1` VARCHAR(50) NULL COMMENT '正面照片文件名',
   `img2` VARCHAR(50) NULL COMMENT '背面照片文件名',
   `IsVerify` INT NULL COMMENT '是否已实名认证',
+  `OpenID` VARCHAR(50) NULL COMMENT '微信用户OpenID',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户表';

@@ -49,6 +49,70 @@ public class RecordController {
         map.addAttribute("phone", userEntity.getPhone());
         return "record_apply";
     }
+    // 申请评价页面
+    @RequestMapping(value = "/rate", method = RequestMethod.GET)
+    public String ratePage(ModelMap map) {
+
+        return "rate";
+    }
+
+    // 申请活动列表页面
+    @RequestMapping(value = "/activities", method = RequestMethod.GET)
+    public String activities(ModelMap map) {
+
+        return "activities";
+    }
+    //申请已申请的活动页面（参与活动）
+    @RequestMapping(value = "/yishenqing_activities", method = RequestMethod.GET)
+    public String Yisheningactivities(ModelMap map) {
+
+        return "activities_yishenqin_volunteer";
+    }
+
+    //申请待执行的活动页面（参与活动）
+    @RequestMapping(value = "/daizhixing_activities", method = RequestMethod.GET)
+    public String Daizhixingactivities(ModelMap map) {
+
+        return "activities_daizhixing_volunteer";
+    }
+
+    //申请已完成的活动界面（参与活动）
+    @RequestMapping(value = "/yiwancheng_activities", method = RequestMethod.GET)
+    public String Yiwanchengactivities(ModelMap map) {
+        return "activities_yiwancheng_volunteer";
+    }
+    //申请活动详情的界面（参与活动）
+    @RequestMapping(value = "/detail_activities", method = RequestMethod.GET)
+    public String Detailactivities(ModelMap map) {
+        return "activities_details";
+    }
+
+    //申请选择团体界面
+    @RequestMapping(value = "/chooseteam", method = RequestMethod.GET)
+    public String chooseteam(ModelMap map) {
+        return "chooseteam";
+    }
+
+    //申请发布团体活动页面
+    @RequestMapping(value = "/activities_add", method = RequestMethod.GET)
+    public String addactivities(ModelMap map) {
+        return "activities_add";
+    }
+    //申请待申请团体活动页面（发布活动）
+    @RequestMapping(value = "/daishenqing_activities", method = RequestMethod.GET)
+    public String daishenqingactivities(ModelMap map) {
+        return "activities_daishenqing_publish";
+    }
+    //申请待执行团体活动页面（发布活动）
+    @RequestMapping(value = "/daizhixing_activities_publish", method = RequestMethod.GET)
+    public String daishenqingactivitiespublish(ModelMap map) {
+        return "activities_daizhixing_publish";
+    }
+    //申请已完成团体活动页面（发布活动）
+    @RequestMapping(value = "/yiwancheng_activities_publish", method = RequestMethod.GET)
+    public String yiwanchengactivitiespublish(ModelMap map) {
+        return "activities_yiwancheng_publish";
+    }
 
     //申请服务页面
     @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)

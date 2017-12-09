@@ -4,6 +4,10 @@ import com.blockchain.timebank.config.UserRole;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.weixin.model.SNSUserInfo;
+import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
+import com.blockchain.timebank.weixin.util.AdvancedUtil;
+import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
 import com.blockchain.timebank.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,15 +70,19 @@ public class UserController {
 
     // 登陆请求提交接口
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String userLogin(ModelMap map, @RequestParam String phone, @RequestParam String password) {
+    public String userLogin(ModelMap map, @RequestParam String phone, @RequestParam String password ,@RequestParam String openID) {
         if (phone.equals("") || password.equals("")) {
             map.addAttribute("error", "输入信息不能为空");
             return "login";
         }
-        if (userService.findUserEntityByPhoneAndPassword(phone, password) == null) {
+        UserEntity userEntity = userService.findUserEntityByPhoneAndPassword(phone, password);
+        if (userEntity == null) {
             map.addAttribute("error", "错误的用户名或者密码");
             return "login";
         } else {
+            userEntity.setOpenId(openID);
+            userService.updateUserEntity(userEntity);
+
             Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
             SecurityContextHolder.getContext().setAuthentication(token);
             return determineTargetUrl(phone);
@@ -86,6 +94,10 @@ public class UserController {
     public String logoutPage(ModelMap map) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
+            UserEntity user = getCurrentUser();
+            user.setOpenId(null);
+            userService.updateUserEntity(user);
+
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         map.addAttribute("logout", "已经为您安全退出！");
@@ -95,7 +107,7 @@ public class UserController {
     // 注册请求接口
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
+    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password ,@RequestParam String openID) {
         String status = "";
         boolean phoneCorrect = true;
         boolean nameCorrect = true;
@@ -116,6 +128,9 @@ public class UserController {
                 userEntity.setName(name);
                 userEntity.setPhone(phone);
                 userEntity.setPassword(password);
+                if(openID!=null){
+                    userEntity.setOpenId(openID);
+                }
                 userService.saveUserEntity(userEntity);
                 Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
                 SecurityContextHolder.getContext().setAuthentication(token);
@@ -127,32 +142,6 @@ public class UserController {
 
         return status;
     }
-
-    /*// 注册请求接口
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password) {
-        if (phone.equals("") || name.equals("") || password.equals("")) {
-            map.addAttribute("error", "输入信息不能为空");
-            return "/register";
-        }
-        if (userService.findUserEntityByPhone(phone) != null) {
-            map.addAttribute("error", "注册失败，手机号已经被注册！");
-            return "/register";
-        }
-        try {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setName(name);
-            userEntity.setPhone(phone);
-            userEntity.setPassword(password);
-            userService.saveUserEntity(userEntity);
-            Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
-            SecurityContextHolder.getContext().setAuthentication(token);
-            return "/index";
-        } catch (Exception e) {
-            map.addAttribute("error", "注册失败，重复的用户！");
-            return "/register";
-        }
-    }*/
 
     //跳转到修改个人信息页面
     @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)

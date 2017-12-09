@@ -1,7 +1,7 @@
 $(document).ready(function () {
     //获取配置信息
     $.ajax({
-        url : "http://www.hlb9978.com/scanGetConfigServlet",
+        url : "http://www.coocir.com/timebank/scanGetConfigServlet",
         type : 'post',
         dataType : 'json',
         contentType : "application/x-www-form-urlencoded; charset=utf-8",
