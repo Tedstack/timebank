@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/7
@@ -11,12 +11,19 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>RateTest</title>
+    <title>评价</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
+<%
+    ViewRecordDetailEntity record = (ViewRecordDetailEntity) request.getAttribute("viewRecordDetailEntity");
+%>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-panel weui-panel_access">
@@ -28,12 +35,12 @@
             <div class="weui-panel__bd">
                 <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" src="../img/服务名称/代购.png" alt="">
+                        <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(record.getServiceName());%>.png" alt="">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">购物</h4>
-                        <p class="weui-media-box__desc">显示详情1</p>
-                        <p class="weui-media-box__desc">显示详情2</p>
+                        <h4 class="weui-media-box__title"><%out.print(record.getServiceName());%></h4>
+                        <p class="weui-media-box__desc">订单编号 <%out.print(record.getId());%></p>
+                        <p class="weui-media-box__desc">服务人员 <%out.print(record.getServiceUserName());%></p>
                         <ul class="weui-media-box__info">
                             <li class="weui-media-box__info__meta">内容1</li>
                             <li class="weui-media-box__info__meta">内容2</li>
@@ -62,7 +69,7 @@
                 </div>
             </div>
         </div>
-        <div class="weui-cell">
+        <%--<div class="weui-cell">
             <div class="weui-cell__bd">
                 <div class="weui-flex">
                     <div class="weui-flex__item"diaplay="none">
@@ -78,7 +85,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
         <img src="../img/底部.png" width="375" height="10">
         <div class="weui-cells__title">详细评价</div>
         <div class="weui-cells weui-cells_form">
@@ -109,7 +116,7 @@
 <script src="//unpkg.com/vue/dist/vue.js"></script>
 <!-- 引入组件库 -->
 <script src="//unpkg.com/element-ui@2.0.7/lib/index.js"></script>
-<script>
+<%--<script>
     new Vue({
         el:'#app',
         data:function(){
@@ -118,8 +125,8 @@
             }
         }
     })
-</script>
-<script>
+</script>--%>
+<%--<script>
     new Vue({
         el:'#app2',
         data:function(){
@@ -128,11 +135,67 @@
             }
         }
     })
-</script>
-<script>
+</script>--%>
+<script type="text/javascript">
+    new Vue({
+        el:'#app',
+        data:function(){
+            return {
+                value3: 4
+            }
+        }
+    })
+    var contextPath="${pageContext.request.contextPath}";
+    var recordID='<%=record.getId()%>';
     $(function() {
         $("#btn").on('click', function () {
-            alert("服务评分："+$('#app').text()+"\n"+"服务者态度："+$('#app2').text()+"\n"+"详细评价："+$('#text').val());
+            var targetUrl = "http://"+getDomainName()+contextPath+"/user/applyUserEvaluateRecord";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryOrderAlreadyComplete";
+            var starNum = 0;
+            var starText = $('#app').text();
+            var comment = $('#text').val()
+            if(starText==="极差"){
+                starNum = 1;
+            }
+            if(starText==="失望"){
+                starNum = 2;
+            }
+            if(starText==="一般"){
+                starNum = 3;
+            }
+            if(starText==="满意"){
+                starNum = 4;
+            }
+            if(starText==="惊喜"){
+                starNum = 5;
+            }
+            //alert("服务评分："+$('#app').text()+"\n"+"服务者态度："+$('#app2').text()+"\n"+"详细评价："+$('#text').val());
+            //alert("服务评分："+$('#app').text()+"\n"+"详细评价："+$('#text').val()+starNum);
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "recordID=" + recordID + "&rating=" + starNum + "&comment=" + comment,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    showAlert("更改成功",function () {
+                        goTo(targetUrl2);
+                    })
+
+                },
+                error: function (xhr, type) {
+                    alert(type);
+                    showAlert("更改失败");
+                    /*showAlert("支付失败",function () {
+                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
+                    })*/
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
         });
     });
 </script>

@@ -133,7 +133,7 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="<%out.print("/user/applyUserStartPay?recordID="+recordDetailList.get(i).getId());%>">支付</a></div>
+                                <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}<%out.print("/user/applyUserStartPay?recordID="+recordDetailList.get(i).getId());%>">支付</a></div>
                             </div>
                         </div>
                     </div>

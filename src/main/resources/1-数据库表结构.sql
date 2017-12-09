@@ -222,7 +222,9 @@ CREATE VIEW view_record_detail
       service.Name           AS ServiceName,      #服务名称
       record.ServiceUserID   AS ServiceUserID,    #服务者编号
       serviceUser.Name       AS ServiceUserName,  #服务者姓名
-      serviceUser.Phone      AS ServiceUserPhone  #服务者手机号
+      serviceUser.Phone      AS ServiceUserPhone,  #服务者手机号
+      record.Rating          AS Rating,            #订单评分
+      record.Comment         AS Comment            #订单评价
   FROM record, user AS serviceUser, publish, service
   WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID;
 

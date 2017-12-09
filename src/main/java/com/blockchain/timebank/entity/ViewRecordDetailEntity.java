@@ -26,6 +26,8 @@ public class ViewRecordDetailEntity {
     private long serviceUserId;
     private String serviceUserName;
     private String serviceUserPhone;
+    private Double rating;
+    private String comment;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -227,6 +229,26 @@ public class ViewRecordDetailEntity {
         this.serviceUserPhone = serviceUserPhone;
     }
 
+    @Basic
+    @Column(name = "Rating", nullable = true, precision = 0)
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    @Basic
+    @Column(name = "Comment", nullable = true, length = 100)
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -260,6 +282,8 @@ public class ViewRecordDetailEntity {
             return false;
         if (serviceUserPhone != null ? !serviceUserPhone.equals(that.serviceUserPhone) : that.serviceUserPhone != null)
             return false;
+        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
 
         return true;
     }
@@ -289,6 +313,8 @@ public class ViewRecordDetailEntity {
         result = 31 * result + (int) (serviceUserId ^ (serviceUserId >>> 32));
         result = 31 * result + (serviceUserName != null ? serviceUserName.hashCode() : 0);
         result = 31 * result + (serviceUserPhone != null ? serviceUserPhone.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
     }
 }

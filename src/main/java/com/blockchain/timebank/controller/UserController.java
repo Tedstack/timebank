@@ -410,6 +410,25 @@ public class UserController {
         return "service_posted_paydetails";
     }
 
+    //申请者跳转到评价订单页面
+    @RequestMapping(value = "/applyUserStartEvaluate",method = RequestMethod.GET)
+    public String applyUserStartEvaluate(ModelMap map,@RequestParam long recordID){
+        ViewRecordDetailEntity viewRecordDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
+
+        map.addAttribute("viewRecordDetailEntity",viewRecordDetailEntity);
+        return "rate";
+    }
+
+    //申请者评价订单
+    @RequestMapping(value = "/applyUserEvaluateRecord",method = RequestMethod.POST)
+    @ResponseBody
+    public void applyUserEvaluateRecord(ModelMap map,@RequestParam long recordID,@RequestParam double rating,@RequestParam String comment){
+        RecordEntity record = recordService.findRecordEntityById(recordID);
+        record.setRating(rating);
+        record.setComment(comment);
+        recordService.updateRecordEntity(record);
+    }
+
     //申请志愿者服务的用户支付志愿者币
     @RequestMapping(value = "/applyUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
