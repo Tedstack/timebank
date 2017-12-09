@@ -13,7 +13,7 @@
         <intercept-url pattern="/register" access="permitAll()"/>
         <intercept-url pattern="/user/login" access="permitAll()"/>
         <intercept-url pattern="/user/register" access="permitAll()"/>
-        <intercept-url pattern="/admin/**" access="permitAll()"/>
+        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/dba/**" access="hasRole('ROLE_DBA')"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" username-parameter="phone" password-parameter="password"

@@ -37,8 +37,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
      * This method extracts the roles of currently logged-in user and returns
      * appropriate URL according to his/her role.
      */
-    protected String determineTargetUrl(Authentication authentication) {
-        String url = "";
+    private String determineTargetUrl(Authentication authentication) {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
@@ -48,38 +47,15 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             roles.add(a.getAuthority());
         }
 
-        if (isDba(roles)) {
-            url = "/db";
-        } else if (isAdmin(roles)) {
-            url = "/admin";
-        } else if (isUser(roles)) {
-            url = "/index";
+        if (roles.contains(UserRole.ROLE_DBA)) {
+            return "/db/index";
+        } else if (roles.contains(UserRole.ROLE_ADMIN)) {
+            return "/admin/index";
+        } else if (roles.contains(UserRole.ROLE_USER)) {
+            return "/index";
         } else {
-            url = "/accessDenied";
+            return "/accessDenied";
         }
-
-        return url;
-    }
-
-    private boolean isUser(List<String> roles) {
-        if (roles.contains("ROLE_USER")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isAdmin(List<String> roles) {
-        if (roles.contains("ROLE_ADMIN")) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isDba(List<String> roles) {
-        if (roles.contains("ROLE_DBA")) {
-            return true;
-        }
-        return false;
     }
 
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {

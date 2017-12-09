@@ -3,7 +3,9 @@ package com.blockchain.timebank.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.blockchain.timebank.entity.UserAuthEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.UserAuthService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserAuthService userAuthService;
+
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity userEntity = userService.findUserEntityByPhone(s);
@@ -29,13 +34,17 @@ public class CustomUserDetailsService implements UserDetailsService {
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
+        List<UserAuthEntity> userAuthEntities = userAuthService.findAllByUserId(userEntity.getId());
         return new User(userEntity.getPhone(), userEntity.getPassword(),
-                true, true, true, true, getUserGrantedAuthorities());
+                    true, true, true, true, getUserGrantedAuthorities(userAuthEntities));
     }
 
-    private List<GrantedAuthority> getUserGrantedAuthorities() {
+    private List<GrantedAuthority> getUserGrantedAuthorities(List<UserAuthEntity> userAuthEntities) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority(UserRole.ROLE_USER));
+        for(UserAuthEntity userAuthEntity:userAuthEntities){
+            authorities.add(new SimpleGrantedAuthority(userAuthEntity.getAuthority()));
+        }
         return authorities;
     }
 
