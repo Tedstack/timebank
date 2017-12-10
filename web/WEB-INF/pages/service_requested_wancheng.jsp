@@ -114,10 +114,15 @@
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">举报</a></div>
-                            <%
-
-                            %>
-                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}<%out.print("/user/applyUserStartEvaluate?recordID="+recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">评价</a></div>
+                            <div class="weui-flex__item">
+                                <%
+                                    if(recordDetailList.get(i).getRating()==null){
+                                        out.print("<a href='"+ request.getContextPath() +"/user/applyUserStartEvaluate?recordID="+ recordDetailList.get(i).getId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
+                                    }else{
+                                        out.print("<a class='weui-btn weui-btn_mini weui-btn_default'>已评</a>");
+                                    }
+                                %>
+                            </div>
                         </div>
                     </div>
                 </div>
