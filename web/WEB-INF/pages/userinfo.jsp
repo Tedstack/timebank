@@ -48,7 +48,7 @@
 
         <img src="../img/底部.png" width="375" height="15">
 
-            <a class="weui-cell weui-cell_access" href="javascript:;">
+            <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/coins">
                 <div class="weui-cell__hd"><img src="../img/userdetails/时间币.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                 <div class="weui-cell__bd">
                     <p>时间币余额</p>

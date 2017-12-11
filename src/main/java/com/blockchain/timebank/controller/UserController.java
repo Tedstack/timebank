@@ -222,6 +222,18 @@ public class UserController {
         return "change_userinfo_result";
     }
 
+    //申请查看时间币余额页面
+    @RequestMapping(value = "/coins", method = RequestMethod.GET)
+    public String coin(ModelMap map) {
+        return "coins";
+    }
+
+    //申请充值时间币页面
+    @RequestMapping(value = "/pay", method = RequestMethod.GET)
+    public String coinpay(ModelMap map) {
+        return "pay";
+    }
+
     //实名认证
     @RequestMapping(value = "/startRealNameAuth",method = RequestMethod.GET)
     public String startRealNameAuth(ModelMap map){
