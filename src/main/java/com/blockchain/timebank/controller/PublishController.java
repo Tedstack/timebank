@@ -51,6 +51,15 @@ public class PublishController {
     //发布服务页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {
+        UserEntity user =  getCurrentUser();
+        if(user.getIsVerify()==null){
+            map.addAttribute("msg", "notVerify");
+            return "publish_service_result";
+        }else if(user.getIsVerify()==0){
+            map.addAttribute("msg", "failVerify");
+            return "publish_service_result";
+        }
+
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
         map.addAttribute("service_list", list);
         return "publish_add";

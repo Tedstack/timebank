@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/mobile-main.css" rel="stylesheet" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 
@@ -29,7 +33,7 @@
 
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <form action="${pageContext.request.contextPath}/publish/add/submit" method="post">
+        <form action="${pageContext.request.contextPath}/publish/add/submit" method="post" onsubmit="return check();">
             <div class="weui-cells__title">发布服务</div>
 
             <div class="weui-cells weui-cells_form">
@@ -81,7 +85,7 @@
                         <p>服务描述</p></div>
                     <div class="weui-cell__bd">
                         <div class="weui-cell__bd">
-                            <textarea class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
+                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
                             <div class="weui-textarea-counter"><span>0</span>/200</div>
                         </div>
                     </div>
@@ -91,7 +95,7 @@
                     <div class="weui-cell__bd">
                         <p>开始日期</p></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="beginDate" type="date" value=""/>
+                        <input id="beginDate" class="weui-input" name="beginDate" type="date" value=""/>
                     </div>
                 </div>
 
@@ -99,7 +103,7 @@
                     <div class="weui-cell__bd">
                         <p>结束日期</p></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="endDate" type="date" value=""/>
+                        <input id="endDate" class="weui-input" name="endDate" type="date" value=""/>
                     </div>
                 </div>
 
@@ -107,7 +111,7 @@
                     <div class="weui-cell__bd">
                         <p>服务价格</p></div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
+                        <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
                     </div>
                 </div>
 
@@ -141,7 +145,7 @@
             </div>
 
             <div style="padding: 10px; margin-bottom: 20px;">
-                <button type="submit" class="weui-btn weui-btn_primary">发布</button>
+                <button class="weui-btn weui-btn_primary" type="submit">发布</button>
             </div>
         </form>
 
@@ -165,8 +169,7 @@
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
         $('.weui-name:gt(0)').hide();$('.weui-name:gt(0)').find('.weui-select').attr("name","");
@@ -175,6 +178,31 @@
             $('#'+$(this).val()).show();$('#'+$(this).val()).find('.weui-select').attr("name","serviceName");
         });
     });
+
+    function check(){
+        var serviceDescription = document.getElementById("serviceDescription").value;
+        var beginDate = document.getElementById("beginDate").value;
+        var endDate = document.getElementById("endDate").value;
+        var servicePrice = document.getElementById("servicePrice").value;
+
+        if(serviceDescription===""){
+            showAlert("请填写服务评价");
+            return false;
+        }
+        if(beginDate===""){
+            showAlert("请填写服务开始日期");
+            return false;
+        }
+        if(endDate===""){
+            showAlert("请填写服务结束日期");
+            return false;
+        }
+        if(servicePrice===""){
+            showAlert("请填写服务价格");
+            return false;
+        }
+        return true;
+    }
 </script>
 
 </body>
