@@ -6,6 +6,7 @@ import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.weixin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/publish")
@@ -89,6 +87,16 @@ public class PublishController {
             recordList = temp;
         }else{
             recordList = temp.subList(0,10);
+        }
+
+        UserEntity user = userService.findUserEntityById(viewPublishDetailEntity.getUserId());
+        String cardID = user.getIdCard();
+        try {
+            Map<String, Object> info =  CommonUtil.getCarInfo(cardID);
+            map.addAttribute("age",info.get("age"));
+        } catch (Exception e) {
+            map.addAttribute("age",-1);
+            e.printStackTrace();
         }
 
         map.addAttribute("recordList", recordList);

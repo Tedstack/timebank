@@ -29,6 +29,7 @@
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
     List<ViewRecordDetailEntity> recordList = (List<ViewRecordDetailEntity>) request.getAttribute("recordList");
+    int age = (int) request.getAttribute("age");
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
@@ -44,11 +45,27 @@
                 </div>
                 <div class="txt"><%out.print(detail.getServiceName());%></div>
                 <div class="tags-rz">
-                    <span class="tag-sm"><%out.print(detail.getSex());%></span>
+                    <span class="tag-sm">
+                        <%
+                            if(detail.getSex()==null){
+                                out.print("暂无性别信息");
+                            }else{
+                                out.print(detail.getSex());
+                            }
+                        %>
+                    </span>
                 </div>
-                <%--<div class="tags-rz">
-                    <span class="tag-sm">实名认证</span>
-                </div>--%>
+                <div class="tags-rz">
+                    <span class="tag-sm">
+                        <%
+                            if(age==-1){
+                                out.print("暂无年龄信息");
+                            }else{
+                                out.print(age);
+                            }
+                        %>
+                    </span>
+                </div>
             </a>
         </div>
 
