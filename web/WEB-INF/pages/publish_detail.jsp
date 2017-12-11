@@ -44,8 +44,11 @@
                 </div>
                 <div class="txt"><%out.print(detail.getServiceName());%></div>
                 <div class="tags-rz">
-                    <span class="tag-sm">实名认证</span>
+                    <span class="tag-sm"></span>
                 </div>
+                <%--<div class="tags-rz">
+                    <span class="tag-sm">实名认证</span>
+                </div>--%>
             </a>
         </div>
 

@@ -195,6 +195,7 @@ CREATE VIEW view_publish_detail
       service.Type        AS ServiceType,
       service.Name        AS ServiceName,
       user.Name           AS UserName,
+      user.Sex            AS Sex,
       user.Phone          AS UserPhone
     FROM publish, user, service
     WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;
