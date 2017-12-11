@@ -78,7 +78,7 @@
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
                             <p class="weui-media-box__desc">服务地点:<%out.print(recordDetailList.get(i).getAddress());%></p>
-                            <p class="weui-media-box__desc">服务人手机号:暂时没有</p>
+                            <p class="weui-media-box__desc">服务人手机号:<%out.print(recordDetailList.get(i).getServiceUserPhone());%></p>
                         </div>
 
                     </div>
