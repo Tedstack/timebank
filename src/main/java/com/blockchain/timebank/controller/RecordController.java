@@ -86,13 +86,6 @@ public class RecordController {
     public String Detailactivities(ModelMap map) {
         return "activities_details";
     }
-
-    //申请选择团体界面
-    @RequestMapping(value = "/chooseteam", method = RequestMethod.GET)
-    public String chooseteam(ModelMap map) {
-        return "chooseteam";
-    }
-
     //申请发布团体活动页面
     @RequestMapping(value = "/activities_add", method = RequestMethod.GET)
     public String addactivities(ModelMap map) {

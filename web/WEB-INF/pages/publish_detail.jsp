@@ -44,7 +44,7 @@
                 </div>
                 <div class="txt"><%out.print(detail.getServiceName());%></div>
                 <div class="tags-rz">
-                    <span class="tag-sm"></span>
+                    <span class="tag-sm"><%out.print(detail.getSex());%></span>
                 </div>
                 <%--<div class="tags-rz">
                     <span class="tag-sm">实名认证</span>

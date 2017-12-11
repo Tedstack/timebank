@@ -38,7 +38,7 @@
                 <p>新消息通知</p>
             </div>
         </a>
-        <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/record/chooseteam">
+        <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
             <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p>所属团体</p>
