@@ -99,6 +99,7 @@ public class PublishController {
             e.printStackTrace();
         }
 
+        map.addAttribute("timeVol", user.getTimeVol());
         map.addAttribute("recordList", recordList);
         return "publish_detail";
     }

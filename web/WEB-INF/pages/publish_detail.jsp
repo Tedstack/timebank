@@ -30,6 +30,7 @@
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
     List<ViewRecordDetailEntity> recordList = (List<ViewRecordDetailEntity>) request.getAttribute("recordList");
     int age = (int) request.getAttribute("age");
+    double timeVol = (double) request.getAttribute("timeVol");
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
@@ -63,6 +64,13 @@
                             }else{
                                 out.print(age);
                             }
+                        %>
+                    </span>
+                </div>
+                <div class="tags-rz">
+                    <span class="tag-sm">
+                        <%
+                            out.print("当前志愿者币："+timeVol);
                         %>
                     </span>
                 </div>
