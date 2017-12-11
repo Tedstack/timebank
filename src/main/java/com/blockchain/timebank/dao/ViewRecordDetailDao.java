@@ -13,4 +13,6 @@ public interface ViewRecordDetailDao extends CrudRepository<ViewRecordDetailEnti
     public List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByApplyUserIdAndStatus(long applyUserID,String status);
 
     public ViewRecordDetailEntity findViewRecordDetailEntityById(long ID);
+
+    public List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByPublishIdAndStatus(long publishID,String status);
 }

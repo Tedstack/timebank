@@ -2,10 +2,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
-import com.blockchain.timebank.entity.PublishEntity;
-import com.blockchain.timebank.entity.ServiceEntity;
-import com.blockchain.timebank.entity.UserEntity;
-import com.blockchain.timebank.entity.ViewPublishDetailEntity;
+import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -74,6 +72,17 @@ public class PublishController {
     public String detailPage(ModelMap map, @RequestParam long id) {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
+
+        //取前十条评价
+        List<ViewRecordDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
+        List<ViewRecordDetailEntity> recordList = new ArrayList<ViewRecordDetailEntity>();
+        if(temp.size()<=10){
+            recordList = temp;
+        }else{
+            recordList = temp.subList(0,10);
+        }
+
+        map.addAttribute("recordList", recordList);
         return "publish_detail";
     }
 

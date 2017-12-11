@@ -1,7 +1,9 @@
 <%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/24
@@ -26,6 +28,7 @@
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
+    List<ViewRecordDetailEntity> recordList = (List<ViewRecordDetailEntity>) request.getAttribute("recordList");
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
@@ -107,8 +110,14 @@
             <div class="title">
                 <span>历史评价</span>
             </div>
-            <div class="con_u">服务态度非常好，会继续下一次预约</div>
-            <div class="con_u">聊天很愉快~~~</div>
+            <%
+                for (int i=0;i<recordList.size();i++) {
+            %>
+                <div class="con_u">服务评分:<%out.print(recordList.get(i).getRating());%></div>
+                <div class="con_u"><%out.print(recordList.get(i).getComment());%></div>
+            <%
+                }
+            %>
         </div>
 
         <div style="padding: 10px; margin-bottom: 20px;">
