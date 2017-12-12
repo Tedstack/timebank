@@ -110,7 +110,7 @@
                 success: function (data) {
                     if(data=="upload success")
                     {
-                        showAlert("认证信息上传成功，等待审核通过!");
+                        location.href="http://www.coocir.com/timebank/user/realnameNotification";
                     }
                     //...
                 },

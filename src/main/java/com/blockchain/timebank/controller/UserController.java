@@ -136,6 +136,12 @@ public class UserController {
         return status;
     }
 
+    //实名认证成功后跳转
+    @RequestMapping(value = "/realnameNotification",method = RequestMethod.GET)
+    public String realnameNotification(ModelMap map){
+        return "realname_notification";
+    }
+
     //跳转到修改个人信息页面
     @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)
     public String startModifyPersonalInfo(ModelMap map){
