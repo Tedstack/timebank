@@ -99,7 +99,7 @@
                             if(data==="ok"){
                                 showAlert("更改成功",function () {
                                     goTo(targetUrl2);
-                                })
+                                });
                             }else if(data==="error"){
                                 showAlert("更改失败");
                             }else{

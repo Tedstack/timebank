@@ -1,6 +1,7 @@
 package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
+import com.blockchain.timebank.entity.TeamEntity;
 import com.blockchain.timebank.entity.TeamUserEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.TeamService;
@@ -17,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/team")
 public class TeamController {
     @Autowired
-    private TeamUserService teamUserService;
+    TeamUserService teamUserService;
 
     @Autowired
     UserService userService;
@@ -31,21 +33,47 @@ public class TeamController {
     @Autowired
     ViewTeamDetailDao viewTeamDetailDao;
 
+    @Autowired
+    TeamService teamService;
+
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
+        List<TeamUserEntity> allTeamUser = teamUserService.findAll();
+        List<Long> alreadyInTeamList = new ArrayList<Long>();
+
+        //从所有用户加入的团队中找到自己已经加入的团队
+        for(int i=0;i<allTeamUser.size();i++){
+            if(allTeamUser.get(i).getUserId()==getCurrentUser().getId()){
+                alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
+            }
+        }
+
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
+        map.addAttribute("alreadyInList", alreadyInTeamList);
         return "choose_team";
     }
 
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
     @ResponseBody
     public String addUserToTeam(ModelMap map, @RequestParam List<Long> teamIDList) {
+        List<TeamUserEntity> allTeamUser = teamUserService.findAll();
         for(int i=0;i<teamIDList.size();i++){
-            TeamUserEntity teamUser = new TeamUserEntity();
+            boolean add = true;
+            for(int j=0;j<allTeamUser.size();j++){
+                //判断要加入的团队是否之前已经加入过
+                if((allTeamUser.get(j).getTeamId()==teamIDList.get(i))&&(allTeamUser.get(j).getUserId()==getCurrentUser().getId())){
+                    add = false;
+                    break;
+                }
+            }
 
-            teamUser.setTeamId(teamIDList.get(i));
-            teamUser.setUserId(getCurrentUser().getId());
-            teamUserService.addUserToTeam(teamUser);
+            if(add){
+                TeamUserEntity teamUser = new TeamUserEntity();
+
+                teamUser.setTeamId(teamIDList.get(i));
+                teamUser.setUserId(getCurrentUser().getId());
+                teamUserService.addUserToTeam(teamUser);
+            }
         }
         JSONObject result = new JSONObject();
         result.put("msg","ok");

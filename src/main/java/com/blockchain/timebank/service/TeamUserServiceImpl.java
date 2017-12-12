@@ -5,6 +5,8 @@ import com.blockchain.timebank.entity.TeamUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeamUserServiceImpl implements TeamUserService {
 
@@ -13,5 +15,9 @@ public class TeamUserServiceImpl implements TeamUserService {
 
     public TeamUserEntity addUserToTeam(TeamUserEntity teamUser) {
         return teamUserDao.save(teamUser);
+    }
+
+    public List<TeamUserEntity> findAll() {
+        return (List<TeamUserEntity>) teamUserDao.findAll();
     }
 }

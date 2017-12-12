@@ -25,6 +25,7 @@
 <body>
 <%
     List<ViewTeamDetailEntity> teamList = (List<ViewTeamDetailEntity>) request.getAttribute("list");
+    List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -71,18 +72,42 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var alreadyInTeamList = '<%=alreadyInTeamList%>';
     $(function() {
+        //var checkbox = document.getElementsByName("checkbox1");
+        /*for(i in checkbox){
+            if(checkbox[i].checked){
+                checkbox[i].setAttribute();
+            }
+        }*/
+        var contextPath="${pageContext.request.contextPath}"
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+        var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/";
+
+        var check = document.getElementsByName("checkbox1");
+        //勾选已经加入的团体
+        /*jQuery.each(alreadyInTeamList, function(i,item){
+            showAlert(item);
+        });*/
+        for(var i in check){
+            var id = check[i].id;
+            for(var j=0;j<alreadyInTeamList.length;j++){
+                if(id===alreadyInTeamList[j]){
+                    check[i].setAttribute('checked','checked');
+                    check[i].setAttribute('disabled','true');
+                }
+            }
+        }
+
+
         $("#btn").on('click', function () {
-            var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/startModifyPersonalInfo";
             var obj = document.getElementsByName("checkbox1");
             var check_val = [];
-            for(k in obj){
-                if(obj[k].checked)
+            for(var k in obj){
+                if(obj[k].checked){
                     check_val.push(obj[k].id);
+                }
             }
-            //showAlert("被选择的团体为:团体"+check_val.length);
 
             if(check_val.length!==0){
                 $.ajax({
@@ -100,18 +125,13 @@
                         var dataJson = JSON.parse(value);
 
                         if(dataJson.msg==="ok"){
-                            showAlert("ok");
-                        }
-                        /*if(data==="ok"){
                             showAlert("加入成功",function () {
                                 goTo(targetUrl2);
-                            })
-                        }else{
-                            showAlert("加入失败");
-                        }*/
+                            });
+                        }
                     },
                     error: function (xhr, type) {
-                        showAlert("加入失败"+type);
+                        showAlert("加入失败");
                     },
                     complete: function (xhr, type) {
                         dialogLoading.hide();
