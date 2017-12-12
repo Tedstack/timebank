@@ -52,7 +52,7 @@ public class NetWorkHelper {
             while ((inputLine = bufferReader.readLine()) != null) {
                 resultData += inputLine + "\n";
             }
-            System.out.println("NetWorkHelper:"+resultData);
+            //System.out.println("NetWorkHelper:"+resultData);
 
 
             Certificate[] certs = con.getServerCertificates();

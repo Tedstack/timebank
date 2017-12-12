@@ -80,7 +80,7 @@
                 var targetUrl = "http://"+getDomainName()+contextPath+"/user/modifyPersonalInfo";
                 var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/startModifyPersonalInfo";
                 var curqrcode = $('#curqrcode').text();
-                var re = /^[a-zA-Z]\d{8}$/
+                var re = /^[a-zA-Z]\d{8}$/;
                 if(!re.test(curqrcode)) {
                     showAlert("此二维码非邻里智助官方二维码！");
                     return;
@@ -100,25 +100,14 @@
                                 showAlert("更改成功",function () {
                                     goTo(targetUrl2);
                                 })
-                                //showAlert("更改成功");
                             }else if(data==="error"){
-                                /*showAlert("更改失败",function () {
-                                    goTo("http://www.hlb9978.com/user/endModifyPersonalInfo?status="+data);
-                                })*/
                                 showAlert("更改失败");
                             }else{
                                 showAlert("该二维码已被他人注册");
                             }
-                            /*showAlert("支付成功",function () {
-                                goTo("http://www.hlb9978.com/user/queryOrderAlreadyComplete");
-                            })*/
                         },
                         error: function (xhr, type) {
-                            alert(type);
                             showAlert("更改失败");
-                            /*showAlert("支付失败",function () {
-                                //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
-                            })*/
                         },
                         complete: function (xhr, type) {
                             dialogLoading.hide();

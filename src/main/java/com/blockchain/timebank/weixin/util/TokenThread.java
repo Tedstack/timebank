@@ -25,8 +25,8 @@ public class TokenThread implements Runnable {
                 accessToken = this.getAccessToken();
                 jsapiTicket = this.getJsapiTicket();
                 if (null != accessToken) {
-                    System.out.println("TokenThread:"+accessToken.getAccessToken());
-                    System.out.println("TokenThread:"+jsapiTicket.getJsapiTicket());
+                    //System.out.println("TokenThread:"+accessToken.getAccessToken());
+                    //System.out.println("TokenThread:"+jsapiTicket.getJsapiTicket());
                     Thread.sleep(7000 * 1000); //获取到access_token 休眠7000秒
 
                 } else {
@@ -34,7 +34,7 @@ public class TokenThread implements Runnable {
                 }
             } catch (Exception e) {
                 //System.out.println("发生异常：" + e.getMessage());
-                e.printStackTrace();
+                //e.printStackTrace();
                 try {
                     Thread.sleep(1000 * 10); //发生异常休眠1秒
                 } catch (Exception e1) {

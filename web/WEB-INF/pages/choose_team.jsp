@@ -16,6 +16,11 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <link href="../css/mobile-main.css" rel="stylesheet" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 <%
@@ -34,9 +39,9 @@
                     <%
                         for (int i=0;i<teamList.size();i++) {
                     %>
-                    <label class="weui-cell weui-check__label" for=<%out.print(i);%>>
+                    <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
                         <div class="weui-cell__hd">
-                            <input type="checkbox" class="weui-check" name="checkbox1" value=<%out.print(teamList.get(i).getName());%> id=<%out.print(i);%>>
+                            <input type="checkbox" class="weui-check" name="checkbox1" value=<%out.print(teamList.get(i).getName());%> id=<%out.print(teamList.get(i).getId());%>>
                             <i class="weui-icon-checked"></i>
                         </div>
                         <div class="weui-cell__bd">
@@ -65,16 +70,56 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script>
+<script type="text/javascript">
     $(function() {
         $("#btn").on('click', function () {
+            var contextPath="${pageContext.request.contextPath}"
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/startModifyPersonalInfo";
             var obj = document.getElementsByName("checkbox1");
             var check_val = [];
             for(k in obj){
                 if(obj[k].checked)
-                    check_val.push(obj[k].value);
+                    check_val.push(obj[k].id);
             }
-            alert("被选择的团体为:团体"+check_val);
+            //showAlert("被选择的团体为:团体"+check_val.length);
+
+            if(check_val.length!==0){
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    dataType:'json',
+                    traditional:true,
+                    data: {"teamIDList":check_val},
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        var value = JSON.stringify(data);
+                        var dataJson = JSON.parse(value);
+
+                        if(dataJson.msg==="ok"){
+                            showAlert("ok");
+                        }
+                        /*if(data==="ok"){
+                            showAlert("加入成功",function () {
+                                goTo(targetUrl2);
+                            })
+                        }else{
+                            showAlert("加入失败");
+                        }*/
+                    },
+                    error: function (xhr, type) {
+                        showAlert("加入失败"+type);
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
+                    }
+                });
+            }else{
+                showAlert("请选择要加入的团体");
+            }
         });
     });
 </script>

@@ -203,7 +203,7 @@ public class UserController {
                 file.transferTo(imgFile);
                 file2.transferTo(imgFile2);
                 userService.updateUserEntity(user);
-                msg = "success";
+                msg = "upload success";
             } catch (Exception e) {
                 msg = "failure";
                 e.printStackTrace();
