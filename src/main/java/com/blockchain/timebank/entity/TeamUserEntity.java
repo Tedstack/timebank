@@ -8,6 +8,7 @@ public class TeamUserEntity {
     private long id;
     private long teamId;
     private long userId;
+    private boolean isLocked;
     private String extra;
 
     @Id
@@ -41,6 +42,16 @@ public class TeamUserEntity {
     }
 
     @Basic
+    @Column(name = "IsLocked", nullable = false)
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -60,6 +71,7 @@ public class TeamUserEntity {
         if (id != that.id) return false;
         if (teamId != that.teamId) return false;
         if (userId != that.userId) return false;
+        if (isLocked != that.isLocked) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -70,6 +82,7 @@ public class TeamUserEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (isLocked ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

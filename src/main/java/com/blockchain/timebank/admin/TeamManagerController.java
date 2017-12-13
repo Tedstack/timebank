@@ -1,10 +1,14 @@
 package com.blockchain.timebank.admin;
 
+import com.blockchain.timebank.dao.TeamUserDao;
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
 import com.blockchain.timebank.dao.ViewTeamUserDetailDao;
 import com.blockchain.timebank.entity.TeamEntity;
+import com.blockchain.timebank.entity.TeamUserEntity;
 import com.blockchain.timebank.entity.ViewTeamDetailEntity;
+import com.blockchain.timebank.entity.ViewTeamUserDetailEntity;
 import com.blockchain.timebank.service.TeamService;
+import com.blockchain.timebank.service.TeamUserService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +28,9 @@ public class TeamManagerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    TeamUserService teamUserService;
 
     @Autowired
     ViewTeamDetailDao viewTeamDetailDao;
@@ -115,10 +122,12 @@ public class TeamManagerController {
     }
 
 
-    @RequestMapping(value = "/teamUserDeleteSubmit", method = RequestMethod.POST)
-    public String teamUserDeleteSubmit(ModelMap map, @RequestParam long teamId, @RequestParam long userId) {
-        // to do
-        return "../admin/team_user_list";
+    @RequestMapping(value = "/teamUserLockSubmit", method = RequestMethod.POST)
+    public String teamUserLockSubmit(ModelMap map, @RequestParam long id, @RequestParam long teamId, @RequestParam boolean isLock) {
+        TeamUserEntity teamUserEntity = teamUserService.findById(id);
+        teamUserEntity.setLocked(isLock);
+        teamUserService.saveTeamUser(teamUserEntity);
+        map.addAttribute("teamId",teamId);
+        return "redirect:/admin/teamUserList";
     }
-
 }

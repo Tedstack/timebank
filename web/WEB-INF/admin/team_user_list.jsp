@@ -35,7 +35,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/admin/index">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
             <li class="breadcrumb-item active"> <span class="badge badge-primary"><%=teamDetailEntity.getName()%></span> 团体成员列表</li>
         </ol>
@@ -53,6 +53,7 @@
                             <th>手机号</th>
                             <th>性别</th>
                             <th>出生年月</th>
+                            <th>是否被锁定</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -62,11 +63,28 @@
                             for (ViewTeamUserDetailEntity teamUserEntity : list) {
                         %>
                         <tr>
-                            <td><%=teamUserEntity.getUserName()%></td>
+                            <td>
+                                <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=teamUserEntity.getUserId()%>' target='_blank' class='btn btn-link'><%=teamUserEntity.getUserName()%></a>
+                            </td>
                             <td><%=teamUserEntity.getUserPhone()%></td>
                             <td><%=teamUserEntity.getUserSex()%></td>
                             <td><%=teamUserEntity.getUserBirth()%></td>
-                            <td></td>
+                            <td><%=teamUserEntity.isLocked()?"是":"否"%></td>
+                            <td>
+                                <%
+                                    if(teamUserEntity.isLocked()){
+                                %>
+                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#unlockModal" data-whatever="<%=teamUserEntity.getId()%>">解锁</button>
+                                <%
+                                    }
+                                    else{
+                                %>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#lockModal" data-whatever="<%=teamUserEntity.getId()%>">锁定</button>
+                                <%
+                                    }
+                                %>
+
+                            </td>
                         </tr>
                         <%
                             }
@@ -85,7 +103,7 @@
     <jsp:include page="footer.jsp"/>
 
 
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -95,13 +113,40 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>您确认要删除吗？</p>
+                    <p>您确认要锁定该用户吗？锁定后该用户将不能申请团体组织的活动</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <form action="${pageContext.request.contextPath}/admin/teamUserDeleteSubmit" method="post">
-                        <input style="display: none" name="userId">
-                        <button type="submit" class="btn btn-danger">是的，确定删除！</button>
+                    <form action="${pageContext.request.contextPath}/admin/teamUserLockSubmit" method="post">
+                        <input style="display: none" name="id">
+                        <input style="display: none" name="teamId" value="<%=teamDetailEntity.getId()%>" >
+                        <input style="display: none" name="isLock" value="1">
+                        <button type="submit" class="btn btn-danger">是的，确定锁定！</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="unlockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">提示信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>您确认要解锁该用户吗？解锁后该用户可以正常申请团体组织的活动</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form action="${pageContext.request.contextPath}/admin/teamUserLockSubmit" method="post">
+                        <input style="display: none" name="id">
+                        <input style="display: none" name="teamId" value="<%=teamDetailEntity.getId()%>" >
+                        <input style="display: none" name="isLock" value="0">
+                        <button type="submit" class="btn btn-success">是的，确定解锁！</button>
                     </form>
                 </div>
             </div>
@@ -123,10 +168,15 @@
 
 
     <script>
-        $('#deleteModal').on('show.bs.modal', function (event) {
+        $('#lockModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
-            var userId = button.data('whatever');
-            $(this).find('.modal-footer input').val(userId);
+            var id = button.data('whatever');
+            $(this).find('.modal-footer input:eq(0)').val(id);
+        });
+        $('#unlockModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('whatever');
+            $(this).find('.modal-footer input:eq(0)').val(id);
         });
     </script>
 

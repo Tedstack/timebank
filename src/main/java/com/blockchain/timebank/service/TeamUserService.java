@@ -8,4 +8,8 @@ public interface TeamUserService {
     TeamUserEntity addUserToTeam(TeamUserEntity teamUser);
 
     List<TeamUserEntity> findAll();
+
+    TeamUserEntity findById(long id);
+
+    TeamUserEntity saveTeamUser(TeamUserEntity teamUserEntity);
 }
