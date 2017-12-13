@@ -39,7 +39,6 @@ public class RecordController {
     @Autowired
     PublishService publishService;
 
-
     //申请服务页面
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public String applyPage(ModelMap map, long id) {
@@ -49,19 +48,7 @@ public class RecordController {
         map.addAttribute("phone", userEntity.getPhone());
         return "record_apply";
     }
-    // 申请评价页面
-    @RequestMapping(value = "/rate", method = RequestMethod.GET)
-    public String ratePage(ModelMap map) {
 
-        return "rate";
-    }
-
-    // 申请活动列表页面
-    @RequestMapping(value = "/activities", method = RequestMethod.GET)
-    public String activities(ModelMap map) {
-
-        return "activities";
-    }
     //申请已申请的活动页面（参与活动）
     @RequestMapping(value = "/yishenqing_activities", method = RequestMethod.GET)
     public String Yisheningactivities(ModelMap map) {
@@ -81,11 +68,7 @@ public class RecordController {
     public String Yiwanchengactivities(ModelMap map) {
         return "activities_yiwancheng_volunteer";
     }
-    //申请活动详情的界面（参与活动）
-    @RequestMapping(value = "/detail_activities", method = RequestMethod.GET)
-    public String Detailactivities(ModelMap map) {
-        return "activities_details";
-    }
+
     //申请发布团体活动页面
     @RequestMapping(value = "/activities_add", method = RequestMethod.GET)
     public String addactivities(ModelMap map) {

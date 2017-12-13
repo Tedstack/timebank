@@ -24,4 +24,8 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
     public ActivityPublishEntity saveActivityPublishEntity(ActivityPublishEntity activityPublishEntity) {
         return activityPublishDao.save(activityPublishEntity);
     }
+
+    public ActivityPublishEntity findActivityPublishEntityByID(long ID) {
+        return activityPublishDao.findOne(ID);
+    }
 }

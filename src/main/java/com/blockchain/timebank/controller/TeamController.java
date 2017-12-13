@@ -1,9 +1,11 @@
 package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
+import com.blockchain.timebank.entity.ActivityPublishEntity;
 import com.blockchain.timebank.entity.TeamEntity;
 import com.blockchain.timebank.entity.TeamUserEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.ActivityPublishService;
 import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.TeamUserService;
 import com.blockchain.timebank.service.UserService;
@@ -35,6 +37,9 @@ public class TeamController {
 
     @Autowired
     TeamService teamService;
+
+    @Autowired
+    ActivityPublishService activityPublishService;
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -78,6 +83,21 @@ public class TeamController {
         JSONObject result = new JSONObject();
         result.put("msg","ok");
         return result.toString();
+    }
+
+    // 所有团队活动列表页面
+    @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
+    public String activities(ModelMap map) {
+        map.addAttribute("activityList",activityPublishService.findAllByDeleted(false));
+        return "team_activities";
+    }
+
+    // 团队活动详情页面
+    @RequestMapping(value = "/teamActivityDetails", method = RequestMethod.GET)
+    public String teamActivityDetails(ModelMap map, @RequestParam long activityID) {
+        ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(activityID);
+        map.addAttribute("activity",activity);
+        return "activities_details";
     }
 
     private UserEntity getCurrentUser() {

@@ -133,7 +133,7 @@
             </div>
             <div class="weui-grids">
 
-                <a href="${pageContext.request.contextPath}/record/activities" class="weui-grid">
+                <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-grid">
                     <div class="weui-grid__icon">
                         <img src="img/userdetails/专业服务认证.png" alt="">
                     </div>

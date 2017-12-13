@@ -1,4 +1,7 @@
-<%--
+<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/7
@@ -20,6 +23,9 @@
     <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.0.min.css">
 </head>
 <body>
+<%
+    ActivityPublishEntity activity = (ActivityPublishEntity) request.getAttribute("activity");
+%>
 <!-- 使用 -->
 
 <div class="weui-tab">
@@ -31,10 +37,10 @@
                 <div class="shop-logo">
                     <img src="../img/服务名称/代购.png" alt="">
                 </div>
-                <div class="txt">团体活动1</div>
-                <div class="tags-rz">
+                <div class="txt"><%out.print(activity.getName());%></div>
+                <%--<div class="tags-rz">
                     <span class="tag-sm">志愿者活动</span>
-                </div>
+                </div>--%>
             </a>
         </div>
 
@@ -44,37 +50,56 @@
                 <div class="weui-cell__bd">
                     <p>活动名称</p>
                 </div>
-                <div class="weui-cell__ft">XXX</div>
+                <div class="weui-cell__ft"><%out.print(activity.getName());%></div>
             </div>
             <div class="weui-cell">
                 <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
-                    <p>开始日期</p>
-                </div>
-                <div class="weui-cell__ft">...</div>
-            </div>
-            <div class="weui-cell">
-                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
-                <div class="weui-cell__bd">
-                    <p>结束日期</p>
+                    <p>开始时间</p>
                 </div>
                 <div class="weui-cell__ft">
-                    ...
+                    <%
+                        Timestamp beginTimestamp = activity.getBeginTime();
+                        Date date = new Date(beginTimestamp.getTime());
+                        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        out.print(bartDateFormat.format(date));
+                    %>
                 </div>
             </div>
             <div class="weui-cell">
                 <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
-                    <p>活动回报</p>
+                    <p>结束时间</p>
                 </div>
-                <div class="weui-cell__ft">x时间币</div>
+                <div class="weui-cell__ft">
+                    <%
+                        Timestamp endTimestamp = activity.getEndTime();
+                        Date date2 = new Date(endTimestamp.getTime());
+                        SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        out.print(bartDateFormat2.format(date2));
+                    %>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
+                <div class="weui-cell__bd">
+                    <p>申请结束时间</p>
+                </div>
+                <div class="weui-cell__ft">
+                    <%
+                        Timestamp applyEndTimestamp = activity.getApplyEndTime();
+                        Date date3 = new Date(applyEndTimestamp.getTime());
+                        SimpleDateFormat bartDateFormat3 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        out.print(bartDateFormat3.format(date3));
+                    %>
+                </div>
             </div>
             <div class="weui-cell">
                 <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>活动地点</p>
                 </div>
-                <div class="weui-cell__ft">...</div>
+                <div class="weui-cell__ft"><%out.print(activity.getAddress());%></div>
             </div>
         </div>
 
@@ -82,7 +107,7 @@
             <div class="title">
                 <span>详情描述</span>
             </div>
-            <div class="con_u">由...发起的面向...的活动</div>
+            <div class="con_u"><%out.print(activity.getDescription());%></div>
         </div>
 
 

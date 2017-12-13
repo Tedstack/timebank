@@ -11,4 +11,6 @@ public interface ActivityPublishService {
     List<ActivityPublishEntity> findAllActivityPublishEntity();
 
     ActivityPublishEntity saveActivityPublishEntity(ActivityPublishEntity activityPublishEntity);
+
+    ActivityPublishEntity findActivityPublishEntityByID(long ID);
 }
