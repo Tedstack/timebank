@@ -167,14 +167,14 @@
                         专业服务
                     </p>
                 </a>
-                <a href="${pageContext.request.contextPath}/publish/list?type=社区O2O服务" class="weui-grid">
+                <%--<a href="${pageContext.request.contextPath}/publish/list?type=社区O2O服务" class="weui-grid">
                     <div class="weui-grid__icon">
                         <img src="img/服务类型/社区O2O.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         社区O2O服务
                     </p>
-                </a>
+                </a>--%>
             </div>
         </div>
 

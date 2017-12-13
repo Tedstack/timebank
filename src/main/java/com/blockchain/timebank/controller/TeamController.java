@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -98,6 +102,33 @@ public class TeamController {
         ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(activityID);
         map.addAttribute("activity",activity);
         return "activities_details";
+    }
+
+    // 发布活动
+    @RequestMapping(value = "/publishActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String publishActivity(ModelMap map, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
+            ,@RequestParam String endTime ,@RequestParam String applyEndTime, @RequestParam int count, @RequestParam String address) {
+        try {
+            ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+            activityPublishEntity.setDeleted(false);
+            activityPublishEntity.setName(activityName);
+            activityPublishEntity.setDescription(description);
+            Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
+            Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " "));
+            Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
+            activityPublishEntity.setBeginTime(new Timestamp(beginDate.getTime()));
+            activityPublishEntity.setEndTime(new Timestamp(endDate.getTime()));
+            activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
+            activityPublishEntity.setAddress(address);
+            activityPublishEntity.setCount(count);
+            activityPublishEntity.setPublic(true);
+            activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "error";
+        }
+        return "ok";
     }
 
     private UserEntity getCurrentUser() {
