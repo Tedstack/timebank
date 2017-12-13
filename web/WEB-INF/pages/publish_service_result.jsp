@@ -42,7 +42,7 @@
     </div>
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-            <a href="${pageContext.request.contextPath}/index" class="weui-btn weui-btn_primary">返回首页</a>
+            <a href="${pageContext.request.contextPath}/user/startRealNameAuth" class="weui-btn weui-btn_primary">前往实名认证</a>
         </p>
     </div>
 </div>

@@ -60,7 +60,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd"><p>开始时间</p></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" name="beginTime" type="datetime-local" value="" placeholder=""/>
+                    <input class="weui-input" name="beginTime" type="datetime-local" value=""/>
                 </div>
             </div>
 
