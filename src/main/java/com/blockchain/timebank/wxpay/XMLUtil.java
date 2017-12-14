@@ -1,7 +1,7 @@
 package com.blockchain.timebank.wxpay;
 
 /**
- * 支付过程中对XML文件的处理和转化
+ * 支付过程中对XML文件的解析
  */
 
 import org.jdom.Document;

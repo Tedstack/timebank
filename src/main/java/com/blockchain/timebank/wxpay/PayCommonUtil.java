@@ -72,7 +72,8 @@ public class PayCommonUtil {
      * @param parameters 请求参数
      * @return
      */
-    public static String createSign(String characterEncoding,SortedMap<Object,Object> parameters){
+   // public static String createSign(String characterEncoding,SortedMap<Object,Object> parameters){
+    public static String createSign(String characterEncoding,SortedMap<String,String> parameters){
         StringBuffer sb = new StringBuffer();
         Set es = parameters.entrySet();
         Iterator it = es.iterator();
@@ -185,7 +186,7 @@ public class PayCommonUtil {
      *
      * @param requestUrl 请求地址
      * @param requestMethod 请求方式（GET、POST）
-     * @param outputStr 提交的数据
+     * //@param outputStr 提交的数据
      * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
      */
     public static JSONObject httpsRequest(String requestUrl, String requestMethod) {
