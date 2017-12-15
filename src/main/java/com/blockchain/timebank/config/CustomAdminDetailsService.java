@@ -1,10 +1,7 @@
 package com.blockchain.timebank.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.blockchain.timebank.entity.UserEntity;
-import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.entity.UserAuthEntity;
+import com.blockchain.timebank.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,27 +12,33 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomAdminDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    UserAuthService userAuthService;
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserEntity userEntity = userService.findUserEntityByPhone(s);
-        if (userEntity == null) {
+        UserAuthEntity userAuthEntity = userAuthService.findUserAuthEntityByPhone(s);
+        if (userAuthEntity == null) {
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-        return new User(userEntity.getPhone(), userEntity.getPassword(),
-                true, true, true, true, getUserGrantedAuthorities());
+        return new User(userAuthEntity.getPhone(), userAuthEntity.getPassword(), true, true, true, true, getUserGrantedAuthorities(userAuthEntity.getAuthority()));
     }
 
-    private List<GrantedAuthority> getUserGrantedAuthorities() {
+    private List<GrantedAuthority> getUserGrantedAuthorities(String authority) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        List<String> auth_list = userAuthService.getAllAuthoritiesFromJSONString(authority);
+        for (String auth : auth_list) {
+            authorities.add(new SimpleGrantedAuthority(auth));
+        }
         return authorities;
     }
 }

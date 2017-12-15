@@ -1,3 +1,4 @@
+<%@ page import="com.blockchain.timebank.config.UserAuthRole" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>团体活动发布</title>
+    <title>后台用户添加</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -30,13 +31,13 @@
             <li class="breadcrumb-item">
                 <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">团体活动发布</li>
+            <li class="breadcrumb-item active">后台用户添加</li>
         </ol>
 
         <!-- Example Bar Chart Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-bar-chart"></i> 团体活动信息
+                <i class="fa fa-bar-chart"></i> 用户信息
             </div>
             <div class="card-body">
 
@@ -51,85 +52,83 @@
                     }
                 %>
 
-                <form action="${pageContext.request.contextPath}/admin/activityPublishAddSubmit" method="post">
+                <form action="${pageContext.request.contextPath}/admin/userAuthAddSubmit" method="post">
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">活动名称</label>
+                        <label class="col-sm-1 col-form-label">姓名</label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="name" placeholder="请输入名称" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">活动简介</label>
+                        <label class="col-sm-1 col-form-label">手机号</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" name="description" placeholder="请输入描述" rows="6" required></textarea>
+                            <input class="form-control" type="text" name="phone" pattern="[0-9]{11}" placeholder="请输入手机号" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">开始时间</label>
+                        <label class="col-sm-1 col-form-label">密码</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="datetime-local" name="beginTime" required>
+                            <input class="form-control" type="password" name="password" placeholder="请输入密码" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">活动时长</label>
+                        <label class="col-sm-1 col-form-label">重复密码</label>
                         <div class="col-sm-4">
-                            <select name="serveTime" class="form-control">
-                                <option value="1">1小时</option>
-                                <option value="2">2小时</option>
-                                <option value="3">3小时</option>
-                                <option value="4">4小时</option>
-                                <option value="5">5小时</option>
-                                <option value="6">6小时</option>
-                                <option value="7">7小时</option>
-                                <option value="8">8小时</option>
-                                <option value="9">9小时</option>
-                                <option value="10">10小时</option>
-                            </select>
+                            <input class="form-control" type="password" name="password2" placeholder="请再次输入密码" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">活动地点</label>
+                        <label class="col-sm-1 col-form-label">选择管理权限（可多选）</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" name="address" placeholder="请输入地点" rows="2" required></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">活动人数</label>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="number" name="peopleCount" placeholder="请输入人数" required>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">申请截止时间</label>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="datetime-local" name="applyEndTime" required>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">是否公开</label>
-                        <div class="col-sm-4">
-                            <select name="IsPublic" class="form-control">
-                                <option value="1">是</option>
-                                <option value="0">否</option>
-                            </select>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_USER_MANAGE%>"> 用户管理
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_SERVICE_MANAGE%>"> 服务种类管理
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_PUBLISH_MANAGE%>"> 服务发布管理
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_RECORD_MANAGE%>"> 订单管理
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_TEAM_MANAGE%>"> 志愿者团队管理
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_ACTIVITY_MANAGE%>"> 团队活动管理
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="auth" value="<%=UserAuthRole.ROLE_USER_AUTH_MANAGE%>"> 后台用户管理
+                                </label>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-5">
-                            <button type="submit" class="btn btn-primary btn-block">发 布</button>
+                            <button type="submit" class="btn btn-primary btn-block">添 加</button>
                         </div>
                     </div>
+
                 </form>
             </div>
             <%--<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>--%>

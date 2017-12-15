@@ -1,3 +1,10 @@
+<%@ page import="org.springframework.security.core.userdetails.UserDetails" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.core.GrantedAuthority" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.blockchain.timebank.config.UserAuthRole" %>
 <%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -6,6 +13,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<%
+    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+    List<String> roles = new ArrayList<>();
+    for (GrantedAuthority a : authorities) {
+        roles.add(a.getAuthority());
+    }
+%>
+
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/index">邻里智助后台管理</a>
@@ -21,101 +39,147 @@
                 </a>
             </li>
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUser" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-user"></i>
-                    <span class="nav-link-text">用户管理</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseUser">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/userList">用户列表</a>
+            <%
+                if(roles.contains(UserAuthRole.ROLE_USER_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUser" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-user"></i>
+                            <span class="nav-link-text">用户管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseUser">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userList">用户列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userVerifyList">审核认证</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userAdd">添加用户</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userAddMany">批量导入</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/userVerifyList">审核认证</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/userAdd">添加用户</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/userAddMany">批量导入</a>
-                    </li>
-                </ul>
-            </li>
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseService" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-gratipay"></i>
-                    <span class="nav-link-text">服务种类管理</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseService">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/serviceList">服务种类列表</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/serviceAdd">添加服务种类</a>
-                    </li>
-                </ul>
-            </li>
+            <%
+                }
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePublish" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-paper-plane"></i>
-                    <span class="nav-link-text">服务发布管理</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapsePublish">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/publishList">已发布服务列表</a>
+                if(roles.contains(UserAuthRole.ROLE_SERVICE_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseService" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-gratipay"></i>
+                            <span class="nav-link-text">服务种类管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseService">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/serviceList">服务种类列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/serviceAdd">添加服务种类</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/publishAdd">后台发布服务</a>
-                    </li>
-                </ul>
-            </li>
+            <%
+                }
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRecord" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-calendar-check-o"></i>
-                    <span class="nav-link-text">订单管理</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseRecord">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/recordList">订单列表</a>
+                if(roles.contains(UserAuthRole.ROLE_PUBLISH_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePublish" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-paper-plane"></i>
+                            <span class="nav-link-text">服务发布管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapsePublish">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/publishList">已发布服务列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/publishAdd">后台发布服务</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/recordAddChoosePublish">帮助预约</a>
-                    </li>
-                </ul>
-            </li>
+            <%
+                }
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseTeam" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-group"></i>
-                    <span class="nav-link-text">志愿者团体管理</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseTeam">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/teamList">团体列表</a>
+                if(roles.contains(UserAuthRole.ROLE_RECORD_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRecord" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-calendar-check-o"></i>
+                            <span class="nav-link-text">订单管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseRecord">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/recordList">订单列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/recordAddChoosePublish">帮助预约</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/teamAdd">添加团体</a>
-                    </li>
-                </ul>
-            </li>
+            <%
+                }
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseActivity" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-handshake-o"></i>
-                    <span class="nav-link-text">团队活动管理</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseActivity">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/activityPublishList">团队活动列表</a>
+                if(roles.contains(UserAuthRole.ROLE_TEAM_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseTeam" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-group"></i>
+                            <span class="nav-link-text">志愿者团体管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseTeam">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/teamList">团体列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/teamAdd">添加团体</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/activityPublishAdd">团队活动发布</a>
+            <%
+                }
+
+                if(roles.contains(UserAuthRole.ROLE_ACTIVITY_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseActivity" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-handshake-o"></i>
+                            <span class="nav-link-text">团队活动管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseActivity">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/activityPublishList">团队活动列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/activityPublishAdd">团队活动发布</a>
+                            </li>
+                        </ul>
                     </li>
-                </ul>
-            </li>
+            <%
+                }
+
+                if(roles.contains(UserAuthRole.ROLE_USER_AUTH_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUserAuth" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-cogs"></i>
+                            <span class="nav-link-text">后台用户权限管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseUserAuth">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userAuthList">后台用户列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userAuthAdd">添加后台用户</a>
+                            </li>
+                        </ul>
+                    </li>
+            <%
+                }
+            %>
 
 
         <%--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">--%>

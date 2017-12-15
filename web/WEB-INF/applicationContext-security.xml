@@ -5,7 +5,7 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-    <http auto-config="true" pattern="/admin/**" authentication-manager-ref="authenticationManager">
+    <http auto-config="true" pattern="/admin/**" authentication-manager-ref="adminAuthenticationManager">
         <intercept-url pattern="/admin/login**" access="permitAll()" />
         <intercept-url pattern="/admin/img/**" access="permitAll()"/>
         <intercept-url pattern="/admin/css/**" access="permitAll()"/>
@@ -22,7 +22,7 @@
     </http>
 
 
-    <http auto-config="true" pattern="/**" authentication-manager-ref="authenticationManager">
+    <http auto-config="true" pattern="/**" authentication-manager-ref="userAuthenticationManager">
         <intercept-url pattern="/img/**" access="permitAll()"/>
         <intercept-url pattern="/css/**" access="permitAll()"/>
         <intercept-url pattern="/js/**" access="permitAll()"/>
@@ -39,12 +39,15 @@
                      token-validity-seconds="86400"/>
     </http>
 
-    <authentication-manager id="authenticationManager">
+    <authentication-manager id="adminAuthenticationManager">
+        <authentication-provider user-service-ref="customAdminDetailsService"/>
+    </authentication-manager>
+
+    <authentication-manager id="userAuthenticationManager">
         <authentication-provider user-service-ref="customUserDetailsService"/>
     </authentication-manager>
 
-    <!--<beans:bean id="customAuthenticationProvider" class="com.blockchain.timebank.config.CustomAuthenticationProvider"/>-->
-    <!--<beans:bean id="customSuccessHandler" class="com.blockchain.timebank.config.CustomSuccessHandler"/>-->
+    <beans:bean id="customAdminDetailsService" class="com.blockchain.timebank.config.CustomAdminDetailsService"/>
     <beans:bean id="customUserDetailsService" class="com.blockchain.timebank.config.CustomUserDetailsService"/>
 
 </beans:beans>

@@ -6,7 +6,9 @@ import javax.persistence.*;
 @Table(name = "userAuth", schema = "mydb", catalog = "")
 public class UserAuthEntity {
     private long id;
-    private long userId;
+    private String name;
+    private String phone;
+    private String password;
     private String authority;
     private String extra;
 
@@ -21,13 +23,33 @@ public class UserAuthEntity {
     }
 
     @Basic
-    @Column(name = "UserID", nullable = false)
-    public long getUserId() {
-        return userId;
+    @Column(name = "Name", nullable = false, length = 20)
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Basic
+    @Column(name = "Phone", nullable = false, length = 20)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Basic
+    @Column(name = "Password", nullable = false, length = 45)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Basic
@@ -58,7 +80,9 @@ public class UserAuthEntity {
         UserAuthEntity that = (UserAuthEntity) o;
 
         if (id != that.id) return false;
-        if (userId != that.userId) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (authority != null ? !authority.equals(that.authority) : that.authority != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
@@ -68,7 +92,9 @@ public class UserAuthEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (authority != null ? authority.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;

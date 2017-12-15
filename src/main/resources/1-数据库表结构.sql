@@ -25,18 +25,18 @@ CREATE TABLE `user` (
 ALTER TABLE `user`
   ADD UNIQUE KEY `Phone` (`Phone`);
 
-# userAuth 用户权限表
+# userAuth 后台管理用户权限表
 CREATE TABLE `userAuth` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
-  `Authority` VARCHAR(50) NOT NULL COMMENT '用户所拥有的权限',
+  `Name` VARCHAR(20) NOT NULL COMMENT '姓名',
+  `Phone` VARCHAR(20) NOT NULL COMMENT '手机号',
+  `Password` VARCHAR(45) NOT NULL COMMENT '密码',
+  `Authority` VARCHAR(500) NOT NULL COMMENT '用户所拥有的权限', #用一个JSONArray字符串表示，例如["ROLE_1","ROLE_2",...]
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户权限表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='后台管理用户权限表';
 ALTER TABLE `userAuth`
-  ADD KEY `UserID` (`UserID`);
-ALTER TABLE `userAuth`
-  ADD CONSTRAINT `userAuth_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
+  ADD UNIQUE KEY `Phone` (`Phone`);
 
 # service 服务种类表
 CREATE TABLE `service` (
@@ -164,7 +164,7 @@ CREATE TABLE `activityPublish` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
 
-# user 用户充值表
+# recharge 用户充值表
 CREATE TABLE `recharge` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
   `userID` BIGINT(20) NOT NULL COMMENT '用户编号',

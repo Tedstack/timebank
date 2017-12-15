@@ -26,12 +26,12 @@
       <li class="breadcrumb-item">
         <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
       </li>
-      <li class="breadcrumb-item active">Blank Page</li>
+      <li class="breadcrumb-item active">首页</li>
     </ol>
     <div class="row">
       <div class="col-12">
-        <h1>Blank</h1>
-        <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
+        <h1>首页</h1>
+        <p>邻里智助简介.</p>
       </div>
     </div>
   </div>

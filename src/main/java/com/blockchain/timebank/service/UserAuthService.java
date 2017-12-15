@@ -5,5 +5,15 @@ import com.blockchain.timebank.entity.UserAuthEntity;
 import java.util.List;
 
 public interface UserAuthService {
-    List<UserAuthEntity> findAllByUserId(long userId);
+    UserAuthEntity saveUserAuthEntity(UserAuthEntity userAuthEntity);
+
+    List<UserAuthEntity> findAll();
+
+    UserAuthEntity findUserAuthEntityById(long id);
+
+    UserAuthEntity findUserAuthEntityByPhone(String phone);
+
+    List<String> getAllAuthoritiesFromJSONString(String authority);
+
+    String getJSONStringFromAllAuthorities(String[] authorities);
 }
