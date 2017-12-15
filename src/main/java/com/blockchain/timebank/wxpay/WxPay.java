@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 /**
- * Ö§¸¶ÊµÏÖ
+ * æ”¯ä»˜å®ç°
  */
 public class WxPay {
 
@@ -25,7 +25,8 @@ public class WxPay {
     private static Logger logger = Logger.getLogger(WxPay.class.getName());
 
     /**
-     * Í³Ò»ÏÂµ¥
+     * ç»Ÿä¸€ä¸‹å•
+     * å¦‚æœæ— æ³•è·å–ç”¨æˆ·IPï¼Œåˆ™ä½¿ç”¨   192.168.1.1
      * @param body
      * @param out_trade_no
      * @param total_fee
@@ -36,11 +37,11 @@ public class WxPay {
      * @throws IOException
      */
     public static String unifiedOrder(String body,String out_trade_no,Integer total_fee,String IP,String openid) throws IOException {
-        //ÉèÖÃ·ÃÎÊÂ·¾¶
+        //è®¾ç½®è®¿é—®è·¯å¾„
         HttpPost httppost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
 
-        String nonce_str = getNonceStr().toUpperCase();//Ëæ»ú
-        //×é×°ÇëÇó²ÎÊı,°´ÕÕASCIIÅÅĞò
+        String nonce_str = getNonceStr().toUpperCase();//éšæœº
+        //ç»„è£…è¯·æ±‚å‚æ•°,æŒ‰ç…§ASCIIæ’åº
         String sign = "appid=" + ConfigUtil.APPID +
                 "&body=" + body +
                 "&mch_id=" + ConfigUtil.MCH_ID +
@@ -51,10 +52,10 @@ public class WxPay {
                 "&spbill_create_ip=" + IP +
                 "&total_fee=" + total_fee.toString() +
                 "&trade_type=" + ConfigUtil.TRADE_TYPE_JS +
-                "&key=" + ConfigUtil.API_KEY;//Õâ¸ö×Ö¶ÎÊÇÓÃÓÚÖ®ºóMD5¼ÓÃÜµÄ£¬×Ö¶ÎÒª°´ÕÕasciiÂëË³ĞòÅÅĞò
+                "&key=" + ConfigUtil.API_KEY;//è¿™ä¸ªå­—æ®µæ˜¯ç”¨äºä¹‹åMD5åŠ å¯†çš„ï¼Œå­—æ®µè¦æŒ‰ç…§asciiç é¡ºåºæ’åº
         sign = MD5Util.MD5Encode(sign,"").toUpperCase();
 
-        //×é×°°üº¬openidÓÃÓÚÇëÇóÍ³Ò»ÏÂµ¥·µ»Ø½á¹ûµÄXML
+        //ç»„è£…åŒ…å«openidç”¨äºè¯·æ±‚ç»Ÿä¸€ä¸‹å•è¿”å›ç»“æœçš„XML
         StringBuilder sb = new StringBuilder("");
         sb.append("<xml>");
         setXmlKV(sb,"appid",ConfigUtil.APPID);
@@ -69,14 +70,14 @@ public class WxPay {
         setXmlKV(sb,"trade_type",ConfigUtil.TRADE_TYPE_JS);
         setXmlKV(sb,"sign",sign);
         sb.append("</xml>");
-        System.out.println("Í³Ò»ÏÂµ¥ÇëÇó£º" + sb);
+        System.out.println("ç»Ÿä¸€ä¸‹å•è¯·æ±‚ï¼š" + sb);
 
-        StringEntity reqEntity = new StringEntity(new String (sb.toString().getBytes("UTF-8"),"ISO8859-1"));//Õâ¸ö´¦ÀíÊÇÎªÁË·ÀÖ¹´«ÖĞÎÄµÄÊ±ºò³öÏÖÇ©Ãû´íÎó
+        StringEntity reqEntity = new StringEntity(new String (sb.toString().getBytes("UTF-8"),"ISO8859-1"));//è¿™ä¸ªå¤„ç†æ˜¯ä¸ºäº†é˜²æ­¢ä¼ ä¸­æ–‡çš„æ—¶å€™å‡ºç°ç­¾åé”™è¯¯
         httppost.setEntity(reqEntity);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response = httpclient.execute(httppost);
         String strResult = EntityUtils.toString(response.getEntity(), Charset.forName("utf-8"));
-        System.out.println("Í³Ò»ÏÂµ¥·µ»Øxml£º" + strResult);
+        System.out.println("ç»Ÿä¸€ä¸‹å•è¿”å›xmlï¼š" + strResult);
 
         return strResult;
     }
@@ -84,16 +85,16 @@ public class WxPay {
 
 
     /**
-     * ¸ù¾İÍ³Ò»ÏÂµ¥·µ»ØÔ¤Ö§¸¶¶©µ¥µÄidºÍÆäËûĞÅÏ¢Éú³ÉÇ©Ãû²¢Æ´×°Îªmap£¨µ÷ÓÃÎ¢ĞÅÖ§¸¶£©
+     * æ ¹æ®ç»Ÿä¸€ä¸‹å•è¿”å›é¢„æ”¯ä»˜è®¢å•çš„idå’Œå…¶ä»–ä¿¡æ¯ç”Ÿæˆç­¾åå¹¶æ‹¼è£…ä¸ºmapï¼ˆè°ƒç”¨å¾®ä¿¡æ”¯ä»˜ï¼‰
      * @param prePayInfoXml
      * @return
      */
     public static Map<String,Object> getPayMap(String prePayInfoXml){
         Map<String,Object> map = new HashMap<String,Object>();
 
-        String prepay_id = getXmlPara(prePayInfoXml,"prepay_id");//Í³Ò»ÏÂµ¥·µ»ØxmlÖĞprepay_id
-        String timeStamp = String.valueOf((System.currentTimeMillis()/1000));//1970Äêµ½ÏÖÔÚµÄÃëÊı
-        String nonceStr = getNonceStr().toUpperCase();//Ëæ»úÊı¾İ×Ö·û´®
+        String prepay_id = getXmlPara(prePayInfoXml,"prepay_id");//ç»Ÿä¸€ä¸‹å•è¿”å›xmlä¸­prepay_id
+        String timeStamp = String.valueOf((System.currentTimeMillis()/1000));//1970å¹´åˆ°ç°åœ¨çš„ç§’æ•°
+        String nonceStr = getNonceStr().toUpperCase();//éšæœºæ•°æ®å­—ç¬¦ä¸²
         String packageStr = "prepay_id=" + prepay_id;
         String signType = "MD5";
         String paySign =
@@ -102,8 +103,8 @@ public class WxPay {
                         "&package=prepay_id=" + prepay_id +
                         "&signType=" + signType +
                         "&timeStamp=" + timeStamp +
-                        "&key="+ ConfigUtil.API_KEY;//×¢ÒâÕâÀïµÄ²ÎÊıÒª¸ù¾İASCIIÂë ÅÅĞò
-        paySign = MD5Util.MD5Encode(paySign,"").toUpperCase();//½«Êı¾İMD5¼ÓÃÜ
+                        "&key="+ ConfigUtil.API_KEY;//æ³¨æ„è¿™é‡Œçš„å‚æ•°è¦æ ¹æ®ASCIIç  æ’åº
+        paySign = MD5Util.MD5Encode(paySign,"").toUpperCase();//å°†æ•°æ®MD5åŠ å¯†
 
         map.put("appId",ConfigUtil.APPID);
         map.put("timeStamp",timeStamp);
@@ -116,7 +117,7 @@ public class WxPay {
     }
 
     /**
-     * ½âÎöXML »ñµÃÃû³ÆÎªparaµÄ²ÎÊıÖµ
+     * è§£æXML è·å¾—åç§°ä¸ºparaçš„å‚æ•°å€¼
      * @param xml
      * @param para
      * @return
@@ -132,7 +133,7 @@ public class WxPay {
     }
 
     /**
-     * »ñÈ¡ipµØÖ·
+     * è·å–ipåœ°å€
      * @param request
      * @return
      */
@@ -158,7 +159,7 @@ public class WxPay {
 
 
     /**
-     * ĞŞ¸Ä¶©µ¥×´Ì¬£¬»ñÈ¡Î¢ĞÅ»Øµ÷½á¹û
+     * ä¿®æ”¹è®¢å•çŠ¶æ€ï¼Œè·å–å¾®ä¿¡å›è°ƒç»“æœ
      * @param request
      * @return
      */
@@ -172,15 +173,18 @@ public class WxPay {
             }
             request.getReader().close();
         } catch (Exception e) {
-            logger.info("xml»ñÈ¡Ê§°Ü£º" + e);
+            logger.info("xmlè·å–å¤±è´¥ï¼š" + e);
             e.printStackTrace();
         }
-        System.out.println("½ÓÊÕµ½µÄxml£º" + notifyXml);
-        logger.info("ÊÕµ½Î¢ĞÅÒì²½»Øµ÷£º");
+        System.out.println("æ¥æ”¶åˆ°çš„xmlï¼š" + notifyXml);
+        logger.info("æ”¶åˆ°å¾®ä¿¡å¼‚æ­¥å›è°ƒï¼š");
         logger.info(notifyXml);
-        if(notifyXml.isEmpty()){
-            logger.info("xmlÎª¿Õ£º");
+
+
+        if(notifyXml.equals(null)){
+            logger.info("xmlä¸ºç©ºï¼š");
         }
+
 
         String appid = getXmlPara(notifyXml,"appid");;
         String bank_type = getXmlPara(notifyXml,"bank_type");
@@ -199,7 +203,7 @@ public class WxPay {
         String trade_type = getXmlPara(notifyXml,"trade_type");
         String transaction_id = getXmlPara(notifyXml,"transaction_id");
 
-        //¸ù¾İ·µ»Øxml¼ÆËã±¾µØÇ©Ãû
+        //æ ¹æ®è¿”å›xmlè®¡ç®—æœ¬åœ°ç­¾å
         String localSign =
                 "appid=" + appid +
                         "&bank_type=" + bank_type +
@@ -216,21 +220,21 @@ public class WxPay {
                         "&total_fee=" + total_fee +
                         "&trade_type=" + trade_type +
                         "&transaction_id=" + transaction_id +
-                        "&key=" + ConfigUtil.API_KEY;//×¢ÒâÕâÀïµÄ²ÎÊıÒª¸ù¾İASCIIÂë ÅÅĞò
-        localSign = MD5Util.MD5Encode(localSign,"").toUpperCase();//½«Êı¾İMD5¼ÓÃÜ
+                        "&key=" + ConfigUtil.API_KEY;//æ³¨æ„è¿™é‡Œçš„å‚æ•°è¦æ ¹æ®ASCIIç  æ’åº
+        localSign = MD5Util.MD5Encode(localSign,"").toUpperCase();//å°†æ•°æ®MD5åŠ å¯†
 
-        System.out.println("±¾µØÇ©ÃûÊÇ£º" + localSign);
-        logger.info("±¾µØÇ©ÃûÊÇ£º" + localSign);
-        logger.info("Î¢ĞÅÖ§¸¶Ç©ÃûÊÇ£º" + sign);
+        System.out.println("æœ¬åœ°ç­¾åæ˜¯ï¼š" + localSign);
+        logger.info("æœ¬åœ°ç­¾åæ˜¯ï¼š" + localSign);
+        logger.info("å¾®ä¿¡æ”¯ä»˜ç­¾åæ˜¯ï¼š" + sign);
 
-        //±¾µØ¼ÆËãÇ©ÃûÓëÎ¢ĞÅ·µ»ØÇ©Ãû²»Í¬||·µ»Ø½á¹ûÎª²»³É¹¦
+        //æœ¬åœ°è®¡ç®—ç­¾åä¸å¾®ä¿¡è¿”å›ç­¾åä¸åŒ||è¿”å›ç»“æœä¸ºä¸æˆåŠŸ
         if(!sign.equals(localSign) || !"SUCCESS".equals(result_code) || !"SUCCESS".equals(return_code)){
-            System.out.println("ÑéÖ¤Ç©ÃûÊ§°Ü»ò·µ»Ø´íÎó½á¹ûÂë");
-            logger.info("ÑéÖ¤Ç©ÃûÊ§°Ü»ò·µ»Ø´íÎó½á¹ûÂë");
+            System.out.println("éªŒè¯ç­¾åå¤±è´¥æˆ–è¿”å›é”™è¯¯ç»“æœç ");
+            logger.info("éªŒè¯ç­¾åå¤±è´¥æˆ–è¿”å›é”™è¯¯ç»“æœç ");
             resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[FAIL]]></return_msg>" + "</xml> ";
         }else{
-            System.out.println("Ö§¸¶³É¹¦");
-            logger.info("¹«ÖÚºÅÖ§¸¶³É¹¦£¬out_trade_no(¶©µ¥ºÅ)Îª£º" + out_trade_no);
+            System.out.println("æ”¯ä»˜æˆåŠŸ");
+            logger.info("å…¬ä¼—å·æ”¯ä»˜æˆåŠŸï¼Œout_trade_no(è®¢å•å·)ä¸ºï¼š" + out_trade_no);
             resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
         }
         return resXml;
@@ -240,8 +244,8 @@ public class WxPay {
 
 
     /**
-     * Ïò Map ÖĞÌí¼Ó appid¡¢mch_id¡¢nonce_str¡¢sign_type¡¢sign <br>
-     * ¸Ãº¯ÊıÊÊÓÃÓÚÉÌ»§ÊÊÓÃÓÚÍ³Ò»ÏÂµ¥µÈ½Ó¿Ú£¬²»ÊÊÓÃÓÚºì°ü¡¢´ú½ğÈ¯½Ó¿Ú
+     * å‘ Map ä¸­æ·»åŠ  appidã€mch_idã€nonce_strã€sign_typeã€sign <br>
+     * è¯¥å‡½æ•°é€‚ç”¨äºå•†æˆ·é€‚ç”¨äºç»Ÿä¸€ä¸‹å•ç­‰æ¥å£ï¼Œä¸é€‚ç”¨äºçº¢åŒ…ã€ä»£é‡‘åˆ¸æ¥å£
      *
      * @param reqData
      * @return
@@ -265,7 +269,7 @@ public class WxPay {
 
 
     /**
-     * ²åÈëXML±êÇ©
+     * æ’å…¥XMLæ ‡ç­¾
      * @param sb
      * @param Key
      * @param value
@@ -286,7 +290,7 @@ public class WxPay {
     }
 
     /**
-     * »ñÈ¡32Î»Ëæ»ú×Ö·û´®
+     * è·å–32ä½éšæœºå­—ç¬¦ä¸²
      * @return
      */
     public static String getNonceStr(){
