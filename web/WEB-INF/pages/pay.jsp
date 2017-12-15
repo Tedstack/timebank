@@ -17,25 +17,30 @@
 </head>
 <body>
 <div class="weui-msg">
-    <div class="weui-msg__icon-area">
-        <img src="../img/充值.png" width="300" height="100">
-    </div>
+    <form action="${pageContext.request.contextPath}/recharge/rechargeAddSubmit" method="post">
+        <div class="weui-msg__icon-area">
+            <img src="../img/充值.png" width="300" height="100">
+        </div>
 
-    <div class="weui-msg__text-area">
-        <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" style="font-size: xx-large"  placeholder=""/>
+        <input type="text" style="display: none" value="<%=request.getAttribute("openId")%>" name="openId" required>
+
+        <div class="weui-msg__text-area">
+            <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" name="totalAmount" style="font-size: xx-large"  placeholder="" required/>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="weui-msg__opr-area">
-        <p class="weui-btn-area">
-            <a href="" class="weui-btn weui-btn_primary">下一步</a>
-        </p>
-    </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+                <button type="submit" href="" class="weui-btn weui-btn_primary">下一步</button>
+            </p>
+        </div>
+    </form>
+
 </div>
 </body>
 </html>

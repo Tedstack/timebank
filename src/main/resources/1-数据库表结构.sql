@@ -172,18 +172,18 @@ ALTER TABLE `activityPublish`
 # recharge 用户充值表
 CREATE TABLE `recharge` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
-  `userID` BIGINT(20) NOT NULL COMMENT '用户编号',
-  `Name` VARCHAR(20) NULL COMMENT '用户姓名',
-  `OpenID` VARCHAR(50) NULL COMMENT '微信用户OpenID',
-  `TimeCoin` DOUBLE NOT NULL COMMENT '充值后时间币余额',
+  `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
   `TotalAmount` DOUBLE NOT NULL COMMENT '充值金额',
   `RechargeDate` DATE NULL COMMENT '充值时间',
-  `PayDate` DATE NULL COMMENT '支付时间',
   `RechargeStatus` VARCHAR(20) NULL COMMENT '充值状态',
   `UUID` VARCHAR(50) NULL COMMENT '用户充值的uuid', #在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户充值表';
+ALTER TABLE `recharge`
+  ADD KEY `UserID` (`UserID`);
+ALTER TABLE `recharge`
+  ADD CONSTRAINT `recharge_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
 
 # 显示志愿者团体活动详细的信息视图
 CREATE VIEW view_activity_publish_detail

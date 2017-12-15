@@ -1,63 +1,44 @@
 <%--
   Created by IntelliJ IDEA.
-  User: toyking
-  Date: 2017/10/24
-  Time: 10:44
+  User: bobo9978
+  Date: 2017/12/11
+  Time: 20:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>首页</title>
-    <!-- 引入 WeUI -->
+    <title>我的时间币</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
+<div class="weui-msg">
+    <form action="${pageContext.request.contextPath}/recharge/rechargeAddSubmit" method="post">
+        <div class="weui-msg__icon-area">
+            <img src="../img/充值.png" width="300" height="100">
+        </div>
 
-<div class="weui-tab">
-    <div class="weui-tab__panel">
+        <div class="weui-msg__text-area">
+            <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="number" name="totalAmount" style="font-size: xx-large"  placeholder="" required/>
+                </div>
+            </div>
+        </div>
 
-        <%
-            double timeCoin=(double)request.getAttribute("timeCoin");
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+                <button type="submit" href="" class="weui-btn weui-btn_primary">下一步</button>
+            </p>
+        </div>
+    </form>
 
-        %>
-
-        <input id="time" value="<%=timeCoin%>" style="display: none">
-
-        <p id=""><%=timeCoin%></p>
-        <p><%out.print(timeCoin);%></p>
-        <button id="btn_chongzhi"></button>
-
-    </div>
-    <jsp:include page="bottom_tabbar.jsp"/>
 </div>
-
-<!-- jQuery 3 -->
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        var url_prefix="${pageContext.request.contextPath}";
-
-        $('.weui-tabbar:eq(0)').find('a:eq(0)').addClass("weui-bar__item_on");
-
-        $("#btn_chongzhi").click(function(){
-            $.ajax({
-                url: url_prefix+"/recharge/pay",
-                context: $("#time").val(),
-                success: function(){
-                    $(this).addClass("done");
-                }
-            });
-        });
-
-    });
-</script>
-
 </body>
 </html>
