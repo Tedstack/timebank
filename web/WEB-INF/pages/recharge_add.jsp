@@ -27,8 +27,11 @@
 
         %>
 
-        <p><%=timeCoin%></p>
+        <input id="time" value="<%=timeCoin%>" style="display: none">
+
+        <p id=""><%=timeCoin%></p>
         <p><%out.print(timeCoin);%></p>
+        <button id="btn_chongzhi"></button>
 
     </div>
     <jsp:include page="bottom_tabbar.jsp"/>
@@ -39,7 +42,20 @@
 
 <script>
     $(document).ready(function () {
+        var url_prefix="${pageContext.request.contextPath}";
+
         $('.weui-tabbar:eq(0)').find('a:eq(0)').addClass("weui-bar__item_on");
+
+        $("#btn_chongzhi").click(function(){
+            $.ajax({
+                url: url_prefix+"/recharge/pay",
+                context: $("#time").val(),
+                success: function(){
+                    $(this).addClass("done");
+                }
+            });
+        });
+
     });
 </script>
 
