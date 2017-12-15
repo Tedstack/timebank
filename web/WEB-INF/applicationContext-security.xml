@@ -11,6 +11,13 @@
         <intercept-url pattern="/admin/css/**" access="permitAll()"/>
         <intercept-url pattern="/admin/js/**" access="permitAll()"/>
         <intercept-url pattern="/admin/vendor/**" access="permitAll()"/>
+        <intercept-url pattern="/admin/userAuth**" access="hasRole('ROLE_USER_AUTH_MANAGE')" />
+        <intercept-url pattern="/admin/user**" access="hasRole('ROLE_USER_MANAGE')" />
+        <intercept-url pattern="/admin/service**" access="hasRole('ROLE_SERVICE_MANAGE')" />
+        <intercept-url pattern="/admin/publish**" access="hasRole('ROLE_PUBLISH_MANAGE')" />
+        <intercept-url pattern="/admin/record**" access="hasRole('ROLE_RECORD_MANAGE')" />
+        <intercept-url pattern="/admin/team**" access="hasRole('ROLE_TEAM_MANAGE')" />
+        <intercept-url pattern="/admin/activityPublish**" access="hasRole('ROLE_ACTIVITY_MANAGE')" />
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
         <form-login login-page="/admin/login" authentication-failure-url="/admin/login?error=1"
                     default-target-url="/admin/index"/>

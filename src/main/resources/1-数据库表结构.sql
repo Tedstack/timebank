@@ -195,7 +195,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
       activityPublish.Address           AS Address,       #活动地点
-      activityPublish.Count             AS Count,       #活动结束时间
+      activityPublish.Count             AS Count,         #活动结束时间
       activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
       activityPublish.Description       AS Description,   #活动简介
       activityPublish.IsPublic          AS IsPublic,      #是否公开
