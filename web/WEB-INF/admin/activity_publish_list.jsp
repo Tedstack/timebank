@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +46,7 @@
                         <thead>
                         <tr>
                             <th>名称</th>
+                            <th>发布的团体</th>
                             <th>开始时间</th>
                             <th>时长</th>
                             <th>地点</th>
@@ -69,11 +70,12 @@
 
 
                         <%
-                            List<ActivityPublishEntity> list = (List<ActivityPublishEntity>) request.getAttribute("list");
-                            for (ActivityPublishEntity activityPublishEntity : list) {
+                            List<ViewActivityPublishDetailEntity> list = (List<ViewActivityPublishDetailEntity>) request.getAttribute("list");
+                            for (ViewActivityPublishDetailEntity activityPublishEntity : list) {
                         %>
                         <tr>
                             <td><%=activityPublishEntity.getName()%></td>
+                            <td><%=activityPublishEntity.getTeamName()%></td>
                             <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(activityPublishEntity.getBeginTime()));%></td>
                             <td><%
                                 double off=activityPublishEntity.getEndTime().getTime() - activityPublishEntity.getBeginTime().getTime();

@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-12">
         <h1>首页</h1>
-        <p>邻里智助简介.</p>
+        <p><%=request.getAttribute("username")%>您好，欢迎登陆邻里智助后台管理.</p>
       </div>
     </div>
   </div>

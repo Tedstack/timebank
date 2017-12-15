@@ -1,7 +1,9 @@
 package com.blockchain.timebank.admin;
 
+import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.entity.ActivityPublishEntity;
 import com.blockchain.timebank.service.ActivityPublishService;
+import com.blockchain.timebank.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,22 +23,30 @@ public class ActivityManagerController {
     @Autowired
     ActivityPublishService activityPublishService;
 
+    @Autowired
+    ViewActivityPublishDetailDao viewActivityPublishDetailDao;
+
+    @Autowired
+    TeamService teamService;
+
     @RequestMapping(value = "/activityPublishList", method = RequestMethod.GET)
     public String activityPublishListPage(ModelMap map) {
-        map.addAttribute("list",activityPublishService.findAllByDeleted(false));
+        map.addAttribute("list", viewActivityPublishDetailDao.findAllByDeleted(false));
         return "../admin/activity_publish_list";
     }
 
 
     @RequestMapping(value = "/activityPublishAdd", method = RequestMethod.GET)
     public String activityPublishAddPage(ModelMap map) {
+        map.addAttribute("team_list", teamService.findAllTeamEntity());
         return "../admin/activity_publish_add";
     }
 
     @RequestMapping(value = "/activityPublishAddSubmit", method = RequestMethod.POST)
-    public String activityPublishAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String description, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam String applyEndTime, @RequestParam String address, @RequestParam int peopleCount, @RequestParam boolean IsPublic) {
+    public String activityPublishAddSubmit(ModelMap map, @RequestParam long teamId, @RequestParam String name, @RequestParam String description, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam String applyEndTime, @RequestParam String address, @RequestParam int peopleCount, @RequestParam boolean IsPublic) {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+            activityPublishEntity.setTeamId(teamId);
             activityPublishEntity.setDeleted(false);
             activityPublishEntity.setName(name);
             activityPublishEntity.setDescription(description);
@@ -54,6 +64,7 @@ public class ActivityManagerController {
             e.printStackTrace();
             map.addAttribute("error", "输入有误，发布失败！");
         }
+        map.addAttribute("team_list", teamService.findAllTeamEntity());
         return "../admin/activity_publish_add";
     }
 

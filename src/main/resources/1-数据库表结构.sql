@@ -148,9 +148,10 @@ ALTER TABLE `teamUser`
   ADD CONSTRAINT `teamuser_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `teamuser_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `team` (`ID`);
 
-# activity 团体活动表
+# activityPublish 团体活动表
 CREATE TABLE `activityPublish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
   `BeginTime` DATETIME NOT NULL COMMENT '活动开始时间',
   `EndTime` DATETIME NULL COMMENT '活动结束时间',
@@ -162,7 +163,11 @@ CREATE TABLE `activityPublish` (
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='团体活动表';
+ALTER TABLE `activityPublish`
+  ADD KEY `TeamID` (`TeamID`);
+ALTER TABLE `activityPublish`
+  ADD CONSTRAINT `activityPublish_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `team` (`ID`);
 
 # recharge 用户充值表
 CREATE TABLE `recharge` (
@@ -179,6 +184,25 @@ CREATE TABLE `recharge` (
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户充值表';
+
+# 显示志愿者团体活动详细的信息视图
+CREATE VIEW view_activity_publish_detail
+  AS
+    SELECT
+      activityPublish.ID                AS ID,            #编号
+      activityPublish.TeamID            AS TeamID,        #志愿者团体编号
+      activityPublish.Name              AS Name,          #活动名称
+      activityPublish.BeginTime         AS BeginTime,     #活动开始时间
+      activityPublish.EndTime           AS EndTime,       #活动结束时间
+      activityPublish.Address           AS Address,       #活动地点
+      activityPublish.Count             AS Count,       #活动结束时间
+      activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
+      activityPublish.Description       AS Description,   #活动简介
+      activityPublish.IsPublic          AS IsPublic,      #是否公开
+      activityPublish.IsDeleted         AS IsDeleted,     #是否已经被删除
+      team.Name                         AS teamName       #团体名称
+    FROM activityPublish, team
+    WHERE activityPublish.TeamID = team.ID;
 
 # 显示志愿者所属团体详细信息视图
 CREATE VIEW view_team_user_detail

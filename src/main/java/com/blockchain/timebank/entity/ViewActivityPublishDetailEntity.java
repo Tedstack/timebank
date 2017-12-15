@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "activityPublish", schema = "mydb", catalog = "")
-public class ActivityPublishEntity {
+@Table(name = "view_activity_publish_detail", schema = "mydb", catalog = "")
+public class ViewActivityPublishDetailEntity {
     private long id;
     private long teamId;
     private String name;
@@ -17,7 +17,7 @@ public class ActivityPublishEntity {
     private String description;
     private boolean isPublic;
     private boolean isDeleted;
-    private String extra;
+    private String teamName;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -130,13 +130,13 @@ public class ActivityPublishEntity {
     }
 
     @Basic
-    @Column(name = "Extra", nullable = true, length = 50)
-    public String getExtra() {
-        return extra;
+    @Column(name = "teamName", nullable = false, length = 40)
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setExtra(String extra) {
-        this.extra = extra;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     @Override
@@ -144,7 +144,7 @@ public class ActivityPublishEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ActivityPublishEntity that = (ActivityPublishEntity) o;
+        ViewActivityPublishDetailEntity that = (ViewActivityPublishDetailEntity) o;
 
         if (id != that.id) return false;
         if (teamId != that.teamId) return false;
@@ -157,7 +157,7 @@ public class ActivityPublishEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (applyEndTime != null ? !applyEndTime.equals(that.applyEndTime) : that.applyEndTime != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
+        if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
 
         return true;
     }
@@ -175,7 +175,7 @@ public class ActivityPublishEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (isPublic ? 1 : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
-        result = 31 * result + (extra != null ? extra.hashCode() : 0);
+        result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         return result;
     }
 }

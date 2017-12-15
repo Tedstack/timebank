@@ -1,3 +1,5 @@
+<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +54,23 @@
                 %>
 
                 <form action="${pageContext.request.contextPath}/admin/activityPublishAddSubmit" method="post">
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">发布的团体</label>
+                        <div class="col-sm-4">
+                            <select name="teamId" class="form-control">
+                                <%
+                                    List<TeamEntity> teamEntities = (List<TeamEntity>)request.getAttribute("team_list");
+                                    for(TeamEntity teamEntity:teamEntities){
+                                %>
+                                        <option value="<%=teamEntity.getId()%>"><%=teamEntity.getName()%></option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">活动名称</label>
