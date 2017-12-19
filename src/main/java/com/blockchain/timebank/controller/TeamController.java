@@ -131,11 +131,10 @@ public class TeamController {
         return "manage_activities_start";
     }
 
-    // 发布者管理参与人员页面
-    @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
-    public String activities(ModelMap map) {
-        map.addAttribute("activityList",activityPublishService.findAllByDeleted(false));
-        return "team_activities";
+    //发布者管理待申请的活动
+    @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
+    public String manageActivities(ModelMap map) {
+        return "manage_activities";
     }
 
     // 团队活动详情页面
