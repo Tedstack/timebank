@@ -169,6 +169,22 @@ ALTER TABLE `activityPublish`
 ALTER TABLE `activityPublish`
   ADD CONSTRAINT `activityPublish_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `team` (`ID`);
 
+# 用户加入活动表
+CREATE TABLE `userActivity` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ActivityID` BIGINT(20) NOT NULL COMMENT '活动编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
+  `IsAllow` BOOL NOT NULL COMMENT '用户是否已经通过审核',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户加入活动表';
+ALTER TABLE `userActivity`
+  ADD KEY `ActivityID` (`ActivityID`),
+  ADD KEY `UserID` (`UserID`);
+ALTER TABLE `userActivity`
+  ADD CONSTRAINT `userActivity_ibfk_1` FOREIGN KEY (`ActivityID`) REFERENCES `activityPublish` (`ID`),
+  ADD CONSTRAINT `userActivity_ibfk_2` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
+
 # recharge 用户充值表
 CREATE TABLE `recharge` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',

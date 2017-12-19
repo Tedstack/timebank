@@ -18,6 +18,7 @@
         <class>com.blockchain.timebank.entity.UserAuthEntity</class>
         <class>com.blockchain.timebank.entity.RechargeEntity</class>
         <class>com.blockchain.timebank.entity.ViewActivityPublishDetailEntity</class>
+        <class>com.blockchain.timebank.entity.UserActivityEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb?characterEncoding=utf-8"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
