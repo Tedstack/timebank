@@ -28,4 +28,8 @@ public class TeamUserServiceImpl implements TeamUserService {
     public TeamUserEntity saveTeamUser(TeamUserEntity teamUserEntity) {
         return teamUserDao.save(teamUserEntity);
     }
+
+    public List<TeamUserEntity> findAllUsersOfOneTeam(long teamID) {
+        return teamUserDao.findByTeamId(teamID);
+    }
 }

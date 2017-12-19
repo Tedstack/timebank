@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -90,10 +91,37 @@ public class TeamController {
         return result.toString();
     }
 
-    // 所有团队活动列表页面
+    //用户查看团队活动列表
     @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
     public String activities(ModelMap map) {
-        map.addAttribute("activityList",activityPublishService.findAllByDeleted(false));
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllByDeleted(false);
+        //倒序排列
+        Collections.reverse(activityList);
+
+        //因为使用remove方法，此处循环用倒叙
+        for(int i=activityList.size()-1;i>=0;i--){
+            //活动不公开
+            if(!activityList.get(i).isPublic()){
+                long teamID = activityList.get(i).getTeamId();
+                List<TeamUserEntity> teamUsersList = teamUserService.findAllUsersOfOneTeam(teamID);
+
+                //判断当前用户是否加入私有活动的团队，未加入则将该私有活动移除，不显示，当前用户无权限查看
+                boolean isRemove = true;
+
+                for(int j=0;j<teamUsersList.size();j++){
+                    if(teamUsersList.get(j).getUserId()==getCurrentUser().getId()){
+                        isRemove = false;
+                        break;
+                    }
+                }
+
+                if(isRemove){
+                    activityList.remove(i);
+                }
+            }
+        }
+
+        map.addAttribute("activityList",activityList);
         return "team_activities";
     }
 
