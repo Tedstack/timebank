@@ -186,7 +186,6 @@ public class TeamController {
 
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityId);
         if(viewActivityPublishDetailEntity.getManagerUserId()==getCurrentUser().getId()){
-            System.out.println("managerError");
             return "managerError";
         }
 
