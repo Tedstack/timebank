@@ -54,11 +54,17 @@
                             </div>
                             <p class="weui-media-box__desc">活动内容详情显示1 </p>
                             <p class="weui-media-box__desc">详情显示2</p>
-
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta">内容1</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">内容2</li>
-                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/startActivities">开始</a></div>
                         </div>
                     </div>
                 </div>
@@ -76,11 +82,17 @@
                             </div>
                             <p class="weui-media-box__desc">活动内容详情显示1 </p>
                             <p class="weui-media-box__desc">详情显示2</p>
-
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta">内容1</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">内容2</li>
-                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/startActivities">开始</a></div>
                         </div>
                     </div>
                 </div>

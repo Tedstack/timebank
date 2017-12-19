@@ -1,3 +1,4 @@
+<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -118,9 +119,38 @@
 
 
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a id="applyBtn" class="weui-btn weui-btn_primary">申请参与</a>
+            <a id="applyBtn" href=" " class="weui-btn weui-btn_primary">申请参与</a>
         </div>
-
+        <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
+        <div class="weui-cells">
+            <!--以下循环参加的人数-->
+            <div class="weui-cell" id="cell1">
+                <div class="weui-cell__bd">
+                    <p style="font-size: 90%">孙芃达+团队身份</p>
+                </div>
+            </div>
+            <!--以上-->
+            <div class="weui-cell" id="cell2">
+                <div class="weui-cell__bd">
+                    <p style="font-size: 90%">大齐+团队身份</p>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p style="font-size: 90%">帅风+团队身份</p>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p style="font-size: 90%">蔡磊+团队身份</p>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p style="font-size: 90%">黄立波+团队身份</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="weui-tabbar">

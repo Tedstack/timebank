@@ -54,11 +54,8 @@
                             </div>
                             <p class="weui-media-box__desc">活动内容详情显示1 </p>
                             <p class="weui-media-box__desc">详情显示2</p>
-
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta">内容1</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">内容2</li>
-                            </ul>
+                            <p class="weui-media-box__desc">详情显示2</p>
+                            <p class="weui-media-box__desc">详情显示2</p>
                         </div>
                     </div>
                 </div>
@@ -77,10 +74,6 @@
                             <p class="weui-media-box__desc">活动内容详情显示1 </p>
                             <p class="weui-media-box__desc">详情显示2</p>
 
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta">内容1</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">内容2</li>
-                            </ul>
                         </div>
                     </div>
                 </div>

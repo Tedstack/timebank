@@ -53,12 +53,19 @@
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
                             <p class="weui-media-box__desc">已申请人数 n </p>
-                            <p class="weui-media-box__desc">详情显示2</p>
-
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta">内容1</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">内容2</li>
-                            </ul>
+                            <p class="weui-media-box__desc">活动开始时间：</p>
+                            <p class="weui-media-box__desc">活动结束时间：</p>
+                            <p class="weui-media-box__desc">活动地点：</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
                         </div>
                     </div>
                 </div>
@@ -74,13 +81,20 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">已申请人数 m </p>
-                            <p class="weui-media-box__desc">详情显示2</p>
-
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta">内容1</li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">内容2</li>
-                            </ul>
+                            <p class="weui-media-box__desc">已申请人数 n </p>
+                            <p class="weui-media-box__desc">活动开始时间：</p>
+                            <p class="weui-media-box__desc">活动结束时间：</p>
+                            <p class="weui-media-box__desc">活动地点：</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
                         </div>
                     </div>
                 </div>
