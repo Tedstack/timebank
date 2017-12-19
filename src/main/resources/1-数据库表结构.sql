@@ -216,7 +216,8 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.Description       AS Description,   #活动简介
       activityPublish.IsPublic          AS IsPublic,      #是否公开
       activityPublish.IsDeleted         AS IsDeleted,     #是否已经被删除
-      team.Name                         AS teamName       #团体名称
+      team.Name                         AS teamName,       #团体名称
+      team.ManagerUserID                AS ManagerUserID  #团体管理者编号
     FROM activityPublish, team
     WHERE activityPublish.TeamID = team.ID;
 

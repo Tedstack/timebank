@@ -18,6 +18,7 @@ public class ViewActivityPublishDetailEntity {
     private boolean isPublic;
     private boolean isDeleted;
     private String teamName;
+    private long managerUserId;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -139,6 +140,16 @@ public class ViewActivityPublishDetailEntity {
         this.teamName = teamName;
     }
 
+    @Basic
+    @Column(name = "ManagerUserID", nullable = false)
+    public long getManagerUserId() {
+        return managerUserId;
+    }
+
+    public void setManagerUserId(long managerUserId) {
+        this.managerUserId = managerUserId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,6 +162,7 @@ public class ViewActivityPublishDetailEntity {
         if (count != that.count) return false;
         if (isPublic != that.isPublic) return false;
         if (isDeleted != that.isDeleted) return false;
+        if (managerUserId != that.managerUserId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
@@ -176,6 +188,7 @@ public class ViewActivityPublishDetailEntity {
         result = 31 * result + (isPublic ? 1 : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
+        result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
         return result;
     }
 }
