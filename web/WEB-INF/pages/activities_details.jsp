@@ -1,13 +1,7 @@
-<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/7
-  Time: 20:03
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
@@ -24,7 +18,7 @@
 </head>
 <body>
 <%
-    ActivityPublishEntity activity = (ActivityPublishEntity) request.getAttribute("activity");
+    ViewActivityPublishDetailEntity activity = (ViewActivityPublishDetailEntity) request.getAttribute("activity");
 %>
 <!-- 使用 -->
 
@@ -35,7 +29,7 @@
         <div class="enterbar bar_shop border_b mt10" style="margin-bottom: 0;">
             <a href="javascript:void(0)">
                 <div class="shop-logo">
-                    <img src="../img/服务名称/代购.png" alt="">
+                    <img src="../img/服务类型/志愿者服务.png" alt="">
                 </div>
                 <div class="txt"><%out.print(activity.getName());%></div>
                 <%--<div class="tags-rz">
@@ -52,6 +46,14 @@
                 </div>
                 <div class="weui-cell__ft"><%out.print(activity.getName());%></div>
             </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>组织团队</p>
+                </div>
+                <div class="weui-cell__ft"><%out.print(activity.getTeamName());%></div>
+            </div>
+
             <div class="weui-cell">
                 <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">

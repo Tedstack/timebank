@@ -10,4 +10,6 @@ public interface TeamService {
     TeamEntity saveTeamEntity(TeamEntity teamEntity);
 
     TeamEntity findById(long Id);
+
+    List<TeamEntity> findTeamsByManagerUserId(long managerUserId);
 }

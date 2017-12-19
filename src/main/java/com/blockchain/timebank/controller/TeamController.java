@@ -1,10 +1,8 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
-import com.blockchain.timebank.entity.ActivityPublishEntity;
-import com.blockchain.timebank.entity.TeamEntity;
-import com.blockchain.timebank.entity.TeamUserEntity;
-import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.ActivityPublishService;
 import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.TeamUserService;
@@ -44,6 +42,9 @@ public class TeamController {
 
     @Autowired
     ActivityPublishService activityPublishService;
+
+    @Autowired
+    ViewActivityPublishDetailDao viewActivityPublishDetailDao;
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -99,18 +100,37 @@ public class TeamController {
     // 团队活动详情页面
     @RequestMapping(value = "/teamActivityDetails", method = RequestMethod.GET)
     public String teamActivityDetails(ModelMap map, @RequestParam long activityID) {
-        ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(activityID);
-        map.addAttribute("activity",activity);
+        ViewActivityPublishDetailEntity activityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
+        //ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(activityID);
+        map.addAttribute("activity",activityPublishDetailEntity);
         return "activities_details";
+    }
+
+    //申请发布团体活动页面
+    @RequestMapping(value = "/startPublishActivity", method = RequestMethod.GET)
+    public String startPublishActivity(ModelMap map) {
+        UserEntity user = getCurrentUser();
+        List<TeamEntity> teamList = teamService.findTeamsByManagerUserId(user.getId());
+
+        //判断是否是团队管理者，若不是则无法发布服务
+        if(teamList.size()==0){
+            map.addAttribute("msg", "notManagerUser");
+            return "start_publish_activity_result";
+        }
+
+        map.addAttribute("teamList", teamList);
+        return "activities_add";
     }
 
     // 发布活动
     @RequestMapping(value = "/publishActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String publishActivity(ModelMap map, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
+    public String publishActivity(ModelMap map, @RequestParam long teamId, @RequestParam boolean isPublic, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
             ,@RequestParam String endTime ,@RequestParam String applyEndTime, @RequestParam int count, @RequestParam String address) {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+            activityPublishEntity.setTeamId(teamId);
+            activityPublishEntity.setPublic(isPublic);
             activityPublishEntity.setDeleted(false);
             activityPublishEntity.setName(activityName);
             activityPublishEntity.setDescription(description);
@@ -122,7 +142,7 @@ public class TeamController {
             activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
             activityPublishEntity.setAddress(address);
             activityPublishEntity.setCount(count);
-            activityPublishEntity.setPublic(true);
+
             activityPublishService.saveActivityPublishEntity(activityPublishEntity);
         } catch (ParseException e) {
             e.printStackTrace();

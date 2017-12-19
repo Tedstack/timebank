@@ -69,11 +69,6 @@ public class RecordController {
         return "activities_yiwancheng_volunteer";
     }
 
-    //申请发布团体活动页面
-    @RequestMapping(value = "/activities_add", method = RequestMethod.GET)
-    public String addactivities(ModelMap map) {
-        return "activities_add";
-    }
     //申请待申请团体活动页面（发布活动）
     @RequestMapping(value = "/daishenqing_activities", method = RequestMethod.GET)
     public String daishenqingactivities(ModelMap map) {

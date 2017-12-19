@@ -1,10 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/8
-  Time: 14:12
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -21,6 +17,7 @@
     <script src="../js/scan/configs.js"></script>
 </head>
 <body>
+
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
@@ -30,18 +27,33 @@
             </div>
         </div>
         <div class="weui-panel__bd">
-            <%--<div class="weui-cell weui-cell_select weui-cell_select-after">
+
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bd">
-                    <p>活动主办方</p>
+                    <p>团队选择</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="serviceType">
-                       <option value="2">团体1</option>
-                        <option value="3">团体2</option>
-                        <option value="4">团体3</option>
+                    <select id="teamOptions" class="weui-select" name="team">
+                        <c:forEach var="value" items="${teamList}">
+                            <option value="${value.id}">
+                                ${value.name}
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
-            </div>--%>
+            </div>
+
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__bd">
+                    <p>是否公开</p>
+                </div>
+                <div class="weui-cell__bd">
+                    <select id="isPublicOptions" class="weui-select" name="isPublic">
+                        <option value="true">公开</option>
+                        <option value="false">不公开</option>
+                    </select>
+                </div>
+            </div>
 
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -57,18 +69,10 @@
                 <div class="weui-cell__bd">
                     <div class="weui-cell__bd">
                         <textarea id="description" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
-                        <div class="weui-textarea-counter"><span>0</span>/200</div>
+                        <%--<div class="weui-textarea-counter"><span>0</span>/200</div>--%>
                     </div>
                 </div>
             </div>
-
-            <%--<div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动日期</p></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" name="beginDate" type="date" value=""/>
-                </div>
-            </div>--%>
 
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -105,40 +109,7 @@
                     <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" placeholder="请输入参与人数"/>
                 </div>
             </div>
-            <%--<div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动报酬</p></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入参与者报酬"/>
-                </div>
-            </div>--%>
 
-            <%--<div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>活动地点</p>
-                </div>
-                <div class="weui-cell__bd">
-                    &lt;%&ndash;黄浦区、徐汇区、长宁区、静安区、普陀区、虹口区、杨浦区、宝山区、闵行区、嘉定区、浦东新区、松江区、金山区、青浦区、奉贤区、崇明区&ndash;%&gt;
-                    <select class="weui-select" name="address">
-                        <option value="黄浦区">黄浦区</option>
-                        <option value="徐汇区">徐汇区</option>
-                        <option value="长宁区">长宁区</option>
-                        <option value="静安区">静安区</option>
-                        <option value="普陀区">普陀区</option>
-                        <option value="虹口区">虹口区</option>
-                        <option value="杨浦区">杨浦区</option>
-                        <option value="宝山区">宝山区</option>
-                        <option value="闵行区">闵行区</option>
-                        <option value="嘉定区">嘉定区</option>
-                        <option value="浦东新区">浦东新区</option>
-                        <option value="松江区">松江区</option>
-                        <option value="金山区">金山区</option>
-                        <option value="青浦区">青浦区</option>
-                        <option value="奉贤区">奉贤区</option>
-                        <option value="崇明区">崇明区</option>
-                    </select>
-                </div>
-            </div>--%>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>活动详细地址</p>
@@ -172,9 +143,12 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     var contextPath="${pageContext.request.contextPath}";
+
     $(function(){
 
         $("#submitBtn").on('click',function () {
+            var teamID = $("#teamOptions ").val();
+            var isPublic = $("#isPublicOptions ").val();
             var activityName = $('#activityName').val();
             var description = $('#description').val();
             var beginTime = $('#beginTime').val();
@@ -225,7 +199,7 @@
                 cache: false,
                 url: targetUrl,
                 //dataType:'JSONP',
-                data: "activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
+                data: "teamId=" + teamID + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

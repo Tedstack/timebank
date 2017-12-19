@@ -70,7 +70,7 @@
         <div style="padding: 10px; margin-bottom: 20px;">
             <a href="${pageContext.request.contextPath}/publish/add" class="weui-btn weui-btn_default">发布服务</a>
 
-            <a href="${pageContext.request.contextPath}/record/activities_add" class="weui-btn weui-btn_primary">发布活动</a>
+            <a href="${pageContext.request.contextPath}/team/startPublishActivity" class="weui-btn weui-btn_primary">发布活动</a>
         </div>
 
     </div>

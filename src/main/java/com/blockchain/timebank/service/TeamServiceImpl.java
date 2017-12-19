@@ -25,4 +25,8 @@ public class TeamServiceImpl implements TeamService {
         return teamDao.findOne(Id);
     }
 
+    public List<TeamEntity> findTeamsByManagerUserId(long managerUserId) {
+        return teamDao.findTeamsByManagerUserId(managerUserId);
+    }
+
 }
