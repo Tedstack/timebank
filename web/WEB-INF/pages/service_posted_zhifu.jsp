@@ -1,5 +1,3 @@
-<%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page import="java.sql.Timestamp" %>

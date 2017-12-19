@@ -3,10 +3,7 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
 import com.blockchain.timebank.entity.*;
-import com.blockchain.timebank.service.ActivityPublishService;
-import com.blockchain.timebank.service.TeamService;
-import com.blockchain.timebank.service.TeamUserService;
-import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.service.*;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,6 +43,9 @@ public class TeamController {
 
     @Autowired
     ViewActivityPublishDetailDao viewActivityPublishDetailDao;
+
+    @Autowired
+    UserActivityService userActivityService;
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -176,6 +176,21 @@ public class TeamController {
             e.printStackTrace();
             return "error";
         }
+        return "ok";
+    }
+
+    // 申请加入活动
+    @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String applyToJoinActivity(ModelMap map, @RequestParam long activityId) {
+
+        UserActivityEntity userActivityEntity = new UserActivityEntity();
+        userActivityEntity.setActivityId(activityId);
+        userActivityEntity.setUserId(getCurrentUser().getId());
+        userActivityEntity.setAllow(true);
+
+        userActivityService.addUserActivity(userActivityEntity);
+
         return "ok";
     }
 

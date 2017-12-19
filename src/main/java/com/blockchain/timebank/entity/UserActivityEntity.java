@@ -8,7 +8,7 @@ public class UserActivityEntity {
     private long id;
     private long activityId;
     private long userId;
-    private byte isAllow;
+    private boolean isAllow;
     private String extra;
 
     @Id
@@ -43,12 +43,12 @@ public class UserActivityEntity {
 
     @Basic
     @Column(name = "IsAllow", nullable = false)
-    public byte getIsAllow() {
+    public boolean isAllow() {
         return isAllow;
     }
 
-    public void setIsAllow(byte isAllow) {
-        this.isAllow = isAllow;
+    public void setAllow(boolean allow) {
+        isAllow = allow;
     }
 
     @Basic
@@ -82,7 +82,7 @@ public class UserActivityEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (activityId ^ (activityId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (int) isAllow;
+        result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

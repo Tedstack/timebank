@@ -3,7 +3,6 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -15,6 +14,10 @@
     <link href="../css/dj_base_838a930.css" rel="stylesheet" type="text/css">
     <link href="../css/dj_dc_content_f60f458.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.0.min.css">
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
 </head>
 <body>
 <%
@@ -115,7 +118,7 @@
 
 
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a href=" " class="weui-btn weui-btn_primary">申请参与</a>
+            <a id="applyBtn" class="weui-btn weui-btn_primary">申请参与</a>
         </div>
 
     </div>
@@ -138,10 +141,40 @@
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var activityID='<%=activity.getId()%>';
+    var contextPath="${pageContext.request.contextPath}";
 
-<script>
-    $(document).ready(function () {
-        $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
+    $(function(){
+        $("#applyBtn").on('click',function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/teamActivities";
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "activityId=" + activityID,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="ok"){
+                        showAlert("申请成功",function () {
+                            goTo(targetUrl2);
+                        });
+                    }else{
+                        showAlert("发布失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("发布失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        });
     });
 </script>
 
