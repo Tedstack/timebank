@@ -163,6 +163,8 @@
                         showAlert("申请成功",function () {
                             goTo(targetUrl2);
                         });
+                    }else if(data==="managerError"){
+                        showAlert("团队管理员不能参加自己发布的互动");
                     }else{
                         showAlert("发布失败");
                     }

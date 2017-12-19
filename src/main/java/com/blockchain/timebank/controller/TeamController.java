@@ -184,6 +184,12 @@ public class TeamController {
     @ResponseBody
     public String applyToJoinActivity(ModelMap map, @RequestParam long activityId) {
 
+        ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityId);
+        if(viewActivityPublishDetailEntity.getManagerUserId()==getCurrentUser().getId()){
+            System.out.println("managerError");
+            return "managerError";
+        }
+
         UserActivityEntity userActivityEntity = new UserActivityEntity();
         userActivityEntity.setActivityId(activityId);
         userActivityEntity.setUserId(getCurrentUser().getId());
