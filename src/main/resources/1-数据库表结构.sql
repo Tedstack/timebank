@@ -237,6 +237,19 @@ CREATE VIEW view_team_user_detail
     FROM teamUser, team, user
     WHERE teamUser.TeamID = team.ID AND teamUser.UserID = user.ID;
 
+# 显示用户申请加入活动的详细信息视图
+CREATE VIEW view_user_activity_detail
+  AS
+    SELECT
+      userActivity.ID               AS ID,             #编号
+      userActivity.ActivityID      AS ActivityID,     #活动编号
+      userActivity.UserID           AS UserID,        #用户编号
+      userActivity.IsAllow          AS IsAllow,       #审核是否通过
+      activityPublish.TeamID        AS TeamID,         #团体管理者编号
+      team.ManagerUserID            AS ManagerUserID  #团队管理者编号
+    FROM userActivity, activityPublish ,team
+    WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID;
+
 # 显示已发布的服务详细信息视图
 CREATE VIEW view_publish_detail
   AS
