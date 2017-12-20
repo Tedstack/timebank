@@ -175,6 +175,7 @@ CREATE TABLE `userActivity` (
   `ActivityID` BIGINT(20) NOT NULL COMMENT '活动编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
   `IsAllow` BOOL NOT NULL COMMENT '用户是否已经通过审核',
+  `IsPresent` BOOL NOT NULL COMMENT '用户是否出席活动',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户加入活动表';

@@ -9,6 +9,7 @@ public class UserActivityEntity {
     private long activityId;
     private long userId;
     private boolean isAllow;
+    private boolean isPresent;
     private String extra;
 
     @Id
@@ -52,6 +53,16 @@ public class UserActivityEntity {
     }
 
     @Basic
+    @Column(name = "IsPresent", nullable = false)
+    public boolean isPresent() {
+        return isPresent;
+    }
+
+    public void setPresent(boolean present) {
+        isPresent = present;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -72,6 +83,7 @@ public class UserActivityEntity {
         if (activityId != that.activityId) return false;
         if (userId != that.userId) return false;
         if (isAllow != that.isAllow) return false;
+        if (isPresent != that.isPresent) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -83,6 +95,7 @@ public class UserActivityEntity {
         result = 31 * result + (int) (activityId ^ (activityId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (isAllow ? 1 : 0);
+        result = 31 * result + (isPresent ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
