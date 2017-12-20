@@ -76,11 +76,16 @@
 
                                 </span>
                             </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"><a href="" class="weui-btn weui-btn_mini weui-btn_default">举报</a></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/pingjia_activities" class="weui-btn weui-btn_mini weui-btn_primary">评价</a></div>
                             </div>
                         </div>
 

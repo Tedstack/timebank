@@ -51,12 +51,23 @@ public class RecordController {
 
         return "activities_yishenqin_volunteer";
     }
+    //已申请活动页面查看活动详情
+    @RequestMapping(value = "/yishenqingxiangqing_activities", method = RequestMethod.GET)
+    public String yishenqingxiangqing(ModelMap map,long id) {
+        UserEntity userEntity=getCurrentUser();
 
     //申请待执行的活动页面（参与活动）
     @RequestMapping(value = "/daizhixing_activities", method = RequestMethod.GET)
     public String Daizhixingactivities(ModelMap map) {
 
         return "activities_daizhixing_volunteer";
+    }
+
+    //申请评价活动页面（参与活动的成员）
+    @RequestMapping(value = "/pingjia_activities", method = RequestMethod.GET)
+    public String Pingjiaactivities(ModelMap map) {
+
+        return "activities_rate";
     }
 
     //申请已完成的活动界面（参与活动）
