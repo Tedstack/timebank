@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <a href="${pageContext.request.contextPath}/record/daishenqing_activities" class="weui-cell weui-cell_access" >
+        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-cell weui-cell_access" >
             <div class="weui-cell__hd"><img src="../img/userdetails/我的发布.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p>已发布的活动</p>

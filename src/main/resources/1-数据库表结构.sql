@@ -246,11 +246,13 @@ CREATE VIEW view_user_activity_detail
       userActivity.ID               AS ID,             #编号
       userActivity.ActivityID      AS ActivityID,     #活动编号
       userActivity.UserID           AS UserID,        #用户编号
+      user.Name                     AS UserName,        #用户名
+      user.Phone                    AS UserPhone,       #用户手机号
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
       activityPublish.TeamID        AS TeamID,         #团体管理者编号
       team.ManagerUserID            AS ManagerUserID  #团队管理者编号
-    FROM userActivity, activityPublish ,team
-    WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID;
+    FROM userActivity, activityPublish ,team ,user
+    WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID AND userActivity.UserID = user.ID;
 
 # 显示已发布的服务详细信息视图
 CREATE VIEW view_publish_detail

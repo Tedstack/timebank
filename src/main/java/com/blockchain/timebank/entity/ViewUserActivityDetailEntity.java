@@ -8,6 +8,8 @@ public class ViewUserActivityDetailEntity {
     private long id;
     private long activityId;
     private long userId;
+    private String userName;
+    private String userPhone;
     private boolean isAllow;
     private long teamId;
     private long managerUserId;
@@ -40,6 +42,26 @@ public class ViewUserActivityDetailEntity {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "UserName", nullable = true, length = 20)
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Basic
+    @Column(name = "UserPhone", nullable = false, length = 20)
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
     }
 
     @Basic
@@ -85,6 +107,8 @@ public class ViewUserActivityDetailEntity {
         if (isAllow != that.isAllow) return false;
         if (teamId != that.teamId) return false;
         if (managerUserId != that.managerUserId) return false;
+        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
+        if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
 
         return true;
     }
@@ -94,6 +118,8 @@ public class ViewUserActivityDetailEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (activityId ^ (activityId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));

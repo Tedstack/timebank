@@ -2,6 +2,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
+import com.blockchain.timebank.dao.ViewUserActivityDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
 import net.sf.json.JSONObject;
@@ -46,6 +47,9 @@ public class TeamController {
 
     @Autowired
     UserActivityService userActivityService;
+
+    @Autowired
+    ViewUserActivityDetailDao viewUserActivityDetailDao;
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -131,12 +135,6 @@ public class TeamController {
         return "manage_activities_start";
     }
 
-    //发布者管理待申请的活动
-    @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
-    public String manageActivities(ModelMap map) {
-        return "manage_activities";
-    }
-
     // 团队活动详情页面
     @RequestMapping(value = "/teamActivityDetails", method = RequestMethod.GET)
     public String teamActivityDetails(ModelMap map, @RequestParam long activityID) {
@@ -195,7 +193,13 @@ public class TeamController {
     @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
     @ResponseBody
     public String applyToJoinActivity(ModelMap map, @RequestParam long activityId) {
+        //判断是否重复申请
+        UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(),activityId);
+        if(userActivity!=null){
+            return "alreadyApply";
+        }
 
+        //判断是否是团队管理者
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityId);
         if(viewActivityPublishDetailEntity.getManagerUserId()==getCurrentUser().getId()){
             return "managerError";
@@ -209,6 +213,37 @@ public class TeamController {
         userActivityService.addUserActivity(userActivityEntity);
 
         return "ok";
+    }
+
+    //申请待活动的状态（发布活动）
+    @RequestMapping(value = "/activitiesWaitingForApply", method = RequestMethod.GET)
+    public String activitiesWaitingForApply(ModelMap map) {
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeleted(getCurrentUser().getId(),false);
+        map.addAttribute("activityDetailList", activityDetailList);
+        return "activities_daishenqing_publish";
+    }
+
+    //发布者管理待申请的活动
+    @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
+    public String manageActivities(ModelMap map, @RequestParam long activityId) {
+        ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityId);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityId(activityId);
+
+        map.addAttribute("activityPublishDetail", activityPublishDetail);
+        map.addAttribute("userActivityList", userActivityList);
+        return "manage_activities";
+    }
+
+    //申请待执行团体活动页面（发布活动）
+    @RequestMapping(value = "/activitiesWaitingToExecute", method = RequestMethod.GET)
+    public String activitiesWaitingToExecute(ModelMap map) {
+        return "activities_daizhixing_publish";
+    }
+
+    //申请已完成团体活动页面（发布活动）
+    @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
+    public String alreadyCompleteActivities(ModelMap map) {
+        return "activities_yiwancheng_publish";
     }
 
     private UserEntity getCurrentUser() {

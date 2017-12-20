@@ -65,22 +65,6 @@ public class RecordController {
         return "activities_yiwancheng_volunteer";
     }
 
-    //申请待申请团体活动页面（发布活动）
-    @RequestMapping(value = "/daishenqing_activities", method = RequestMethod.GET)
-    public String daishenqingactivities(ModelMap map) {
-        return "activities_daishenqing_publish";
-    }
-    //申请待执行团体活动页面（发布活动）
-    @RequestMapping(value = "/daizhixing_activities_publish", method = RequestMethod.GET)
-    public String daishenqingactivitiespublish(ModelMap map) {
-        return "activities_daizhixing_publish";
-    }
-    //申请已完成团体活动页面（发布活动）
-    @RequestMapping(value = "/yiwancheng_activities_publish", method = RequestMethod.GET)
-    public String yiwanchengactivitiespublish(ModelMap map) {
-        return "activities_yiwancheng_publish";
-    }
-
     //申请服务页面
     @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)
     public String applySubmit(ModelMap map, @RequestParam long serviceUserId, @RequestParam long publishId, @RequestParam String applyUserName, @RequestParam String applyUserPhone, @RequestParam String address, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam int payWay) {

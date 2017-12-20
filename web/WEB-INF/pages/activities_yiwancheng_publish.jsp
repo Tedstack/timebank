@@ -113,16 +113,16 @@
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/daishenqing_activities";
+            location.href="${pageContext.request.contextPath}/team/activitiesWaitingForApply";
         });
         $("#navbar2").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/daizhixing_activities_publish";
+            location.href="${pageContext.request.contextPath}/team/activitiesWaitingToExecute";
 
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/yiwancheng_activities_publish";
+            location.href="${pageContext.request.contextPath}/team/alreadyCompleteActivities";
 
         });
     });

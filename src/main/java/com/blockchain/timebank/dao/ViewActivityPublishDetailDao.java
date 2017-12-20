@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ViewActivityPublishDetailDao extends CrudRepository<ViewActivityPublishDetailEntity, Long> {
     List<ViewActivityPublishDetailEntity> findAllByDeleted(boolean isDeleted);
+    List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByManagerUserIdAndDeleted(long managerUserID,boolean isDeleted);
 }

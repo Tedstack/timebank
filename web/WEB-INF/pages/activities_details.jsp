@@ -195,12 +195,14 @@
                         });
                     }else if(data==="managerError"){
                         showAlert("团队管理员不能参加自己发布的互动");
+                    }else if(data==="alreadyApply"){
+                        showAlert("您已申请参加此活动");
                     }else{
-                        showAlert("发布失败");
+                        showAlert("申请失败")
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("发布失败");
+                    showAlert("申请失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
