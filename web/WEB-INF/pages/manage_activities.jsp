@@ -3,13 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/19
-  Time: 20:31
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -89,47 +83,19 @@
     <div class="weui-cells__title" style="color: #0D0D0D;text-align:center;font-size: large">已报名人员</div>
     <div class="weui-cells">
         <!--以下循环参加的人数-->
+        <%
+            for (int i=0;i<userActivityList.size();i++) {
+        %>
         <div class="weui-cell" id="cell1">
             <div class="weui-cell__bd">
-                <p style="font-size: 90%">孙芃达+联系电话</p>
+                <p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserName());%></p>
             </div>
             <div class="weui-cell__ft">
                 <div class="weui-btn weui-btn_mini weui-btn_primary" id="btn1">移除</div>
             </div>
         </div>
+        <%}%>
         <!--以上-->
-        <div class="weui-cell" id="cell2">
-            <div class="weui-cell__bd">
-                <p style="font-size: 90%">大齐+联系电话</p>
-            </div>
-            <div class="weui-cell__ft">
-                <div class="weui-btn weui-btn_mini weui-btn_primary" id="btn2">移除</div>
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__bd">
-                <p style="font-size: 90%">帅风+联系电话</p>
-            </div>
-            <div class="weui-cell__ft">
-                <div class="weui-btn weui-btn_mini weui-btn_primary" >移除</div>
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__bd">
-                <p style="font-size: 90%">蔡磊+联系电话</p>
-            </div>
-            <div class="weui-cell__ft">
-                <div class="weui-btn weui-btn_mini weui-btn_primary" >移除</div>
-            </div>
-        </div>
-        <div class="weui-cell">
-            <div class="weui-cell__bd">
-                <p style="font-size: 90%">黄立波+联系电话</p>
-            </div>
-            <div class="weui-cell__ft">
-                <div class="weui-btn weui-btn_mini weui-btn_primary" >移除</div>
-            </div>
-        </div>
     </div>
 </div>
 

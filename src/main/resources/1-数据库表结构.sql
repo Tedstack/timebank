@@ -249,6 +249,7 @@ CREATE VIEW view_user_activity_detail
       user.Name                     AS UserName,        #用户名
       user.Phone                    AS UserPhone,       #用户手机号
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
+      userActivity.IsPresent        AS IsPresent,       #是否参加活动
       activityPublish.TeamID        AS TeamID,         #团体管理者编号
       team.ManagerUserID            AS ManagerUserID  #团队管理者编号
     FROM userActivity, activityPublish ,team ,user
