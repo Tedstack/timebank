@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>消息列表</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/weui.min.css" />
+    <link href="../css/mobile-main.css" rel="stylesheet" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/scan/function.js"></script>
+</head>
+<body>
+<div class="page">
+    <div class="page__bd" style="height: 100%;">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">
+                <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
+                    <p><img src="../img/返回.png" width="20" height="15" style="margin-right: 10px;">消息列表</p>
+                </div>
+            </div>
+            <p style="font-size: 13px;color: #888888;margin-top: 8px;">本月</p>
+            <div class="weui-panel__bd">
+                <div class="weui-cells weui-cells_checkbox">
+                    <label class="weui-cell weui-check__label">
+                        <li style="font-size: 15px;"></li>
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                          <img src="C:\Users\dell\Pictures\Saved Pictures\ECNU.png" style="width: 50px;display: block">
+                        </div>
+                        <div class="weui-cell__bd">
+                             <p>支付</p>
+                             <p style="font-size: 13px;color: #888888;">转账10志愿者币</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <p style="font-size: 11px;color: #888888;margin-bottom: 8px;">2017/00/00</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="weui-panel__bd">
+                <div class="weui-cells weui-cells_checkbox">
+                    <label class="weui-cell weui-check__label">
+                        <li style="font-size: 15px;"></li>
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                           <img src="C:\Users\dell\Pictures\Saved Pictures\ECNU.png" style="width: 50px;display: block">
+                        </div>
+                        <div class="weui-cell__bd">
+                             <p>COD</p>
+                             <p style="font-size: 13px;color: #888888;">Anything you want</p>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <p style="font-size: 11px;color: #888888;margin-bottom: 8px;">2017/00/00</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="weui-panel__ft">
+                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+                    <div class="weui-cell__bd">查看更多</div>
+                    <span class="weui-cell__ft"></span>
+                </a>    
+            </div>
+        </div> 
+    </div>
+</div>
+</body>
+</html>
