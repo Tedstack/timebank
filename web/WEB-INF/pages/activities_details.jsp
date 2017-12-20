@@ -119,7 +119,7 @@
 
 
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a id="applyBtn" href=" " class="weui-btn weui-btn_primary">申请参与</a>
+            <a id="applyBtn" class="weui-btn weui-btn_primary">申请参与</a>
         </div>
         <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
         <div class="weui-cells">
