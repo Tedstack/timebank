@@ -51,13 +51,6 @@
             </div>
         </div>
 
-        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-cell weui-cell_access" >
-            <div class="weui-cell__hd"><img src="../img/userdetails/我的发布.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-            <div class="weui-cell__bd">
-                <p>已发布的活动</p>
-            </div>
-        </a>
-
         <a href="${pageContext.request.contextPath}/record/yishenqing_activities" class="weui-cell weui-cell_access" >
             <div class="weui-cell__hd"><img src="../img/userdetails/我的申请.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
@@ -69,8 +62,6 @@
 
         <div style="padding: 10px; margin-bottom: 20px;">
             <a href="${pageContext.request.contextPath}/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
-
-            <a href="${pageContext.request.contextPath}/team/startPublishActivity" class="weui-btn weui-btn_primary">发布活动</a>
         </div>
 
     </div>

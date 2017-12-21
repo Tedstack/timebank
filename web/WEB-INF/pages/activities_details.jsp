@@ -153,7 +153,7 @@
         </div>
     </div>
 
-    <div class="weui-tabbar">
+    <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>
@@ -194,13 +194,15 @@
                             goTo(targetUrl2);
                         });
                     }else if(data==="managerError"){
-                        showAlert("团队管理员不能参加自己发布的互动");
+                        showAlert("团队管理员不能参加自己发布的活动");
+                    }else if(data==="alreadyApply"){
+                        showAlert("您已申请参加此活动");
                     }else{
-                        showAlert("发布失败");
+                        showAlert("申请失败");
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("发布失败");
+                    showAlert("申请失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

@@ -18,36 +18,45 @@
     String openID = (String) request.getAttribute("openID");
     String code = (String) request.getAttribute("code");
 %>
-<div class="weui-cells">
-    <div class="weui-cell">
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label">手机号</label>
+        </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="phone" placeholder="手机号"/>
+            <input class="weui-input" type="tel" id="phone" placeholder="请输入手机号">
+        </div>
+        <div class="weui-cell__ft">
+            <a href="javascript:;" class="weui-vcode-btn">获取验证码</a>
         </div>
     </div>
-</div>
-<div class="weui-cells">
     <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="text" id="name" placeholder="用户名"/>
+            <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码"/>
         </div>
     </div>
-</div>
-<div class="weui-cells">
     <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="password" id="pwd1" placeholder="密码"/>
+            <input class="weui-input" id="name" placeholder="请输入真实姓名"/>
         </div>
     </div>
-</div>
-<div class="weui-cells">
     <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">密码</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="password" id="pwd2" placeholder="确认密码"/>
+            <input class="weui-input"  id="pwd1" type="password"/>
         </div>
     </div>
-</div>
-<div style="...">
-    <a href="javascript:;" class="weui-btn weui-btn_primary" id="create">创建</a>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="pwd2" type="password"/>
+        </div>
+    </div>
+    <div style="padding: 10px; margin-bottom: 20px;">
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="create">注册</a>
+    </div>
 </div>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">

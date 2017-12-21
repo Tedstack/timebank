@@ -159,6 +159,7 @@ CREATE TABLE `activityPublish` (
   `Count` INT NOT NULL COMMENT '活动人数',
   `ApplyEndTime` DATETIME NOT NULL COMMENT '申请截止时间',
   `Description` VARCHAR(200) NULL COMMENT '活动简介',
+  `Status` VARCHAR(50) NOT NULL COMMENT '活动状态',
   `IsPublic` BOOL NOT NULL COMMENT '是否公开',
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
@@ -215,6 +216,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.Count             AS Count,         #活动结束时间
       activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
       activityPublish.Description       AS Description,   #活动简介
+      activityPublish.Status            AS Status,         #活动状态
       activityPublish.IsPublic          AS IsPublic,      #是否公开
       activityPublish.IsDeleted         AS IsDeleted,     #是否已经被删除
       team.Name                         AS teamName,       #团体名称
@@ -246,11 +248,14 @@ CREATE VIEW view_user_activity_detail
       userActivity.ID               AS ID,             #编号
       userActivity.ActivityID      AS ActivityID,     #活动编号
       userActivity.UserID           AS UserID,        #用户编号
+      user.Name                     AS UserName,        #用户名
+      user.Phone                    AS UserPhone,       #用户手机号
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
+      userActivity.IsPresent        AS IsPresent,       #是否参加活动
       activityPublish.TeamID        AS TeamID,         #团体管理者编号
       team.ManagerUserID            AS ManagerUserID  #团队管理者编号
-    FROM userActivity, activityPublish ,team
-    WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID;
+    FROM userActivity, activityPublish ,team ,user
+    WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID AND userActivity.UserID = user.ID;
 
 # 显示已发布的服务详细信息视图
 CREATE VIEW view_publish_detail

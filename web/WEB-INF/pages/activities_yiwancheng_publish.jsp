@@ -93,7 +93,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
-    <div class="weui-tabbar">
+    <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>
@@ -113,16 +113,16 @@
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/daishenqing_activities";
+            location.href="${pageContext.request.contextPath}/team/activitiesWaitingForApply";
         });
         $("#navbar2").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/daizhixing_activities_publish";
+            location.href="${pageContext.request.contextPath}/team/activitiesWaitingToExecute";
 
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/yiwancheng_activities_publish";
+            location.href="${pageContext.request.contextPath}/team/alreadyCompleteActivities";
 
         });
     });

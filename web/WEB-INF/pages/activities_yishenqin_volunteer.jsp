@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>RateTest</title>
+    <title>已申请的服务</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
@@ -59,6 +59,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/yishenqingxiangqing_activities" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
+                        </div>
+                    </div>
+                </div>
                 <img src="../img/底部.png" width="375" height="15">
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
@@ -77,6 +88,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/yishenqingxiangqing_activities" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
+                        </div>
+                    </div>
+                </div>
                 <img src="../img/底部.png" width="375" height="15">
 
                 <!--一个订单详情结束，以上可修改-->
@@ -84,7 +106,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
-    <div class="weui-tabbar">
+    <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>

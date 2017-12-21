@@ -51,6 +51,12 @@ public class RecordController {
 
         return "activities_yishenqin_volunteer";
     }
+    //已申请活动页面查看活动详情
+    @RequestMapping(value = "/yishenqingxiangqing_activities", method = RequestMethod.GET)
+    public String yishenqingxiangqing(ModelMap map,long id) {
+        UserEntity userEntity = getCurrentUser();
+        return "";
+    }
 
     //申请待执行的活动页面（参与活动）
     @RequestMapping(value = "/daizhixing_activities", method = RequestMethod.GET)
@@ -59,26 +65,17 @@ public class RecordController {
         return "activities_daizhixing_volunteer";
     }
 
+    //申请评价活动页面（参与活动的成员）
+    @RequestMapping(value = "/pingjia_activities", method = RequestMethod.GET)
+    public String Pingjiaactivities(ModelMap map) {
+
+        return "activities_rate";
+    }
+
     //申请已完成的活动界面（参与活动）
     @RequestMapping(value = "/yiwancheng_activities", method = RequestMethod.GET)
     public String Yiwanchengactivities(ModelMap map) {
         return "activities_yiwancheng_volunteer";
-    }
-
-    //申请待申请团体活动页面（发布活动）
-    @RequestMapping(value = "/daishenqing_activities", method = RequestMethod.GET)
-    public String daishenqingactivities(ModelMap map) {
-        return "activities_daishenqing_publish";
-    }
-    //申请待执行团体活动页面（发布活动）
-    @RequestMapping(value = "/daizhixing_activities_publish", method = RequestMethod.GET)
-    public String daishenqingactivitiespublish(ModelMap map) {
-        return "activities_daizhixing_publish";
-    }
-    //申请已完成团体活动页面（发布活动）
-    @RequestMapping(value = "/yiwancheng_activities_publish", method = RequestMethod.GET)
-    public String yiwanchengactivitiespublish(ModelMap map) {
-        return "activities_yiwancheng_publish";
     }
 
     //申请服务页面
