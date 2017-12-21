@@ -82,7 +82,7 @@
     <div class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">开始活动</div>
 </div>
 
-<div class="weui-tabbar">
+<div class="weui-tabbar" style="height: 50px">
     <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
         <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">首页</p>

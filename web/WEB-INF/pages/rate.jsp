@@ -180,17 +180,14 @@
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
-                    showAlert("更改成功",function () {
+                    showAlert("评价成功",function () {
                         goTo(targetUrl2);
                     })
 
                 },
                 error: function (xhr, type) {
                     alert(type);
-                    showAlert("更改失败");
-                    /*showAlert("支付失败",function () {
-                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
-                    })*/
+                    showAlert("评价失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

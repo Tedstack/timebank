@@ -3,6 +3,7 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
@@ -32,6 +33,9 @@ public class PublishController {
     ServiceService serviceService;
 
     @Autowired
+    TeamService teamService;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -43,6 +47,16 @@ public class PublishController {
     //服务种类页面
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
+        UserEntity user = getCurrentUser();
+        List<TeamEntity> teamList = teamService.findTeamsByManagerUserId(user.getId());
+
+        //判断是否是团队管理者，若不是则无法发布服务
+        if(teamList.size()==0){
+            map.addAttribute("msg", "notManagerUser");
+            return "publish_category_notManager";
+        }
+
+        map.addAttribute("teamList", teamList);
         return "publish_category";
     }
 

@@ -83,6 +83,7 @@
                             <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
                         </div>
                     </div>
@@ -94,7 +95,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
-    <div class="weui-tabbar">
+    <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>

@@ -102,7 +102,7 @@
         </div>
     </div>
     <img src="../img/底部.png" width="375" height="100">
-    <div class="weui-tabbar">
+    <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>
