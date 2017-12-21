@@ -54,7 +54,9 @@ public class RecordController {
     //已申请活动页面查看活动详情
     @RequestMapping(value = "/yishenqingxiangqing_activities", method = RequestMethod.GET)
     public String yishenqingxiangqing(ModelMap map,long id) {
-        UserEntity userEntity=getCurrentUser();
+        UserEntity userEntity = getCurrentUser();
+        return "";
+    }
 
     //申请待执行的活动页面（参与活动）
     @RequestMapping(value = "/daizhixing_activities", method = RequestMethod.GET)
