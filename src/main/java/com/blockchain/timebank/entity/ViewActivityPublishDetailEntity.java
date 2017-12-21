@@ -16,8 +16,8 @@ public class ViewActivityPublishDetailEntity {
     private Timestamp applyEndTime;
     private String description;
     private String status;
-    private byte isPublic;
-    private byte isDeleted;
+    private boolean isPublic;
+    private boolean isDeleted;
     private String teamName;
     private long managerUserId;
 
@@ -123,22 +123,22 @@ public class ViewActivityPublishDetailEntity {
 
     @Basic
     @Column(name = "IsPublic", nullable = false)
-    public byte getIsPublic() {
+    public boolean isPublic() {
         return isPublic;
     }
 
-    public void setIsPublic(byte isPublic) {
-        this.isPublic = isPublic;
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
     @Basic
     @Column(name = "IsDeleted", nullable = false)
-    public byte getIsDeleted() {
+    public boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(byte isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Basic
@@ -198,8 +198,8 @@ public class ViewActivityPublishDetailEntity {
         result = 31 * result + (applyEndTime != null ? applyEndTime.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (int) isPublic;
-        result = 31 * result + (int) isDeleted;
+        result = 31 * result + (isPublic ? 1 : 0);
+        result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
         return result;
