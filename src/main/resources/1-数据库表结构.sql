@@ -159,6 +159,7 @@ CREATE TABLE `activityPublish` (
   `Count` INT NOT NULL COMMENT '活动人数',
   `ApplyEndTime` DATETIME NOT NULL COMMENT '申请截止时间',
   `Description` VARCHAR(200) NULL COMMENT '活动简介',
+  `Status` VARCHAR(50) NOT NULL COMMENT '活动状态',
   `IsPublic` BOOL NOT NULL COMMENT '是否公开',
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
@@ -215,6 +216,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.Count             AS Count,         #活动结束时间
       activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
       activityPublish.Description       AS Description,   #活动简介
+      activityPublish.Status            AS Status,         #活动状态
       activityPublish.IsPublic          AS IsPublic,      #是否公开
       activityPublish.IsDeleted         AS IsDeleted,     #是否已经被删除
       team.Name                         AS teamName,       #团体名称

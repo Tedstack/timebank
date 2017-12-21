@@ -15,8 +15,9 @@ public class ViewActivityPublishDetailEntity {
     private int count;
     private Timestamp applyEndTime;
     private String description;
-    private boolean isPublic;
-    private boolean isDeleted;
+    private String status;
+    private byte isPublic;
+    private byte isDeleted;
     private String teamName;
     private long managerUserId;
 
@@ -111,23 +112,33 @@ public class ViewActivityPublishDetailEntity {
     }
 
     @Basic
+    @Column(name = "Status", nullable = false, length = 50)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Basic
     @Column(name = "IsPublic", nullable = false)
-    public boolean isPublic() {
+    public byte getIsPublic() {
         return isPublic;
     }
 
-    public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
+    public void setIsPublic(byte isPublic) {
+        this.isPublic = isPublic;
     }
 
     @Basic
     @Column(name = "IsDeleted", nullable = false)
-    public boolean isDeleted() {
+    public byte getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setIsDeleted(byte isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     @Basic
@@ -169,6 +180,7 @@ public class ViewActivityPublishDetailEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (applyEndTime != null ? !applyEndTime.equals(that.applyEndTime) : that.applyEndTime != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
 
         return true;
@@ -185,8 +197,9 @@ public class ViewActivityPublishDetailEntity {
         result = 31 * result + count;
         result = 31 * result + (applyEndTime != null ? applyEndTime.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (isPublic ? 1 : 0);
-        result = 31 * result + (isDeleted ? 1 : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (int) isPublic;
+        result = 31 * result + (int) isDeleted;
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
         return result;
