@@ -19,4 +19,12 @@ public class UserActivityServiceImpl implements UserActivityService {
         UserActivityEntity userActivityEntity = userActivityDao.findUserActivityEntityByActivityIdAndUserId(activityID, userID);
         return userActivityEntity;
     }
+
+    public UserActivityEntity findUserActivityByID(long userActivityID) {
+        return userActivityDao.findOne(userActivityID);
+    }
+
+    public UserActivityEntity updateUserActivityEntity(UserActivityEntity userActivityEntity) {
+        return userActivityDao.save(userActivityEntity);
+    }
 }

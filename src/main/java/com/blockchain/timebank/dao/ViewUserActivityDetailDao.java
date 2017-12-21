@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ViewUserActivityDetailDao extends CrudRepository<ViewUserActivityDetailEntity, Long> {
-    List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByActivityId(long activityID);
+    List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByActivityIdAndAllow(long activityID, boolean isAllow);
 }

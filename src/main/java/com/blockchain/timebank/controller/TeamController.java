@@ -215,10 +215,12 @@ public class TeamController {
         return "ok";
     }
 
-    //申请待活动的状态（发布活动）
+    //待申请活动的状态（发布活动）
     @RequestMapping(value = "/activitiesWaitingForApply", method = RequestMethod.GET)
     public String activitiesWaitingForApply(ModelMap map) {
         List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeleted(getCurrentUser().getId(),false);
+        //倒序排列
+        Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
         return "activities_daishenqing_publish";
     }
@@ -227,11 +229,22 @@ public class TeamController {
     @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
     public String manageActivities(ModelMap map, @RequestParam long activityId) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityId);
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityId(activityId);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityId,true);
 
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         return "manage_activities";
+    }
+
+    //带申请活动中移除报名用户
+    @RequestMapping(value = "/removeApplyUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String removeApplyUser(ModelMap map, @RequestParam long userActivityID) {
+        UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
+        userActivityEntity.setAllow(false);
+        userActivityService.updateUserActivityEntity(userActivityEntity);
+
+        return "ok";
     }
 
     //申请待执行团体活动页面（发布活动）

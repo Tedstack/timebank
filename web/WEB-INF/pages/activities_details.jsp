@@ -194,11 +194,11 @@
                             goTo(targetUrl2);
                         });
                     }else if(data==="managerError"){
-                        showAlert("团队管理员不能参加自己发布的互动");
+                        showAlert("团队管理员不能参加自己发布的活动");
                     }else if(data==="alreadyApply"){
                         showAlert("您已申请参加此活动");
                     }else{
-                        showAlert("申请失败")
+                        showAlert("申请失败");
                     }
                 },
                 error: function (xhr, type) {

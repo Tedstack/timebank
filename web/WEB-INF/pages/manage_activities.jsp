@@ -4,6 +4,7 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -14,6 +15,11 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/mobile-main.css" rel="stylesheet" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
 </head>
 <body>
 <%
@@ -91,7 +97,7 @@
                 <p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserName());%></p>
             </div>
             <div class="weui-cell__ft">
-                <div class="weui-btn weui-btn_mini weui-btn_primary" id="btn1">移除</div>
+                <button id="<%=i%>" value="<%=userActivityList.get(i).getId()%>" class="weui-btn weui-btn_mini weui-btn_primary">移除</button>
             </div>
         </div>
         <%}%>
@@ -117,12 +123,74 @@
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script>
+<script type="text/javascript">
+    var userActivityList='<%=userActivityList%>';
+    var activityId='<%=activityPublishDetail.getId()%>';
+    var contextPath="${pageContext.request.contextPath}";
+
+    var wConfirm = window.confirm;
+    window.confirm = function (message) {
+        try {
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display = "none";
+            iframe.setAttribute("src", 'data:text/plain,');
+            document.documentElement.appendChild(iframe);
+            var alertFrame = window.frames[0];
+            var iwindow = alertFrame.window;
+            if (iwindow == undefined) {
+                iwindow = alertFrame.contentWindow;
+            }
+            var result=iwindow.confirm(message);
+            iframe.parentNode.removeChild(iframe);
+            return result;
+        }
+        catch (exc) {
+            return wConfirm(message);
+        }
+    }
+
     $(function(){
-        $("btn1").on('click',function(){
-            var divObj=document.getElementById("cell1");
-            divObj.style.display="none";//没用...
-        });
+        for (var i=0; i<=userActivityList.length; i++) {
+            (function(i) {
+                $("#"+i).on("click", function(){
+                    var id = $("#"+i).attr("value");
+                    var r=confirm("确认移除该成员");
+                    if(r==true){
+                        post(id);
+                    }
+                });
+            })(i);
+        }
+
+        function post(userActivityID){
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/removeApplyUser";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/manageActivities?activityId="+activityId;
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "userActivityID=" + userActivityID,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="ok"){
+                        showAlert("移除成员成功",function () {
+                            goTo(targetUrl2);
+                        });
+                    }else{
+                        showAlert("移除成员失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("移除成员失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        }
     });
 </script>
 
