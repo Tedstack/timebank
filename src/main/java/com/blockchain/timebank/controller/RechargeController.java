@@ -1,5 +1,6 @@
 package com.blockchain.timebank.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.blockchain.timebank.entity.RechargeEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.RechargeService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 @RequestMapping("/recharge")
@@ -95,7 +96,7 @@ public class RechargeController {
     }
 
 
-    //申请查看时间币余额页面
+    //申请查看时间币余额页面   无需修改
     @RequestMapping(value = "/coins_balance", method = RequestMethod.GET)
     public String getCoinBalance(ModelMap map) {
         UserEntity user = getCurrentUser();
@@ -112,7 +113,7 @@ public class RechargeController {
 
 
     //申请充值时间币页面action
-    @RequestMapping(value = "/coins_recharge_submit", method = RequestMethod.POST)
+    @RequestMapping(value = "/coins_recharge_submit_pre", method = RequestMethod.POST)
     @ResponseBody
     public String getRechargeInfo(ModelMap map, @RequestParam Integer totalAmount) throws IOException {
         UserEntity userEntity = getCurrentUser();
@@ -137,6 +138,55 @@ public class RechargeController {
         rechargeEntity.setUuid(uuID);
 
         return prePayXml;
+    }
+
+
+
+
+
+
+    //申请充值时间币页面action
+
+    /**
+     * 获取充值金额，并组装好统一下单的XML，然后post到微信的统一下单地址;
+     * 根据统一下单的结果，获取唤起支付所需的参数并组装成Json数据返回给前台。
+     *
+     * @param map
+     * @param totalAmount
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/coins_recharge_submit", method = RequestMethod.POST)
+    @ResponseBody
+    public String getRechargeSubmit(ModelMap map, @RequestParam Integer totalAmount) throws IOException {
+        UserEntity userEntity = getCurrentUser();
+        Integer amount = totalAmount * 100;
+        String prePayXml = rechargeService.getUnifiedMessage(userEntity.getOpenId(), amount, userEntity.getId());
+
+        //以下预填数据库中充值信息
+        Date date = new Date();
+        SimpleDateFormat temp=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String reDate=temp.format(date);
+        String rechaegeStatus = "submit";
+        String uuID = WxPay.generateUUID();
+        RechargeEntity rechargeEntity = new RechargeEntity();
+        rechargeEntity.setUserId(userEntity.getId());
+        rechargeEntity.setTotalAmount(totalAmount);
+        rechargeEntity.setRechargeDate(reDate);
+        rechargeEntity.setRechargeStatus(rechaegeStatus);
+        rechargeEntity.setUuid(uuID);
+
+        Map payInfo = WxPay.getPayMap(prePayXml);
+        JSONObject json = new JSONObject();
+        Collection<String> keyset = payInfo.keySet();
+        List list = new ArrayList<String>(keyset);
+        for (int i = 0; i < list.size(); i++) {
+            //System.out.println(list.get(i) + "=" + payInfo.get(list.get(i)));
+            json.put((String) list.get(i),payInfo.get(list.get(i)));
+        }
+        String re = json.toJSONString();
+
+        return re;
     }
 
 

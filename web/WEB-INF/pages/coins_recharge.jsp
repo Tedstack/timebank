@@ -49,17 +49,57 @@
         $("#btn_charge").click(function () {
             var amount = $("#totalAmount").val();
             $.post(
-                url + "/coins_recharge",
+                url + "/coins_recharge_submit",
                 {
                     totalAmount: amount
                 },
                 function (data, status) {
                     console.log("accept data:" + data);
                     alert(data);
+
+                    $.post(
+                            "https://api.mch.weixin.qq.com/pay/unifiedorder",
+                            {
+                                data
+                            },
+                            function (data, status) {
+                                alert(data);
+                            }
+                    );
+
                 }
             );
         });
     });
+
+
+
+
+    $().invoke("/pay/do/pay.q", null, function (re) {
+        var result = JSON.parse(re);
+        result['timeStamp'] = result['timeStamp'] + "";
+        function onBridgeReady(){
+            WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest', result, function(res){
+                        alert(JSON.stringify(res));
+                        if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                            //doit 这里处理支付成功后的逻辑，通常为页面跳转
+                        }
+                    }
+            );
+        }
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            onBridgeReady();
+        }
+    });
+
 
 </script>
 
