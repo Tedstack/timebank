@@ -293,6 +293,12 @@ public class TeamController {
         return result.toString();
     }
 
+    //已开始团体活动页面（发布活动）
+    @RequestMapping(value = "/alreadyStartedActivities", method = RequestMethod.GET)
+    public String alreadyStartedActivities(ModelMap map) {
+        return "activities_yikaishi_publish";
+    }
+
     //申请已完成团体活动页面（发布活动）
     @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
     public String alreadyCompleteActivities(ModelMap map) {

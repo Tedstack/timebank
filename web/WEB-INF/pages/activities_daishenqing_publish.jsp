@@ -132,7 +132,7 @@
         });
         $("#navbar4").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/team/alreadyStartActivities";
+            location.href="${pageContext.request.contextPath}/team/alreadyStartedActivities";
 
         });
     });

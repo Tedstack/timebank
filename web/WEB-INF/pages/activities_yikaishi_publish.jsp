@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>RateTest</title>
+    <title>已开始</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
@@ -140,8 +140,7 @@
         });
         $("#navbar4").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/team/alreadyStartActivities";
-
+            location.href="${pageContext.request.contextPath}/team/alreadyStartedActivities";
         });
     });
 </script>

@@ -129,7 +129,7 @@
             }
 
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/startActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyStartedActivities";
             var obj = document.getElementsByName("checkbox1");
             var check_val = [];
             for(var k in obj){
