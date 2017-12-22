@@ -17,12 +17,12 @@
 
     <div class="weui-msg__text-area">
         <h1 class="weui-msg__title" style="font-size: x-large">我的时间币</h1>
-        <h2 class="weui-msg__title" style="font-size: xx-large">$ ${TimeCion}</h2>
+        <h2 class="weui-msg__title" style="font-size: xx-large">$ ${TimeCoin}</h2>
     </div>
 
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-            <a href="${pageContext.request.contextPath}/recharge/coins_balance" class="weui-btn weui-btn_primary">充值</a>
+            <a href="${pageContext.request.contextPath}/recharge/coins_recharge" class="weui-btn weui-btn_primary">充值</a>
         </p>
         <p class="weui-btn-area">
             <a href="" class="weui-btn weui-btn_default">提现</a>
