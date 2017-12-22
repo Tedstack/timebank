@@ -19,28 +19,49 @@
 
 
 <div class="weui-msg">
-    <form action="${pageContext.request.contextPath}/recharge/coins_recharge" method="post">
-        <div class="weui-msg__icon-area">
-            <img src="../img/coin.jpg" width="300" height="100">
-        </div>
 
-        <div class="weui-msg__text-area">
-            <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" type="number" name="totalAmount" style="font-size: xx-large"  placeholder="" required/>
-                </div>
+    <div class="weui-msg__icon-area">
+        <img src="../img/coin.jpg" width="300" height="100">
+    </div>
+
+    <div class="weui-msg__text-area">
+        <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="number" id="totalAmount" name="totalAmount" style="font-size: xx-large"  placeholder="" required/>
             </div>
         </div>
+    </div>
 
-        <div class="weui-msg__opr-area">
-            <p class="weui-btn-area">
-                <button type="submit" href="" class="weui-btn weui-btn_primary">下一步</button>
-            </p>
-        </div>
-    </form>
+    <div class="weui-msg__opr-area">
+        <p class="weui-btn-area">
+            <button type="submit" id="btn_charge" class="weui-btn weui-btn_primary">下一步</button>
+        </p>
+    </div>
 
 </div>
+
+<script>
+    var url='${pageContext.request.contextPath}';
+
+    $(document).ready(function(){
+        $("#btn_charge").click(function () {
+            var amount = $("#totalAmount").val();
+            $.post(
+                url + "/coins_recharge",
+                {
+                    totalAmount: amount
+                },
+                function (data, status) {
+                    console.log("accept data:" + data);
+                    alert(data);
+                }
+            );
+        });
+    });
+
+</script>
+
 </body>
 </html>

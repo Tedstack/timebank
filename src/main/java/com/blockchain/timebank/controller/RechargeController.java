@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -103,7 +104,8 @@ public class RechargeController {
     }
 
     //申请充值时间币页面
-    @RequestMapping(value = "/coins_recharge", method = RequestMethod.GET)
+    @RequestMapping(value = "/coins_recharge", method = RequestMethod.POST)
+    @ResponseBody
     public String getRechargeInfo(ModelMap map, @RequestParam Integer totalAmount) throws IOException {
         UserEntity userEntity = getCurrentUser();
         Integer amount = totalAmount * 100;
@@ -126,7 +128,7 @@ public class RechargeController {
         rechargeEntity.setRechargeStatus(rechaegeStatus);
         rechargeEntity.setUuid(uuID);
 
-        return "coins_recharge";
+        return prePayXml;
     }
 
 }
