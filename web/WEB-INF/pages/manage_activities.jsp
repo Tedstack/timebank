@@ -84,7 +84,7 @@
         </div>
     </div>
     <img src="../img/底部.png" width="375" height="10">
-    <div class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">开始活动</div>
+    <div id="terminateApplyBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">结束报名</div>
     <img src="../img/底部.png" width="375" height="10">
     <div class="weui-cells__title" style="color: #0D0D0D;text-align:center;font-size: large">已报名人员</div>
     <div class="weui-cells">
@@ -161,6 +161,38 @@
                 });
             })(i);
         }
+
+        $("#terminateApplyBtn").on('click',function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
+
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "activityID=" + activityId,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="ok"){
+                        showAlert("结束报名成功",function () {
+                            goTo(targetUrl2);
+                        });
+                    }else{
+                        showAlert("结束报名失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("结束报名失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+
+        });
 
         function post(userActivityID){
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/removeApplyUser";

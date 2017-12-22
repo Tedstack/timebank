@@ -98,7 +98,7 @@ public class TeamController {
     //用户查看团队活动列表
     @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
     public String activities(ModelMap map) {
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllByDeleted(false);
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllWaitingApplyActivityPublishEntity();
         //倒序排列
         Collections.reverse(activityList);
 
@@ -127,12 +127,6 @@ public class TeamController {
 
         map.addAttribute("activityList",activityList);
         return "team_activities";
-    }
-	
-	// 发布者开始执行活动、勾选实际参与人员页面
-    @RequestMapping(value = "/startActivities", method = RequestMethod.GET)
-    public String startActivities(ModelMap map) {
-        return "manage_activities_start";
     }
 
     // 团队活动详情页面
@@ -172,6 +166,7 @@ public class TeamController {
             activityPublishEntity.setDeleted(false);
             activityPublishEntity.setName(activityName);
             activityPublishEntity.setDescription(description);
+            activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
             Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
             Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " "));
             Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
@@ -218,7 +213,7 @@ public class TeamController {
     //待申请活动的状态（发布活动）
     @RequestMapping(value = "/activitiesWaitingForApply", method = RequestMethod.GET)
     public String activitiesWaitingForApply(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeleted(getCurrentUser().getId(),false);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.waitingForApply);
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
@@ -247,10 +242,36 @@ public class TeamController {
         return "ok";
     }
 
-    //申请待执行团体活动页面（发布活动）
+    //活动管理者结束活动报名
+    @RequestMapping(value = "/terminateApplyActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String terminateApplyActivity(ModelMap map, @RequestParam long activityID) {
+        ActivityPublishEntity activityPublishEntity = activityPublishService.findActivityPublishEntityByID(activityID);
+        activityPublishEntity.setStatus(ActivityStatus.waitingForExecute);
+        activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+
+        return "ok";
+    }
+
+    //待执行团体活动页面（发布活动）
     @RequestMapping(value = "/activitiesWaitingToExecute", method = RequestMethod.GET)
     public String activitiesWaitingToExecute(ModelMap map) {
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.waitingForExecute);
+        //倒序排列
+        Collections.reverse(activityDetailList);
+        map.addAttribute("activityDetailList", activityDetailList);
         return "activities_daizhixing_publish";
+    }
+
+    // 发布者开始执行活动、勾选实际参与人员页面
+    @RequestMapping(value = "/prepareStartActivity", method = RequestMethod.GET)
+    public String startActivities(ModelMap map, @RequestParam long activityID) {
+        ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID,true);
+
+        map.addAttribute("activityPublishDetail", activityPublishDetail);
+        map.addAttribute("userActivityList", userActivityList);
+        return "manage_activities_start";
     }
 
     //申请已完成团体活动页面（发布活动）

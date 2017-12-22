@@ -1,22 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/8
-  Time: 19:29
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>RateTest</title>
+    <title>待执行</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
 <body>
+<%
+    List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
+%>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
@@ -41,6 +39,9 @@
             <!--tab_pannel为navbar中自带的显示界面详细-->
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
+                <%
+                    for (int i=0;i<activityDetailList.size();i++) {
+                %>
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
@@ -48,12 +49,12 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">待执行活动2</h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(activityDetailList.get(i).getName());%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">活动内容详情显示1 </p>
-                            <p class="weui-media-box__desc">详情显示2</p>
+                            <p class="weui-media-box__desc">活动团队：<%out.print(activityDetailList.get(i).getTeamName());%></p>
+                            <p class="weui-media-box__desc">活动地点：<%out.print(activityDetailList.get(i).getAddress());%></p>
                         </div>
                     </div>
                 </div>
@@ -64,40 +65,12 @@
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/startActivities">开始</a></div>
+                            <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/prepareStartActivity?activityID=<%out.print(activityDetailList.get(i).getId());%>">开始</a></div>
                         </div>
                     </div>
                 </div>
                 <img src="../img/底部.png" width="375" height="15">
-                <div class="weui-panel__bd">
-                    <div class="weui-media-box weui-media-box_appmsg">
-                        <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
-                        </div>
-                        <div class="weui-media-box__bd">
-                            <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">待执行活动2</h4></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                            </div>
-                            <p class="weui-media-box__desc">活动内容详情显示1 </p>
-                            <p class="weui-media-box__desc">详情显示2</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <div class="weui-flex">
-                            <div class="weui-flex__item"diaplay="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/startActivities">开始</a></div>
-                        </div>
-                    </div>
-                </div>
-                <img src="../img/底部.png" width="375" height="15">
-
+                <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
             <!--weui-tab_panel的结束位置-->

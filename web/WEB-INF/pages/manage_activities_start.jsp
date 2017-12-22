@@ -1,10 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/19
-  Time: 20:32
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewUserActivityDetailEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -15,24 +14,29 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
-
-
-
+<%
+    ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
+    List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
+%>
 <div class="weui-tab__panel">
     <div class="weui-cell">
         <div class="weui-cell__bd">
-            <p style="font-size: large">活动名称:扫大街</p>
+            <p style="font-size: large">活动名称：<%out.print(activityPublishDetail.getName());%></p>
         </div>
-        <div class="weui-cell__ft" style="color: #0D0D0D">发起团队:风华队</div>
+        <div class="weui-cell__ft" style="color: #0D0D0D">发起团队：<%out.print(activityPublishDetail.getTeamName());%></div>
     </div>
     <img src="../img/底部.png" width="375" height="10">
     <div class="weui-cells__title" style="color: #0D0D0D">活动详情</div>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
             <div class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder="组织风华队志愿者们参加扫大街活动,组织风华队志愿者们参加扫大街活动" rows="3" readonly="true"></textarea>
+                <textarea class="weui-textarea" rows="3" readonly="true"><%out.print(activityPublishDetail.getDescription());%></textarea>
             </div>
         </div>
     </div>
@@ -41,45 +45,36 @@
         <div class="weui-cell__bd">
             <p>活动开始时间</p>
         </div>
-        <div class="weui-cell__ft">2017年12月19日15:00</div>
+        <div class="weui-cell__ft">
+            <%
+                Timestamp beginTimestamp = activityPublishDetail.getBeginTime();
+                Date date = new Date(beginTimestamp.getTime());
+                SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                out.print(bartDateFormat.format(date));
+            %>
+        </div>
     </div>
     <img src="../img/底部.png" width="375" height="10">
     <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">请勾选实际参加人员</div>
     <div class="weui-cells weui-cells_checkbox">
 
-        <label class="weui-cell weui-check__label" for="s11">
+        <%
+            for (int i=0;i<userActivityList.size();i++) {
+        %>
+        <label class="weui-cell weui-check__label" for=<%out.print(userActivityList.get(i).getId());%>>
             <div class="weui-cell__hd">
-                <input type="checkbox" class="weui-check" name="checkbox1" id="s11" checked="checked">
+                <input type="checkbox" class="weui-check" name="checkbox1" value=<%out.print(userActivityList.get(i).getUserName());%> id=<%out.print(userActivityList.get(i).getId());%>>
                 <i class="weui-icon-checked"></i>
             </div>
             <div class="weui-cell__bd" style="font-size: small;font-weight: normal">
-                孙芃达(组织者默认参加)
+                <%out.print(userActivityList.get(i).getUserName());%>
             </div>
         </label>
-
-        <label class="weui-cell weui-check__label" for="s12">
-            <div class="weui-cell__hd">
-                <input type="checkbox" name="checkbox1" class="weui-check" id="s12">
-                <i class="weui-icon-checked"></i>
-            </div>
-            <div class="weui-cell__bd" style="font-size: small;font-weight: normal">
-                黄立波   17621658230
-            </div>
-        </label>
-
-        <label class="weui-cell weui-check__label" for="s13">
-            <div class="weui-cell__hd">
-                <input type="checkbox" name="checkbox1" class="weui-check" id="s13">
-                <i class="weui-icon-checked"></i>
-            </div>
-            <div class="weui-cell__bd" style="font-size: small;font-weight: normal">
-                黄立波  17621658230
-            </div>
-        </label>
+        <%}%>
 
     </div>
     <img src="../img/底部.png" width="375" height="10">
-    <div class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">开始活动</div>
+    <div id="startActivityBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">开始活动</div>
 </div>
 
 <div class="weui-tabbar" style="height: 50px">
@@ -100,11 +95,19 @@
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script>
+<script type="text/javascript">
     $(function(){
-        $("btn1").on('click',function(){
-            var divObj=document.getElementById("cell1");
-            divObj.style.display="none";//没用...
+        var check = document.getElementsByName("checkbox1");
+
+        $("#startActivityBtn").on('click', function () {
+            var obj = document.getElementsByName("checkbox1");
+            var check_val = [];
+            for(var k in obj){
+                if(obj[k].checked){
+                    check_val.push(obj[k].id);
+                }
+            }
+            showAlert(check_val);
         });
     });
 </script>

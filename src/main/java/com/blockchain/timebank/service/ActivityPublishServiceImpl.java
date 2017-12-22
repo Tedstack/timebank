@@ -2,6 +2,7 @@ package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.ActivityPublishDao;
 import com.blockchain.timebank.entity.ActivityPublishEntity;
+import com.blockchain.timebank.entity.ActivityStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,8 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
         return activityPublishDao.findAllByDeleted(isDeleted);
     }
 
-    public List<ActivityPublishEntity> findAllActivityPublishEntity() {
-        return (List<ActivityPublishEntity>)activityPublishDao.findAll();
+    public List<ActivityPublishEntity> findAllWaitingApplyActivityPublishEntity() {
+        return (List<ActivityPublishEntity>)activityPublishDao.findByDeletedAndStatus(false, ActivityStatus.waitingForApply);
     }
 
     public ActivityPublishEntity saveActivityPublishEntity(ActivityPublishEntity activityPublishEntity) {

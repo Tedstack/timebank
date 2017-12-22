@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface ActivityPublishDao extends CrudRepository<ActivityPublishEntity, Long> {
     List<ActivityPublishEntity> findAllByDeleted(boolean isDeleted);
+
+    List<ActivityPublishEntity> findByDeletedAndStatus(boolean isDeleted, String status);
 }
