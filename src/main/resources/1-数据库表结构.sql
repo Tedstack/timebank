@@ -192,8 +192,8 @@ CREATE TABLE `recharge` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
   `TotalAmount` DOUBLE NOT NULL COMMENT '充值金额',
-  `RechargeDate` DATE NULL COMMENT '充值时间',
-  `RechargeStatus` VARCHAR(20) NULL COMMENT '充值状态',
+  `RechargeDate` DATETIME NULL COMMENT '充值时间',
+  `RechargeStatus` VARCHAR(20) NULL COMMENT '充值状态',  #3种状态：1-submit,2-success,3-failed
   `UUID` VARCHAR(50) NULL COMMENT '用户充值的uuid', #在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)

@@ -8,4 +8,8 @@ public interface RechargeService {
     String getUnifiedMessage(String openId, Integer totalAmount, Long userId) throws IOException;
 
     RechargeEntity saveRechargeEntity(RechargeEntity rechargeEntity);
+
+    String getUifiedInfo(String openId, Integer totalAmount, Long userId) throws IOException;
+
+
 }

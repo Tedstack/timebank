@@ -36,6 +36,47 @@ public class WxPay {
      * @return
      * @throws IOException
      */
+    public static String unifiedOrderInfo(String body,String out_trade_no,Integer total_fee,String IP,String openid) throws IOException {
+
+        String nonce_str = getNonceStr().toUpperCase();//随机
+        //组装请求参数,按照ASCII排序
+        String sign = "appid=" + ConfigUtil.APPID +
+                "&body=" + body +
+                "&mch_id=" + ConfigUtil.MCH_ID +
+                "&nonce_str=" + nonce_str +
+                "&notify_url=" + ConfigUtil.NOTIFY_URL +
+                "&openid=" + openid +
+                "&out_trade_no=" + out_trade_no +
+                "&spbill_create_ip=" + IP +
+                "&total_fee=" + total_fee.toString() +
+                "&trade_type=" + ConfigUtil.TRADE_TYPE_JS +
+                "&key=" + ConfigUtil.API_KEY;//这个字段是用于之后MD5加密的，字段要按照ascii码顺序排序
+        sign = MD5Util.MD5Encode(sign,"").toUpperCase();
+
+        //组装包含openid用于请求统一下单返回结果的XML
+        StringBuilder sb = new StringBuilder("");
+        sb.append("<xml>");
+        setXmlKV(sb,"appid",ConfigUtil.APPID);
+        setXmlKV(sb,"body",body);
+        setXmlKV(sb,"mch_id",ConfigUtil.MCH_ID);
+        setXmlKV(sb,"nonce_str",nonce_str);
+        setXmlKV(sb,"notify_url",ConfigUtil.NOTIFY_URL);
+        setXmlKV(sb,"openid",openid);
+        setXmlKV(sb,"out_trade_no",out_trade_no);
+        setXmlKV(sb,"spbill_create_ip",IP);
+        setXmlKV(sb,"total_fee",total_fee.toString());
+        setXmlKV(sb,"trade_type",ConfigUtil.TRADE_TYPE_JS);
+        setXmlKV(sb,"sign",sign);
+        sb.append("</xml>");
+        System.out.println("统一下单请求：" + sb);
+
+
+        return new String(sb.toString().getBytes("utf-8"));
+    }
+
+
+
+
     public static String unifiedOrder(String body,String out_trade_no,Integer total_fee,String IP,String openid) throws IOException {
         //设置访问路径
         HttpPost httppost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
@@ -81,7 +122,6 @@ public class WxPay {
 
         return strResult;
     }
-
 
 
     /**
