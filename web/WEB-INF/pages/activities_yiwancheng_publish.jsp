@@ -1,22 +1,23 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/8
-  Time: 19:30
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.Timestamp" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>RateTest</title>
+    <title>已完成</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
 <body>
+<%
+    List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
+%>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
@@ -44,39 +45,54 @@
             <!--tab_pannel为navbar中自带的显示界面详细-->
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
+                <%
+                    for (int i=0;i<activityDetailList.size();i++) {
+                %>
                 <div class="page__bd">
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">活动状态</label>
-                                <em class="weui-form-preview__value">已结束</em>
+                                <em class="weui-form-preview__value"><%out.print(activityDetailList.get(i).getStatus());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value">..</span>
+                                <label class="weui-form-preview__label">活动名称</label>
+                                <span class="weui-form-preview__value"><%out.print(activityDetailList.get(i).getName());%></span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务组织者</label>
+                                <label class="weui-form-preview__label">活动团队</label>
                                 <span class="weui-form-preview__value">
-
+                                    <%out.print(activityDetailList.get(i).getTeamName());%>
                                 </span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">实际参与人数</label>
-                                <span class="weui-form-preview__value">20</span>
+                                <label class="weui-form-preview__label">活动地点</label>
+                                <span class="weui-form-preview__value">
+                                    <%out.print(activityDetailList.get(i).getAddress());%>
+                                </span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动开始时间:</label>
+                                <label class="weui-form-preview__label">活动开始时间</label>
                                 <span class="weui-form-preview__value">
-
+                                    <%
+                                        Timestamp beginTimestamp = activityDetailList.get(i).getBeginTime();
+                                        Date date = new Date(beginTimestamp.getTime());
+                                        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                        out.print(bartDateFormat.format(date));
+                                    %>
                                 </span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">活动结束时间</label>
                                 <span class="weui-form-preview__value">
-
+                                    <%
+                                        Timestamp endTimestamp = activityDetailList.get(i).getEndTime();
+                                        Date date2 = new Date(endTimestamp.getTime());
+                                        SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                        out.print(bartDateFormat2.format(date2));
+                                    %>
                                 </span>
                             </div>
                             <div class="weui-panel__ft">
@@ -90,7 +106,7 @@
                     </div>
                     <img src="../img/底部.png" width="375" height="15">
                 </div>
-
+                <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
             <!--weui-tab_panel的结束位置-->

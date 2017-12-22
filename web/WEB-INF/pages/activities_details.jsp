@@ -3,6 +3,8 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewUserActivityDetailEntity" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8">
@@ -22,7 +24,8 @@
 </head>
 <body>
 <%
-    ViewActivityPublishDetailEntity activity = (ViewActivityPublishDetailEntity) request.getAttribute("activity");
+    ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
+    List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
 %>
 <!-- 使用 -->
 
@@ -35,7 +38,7 @@
                 <div class="shop-logo">
                     <img src="../img/服务类型/志愿者服务.png" alt="">
                 </div>
-                <div class="txt"><%out.print(activity.getName());%></div>
+                <div class="txt"><%out.print(activityPublishDetail.getName());%></div>
                 <%--<div class="tags-rz">
                     <span class="tag-sm">志愿者活动</span>
                 </div>--%>
@@ -48,14 +51,14 @@
                 <div class="weui-cell__bd">
                     <p>活动名称</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(activity.getName());%></div>
+                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getName());%></div>
             </div>
 
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>组织团队</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(activity.getTeamName());%></div>
+                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getTeamName());%></div>
             </div>
 
             <div class="weui-cell">
@@ -65,7 +68,7 @@
                 </div>
                 <div class="weui-cell__ft">
                     <%
-                        Timestamp beginTimestamp = activity.getBeginTime();
+                        Timestamp beginTimestamp = activityPublishDetail.getBeginTime();
                         Date date = new Date(beginTimestamp.getTime());
                         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         out.print(bartDateFormat.format(date));
@@ -79,7 +82,7 @@
                 </div>
                 <div class="weui-cell__ft">
                     <%
-                        Timestamp endTimestamp = activity.getEndTime();
+                        Timestamp endTimestamp = activityPublishDetail.getEndTime();
                         Date date2 = new Date(endTimestamp.getTime());
                         SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         out.print(bartDateFormat2.format(date2));
@@ -93,7 +96,7 @@
                 </div>
                 <div class="weui-cell__ft">
                     <%
-                        Timestamp applyEndTimestamp = activity.getApplyEndTime();
+                        Timestamp applyEndTimestamp = activityPublishDetail.getApplyEndTime();
                         Date date3 = new Date(applyEndTimestamp.getTime());
                         SimpleDateFormat bartDateFormat3 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         out.print(bartDateFormat3.format(date3));
@@ -105,7 +108,7 @@
                 <div class="weui-cell__bd">
                     <p>活动地点</p>
                 </div>
-                <div class="weui-cell__ft"><%out.print(activity.getAddress());%></div>
+                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getAddress());%></div>
             </div>
         </div>
 
@@ -113,7 +116,7 @@
             <div class="title">
                 <span>详情描述</span>
             </div>
-            <div class="con_u"><%out.print(activity.getDescription());%></div>
+            <div class="con_u"><%out.print(activityPublishDetail.getDescription());%></div>
         </div>
 
 
@@ -124,32 +127,16 @@
         <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
         <div class="weui-cells">
             <!--以下循环参加的人数-->
+            <%
+                for (int i=0;i<userActivityList.size();i++) {
+            %>
             <div class="weui-cell" id="cell1">
                 <div class="weui-cell__bd">
-                    <p style="font-size: 90%">孙芃达+团队身份</p>
+                    <p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserName());%></p>
                 </div>
             </div>
+            <%}%>
             <!--以上-->
-            <div class="weui-cell" id="cell2">
-                <div class="weui-cell__bd">
-                    <p style="font-size: 90%">大齐+团队身份</p>
-                </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p style="font-size: 90%">帅风+团队身份</p>
-                </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p style="font-size: 90%">蔡磊+团队身份</p>
-                </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p style="font-size: 90%">黄立波+团队身份</p>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -172,7 +159,7 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var activityID='<%=activity.getId()%>';
+    var activityID='<%=activityPublishDetail.getId()%>';
     var contextPath="${pageContext.request.contextPath}";
 
     $(function(){
@@ -184,7 +171,7 @@
                 cache: false,
                 url: targetUrl,
                 //dataType:'JSONP',
-                data: "activityId=" + activityID,
+                data: "activityID=" + activityID,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

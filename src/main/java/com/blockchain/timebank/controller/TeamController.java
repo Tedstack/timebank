@@ -132,9 +132,12 @@ public class TeamController {
     // 团队活动详情页面
     @RequestMapping(value = "/teamActivityDetails", method = RequestMethod.GET)
     public String teamActivityDetails(ModelMap map, @RequestParam long activityID) {
-        ViewActivityPublishDetailEntity activityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
-        //ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(activityID);
-        map.addAttribute("activity",activityPublishDetailEntity);
+
+        ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID,true);
+
+        map.addAttribute("activityPublishDetail", activityPublishDetail);
+        map.addAttribute("userActivityList", userActivityList);
         return "activities_details";
     }
 
@@ -187,21 +190,21 @@ public class TeamController {
     // 申请加入活动
     @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String applyToJoinActivity(ModelMap map, @RequestParam long activityId) {
+    public String applyToJoinActivity(ModelMap map, @RequestParam long activityID) {
         //判断是否重复申请
-        UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(),activityId);
+        UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(),activityID);
         if(userActivity!=null){
             return "alreadyApply";
         }
 
         //判断是否是团队管理者
-        ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityId);
+        ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if(viewActivityPublishDetailEntity.getManagerUserId()==getCurrentUser().getId()){
             return "managerError";
         }
 
         UserActivityEntity userActivityEntity = new UserActivityEntity();
-        userActivityEntity.setActivityId(activityId);
+        userActivityEntity.setActivityId(activityID);
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
 
@@ -307,16 +310,32 @@ public class TeamController {
     @RequestMapping(value = "/prepareTerminateActivity", method = RequestMethod.GET)
     public String prepareTerminateActivity(ModelMap map, @RequestParam long activityID) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID,true);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresent(activityID,true, true);
 
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         return "activities_waiting_finish";
     }
 
+    @RequestMapping(value = "/terminateActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String terminateActivity(ModelMap map, @RequestParam long activityID) {
+
+        ActivityPublishEntity activityPublishEntity = activityPublishService.findActivityPublishEntityByID(activityID);
+        activityPublishEntity.setStatus(ActivityStatus.alreadyTerminate);
+        activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+
+        return "ok";
+    }
+
     //申请已完成团体活动页面（发布活动）
     @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
     public String alreadyCompleteActivities(ModelMap map) {
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.alreadyTerminate);
+        //倒序排列
+        Collections.reverse(activityDetailList);
+        map.addAttribute("activityDetailList", activityDetailList);
+
         return "activities_yiwancheng_publish";
     }
 

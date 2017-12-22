@@ -87,7 +87,7 @@
         </div>
     </div>
     <img src="../img/底部.png" width="375" height="10">
-    <div class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">结束活动</div>
+    <div id="terminateActivityBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">结束活动</div>
     <img src="../img/底部.png" width="375" height="10">
     <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">实际参与人员</div>
     <div class="weui-cells">
@@ -119,5 +119,74 @@
         <p class="weui-tabbar__label">我</p>
     </a>
 </div>
+
+<!-- jQuery 3 -->
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var activityID='<%=activityPublishDetail.getId()%>';
+    var contextPath="${pageContext.request.contextPath}";
+
+    var wConfirm = window.confirm;
+    window.confirm = function (message) {
+        try {
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display = "none";
+            iframe.setAttribute("src", 'data:text/plain,');
+            document.documentElement.appendChild(iframe);
+            var alertFrame = window.frames[0];
+            var iwindow = alertFrame.window;
+            if (iwindow == undefined) {
+                iwindow = alertFrame.contentWindow;
+            }
+            var result=iwindow.confirm(message);
+            iframe.parentNode.removeChild(iframe);
+            return result;
+        }
+        catch (exc) {
+            return wConfirm(message);
+        }
+    }
+
+    $(function(){
+        var check = document.getElementsByName("checkbox1");
+
+        $("#terminateActivityBtn").on('click', function () {
+            var r=confirm("确认结束活动");
+            if(r==false){
+                return;
+            }
+
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateActivity";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyStartedActivities";
+
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "activityID=" + activityID,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="ok"){
+                        showAlert("操作成功",function () {
+                            goTo(targetUrl2);
+                        });
+                    }else{
+                        showAlert("操作失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("操作失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
