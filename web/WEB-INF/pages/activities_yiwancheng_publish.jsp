@@ -34,6 +34,9 @@
                 <div class="weui-navbar__item"id="navbar2">
                     待执行
                 </div>
+                <div class="weui-navbar__item"id="navbar4">
+                    已开始
+                </div>
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar3">
                     已完成
                 </div>
@@ -124,6 +127,10 @@
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="${pageContext.request.contextPath}/team/alreadyCompleteActivities";
 
+        });
+        $("#navbar4").on('click', function () {
+            $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+            location.href="${pageContext.request.contextPath}/team/alreadyStartActivities";
         });
     });
 </script>
