@@ -103,8 +103,16 @@ public class RechargeController {
         return "coins_balance";
     }
 
-    //申请充值时间币页面
-    @RequestMapping(value = "/coins_recharge", method = RequestMethod.POST)
+    //时间币充值页面
+
+    @RequestMapping(value = "/coins_recharge", method = RequestMethod.GET)
+    public String getRechargePage(ModelMap map) {
+        return "coins_recharge";
+    }
+
+
+    //申请充值时间币页面action
+    @RequestMapping(value = "/coins_recharge_submit", method = RequestMethod.POST)
     @ResponseBody
     public String getRechargeInfo(ModelMap map, @RequestParam Integer totalAmount) throws IOException {
         UserEntity userEntity = getCurrentUser();
