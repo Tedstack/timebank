@@ -296,7 +296,22 @@ public class TeamController {
     //已开始团体活动页面（发布活动）
     @RequestMapping(value = "/alreadyStartedActivities", method = RequestMethod.GET)
     public String alreadyStartedActivities(ModelMap map) {
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByManagerUserIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.alreadyStart);
+        //倒序排列
+        Collections.reverse(activityDetailList);
+        map.addAttribute("activityDetailList", activityDetailList);
         return "activities_yikaishi_publish";
+    }
+
+    // 发布者结束活动、勾选实际参与人员页面
+    @RequestMapping(value = "/prepareTerminateActivity", method = RequestMethod.GET)
+    public String prepareTerminateActivity(ModelMap map, @RequestParam long activityID) {
+        ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID,true);
+
+        map.addAttribute("activityPublishDetail", activityPublishDetail);
+        map.addAttribute("userActivityList", userActivityList);
+        return "activities_waiting_finish";
     }
 
     //申请已完成团体活动页面（发布活动）
