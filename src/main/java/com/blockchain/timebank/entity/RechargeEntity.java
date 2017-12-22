@@ -1,21 +1,23 @@
 package com.blockchain.timebank.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
 
+/**
+ * Created by yang on 17-12-22.
+ */
 @Entity
 @Table(name = "recharge", schema = "mydb", catalog = "")
 public class RechargeEntity {
     private long id;
     private long userId;
     private double totalAmount;
-    private Date rechargeDate;
+    private String rechargeDate;
     private String rechargeStatus;
     private String uuid;
     private String extra;
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -25,7 +27,7 @@ public class RechargeEntity {
     }
 
     @Basic
-    @Column(name = "UserID", nullable = false)
+    @Column(name = "UserID")
     public long getUserId() {
         return userId;
     }
@@ -35,7 +37,7 @@ public class RechargeEntity {
     }
 
     @Basic
-    @Column(name = "TotalAmount", nullable = false, precision = 0)
+    @Column(name = "TotalAmount")
     public double getTotalAmount() {
         return totalAmount;
     }
@@ -45,17 +47,17 @@ public class RechargeEntity {
     }
 
     @Basic
-    @Column(name = "RechargeDate", nullable = true)
-    public Date getRechargeDate() {
+    @Column(name = "RechargeDate")
+    public String getRechargeDate() {
         return rechargeDate;
     }
 
-    public void setRechargeDate(Date rechargeDate) {
+    public void setRechargeDate(String rechargeDate) {
         this.rechargeDate = rechargeDate;
     }
 
     @Basic
-    @Column(name = "RechargeStatus", nullable = true, length = 20)
+    @Column(name = "RechargeStatus")
     public String getRechargeStatus() {
         return rechargeStatus;
     }
@@ -65,7 +67,7 @@ public class RechargeEntity {
     }
 
     @Basic
-    @Column(name = "UUID", nullable = true, length = 50)
+    @Column(name = "UUID")
     public String getUuid() {
         return uuid;
     }
@@ -75,7 +77,7 @@ public class RechargeEntity {
     }
 
     @Basic
-    @Column(name = "Extra", nullable = true, length = 50)
+    @Column(name = "Extra")
     public String getExtra() {
         return extra;
     }

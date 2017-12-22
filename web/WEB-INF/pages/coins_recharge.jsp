@@ -4,11 +4,6 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.controller.RechargeController" %><%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/11
-  Time: 20:33
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -24,12 +19,10 @@
 
 
 <div class="weui-msg">
-    <form action="${pageContext.request.contextPath}/recharge/rechargeAddSubmit" method="post">
+    <form action="${pageContext.request.contextPath}/recharge/coins_recharge" method="post">
         <div class="weui-msg__icon-area">
             <img src="../img/coin.jpg" width="300" height="100">
         </div>
-
-        <input type="text" style="display: none" value="<%=request.getAttribute("openId")%>" name="openId" required>
 
         <div class="weui-msg__text-area">
             <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>

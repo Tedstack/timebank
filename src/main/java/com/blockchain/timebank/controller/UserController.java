@@ -3,10 +3,6 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
-import com.blockchain.timebank.weixin.model.SNSUserInfo;
-import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
-import com.blockchain.timebank.weixin.util.AdvancedUtil;
-import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
 import com.blockchain.timebank.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,9 +225,11 @@ public class UserController {
     }
 
     //申请查看时间币余额页面
-    @RequestMapping(value = "/coins", method = RequestMethod.GET)
+    @RequestMapping(value = "/coins_balance", method = RequestMethod.GET)
     public String coin(ModelMap map) {
-        return "coins";
+        UserEntity user = getCurrentUser();
+        map.addAttribute("TimeCoin", user.getTimeCoin());
+        return "coins_balance";
     }
 
     //申请充值时间币页面
