@@ -274,6 +274,25 @@ public class TeamController {
         return "manage_activities_start";
     }
 
+    @RequestMapping(value = "/startActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String startActivity(ModelMap map, @RequestParam List<Long> userActivityIDList) {
+        for(int i=0;i<userActivityIDList.size();i++){
+            UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityIDList.get(i));
+            userActivityEntity.setPresent(true);
+            userActivityService.updateUserActivityEntity(userActivityEntity);
+        }
+
+        UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityIDList.get(0));
+        ActivityPublishEntity activityPublishEntity = activityPublishService.findActivityPublishEntityByID(userActivityEntity.getActivityId());
+        activityPublishEntity.setStatus(ActivityStatus.alreadyStart);
+        activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+
+        JSONObject result = new JSONObject();
+        result.put("msg","ok");
+        return result.toString();
+    }
+
     //申请已完成团体活动页面（发布活动）
     @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
     public String alreadyCompleteActivities(ModelMap map) {

@@ -34,12 +34,6 @@ public class RechargeController {
     @Autowired
     RechargeService rechargeService;
 
-
-    @RequestMapping(value = "/rechargeAdd", method = RequestMethod.GET)
-    public String rechargeAddPage(ModelMap map) {
-        return "recharge_add";
-    }
-
     //通过后台唤起支付
     @RequestMapping(value = "/rechargeAddSubmit", method = RequestMethod.POST)
     public String rechargeAddSubmit(ModelMap map, @RequestParam Integer totalAmount) throws IOException {

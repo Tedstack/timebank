@@ -96,10 +96,40 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var contextPath="${pageContext.request.contextPath}";
+
+    var wConfirm = window.confirm;
+    window.confirm = function (message) {
+        try {
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display = "none";
+            iframe.setAttribute("src", 'data:text/plain,');
+            document.documentElement.appendChild(iframe);
+            var alertFrame = window.frames[0];
+            var iwindow = alertFrame.window;
+            if (iwindow == undefined) {
+                iwindow = alertFrame.contentWindow;
+            }
+            var result=iwindow.confirm(message);
+            iframe.parentNode.removeChild(iframe);
+            return result;
+        }
+        catch (exc) {
+            return wConfirm(message);
+        }
+    }
+
     $(function(){
         var check = document.getElementsByName("checkbox1");
 
         $("#startActivityBtn").on('click', function () {
+            var r=confirm("确认开始活动");
+            if(r==false){
+                return;
+            }
+
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/startActivity";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/";
             var obj = document.getElementsByName("checkbox1");
             var check_val = [];
             for(var k in obj){
@@ -107,7 +137,38 @@
                     check_val.push(obj[k].id);
                 }
             }
-            showAlert(check_val);
+
+            if(check_val.length!==0){
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    dataType:'json',
+                    traditional:true,
+                    data: {"userActivityIDList":check_val},
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        var value = JSON.stringify(data);
+                        var dataJson = JSON.parse(value);
+
+                        if(dataJson.msg==="ok"){
+                            showAlert("操作成功",function () {
+                                goTo(targetUrl2);
+                            });
+                        }
+                    },
+                    error: function (xhr, type) {
+                        showAlert("操作失败");
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
+                    }
+                });
+            }else{
+                showAlert("请选择参加人员");
+            }
         });
     });
 </script>
