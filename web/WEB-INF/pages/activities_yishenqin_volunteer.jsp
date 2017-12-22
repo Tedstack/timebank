@@ -1,22 +1,23 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/7
-  Time: 18:47
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.blockchain.timebank.entity.ViewUserActivityDetailEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>已申请的服务</title>
+    <title>已申请的活动</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
 <body>
+<%
+    List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
+%>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
@@ -41,6 +42,9 @@
             <!--tab_pannel为navbar中自带的显示界面详细-->
             <div class="weui-tab__panel">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
+                <%
+                    for (int i=0;i<userActivityList.size();i++) {
+                %>
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
@@ -48,14 +52,28 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">已申请活动1</h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(userActivityList.get(i).getName());%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">活动内容详情显示1 </p>
-                            <p class="weui-media-box__desc">详情显示2</p>
-                            <p class="weui-media-box__desc">详情显示2</p>
-                            <p class="weui-media-box__desc">详情显示2</p>
+                            <p class="weui-media-box__desc">活动团队：<%out.print(userActivityList.get(i).getTeamName());%></p>
+                            <p class="weui-media-box__desc">活动开始时间：
+                                <%
+                                    Timestamp beginTimestamp = userActivityList.get(i).getBeginTime();
+                                    Date date = new Date(beginTimestamp.getTime());
+                                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    out.print(bartDateFormat.format(date));
+                                %>
+                            </p>
+                            <p class="weui-media-box__desc">活动结束时间：
+                                <%
+                                    Timestamp endTimestamp = userActivityList.get(i).getEndTime();
+                                    Date date2 = new Date(endTimestamp.getTime());
+                                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    out.print(bartDateFormat2.format(date2));
+                                %>
+                            </p>
+                            <p class="weui-media-box__desc">活动地点：<%out.print(userActivityList.get(i).getAddress());%></p>
                         </div>
                     </div>
                 </div>
@@ -71,36 +89,7 @@
                     </div>
                 </div>
                 <img src="../img/底部.png" width="375" height="15">
-                <div class="weui-panel__bd">
-                    <div class="weui-media-box weui-media-box_appmsg">
-                        <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
-                        </div>
-                        <div class="weui-media-box__bd">
-                            <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">已申请活动1</h4></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                            </div>
-                            <p class="weui-media-box__desc">活动内容详情显示1 </p>
-                            <p class="weui-media-box__desc">详情显示2</p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <div class="weui-flex">
-                            <div class="weui-flex__item"diaplay="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/yishenqingxiangqing_activities" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
-                        </div>
-                    </div>
-                </div>
-                <img src="../img/底部.png" width="375" height="15">
-
+                <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
             <!--weui-tab_panel的结束位置-->
@@ -126,16 +115,16 @@
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/yishenqing_activities";
+            location.href="${pageContext.request.contextPath}/team/alreadyApplyActivities";
         });
         $("#navbar2").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/daizhixing_activities";
+            location.href="${pageContext.request.contextPath}/team/activitiesWaitingToExecute2";
 
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/record/yiwancheng_activities";
+            location.href="${pageContext.request.contextPath}/team/alreadyCompleteActivities2";
 
         });
     });

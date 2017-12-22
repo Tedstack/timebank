@@ -213,7 +213,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
       activityPublish.Address           AS Address,       #活动地点
-      activityPublish.Count             AS Count,         #活动结束时间
+      activityPublish.Count             AS Count,         #活动人数
       activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
       activityPublish.Description       AS Description,   #活动简介
       activityPublish.Status            AS Status,         #活动状态
@@ -253,8 +253,16 @@ CREATE VIEW view_user_activity_detail
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
       userActivity.IsPresent        AS IsPresent,       #是否参加活动
       activityPublish.TeamID        AS TeamID,         #活动团队编队
+      activityPublish.Name              AS Name,          #活动名称
+      activityPublish.BeginTime         AS BeginTime,     #活动开始时间
+      activityPublish.EndTime           AS EndTime,       #活动结束时间
+      activityPublish.Address           AS Address,       #活动地点
+      activityPublish.Count             AS Count,         #活动人数
+      activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
+      activityPublish.Description       AS Description,   #活动简介
       activityPublish.Status        AS Status,          #活动状态
-      team.ManagerUserID            AS ManagerUserID  #团队管理者编号
+      team.Name                     AS TeamName,         #团队名称
+      team.ManagerUserID            AS ManagerUserID    #团队管理者编号
     FROM userActivity, activityPublish ,team ,user
     WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID AND userActivity.UserID = user.ID;
 
