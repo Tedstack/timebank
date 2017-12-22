@@ -3,6 +3,7 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
 import com.blockchain.timebank.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -362,8 +363,8 @@ public class UserController {
     //服务者开始扫码
     @RequestMapping(value = "/serviceUserStartScan",method = RequestMethod.GET)
     public String serviceUserStartScan(ModelMap map,@RequestParam long recordID) throws InterruptedException {
-        TokenThread.appId = "wxb0f6b07f01978a2a"; //获取servlet初始参数appid和appsecret
-        TokenThread.appSecret = "386ef712d87480fa1dc27a93995936eb";
+        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+        TokenThread.appSecret = Configs.APPSECRET;
         System.out.println("appid:"+TokenThread.appId);
         System.out.println("appSecret:"+TokenThread.appSecret);
         Thread thread = new Thread(new TokenThread());
