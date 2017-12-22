@@ -13,6 +13,7 @@ public class ViewUserActivityDetailEntity {
     private boolean isAllow;
     private boolean isPresent;
     private long teamId;
+    private String status;
     private long managerUserId;
 
     @Id
@@ -96,6 +97,16 @@ public class ViewUserActivityDetailEntity {
     }
 
     @Basic
+    @Column(name = "Status", nullable = false, length = 50)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Basic
     @Column(name = "ManagerUserID", nullable = false)
     public long getManagerUserId() {
         return managerUserId;
@@ -121,6 +132,7 @@ public class ViewUserActivityDetailEntity {
         if (managerUserId != that.managerUserId) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
         return true;
     }
@@ -135,6 +147,7 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (isPresent ? 1 : 0);
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
         return result;
     }
