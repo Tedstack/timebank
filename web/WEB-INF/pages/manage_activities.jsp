@@ -166,32 +166,34 @@
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
 
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: targetUrl,
-                //dataType:'JSONP',
-                data: "activityID=" + activityId,
-                beforeSend: function (XHR) {
-                    dialogLoading = showLoading();
-                },
-                success: function (data) {
-                    if(data==="ok"){
-                        showAlert("结束报名成功",function () {
-                            goTo(targetUrl2);
-                        });
-                    }else{
+            var r=confirm("确认结束报名");
+            if(r==true){
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    //dataType:'JSONP',
+                    data: "activityID=" + activityId,
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        if(data==="ok"){
+                            showAlert("结束报名成功",function () {
+                                goTo(targetUrl2);
+                            });
+                        }else{
+                            showAlert("结束报名失败");
+                        }
+                    },
+                    error: function (xhr, type) {
                         showAlert("结束报名失败");
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
                     }
-                },
-                error: function (xhr, type) {
-                    showAlert("结束报名失败");
-                },
-                complete: function (xhr, type) {
-                    dialogLoading.hide();
-                }
-            });
-
+                });
+            }
         });
 
         function post(userActivityID){
