@@ -57,16 +57,16 @@ public class TeamController {
         List<Long> alreadyInTeamList = new ArrayList<Long>();
         long currentId=getCurrentUser().getId();
         //从所有用户加入的团队中找到自己已经加入的团队
-        for(int i=0;i<allTeamUser.size();i++){
+        for (int i=0;i<allTeamUser.size();i++){
             if(allTeamUser.get(i).getUserId()==currentId){
                 alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
             }
         }
-
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
         return "all_teams";
     }
+
     @RequestMapping(value = "/chosenTeam", method = RequestMethod.GET)
     public String chosenTeamListPage(ModelMap map) {
         List<TeamUserEntity> allTeamUser = teamUserService.findAll();
@@ -79,7 +79,7 @@ public class TeamController {
         }
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
-        return "chosen_teams";
+        return "all_teams";
     }
 
     //    @RequestMapping(value = "/deleteUserFromTeam", method = RequestMethod.POST)
@@ -122,6 +122,21 @@ public class TeamController {
         result.put("msg","ok");
         return result.toString();
     }
+
+//    @RequestMapping(value = "/deleteUserFromTeam", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String deleteUserFromTeam(ModelMap map, @RequestParam List<Long> teamIDList) {
+//        JSONObject result = new JSONObject();
+//        for(int i=0;i<teamIDList.size();i++){
+//            TeamUserEntity teamUser = teamUserService.findById(teamIDList.get(i));
+//            if (teamUser != null) {
+//                teamUserService.deleteUserFromTeam(teamUser);
+//                result.put("msg", "ok");
+//            } else
+//                result.put("msg", "fail");
+//        }
+//        return result.toString();
+//    }
 
     //用户查看团队活动列表
     @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
