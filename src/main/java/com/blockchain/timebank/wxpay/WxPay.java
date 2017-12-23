@@ -75,7 +75,7 @@ public class WxPay {
     }
 
 
-    public static String unifiedOrder(String body, String out_trade_no, Double total_fee, String IP, String openid) throws IOException {
+    public static String unifiedOrder(String body, String out_trade_no, Integer total_fee, String IP, String openid) throws IOException {
         //设置访问路径
         HttpPost httppost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
 
