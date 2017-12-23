@@ -180,9 +180,9 @@ public class RechargeController {
             //System.out.println(list.get(i) + "=" + payInfo.get(list.get(i)));
             json.put((String) list.get(i),payInfo.get(list.get(i)));
         }
-        String re = json.toJSONString();
+        //String re = json.toJSONString();
 
-        return re;
+        return json.toString();
     }
 
 
