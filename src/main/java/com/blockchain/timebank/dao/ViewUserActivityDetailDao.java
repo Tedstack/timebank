@@ -10,5 +10,5 @@ import java.util.List;
 public interface ViewUserActivityDetailDao extends CrudRepository<ViewUserActivityDetailEntity, Long> {
     List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByActivityIdAndAllow(long activityID, boolean isAllow);
     List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresent(long activityID, boolean isAllow, boolean isPresent);
-    List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByUserIdAndStatus(long userID, String status);
+    List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(long userID, String status, boolean isAllow);
 }

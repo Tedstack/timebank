@@ -32,9 +32,9 @@
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
                     已申请
                 </div>
-                <div class="weui-navbar__item"id="navbar2">
+                <%--<div class="weui-navbar__item"id="navbar2">
                     待执行
-                </div>
+                </div>--%>
                 <div class="weui-navbar__item "id="navbar3">
                     已完成
                 </div>
@@ -84,7 +84,7 @@
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/yishenqingxiangqing_activities" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
+                            <div class="weui-flex__item"><a class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                         </div>
                     </div>
                 </div>

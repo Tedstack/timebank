@@ -86,7 +86,6 @@
                     <div class="weui-cell__bd">
                         <div class="weui-cell__bd">
                             <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
-                            <div class="weui-textarea-counter"><span>0</span>/200</div>
                         </div>
                     </div>
                 </div>
