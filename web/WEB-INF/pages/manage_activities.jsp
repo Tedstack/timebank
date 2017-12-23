@@ -86,7 +86,7 @@
     <img src="../img/底部.png" width="375" height="10">
     <div id="terminateApplyBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">结束报名</div>
     <img src="../img/底部.png" width="375" height="10">
-    <div class="weui-cells__title" style="color: #0D0D0D;text-align:center;font-size: large">已报名人员</div>
+    <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
     <div class="weui-cells">
         <!--以下循环参加的人数-->
         <%

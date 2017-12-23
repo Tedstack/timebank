@@ -342,10 +342,10 @@ public class TeamController {
     //申请已申请的活动页面（参与活动）
     @RequestMapping(value = "/alreadyApplyActivities", method = RequestMethod.GET)
     public String alreadyApplyActivities(ModelMap map) {
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatus(getCurrentUser().getId(), ActivityStatus.waitingForApply);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForApply, true);
         //倒序排列
         Collections.reverse(userActivityList);
-        System.out.println("userActivityList:"+userActivityList.size()+" "+getCurrentUser().getId());
+
         map.addAttribute("userActivityList", userActivityList);
         return "activities_yishenqin_volunteer";
     }
@@ -353,13 +353,22 @@ public class TeamController {
     //申请待执行的活动页面（参与活动）
     @RequestMapping(value = "/activitiesWaitingToExecute2", method = RequestMethod.GET)
     public String activitiesWaitingToExecute2(ModelMap map) {
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForExecute, true);
+        //倒序排列
+        Collections.reverse(userActivityList);
 
+        map.addAttribute("userActivityList", userActivityList);
         return "activities_daizhixing_volunteer";
     }
 
     //申请已完成的活动界面（参与活动）
     @RequestMapping(value = "/alreadyCompleteActivities2", method = RequestMethod.GET)
     public String alreadyCompleteActivities2(ModelMap map) {
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.alreadyTerminate, true);
+        //倒序排列
+        Collections.reverse(userActivityList);
+
+        map.addAttribute("userActivityList", userActivityList);
         return "activities_yiwancheng_volunteer";
     }
 

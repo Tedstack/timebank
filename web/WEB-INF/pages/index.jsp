@@ -23,124 +23,72 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
-        <div class="page searchbar js_show">
-            <div class="page__bd">
-                <!--<a href="javascript:;" class="weui-btn weui-btn_primary">点击展现searchBar</a>-->
-                <div class="weui-search-bar" id="searchBar">
-                    <form class="weui-search-bar__form">
-                        <div class="weui-search-bar__box">
-                            <i class="weui-icon-search"></i>
-                            <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索"
-                                   required="">
-                            <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
-                        </div>
-                        <label class="weui-search-bar__label" id="searchText"
-                               style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
-                            <i class="weui-icon-search"></i>
-                            <span>搜索</span>
-                        </label>
-                    </form>
-                    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
-                </div>
-                <div class="weui-cells searchbar-result" id="searchResult" style="display: none;">
-                    <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd weui-cell_primary">
-                            <p>互助服务</p>
-                        </div>
-                    </div>
-                    <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd weui-cell_primary">
-                            <p>志愿者服务</p>
-                        </div>
-                    </div>
-                    <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd weui-cell_primary">
-                            <p>专业服务</p>
-                        </div>
-                    </div>
-                    <div class="weui-cell weui-cell_access">
-                        <div class="weui-cell__bd weui-cell_primary">
-                            <p>社区O2O服务</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%--<!--图片轮转-->--%>
+            <%--<div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line"--%>
+                 <%--data-ride="carousel" data-pause="hover" data-interval="5000">--%>
 
-            <!--图片轮转-->
-            <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line"
-                 data-ride="carousel" data-pause="hover" data-interval="5000">
+                <%--<!-- Indicators -->--%>
+                <%--<ol class="carousel-indicators">--%>
+                    <%--<li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>--%>
+                    <%--<li data-target="#bootstrap-touch-slider" data-slide-to="1"></li>--%>
+                    <%--<li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>--%>
+                <%--</ol>--%>
 
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>
-                    <li data-target="#bootstrap-touch-slider" data-slide-to="1"></li>
-                    <li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>
-                </ol>
+                <%--<!-- Wrapper For Slides -->--%>
+                <%--<div class="carousel-inner" role="listbox">--%>
 
-                <!-- Wrapper For Slides -->
-                <div class="carousel-inner" role="listbox">
+                    <%--<!-- first Slide -->--%>
+                    <%--<div class="item active">--%>
 
-                    <!-- first Slide -->
-                    <div class="item active">
+                        <%--<!-- Slide Background -->--%>
+                        <%--<img src="img/slider/slide1.png" alt="Bootstrap Touch Slider" class="slide-image"/>--%>
+                        <%--<div class="bs-slider-overlay"></div>--%>
+                    <%--</div>--%>
+                    <%--<!-- End of Slide -->--%>
 
-                        <!-- Slide Background -->
-                        <img src="img/slider/slide1.png" alt="Bootstrap Touch Slider" class="slide-image"/>
-                        <div class="bs-slider-overlay"></div>
-                    </div>
-                    <!-- End of Slide -->
+                    <%--<!-- Second Slide -->--%>
+                    <%--<div class="item">--%>
 
-                    <!-- Second Slide -->
-                    <div class="item">
+                        <%--<!-- Slide Background -->--%>
+                        <%--<img src="img/slider/slide2.png" alt="Bootstrap Touch Slider" class="slide-image"/>--%>
+                        <%--<div class="bs-slider-overlay"></div>--%>
+                        <%--<!-- Slide Text Layer -->--%>
+                    <%--</div>--%>
+                    <%--<!-- End of Slide -->--%>
 
-                        <!-- Slide Background -->
-                        <img src="img/slider/slide2.png" alt="Bootstrap Touch Slider" class="slide-image"/>
-                        <div class="bs-slider-overlay"></div>
-                        <!-- Slide Text Layer -->
-                    </div>
-                    <!-- End of Slide -->
+                    <%--<!-- Third Slide -->--%>
+                    <%--<div class="item">--%>
 
-                    <!-- Third Slide -->
-                    <div class="item">
-
-                        <!-- Slide Background -->
-                        <img src="img/slider/slide3.png" alt="Bootstrap Touch Slider" class="slide-image"/>
-                        <div class="bs-slider-overlay"></div>
-                        <!-- Slide Text Layer -->
-                    </div>
-                    <!-- End of Slide -->
+                        <%--<!-- Slide Background -->--%>
+                        <%--<img src="img/slider/slide3.png" alt="Bootstrap Touch Slider" class="slide-image"/>--%>
+                        <%--<div class="bs-slider-overlay"></div>--%>
+                        <%--<!-- Slide Text Layer -->--%>
+                    <%--</div>--%>
+                    <%--<!-- End of Slide -->--%>
 
 
-                </div><!-- End of Wrapper For Slides -->
+                <%--</div><!-- End of Wrapper For Slides -->--%>
 
-                <!-- Left Control -->
-                <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
-                    <span class="fa fa-angle-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
+                <%--<!-- Left Control -->--%>
+                <%--<a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">--%>
+                    <%--<span class="fa fa-angle-left" aria-hidden="true"></span>--%>
+                    <%--<span class="sr-only">Previous</span>--%>
+                <%--</a>--%>
 
-                <!-- Right Control -->
-                <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
-                    <span class="fa fa-angle-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                <%--<!-- Right Control -->--%>
+                <%--<a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">--%>
+                    <%--<span class="fa fa-angle-right" aria-hidden="true"></span>--%>
+                    <%--<span class="sr-only">Next</span>--%>
+                <%--</a>--%>
 
-            </div> <!--图片轮转结束-->
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><img src="img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-                <div class="weui-cell__bd" style="color: #7ACF41">
-                    <p>所有服务</p>
-                </div>
-            </div>
+            <%--</div> <!--图片轮转结束-->--%>
+            <%--<div class="weui-cell">--%>
+                <%--<div class="weui-cell__hd"><img src="img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>--%>
+                <%--<div class="weui-cell__bd" style="color: #7ACF41">--%>
+                    <%--<p>所有服务</p>--%>
+                <%--</div>--%>
+            <%--</div>--%>
             <div class="weui-grids">
-
-                <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-grid">
-                    <div class="weui-grid__icon">
-                        <img src="img/userdetails/专业服务认证.png" alt="">
-                    </div>
-                    <p class="weui-grid__label">
-                        团体活动
-                    </p>
-                </a>
                 <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-grid">
                     <div class="weui-grid__icon">
                         <img src="img/服务类型/志愿者服务.png" alt="">
@@ -165,6 +113,15 @@
                     </div>
                     <p class="weui-grid__label">
                         专业服务
+                    </p>
+                </a>
+
+                <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/userdetails/专业服务认证.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        团体活动
                     </p>
                 </a>
                 <%--<a href="${pageContext.request.contextPath}/publish/list?type=社区O2O服务" class="weui-grid">
