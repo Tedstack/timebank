@@ -139,7 +139,7 @@ public class a_test {
 //        Date date2=temp.parse(date1);
 //        System.out.println("Date:" + date + "\n " + "format:" + date1 + "\n" + "date2:" + date2);
 
-        String prePayXml = "<xml>\n" +
+/*        String prePayXml = "<xml>\n" +
                 "   <return_code><![CDATA[SUCCESS]]></return_code>\n" +
                 "   <return_msg><![CDATA[OK]]></return_msg>\n" +
                 "   <appid><![CDATA[wx2421b1c4370ec43b]]></appid>\n" +
@@ -161,7 +161,78 @@ public class a_test {
             json.put((String) list.get(i),payInfo.get(list.get(i)));
         }
         String res = json.toJSONString();
-        System.out.println(res);
+        System.out.println(res);*/
+
+
+        String notifyXml = "<xml>\n" +
+                "  <appid><![CDATA[wx2421b1c4370ec43b]]></appid>\n" +
+                "  <attach><![CDATA[支付测试]]></attach>\n" +
+                "  <bank_type><![CDATA[CFT]]></bank_type>\n" +
+                "  <fee_type><![CDATA[CNY]]></fee_type>\n" +
+                "  <is_subscribe><![CDATA[Y]]></is_subscribe>\n" +
+                "  <mch_id><![CDATA[10000100]]></mch_id>\n" +
+                "  <nonce_str><![CDATA[5d2b6c2a8db53831f7eda20af46e531c]]></nonce_str>\n" +
+                "  <openid><![CDATA[oUpF8uMEb4qRXf22hE3X68TekukE]]></openid>\n" +
+                "  <out_trade_no><![CDATA[1409811653]]></out_trade_no>\n" +
+                "  <result_code><![CDATA[SUCCESS]]></result_code>\n" +
+                "  <return_code><![CDATA[SUCCESS]]></return_code>\n" +
+                "  <sign><![CDATA[B552ED6B279343CB493C5DD0D78AB241]]></sign>\n" +
+                "  <sub_mch_id><![CDATA[10000100]]></sub_mch_id>\n" +
+                "  <time_end><![CDATA[20140903131540]]></time_end>\n" +
+                "  <total_fee>1</total_fee>\n" +
+                "<coupon_fee><![CDATA[10]]></coupon_fee>\n" +
+                "<coupon_count><![CDATA[1]]></coupon_count>\n" +
+                "<coupon_type><![CDATA[CASH]]></coupon_type>\n" +
+                "<coupon_id><![CDATA[10000]]></coupon_id>\n" +
+                "<coupon_fee><![CDATA[100]]></coupon_fee>\n" +
+                "  <trade_type><![CDATA[JSAPI]]></trade_type>\n" +
+                "  <transaction_id><![CDATA[1004400740201409030005092168]]></transaction_id>\n" +
+                "</xml>";
+        System.out.println(checkPayResult(notifyXml));
+
+    }
+
+
+
+    public static String checkPayResult(String notifyXml) throws JDOMException, IOException {
+
+        String wxsign = WxPay.getXmlPara(notifyXml, "sign");
+        System.out.println("weixin签名  " + wxsign);
+        String result_code = WxPay.getXmlPara(notifyXml, "result_code");
+        String return_code = WxPay.getXmlPara(notifyXml, "return_code");
+        //String resXml = "";
+        String payStatus = "fail";
+        //根据回调结果计算本地签名
+        Map remap = XMLUtil.doXMLParse(notifyXml);
+        remap.remove("sign");
+        Collection<String> keyset = remap.keySet();
+        List list = new ArrayList<String>(keyset);
+        Collections.sort(list);
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i) + "=" + remap.get(list.get(i)));
+//        }
+        String signs = list.get(0) + "=" + remap.get(list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            signs = signs + "&" + list.get(i) + "=" + remap.get(list.get(i));
+        }
+        signs = signs + "&key=" + ConfigUtil.API_KEY;
+        System.out.println("回调签名参数： " + signs);
+        String sign = MD5Util.MD5Encode(signs,"").toUpperCase();
+        System.out.println("回调结果本地签名是： " + sign);
+
+
+        //本地计算签名与微信返回签名不同||返回结果为不成功
+        //本地计算签名与微信返回签名相同||返回结果为成功
+        if (!sign.equals(wxsign) || !"SUCCESS".equals(result_code) || !"SUCCESS".equals(return_code)) {
+            System.out.println("验证签名失败或返回错误结果码");
+            //resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[FAIL]]></return_msg>" + "</xml> ";
+        } else {
+            payStatus = "ok";
+            System.out.println("支付成功");
+            //resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
+        }
+
+        return payStatus;
     }
 
 

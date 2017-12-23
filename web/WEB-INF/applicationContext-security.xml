@@ -37,6 +37,7 @@
         <intercept-url pattern="/register" access="permitAll()"/>
         <intercept-url pattern="/user/login" access="permitAll()"/>
         <intercept-url pattern="/user/register" access="permitAll()"/>
+        <intercept-url pattern="/recharge/weixin_notify**" access="permitAll()"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/login" authentication-failure-url="/login?error=1"/>
         <csrf disabled="true"/>

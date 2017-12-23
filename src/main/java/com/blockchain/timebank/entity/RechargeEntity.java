@@ -17,6 +17,7 @@ public class RechargeEntity {
     private String extra;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public long getId() {
         return id;

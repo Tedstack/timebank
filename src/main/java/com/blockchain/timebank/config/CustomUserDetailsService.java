@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity userEntity = userService.findUserEntityByPhone(s);
         if (userEntity == null) {

@@ -195,7 +195,7 @@ CREATE TABLE `recharge` (
   `RechargeDate` DATETIME NULL COMMENT '充值时间',
   `RechargeStatus` VARCHAR(20) NULL COMMENT '充值状态',  #3种状态：1-submit,2-success,3-failed
   `UUID` VARCHAR(50) NULL COMMENT '用户充值的uuid', #在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符
-  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段', #充值结果标识：“no”表示未到账，“yes”表示到账
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户充值表';
 ALTER TABLE `recharge`

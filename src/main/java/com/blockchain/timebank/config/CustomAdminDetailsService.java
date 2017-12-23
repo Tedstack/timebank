@@ -22,7 +22,7 @@ public class CustomAdminDetailsService implements UserDetailsService {
     @Autowired
     UserAuthService userAuthService;
 
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserAuthEntity userAuthEntity = userAuthService.findUserAuthEntityByPhone(s);
         if (userAuthEntity == null) {

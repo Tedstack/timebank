@@ -42,33 +42,39 @@
 
 </div>
 
+
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script>
     var url='${pageContext.request.contextPath}';
 
     $(document).ready(function(){
         $("#btn_charge").click(function () {
             var amount = $("#totalAmount").val();
+            alert(url + "/recharge/coins_recharge_submit" + amount);
             $.post(
-                url + "/coins_recharge_submit",
+                url + "/recharge/coins_recharge_submit",
                 {
                     totalAmount: amount
                 },
                 function (data, status) {
                     console.log("accept data:" + data);
                     alert(data);
-
+                    var obj=JSON.parse(data);
+                    alert(obj.packageStr);
                     function onBridgeReady(){
                         WeixinJSBridge.invoke(
                                 'getBrandWCPayRequest', {
-                                    appId:data.appId,     //公众号名称，由商户传入
-                                    timeStamp:data.timeStamp,         //时间戳，自1970年以来的秒数
-                                    nonceStr:data.nonceStr, //随机串
-                                    package:data.package,
-                                    signType:data.signType,         //微信签名方式：
-                                    paySign: data.paySign//微信签名
+                                    appId:obj.appId,     //公众号名称，由商户传入
+                                    timeStamp:obj.timeStamp,         //时间戳，自1970年以来的秒数
+                                    nonceStr:obj.nonceStr, //随机串
+                                    package:obj.packageStr,
+                                    signType:obj.signType,         //微信签名方式：
+                                    paySign: obj.paySign//微信签名
                                 },
                                 function(res){
-                                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {}     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                                        self.location= url + "/recharge/coins_balance";
+                                    }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                                 }
                         );
                     }

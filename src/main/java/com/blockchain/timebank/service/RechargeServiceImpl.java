@@ -10,6 +10,7 @@ import org.jdom.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,12 +23,11 @@ public class RechargeServiceImpl implements RechargeService {
     @Autowired
     RechargeDao rechargeDao;
 
-    public String getUnifiedMessage(String openId, Integer totalAmount, Long userId) throws IOException {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = df.format(new Date()).replaceAll("-", "").replaceAll(":", "").replaceAll(" ", "");
-        String out_trade_no = time + userId;
+    public String getUnifiedMessage(String openId, Double totalAmount, String out_trade, HttpServletRequest request) throws IOException {
+
+        String out_trade_no = out_trade;
         String body = "TimeCoinRecharge";
-        String ip = "192.168.1.1";      //当无法获取用户的ip时默认用此地址否则调用WxPay.
+        String ip = WxPay.getIpAddr(request);      //当无法获取用户的ip时默认用此地址否则调用WxPay.
         String res = WxPay.unifiedOrder(body,out_trade_no,totalAmount,ip,openId);
         return res;
     }
@@ -101,8 +101,8 @@ public class RechargeServiceImpl implements RechargeService {
         String wxsign = WxPay.getXmlPara(notifyXml, "sign");
         String result_code = WxPay.getXmlPara(notifyXml, "result_code");
         String return_code = WxPay.getXmlPara(notifyXml, "return_code");
-        String resXml = "";
-
+        //String resXml = "";
+        String payStatus = "fail";
         //根据回调结果计算本地签名
         Map remap = XMLUtil.doXMLParse(notifyXml);
         remap.remove("sign");
@@ -126,12 +126,18 @@ public class RechargeServiceImpl implements RechargeService {
         //本地计算签名与微信返回签名相同||返回结果为成功
         if (!sign.equals(wxsign) || !"SUCCESS".equals(result_code) || !"SUCCESS".equals(return_code)) {
             System.out.println("验证签名失败或返回错误结果码");
-            resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[FAIL]]></return_msg>" + "</xml> ";
+            //resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[FAIL]]></return_msg>" + "</xml> ";
         } else {
+            payStatus = "ok";
             System.out.println("支付成功");
-            resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
+            //resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
         }
 
-        return resXml;
+        return payStatus;
+    }
+
+    public RechargeEntity findByUuid(String uuid) {
+        return rechargeDao.findByUuid(uuid);
     }
 }
+

@@ -8,8 +8,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
@@ -69,14 +68,14 @@ public class WxPay {
         setXmlKV(sb, "trade_type", ConfigUtil.TRADE_TYPE_JS);
         setXmlKV(sb, "sign", sign);
         sb.append("</xml>");
-        System.out.println("统一下单请求：" + sb);
+        System.out.println("统一下单请求----test1----：" + sb);
 
 
         return new String(sb.toString().getBytes("utf-8"));
     }
 
 
-    public static String unifiedOrder(String body, String out_trade_no, Integer total_fee, String IP, String openid) throws IOException {
+    public static String unifiedOrder(String body, String out_trade_no, Double total_fee, String IP, String openid) throws IOException {
         //设置访问路径
         HttpPost httppost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
 
@@ -110,7 +109,7 @@ public class WxPay {
         setXmlKV(sb, "trade_type", ConfigUtil.TRADE_TYPE_JS);
         setXmlKV(sb, "sign", sign);
         sb.append("</xml>");
-        System.out.println("统一下单请求：" + sb);
+        System.out.println("-----------------统一下单请求--------------：" + sb);
 
         StringEntity reqEntity = new StringEntity(new String(sb.toString().getBytes("UTF-8"), "ISO8859-1"));//这个处理是为了防止传中文的时候出现签名错误
         httppost.setEntity(reqEntity);
@@ -274,6 +273,7 @@ public class WxPay {
         localSign = MD5Util.MD5Encode(localSign, "").toUpperCase();//将数据MD5加密
 
         System.out.println("本地签名是：" + localSign);
+        System.out.println("微信签名是：" + sign);
         logger.info("本地签名是：" + localSign);
         logger.info("微信支付签名是：" + sign);
 
@@ -379,6 +379,32 @@ public class WxPay {
             logger.info("回调xml为空：");
         }
         return notifyXml;
+    }
+
+
+
+
+    //convertStreamToString
+    public static String convertStreamToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line = null;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return sb.toString();
     }
 
 
