@@ -5,12 +5,16 @@ import com.blockchain.timebank.entity.RechargeEntity;
 import com.blockchain.timebank.wxpay.ConfigUtil;
 import com.blockchain.timebank.wxpay.MD5Util;
 import com.blockchain.timebank.wxpay.WxPay;
+import com.blockchain.timebank.wxpay.XMLUtil;
+import org.jdom.JDOMException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+
+import static com.blockchain.timebank.wxpay.WxPay.getXmlPara;
 
 @Service
 public class RechargeServiceImpl implements RechargeService {
@@ -83,5 +87,51 @@ public class RechargeServiceImpl implements RechargeService {
         sb.append("</xml>");
         String res = sb.toString();
         return res;
+    }
+
+    /**
+     * 根据获取的回调XML，判断交易是否成功
+     * @param notifyXml
+     * @return
+     * @throws JDOMException
+     * @throws IOException
+     */
+    public String checkPayResult(String notifyXml) throws JDOMException, IOException {
+
+        String wxsign = WxPay.getXmlPara(notifyXml, "sign");
+        String result_code = WxPay.getXmlPara(notifyXml, "result_code");
+        String return_code = WxPay.getXmlPara(notifyXml, "return_code");
+        String resXml = "";
+
+        //根据回调结果计算本地签名
+        Map remap = XMLUtil.doXMLParse(notifyXml);
+        remap.remove("sign");
+        Collection<String> keyset = remap.keySet();
+        List list = new ArrayList<String>(keyset);
+        Collections.sort(list);
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i) + "=" + remap.get(list.get(i)));
+//        }
+        String signs = list.get(0) + "=" + remap.get(list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            signs = signs + "&" + list.get(i) + "=" + remap.get(list.get(i));
+        }
+        signs = signs + "&key=" + ConfigUtil.API_KEY;
+        System.out.println("回调签名参数： " + signs);
+        String sign = MD5Util.MD5Encode(signs,"").toUpperCase();
+        System.out.println("回调结果本地签名是： " + sign);
+
+
+        //本地计算签名与微信返回签名不同||返回结果为不成功
+        //本地计算签名与微信返回签名相同||返回结果为成功
+        if (!sign.equals(wxsign) || !"SUCCESS".equals(result_code) || !"SUCCESS".equals(return_code)) {
+            System.out.println("验证签名失败或返回错误结果码");
+            resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>" + "<return_msg><![CDATA[FAIL]]></return_msg>" + "</xml> ";
+        } else {
+            System.out.println("支付成功");
+            resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
+        }
+
+        return resXml;
     }
 }

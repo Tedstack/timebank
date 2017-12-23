@@ -151,7 +151,7 @@ public class WxPay {
                         "&package=prepay_id=" + prepay_id +
                         "&signType=" + signType +
                         "&timeStamp=" + timeStamp +
-                        "&key=" + ConfigUtil.API_KEY;//注意这里的参数要根据ASCII码 排序
+                        "&key=" + ConfigUtil.API_KEY;//注意这里key之前的参数要根据ASCII码 排序
         paySign = MD5Util.MD5Encode(paySign, "").toUpperCase();//将数据MD5加密
 
         map.put("appId", ConfigUtil.APPID);
@@ -350,4 +350,36 @@ public class WxPay {
         }
         return sb.toString();
     }
+
+
+    /**
+     * 获取微信回调结果
+     *
+     * @param request
+     * @return
+     */
+    public static String getPayResult(HttpServletRequest request) {
+        String inputLine;
+        String notifyXml = "";
+        try {
+            while ((inputLine = request.getReader().readLine()) != null) {
+                notifyXml += inputLine;
+            }
+            request.getReader().close();
+        } catch (Exception e) {
+            logger.info("回调xml获取失败：" + e);
+            e.printStackTrace();
+        }
+        System.out.println("接收到的xml：" + notifyXml);
+        logger.info("收到微信异步回调：");
+        logger.info(notifyXml);
+
+
+        if (notifyXml.equals(null)) {
+            logger.info("回调xml为空：");
+        }
+        return notifyXml;
+    }
+
+
 }

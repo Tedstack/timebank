@@ -143,10 +143,6 @@ public class RechargeController {
 
 
 
-
-
-    //申请充值时间币页面action
-
     /**
      * 获取充值金额，并组装好统一下单的XML，然后post到微信的统一下单地址;
      * 根据统一下单的结果，获取唤起支付所需的参数并组装成Json数据返回给前台。
