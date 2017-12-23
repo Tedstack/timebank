@@ -75,7 +75,7 @@ public class WxPay {
     }
 
 
-    public static String unifiedOrder(String body, String out_trade_no, Integer total_fee, String IP, String openid) throws IOException {
+    public static String unifiedOrder(String body, String out_trade_no, double total_fee, String IP, String openid) throws IOException {
         //设置访问路径
         HttpPost httppost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
 
@@ -89,7 +89,7 @@ public class WxPay {
                 "&openid=" + openid +
                 "&out_trade_no=" + out_trade_no +
                 "&spbill_create_ip=" + IP +
-                "&total_fee=" + total_fee.toString() +
+                "&total_fee=" + String.valueOf(total_fee) +
                 "&trade_type=" + ConfigUtil.TRADE_TYPE_JS +
                 "&key=" + ConfigUtil.API_KEY;//这个字段是用于之后MD5加密的，字段要按照ascii码顺序排序
         sign = MD5Util.MD5Encode(sign, "").toUpperCase();
@@ -105,7 +105,7 @@ public class WxPay {
         setXmlKV(sb, "openid", openid);
         setXmlKV(sb, "out_trade_no", out_trade_no);
         setXmlKV(sb, "spbill_create_ip", IP);
-        setXmlKV(sb, "total_fee", total_fee.toString());
+        setXmlKV(sb, "total_fee", String.valueOf(total_fee));
         setXmlKV(sb, "trade_type", ConfigUtil.TRADE_TYPE_JS);
         setXmlKV(sb, "sign", sign);
         sb.append("</xml>");

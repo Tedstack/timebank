@@ -79,7 +79,7 @@ public class TeamController {
         }
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
-        return "all_teams";
+        return "chosen_teams";
     }
 
     //    @RequestMapping(value = "/deleteUserFromTeam", method = RequestMethod.POST)

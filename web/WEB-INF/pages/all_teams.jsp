@@ -83,8 +83,8 @@
 <script type="text/javascript">
          function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+"localhost:8080"+contextPath+"/team/addUserToTeam";
-            var targetUrl2 = "http://"+"localhost:8080"+contextPath+"/user/";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/";
             var teamId=t.id;//取要加入团队的Id
              var check_val = [];
              check_val.push(teamId);

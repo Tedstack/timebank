@@ -44,7 +44,7 @@ public class WxPayUtil {
         String openid = getOpenId();
         String body = "时间币充值";
         String out_trade_no = time + getUserId();
-        Integer total_fee = getUserFee();
+        double total_fee = getUserFee();
         String spbill_create_ip = getUserIP();
 
         String payMessage = WxPay.unifiedOrder(body,out_trade_no,total_fee,spbill_create_ip,openid);
