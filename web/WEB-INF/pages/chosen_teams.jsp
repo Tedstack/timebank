@@ -1,5 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.blockchain.timebank.entity.TeamUserEntity" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/7
@@ -12,9 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>团体列表</title>
+    <title>已选团体</title>
     <!-- 引入样式 -->
-    <%--<link rel="stylesheet" href="https://unpkg.contentom/element-ui/lib/theme-chalk/index.css">--%>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
     <%--<link href="../css/mobile-main.css" rel="stylesheet" />--%>
     <script src="../js/zepto/zepto.min.js"></script>
@@ -37,7 +39,8 @@
             </div>
             <br>
             <%
-                for (int i=0;i<teamList.size();i++) {
+                for (int i=0;i<alreadyInTeamList.size();i++) {
+                    if(alreadyInTeamList.contains(teamList.get(i).getId())){
             %>
             <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox">
@@ -49,27 +52,23 @@
                               <p><%out.print(teamList.get(i).getName());%></p>
                               <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
                             </div>
-                        <% if(alreadyInTeamList.contains(teamList.get(i).getId())){%>
-                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;" id=<%out.print(teamList.get(i).getId());%>>已加入</a>
-                        <%}else
-                            {%>
-                        <a class="weui-btn weui-btn_mini weui-btn_primary"  onclick="joinToTeam(this)" id=<%out.print(teamList.get(i).getId());%>>加入</a>
-                        <%}%>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="" id=<%out.print(teamList.get(i).getId());%>>退出</a>
                     </label>
                 </div>
             </div>
             <%
+                    }
                 }
             %>
         </div>
         <div class="weui-tabbar">
-                <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+                <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item weui-bar__item_on">
                     <span style="display: inline-block;position: relative;">
                         <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
                     <p class="weui-tabbar__label">所有团队</p>
                 </a>
-                <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
+                <a href="javascript:;" class="weui-tabbar__item">
                     <span style="display: inline-block;position: relative;">
                         <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
@@ -81,11 +80,10 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-         function joinToTeam(t) {
+         function quitFromTeam(t) {
             var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+"localhost:8080"+contextPath+"/team/addUserToTeam";
-            var targetUrl2 = "http://"+"localhost:8080"+contextPath+"/user/";
-            var teamId=t.id;//取要加入团队的Id
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteUserFromTeam";
+            var teamId=t.id;//退出团队的Id
              var check_val = [];
              check_val.push(teamId);
             if(check_val.length!==0){
@@ -95,7 +93,7 @@
                     url: targetUrl,
                     dataType:'json',
                     traditional:true,
-                    data: {"teamIDList":teamId},
+                    data: {"teamIDList":check_val},
                     beforeSend: function (XHR) {
                         dialogLoading = showLoading();
                     },
@@ -104,20 +102,18 @@
                         var dataJson = JSON.parse(value);
 
                         if(dataJson.msg==="ok"){
-                            showAlert("加入成功",function () {
-                                location.reload();
+                            showAlert("退出成功",function () {
+                                location.reload();//跳转时间过长，需要更改来提高效率
                             });
                         }
                     },
                     error: function (xhr, type) {
-                        showAlert("加入失败");
+                        showAlert("退出失败");
                     },
                     complete: function (xhr, type) {
                         dialogLoading.hide();
                     }
                 });
-            }else{
-                showAlert("请选择要加入的团体");
             }
         }
 </script>
