@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RechargeDao extends CrudRepository<RechargeEntity, Long> {
+    RechargeEntity findByUuid(String uuid);
 }
