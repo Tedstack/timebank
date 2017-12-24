@@ -1,8 +1,8 @@
 <%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/7
+  User: weiyi
+  Date: 2017/12/24
   Time: 22:08
   To change this template use File | Settings | File Templates.
 --%>
@@ -14,9 +14,7 @@
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>团体列表</title>
     <!-- 引入样式 -->
-    <%--<link rel="stylesheet" href="https://unpkg.contentom/element-ui/lib/theme-chalk/index.css">--%>
     <link rel="stylesheet" href="../css/weui.min.css" />
-    <%--<link href="../css/mobile-main.css" rel="stylesheet" />--%>
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
@@ -42,13 +40,13 @@
             <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox">
                     <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
-                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(teamList.get(i).getId());%>">
                             <img src="../img/ECNU.png" style="width: 50px;display: block">
+                        </a>
+                        <div class="weui-cell__bd">
+                            <p><%out.print(teamList.get(i).getName());%></p>
+                            <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
                         </div>
-                            <div class="weui-cell__bd">
-                              <p><%out.print(teamList.get(i).getName());%></p>
-                              <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
-                            </div>
                         <% if(alreadyInTeamList.contains(teamList.get(i).getId())){%>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;" id=<%out.print(teamList.get(i).getId());%>>已加入</a>
                         <%}else

@@ -100,23 +100,11 @@ public class TeamController {
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
     @ResponseBody
     public String addUserToTeam(ModelMap map, @RequestParam List<Long> teamIDList) {
-        List<TeamUserEntity> allTeamUser = teamUserService.findAll();
         for(int i=0;i<teamIDList.size();i++){
-            boolean add = true;
-            for(int j=0;j<allTeamUser.size();j++){
-                //判断要加入的团队是否之前已经加入过
-                if((allTeamUser.get(j).getTeamId()==teamIDList.get(i))&&(allTeamUser.get(j).getUserId()==getCurrentUser().getId())){
-                    add = false;
-                    break;
-                }
-            }
-
-            if(add){
                 TeamUserEntity teamUser = new TeamUserEntity();
                 teamUser.setTeamId(teamIDList.get(i));
                 teamUser.setUserId(getCurrentUser().getId());
                 teamUserService.addUserToTeam(teamUser);
-            }
         }
         JSONObject result = new JSONObject();
         result.put("msg","ok");
@@ -415,6 +403,49 @@ public class TeamController {
         return "activities_yiwancheng_volunteer";
     }
 
+    @RequestMapping(value="/teamIndex",method = RequestMethod.GET)
+    public String teamIndexView(ModelMap map, @RequestParam String teamId)
+    {
+        long id = Long.parseLong(teamId);
+        TeamEntity teamEntity=teamService.findById(id);
+        UserEntity Manager=userService.findUserEntityById(teamEntity.getManagerUserId());
+        map.addAttribute("teamEntity",teamEntity);
+        map.addAttribute("managerName",Manager.getName());
+        return "team_index";
+    }
+
+    @RequestMapping(value="/teamMember",method = RequestMethod.GET)
+    public String teamMemberView(ModelMap map, @RequestParam String teamId)
+    {
+        long id = Long.parseLong(teamId);
+        TeamEntity teamEntity=teamService.findById(id);
+        UserEntity Manager=userService.findUserEntityById(teamEntity.getManagerUserId());
+        List<TeamUserEntity> userList=teamUserService.findAllUsersOfOneTeam(id);//only find user id
+        List<UserEntity> memberList=new ArrayList<UserEntity>();
+        for(int i=0;i<userList.size();i++)
+        {
+            if(!userList.get(i).isLocked())
+            {
+                UserEntity user=userService.findUserEntityById(userList.get(i).getUserId());
+                memberList.add(user);
+            }
+        }
+        map.addAttribute("userList",memberList);
+        map.addAttribute("managerName",Manager.getName());
+        map.addAttribute("teamId",teamId);
+        return "team_member";
+    }
+
+//    @RequestMapping(value="/teamIndex",method = RequestMethod.GET)
+//    public String teamActivityView(ModelMap map, @RequestParam String teamId)
+//    {
+//        long id = Long.parseLong(teamId);
+//        TeamEntity teamEntity=teamService.findById(id);
+//        UserEntity Manager=userService.findUserEntityById(teamEntity.getManagerUserId());
+//        map.addAttribute("teamEntity",teamEntity);
+//        map.addAttribute("managerName",Manager.getName());
+//        return "team_index";
+//    }
     private UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {
