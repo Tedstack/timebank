@@ -19,6 +19,7 @@ CREATE TABLE `user` (
   `img2` VARCHAR(50) NULL COMMENT '背面照片文件名',
   `IsVerify` INT NULL COMMENT '是否已实名认证',
   `OpenID` VARCHAR(50) NULL COMMENT '微信用户OpenID',
+  `HeadImgUrl` VARCHAR(255) NULL COMMENT '用户头像',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户表';
@@ -282,7 +283,8 @@ CREATE VIEW view_publish_detail
       service.Name        AS ServiceName,
       user.Name           AS UserName,
       user.Sex            AS Sex,
-      user.Phone          AS UserPhone
+      user.Phone          AS UserPhone,
+      user.HeadImgUrl     AS HeadImgUrl
     FROM publish, user, service
     WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;
 

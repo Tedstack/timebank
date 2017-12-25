@@ -19,6 +19,7 @@ public class ViewPublishDetailEntity {
     private String userName;
     private String sex;
     private String userPhone;
+    private String headImgUrl;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -150,6 +151,16 @@ public class ViewPublishDetailEntity {
         this.userPhone = userPhone;
     }
 
+    @Basic
+    @Column(name = "HeadImgUrl", nullable = true, length = 255)
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -170,6 +181,7 @@ public class ViewPublishDetailEntity {
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (sex != null ? !sex.equals(that.sex) : that.sex != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
+        if (headImgUrl != null ? !headImgUrl.equals(that.headImgUrl) : that.headImgUrl != null) return false;
 
         return true;
     }
@@ -192,6 +204,7 @@ public class ViewPublishDetailEntity {
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
+        result = 31 * result + (headImgUrl != null ? headImgUrl.hashCode() : 0);
         return result;
     }
 }
