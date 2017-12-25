@@ -3,6 +3,9 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
+import com.blockchain.timebank.weixin.model.SNSUserInfo;
+import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
+import com.blockchain.timebank.weixin.util.AdvancedUtil;
 import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
 import com.blockchain.timebank.service.*;
@@ -182,7 +185,7 @@ public class UserController {
         String idImg2 = null;
         if (file != null && !file.isEmpty()&& file2 != null && !file2.isEmpty()) {
             System.out.println("idNum"+idNum);
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\");
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/");
             if (!uploadDir.exists()){
                 uploadDir.mkdir();
             }
@@ -226,11 +229,13 @@ public class UserController {
     }
 
     //申请查看时间币余额页面
-    @RequestMapping(value = "/coins_balance", method = RequestMethod.GET)
+    @RequestMapping(value = "/coins", method = RequestMethod.GET)
     public String coin(ModelMap map) {
-        UserEntity user = getCurrentUser();
-        map.addAttribute("TimeCoin", user.getTimeCoin());
-        return "coins_balance";
+        /*add by hanyunxia begin*/
+        UserEntity userEntity=getCurrentUser();
+        map.addAttribute("user",userEntity);
+        /*add by hanyunxia end*/
+        return "coins";
     }
 
     //申请充值时间币页面
@@ -243,6 +248,21 @@ public class UserController {
     @RequestMapping(value = "/startRealNameAuth",method = RequestMethod.GET)
     public String startRealNameAuth(ModelMap map){
         return "realname_authentication";
+    }
+
+    @RequestMapping(value = "/realnameInfo",method = RequestMethod.GET)
+    public String realnameInfo(ModelMap map){
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("user", userEntity);
+        return "realname_info";
+    }
+
+    //志愿者币查看
+    @RequestMapping(value = "/volunteer_coin",method = RequestMethod.GET)
+    public String volunteer_coin(ModelMap map){
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("user", userEntity);
+        return "volunteer_coin";
     }
 
     /**

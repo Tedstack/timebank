@@ -75,6 +75,7 @@ public class IndexController {
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 System.out.println("昵称：" + snsUserInfo.getNickName());
 
+                map.addAttribute("headImgUrl",snsUserInfo.getHeadimgurl());
                 map.addAttribute("code",code);
                 map.addAttribute("openID",wot.getOpenId());
             }else{

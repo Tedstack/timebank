@@ -1,5 +1,6 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.SelectServiceDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
@@ -80,12 +81,23 @@ public class PublishController {
     //服务显示列表
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(ModelMap map, @RequestParam String type) {
-        List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
+        List<ViewPublishDetailEntity> list = publishService.findAllByServiceType(type);
+        // List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
         //倒序排列
         Collections.reverse(list);
         map.addAttribute("list", list);
         map.addAttribute("type", type);
-        return "publish_list";
+        //return "publish_list";
+        return "publish_list_new";
+    }
+
+    //条件筛选服务
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
+    public String selectService(ModelMap map, @RequestParam String type) {
+        List<ServiceEntity> list = serviceService.findAllServiceEntity();
+        map.addAttribute("service_list", list);
+        map.addAttribute("type", type);
+        return "service_select";
     }
 
     //服务详细列表
@@ -115,7 +127,7 @@ public class PublishController {
 
         map.addAttribute("timeVol", user.getTimeVol());
         map.addAttribute("recordList", recordList);
-        return "publish_detail";
+        return "publish_detail_new";
     }
 
     //发布服务提交接口
@@ -138,6 +150,30 @@ public class PublishController {
         }
         map.addAttribute("type", serviceType);
         return "redirect:/publish/list";
+    }
+
+    @RequestMapping(value = "/selectList", method = RequestMethod.GET)
+    //public String listPage(ModelMap map, @RequestParam String type, @RequestParam String[] serviceName, @RequestParam Date upperDate, @RequestParam Date lowerDate, @RequestParam String upper, @RequestParam String lower) {
+    public String selectPublishList(ModelMap map, @RequestParam String type,@RequestParam String upper, @RequestParam String lower, @RequestParam String upperDate, @RequestParam String lowerDate, @RequestParam String serviceName) {
+        try {
+            double upperPrice = Double.valueOf(upper);
+            double lowerPrice = Double.valueOf(lower);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = sdf.parse(lowerDate);
+            Date endDate = sdf.parse(upperDate);
+            Timestamp lowerTime = new Timestamp(startDate.getTime());
+            Timestamp upperTime = new Timestamp(endDate.getTime());
+            String[] serviceNameArr = serviceName.split(",");
+            //List<ViewPublishDetailEntity> list = selectServiceDao.findPublishEntityByCondition(type, serviceName, upperTime, lowerTime, upperPrice, lowerPrice);
+            List<ViewPublishDetailEntity> list = publishService.findAllByCondition(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
+            //倒序排列
+            //Collections.reverse(list);
+            map.addAttribute("list", list);
+            map.addAttribute("type", type);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return "publish_list_new";
     }
 
     public UserEntity getCurrentUser() {
