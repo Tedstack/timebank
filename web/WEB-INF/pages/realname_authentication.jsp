@@ -91,30 +91,19 @@
                     <h2 class="title">示例图片</h2>
                     <div class="weui-flex">
                         <div class="weui-flex__item">
-                            <img src="../img/我的.png" height="100" width="100"/>
+                            <img src="../img/cardExampleFront.png" width="100%" id="exampleFront"/>
                         </div>
                         <div class="weui-flex__item">
-                            <img src="../img/我的.png" height="100" width="100"/>
+                            <img src="../img/cardExampleNegative.png" width="100%"  id="exampleNegative"/>
                         </div>
 
                     </div>
                     <h2 class="title">注意事项</h2>
                     <section>
-                        <h3>1.1 节标题</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat.
-                        </p>
-                    </section>
-                    <section>
-                        <h3>1.2 节标题</h3>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            1. 照片必须清晰，且含有完整身份证。<br/>
+                            2. 所填写证件号码必须与上传的照片一致。<br/>
+                            3. 上传的照片必须是原始的，不得使用任何软件修改。
                         </p>
                     </section>
                 </section>
@@ -175,6 +164,15 @@
         });
         $gallery.on("click", function(){
             $gallery.fadeOut(100);
+        });
+
+        $("#exampleFront").on("click", function () {
+            $galleryImg.css("background-image", "url(../img/cardExampleFront.png)");
+            $gallery.fadeIn(100);
+        });
+        $("#exampleNegative").on("click", function () {
+            $galleryImg.css("background-image", "url(../img/cardExampleNegative.png)");
+            $gallery.fadeIn(100);
         });
     });
     $(function() {

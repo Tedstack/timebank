@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="weui-btn-area">
-                <a href="${pageContext.request.contextPath}/index" class="weui-btn weui-btn_primary">返回我的页面</a>
+                <a href="${pageContext.request.contextPath}/user/" class="weui-btn weui-btn_primary">返回我的页面</a>
             </div>
         </div>
     </div>

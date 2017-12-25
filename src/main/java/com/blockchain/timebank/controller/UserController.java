@@ -185,7 +185,7 @@ public class UserController {
         String idImg2 = null;
         if (file != null && !file.isEmpty()&& file2 != null && !file2.isEmpty()) {
             System.out.println("idNum"+idNum);
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF\\img\\profile\\");
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/");
             if (!uploadDir.exists()){
                 uploadDir.mkdir();
             }
