@@ -62,7 +62,7 @@
         </div>
         <div class="weui-cell__ft">查看</div>
     </a>
-    <a class="weui-cell weui-cell_access" href="javascript:;">
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/volunteer_coin">
         <div class="weui-cell__hd"><img src="../img/userdetails/志愿者.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
             <p>志愿者币</p>

@@ -257,6 +257,14 @@ public class UserController {
         return "realname_info";
     }
 
+    //志愿者币查看
+    @RequestMapping(value = "/volunteer_coin",method = RequestMethod.GET)
+    public String volunteer_coin(ModelMap map){
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("user", userEntity);
+        return "volunteer_coin";
+    }
+
     /**
      * 查询用户作为服务者 发布的服务
      * @param map
