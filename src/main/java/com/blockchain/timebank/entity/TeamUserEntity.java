@@ -9,10 +9,11 @@ public class TeamUserEntity {
     private long teamId;
     private long userId;
     private boolean isLocked;
+    private boolean isDeleted;
     private String extra;
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -22,7 +23,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "TeamID", nullable = false)
+    @Column(name = "TeamID")
     public long getTeamId() {
         return teamId;
     }
@@ -32,7 +33,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "UserID", nullable = false)
+    @Column(name = "UserID")
     public long getUserId() {
         return userId;
     }
@@ -42,7 +43,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "IsLocked", nullable = false)
+    @Column(name = "IsLocked")
     public boolean isLocked() {
         return isLocked;
     }
@@ -52,7 +53,17 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "Extra", nullable = true, length = 50)
+    @Column(name = "IsDeleted")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    @Basic
+    @Column(name = "Extra")
     public String getExtra() {
         return extra;
     }
@@ -72,6 +83,7 @@ public class TeamUserEntity {
         if (teamId != that.teamId) return false;
         if (userId != that.userId) return false;
         if (isLocked != that.isLocked) return false;
+        if (isDeleted != that.isDeleted) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -83,6 +95,7 @@ public class TeamUserEntity {
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (isLocked ? 1 : 0);
+        result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
