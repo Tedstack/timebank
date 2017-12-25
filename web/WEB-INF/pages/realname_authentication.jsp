@@ -4,66 +4,179 @@
     <meta charset="UTF-8" />
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>实名认证</title>
-    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/0.3.0/weui.css" />
-    <link rel="stylesheet" href="../css/weui.min.css" />
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+    <style>
+        .justify{
+            justify-content: center;
+        }
+        .align{
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-<div class="page">
-    <form class="page__bd" style="height: 100%;"id="userForm">
-        <br>
-        <p>
-            <label class="weui-form-preview__label">身份证正面</label>
-            <input type="file" id="file1" name="file" value="()"/>
-        </p>
-        <br>
-        <p>
-            <label class="weui-form-preview__label">身份证反面</label>
-            <input type="file" id="file2" name="file2" value="()"/>
-        </p>
-        <br>
-        <p>
-            <label class="weui-form-preview__label">身份证件号</label>
-            <input class="weui-input" type="number" id="ID" name="idNum" placeholder="请输入身份证号">
-        </p>
+<div class="container">
+    <div class="page input js_show">
+        <div class="page__bd" >
+            <div class="weui-gallery" id="gallery" style="opacity: 1; display: none;">
+                <span class="weui-gallery__img" id="galleryImg" style="background-image:url(.)"></span>
+                <%--<div class="weui-gallery__opr">--%>
+                    <%--<a href="javascript:" class="weui-gallery__del">--%>
+                        <%--<i class="weui-icon-delete weui-icon_gallery-delete"></i>--%>
+                    <%--</a>--%>
+                <%--</div>--%>
+            </div>
+            <form class="weui-cells weui-cells_form" id="userForm" method="post" action="uploadUserInfo">
 
-        <br>
-        <div class="button-sp-area">
-            <a href="javascript:;" class="weui-btn weui-btn_primary" type="button" id="button1">保存</a>
+                <div class="weui-cells__title">
+                    <p>身份证照片</p>
+                </div>
+                <div class="weui-cells_form weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item weui-flex justify align">
+                                    <div class="weui-uploader">
+                                        <div class="weui-uploader__hd">
+                                            <p class="weui-uploader__title">身份证正面</p>
+                                        </div>
+                                        <div class="weui-uploader__bd">
+                                            <ul class="weui-uploader__files" id="files1"></ul>
+                                            <div class="weui-uploader__input-box">
+                                                <input id="file" name="file" class="weui-uploader__input" type="file" accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weui-flex__item weui-flex justify align">
+                                    <div class="weui-uploader">
+                                        <div class="weui-uploader__hd">
+                                            <p class="weui-uploader__title">身份证背面</p>
+                                        </div>
+                                        <div class="weui-uploader__bd">
+                                            <ul class="weui-uploader__files" id="files2"></ul>
+                                            <div class="weui-uploader__input-box">
+                                                <input id="file2" name="file2" class="weui-uploader__input" type="file" accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weui-cells__title">
+                    <p>身份证号码</p>
+                </div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <input class="weui-input" id="ID" name="idNum" pattern="^([0-9]){7,18}(x|X)?$" placeholder="请输入身份证号">
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-btn-area">
+                    <input class="weui-btn weui-btn_primary" id="button1" type="button" value="提交审核">
+                </div>
+            </form>
+
+            <article class="weui-article">
+                <section>
+                    <h2 class="title">示例图片</h2>
+                    <div class="weui-flex">
+                        <div class="weui-flex__item">
+                            <img src="../img/我的.png" height="100" width="100"/>
+                        </div>
+                        <div class="weui-flex__item">
+                            <img src="../img/我的.png" height="100" width="100"/>
+                        </div>
+
+                    </div>
+                    <h2 class="title">注意事项</h2>
+                    <section>
+                        <h3>1.1 节标题</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat.
+                        </p>
+                    </section>
+                    <section>
+                        <h3>1.2 节标题</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </p>
+                    </section>
+                </section>
+            </article>
         </div>
-    </form>
+    </div>
 </div>
 
-</body>
-
-<%--<form id="userForm">--%>
-    <%--<br>--%>
-    <%--<p>--%>
-        <%--<label class="weui-form-preview__label">身份证正面</label>--%>
-        <%--<input type="file" id="file1" name="file" value="()"/>--%>
-    <%--</p>--%>
-    <%--<br>--%>
-    <%--<p>--%>
-        <%--<label class="weui-form-preview__label">身份证反面</label>--%>
-        <%--<input type="file" id="file2" name="file2" value="()"/>--%>
-    <%--</p>--%>
-    <%--<br>--%>
-    <%--<p>--%>
-        <%--<label class="weui-form-preview__label">身份证件号</label>--%>
-        <%--<input class="weui-input" type="number" id="ID" name="idNum" placeholder="请输入身份证号">--%>
-    <%--</p>--%>
-
-    <%--<br>--%>
-    <%--<div class="button-sp-area">--%>
-        <%--<a href="javascript:;" class="weui-btn weui-btn_primary" type="button" id="button1">保存</a>--%>
-    <%--</div>--%>
-<%--</form>--%>
-
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    /* 保存 */
+    $(function(){
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+            $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
+            $uploaderInput1 = $("#file"),
+            $uploaderInput2 = $("#file2"),
+            $uploaderFiles1 = $("#files1"),
+            $uploaderFiles2 = $("#files2")
+        ;
+
+        $uploaderInput1.on("change", function(e){
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+
+                $uploaderFiles1.append(tmpl.replace("#url#", src));
+                $uploaderInput1.parent().hide();
+            }
+        });
+        $uploaderInput2.on("change", function(e){
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+
+                $uploaderFiles2.append(tmpl.replace("#url#", src));
+                $uploaderInput2.parent().hide();
+
+            }
+        });
+
+        $uploaderFiles1.on("click", "li", function(){
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+        $uploaderFiles2.on("click", "li", function(){
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+        $gallery.on("click", function(){
+            $gallery.fadeOut(100);
+        });
+    });
     $(function() {
         $("#button1").on('click', function () {
             var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
@@ -71,19 +184,19 @@
             if(jQuery("input[id='file1']").val()!==""){
                 //未选择文件
                 if(jQuery("input[id='file2']").val()!==""){
-                   if(idnum!==""){
-                       //进行身份证合法性验证
-                       if(reg.test(idnum)){
-                           showAlert("文件已上传，等待审核，请勿重复上传",post());
-                       }
-                       else{
-                           showAlert("身份证号输入错误，请确定是否正确输入！");
-                       }
+                    if(idnum!==""){
+                        //进行身份证合法性验证
+                        if(reg.test(idnum)){
+                            post();
+                        }
+                        else{
+                            showAlert("身份证号输入错误，请确定是否正确输入！");
+                        }
 
-                   }
-                   else{
-                       showAlert("请输入身份证号！");
-                   }
+                    }
+                    else{
+                        showAlert("请输入身份证号！");
+                    }
                 }
                 else{
                     showAlert("请上传身份证背面照片！");
@@ -94,10 +207,13 @@
             }
         });
         function post(){
-            //[0]表示获取原生对象
+            var baseUrl = "http://" + location.host,
+                uploadUrl = baseUrl + "/timebank/user/uploadUserInfo",
+                notiUrl = baseUrl + "/timebank/user/realnameNotification";
             var formData = new FormData($("#userForm")[0]);
+            console.log(formData.getAll("ID"));
             $.ajax({
-                url: 'http://www.coocir.com/timebank/user/uploadUserInfo',
+                url: uploadUrl,
                 type: 'POST',
                 data: formData,
                 async: false,
@@ -110,7 +226,7 @@
                 success: function (data) {
                     if(data=="upload success")
                     {
-                        location.href="http://www.coocir.com/timebank/user/realnameNotification";
+                        location.href=notiUrl;
                     }
                     //...
                 },
@@ -125,9 +241,10 @@
                     dialogLoading.hide();
                 }
             });
+            return false;
         }
     });
 </script>
-</body>
 
+</body>
 </html>

@@ -3,7 +3,6 @@
   User: bobo9978
   Date: 2017/12/12
   Time: 20:51
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -13,10 +12,9 @@
     <title>我的信息</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
-<div class="weui-msg">
+<div class="weui-msg" style="padding-top: 50%">
     <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
     <div class="weui-msg__text-area">
         <h2 class="weui-msg__title">信息上传成功</h2>

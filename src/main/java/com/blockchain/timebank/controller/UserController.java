@@ -250,6 +250,13 @@ public class UserController {
         return "realname_authentication";
     }
 
+    @RequestMapping(value = "/realnameInfo",method = RequestMethod.GET)
+    public String realnameInfo(ModelMap map){
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("user", userEntity);
+        return "realname_info";
+    }
+
     /**
      * 查询用户作为服务者 发布的服务
      * @param map
@@ -368,8 +375,8 @@ public class UserController {
     //服务者开始扫码
     @RequestMapping(value = "/serviceUserStartScan",method = RequestMethod.GET)
     public String serviceUserStartScan(ModelMap map,@RequestParam long recordID) throws InterruptedException {
-        TokenThread.appId = "wxb0f6b07f01978a2a"; //获取servlet初始参数appid和appsecret
-        TokenThread.appSecret = "386ef712d87480fa1dc27a93995936eb";
+        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+        TokenThread.appSecret = Configs.APPSECRET;
         System.out.println("appid:"+TokenThread.appId);
         System.out.println("appSecret:"+TokenThread.appSecret);
         Thread thread = new Thread(new TokenThread());
