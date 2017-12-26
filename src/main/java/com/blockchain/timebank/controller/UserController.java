@@ -142,6 +142,12 @@ public class UserController {
         return "realname_notification";
     }
 
+    //专业认证成功后跳转
+    @RequestMapping(value = "/techNotification",method = RequestMethod.GET)
+    public String techNotification(ModelMap map){
+        return "technic_notification";
+    }
+
     //跳转到修改个人信息页面
     @RequestMapping(value = "/startModifyPersonalInfo",method = RequestMethod.GET)
     public String startModifyPersonalInfo(ModelMap map){
@@ -177,7 +183,7 @@ public class UserController {
     //用户上传照片
     @RequestMapping(value = "/uploadUserInfo",method = RequestMethod.POST)
     @ResponseBody
-    public String uploadUserInfo(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,
+    public String uploadUserInfo(HttpServletRequest request, @RequestParam(value = "file1", required = false) MultipartFile file,
             @RequestParam(value = "file2", required = false) MultipartFile file2,String idNum){
         String msg = "";
 
@@ -221,6 +227,54 @@ public class UserController {
 
         return msg;
     }
+    
+    //用户上传专业技能照片
+    @RequestMapping(value = "/uploadTechInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadTechInfo(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "file2", required = false) MultipartFile file2,String idNum){
+        String msg = "";
+
+        String idImg = null;
+        String idImg2 = null;
+        if (file != null && !file.isEmpty()&& file2 != null && !file2.isEmpty()) {
+            System.out.println("idNum"+idNum);
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/");
+            if (!uploadDir.exists()){
+                uploadDir.mkdir();
+            }
+            String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            idImg = idNum + "_" + 1 + suffix1;
+
+            String suffix2 = file2.getOriginalFilename().substring(file2.getOriginalFilename().lastIndexOf("."));
+            idImg2 = idNum + "_" + 2 + suffix2;
+
+            // 构建上传目录及文件对象，不存在则自动创建
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
+            File imgFile = new File(path, idImg);
+            File imgFile2 = new File(path, idImg2);
+
+            // 保存文件
+            try {
+//                TechEntity Tech = getCurrentTech();
+//                Tech.setImg1(idImg);
+//                Tech.setImg2(idImg2);
+//                Tech.setIdCard(idNum);
+//                file.transferTo(imgFile);
+//                file2.transferTo(imgFile2);
+//                TechService.updateTechEntity(Tech);
+//                msg = "upload success";
+            } catch (Exception e) {
+                msg = "failure";
+                e.printStackTrace();
+            }
+        }else{
+            msg = "failure";
+        }
+
+
+        return msg;
+    }
 
     @RequestMapping(value = "/endModifyPersonalInfo",method = RequestMethod.GET)
     public String endModifyPersonalInfo(ModelMap map,@RequestParam String status){
@@ -250,6 +304,17 @@ public class UserController {
         return "realname_authentication";
     }
 
+    //专业技能认证
+    @RequestMapping(value = "/startTechAuth",method = RequestMethod.GET)
+    public String startTechAuth(ModelMap map){ return "technic_authentication"; }
+
+    //专业技能信息页面
+    @RequestMapping(value = "/techInfo",method = RequestMethod.GET)
+    public String techInfo(ModelMap map){
+        return "technic_info";
+    }
+
+    //实名认证信息页面
     @RequestMapping(value = "/realnameInfo",method = RequestMethod.GET)
     public String realnameInfo(ModelMap map){
         UserEntity userEntity = getCurrentUser();

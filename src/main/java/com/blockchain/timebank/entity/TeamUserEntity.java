@@ -13,7 +13,7 @@ public class TeamUserEntity {
     private String extra;
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     public long getId() {
         return id;
     }
@@ -23,7 +23,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "TeamID")
+    @Column(name = "TeamID", nullable = false)
     public long getTeamId() {
         return teamId;
     }
@@ -33,7 +33,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "UserID")
+    @Column(name = "UserID", nullable = false)
     public long getUserId() {
         return userId;
     }
@@ -43,7 +43,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "IsLocked")
+    @Column(name = "IsLocked", nullable = false)
     public boolean isLocked() {
         return isLocked;
     }
@@ -53,7 +53,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "IsDeleted")
+    @Column(name = "IsDeleted", nullable = false)
     public boolean isDeleted() {
         return isDeleted;
     }
@@ -63,7 +63,7 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "Extra")
+    @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
     }
