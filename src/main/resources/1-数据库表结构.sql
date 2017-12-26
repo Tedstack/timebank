@@ -205,6 +205,34 @@ ALTER TABLE `recharge`
 ALTER TABLE `recharge`
   ADD CONSTRAINT `recharge_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
 
+# 专业技能认证表
+CREATE TABLE `technicAuth` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` BIGINT(20) COMMENT '用户编号',
+  `AuthID` BIGINT(20) NOT NULL COMMENT '验证者编号',
+  `TechName` VARCHAR(40) NOT NULL COMMENT '专业技能证书名称',
+  `TechLevel` VARCHAR(40) NOT NULL COMMENT '专业技能等级',
+  `TechID` VARCHAR(40) NOT NULL COMMENT '专业技能证书编号',
+  `TechPhoto1` VARCHAR(40) COMMENT '专业技能证书照片1',
+  `TechPhoto2` VARCHAR(40) COMMENT '专业技能证书照片2',
+  `TechPhoto3` VARCHAR(40) COMMENT '专业技能证书照片3',
+  `IsVerified` BOOL NOT NULL COMMENT '是否验证',
+  `IsDeleted` BOOL NOT NULL COMMENT '是否被用户自己删除',
+  `ValidBeginDate` TIMESTAMP NULL COMMENT '专业证书有效期起始时间',
+  `ValidEndDate` TIMESTAMP NULL COMMENT '专业证书有效期结束时间',
+  `OutDated` BOOL NOT NULL COMMENT '是否过期',
+  `UploadDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '上传时间',
+  `AuthDate` TIMESTAMP NULL COMMENT '验证日期',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='专业技能认证表';
+ALTER TABLE `technicAuth`
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `AuthID` (`AuthID`);
+ALTER TABLE `technicAuth`
+  ADD CONSTRAINT `technicAuth_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `technicAuth_ibfk_2` FOREIGN KEY (`AuthID`) REFERENCES `userAuth` (`ID`);
+
 # 显示志愿者团体活动详细的信息视图
 CREATE VIEW view_activity_publish_detail
   AS
