@@ -139,6 +139,7 @@ CREATE TABLE `teamUser` (
   `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
   `IsLocked` BOOL NOT NULL COMMENT '用户是否已经被锁定', #被锁定了的用户不能申请参加活动
+  `IsDeleted` BOOL NOT NULL COMMENT '用户是否退出团体',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者所属团体表';
