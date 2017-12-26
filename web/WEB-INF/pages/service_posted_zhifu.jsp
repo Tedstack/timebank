@@ -20,14 +20,14 @@
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
-            <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
+            <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/返回.png" width="20" height="15"alt="">待收款</p>
                 </div>
                 <div class="weui-flex__item"></div>
                 <div class="weui-flex__item"></div>
             </div>
-            <div class="weui-navbar">
+            <div class="weui-navbar" style="position:fixed; top:34px">
                 <div class="weui-navbar__item "id="navbar1">
                     已发布
                 </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <!--tab_pannel为navbar中自带的显示界面详细-->
-            <div class="weui-tab__panel">
+            <div class="weui-tab__panel" style="padding-bottom: 50px; padding-top: 70px">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<recordDetailList.size();i++) {
@@ -90,7 +90,7 @@
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
-    <div class="weui-tabbar" style="height: 50px">
+    <div class="weui-tabbar" style="height: 50px; position:fixed">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>

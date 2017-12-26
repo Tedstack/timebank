@@ -42,10 +42,13 @@
                         <div style="color: #7ACF41;">¥
                             <%
                                 out.print(viewPublishEntity.getPrice());
-                                if(request.getAttribute("type").toString().equals("志愿者服务")){
+                                String type = request.getAttribute("type").toString();
+                                if(("志愿者服务").equals(type)){
                                     out.print("（志愿者币）");
-                                }else{
+                                }else if(("互助服务".equals(type))){
                                     out.print("（时间币）");
+                                } else{
+                                    out.print("（人民币）");
                                 }
                             %></div>
                         <div><p class="weui-media-box__desc">

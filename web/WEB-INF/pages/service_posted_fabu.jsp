@@ -21,33 +21,29 @@
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
+        <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
+            <div id="return" onclick="history.go(-1)"><img src="../img/返回.png" width="20" height="15"alt="">已发布</div>
+        </div>
+        <div class="weui-navbar" style="position:fixed; top:34px">
+            <div class="weui-navbar__item weui-bar__item_on"id="navbar1"style="color: #7ACF41">
+                已发布
+            </div>
+            <div class="weui-navbar__item"id="navbar2">
+                待确认
+            </div>
+            <div class="weui-navbar__item"id="navbar3">
+                待服务
+            </div>
+            <div class="weui-navbar__item"id="navbar4">
+                待收款
+            </div>
+            <div class="weui-navbar__item"id="navbar5">
+                已完成
+            </div>
+        </div>
         <div class="weui-tab">
-            <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
-                <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/返回.png" width="20" height="15"alt="">已发布</p>
-                </div>
-                <div class="weui-flex__item"></div>
-                <div class="weui-flex__item"></div>
-            </div>
-            <div class="weui-navbar">
-                <div class="weui-navbar__item weui-bar__item_on"id="navbar1"style="color: #7ACF41">
-                    已发布
-                </div>
-                <div class="weui-navbar__item"id="navbar2">
-                    待确认
-                </div>
-                <div class="weui-navbar__item"id="navbar3">
-                    待服务
-                </div>
-                <div class="weui-navbar__item"id="navbar4">
-                    待收款
-                </div>
-                <div class="weui-navbar__item"id="navbar5">
-                    已完成
-                </div>
-            </div>
             <!--tab_pannel为navbar中自带的显示界面详细-->
-            <div class="weui-tab__panel">
+            <div class="weui-tab__panel" style="padding-bottom: 50px; padding-top: 70px">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<publishList.size();i++) {
@@ -63,7 +59,7 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc"><%out.print(publishList.get(i).getServiceType());%></p>
+                            <p class="weui-media-box__desc">服务类型:<%out.print(publishList.get(i).getServiceType());%></p>
                             <p class="weui-media-box__desc">开始时间:
                                 <%
                                     Timestamp timestamp = publishList.get(i).getBeginDate();
@@ -89,20 +85,19 @@
                         <div class="weui-flex__item"diaplay="none"></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
-                        <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/rate" class="weui-btn weui-btn_mini weui-btn_default">查看</a></div>
+                        <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/rate" class="weui-btn weui-btn_mini weui-btn_default" style="margin-right: 5px;">查看</a></div>
                         <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">删除</a></div>
                     </div>
                 </div>
                 </div>
-                <img src="../img/底部.png" width="375" height="15">
+                <div style="background-color: #eaeaea; height:10px;"></div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
-    <img src="../img/底部.png" width="375" height="100">
-    <div class="weui-tabbar" style="height: 50px">
+    <div class="weui-tabbar" style="height: 50px; position:fixed">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>
