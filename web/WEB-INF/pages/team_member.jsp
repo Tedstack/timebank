@@ -68,7 +68,6 @@
                     <p><%out.print(userList.get(i).getName());%></p>
                     <p style="font-size: 13px;color: #888888;">成员</p>
                 </div>
-                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">编辑</a>
             </label>
         </div>
     </div>

@@ -55,15 +55,20 @@ public class TeamController {
     public String teamListPage(ModelMap map) {
         List<TeamUserEntity> allTeamUser = teamUserService.findAll();
         List<Long> alreadyInTeamList = new ArrayList<Long>();
+        List<Long> lockedInTeamList = new ArrayList<Long>();
         long currentId=getCurrentUser().getId();
         //从所有用户加入的团队中找到自己已经加入的团队
-        for (int i=0;i<allTeamUser.size();i++){
+        for(int i=0;i<allTeamUser.size();i++){
             if(allTeamUser.get(i).getUserId()==currentId){
-                alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
+                if(!allTeamUser.get(i).isLocked() && !allTeamUser.get(i).isDeleted())
+                    alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
+                else if( !allTeamUser.get(i).isDeleted())
+                    lockedInTeamList.add(allTeamUser.get(i).getTeamId());
             }
         }
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
+        map.addAttribute("lockedList",lockedInTeamList);
         return "all_teams";
     }
 
@@ -74,28 +79,14 @@ public class TeamController {
         long currentId=getCurrentUser().getId();
         for(int i=0;i<allTeamUser.size();i++){
             if(allTeamUser.get(i).getUserId()==currentId){
-                alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
+                if(!allTeamUser.get(i).isLocked() && !allTeamUser.get(i).isDeleted())
+                    alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
             }
         }
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
         return "chosen_teams";
     }
-
-    //    @RequestMapping(value = "/deleteUserFromTeam", method = RequestMethod.POST)
-//    @ResponseBody
-//    public String deleteUserFromTeam(ModelMap map, @RequestParam List<Long> teamIDList) {
-//        JSONObject result = new JSONObject();
-//        for(int i=0;i<teamIDList.size();i++){
-//            TeamUserEntity teamUser = teamUserService.findById(teamIDList.get(i));
-//            if (teamUser != null) {
-//                teamUserService.deleteUserFromTeam(teamUser);
-//                result.put("msg", "ok");
-//            } else
-//                result.put("msg", "fail");
-//        }
-//        return result.toString();
-//    }
 
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
     @ResponseBody
@@ -104,6 +95,8 @@ public class TeamController {
                 TeamUserEntity teamUser = new TeamUserEntity();
                 teamUser.setTeamId(teamIDList.get(i));
                 teamUser.setUserId(getCurrentUser().getId());
+                teamUser.setLocked(true);
+                teamUser.setDeleted(false);
                 teamUserService.addUserToTeam(teamUser);
         }
         JSONObject result = new JSONObject();
@@ -111,20 +104,21 @@ public class TeamController {
         return result.toString();
     }
 
-//    @RequestMapping(value = "/deleteUserFromTeam", method = RequestMethod.POST)
-//    @ResponseBody
-//    public String deleteUserFromTeam(ModelMap map, @RequestParam List<Long> teamIDList) {
-//        JSONObject result = new JSONObject();
-//        for(int i=0;i<teamIDList.size();i++){
-//            TeamUserEntity teamUser = teamUserService.findById(teamIDList.get(i));
-//            if (teamUser != null) {
-//                teamUserService.deleteUserFromTeam(teamUser);
-//                result.put("msg", "ok");
-//            } else
-//                result.put("msg", "fail");
-//        }
-//        return result.toString();
-//    }
+    @RequestMapping(value = "/quiteFromTeam", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteUserFromTeam(@RequestParam List<Long> teamIDList) {
+        JSONObject result = new JSONObject();
+        for(int i=0;i<teamIDList.size();i++){
+            TeamUserEntity teamUser = teamUserService.findById(teamIDList.get(i));
+            if (teamUser != null) {
+                teamUser.setDeleted(true);
+                teamUserService.saveTeamUser(teamUser);
+                result.put("msg", "ok");
+            } else
+                result.put("msg", "fail");
+        }
+        return result.toString();
+    }
 
     //用户查看团队活动列表
     @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
@@ -436,16 +430,14 @@ public class TeamController {
         return "team_member";
     }
 
-//    @RequestMapping(value="/teamIndex",method = RequestMethod.GET)
-//    public String teamActivityView(ModelMap map, @RequestParam String teamId)
-//    {
-//        long id = Long.parseLong(teamId);
-//        TeamEntity teamEntity=teamService.findById(id);
-//        UserEntity Manager=userService.findUserEntityById(teamEntity.getManagerUserId());
-//        map.addAttribute("teamEntity",teamEntity);
-//        map.addAttribute("managerName",Manager.getName());
-//        return "team_index";
-//    }
+    @RequestMapping(value="/myTeams",method = RequestMethod.GET)
+    public String teamActivityView(ModelMap map)
+    {
+        long userId=getCurrentUser().getId();
+        map.addAttribute("allTeamList",teamService.findTeamsByManagerUserId(userId));
+        return "my_teams";
+    }
+
     private UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {

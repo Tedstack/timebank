@@ -18,7 +18,6 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
-    <%--<link href="../css/mobile-main.css" rel="stylesheet" />--%>
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
@@ -43,7 +42,7 @@
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){
             %>
             <div class="weui-panel__bd">
-                <div class="weui-cells weui-cells_checkbox">
+                <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
                         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                             <img src="../img/ECNU.png" style="width: 50px;display: block">
@@ -52,7 +51,7 @@
                               <p><%out.print(teamList.get(i).getName());%></p>
                               <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
                             </div>
-                        <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="" id=<%out.print(teamList.get(i).getId());%>>退出</a>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="quitFromTeam(this)" id=<%out.print(teamList.get(i).getId());%>>退出</a>
                     </label>
                 </div>
             </div>
@@ -62,13 +61,13 @@
             %>
         </div>
         <div class="weui-tabbar">
-                <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item weui-bar__item_on">
+                <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item">
                     <span style="display: inline-block;position: relative;">
                         <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
                     <p class="weui-tabbar__label">所有团队</p>
                 </a>
-                <a href="javascript:;" class="weui-tabbar__item">
+                <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
                     <span style="display: inline-block;position: relative;">
                         <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
@@ -82,7 +81,7 @@
 <script type="text/javascript">
          function quitFromTeam(t) {
             var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteUserFromTeam";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/quiteFromTeam";
             var teamId=t.id;//退出团队的Id
              var check_val = [];
              check_val.push(teamId);
@@ -103,7 +102,7 @@
 
                         if(dataJson.msg==="ok"){
                             showAlert("退出成功",function () {
-                                location.reload();//跳转时间过长，需要更改来提高效率
+                                location.reload();
                             });
                         }
                     },

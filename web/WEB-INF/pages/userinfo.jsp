@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="../css/weui-example.css">
 </head>
 <body>
-
-
-
 <div class="weui-tab__panel">
     <%
         UserEntity userEntity = (UserEntity) request.getAttribute("user");
@@ -40,9 +37,16 @@
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
         <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
-            <p>所属团体</p>
+            <p>所有团体</p>
         </div>
         <div class="weui-cell__ft"style="">选择</div>
+    </a>
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/myTeams">
+        <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+        <div class="weui-cell__bd">
+            <p>我的团体</p>
+        </div>
+        <div class="weui-cell__ft"style="">查看</div>
     </a>
 
     <img src="../img/底部.png" width="100%" height="15">

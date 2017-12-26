@@ -24,10 +24,12 @@
 <%
     List<ViewTeamDetailEntity> teamList = (List<ViewTeamDetailEntity>) request.getAttribute("list");
     List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
+    List<Long> lockedInList=(List<Long>) request.getAttribute("lockedList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
-        <div class="weui-panel weui-panel_access">
+        <div class="weui-tab">
+            <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/return.png" width="20" height="15"alt="">团体列表</p>
@@ -38,7 +40,7 @@
                 for (int i=0;i<teamList.size();i++) {
             %>
             <div class="weui-panel__bd">
-                <div class="weui-cells weui-cells_checkbox">
+                <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
                         <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(teamList.get(i).getId());%>">
                             <img src="../img/ECNU.png" style="width: 50px;display: block">
@@ -49,8 +51,10 @@
                         </div>
                         <% if(alreadyInTeamList.contains(teamList.get(i).getId())){%>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;" id=<%out.print(teamList.get(i).getId());%>>已加入</a>
-                        <%}else
+                        <%}else if(lockedInList.contains(teamList.get(i).getId()))
                             {%>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ecc30a;" id=<%out.print(teamList.get(i).getId());%>>已申请</a>
+                        <%}else{%>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  onclick="joinToTeam(this)" id=<%out.print(teamList.get(i).getId());%>>加入</a>
                         <%}%>
                     </label>
@@ -60,19 +64,20 @@
                 }
             %>
         </div>
-        <div class="weui-tabbar">
-                <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
-                    <span style="display: inline-block;position: relative;">
+            <div class="weui-tabbar">
+                <a class="weui-tabbar__item weui-bar__item_on">
+                    <span style="display: inline-block;">
                         <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
-                    <p class="weui-tabbar__label">所有团队</p>
+                    <p class="weui-tabbar__label">所有团体</p>
                 </a>
                 <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
-                    <span style="display: inline-block;position: relative;">
+                    <span style="display: inline-block;">
                         <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
-                    <p class="weui-tabbar__label">已加入团队</p>
+                    <p class="weui-tabbar__label">已加入团体</p>
                 </a>
+        </div>
         </div>
     </div>
 </div>
@@ -82,7 +87,6 @@
          function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/";
             var teamId=t.id;//取要加入团队的Id
              var check_val = [];
              check_val.push(teamId);
