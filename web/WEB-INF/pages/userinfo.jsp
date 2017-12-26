@@ -94,7 +94,7 @@
         </div>
     </a>
 
-    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/index">
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/techInfo">
         <div class="weui-cell__hd"><img src="../img/userdetails/专业服务认证.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
             <p style="display: block">专业服务技能认证</p>
