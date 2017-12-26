@@ -10,6 +10,7 @@ public class ViewTeamUserDetailEntity {
     private long teamId;
     private long userId;
     private boolean isLocked;
+    private boolean isDeleted;
     private long managerUserId;
     private String teamName;
     private String userName;
@@ -55,6 +56,16 @@ public class ViewTeamUserDetailEntity {
 
     public void setLocked(boolean locked) {
         isLocked = locked;
+    }
+
+    @Basic
+    @Column(name = "IsDeleted", nullable = false)
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Basic
@@ -128,6 +139,7 @@ public class ViewTeamUserDetailEntity {
         if (teamId != that.teamId) return false;
         if (userId != that.userId) return false;
         if (isLocked != that.isLocked) return false;
+        if (isDeleted != that.isDeleted) return false;
         if (managerUserId != that.managerUserId) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
@@ -144,6 +156,7 @@ public class ViewTeamUserDetailEntity {
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (isLocked ? 1 : 0);
+        result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);

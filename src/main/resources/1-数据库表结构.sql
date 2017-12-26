@@ -234,6 +234,7 @@ CREATE VIEW view_team_user_detail
       teamUser.TeamID      AS TeamID,         #志愿者团体编号
       teamUser.UserID      AS UserID,         #用户编号
       teamUser.IsLocked    AS IsLocked,       #用户是否已经被锁定
+      teamUser.IsDeleted   AS IsDeleted,      #用户是否退出团体
       team.ManagerUserID   AS ManagerUserID,  #团体管理者编号
       team.Name            AS TeamName,       #团体名称
       user.Name            AS UserName,       #用户姓名
