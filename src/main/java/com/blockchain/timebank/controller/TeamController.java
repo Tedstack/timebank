@@ -129,6 +129,13 @@ public class TeamController {
 
         //因为使用remove方法，此处循环用倒叙
         for(int i=activityList.size()-1;i>=0;i--){
+            List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityList.get(i).getId(),true);
+            //判断活动已报名人数是否达到活动要求人数，已达到的活动下架不显示
+            if(userActivityList.size() >= activityList.get(i).getCount()){
+                activityList.remove(i);
+                continue;
+            }
+
             //活动不公开
             if(!activityList.get(i).isPublic()){
                 long teamID = activityList.get(i).getTeamId();
@@ -216,6 +223,13 @@ public class TeamController {
     @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
     @ResponseBody
     public String applyToJoinActivity(ModelMap map, @RequestParam long activityID) {
+        ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID,true);
+        //判断活动已报名人数是否达到活动要求人数，已达到报名人数上限的活动不允许报名
+        if(userActivityList.size() >= viewActivityPublishDetailEntity.getCount()){
+            return "upperLimit";
+        }
+
         //判断是否重复申请
         UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(),activityID);
         if(userActivity!=null){
@@ -223,7 +237,6 @@ public class TeamController {
         }
 
         //判断是否是团队管理者
-        ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if(viewActivityPublishDetailEntity.getManagerUserId()==getCurrentUser().getId()){
             return "managerError";
         }

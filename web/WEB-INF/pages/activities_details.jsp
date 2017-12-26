@@ -89,6 +89,14 @@
                     %>
                 </div>
             </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>报名人数</p>
+                </div>
+                <div class="weui-cell__ft"><%out.print(userActivityList.size());%>/<%out.print(activityPublishDetail.getCount());%></div>
+            </div>
+
             <div class="weui-cell">
                 <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
@@ -180,6 +188,8 @@
                         showAlert("申请成功",function () {
                             goTo(targetUrl2);
                         });
+                    }else if(data==="upperLimit"){
+                        showAlert("活动名额已满，停止报名");
                     }else if(data==="managerError"){
                         showAlert("团队管理员不能参加自己发布的活动");
                     }else if(data==="alreadyApply"){
