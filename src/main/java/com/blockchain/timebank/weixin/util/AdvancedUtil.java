@@ -26,7 +26,7 @@ public class AdvancedUtil {
 	public static WeixinUser getUserInfo(String accessToken, String openId) {
 		WeixinUser weixinUser = null;
 		// 拼接请求地址
-		String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+		String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 		requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
 		requestUrl = requestUrl.replace("OPENID", openId);
 		// 获取用户基本信息
