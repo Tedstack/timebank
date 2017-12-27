@@ -10,24 +10,33 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
-<div class="weui-msg">
-    <div class="weui-msg__icon-area">
-        <img src="../img/coin.jpg" width="100" height="100">
-    </div>
+<div class="weui-tab">
+    <div class="weui-panel">
+        <div class="weui-panel__hd">
+            <span>时间币</span>
+            <a href="${pageContext.request.contextPath}/recharge/coins_list" style="float:right;text-decoration: none">时间币明细</a>
+        </div>
+        <div class="weui-cell__bd">
+            <div class="weui-msg">
+                <div class="weui-msg__icon-area">
+                    <img src="../img/coin.jpg" width="100" height="100">
+                </div>
 
-    <div class="weui-msg__text-area">
-        <h1 class="weui-msg__title" style="font-size: x-large">我的时间币</h1>
-        <h2 class="weui-msg__title" style="font-size: xx-large">$ ${TimeCoin}</h2>
-    </div>
+                <div class="weui-msg__text-area">
+                    <h1 class="weui-msg__title" style="font-size: x-large">我的时间币</h1>
+                    <h2 class="weui-msg__title" style="font-size: xx-large">$ ${TimeCoin}</h2>
+                </div>
 
-    <div class="weui-msg__opr-area">
-        <p class="weui-btn-area">
-            <a href="${pageContext.request.contextPath}/recharge/coins_recharge" class="weui-btn weui-btn_primary">充值</a>
-        </p>
-        <p class="weui-btn-area">
-            <a href="" class="weui-btn weui-btn_default">提现</a>
-        </p>
+                <div class="weui-msg__opr-area">
+                    <p class="weui-btn-area">
+                        <a href="${pageContext.request.contextPath}/recharge/coins_recharge" class="weui-btn weui-btn_primary">充值</a>
+                    </p>
+                    <p class="weui-btn-area">
+                        <a href="" class="weui-btn weui-btn_default">提现</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.blockchain.timebank.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.blockchain.timebank.dao.RechargeDao;
 import com.blockchain.timebank.entity.RechargeEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.RechargeService;
@@ -47,6 +48,8 @@ public class RechargeController {
     @Autowired
     RechargeService rechargeService;
 
+    @Autowired
+    RechargeDao rechargeDao;
 
     private UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -65,6 +68,24 @@ public class RechargeController {
         UserEntity user = getCurrentUser();
         map.addAttribute("TimeCoin", user.getTimeCoin());
         return "coins_balance";
+    }
+
+    //充值列表查看页面
+    @RequestMapping(value = "/coins_list", method = RequestMethod.GET)
+    public String getCoinList(ModelMap map){
+        UserEntity user=getCurrentUser();
+        List<RechargeEntity> list = rechargeDao.findByUserId(user.getId());
+        //倒序排列
+        Collections.reverse(list);
+        map.addAttribute("list", list);
+        return "coins_list";
+    }
+    //充值查询明细
+    @RequestMapping(value = "/coins_details",method = RequestMethod.GET)
+    public String getCoinDetail(ModelMap map,@RequestParam long id){
+        RechargeEntity rechargeEntity = rechargeDao.findOne(id);
+        map.addAttribute("rechargeEntity",rechargeEntity);
+        return "/coins_details";
     }
 
     //时间币充值页面
