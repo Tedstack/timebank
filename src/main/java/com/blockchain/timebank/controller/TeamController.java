@@ -377,6 +377,36 @@ public class TeamController {
         return "activities_yiwancheng_publish";
     }
 
+    //跳转到待评价团员列表页面
+    @RequestMapping(value = "/managerUserGetEvaluateList",method = RequestMethod.GET)
+    public String managerUserGetEvaluateList(ModelMap map,@RequestParam long activityID){
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresentAndStatus(activityID, true, true, ActivityStatus.alreadyTerminate);
+
+        map.addAttribute("userActivityList",userActivityList);
+        return "user_activity_rate_list";
+    }
+
+    //跳转到待评价团员评价页面
+    @RequestMapping(value = "/managerUserStartEvaluateUser",method = RequestMethod.GET)
+    public String managerUserStartEvaluateUser(ModelMap map,@RequestParam long userActivityID){
+        UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
+
+        map.addAttribute("userActivityEntity",userActivityEntity);
+        return "user_activity_rate";
+    }
+
+    //申请者评价团员
+    @RequestMapping(value = "/managerUserEvaluateUser",method = RequestMethod.POST)
+    @ResponseBody
+    public String managerUserEvaluateUser(ModelMap map,@RequestParam long userActivityID,@RequestParam double rating,@RequestParam String comment){
+        UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
+        userActivityEntity.setRating(rating);
+        userActivityEntity.setComment(comment);
+        userActivityService.updateUserActivityEntity(userActivityEntity);
+
+        return "ok";
+    }
+
     //申请已申请的活动页面（参与活动）
     @RequestMapping(value = "/alreadyApplyActivities", method = RequestMethod.GET)
     public String alreadyApplyActivities(ModelMap map) {
