@@ -28,4 +28,6 @@ public interface UserService {
     UserEntity findUserEntityByIdCard(String idCard);
 
     UserEntity findUserEntityByOpenID(String openID);
+
+    void saveUserHeadImgUrl(String headImgUrl, String openId, String accessToken, String path);
 }

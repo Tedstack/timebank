@@ -1,7 +1,11 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.UserDao;
+import com.blockchain.timebank.dao.UserUpdateDao;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.weixin.model.SNSUserInfo;
+import com.blockchain.timebank.weixin.util.AdvancedUtil;
+import com.blockchain.timebank.weixin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserUpdateDao userUpdateDao;
 
     public UserEntity saveUserEntity(UserEntity userEntity) {
         return userDao.save(userEntity);
@@ -57,6 +63,20 @@ public class UserServiceImpl implements UserService {
 
     public UserEntity findUserEntityByOpenID(String openID) {
         return userDao.findUserEntityByOpenId(openID);
+    }
+
+    public void saveUserHeadImgUrl(String headImgUrl, String openId, String accessToken, String path){
+        if("noID".equals(openId) || null == openId) return;
+        SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
+        if(null == snsUserInfo) return;
+        String url = snsUserInfo.getHeadimgurl();
+        if(url != null && !url.equals(headImgUrl)){
+            String name = openId + ".jpg";
+            String status = CommonUtil.getImageByUrl(url, path, name);
+            if("success".equals(status)) {
+                userUpdateDao.updataUserHeadImgUrl(url, openId);
+            }
+        }
     }
 
 }
