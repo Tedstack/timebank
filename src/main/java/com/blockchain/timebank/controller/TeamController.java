@@ -408,6 +408,21 @@ public class TeamController {
         return "ok";
     }
 
+    @RequestMapping(value = "/managerUserCheckUser",method = RequestMethod.GET)
+    public String managerUserCheckUser(ModelMap map,@RequestParam long userActivityID){
+        UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
+        long userID = userActivityEntity.getUserId();
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(userID,true,true,ActivityStatus.alreadyTerminate);
+        for(int i=userActivityList.size()-1;i>=0;i--){
+            if(userActivityList.get(i).getRating()==null){
+                userActivityList.remove(i);
+            }
+        }
+
+        map.addAttribute("userActivityList",userActivityList);
+        return "user_activity_info";
+    }
+
     //申请已申请的活动页面（参与活动）
     @RequestMapping(value = "/alreadyApplyActivities", method = RequestMethod.GET)
     public String alreadyApplyActivities(ModelMap map) {

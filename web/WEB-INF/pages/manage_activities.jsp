@@ -99,6 +99,9 @@
             <div class="weui-cell__ft">
                 <button id="<%=i%>" value="<%=userActivityList.get(i).getId()%>" class="weui-btn weui-btn_mini weui-btn_primary">移除</button>
             </div>
+            <div class="weui-cell__ft" style="padding: 10px;">
+                <button id="btn<%=i%>" value="<%=userActivityList.get(i).getId()%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</button>
+            </div>
         </div>
         <%}%>
         <!--以上-->
@@ -157,6 +160,15 @@
                     var r=confirm("确认移除该成员");
                     if(r==true){
                         post(id);
+                    }
+                });
+
+                $("#btn"+i).on("click", function(){
+                    var id = $("#"+i).attr("value");
+                    var r=confirm("确认查看该成员");
+                    if(r==true){
+                        var url = "http://"+getDomainName()+contextPath+"/team/managerUserCheckUser?userActivityID="+id;
+                        goTo(url);
                     }
                 });
             })(i);
