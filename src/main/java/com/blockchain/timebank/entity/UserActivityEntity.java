@@ -8,8 +8,8 @@ public class UserActivityEntity {
     private long id;
     private long activityId;
     private long userId;
-    private byte isAllow;
-    private byte isPresent;
+    private boolean isAllow;
+    private boolean isPresent;
     private Double rating;
     private String comment;
     private String extra;
@@ -46,22 +46,22 @@ public class UserActivityEntity {
 
     @Basic
     @Column(name = "IsAllow", nullable = false)
-    public byte getIsAllow() {
+    public boolean isAllow() {
         return isAllow;
     }
 
-    public void setIsAllow(byte isAllow) {
-        this.isAllow = isAllow;
+    public void setAllow(boolean allow) {
+        isAllow = allow;
     }
 
     @Basic
     @Column(name = "IsPresent", nullable = false)
-    public byte getIsPresent() {
+    public boolean isPresent() {
         return isPresent;
     }
 
-    public void setIsPresent(byte isPresent) {
-        this.isPresent = isPresent;
+    public void setPresent(boolean present) {
+        isPresent = present;
     }
 
     @Basic
@@ -118,8 +118,8 @@ public class UserActivityEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (activityId ^ (activityId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (int) isAllow;
-        result = 31 * result + (int) isPresent;
+        result = 31 * result + (isAllow ? 1 : 0);
+        result = 31 * result + (isPresent ? 1 : 0);
         result = 31 * result + (rating != null ? rating.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
