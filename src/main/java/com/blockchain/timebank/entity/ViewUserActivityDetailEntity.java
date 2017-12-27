@@ -13,6 +13,8 @@ public class ViewUserActivityDetailEntity {
     private String userPhone;
     private boolean isAllow;
     private boolean isPresent;
+    private Double rating;
+    private String comment;
     private long teamId;
     private String name;
     private Timestamp beginTime;
@@ -93,6 +95,26 @@ public class ViewUserActivityDetailEntity {
 
     public void setPresent(boolean present) {
         isPresent = present;
+    }
+
+    @Basic
+    @Column(name = "Rating", nullable = true, precision = 0)
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    @Basic
+    @Column(name = "Comment", nullable = true, length = 100)
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Basic
@@ -222,6 +244,8 @@ public class ViewUserActivityDetailEntity {
         if (managerUserId != that.managerUserId) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
+        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
@@ -243,6 +267,8 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (isPresent ? 1 : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);

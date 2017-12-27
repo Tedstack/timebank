@@ -285,6 +285,8 @@ CREATE VIEW view_user_activity_detail
       user.Phone                    AS UserPhone,       #用户手机号
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
       userActivity.IsPresent        AS IsPresent,       #是否参加活动
+      userActivity.Rating           AS Rating,          #管理者对参与者评分
+      userActivity.Comment          AS Comment,         #管理者评价参与者
       activityPublish.TeamID        AS TeamID,         #活动团队编队
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
