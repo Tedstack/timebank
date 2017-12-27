@@ -3,9 +3,6 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
-import com.blockchain.timebank.weixin.model.SNSUserInfo;
-import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
-import com.blockchain.timebank.weixin.util.AdvancedUtil;
 import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
 import com.blockchain.timebank.service.*;
@@ -37,6 +34,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private TechnicAuthService technicAuthService;
+
+    @Autowired
     PublishService publishService;
 
     @Autowired
@@ -57,7 +57,9 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
         UserEntity userEntity = getCurrentUser();
+        int techNum = technicAuthService.findTechAuthCountByUserId(userEntity.getId());
         map.addAttribute("user", userEntity);
+        map.addAttribute("techNum", techNum);
         return "userinfo";
     }
 
@@ -184,8 +186,10 @@ public class UserController {
     //用户上传照片
     @RequestMapping(value = "/uploadUserInfo",method = RequestMethod.POST)
     @ResponseBody
-    public String uploadUserInfo(HttpServletRequest request, @RequestParam(value = "file1", required = false) MultipartFile file,
-            @RequestParam(value = "file2", required = false) MultipartFile file2,String idNum){
+    public String uploadUserInfo(HttpServletRequest request,
+                                 @RequestParam(value = "file1", required = false) MultipartFile file,
+                                 @RequestParam(value = "file2", required = false) MultipartFile file2,
+                                 String idNum){
         String msg = "";
 
         String idImg = null;
@@ -232,39 +236,57 @@ public class UserController {
     //用户上传专业技能照片
     @RequestMapping(value = "/uploadTechInfo",method = RequestMethod.POST)
     @ResponseBody
-    public String uploadTechInfo(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file,
-            @RequestParam(value = "file2", required = false) MultipartFile file2,String idNum){
+    public String uploadTechInfo(HttpServletRequest request,
+                                 @RequestParam(value = "file1", required = false) MultipartFile file1,
+                                 @RequestParam(value = "file2", required = false) MultipartFile file2,
+                                 @RequestParam(value = "file3", required = false) MultipartFile file3,
+                                 String techName,
+                                 String techLevel,
+                                 String techId){
         String msg = "";
 
-        String idImg = null;
-        String idImg2 = null;
-        if (file != null && !file.isEmpty()&& file2 != null && !file2.isEmpty()) {
-            System.out.println("idNum"+idNum);
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/");
+        String techImg1 = null;
+        String techImg2 = null;
+        String techImg3 = null;
+        File imgFile1 = null;
+        File imgFile2 = null;
+        if (file3 != null && !file3.isEmpty()) {
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/techAuth/");
             if (!uploadDir.exists()){
                 uploadDir.mkdir();
             }
-            String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = idNum + "_" + 1 + suffix1;
-
-            String suffix2 = file2.getOriginalFilename().substring(file2.getOriginalFilename().lastIndexOf("."));
-            idImg2 = idNum + "_" + 2 + suffix2;
-
-            // 构建上传目录及文件对象，不存在则自动创建
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
-            File imgFile = new File(path, idImg);
-            File imgFile2 = new File(path, idImg2);
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/techAuth/";
+            if(file1 != null && !file1.isEmpty()) {
+                String suffix1 = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
+                techImg1 = techName + techLevel + techId + "_" + 1 + suffix1;
+                imgFile1 = new File(path, techImg1);
+            }
+            if(file2 != null && !file2.isEmpty()) {
+                String suffix2 = file2.getOriginalFilename().substring(file2.getOriginalFilename().lastIndexOf("."));
+                techImg2 = techName + techLevel + techId + "_" + 2 + suffix2;
+                imgFile2 = new File(path, techImg2);
+            }
+            String suffix3 = file3.getOriginalFilename().substring(file3.getOriginalFilename().lastIndexOf("."));
+            techImg3 = techName + techLevel + techId + "_" + 3 + suffix3;
+            File imgFile3 = new File(path, techImg3);
 
             // 保存文件
             try {
-//                TechEntity Tech = getCurrentTech();
-//                Tech.setImg1(idImg);
-//                Tech.setImg2(idImg2);
-//                Tech.setIdCard(idNum);
-//                file.transferTo(imgFile);
-//                file2.transferTo(imgFile2);
-//                TechService.updateTechEntity(Tech);
-//                msg = "upload success";
+                TechnicAuthEntity technicAuthEntity = new TechnicAuthEntity();
+                technicAuthEntity.setTechPhoto1(techImg1);
+                technicAuthEntity.setTechPhoto2(techImg2);
+                technicAuthEntity.setTechPhoto3(techImg3);
+                technicAuthEntity.setTechId(techId);
+                technicAuthEntity.setTechName(techName);
+                technicAuthEntity.setTechLevel(techLevel);
+                if(imgFile1!=null)
+                    file1.transferTo(imgFile1);
+                if(imgFile2!=null)
+                    file2.transferTo(imgFile2);
+                file3.transferTo(imgFile3);
+                technicAuthEntity.setUserId(getCurrentUser().getId());
+                if (technicAuthService.insertTechnicAuthEntity(technicAuthEntity))
+                    msg = "upload success";
             } catch (Exception e) {
                 msg = "failure";
                 e.printStackTrace();
@@ -304,6 +326,8 @@ public class UserController {
     //专业技能信息页面
     @RequestMapping(value = "/techInfo",method = RequestMethod.GET)
     public String techInfo(ModelMap map){
+        List<TechnicAuthEntity> technicAuthEntities = getCurrentUserTechAuths();
+        map.addAttribute("authsInfo", technicAuthEntities);
         return "technic_info";
     }
 
@@ -567,6 +591,21 @@ public class UserController {
         if (userDetails != null) {
             UserEntity userEntity = userService.findUserEntityByPhone(userDetails.getUsername());
             return userEntity;
+        } else {
+            return null;
+        }
+    }
+
+    private List<TechnicAuthEntity> getCurrentUserTechAuths(){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userDetails != null) {
+            try {
+                return technicAuthService.findTechnicAuthEntitiesByUserId(getCurrentUser().getId());
+            }
+            catch (Exception e){
+                System.out.println(e);
+                return null;
+            }
         } else {
             return null;
         }

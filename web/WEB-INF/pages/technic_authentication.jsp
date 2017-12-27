@@ -37,7 +37,7 @@
                 <%--</a>--%>
                 <%--</div>--%>
             </div>
-            <form class="weui-cells weui-cells_form">
+            <form id="userForm" class="weui-cells weui-cells_form">
                 <div class="weui-cells__title">
                     <p>证书信息</p>
                 </div>
@@ -52,10 +52,10 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
-                            <lable id="techLevel" name="techLevel" class="weui-label">证书等级</lable>
+                            <lable class="weui-label">证书等级</lable>
                         </div>
                         <div class="weui-cell__bd">
-                            <input  id="techId" name="techId" class="weui-input" placeholder="请输入专业技能证书等级">
+                            <input id="techLevel" name="techLevel" class="weui-input" placeholder="请输入专业技能证书等级">
                         </div>
                     </div>
                     <div class="weui-cell">
@@ -63,12 +63,12 @@
                             <label class="weui-label">证书编号</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input class="weui-input" placeholder="请输入专业技能证书编号">
+                            <input id="techId" name="techId" class="weui-input" placeholder="请输入专业技能证书编号">
                         </div>
                     </div>
                 </div>
                 <div class="weui-cells__title">
-                    <p>证书照片</p>
+                    <p>证书照片(至少上传1张个人页)</p>
                 </div>
                 <div class="weui-cells">
                     <div class="weui-cell">
@@ -82,7 +82,7 @@
                                         <div class="weui-uploader__bd">
                                             <ul class="weui-uploader__files" id="files1"></ul>
                                             <div class="weui-uploader__input-box">
-                                                <input id="file1" name="file" class="weui-uploader__input" type="file" accept="image/*">
+                                                <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
                                             </div>
                                         </div>
                                     </div>
@@ -240,41 +240,26 @@
         });
     });
     $(function() {
-        var baseUrl = "http://" + location.host,
-            uploadUrl = baseUrl + "/timebank/user/uploadTechInfo",
-            notiUrl = baseUrl + "/timebank/user/techNotification";
         $("#button1").on('click', function () {
-            location.href = notiUrl;
-            if(jQuery("input[id='file1']").val()!==""){
-                if(jQuery("input[id='file2']").val()!=="") {
-                    if (jQuery("input[id='file3']").val() !== "") {
-                        if ($('#techName').val() !== "" && $('#techId').val() !== "" && $('#techLevel').val() !== "") {
-                            //进行身份证合法性验证
-                            locale.href = notiUrl;
-                            post()
-                        }
-                        else {
-                            showAlert("请输入身份证号！");
-                        }
-                    }
-                    else {
-                        showAlert("请上传证书个人页照片！");
-                    }
+            if (jQuery("input[id='file3']").val() !== "") {
+                if ($('#techName').val() !== "" && $('#techId').val() !== "" && $('#techLevel').val() !== "") {
+                    //进行身份证合法性验证
+                    post()
                 }
-                else{
-                    showAlert("请上传证书第一页照片！");
+                else {
+                    showAlert("请输入完整信息！");
                 }
             }
-            else{
-                showAlert("请上传证书封面照片！");
+            else {
+                showAlert("请上传个人页！");
             }
         });
+
         function post(){
             var baseUrl = "http://" + location.host,
                 uploadUrl = baseUrl + "/timebank/user/uploadTechInfo",
                 notiUrl = baseUrl + "/timebank/user/techNotification";
             var formData = new FormData($("#userForm")[0]);
-            console.log(formData.getAll("ID"));
             $.ajax({
                 url: uploadUrl,
                 type: 'POST',

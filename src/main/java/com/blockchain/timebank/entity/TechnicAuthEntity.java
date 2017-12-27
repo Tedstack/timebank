@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class TechnicAuthEntity {
     private long id;
     private Long userId;
-    private long authId;
+    private Long authId;
     private String techName;
     private String techLevel;
     private String techId;
@@ -45,12 +45,12 @@ public class TechnicAuthEntity {
     }
 
     @Basic
-    @Column(name = "AuthID", nullable = false)
-    public long getAuthId() {
+    @Column(name = "AuthID", nullable = true)
+    public Long getAuthId() {
         return authId;
     }
 
-    public void setAuthId(long authId) {
+    public void setAuthId(Long authId) {
         this.authId = authId;
     }
 
@@ -165,7 +165,7 @@ public class TechnicAuthEntity {
     }
 
     @Basic
-    @Column(name = "UploadDate", nullable = false)
+    @Column(name = "UploadDate", nullable = true)
     public Timestamp getUploadDate() {
         return uploadDate;
     }

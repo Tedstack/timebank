@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
   Created by IntelliJ IDEA.
   User: toyking
@@ -104,8 +105,14 @@
             <p style="display: block">专业服务技能认证</p>
         </div>
         <div class="weui-cell__ft">
-            <p>未认证</p>
-            <p style="color:#1AAD19; display: none">✓已认证${num}项</p>
+            <c:choose>
+                <c:when test="${techNum==0}">
+                    <p>未认证</p>
+                </c:when>
+                <c:otherwise>
+                    <p style="color:#1AAD19">✓已认证${techNum}项</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </a>
     <img src="../img/底部.png" width="100%" height="15">
