@@ -1,8 +1,10 @@
 package com.blockchain.timebank.weixin.util;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import com.blockchain.timebank.weixin.model.SNSUserInfo;
+import com.blockchain.timebank.weixin.model.Template;
+import com.blockchain.timebank.weixin.model.TemplateParam;
 import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
 import com.blockchain.timebank.weixin.model.WeixinUser;
 import net.sf.json.JSONArray;
@@ -139,10 +141,34 @@ public class AdvancedUtil {
 		return snsUserInfo;
 	}
 
+	/*模板消息发送*/
+	public static boolean sendTemplateMessage(String accessToken, Template template) {
+		boolean result = false;
+		// 请求地址拼接
+		String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+		requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
+		// 模板消息发送
+		String respJSON = CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());
+		System.out.println(respJSON);
+		JSONObject jsonObject = JSONObject.fromObject(respJSON);
+		if (null != jsonObject) {
+			int errorCode = jsonObject.getInt("errcode");
+			String errorMsg = jsonObject.getString("errmsg");
+			if (0 == errorCode) {
+				result = true;
+			} else {
+				System.out.println("模板消息发送错误 errcode:" + errorCode);
+			}
+		}
+		return result;
+	}
+
+
+
+
 	public static void main(String[] args) {
 		// 获取access_token
 		String accessToekn = CommonUtil.getAccessToken("wx0057906b9b02c814", "bc39d8c8f72aef4394a4ab54729b0e95").getAccess_token();
-
 		// String json = makeTextCustomMessage("oTnKKuHeARMSuDIv7iFr43WyWNKY", "点击查看<a href=\"http://m.blog.csdn.net/blog/lyq8479\">柳峰的博客</a>");
 		// sendCustomMessage(accessToekn, json);
 
@@ -184,6 +210,21 @@ public class AdvancedUtil {
 		System.out.println("OPENID：" + weixinUser.getOpenId());
 		System.out.println("头像：" + weixinUser.getHeadimgurl());
 		System.out.println("城市：" + weixinUser.getCity());
+		//模板消息发送测试
+		List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+		templateParamList.add(new TemplateParam("first", "志愿者者服务确认", "#173177"));
+		templateParamList.add(new TemplateParam("keyword1", "信息", "#173177"));
+		templateParamList.add(new TemplateParam("remark", "测试测试", "#173177"));
+
+		Template template = new Template();
+		template.setTemplateId("1uzEiP79vQJEwijdfXcdDwwsXBp4l8OB3pgSQx12lFM");
+		template.setToUser("oAuZ6s_lfFc-OqbrWkZzZsJp6R6M");
+		template.setTopColor("#173177");
+		template.setUrl("");
+		template.setTemplateParamList(templateParamList);
+
+		sendTemplateMessage(accessToekn, template);
+
 	}
 
 }
