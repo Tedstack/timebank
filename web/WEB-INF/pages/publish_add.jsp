@@ -1,5 +1,6 @@
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
-<%@ page import="java.util.*" %><%--
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/24
@@ -90,11 +91,16 @@
                     </div>
                 </div>
 
+                <%
+                    Date nowDate = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String nowTime = formatter.format(nowDate);
+                %>
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <p>开始日期</p></div>
                     <div class="weui-cell__bd">
-                        <input id="beginDate" class="weui-input" name="beginDate" type="date" value=""/>
+                        <input id="beginDate" class="weui-input" name="beginDate" type="date" value="" min=<%out.print(nowTime);%>>
                     </div>
                 </div>
 
@@ -102,7 +108,7 @@
                     <div class="weui-cell__bd">
                         <p>结束日期</p></div>
                     <div class="weui-cell__bd">
-                        <input id="endDate" class="weui-input" name="endDate" type="date" value=""/>
+                        <input id="endDate" class="weui-input" name="endDate" type="date" value="" min=<%out.print(nowTime);%>>
                     </div>
                 </div>
 
@@ -185,7 +191,7 @@
         var servicePrice = document.getElementById("servicePrice").value;
 
         if(serviceDescription===""){
-            showAlert("请填写服务评价");
+            showAlert("请填写服务描述");
             return false;
         }
         if(beginDate===""){
@@ -199,6 +205,16 @@
         if(servicePrice===""){
             showAlert("请填写服务价格");
             return false;
+        }
+        if(beginDate != "" && endDate != ""){
+            beginDate = beginDate.replace(/\-/gi,"/");
+            endDate = endDate.replace(/\-/gi,"/");
+            var beginTime = new Date(beginDate).getTime();
+            var endTime = new Date(endDate).getTime();
+            if(beginTime>endTime){
+                showAlert("服务结束时间不能早于开始时间");
+                return false;
+            }
         }
         return true;
     }

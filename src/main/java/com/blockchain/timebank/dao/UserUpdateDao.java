@@ -9,6 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserUpdateDao extends JpaRepository<UserEntity, Long> {
     @Transactional
     @Modifying
-    @Query("update UserEntity u set u.headImgUrl = ?1 where u.openId=?2")
-    public void updataUserHeadImgUrl(String headImgUrl, String OpenId);
+    @Query("update UserEntity u set u.headImgUrl = ?1 where u.id=?2")
+    void updataUserHeadImgUrl(String headImgUrl,long id);
 }

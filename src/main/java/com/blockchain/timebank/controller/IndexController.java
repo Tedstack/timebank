@@ -47,7 +47,7 @@ public class IndexController {
                 String openId = wot.getOpenId();
                 UserEntity userEntity = userService.findUserEntityByOpenID(wot.getOpenId());
                 if(userEntity!=null){
-                    userService.saveUserHeadImgUrl(userEntity.getHeadImgUrl(), openId, wot.getAccessToken(), request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
+                    userService.saveUserHeadImgUrl(userEntity, openId, wot.getAccessToken(), request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
                     SecurityContextHolder.getContext().setAuthentication(token);
                     return "redirect:/index";
@@ -78,7 +78,7 @@ public class IndexController {
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 System.out.println("昵称：" + snsUserInfo.getNickName());
 
-                userService.saveUserHeadImgUrl(null, openId, accessToken, request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
+                //userService.saveUserHeadImgUrl(null, openId, accessToken, request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
                 map.addAttribute("code",code);
                 map.addAttribute("openID",wot.getOpenId());
             }else{
