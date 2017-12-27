@@ -34,7 +34,7 @@
 
                 <a href="<%out.print("detail?id="+viewPublishEntity.getId());%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" style="" src="../img/userAvatar/<%out.print(viewPublishEntity.getHeadImgUrl());%>">
+                        <img class="weui-media-box__thumb" style="" src="<%out.print(viewPublishEntity.getHeadImgUrl());%>">
                     </div>
                     <div class="weui-media-box__bd">
                         <img class="weui-media-box__thumb" style="width:30px" src="../img/服务名称/<%out.print(viewPublishEntity.getServiceName());%>.png" />
