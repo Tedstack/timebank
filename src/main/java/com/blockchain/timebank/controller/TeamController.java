@@ -90,14 +90,15 @@ public class TeamController {
 
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String addUserToTeam(ModelMap map, @RequestParam List<Long> teamIDList) {
+    public String addUserToTeam(@RequestParam List<Long> teamIDList) {
+        long userId=getCurrentUser().getId();
         for(int i=0;i<teamIDList.size();i++){
-                TeamUserEntity teamUser = new TeamUserEntity();
-                teamUser.setTeamId(teamIDList.get(i));
-                teamUser.setUserId(getCurrentUser().getId());
-                teamUser.setLocked(true);
-                teamUser.setDeleted(false);
-                teamUserService.addUserToTeam(teamUser);
+            TeamUserEntity teamUser = new TeamUserEntity();
+            teamUser.setTeamId(teamIDList.get(i));
+            teamUser.setUserId(getCurrentUser().getId());
+            teamUser.setLocked(true);
+            teamUser.setDeleted(false);
+            teamUserService.addUserToTeam(teamUser);
         }
         JSONObject result = new JSONObject();
         result.put("msg","ok");
@@ -479,6 +480,87 @@ public class TeamController {
         long userId=getCurrentUser().getId();
         map.addAttribute("allTeamList",teamService.findTeamsByManagerUserId(userId));
         return "my_teams";
+    }
+
+    @RequestMapping(value="/myTeamMember",method = RequestMethod.GET)
+    public String myTeamMemberView(ModelMap map, @RequestParam String teamId)
+    {
+        long id = Long.parseLong(teamId);
+        List<TeamUserEntity> userList=teamUserService.findAllUsersOfOneTeam(id);//only find user id
+        List<UserEntity> memberList=new ArrayList<UserEntity>();
+        List<UserEntity> lockedList=new ArrayList<UserEntity>();
+        for(int i=0;i<userList.size();i++)
+        {
+            UserEntity user=userService.findUserEntityById(userList.get(i).getUserId());
+            if(!userList.get(i).isLocked())
+                memberList.add(user);//已经加入成员
+            else
+                lockedList.add(user);//锁定成员
+        }
+        map.addAttribute("teamId",teamId);
+        map.addAttribute("userList",memberList);
+        map.addAttribute("lockedList",lockedList);
+        return "my_team_member";
+    }
+
+    @RequestMapping(value="/lockMember",method=RequestMethod.POST)
+    @ResponseBody
+    public String blockTeamMember(@RequestParam String userId,@RequestParam String teamId)
+    {
+        return TeamManage(userId,teamId,"lock");
+    }
+
+    @RequestMapping(value="/UnlockMember",method=RequestMethod.POST)
+    @ResponseBody
+    public String UnblockTeamMember(@RequestParam String userId,@RequestParam String teamId)
+    {
+        return TeamManage(userId,teamId,"unlock");
+    }
+
+    private String TeamManage(String userId,String teamId,String type){
+        long t_id = Long.parseLong(teamId);
+        long u_id = Long.parseLong(userId);
+        try {
+            TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndIsDeleted(u_id, t_id,false);
+            if(type.equalsIgnoreCase("lock"))
+                teamUser.setLocked(true);
+            else if(type.equalsIgnoreCase("unlock"))
+                teamUser.setLocked(false);
+            else
+                return "failure";
+            teamUserService.saveTeamUser(teamUser);
+            System.out.println("The user " + userId + " has been locked");
+            return "success";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "failure";
+        }
+    }
+
+    @RequestMapping(value="/historyActivity",method = RequestMethod.GET)
+    public String teamHistoryActivity(ModelMap map, @RequestParam String teamId)
+    {
+        boolean isMember=false;
+        long id = Long.parseLong(teamId);
+        List<ActivityPublishEntity> activityList=activityPublishService.findAllByTeamIdAndStatus(id,"已结束");
+        List<ActivityPublishEntity> publicActivity=new ArrayList<ActivityPublishEntity>();
+        List<ActivityPublishEntity> privateActivity=new ArrayList<ActivityPublishEntity>();
+        long userId=getCurrentUser().getId();
+        //判断用户在这个团体内
+        TeamUserEntity team=teamUserService.findByUserIdAndTeamIdAndIsDeleted(userId,id,false);
+        if(team!=null)
+            isMember=true;
+        for(int i=0;i<activityList.size();i++)
+        {
+            if(activityList.get(i).isPublic())
+                publicActivity.add(activityList.get(i));
+            else
+                privateActivity.add(activityList.get(i));
+        }
+        map.addAttribute("isMember",isMember);
+        map.addAttribute("publicActivity",publicActivity);
+        map.addAttribute("privateActivity",privateActivity);
+        return "team_history";
     }
 
     private UserEntity getCurrentUser() {

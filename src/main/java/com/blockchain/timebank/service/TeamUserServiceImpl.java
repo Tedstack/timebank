@@ -32,4 +32,6 @@ public class TeamUserServiceImpl implements TeamUserService {
     public List<TeamUserEntity> findAllUsersOfOneTeam(long teamID) {
         return teamUserDao.findByTeamId(teamID);
     }
+
+    public TeamUserEntity findByUserIdAndTeamIdAndIsDeleted(long userId,long teamId,boolean isDeleted){return teamUserDao.findByUserIdAndTeamIdAndDeleted(userId,teamId,false);}
 }

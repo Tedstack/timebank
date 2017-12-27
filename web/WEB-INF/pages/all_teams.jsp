@@ -53,7 +53,7 @@
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;" id=<%out.print(teamList.get(i).getId());%>>已加入</a>
                         <%}else if(lockedInList.contains(teamList.get(i).getId()))
                             {%>
-                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ecc30a;" id=<%out.print(teamList.get(i).getId());%>>已申请</a>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ecc30a;" id=<%out.print(teamList.get(i).getId());%>>待审核</a>
                         <%}else{%>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  onclick="joinToTeam(this)" id=<%out.print(teamList.get(i).getId());%>>加入</a>
                         <%}%>
@@ -106,7 +106,7 @@
                         var dataJson = JSON.parse(value);
 
                         if(dataJson.msg==="ok"){
-                            showAlert("加入成功",function () {
+                            showAlert("申请成功",function () {
                                 location.reload();
                             });
                         }

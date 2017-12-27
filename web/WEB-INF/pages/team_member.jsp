@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>团队</title>
+    <title>团队成员</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
@@ -38,7 +38,7 @@
             <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;color: #ffffff;border: none;height: 27px;font-size: 14px; ">成员</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">历史活动</a>
+            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">历史活动</a>
         </div>
     </div>
     <div class="weui-panel__bd" style="margin : 80px 0px 10px 0px;">

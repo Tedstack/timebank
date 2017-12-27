@@ -13,4 +13,6 @@ public interface ActivityPublishService {
     ActivityPublishEntity saveActivityPublishEntity(ActivityPublishEntity activityPublishEntity);
 
     ActivityPublishEntity findActivityPublishEntityByID(long ID);
+
+    List<ActivityPublishEntity> findAllByTeamIdAndStatus(long teamId,String status);
 }
