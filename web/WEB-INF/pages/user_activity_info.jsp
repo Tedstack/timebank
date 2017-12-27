@@ -20,7 +20,7 @@
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
 %>
 <div class="weui-tab__panel">
-    <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">参加活动人员</div>
+    <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">个人信息</div>
     <div class="weui-cells">
         <div class="block block_tcxq mt10">
             <div class="title">
