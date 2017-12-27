@@ -10,6 +10,8 @@ public class UserActivityEntity {
     private long userId;
     private boolean isAllow;
     private boolean isPresent;
+    private Double rating;
+    private String comment;
     private String extra;
 
     @Id
@@ -63,6 +65,26 @@ public class UserActivityEntity {
     }
 
     @Basic
+    @Column(name = "Rating", nullable = true, precision = 0)
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    @Basic
+    @Column(name = "Comment", nullable = true, length = 100)
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -84,6 +106,8 @@ public class UserActivityEntity {
         if (userId != that.userId) return false;
         if (isAllow != that.isAllow) return false;
         if (isPresent != that.isPresent) return false;
+        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
+        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -96,6 +120,8 @@ public class UserActivityEntity {
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (isPresent ? 1 : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
