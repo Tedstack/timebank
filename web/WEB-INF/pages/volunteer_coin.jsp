@@ -25,6 +25,7 @@
         <div class="weui-panel">
             <div class="weui-panel__hd">
                 <span>志愿者币</span>
+                <a href="${pageContext.request.contextPath}/user/queryVolPublishAlComplete" style="float:right;text-decoration: none">志愿者币明细</a>
             </div>
             <div class="weui-panel__bd">
                 <div class="weui-msg">
@@ -38,7 +39,7 @@
                     </div>
                 </div>
                 <div class="weui-btn-area">
-                    <a href="${pageContext.request.contextPath}/index" class="weui-btn weui-btn_primary">返回我的页面</a>
+                    <a href="${pageContext.request.contextPath}/user/" class="weui-btn weui-btn_primary">返回我的页面</a>
                 </div>
             </div>
         </div>

@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
+import java.util.Iterator;
 
 @Controller
 @RequestMapping("/user")
@@ -282,15 +283,6 @@ public class UserController {
         return "change_userinfo_result";
     }
 
-    //申请查看时间币余额页面
-    @RequestMapping(value = "/coins", method = RequestMethod.GET)
-    public String coin(ModelMap map) {
-        /*add by hanyunxia begin*/
-        UserEntity userEntity=getCurrentUser();
-        map.addAttribute("user",userEntity);
-        /*add by hanyunxia end*/
-        return "coins";
-    }
 
     //申请充值时间币页面
     @RequestMapping(value = "/pay", method = RequestMethod.GET)
@@ -303,6 +295,7 @@ public class UserController {
     public String startRealNameAuth(ModelMap map){
         return "realname_authentication";
     }
+
 
     //专业技能认证
     @RequestMapping(value = "/startTechAuth",method = RequestMethod.GET)
@@ -328,6 +321,36 @@ public class UserController {
         UserEntity userEntity = getCurrentUser();
         map.addAttribute("user", userEntity);
         return "volunteer_coin";
+    }
+
+    //查询用户发布服务接口：已完成的志愿者服务
+    @RequestMapping(value="/queryVolPublishAlComplete",method = RequestMethod.GET)
+    public String queryVolPublicAlComplete(ModelMap map){
+        List<ViewRecordDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<ViewRecordDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
+        recordDetailList.addAll(recordDetailList2);
+        Iterator<ViewRecordDetailEntity> iter = recordDetailList.iterator();
+        while(iter.hasNext()){
+            ViewRecordDetailEntity record = iter.next();
+            if(!(record.getServiceType().equals("志愿者服务"))){
+                iter.remove();
+            }
+        }
+        if(recordDetailList.size()>0){
+            Collections.reverse(recordDetailList);
+        }
+        map.addAttribute("recordDetailList", recordDetailList);
+        map.addAttribute("userid",getCurrentUser().getId());
+        return "volCoin_list";
+
+    }
+    //显示志愿者币详情
+    @RequestMapping(value="/vol_detail",method = RequestMethod.GET)
+    public String detailPage(ModelMap map, @RequestParam long id){
+        ViewRecordDetailEntity viewRecordDetailEntity = viewRecordDetailDao.findOne(id);
+        map.addAttribute("vol_detail", viewRecordDetailEntity);
+        map.addAttribute("userid",getCurrentUser().getId());
+        return "volCoin_detail";
     }
 
     /**
