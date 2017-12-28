@@ -1,4 +1,6 @@
 <%@ page import="com.blockchain.timebank.entity.RechargeEntity" %>
+<%@ page import ="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%--
   Created by IntelliJ IDEA.
   User: hanyunxia
@@ -39,7 +41,12 @@
                 <div class="weui-cell__bd">
                     <p>充值时间</p>
                 </div>
-                <div class="weui-cell__ft"><%=details.getRechargeDate()%></div>
+                <div class="weui-cell__ft"><%
+                    String datetime  = details.getRechargeDate();
+                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date date = bartDateFormat.parse(datetime);
+                    out.print(bartDateFormat.format(date));
+                    %></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
