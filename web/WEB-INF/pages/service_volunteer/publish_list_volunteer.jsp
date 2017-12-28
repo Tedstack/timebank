@@ -32,7 +32,7 @@
                     for (ViewPublishDetailEntity viewPublishEntity : list) {
                 %>
 
-                <a href="<%out.print("detail?id="+viewPublishEntity.getId());%>" class="weui-media-box weui-media-box_appmsg">
+                <a href="<%out.print("detail?id="+viewPublishEntity.getId()+"&type=volunteer");%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" style="" src="<%out.print(viewPublishEntity.getHeadImgUrl());%>">
                     </div>
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="weui-tabbar">
+    <div class="weui-tabbar" style="height:50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>

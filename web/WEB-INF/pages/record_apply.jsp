@@ -1,4 +1,6 @@
-<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/24
@@ -14,6 +16,10 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/mobile-main.css" rel="stylesheet" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 
@@ -25,7 +31,7 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
-        <form action="${pageContext.request.contextPath}/record/applySubmit" method="post">
+        <form onsubmit="return check()" action="${pageContext.request.contextPath}/record/applySubmit" method="post">
 
             <%--<div class="page">--%>
 
@@ -53,14 +59,19 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd"><p>服务地址</p></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
+                    <input id="service_address" class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
                 </div>
             </div>
 
+                <%
+                    Date nowDate = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    String nowTime = formatter.format(nowDate);
+                %>
             <div class="weui-cell">
                 <div class="weui-cell__bd"><p>开始时间</p></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" name="beginTime" type="datetime-local" value=""/>
+                    <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>T00:00">
                 </div>
             </div>
 
@@ -93,8 +104,10 @@
                         <%
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
                                 out.print("<option value='1'>志愿者币</option>");
-                            } else {
+                            } else if(detailEntity.getServiceType().equals("互助服务")){
                                 out.print("<option value='2'>时间币</option>");
+                            }else{
+                                out.print("<option value='3'>元</option>");
                             }
                         %>
                     </select>
@@ -121,8 +134,10 @@
                     <span><%
                         if (detailEntity.getServiceType().equals("志愿者服务")) {
                             out.print("（志愿者币/h）");
-                        } else {
+                        } else if(detailEntity.getServiceType().equals("互助服务")){
                             out.print("（时间币/h）");
+                        } else{
+                            out.print("（元/h）");
                         }
                     %></span>
                 </div>
@@ -138,8 +153,10 @@
                     <span><%
                         if (detailEntity.getServiceType().equals("志愿者服务")) {
                             out.print("（志愿者币/h）");
-                        } else {
+                        } else if(detailEntity.getServiceType().equals("互助服务")){
                             out.print("（时间币/h）");
+                        } else{
+                            out.print("（元/h）");
                         }
                     %></span>
                 </div>
@@ -173,7 +190,7 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 
-<script>
+<script language="javascript">
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
         $('#select_serveTime').change(function () {
@@ -183,5 +200,37 @@
             console.log($(this).val() + " " + $('#eachPrice').val());
         });
     });
+    function check(){
+        var serviceAddress = document.getElementById("service_address").value;
+        var beginDate = document.getElementById("service_beginTime").value.substring(0,10);
+        var detailBeginDate = "<%out.print(detailEntity.getBeginDate().toString().substring(0,10));%>";
+        var detailEndDate = "<%out.print(detailEntity.getEndDate().toString().substring(0,10));%>";
+
+        if(serviceAddress===""){
+            showAlert("请填写上门服务地址");
+            return false;
+        }
+        if(beginDate===""){
+            showAlert("请选择服务开始时间");
+            return false;
+        }
+        if(beginDate != ""){
+            beginDate = beginDate.replace(/\-/gi,"/");
+            detailBeginDate = detailBeginDate.replace(/\-/gi,"/");
+            detailEndDate =detailEndDate.replace(/\-/gi,"/");
+            var beginTime = new Date(beginDate).getTime();
+            var detailBeginTime = new Date(detailBeginDate).getTime();
+            var detailEndTime = new Date(detailEndDate).getTime();
+            if(beginTime<detailBeginTime){
+                showAlert("服务时间不能早于开始时间");
+                return false;
+            }
+            if(beginTime>detailEndTime){
+                showAlert("服务时间不能晚于结束时间");
+                return false;
+            }
+        }
+        return true;
+    }
 </script></body>
 </html>

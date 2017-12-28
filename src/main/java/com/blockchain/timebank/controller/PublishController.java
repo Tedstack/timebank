@@ -108,7 +108,7 @@ public class PublishController {
 
     //服务详细列表
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public String detailPage(ModelMap map, @RequestParam long id) {
+    public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
 
@@ -133,7 +133,13 @@ public class PublishController {
 
         map.addAttribute("timeVol", user.getTimeVol());
         map.addAttribute("recordList", recordList);
-        return "publish_detail_new";
+        if("volunteer".equals(type)){
+            return "service_volunteer/publish_detail_volunteer";
+        } else if("mutualAid".equals(type)){
+            return "service_mutualAid/publish_detail_mutualAid";
+        } else{
+            return "service_profession/publish_detail_profession";
+        }
     }
 
     //发布服务提交接口

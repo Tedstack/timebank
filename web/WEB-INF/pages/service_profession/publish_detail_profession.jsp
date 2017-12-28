@@ -76,7 +76,7 @@
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
                     <a class="weui-btn weui-btn_plain-default" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>">
-                        ￥<%=detail.getPrice()%>/小时 申请服务
+                        <%=detail.getPrice()%>元/小时 申请服务
                     </a>
                 </div>
             </div>

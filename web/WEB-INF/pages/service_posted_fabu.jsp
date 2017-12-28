@@ -85,12 +85,11 @@
                         <div class="weui-flex__item"diaplay="none"></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
-                        <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/rate" class="weui-btn weui-btn_mini weui-btn_default" style="margin-right: 5px;">查看</a></div>
-                        <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">删除</a></div>
+                        <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                     </div>
                 </div>
                 </div>
-                <div style="background-color: #eaeaea; height:10px;"></div>
+                <div style="background-color: #f8f8f8; height:10px;"></div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
