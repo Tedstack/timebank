@@ -69,7 +69,7 @@
     $("#msgbtn").on('click', function () {
         var targetUrl = "http://"+getDomainName()+contextPath+"/user/register";
         var phoneNumber=document.getElementById("phone").value;
-        //buttonCountdown($(this), 1000 * 60 * 3, "ss");
+        buttonCountdown($(this), 1000 * 60 * 3, "ss");
         register(phoneNumber,targetUrl);
     });
     //注册
@@ -142,7 +142,7 @@
                 success: function (data) {
                     //发送成功后进行接下来所有的操作
                     codemsg=data;
-                    showAlert(data+"短信已发送，请正确输入验证码，有效期3分钟.");
+                    showAlert("短信已发送，请正确输入验证码，有效期3分钟.");
                 },
                 error: function (xhr, type) {
                     showAlert("发送失败",function () {
