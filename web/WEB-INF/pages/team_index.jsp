@@ -35,7 +35,7 @@
             <a href="${pageContext.request.contextPath}/team/teamMember?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">成员</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">历史活动</a>
+            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">历史活动</a>
         </div>
     </div>
     <div style="margin-top:100px;text-align:center;">

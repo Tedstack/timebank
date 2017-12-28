@@ -48,63 +48,50 @@
                 <%
                     for (int i=0;i<activityDetailList.size();i++) {
                 %>
-                <div class="page__bd">
-                    <div class="weui-form-preview">
-                        <div class="weui-form-preview__hd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动状态</label>
-                                <em class="weui-form-preview__value"><%out.print(activityDetailList.get(i).getStatus());%></em>
-                            </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
                         </div>
-                        <div class="weui-form-preview__bd">
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动名称</label>
-                                <span class="weui-form-preview__value"><%out.print(activityDetailList.get(i).getName());%></span>
+                        <div class="weui-media-box__bd">
+                            <div class="weui-flex">
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(activityDetailList.get(i).getName());%></h4></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动团队</label>
-                                <span class="weui-form-preview__value">
-                                    <%out.print(activityDetailList.get(i).getTeamName());%>
-                                </span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动地点</label>
-                                <span class="weui-form-preview__value">
-                                    <%out.print(activityDetailList.get(i).getAddress());%>
-                                </span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动开始时间</label>
-                                <span class="weui-form-preview__value">
-                                    <%
-                                        Timestamp beginTimestamp = activityDetailList.get(i).getBeginTime();
-                                        Date date = new Date(beginTimestamp.getTime());
-                                        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                                        out.print(bartDateFormat.format(date));
-                                    %>
-                                </span>
-                            </div>
-                            <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">活动结束时间</label>
-                                <span class="weui-form-preview__value">
-                                    <%
-                                        Timestamp endTimestamp = activityDetailList.get(i).getEndTime();
-                                        Date date2 = new Date(endTimestamp.getTime());
-                                        SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                                        out.print(bartDateFormat2.format(date2));
-                                    %>
-                                </span>
-                            </div>
-                            <div class="weui-panel__ft">
-                                <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-                                    <div class="weui-cell__bd">查看更多</div>
-                                    <span class="weui-cell__ft"></span>
-                                </a>
-                            </div>
+                            <p class="weui-media-box__desc">活动团队：<%out.print(activityDetailList.get(i).getTeamName());%></p>
+                            <p class="weui-media-box__desc">活动开始时间：
+                                <%
+                                    Timestamp beginTimestamp = activityDetailList.get(i).getBeginTime();
+                                    Date date = new Date(beginTimestamp.getTime());
+                                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    out.print(bartDateFormat.format(date));
+                                %>
+                            </p>
+                            <p class="weui-media-box__desc">活动结束时间：
+                                <%
+                                    Timestamp endTimestamp = activityDetailList.get(i).getEndTime();
+                                    Date date2 = new Date(endTimestamp.getTime());
+                                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    out.print(bartDateFormat2.format(date2));
+                                %>
+                            </p>
+                            <p class="weui-media-box__desc">活动地点：<%out.print(activityDetailList.get(i).getAddress());%></p>
                         </div>
-
                     </div>
-                    <img src="../img/底部.png" width="375" height="15">
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/managerUserGetEvaluateList?activityID=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">评价</a></div>
+                        </div>
+                    </div>
+                </div>
+                <img src="../img/底部.png" width="375" height="15">
                 </div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->

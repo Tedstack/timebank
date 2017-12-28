@@ -81,8 +81,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="weui-btn-area">
-                    <a class="weui-btn weui-btn_primary" id="button1" type="button" href="javascript:;">提交审核</a>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-btn-area">
+                        <a class="weui-btn weui-btn_primary" id="button1" type="button" href="javascript:;">提交审核</a>
+                    </div>
                 </div>
             </form>
 
@@ -116,7 +118,7 @@
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
-            $uploaderInput1 = $("#file"),
+            $uploaderInput1 = $("#file1"),
             $uploaderInput2 = $("#file2"),
             $uploaderFiles1 = $("#files1"),
             $uploaderFiles2 = $("#files2")

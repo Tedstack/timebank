@@ -17,7 +17,6 @@
 <%
     String openID = (String) request.getAttribute("openID");
     String code = (String) request.getAttribute("code");
-    String headImgUrl = (String) request.getAttribute("headImgUrl");
 %>
 <div class="weui-cells weui-cells_form">
     <div class="weui-cell weui-cell_vcode">
@@ -63,7 +62,6 @@
 <script type="text/javascript">
         var openID='<%=openID%>';
         var code='<%=code%>';
-        var headImgUrl='<%=headImgUrl%>>';
         var contextPath="${pageContext.request.contextPath}";
 
         $("#create").on('click', function () {
@@ -133,7 +131,7 @@
                 cache: false,
                 url: targetUrl,
                 //dataType:'JSONP',
-                data: "name=" + name + "&phone=" + phone + "&password=" + password +"&openID=" +openID+"&headImgUrl="+headImgUrl,
+                data: "name=" + name + "&phone=" + phone + "&password=" + password +"&openID=" +openID,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

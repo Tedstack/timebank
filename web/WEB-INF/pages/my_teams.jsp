@@ -35,7 +35,7 @@
 <%
     if(teamList.size()==0){
 %>
-<div class="container">
+<div class="container" style="margin-left: 20px;margin-top: 60px;">
     <div class="page home js_show">
         <div class="page__hd">
             <h1 class="page__title">
@@ -56,15 +56,16 @@
 <div class="weui-panel__bd">
     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
         <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
-            <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(teamList.get(i).getId());%>">
+            <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(teamList.get(i).getId());%>">
                 <img src="../img/ECNU.png" style="width: 50px;display: block">
             </a>
             <div class="weui-cell__bd">
                 <p><%out.print(teamList.get(i).getName());%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
             </div>
-            <% if(teamList.get(i).isDeleted()) %>
+            <% if(teamList.get(i).isDeleted()){%>
             <p class="weui-btn weui-btn_mini weui-btn_primary">已删除</p>
+            <%}%>
         </label>
     </div>
 </div>

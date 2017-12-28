@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/")
 public class IndexController {
@@ -33,7 +35,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(ModelMap map,@RequestParam String code) {
+    public String loginPage(HttpServletRequest request, ModelMap map, @RequestParam String code) {
         System.out.println("授权码："+ code);
         // 用户同意授权
         if(null != code) {
@@ -45,6 +47,7 @@ public class IndexController {
                 String openId = wot.getOpenId();
                 UserEntity userEntity = userService.findUserEntityByOpenID(wot.getOpenId());
                 if(userEntity!=null){
+                    userService.saveUserHeadImgUrl(userEntity, openId, wot.getAccessToken(), request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
                     SecurityContextHolder.getContext().setAuthentication(token);
                     return "redirect:/index";
@@ -59,7 +62,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPage(ModelMap map,@RequestParam String code) {
+    public String registerPage(HttpServletRequest request, ModelMap map,@RequestParam String code) {
         System.out.println("授权码："+ code);
 
         // 用户同意授权
@@ -75,7 +78,7 @@ public class IndexController {
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 System.out.println("昵称：" + snsUserInfo.getNickName());
 
-                map.addAttribute("headImgUrl",snsUserInfo.getHeadimgurl());
+                //userService.saveUserHeadImgUrl(null, openId, accessToken, request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
                 map.addAttribute("code",code);
                 map.addAttribute("openID",wot.getOpenId());
             }else{

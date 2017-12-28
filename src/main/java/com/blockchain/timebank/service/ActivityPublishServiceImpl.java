@@ -29,4 +29,6 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
     public ActivityPublishEntity findActivityPublishEntityByID(long ID) {
         return activityPublishDao.findOne(ID);
     }
+
+    public List<ActivityPublishEntity> findAllByTeamIdAndStatus(long teamId,String status){return activityPublishDao.findAllByTeamIdAndStatus(teamId,status);}
 }

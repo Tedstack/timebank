@@ -88,7 +88,13 @@ public class PublishController {
         map.addAttribute("list", list);
         map.addAttribute("type", type);
         //return "publish_list";
-        return "publish_list_new";
+        if("志愿者服务".equals(type)){
+            return "service_volunteer/publish_list_volunteer";
+        } else if("互助服务".equals(type)){
+            return "service_mutualAid/publish_list_mutualAid";
+        } else{
+            return "service_profession/publish_list_profession";
+        }
     }
 
     //条件筛选服务
@@ -173,7 +179,13 @@ public class PublishController {
         } catch(Exception e){
             e.printStackTrace();
         }
-        return "publish_list_new";
+        if("志愿者服务".equals(type)){
+            return "service_volunteer/publish_list_volunteer";
+        } else if("互助服务".equals(type)){
+            return "service_mutualAid/publish_list_mutualAid";
+        } else{
+            return "service_profession/publish_list_profession";
+        }
     }
 
     public UserEntity getCurrentUser() {
