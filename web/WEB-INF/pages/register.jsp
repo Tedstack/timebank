@@ -27,13 +27,13 @@
             <input class="weui-input" type="tel" id="phone" placeholder="请输入手机号">
         </div>
         <div class="weui-cell__ft">
-            <a href="javascript:;" class="weui-vcode-btn">获取验证码</a>
+            <a href="javascript:;" id="msgbtn" class="weui-vcode-btn">获取验证码</a>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入验证码"/>
+            <input class="weui-input" id="msgid" type="number" pattern="[0-9]*" placeholder="请输入验证码"/>
         </div>
     </div>
     <div class="weui-cell">
@@ -58,14 +58,22 @@
         <a href="javascript:;" class="weui-btn weui-btn_primary" id="create">注册</a>
     </div>
 </div>
+<script src="http://lib.sinaapp.com/js/jquery/1.12.4/jquery-1.12.4.min.js"></script>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
         var openID='<%=openID%>';
         var code='<%=code%>';
         var contextPath="${pageContext.request.contextPath}";
-
-        $("#create").on('click', function () {
+        //短信通知
+        $("#msgbtn").on('click', function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/user/register";
+            var phoneNumber=document.getElementById("phone").value;
+            buttonCountdown($(this), 1000 * 60 * 3, "ss");
+            register(phoneNumber,targetUrl);
+        });
+        //注册
+        $("#create").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/user/register2";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/login";
             var re = /^1\d{10}$/
             var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
@@ -74,11 +82,19 @@
             var phoneNumber=document.getElementById("phone").value;
             var userName = document.getElementById("name").value;
             //先判断两次输入的密码是否一致
-
+            var code2=document.getElementById().value;
             var userNameQualified = false;
             var passwordQualified = false;
             var phoneQualified = false;
             var passwordEqual = false;
+            var codeEqual=false;
+
+//            if(code2===codemsg){
+//                codeEqual=true;
+//            }
+//            else{
+//                showAlert("验证码输入错误");
+//            }
 
             if(re.test(phoneNumber)){
                 phoneQualified = true;
@@ -106,26 +122,35 @@
 
             if(userNameQualified&&passwordQualified&&phoneQualified&&passwordEqual){
                 //showAlert(targetUrl);
-                register(userName,phoneNumber,temp1,targetUrl,targetUrl2);
+                register2(userName,phoneNumber,temp1,targetUrl,targetUrl2);
             }
-
-            /*if(temp1==temp2) {
-                if (re.test(phoneNumber)) {
-                    if(passwordReg.test(temp1)) {
-                        //showAlert("注册信息全部正确");
-                        register(document.getElementById("name").value,phoneNumber,temp1);
-                    } else {
-                        showAlert("密码必须包含字母数字和符号且不低于6位");
-                    }
-                } else {
-                    showAlert("手机号格式不正确");
-                }
-            } else {
-                showAlert("您输入的两次密码不一致！");
-            }*/
         });
-        
-        function register(name,phone,password,targetUrl,targetUrl2) {
+
+        function register(phone,targetUrl) {
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "phone=" + phone ,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    //发送成功后进行接下来所有的操作
+                    codemsg=data;
+                    showAlert(data+"短信已发送，请正确输入验证码，有效期3分钟.");
+                },
+                error: function (xhr, type) {
+                    showAlert("发送失败",function () {
+                    })
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        }
+
+        function register2(name,phone,password,targetUrl,targetUrl2) {
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -165,7 +190,52 @@
                 }
             });
         }
-        
+        //短信通知的button倒计时
+        function buttonCountdown($el, msNum, timeFormat) {
+            var text = $el.data("text") || $el.text(),
+                timer = 0;
+            $el.prop("disabled", true).addClass("disabled")
+                .on("bc.clear", function () {
+                    clearTime();
+                });
+
+            (function countdown() {
+                var time = showTime(msNum)[timeFormat];
+                $el.text(time + '后失效');
+                if (msNum <= 0) {
+                    msNum = 0;
+                    clearTime();
+                } else {
+                    msNum -= 1000;
+                    timer = setTimeout(arguments.callee, 1000);
+                }
+            })();
+
+            function clearTime() {
+                clearTimeout(timer);
+                $el.prop("disabled", false).removeClass("disabled").text(text);
+            }
+
+            function showTime(ms) {
+                var d = Math.floor(ms / 1000 / 60 / 60 / 24),
+                    h = Math.floor(ms / 1000 / 60 / 60 % 24),
+                    m = Math.floor(ms / 1000 / 60 % 60),
+                    s = Math.floor(ms / 1000 % 60),
+                    ss = Math.floor(ms / 1000);
+
+                return {
+                    d: d + "天",
+                    h: h + "小时",
+                    m: m + "分",
+                    ss: ss + "秒",
+                    "d:h:m:s": d + "天" + h + "小时" + m + "分" + s + "秒",
+                    "h:m:s": h + "小时" + m + "分" + s + "秒",
+                    "m:s": m + "分" + s + "秒"
+                };
+            }
+
+            return this;
+        }
 </script>
 </body>
 </html>

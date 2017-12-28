@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.blockchain.timebank.weixin.util.VerificationMessageSend;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
@@ -26,6 +26,7 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/user")
@@ -101,7 +102,7 @@ public class UserController {
     }
 
     // 注册请求接口
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register2", method = RequestMethod.POST)
     @ResponseBody
     public String userRegister(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String password ,@RequestParam String openID) {
         String status = "";
@@ -137,6 +138,18 @@ public class UserController {
         }
 
         return status;
+    }
+
+    // 短信验证请求接口
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public String userRegister(ModelMap map, @RequestParam String phone) {
+        Random random=new Random();
+        int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
+        String ram1=Integer.toString(ram);
+        VerificationMessageSend sender=new VerificationMessageSend();
+        String result=sender.sendPost(phone,ram1,"242470");
+        return ram1;
     }
 
     //实名认证成功后跳转
