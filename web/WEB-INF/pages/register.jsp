@@ -33,7 +33,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="msgid" type="number" pattern="[0-9]*" placeholder="请输入验证码"/>
+            <input class="weui-input" id="msgid"  placeholder="请输入验证码"/>
         </div>
     </div>
     <div class="weui-cell">
@@ -61,46 +61,50 @@
 <script src="http://lib.sinaapp.com/js/jquery/1.12.4/jquery-1.12.4.min.js"></script>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-        var openID='<%=openID%>';
-        var code='<%=code%>';
-        var contextPath="${pageContext.request.contextPath}";
-        //短信通知
-        $("#msgbtn").on('click', function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/user/register";
-            var phoneNumber=document.getElementById("phone").value;
-            buttonCountdown($(this), 1000 * 60 * 3, "ss");
-            register(phoneNumber,targetUrl);
-        });
-        //注册
-        $("#create").on('click', function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/user/register2";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/login";
-            var re = /^1\d{10}$/
-            var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
-            var temp1=document.getElementById("pwd1").value;
-            var temp2=document.getElementById("pwd2").value;
-            var phoneNumber=document.getElementById("phone").value;
-            var userName = document.getElementById("name").value;
-            //先判断两次输入的密码是否一致
-            var code2=document.getElementById().value;
-            var userNameQualified = false;
-            var passwordQualified = false;
-            var phoneQualified = false;
-            var passwordEqual = false;
-            var codeEqual=false;
+    var openID='<%=openID%>';
+    var code='<%=code%>';
+    var contextPath="${pageContext.request.contextPath}";
+    var codemsg;
+    //短信通知
+    $("#msgbtn").on('click', function () {
+        var targetUrl = "http://"+getDomainName()+contextPath+"/user/register";
+        var phoneNumber=document.getElementById("phone").value;
+        //buttonCountdown($(this), 1000 * 60 * 3, "ss");
+        register(phoneNumber,targetUrl);
+    });
+    //注册
+    $("#create").on('click', function () {
+        var targetUrl = "http://"+getDomainName()+contextPath+"/user/register2";
+        var targetUrl2 = "http://"+getDomainName()+contextPath+"/login";
+        var re = /^1\d{10}$/
+        var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
+        var temp1=document.getElementById("pwd1").value;
+        var temp2=document.getElementById("pwd2").value;
+        var phoneNumber=document.getElementById("phone").value;
+        var userName = document.getElementById("name").value;
+        //先判断两次输入的密码是否一致
+        var code2=document.getElementById("msgid").value;
+        var userNameQualified = false;
+        var passwordQualified = false;
+        var phoneQualified = false;
+        var passwordEqual = false;
+        var codeEqual=false;
 
-//            if(code2===codemsg){
-//                codeEqual=true;
-//            }
-//            else{
-//                showAlert("验证码输入错误");
-//            }
-
-            if(re.test(phoneNumber)){
+	if(re.test(phoneNumber)){
                 phoneQualified = true;
             }else{
                 showAlert("手机号格式不正确");
             }
+	    
+	    
+        if(code2===codemsg){
+            codeEqual=true;
+        }
+        else{
+            showAlert("验证码输入错误");
+        }
+
+            
 
             if(userName.length>1){
                 userNameQualified = true;
@@ -120,11 +124,11 @@
                 showAlert("您输入的两次密码不一致");
             }
 
-            if(userNameQualified&&passwordQualified&&phoneQualified&&passwordEqual){
-                //showAlert(targetUrl);
-                register2(userName,phoneNumber,temp1,targetUrl,targetUrl2);
-            }
-        });
+        if(userNameQualified&&passwordQualified&&phoneQualified&&passwordEqual&&codeEqual){
+            //showAlert(targetUrl);
+            register2(userName,phoneNumber,temp1,targetUrl,targetUrl2);
+        }
+    });
 
         function register(phone,targetUrl) {
             $.ajax({
