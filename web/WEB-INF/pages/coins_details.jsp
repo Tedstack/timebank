@@ -43,7 +43,7 @@
                 </div>
                 <div class="weui-cell__ft"><%
                     String datetime  = details.getRechargeDate();
-                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date date = bartDateFormat.parse(datetime);
                     out.print(bartDateFormat.format(date));
                     %></div>

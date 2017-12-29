@@ -1,5 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.RechargeEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%--
   Created by IntelliJ IDEA.
   User: hanyunxia
@@ -43,7 +45,12 @@
                         <span style="float: right">+<%out.print(rechargeEntity.getTotalAmount());%></span>
                     </div>
                     <div class="weui-media-box__info">
-                        <span><%out.print(rechargeEntity.getRechargeDate());%></span>
+                        <span><%
+                            String datetime  = rechargeEntity.getRechargeDate();
+                            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date date = bartDateFormat.parse(datetime);
+                            out.print(bartDateFormat.format(date));
+                        %></span>
                     </div>
                 </div>
             </a>
