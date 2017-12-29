@@ -57,10 +57,10 @@ public class PublishServiceImpl implements PublishService {
             long id = viewPublishDetailEntity.getUserId();
             UserEntity user = userDao.findUserEntityById(id);
             String openId = user.getOpenId();
-            if("noID".equals(openId) || null == openId){
-                viewPublishDetailEntity.setHeadImgUrl("../img/userAvatar/user1.png");
-            } else {
+            if(user.getHeadImgUrl() != null && user.getHeadImgUrl().length()!=0){
                 viewPublishDetailEntity.setHeadImgUrl(user.getHeadImgUrl());
+            } else {
+                viewPublishDetailEntity.setHeadImgUrl("../img/userAvatar/user1.png");
             }
         }
         return list;
