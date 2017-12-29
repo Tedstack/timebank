@@ -235,6 +235,52 @@ ALTER TABLE `technicAuth`
   ADD CONSTRAINT `technicAuth_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `technicAuth_ibfk_2` FOREIGN KEY (`AuthID`) REFERENCES `userAuth` (`ID`);
 
+#发布志愿者需求表
+CREATE TABLE `volunteerRequest` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` bigint(20) NOT NULL COMMENT '发布者ID',
+  `ServiceID` bigint(20) NOT NULL COMMENT '服务种类ID',
+  `Description` varchar(300) NOT NULL COMMENT '发布描述',
+  `Payway` int(11) NOT NULL COMMENT '支付方式',
+  `Price` decimal(12,2) DEFAULT NULL COMMENT '发布价格',
+  `RequesterName` varchar(20) NOT NULL COMMENT '需求者姓名',
+  `RequesterPhone` varchar(20) NOT NULL COMMENT '需求者手机号',
+  `Address` varchar(300) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
+  `BeginTime` datetime NOT NULL COMMENT '服务起始时间',
+  `EndTime` datetime NOT NULL COMMENT '服务结束时间',
+  `Extra` varchar(50) DEFAULT NULL COMMENT '其他保留字段',
+  PRIMARY KEY (`ID`),
+  KEY `volunteerRequest_ID_index` (`ID`),
+  KEY `volunteerRequest_ibfk_1` (`UserID`),
+  KEY `volunteerRequest_ibfk_2` (`ServiceID`),
+  CONSTRAINT `volunteerRequest_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `volunteerRequest_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='发布志愿者需求表';
+
+#志愿者需求申请订单表
+CREATE TABLE `volunteerRequestMatch` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ApplyUserID` bigint(20) NOT NULL COMMENT '申请者ID',
+  `RequestUserID` bigint(20) NOT NULL COMMENT '服务者ID',
+  `RequestID` bigint(20) NOT NULL COMMENT '发布服务ID',
+  `BeginTime` datetime DEFAULT NULL COMMENT '开始时间',
+  `EndTime` datetime DEFAULT NULL COMMENT '结束时间',
+  `ActualBeginTime` datetime DEFAULT NULL COMMENT '实际开始时间',
+  `ActualEndTime` datetime DEFAULT NULL COMMENT '实际结束时间',
+  `PayMoney` decimal(12,2) DEFAULT NULL COMMENT '实际支付金额',
+  `Rate` int(11) DEFAULT NULL COMMENT '服务满意度评分',
+  `Comment` varchar(100) DEFAULT NULL COMMENT '服务评价',
+  `Status` varchar(50) NOT NULL COMMENT '订单状态',
+  `Extra` varchar(50) DEFAULT NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`),
+  KEY `ApplyUserID` (`ApplyUserID`),
+  KEY `RequestUserID` (`RequestUserID`),
+  KEY `RequestID` (`RequestID`),
+  CONSTRAINT `volunteerRequestMatch_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `volunteerRequestMatch_ibfk_2` FOREIGN KEY (`RequestUserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `volunteerRequestMatch_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `volunteerRequest` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='志愿者需求申请订单表';
+
 # 显示志愿者团体活动详细的信息视图
 CREATE VIEW view_activity_publish_detail
   AS
@@ -365,3 +411,71 @@ CREATE VIEW view_team_detail
       team.IsDeleted       AS IsDeleted
     FROM team, user
     WHERE team.ManagerUserID = user.ID;
+
+#显示发布志愿者需求详细视图
+CREATE VIEW `view_volunteer_request_detail`
+  AS
+    SELECT
+      `volunteerRequest`.`ID` AS `ID`,
+      `volunteerRequest`.`ServiceID` AS `ServiceID`,
+      `user`.`ID` AS `UserID`,
+      `volunteerRequest`.`Price` AS `Price`,
+      `volunteerRequest`.`Description` AS `Description`,
+      `volunteerRequest`.`Address` AS `Address`,
+      `volunteerRequest`.`BeginTime` AS `BeginTime`,
+      `volunteerRequest`.`EndTime` AS `EndTime`,
+      `service`.`Type` AS `ServiceType`,
+      `service`.`Name` AS `ServiceName`,
+      `user`.`Name` AS `UserName`,
+      `user`.`Sex` AS `Sex`,
+      `user`.`Phone` AS `UserPhone`,
+      `user`.`HeadImgUrl` AS `HeadImgUrl`
+    FROM
+      (((`volunteerRequest`
+        JOIN `user`)
+        JOIN `service`)
+        JOIN `volunteerRequestMatch`)
+    WHERE
+      ((`volunteerRequest`.`UserID` = `user`.`ID`)
+       AND (`volunteerRequest`.`ServiceID` = `service`.`ID`)
+       AND (`volunteerRequest`.`ID` = `volunteerRequestMatch`.`RequestID`)
+       AND (`volunteerRequestMatch`.`Status` <> '待支付')
+       AND (`volunteerRequestMatch`.`Status` <> '已完成'))
+
+#显示志愿者需求申请详细视图
+CREATE VIEW `view_volunteer_request_match_detail`
+  AS
+    SELECT
+      `volunteerRequestMatch`.`ID` AS `ID`,
+      `volunteerRequestMatch`.`ApplyUserID` AS `ApplyUserID`,
+      `applyUser`.`Name` AS `ApplyUserName`,
+      `applyUser`.`Phone` AS `ApplyUserPhone`,
+      `volunteerRequest`.`Address` AS `Address`,
+      `volunteerRequestMatch`.`BeginTime` AS `BeginTime`,
+      `volunteerRequestMatch`.`EndTime` AS `EndTime`,
+      `volunteerRequestMatch`.`ActualBeginTime` AS `ActualBeginTime`,
+      `volunteerRequestMatch`.`ActualEndTime` AS `ActualEndTime`,
+      `volunteerRequest`.`Payway` AS `PayWay`,
+      `volunteerRequestMatch`.`PayMoney` AS `PayMoney`,
+      `volunteerRequestMatch`.`Status` AS `Status`,
+      `volunteerRequestMatch`.`RequestID` AS `RequestID`,
+      `volunteerRequest`.`Price` AS `RequestPrice`,
+      `volunteerRequest`.`ServiceID` AS `ServiceID`,
+      `service`.`Type` AS `ServiceType`,
+      `service`.`Name` AS `ServiceName`,
+      `volunteerRequestMatch`.`RequestUserID` AS `RequestUserID`,
+      `requestUser`.`Name` AS `RequestUserName`,
+      `requestUser`.`Phone` AS `RequestUserPhone`,
+      `volunteerRequestMatch`.`Rate` AS `Rate`,
+      `volunteerRequestMatch`.`Comment` AS `Comment`
+    FROM
+      ((((`volunteerRequestMatch`
+        JOIN `user` `requestUser`)
+        JOIN `user` `applyUser`)
+        JOIN `volunteerRequest`)
+        JOIN `service`)
+    WHERE
+      ((`volunteerRequestMatch`.`RequestID` = `volunteerRequest`.`ID`)
+       AND (`volunteerRequest`.`ServiceID` = `service`.`ID`)
+       AND (`volunteerRequestMatch`.`RequestUserID` = `requestUser`.`ID`)
+       AND (`volunteerRequestMatch`.`ApplyUserID` = `applyUser`.`ID`))
