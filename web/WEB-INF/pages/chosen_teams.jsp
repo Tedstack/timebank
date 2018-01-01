@@ -63,13 +63,13 @@
         <div class="weui-tabbar">
                 <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item">
                     <span style="display: inline-block;position: relative;">
-                        <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+                        <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
                     <p class="weui-tabbar__label">所有团队</p>
                 </a>
                 <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
                     <span style="display: inline-block;position: relative;">
-                        <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+                        <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
                     <p class="weui-tabbar__label">已加入团队</p>
                 </a>

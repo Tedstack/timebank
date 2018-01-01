@@ -95,7 +95,7 @@ public class TeamController {
         for(int i=0;i<teamIDList.size();i++){
             TeamUserEntity teamUser = new TeamUserEntity();
             teamUser.setTeamId(teamIDList.get(i));
-            teamUser.setUserId(getCurrentUser().getId());
+            teamUser.setUserId(userId);
             teamUser.setLocked(true);
             teamUser.setDeleted(false);
             teamUserService.addUserToTeam(teamUser);
@@ -109,9 +109,12 @@ public class TeamController {
     @ResponseBody
     public String deleteUserFromTeam(@RequestParam List<Long> teamIDList) {
         JSONObject result = new JSONObject();
+        long userId=getCurrentUser().getId();
+        System.out.println("userId:"+userId);
         for(int i=0;i<teamIDList.size();i++){
-            TeamUserEntity teamUser = teamUserService.findById(teamIDList.get(i));
-            if (teamUser != null) {
+            System.out.println("teamId:"+teamIDList.get(i));
+            TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndIsDeleted(userId,teamIDList.get(i),false);
+            if (teamUser!= null) {
                 teamUser.setDeleted(true);
                 teamUserService.saveTeamUser(teamUser);
                 result.put("msg", "ok");
@@ -576,6 +579,31 @@ public class TeamController {
         map.addAttribute("publicActivity",publicActivity);
         map.addAttribute("privateActivity",privateActivity);
         return "team_history";
+    }
+
+    @RequestMapping(value="/createPage",method = RequestMethod.GET)
+    public String goToCreatePage(){
+        return "create_team";
+    }
+
+    @RequestMapping(value="/createTeam",method = RequestMethod.POST)
+    @ResponseBody
+    public String createTeam(@RequestParam String teamName,@RequestParam String isPublic,@RequestParam String describe){
+       try {
+           TeamEntity newTeam = new TeamEntity();
+           System.out.println(teamName);
+           newTeam.setName(teamName);
+           long userId = getCurrentUser().getId();
+           System.out.println(userId);
+           newTeam.setManagerUserId(userId);
+           newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
+           newTeam.setDeleted(false);
+           newTeam.setDescription(describe);
+           teamService.addTeamEntity(newTeam);
+           return "success";
+       }catch (Exception e) {
+           return "failure";
+       }
     }
 
     private UserEntity getCurrentUser() {

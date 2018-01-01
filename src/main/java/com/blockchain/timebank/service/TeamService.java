@@ -7,6 +7,8 @@ import java.util.List;
 public interface TeamService {
     List<TeamEntity> findAllTeamEntity();
 
+    TeamEntity addTeamEntity(TeamEntity teamEntity);
+
     TeamEntity saveTeamEntity(TeamEntity teamEntity);
 
     TeamEntity findById(long Id);

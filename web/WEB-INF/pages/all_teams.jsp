@@ -77,7 +77,7 @@
                     </span>
                     <p class="weui-tabbar__label">已加入团体</p>
                 </a>
-        </div>
+            </div>
         </div>
     </div>
 </div>

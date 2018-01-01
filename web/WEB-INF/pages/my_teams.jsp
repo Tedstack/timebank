@@ -46,11 +46,11 @@
     </div>
     <div style="text-align:center;margin-top: 40px;height:100px;">
         <div style="margin:50px;">
-            <a href="javascript:;" class="weui-btn weui-btn_plain-default">创建自己的团体</a>
+            <a href="${pageContext.request.contextPath}/team/createPage" class="weui-btn weui-btn_plain-default">创建自己的团体</a>
         </div>
     </div>
 </div>
-<%} else
+<%} else{
     for (int i=0;i<teamList.size();i++) {
 %>
 <div class="weui-panel__bd">
@@ -65,11 +65,22 @@
             </div>
             <% if(teamList.get(i).isDeleted()){%>
             <p class="weui-btn weui-btn_mini weui-btn_primary">已删除</p>
+            <%}else{%>
+            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>
             <%}%>
         </label>
     </div>
 </div>
 <%}%>
+    <div class="weui-tabbar">
+        <a href="${pageContext.request.contextPath}/team/createPage" class="weui-tabbar__item">
+            <span style="display: inline-block;">
+                <img src="../img/add.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+            </span>
+            <p class="weui-tabbar__label">新建团体</p>
+        </a>
+    </div>
+    <%}%>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
