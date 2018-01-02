@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface TeamDao extends CrudRepository<TeamEntity, Long> {
-    List<TeamEntity> findTeamEntitiesByManagerUserIdAndDeleted(long managerUserId,boolean isDeleted);
+    List<TeamEntity> findTeamEntitiesByCreatorIdAndDeleted(long CreatorId,boolean isDeleted);
 }

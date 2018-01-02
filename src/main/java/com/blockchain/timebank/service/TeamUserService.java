@@ -11,7 +11,7 @@ public interface TeamUserService {
 
     TeamUserEntity findById(long id);
 
-    TeamUserEntity findByUserIdAndTeamIdAndIsDeleted(long userId,long teamID,boolean isDeleted);
+    TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamID,String status);
 
     TeamUserEntity saveTeamUser(TeamUserEntity teamUserEntity);
 

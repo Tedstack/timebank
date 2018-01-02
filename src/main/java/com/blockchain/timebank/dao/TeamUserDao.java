@@ -10,5 +10,5 @@ import java.util.List;
 public interface TeamUserDao extends CrudRepository<TeamUserEntity, Long> {
     List<TeamUserEntity> findByTeamId(long teamID);
 
-    TeamUserEntity findByUserIdAndTeamIdAndDeleted(long userId,long teamId,boolean isDeleted);
+    TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamId,String Status);
 }

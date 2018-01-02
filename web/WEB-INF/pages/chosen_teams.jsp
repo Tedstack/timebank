@@ -38,7 +38,7 @@
             </div>
             <br>
             <%
-                for (int i=0;i<alreadyInTeamList.size();i++) {
+                for (int i=0;i<teamList.size();i++) {
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){
             %>
             <div class="weui-panel__bd">

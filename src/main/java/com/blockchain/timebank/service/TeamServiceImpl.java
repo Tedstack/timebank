@@ -27,8 +27,8 @@ public class TeamServiceImpl implements TeamService {
 
     public TeamEntity addTeamEntity(TeamEntity team){ return teamDao.save(team);}
 
-    public List<TeamEntity> findTeamsByManagerUserId(long managerUserId) {
-        return teamDao.findTeamEntitiesByManagerUserIdAndDeleted(managerUserId,false);
+    public List<TeamEntity> findTeamsByCreatorId(long CreatorId) {
+        return teamDao.findTeamEntitiesByCreatorIdAndDeleted(CreatorId,false);
     }
 
 }

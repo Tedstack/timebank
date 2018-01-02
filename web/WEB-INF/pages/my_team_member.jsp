@@ -26,6 +26,7 @@
     String teamId=(String) request.getAttribute("teamId");
     List<UserEntity> teamUserList=(List<UserEntity>) request.getAttribute("userList");
     List<UserEntity> lockedUserList=(List<UserEntity>) request.getAttribute("lockedList");
+    List<UserEntity> appliedList=(List<UserEntity>) request.getAttribute("appliedList");
 %>
 <div class="page">
     <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
@@ -49,14 +50,37 @@
     </div>
 </div>
 <%}
+    if(appliedList.size()>0){%>
+    <p style="font-size: 13px;color: #888888;">申请成员</p>
+    <%for(int i=0;i<appliedList.size();i++){%>
+    <div class="weui-panel__bd">
+        <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+            <label class="weui-cell weui-check__label" for=<%out.print(appliedList.get(i).getId());%>>
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <img src="<%out.print(appliedList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+                </div>
+                <div class="weui-cell__bd">
+                    <p><%out.print(appliedList.get(i).getName());%></p>
+                    <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p>
+                </div>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>
+            </label>
+        </div>
+    </div>
+    <%}
+    }
+    if(teamUserList.size()>0)
+    {%>
+    <p style="font-size: 13px;color: #888888;">已有成员</p>
+    <%
     for (int i=0;i<teamUserList.size();i++) {
 %>
 <div class="weui-panel__bd">
     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
         <label class="weui-cell weui-check__label" for=<%out.print(teamUserList.get(i).getId());%>>
-            <a class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                <img src="../img/ezio.jpg" style="width: 50px;display: block">
-            </a>
+            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <img src="<%out.print(teamUserList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+            </div>
             <div class="weui-cell__bd">
                 <p><%out.print(teamUserList.get(i).getName());%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p>
@@ -65,15 +89,17 @@
         </label>
     </div>
 </div>
-<%
+<%     }
     }
-    for(int i=0;i<lockedUserList.size();i++){
+    if(lockedUserList.size()>0){%>
+    <p style="font-size: 13px;color: #888888;">锁定成员</p>
+    <%for(int i=0;i<lockedUserList.size();i++){
 %>
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
             <label class="weui-cell weui-check__label" for=<%out.print(lockedUserList.get(i).getId());%>>
                 <a class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="../img/ezio.jpg" style="width: 50px;display: block">
+                    <img src="<%out.print(lockedUserList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
                 </a>
                 <div class="weui-cell__bd">
                     <p><%out.print(lockedUserList.get(i).getName());%></p>
@@ -83,7 +109,8 @@
             </label>
         </div>
     </div>
-    <%}%>
+    <%}
+    }%>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
@@ -147,6 +174,39 @@
                 },
                 error: function (xhr, type) {
                     showAlert("解锁失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        }
+    }
+    function approve(t) {
+        var contextPath="${pageContext.request.contextPath}"
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/approveUser";
+        var teamId=t.name;
+        var userId=t.id;
+        if(teamId!=null && userId!=null){
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "userId="+userId+"&teamId="+teamId,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="success"){
+                        showAlert("已同意",function () {
+                            location.reload();
+                        });
+                    }
+                    if(data==="failure"){
+                        showAlert("失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

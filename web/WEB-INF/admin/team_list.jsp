@@ -63,7 +63,7 @@
                                 <%=teamEntity.getName()%>
                             </td>
                             <td>
-                                <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=teamEntity.getManagerUserId()%>' target='_blank' class='btn btn-link'><%=teamEntity.getManagerUserName()%></a>
+                                <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=teamEntity.getCreatorId()%>' target='_blank' class='btn btn-link'><%=teamEntity.getManagerUserName()%></a>
                             </td>
                             <td>
                                 <a href='${pageContext.request.contextPath}/admin/teamUserList?teamId=<%=teamEntity.getId()%>' target='_blank' class='btn btn-link'>查看</a>

@@ -2,6 +2,7 @@ package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.TeamUserDao;
 import com.blockchain.timebank.entity.TeamUserEntity;
+import com.blockchain.timebank.entity.TeamUserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,5 @@ public class TeamUserServiceImpl implements TeamUserService {
         return teamUserDao.findByTeamId(teamID);
     }
 
-    public TeamUserEntity findByUserIdAndTeamIdAndIsDeleted(long userId,long teamId,boolean isDeleted){return teamUserDao.findByUserIdAndTeamIdAndDeleted(userId,teamId,false);}
+    public TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamId,String status){return teamUserDao.findByUserIdAndTeamIdAndStatus(userId,teamId,status);}
 }

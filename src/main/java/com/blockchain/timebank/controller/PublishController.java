@@ -49,7 +49,7 @@ public class PublishController {
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
         UserEntity user = getCurrentUser();
-        List<TeamEntity> teamList = teamService.findTeamsByManagerUserId(user.getId());
+        List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
 
         //判断是否是团队管理者，若不是则无法发布服务
         if(teamList.size()==0){

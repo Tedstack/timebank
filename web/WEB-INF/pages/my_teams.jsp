@@ -57,7 +57,7 @@
     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
         <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
             <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(teamList.get(i).getId());%>">
-                <img src="../img/ECNU.png" style="width: 50px;display: block">
+                <img src="<%teamList.get(i).getHeadImg();%>" style="width: 50px;display: block">
             </a>
             <div class="weui-cell__bd">
                 <p><%out.print(teamList.get(i).getName());%></p>
@@ -66,7 +66,7 @@
             <% if(teamList.get(i).isDeleted()){%>
             <p class="weui-btn weui-btn_mini weui-btn_primary">已删除</p>
             <%}else{%>
-            <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>
+            <a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>
             <%}%>
         </label>
     </div>

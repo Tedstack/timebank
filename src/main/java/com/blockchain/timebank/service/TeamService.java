@@ -13,5 +13,5 @@ public interface TeamService {
 
     TeamEntity findById(long Id);
 
-    List<TeamEntity> findTeamsByManagerUserId(long managerUserId);
+    List<TeamEntity> findTeamsByCreatorId(long CreatorId);
 }
