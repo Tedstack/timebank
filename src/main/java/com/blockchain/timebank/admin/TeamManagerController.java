@@ -124,7 +124,10 @@ public class TeamManagerController {
     @RequestMapping(value = "/teamUserLockSubmit", method = RequestMethod.POST)
     public String teamUserLockSubmit(ModelMap map, @RequestParam long id, @RequestParam long teamId, @RequestParam boolean isLock) {
         TeamUserEntity teamUserEntity = teamUserService.findById(id);
-        teamUserEntity.setStatus(TeamUserStatus.isLocked);
+        if(isLock){
+            teamUserEntity.setStatus(TeamUserStatus.isLocked);
+        }
+
         teamUserService.saveTeamUser(teamUserEntity);
         map.addAttribute("teamId",teamId);
         return "redirect:/admin/teamUserList";
