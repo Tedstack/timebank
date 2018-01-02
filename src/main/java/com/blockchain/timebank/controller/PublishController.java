@@ -143,6 +143,25 @@ public class PublishController {
         }
     }
 
+    //历史评价信息
+    @RequestMapping(value = "/history_evaluation", method = RequestMethod.GET)
+    public String history_evaluation(ModelMap map) {
+        List<ViewRecordDetailEntity> recordlist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        Iterator<ViewRecordDetailEntity> iter = recordlist.iterator();
+        while(iter.hasNext()){
+            ViewRecordDetailEntity record = iter.next();
+            if(record.getRating() == null && record.getComment() == null){
+                iter.remove();
+            }
+        }
+        if(recordlist.size()>0){
+            Collections.reverse(recordlist);
+        }
+        map.addAttribute("recordlist",recordlist);
+        return "history_evaluation";
+
+    }
+
     //发布服务提交接口
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public String addSubmitPage(ModelMap map, @RequestParam String serviceType, @RequestParam String serviceName, @RequestParam String description, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String address) {

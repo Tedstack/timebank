@@ -33,10 +33,10 @@
     </a>
     <img src="../img/底部.png" width="100%" height="15">
 
-    <a class="weui-cell weui-cell_access" href="javascript:;">
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/publish/history_evaluation">
         <div class="weui-cell__hd"><img src="../img/userdetails/消息.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
-            <p>新消息通知</p>
+            <p>我的历史评价</p>
         </div>
     </a>
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
