@@ -20,6 +20,10 @@ CREATE TABLE `user` (
   `IsVerify` INT NULL COMMENT '是否已实名认证',
   `OpenID` VARCHAR(50) NULL COMMENT '微信用户OpenID',
   `HeadImgUrl` VARCHAR(255) NULL COMMENT '用户头像',
+  `Country` VARCHAR(50) NULL COMMENT '国家',
+  `Province` VARCHAR(50) NULL COMMENT '省份',
+  `City` VARCHAR(50) NULL COMMENT '城市',
+  `Remark` VARCHAR(100) NULL COMMENT '个性签名',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户表';

@@ -22,6 +22,10 @@ public class UserEntity {
     private Integer isVerify;
     private String openId;
     private String headImgUrl;
+    private String country;
+    private String province;
+    private String city;
+    private String remark;
     private String extra;
 
     @Id
@@ -185,6 +189,46 @@ public class UserEntity {
     }
 
     @Basic
+    @Column(name = "Country", nullable = true, length = 50)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Basic
+    @Column(name = "Province", nullable = true, length = 50)
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    @Basic
+    @Column(name = "City", nullable = true, length = 50)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "Remark", nullable = true, length = 100)
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -217,6 +261,10 @@ public class UserEntity {
         if (isVerify != null ? !isVerify.equals(that.isVerify) : that.isVerify != null) return false;
         if (openId != null ? !openId.equals(that.openId) : that.openId != null) return false;
         if (headImgUrl != null ? !headImgUrl.equals(that.headImgUrl) : that.headImgUrl != null) return false;
+        if (country != null ? !country.equals(that.country) : that.country != null) return false;
+        if (province != null ? !province.equals(that.province) : that.province != null) return false;
+        if (city != null ? !city.equals(that.city) : that.city != null) return false;
+        if (remark != null ? !remark.equals(that.remark) : that.remark != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -244,6 +292,10 @@ public class UserEntity {
         result = 31 * result + (isVerify != null ? isVerify.hashCode() : 0);
         result = 31 * result + (openId != null ? openId.hashCode() : 0);
         result = 31 * result + (headImgUrl != null ? headImgUrl.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (province != null ? province.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (remark != null ? remark.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
