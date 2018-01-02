@@ -25,4 +25,16 @@ public class VolunteerRequestServiceImpl implements VolunteerRequestService {
     public void saveVolunteerRequestEntity(VolunteerRequestEntity volunteerRequestEntity) {
         volunteerRequestDao.save(volunteerRequestEntity);
     }
+
+    public ViewVolunteerRequestDetailEntity findDetailById(long id) {
+        return viewVolunteerRequestDetailDao.findViewVolunteerRequestDetailEntityById(id);
+    }
+
+    public List<ViewVolunteerRequestDetailEntity> findUserRequestPublished(long id) {
+        return viewVolunteerRequestDetailDao.findViewVolunteerRequestDetailEntitiesByUserId(new Long(id));
+    }
+
+    public VolunteerRequestEntity findRequestById(long id) {
+        return volunteerRequestDao.findVolunteerRequestEntityById(id);
+    }
 }

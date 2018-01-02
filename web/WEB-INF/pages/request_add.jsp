@@ -45,7 +45,7 @@
                         <select class="weui-select" name="serviceType">
                             <%
                                 for (String type : map.keySet()) {
-                                    out.print("<option value='" + type + "'>" + type + "</option>");
+                                    out.print("<option value='" + type + "'>" + type.replace("服务", "需求") + "</option>");
                                 }
                             %>
                             <%--<option value="2">志愿者需求</option>--%>
@@ -93,8 +93,8 @@
                 <%
                     Date nowDate = new Date();
                     Date nextDate = new Date();
-                    nextDate.setTime(nextDate.getTime() + 3600);
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    nextDate.setTime(nextDate.getTime() + 3600000);
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     String nowTime = formatter.format(nowDate);
                     String nextTime = formatter.format(nextDate);
                 %>
@@ -102,7 +102,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">开始时间</label></div>
                     <div class="weui-cell__bd">
-                        <input id="beginTime" class="weui-input" name="beginDate" type="datetime-local" value placeholder="<%out.print(nowTime);%>" min=<%out.print(nowTime);%>/>
+                        <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value placeholder="<%out.print(nowTime);%>" min=<%out.print(nowTime);%>/>
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">结束时间</label></div>
                     <div class="weui-cell__bd">
-                        <input id="endTime" class="weui-input" name="endDate" type="datetime-local" value placeholder="<%out.print(nextTime);%>" min=<%out.print(nextTime);%>/>
+                        <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value placeholder="<%out.print(nextTime);%>" min=<%out.print(nextTime);%>/>
                     </div>
                 </div>
 
@@ -179,11 +179,11 @@
             return false;
         }
         if(beginTime===""){
-            showAlert("请填写需求开始日期");
+            showAlert("请填写需求开始时间");
             return false;
         }
         if(endTime===""){
-            showAlert("请填写需求结束日期");
+            showAlert("请填写需求结束时间");
             return false;
         }
         if(servicePrice===""){

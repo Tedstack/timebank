@@ -2,6 +2,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
+import com.blockchain.timebank.dao.ViewVolunteerRequestMatchDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.weixin.util.Configs;
 import com.blockchain.timebank.weixin.util.TokenThread;
@@ -51,6 +52,12 @@ public class UserController {
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    VolunteerRequestService volunteerRequestService;
+
+    @Autowired
+    VolunteerRequestMatchService volunteerRequestMatchService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -530,7 +537,7 @@ public class UserController {
         thread.start(); //启动进程
 
         map.addAttribute("recordID",recordID);
-        return "returnRobot";
+        return "request_qr_scan";
     }
 
     //服务者扫码结束
@@ -619,6 +626,210 @@ public class UserController {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
         return "service_posted_detail";
+    }
+
+    /**
+     * 查询用户作为需求者 发布的需求
+     * @param map
+     * @return
+     */
+    //查询用户发布服务的接口：已发布
+    @RequestMapping(value = "/queryRequestAlreadyPublish",method = RequestMethod.GET)
+    public String queryRequestAlreadyPublish(ModelMap map){
+        List<ViewVolunteerRequestDetailEntity> requestPublished = volunteerRequestService.findUserRequestPublished(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(requestPublished);
+        map.addAttribute("requestPublished", requestPublished);
+        return "request_published";
+    }
+
+    //查询用户发布需求的接口：待确认
+    @RequestMapping(value = "/queryRequestWaitingConfirm",method = RequestMethod.GET)
+    public String queryRequestWaitingConfirm(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserRequestToConfirm(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailList);
+        map.addAttribute("matchDetailList", matchDetailList);
+        return "request_to_confirm";
+    }
+
+    //查询用户发布需求的接口：待服务
+    @RequestMapping(value = "/queryRequestWaitingService",method = RequestMethod.GET)
+    public String queryRequestWaitingService(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailEntities = volunteerRequestMatchService.findUserRequestToServe(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailEntities);
+        map.addAttribute("matchDetailList", matchDetailEntities);
+        return "request_to_service";
+    }
+
+    //查询用户发布服务的接口：待付款
+    @RequestMapping(value = "/queryRequestWaitingCollect",method = RequestMethod.GET)
+    public String queryRequestWaitingCollect(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserRequestToPay(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailList);
+        map.addAttribute("matchDetailList", matchDetailList);
+        return "request_to_pay";
+    }
+
+    //查询用户发布服务的接口：已完成
+    @RequestMapping(value = "/queryRequestAlreadyComplete",method = RequestMethod.GET)
+    public String queryRequestAlreadyComplete(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserRequestCompleted(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailList);
+        map.addAttribute("matchDetailList", matchDetailList);
+
+        return "request_completed";
+    }
+
+    /**
+     * 查村用户作为申请者 申请的需求订单
+     * @param map
+     * @return
+     */
+    //查询用户申请需求订单的接口：已申请
+    @RequestMapping(value = "/queryRequestMatchAlreadyApply",method = RequestMethod.GET)
+    public String queryRequestAlreadyApply(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailEntities = volunteerRequestMatchService.findUserApplyApplied(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailEntities);
+        map.addAttribute("matchDetailList", matchDetailEntities);
+        return "request_applied_applied";
+    }
+
+    //查询用户申请需求订单的接口：待服务
+    @RequestMapping(value = "/queryRequestMatchWaitingService",method = RequestMethod.GET)
+    public String queryRequestMatchWaitingService(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserApplyToServe(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailList);
+        map.addAttribute("matchDetailList", matchDetailList);
+        return "request_applied_to_service";
+    }
+
+    //查询用户申请需求订单的接口：待收款
+    @RequestMapping(value = "/queryRequestMatchWaitingPay",method = RequestMethod.GET)
+    public String queryRequestMatchWaitingPay(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserApplyToPay(getCurrentUser().getId());
+
+        //倒序排列
+        Collections.reverse(matchDetailList);
+        map.addAttribute("matchDetailList", matchDetailList);
+        return "request_applied_to_pay";
+    }
+
+    //查询用户申请需求订单的接口：已完成
+    @RequestMapping(value = "/queryRequestMatchAlreadyComplete",method = RequestMethod.GET)
+    public String queryRequestMatchAlreadyComplete(ModelMap map){
+        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserApplyCompleted(getCurrentUser().getId());
+        //倒序排列
+        Collections.reverse(matchDetailList);
+        map.addAttribute("matchDetailList", matchDetailList);
+        return "request_applied_completed";
+    }
+
+    //申请者开始扫码
+    @RequestMapping(value = "/requestApplyUserStartScan",method = RequestMethod.GET)
+    public String requestApplyUserStartScan(ModelMap map,@RequestParam long matchID) throws InterruptedException {
+        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+        TokenThread.appSecret = Configs.APPSECRET;
+        System.out.println("appid:"+TokenThread.appId);
+        System.out.println("appSecret:"+TokenThread.appSecret);
+        Thread thread = new Thread(new TokenThread());
+        thread.start(); //启动进程
+
+        map.addAttribute("matchID",matchID);
+        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchID);
+        map.addAttribute("isFirst", matchEntity.getActualBeginTime()==null);
+        return "request_qr_scan";
+    }
+
+    //申请者扫码结束
+    @RequestMapping(value = "/requestApplyUserCompleteScan",method = RequestMethod.POST)
+    @ResponseBody
+    public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchId){
+        String status = "";
+        UserEntity requestUser = userService.findUserEntityByQrCode(qrcode);
+        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchId);
+        if(matchEntity.getApplyUserId()!=requestUser.getId()){
+            status = "notOneself";
+        }else{
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            if(matchEntity.getActualBeginTime()==null){
+                matchEntity.setActualBeginTime(timestamp);
+            }else{
+                matchEntity.setActualEndTime(timestamp);
+                matchEntity.setStatus(OrderStatus.waitingPay);
+                Timestamp beginStamp = matchEntity.getActualBeginTime();
+                Timestamp endStamp = matchEntity.getActualEndTime();
+                long begin = beginStamp.getTime();
+                long end = endStamp.getTime();
+
+                long l = end - begin;
+                String s = String.valueOf(l);
+                double d = Double.parseDouble(s);
+                double price = publishService.findPublishEntityById(matchEntity.getRequestId()).getPrice();
+                double money = price * (d/(3600*1000));
+
+                BigDecimal bg = new BigDecimal(money);
+                matchEntity.setPayMoney(bg);
+            }
+
+            volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+            status = "success";
+        }
+        //map.addAttribute("status",status);
+        return status;
+    }
+
+    //需求者开始付款
+    @RequestMapping(value = "/requestUserStartPay",method = RequestMethod.GET)
+    public String requestUserStartPay(ModelMap map,@RequestParam long recordID){
+        ViewVolunteerRequestMatchDetailEntity viewVolunteerRequestMatchDetailEntity = volunteerRequestMatchService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+
+        map.addAttribute("viewMatchDetailEntity",viewVolunteerRequestMatchDetailEntity);
+        return "service_posted_paydetails";
+    }
+
+    //需求者跳转到评价订单页面
+    @RequestMapping(value = "/requestUserStartEvaluate",method = RequestMethod.GET)
+    public String requestUserStartEvaluate(ModelMap map,@RequestParam long recordID){
+        ViewVolunteerRequestMatchDetailEntity viewVolunteerRequestMatchDetailEntity = volunteerRequestMatchService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+
+        map.addAttribute("viewMatchDetailEntity",viewVolunteerRequestMatchDetailEntity);
+        return "request_rate";
+    }
+
+    //需求者评价订单
+    @RequestMapping(value = "/requestUserEvaluateRecord",method = RequestMethod.POST)
+    @ResponseBody
+    public void requestUserEvaluateRecord(ModelMap map,@RequestParam long recordID,@RequestParam double rating,@RequestParam String comment){
+        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(recordID);
+        matchEntity.setRate((int)rating);
+        matchEntity.setComment(comment);
+        volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+    }
+
+    //志愿者需求的用户支付志愿者币
+    @RequestMapping(value = "/requestUserPayTimeVol",method = RequestMethod.POST)
+    @ResponseBody
+    public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
+        ViewVolunteerRequestMatchDetailEntity viewVolunteerRequestMatchDetailEntity = volunteerRequestMatchService.findViewVolunteerRequestMatchDetailEntityById(matchID);
+        if(viewVolunteerRequestMatchDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
+            if(getCurrentUser().getId()==viewVolunteerRequestMatchDetailEntity.getApplyUserId()){
+                accountService.payRequestTimeVol(matchID);
+            }
+        }
+
     }
 
     private UserEntity getCurrentUser() {
