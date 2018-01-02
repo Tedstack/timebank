@@ -67,7 +67,7 @@ ALTER TABLE `timeaccount`
   ADD CONSTRAINT `timeaccount_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
 
 # publish 发布服务表
-CREATE TABLE `publish` (
+/*CREATE TABLE `publish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
   `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
@@ -84,10 +84,160 @@ ALTER TABLE `publish`
   ADD KEY `ServiceID` (`ServiceID`);
 ALTER TABLE `publish`
   ADD CONSTRAINT `publish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
-  ADD CONSTRAINT `publish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
+  ADD CONSTRAINT `publish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);*/
+
+# VolunteerPublish 志愿者服务发布表
+CREATE TABLE `VolunteerPublish` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
+  `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
+  `Description` VARCHAR(300) NULL COMMENT '发布描述',
+  `Price` DECIMAL(12,2) NOT NULL COMMENT '发布的价格',
+  `Address` VARCHAR(300) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
+  `BeginTime` DATETIME NOT NULL COMMENT '服务起始时间',
+  `EndTime` DATETIME NOT NULL COMMENT '服务结束时间',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者服务发布表';
+ALTER TABLE `VolunteerPublish`
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `ServiceID` (`ServiceID`);
+ALTER TABLE `VolunteerPublish`
+  ADD CONSTRAINT `VolunteerPublish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `VolunteerPublish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
+
+# CooperationPublish 互助服务发布表
+CREATE TABLE `CooperationPublish` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
+  `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
+  `Description` VARCHAR(300) NULL COMMENT '发布描述',
+  `Price` DECIMAL(12,2) NOT NULL COMMENT '发布的价格',
+  `Address` VARCHAR(300) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
+  `BeginTime` DATETIME NOT NULL COMMENT '服务起始时间',
+  `EndTime` DATETIME NOT NULL COMMENT '服务结束时间',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互助服务发布表';
+ALTER TABLE `CooperationPublish`
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `ServiceID` (`ServiceID`);
+ALTER TABLE `CooperationPublish`
+  ADD CONSTRAINT `CooperationPublish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `CooperationPublish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
+
+# ProfessionPublish 专业服务发布表
+CREATE TABLE `ProfessionPublish` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
+  `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
+  `Description` VARCHAR(300) NULL COMMENT '发布描述',
+  `Price` DECIMAL(12,2) NOT NULL COMMENT '发布的价格',
+  `Address` VARCHAR(300) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
+  `BeginTime` DATETIME NOT NULL COMMENT '服务起始时间',
+  `EndTime` DATETIME NOT NULL COMMENT '服务结束时间',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='专业服务发布表';
+ALTER TABLE `ProfessionPublish`
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `ServiceID` (`ServiceID`);
+ALTER TABLE `ProfessionPublish`
+  ADD CONSTRAINT `ProfessionPublish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `ProfessionPublish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
+
+# VolunteerMatch 志愿者服务申请订单表
+CREATE TABLE `VolunteerMatch` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ApplyUserID` BIGINT(20) NOT NULL COMMENT '申请者ID',
+  `ServiceUserID` BIGINT(20) NOT NULL COMMENT '服务者ID',
+  `PublishID` BIGINT(20) NOT NULL COMMENT '发布服务ID',
+  `ApplyAddress` VARCHAR(100) NOT NULL COMMENT '上门服务地址',
+  `ApplyUserName` VARCHAR(20) NOT NULL COMMENT '申请者姓名',
+  `ApplyUserPhone` VARCHAR(20) NOT NULL COMMENT '申请者手机号',
+  `PayWay` INT NOT NULL COMMENT '支付方式',
+  `BeginTime` DATETIME NULL COMMENT '开始时间',
+  `EndTime` DATETIME NULL COMMENT '结束时间',
+  `ActualBeginTime` DATETIME NULL COMMENT '实际开始时间',
+  `ActualEndTime` DATETIME NULL COMMENT '实际结束时间',
+  `PayMoney` DECIMAL(12,2) NULL COMMENT '实际支付金额',
+  `Rate` INT NULL COMMENT '服务满意度评分',
+  `Comment` VARCHAR(100) NULL COMMENT '服务评价',
+  `Status` VARCHAR(50) NOT NULL COMMENT '订单状态',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者服务申请订单表';
+ALTER TABLE `VolunteerMatch`
+  ADD KEY `ApplyUserID` (`ApplyUserID`),
+  ADD KEY `ServiceUserID` (`ServiceUserID`),
+  ADD KEY `PublishID` (`PublishID`);
+ALTER TABLE `VolunteerMatch`
+  ADD CONSTRAINT `VolunteerMatch_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `VolunteerMatch_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `VolunteerMatch_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `VolunteerPublish` (`ID`);
+
+# CooperationMatch 互助服务申请订单表
+CREATE TABLE `CooperationMatch` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ApplyUserID` BIGINT(20) NOT NULL COMMENT '申请者ID',
+  `ServiceUserID` BIGINT(20) NOT NULL COMMENT '服务者ID',
+  `PublishID` BIGINT(20) NOT NULL COMMENT '发布服务ID',
+  `ApplyAddress` VARCHAR(100) NOT NULL COMMENT '上门服务地址',
+  `ApplyUserName` VARCHAR(20) NOT NULL COMMENT '申请者姓名',
+  `ApplyUserPhone` VARCHAR(20) NOT NULL COMMENT '申请者手机号',
+  `PayWay` INT NOT NULL COMMENT '支付方式',
+  `BeginTime` DATETIME NULL COMMENT '开始时间',
+  `EndTime` DATETIME NULL COMMENT '结束时间',
+  `ActualBeginTime` DATETIME NULL COMMENT '实际开始时间',
+  `ActualEndTime` DATETIME NULL COMMENT '实际结束时间',
+  `PayMoney` DECIMAL(12,2) NULL COMMENT '实际支付金额',
+  `Rate` INT NULL COMMENT '服务满意度评分',
+  `Comment` VARCHAR(100) NULL COMMENT '服务评价',
+  `Status` VARCHAR(50) NOT NULL COMMENT '订单状态',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='互助服务申请订单表';
+ALTER TABLE `CooperationMatch`
+  ADD KEY `ApplyUserID` (`ApplyUserID`),
+  ADD KEY `ServiceUserID` (`ServiceUserID`),
+  ADD KEY `PublishID` (`PublishID`);
+ALTER TABLE `CooperationMatch`
+  ADD CONSTRAINT `CooperationMatch_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `CooperationMatch_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `CooperationMatch_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `CooperationPublish` (`ID`);
+
+# ProfessionMatch 专业服务申请订单表
+CREATE TABLE `ProfessionMatch` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ApplyUserID` BIGINT(20) NOT NULL COMMENT '申请者ID',
+  `ServiceUserID` BIGINT(20) NOT NULL COMMENT '服务者ID',
+  `PublishID` BIGINT(20) NOT NULL COMMENT '发布服务ID',
+  `ApplyAddress` VARCHAR(100) NOT NULL COMMENT '上门服务地址',
+  `ApplyUserName` VARCHAR(20) NOT NULL COMMENT '申请者姓名',
+  `ApplyUserPhone` VARCHAR(20) NOT NULL COMMENT '申请者手机号',
+  `PayWay` INT NOT NULL COMMENT '支付方式',
+  `BeginTime` DATETIME NULL COMMENT '开始时间',
+  `EndTime` DATETIME NULL COMMENT '结束时间',
+  `ActualBeginTime` DATETIME NULL COMMENT '实际开始时间',
+  `ActualEndTime` DATETIME NULL COMMENT '实际结束时间',
+  `PayMoney` DECIMAL(12,2) NULL COMMENT '实际支付金额',
+  `Rate` INT NULL COMMENT '服务满意度评分',
+  `Comment` VARCHAR(100) NULL COMMENT '服务评价',
+  `Status` VARCHAR(50) NOT NULL COMMENT '订单状态',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='专业服务申请订单表';
+ALTER TABLE `ProfessionMatch`
+  ADD KEY `ApplyUserID` (`ApplyUserID`),
+  ADD KEY `ServiceUserID` (`ServiceUserID`),
+  ADD KEY `PublishID` (`PublishID`);
+ALTER TABLE `ProfessionMatch`
+  ADD CONSTRAINT `ProfessionMatch_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `ProfessionMatch_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
+  ADD CONSTRAINT `ProfessionMatch_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `ProfessionPublish` (`ID`);
 
 # record 申请订单表
-CREATE TABLE `record` (
+/*CREATE TABLE `record` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `ApplyUserID` BIGINT(20) NOT NULL COMMENT '申请者ID',
   `ServiceUserID` BIGINT(20) NOT NULL COMMENT '服务者ID',
@@ -114,7 +264,7 @@ ALTER TABLE `record`
 ALTER TABLE `record`
   ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
-  ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);
+  ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);*/
 
 # team 志愿者团体表
 CREATE TABLE `team` (
@@ -351,7 +501,7 @@ CREATE VIEW view_user_activity_detail
     WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID AND userActivity.UserID = user.ID;
 
 # 显示已发布的服务详细信息视图
-CREATE VIEW view_publish_detail
+/*CREATE VIEW view_publish_detail
   AS
     SELECT
       publish.ID          AS ID,
@@ -369,10 +519,10 @@ CREATE VIEW view_publish_detail
       user.Phone          AS UserPhone,
       user.HeadImgUrl     AS HeadImgUrl
     FROM publish, user, service
-    WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;
+    WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;*/
 
 # 显示已生成的RECORD的详细信息
-CREATE VIEW view_record_detail
+/*CREATE VIEW view_record_detail
   AS
     SELECT
       record.ID              AS ID,               #订单编号
@@ -398,7 +548,7 @@ CREATE VIEW view_record_detail
       record.Rating          AS Rating,            #订单评分
       record.Comment         AS Comment            #订单评价
   FROM record, user AS serviceUser, publish, service
-  WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID;
+  WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID;*/
 
 # 显示志愿者团体表的详细信息视图
 CREATE VIEW view_team_detail
