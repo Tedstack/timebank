@@ -4,6 +4,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: caozihan
@@ -31,6 +32,7 @@
     List<ViewRecordDetailEntity> recordList = (List<ViewRecordDetailEntity>) request.getAttribute("recordList");
     int age = (int) request.getAttribute("age");
     double timeVol = (double) request.getAttribute("timeVol");
+    UserEntity currentUser = (UserEntity) request.getAttribute("currentUser");
 %>
 
 <div class="weui-tab">
@@ -75,8 +77,11 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
-                    <a class="weui-btn weui-btn_plain-default" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>">
+                    <a id="serviceApply-button" class="weui-btn weui-btn_plain-default" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" style="background-color: #008487; color:#fff; border:0px;display: none;text-decoration:none;">
                         <%=detail.getPrice()%>志愿者币/小时 申请服务
+                    </a>
+                    <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
+                        服务已过期，不可申请
                     </a>
                 </div>
             </div>
@@ -108,5 +113,48 @@
         </a>
     </div>
 </div>
+
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script language="javascript">
+    $(document).ready(function () {
+        var detailEndDate = "<%out.print(detail.getEndDate().toString().substring(0,10));%>";
+        detailEndDate =detailEndDate.replace(/\-/gi,"/");
+        var detailEndTime = new Date(detailEndDate).getTime();
+        var nowDate = new Date(new Date().Format("yyyy/MM/dd"))
+        var nowTime = nowDate.getTime();
+        if(detailEndTime < nowTime){
+            $("#serviceApply-button").hide();
+            $("#serviceOverDate-button").show();
+        } else{
+            $("#serviceApply-button").show();
+            $("#serviceOverDate-button").hide();
+        }
+        var currentUserId = "";
+        if(<%out.print(currentUser != null);%>) {
+            currentUserId = <%out.print(currentUser.getId());%>;
+        }
+        var publishUserId = <%out.print(detail.getUserId());%>;
+        if(currentUserId != "" && currentUserId == publishUserId){
+            $("#serviceApply-button").hide();
+            $("#serviceOverDate-button").show();
+            $("#serviceOverDate-button").html("不可申请自己的服务");
+        }
+    });
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+</script>
 </body>
 </html>

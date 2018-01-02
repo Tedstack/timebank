@@ -111,7 +111,8 @@ public class PublishController {
     public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
-
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("currentUser", userEntity);
         //取前十条评价
         List<ViewRecordDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
         List<ViewRecordDetailEntity> recordList = new ArrayList<ViewRecordDetailEntity>();
@@ -179,7 +180,7 @@ public class PublishController {
             //List<ViewPublishDetailEntity> list = selectServiceDao.findPublishEntityByCondition(type, serviceName, upperTime, lowerTime, upperPrice, lowerPrice);
             List<ViewPublishDetailEntity> list = publishService.findAllByCondition(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
             //倒序排列
-            //Collections.reverse(list);
+            Collections.reverse(list);
             map.addAttribute("list", list);
             map.addAttribute("type", type);
         } catch(Exception e){

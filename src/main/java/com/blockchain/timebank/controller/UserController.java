@@ -23,10 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.List;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -597,6 +594,14 @@ public class UserController {
             }
         }
 
+    }
+
+    //服务详细列表
+    @RequestMapping(value = "/fabuDetail", method = RequestMethod.GET)
+    public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
+        ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
+        map.addAttribute("detail", viewPublishDetailEntity);
+        return "service_posted_detail";
     }
 
     private UserEntity getCurrentUser() {

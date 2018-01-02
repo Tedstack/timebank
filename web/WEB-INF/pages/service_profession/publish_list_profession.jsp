@@ -37,7 +37,7 @@
                         <img class="weui-media-box__thumb" style="" src="<%out.print(viewPublishEntity.getHeadImgUrl());%>">
                     </div>
                     <div class="weui-media-box__bd">
-                        <img class="weui-media-box__thumb" style="width:30px" src="../img/服务名称/<%out.print(viewPublishEntity.getServiceName());%>.png" />
+                        <img class="weui-media-box__thumb" style="width:25px; margin-top: 5px" src="../img/服务名称/<%out.print(viewPublishEntity.getServiceName());%>.png" />
                         <h4 class="weui-media-box__title" style="display:inline-block"><%out.print(viewPublishEntity.getServiceName());%></h4>
                         <div style="color: #7ACF41;">¥
                             <%

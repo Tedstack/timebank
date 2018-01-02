@@ -11,6 +11,12 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
+    <style>
+        li{
+            padding:2px;
+        }
+
+    </style>
     <title>已发布</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
@@ -59,23 +65,25 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">服务类型:<%out.print(publishList.get(i).getServiceType());%></p>
-                            <p class="weui-media-box__desc">开始时间:
+                            <ul>
+                            <li class="weui-media-box__desc">服务类型 : <%out.print(publishList.get(i).getServiceType());%></li>
+                            <li class="weui-media-box__desc">服务范围 : <%out.print(publishList.get(i).getAddress());%></li>
+                            <li class="weui-media-box__desc">预留联系方式 : <%out.print(publishList.get(i).getUserPhone());%></li>
+                            <li class="weui-media-box__desc">服务时间范围 :
                                 <%
-                                    Timestamp timestamp = publishList.get(i).getBeginDate();
+                                    ViewPublishDetailEntity viewPublishDetailEntity = publishList.get(i);
+                                    Timestamp timestamp = viewPublishDetailEntity.getBeginDate();
                                     Date date = new Date(timestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     out.print(bartDateFormat.format(date));
-                                %></p>
-                            <p class="weui-media-box__desc">结束时间:
+                                %> 至
                                 <%
-                                    Timestamp timestamp2 = publishList.get(i).getEndDate();
+                                    Timestamp timestamp2 = viewPublishDetailEntity.getEndDate();
                                     Date date2 = new Date(timestamp2.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
                                     out.print(bartDateFormat2.format(date2));
-                                %></p>
-                            <p class="weui-media-box__desc">服务范围:<%out.print(publishList.get(i).getAddress());%></p>
-                            <p class="weui-media-box__desc">预留联系方式:<%out.print(publishList.get(i).getUserPhone());%></p>
+                                %></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -85,7 +93,7 @@
                         <div class="weui-flex__item"diaplay="none"></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
-                        <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
+                        <div class="weui-flex__item"><a href="<%out.print("fabuDetail?id="+viewPublishDetailEntity.getId()+"&type="+viewPublishDetailEntity.getServiceType());%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                     </div>
                 </div>
                 </div>

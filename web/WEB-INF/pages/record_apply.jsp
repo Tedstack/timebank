@@ -65,13 +65,13 @@
 
                 <%
                     Date nowDate = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
                     String nowTime = formatter.format(nowDate);
                 %>
             <div class="weui-cell">
                 <div class="weui-cell__bd"><p>开始时间</p></div>
                 <div class="weui-cell__bd">
-                    <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>T00:00">
+                    <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>">
                 </div>
             </div>
 
@@ -221,12 +221,14 @@
             var beginTime = new Date(beginDate).getTime();
             var detailBeginTime = new Date(detailBeginDate).getTime();
             var detailEndTime = new Date(detailEndDate).getTime();
+            detailBeginDate = detailBeginDate.replace(/\//gi,"-");
+            detailEndDate =detailEndDate.replace(/\//gi,"-");
             if(beginTime<detailBeginTime){
-                showAlert("服务时间不能早于开始时间");
+                showAlert("服务时间不能早于开始时间 <br/><br/>申请时间范围为：<br/>"+detailBeginDate+" — "+detailEndDate);
                 return false;
             }
             if(beginTime>detailEndTime){
-                showAlert("服务时间不能晚于结束时间");
+                showAlert("服务时间不能晚于结束时间 <br/><br/>申请时间范围为：<br/>"+detailBeginDate+" — "+detailEndDate);
                 return false;
             }
         }
