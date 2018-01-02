@@ -19,7 +19,7 @@
     <%
         UserEntity userEntity = (UserEntity) request.getAttribute("user");
     %>
-    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/startModifyPersonalInfo">
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/userdetail">
         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
             <img src="<%out.print(userEntity.getHeadImgUrl());%>" style="width: 50px;display: block">
         </div>

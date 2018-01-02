@@ -169,6 +169,23 @@ public class UserController {
         map.addAttribute("user",user);
         return "change_userinfo";
     }
+    //查看头像大图
+    @RequestMapping(value = "/headimg",method = RequestMethod.GET)
+    public String headimg (ModelMap map){
+        UserEntity user = getCurrentUser();
+
+        map.addAttribute("user",user);
+        return "headimg";
+    }
+
+    //查看个人信息
+    @RequestMapping(value = "/userdetail",method = RequestMethod.GET)
+    public String userdetail(ModelMap map){
+        UserEntity user = getCurrentUser();
+
+        map.addAttribute("user",user);
+        return "userdetail";
+    }
 
     //修改个人信息
     @RequestMapping(value = "/modifyPersonalInfo",method = RequestMethod.POST)
