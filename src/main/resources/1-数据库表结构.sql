@@ -125,6 +125,7 @@ CREATE TABLE `team` (
   `Description` VARCHAR(200) NULL COMMENT '团体简介',
   `CreateDate` DATE NOT NULL COMMENT '创建日期',
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
+  `HeadImg` VARCHAR(100) NULL COMMENT '团队头像',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
@@ -440,7 +441,7 @@ CREATE VIEW `view_volunteer_request_detail`
        AND (`volunteerRequest`.`ServiceID` = `service`.`ID`)
        AND (`volunteerRequest`.`ID` = `volunteerRequestMatch`.`RequestID`)
        AND (`volunteerRequestMatch`.`Status` <> '待支付')
-       AND (`volunteerRequestMatch`.`Status` <> '已完成'))
+       AND (`volunteerRequestMatch`.`Status` <> '已完成'));
 
 #显示志愿者需求申请详细视图
 CREATE VIEW `view_volunteer_request_match_detail`
