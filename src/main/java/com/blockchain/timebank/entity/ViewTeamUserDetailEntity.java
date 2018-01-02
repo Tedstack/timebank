@@ -9,9 +9,9 @@ public class ViewTeamUserDetailEntity {
     private long id;
     private long teamId;
     private long userId;
-    private boolean isLocked;
-    private boolean isDeleted;
-    private long managerUserId;
+    private String status;
+    private boolean isManager;
+    private Long creatorId;
     private String teamName;
     private String userName;
     private String userPhone;
@@ -49,33 +49,33 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "IsLocked", nullable = false)
-    public boolean isLocked() {
-        return isLocked;
+    @Column(name = "Status", nullable = false, length = 50)
+    public String getStatus() {
+        return status;
     }
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
-    }
-
-    @Basic
-    @Column(name = "IsDeleted", nullable = false)
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Basic
-    @Column(name = "ManagerUserID", nullable = false)
-    public long getManagerUserId() {
-        return managerUserId;
+    @Column(name = "IsManager", nullable = false)
+    public boolean isManager() {
+        return isManager;
     }
 
-    public void setManagerUserId(long managerUserId) {
-        this.managerUserId = managerUserId;
+    public void setManager(boolean manager) {
+        isManager = manager;
+    }
+
+    @Basic
+    @Column(name = "CreatorID", nullable = true)
+    public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 
     @Basic
@@ -138,9 +138,9 @@ public class ViewTeamUserDetailEntity {
         if (id != that.id) return false;
         if (teamId != that.teamId) return false;
         if (userId != that.userId) return false;
-        if (isLocked != that.isLocked) return false;
-        if (isDeleted != that.isDeleted) return false;
-        if (managerUserId != that.managerUserId) return false;
+        if (isManager != that.isManager) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
@@ -155,9 +155,9 @@ public class ViewTeamUserDetailEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (isLocked ? 1 : 0);
-        result = 31 * result + (isDeleted ? 1 : 0);
-        result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (isManager ? 1 : 0);
+        result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);

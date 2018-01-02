@@ -4,6 +4,7 @@ import com.blockchain.timebank.dao.ViewTeamDetailDao;
 import com.blockchain.timebank.dao.ViewTeamUserDetailDao;
 import com.blockchain.timebank.entity.TeamEntity;
 import com.blockchain.timebank.entity.TeamUserEntity;
+import com.blockchain.timebank.entity.TeamUserStatus;
 import com.blockchain.timebank.entity.ViewTeamDetailEntity;
 import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.TeamUserService;
@@ -60,7 +61,7 @@ public class TeamManagerController {
             TeamEntity teamEntity = new TeamEntity();
             teamEntity.setDeleted(false);
             teamEntity.setName(name);
-            teamEntity.setManagerUserId(userService.findUserEntityByPhone(phone).getId());
+            teamEntity.setCreatorId(userService.findUserEntityByPhone(phone).getId());
             teamEntity.setDescription(description);
             teamEntity.setCreateDate(new Date(System.currentTimeMillis()));
             teamService.saveTeamEntity(teamEntity);
@@ -79,7 +80,7 @@ public class TeamManagerController {
     public String teamEditSubmit(ModelMap map, @RequestParam long teamId, @RequestParam String name, @RequestParam String phone, @RequestParam String description) {
         ViewTeamDetailEntity teamDetail=viewTeamDetailDao.findOne(teamId);
         teamDetail.setName(name);
-        teamDetail.setManagerUserPhone(phone);
+        teamDetail.setCreatorUserPhone(phone);
         teamDetail.setDescription(description);
         map.addAttribute("team",teamDetail);
         if (phone.equals("") || name.equals("")) {
@@ -93,7 +94,7 @@ public class TeamManagerController {
             TeamEntity teamEntity = teamService.findById(teamId);
             teamEntity.setDeleted(false);
             teamEntity.setName(name);
-            teamEntity.setManagerUserId(userService.findUserEntityByPhone(phone).getId());
+            teamEntity.setCreatorId(userService.findUserEntityByPhone(phone).getId());
             teamEntity.setDescription(description);
             teamEntity.setCreateDate(new Date(System.currentTimeMillis()));
             teamService.saveTeamEntity(teamEntity);
@@ -123,7 +124,7 @@ public class TeamManagerController {
     @RequestMapping(value = "/teamUserLockSubmit", method = RequestMethod.POST)
     public String teamUserLockSubmit(ModelMap map, @RequestParam long id, @RequestParam long teamId, @RequestParam boolean isLock) {
         TeamUserEntity teamUserEntity = teamUserService.findById(id);
-        teamUserEntity.setLocked(isLock);
+        teamUserEntity.setStatus(TeamUserStatus.isLocked);
         teamUserService.saveTeamUser(teamUserEntity);
         map.addAttribute("teamId",teamId);
         return "redirect:/admin/teamUserList";

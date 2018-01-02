@@ -25,7 +25,7 @@ public class ViewUserActivityDetailEntity {
     private String description;
     private String status;
     private String teamName;
-    private long managerUserId;
+    private Long creatorId;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -218,13 +218,13 @@ public class ViewUserActivityDetailEntity {
     }
 
     @Basic
-    @Column(name = "ManagerUserID", nullable = false)
-    public long getManagerUserId() {
-        return managerUserId;
+    @Column(name = "CreatorID", nullable = true)
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setManagerUserId(long managerUserId) {
-        this.managerUserId = managerUserId;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 
     @Override
@@ -241,7 +241,6 @@ public class ViewUserActivityDetailEntity {
         if (isPresent != that.isPresent) return false;
         if (teamId != that.teamId) return false;
         if (count != that.count) return false;
-        if (managerUserId != that.managerUserId) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
         if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
@@ -254,6 +253,7 @@ public class ViewUserActivityDetailEntity {
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
+        if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
 
         return true;
     }
@@ -279,7 +279,7 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
-        result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
+        result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         return result;
     }
 }

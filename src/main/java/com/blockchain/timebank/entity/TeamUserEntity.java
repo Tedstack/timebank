@@ -8,8 +8,8 @@ public class TeamUserEntity {
     private long id;
     private long teamId;
     private long userId;
-    private boolean isLocked;
-    private boolean isDeleted;
+    private String status;
+    private boolean isManager;
     private String extra;
 
     @Id
@@ -43,23 +43,23 @@ public class TeamUserEntity {
     }
 
     @Basic
-    @Column(name = "IsLocked", nullable = false)
-    public boolean isLocked() {
-        return isLocked;
+    @Column(name = "Status", nullable = false, length = 50)
+    public String getStatus() {
+        return status;
     }
 
-    public void setLocked(boolean locked) {
-        isLocked = locked;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Basic
-    @Column(name = "IsDeleted", nullable = false)
-    public boolean isDeleted() {
-        return isDeleted;
+    @Column(name = "IsManager", nullable = false)
+    public boolean isManager() {
+        return isManager;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setManager(boolean manager) {
+        isManager = manager;
     }
 
     @Basic
@@ -82,8 +82,8 @@ public class TeamUserEntity {
         if (id != that.id) return false;
         if (teamId != that.teamId) return false;
         if (userId != that.userId) return false;
-        if (isLocked != that.isLocked) return false;
-        if (isDeleted != that.isDeleted) return false;
+        if (isManager != that.isManager) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -94,8 +94,8 @@ public class TeamUserEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (isLocked ? 1 : 0);
-        result = 31 * result + (isDeleted ? 1 : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (isManager ? 1 : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

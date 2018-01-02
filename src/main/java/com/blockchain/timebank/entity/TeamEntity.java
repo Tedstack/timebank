@@ -8,11 +8,12 @@ import java.sql.Date;
 public class TeamEntity {
     private long id;
     private String name;
-    private long managerUserId;
+    private Long creatorId;
     private String description;
     private Date createDate;
     private boolean isDeleted;
     private String headImg;
+    private String address;
     private String extra;
 
     @Id
@@ -36,13 +37,13 @@ public class TeamEntity {
     }
 
     @Basic
-    @Column(name = "ManagerUserID", nullable = false)
-    public long getManagerUserId() {
-        return managerUserId;
+    @Column(name = "CreatorID", nullable = true)
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setManagerUserId(long managerUserId) {
-        this.managerUserId = managerUserId;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 
     @Basic
@@ -86,6 +87,16 @@ public class TeamEntity {
     }
 
     @Basic
+    @Column(name = "Address", nullable = true, length = 100)
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -103,12 +114,13 @@ public class TeamEntity {
         TeamEntity that = (TeamEntity) o;
 
         if (id != that.id) return false;
-        if (managerUserId != that.managerUserId) return false;
         if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         if (headImg != null ? !headImg.equals(that.headImg) : that.headImg != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -118,11 +130,12 @@ public class TeamEntity {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
+        result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (headImg != null ? headImg.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

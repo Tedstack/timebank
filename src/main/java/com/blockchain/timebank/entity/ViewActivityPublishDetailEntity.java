@@ -19,7 +19,7 @@ public class ViewActivityPublishDetailEntity {
     private boolean isPublic;
     private boolean isDeleted;
     private String teamName;
-    private long managerUserId;
+    private Long creatorId;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -152,13 +152,13 @@ public class ViewActivityPublishDetailEntity {
     }
 
     @Basic
-    @Column(name = "ManagerUserID", nullable = false)
-    public long getManagerUserId() {
-        return managerUserId;
+    @Column(name = "CreatorID", nullable = true)
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setManagerUserId(long managerUserId) {
-        this.managerUserId = managerUserId;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 
     @Override
@@ -173,7 +173,6 @@ public class ViewActivityPublishDetailEntity {
         if (count != that.count) return false;
         if (isPublic != that.isPublic) return false;
         if (isDeleted != that.isDeleted) return false;
-        if (managerUserId != that.managerUserId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
@@ -182,6 +181,7 @@ public class ViewActivityPublishDetailEntity {
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
+        if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
 
         return true;
     }
@@ -201,7 +201,7 @@ public class ViewActivityPublishDetailEntity {
         result = 31 * result + (isPublic ? 1 : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
-        result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
+        result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         return result;
     }
 }

@@ -50,7 +50,6 @@ CREATE TABLE `service` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='服务种类表';
 
-
 # timeaccount 时间元表
 CREATE TABLE `timeaccount` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '记录编号',
@@ -121,26 +120,29 @@ ALTER TABLE `record`
 CREATE TABLE `team` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '团体名称',
-  `ManagerUserID` BIGINT(20) NOT NULL COMMENT '团体管理者ID',
+  `CreatorID` BIGINT(20) NOT NULL COMMENT '团体创建者ID',
   `Description` VARCHAR(200) NULL COMMENT '团体简介',
   `CreateDate` DATE NOT NULL COMMENT '创建日期',
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
   `HeadImg` VARCHAR(100) NULL COMMENT '团队头像',
+  `Address` VARCHAR(100) NULL COMMENT '团队地址',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者团体表';
 ALTER TABLE `team`
-  ADD KEY `ManagerUserID` (`ManagerUserID`);
+  ADD KEY `CreatorID` (`CreatorID`);
 ALTER TABLE `team`
-  ADD CONSTRAINT `team_ibfk_1` FOREIGN KEY (`ManagerUserID`) REFERENCES `user` (`ID`);
+  ADD CONSTRAINT `team_ibfk_1` FOREIGN KEY (`CreatorID`) REFERENCES `user` (`ID`);
 
 # teamuser 志愿者所属团体表
 CREATE TABLE `teamUser` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
-  `IsLocked` BOOL NOT NULL COMMENT '用户是否已经被锁定', #被锁定了的用户不能申请参加活动
-  `IsDeleted` BOOL NOT NULL COMMENT '用户是否退出团体',
+  #`IsLocked` BOOL NOT NULL COMMENT '用户是否已经被锁定', #被锁定了的用户不能申请参加活动
+  #`IsDeleted` BOOL NOT NULL COMMENT '用户是否退出团体',
+  `Status` VARCHAR(50) NOT NULL COMMENT '团队成员状态',
+  `IsManager` BOOL NOT NULL COMMENT '用户是否是团队管理者',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='志愿者所属团体表';
@@ -299,7 +301,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.IsPublic          AS IsPublic,      #是否公开
       activityPublish.IsDeleted         AS IsDeleted,     #是否已经被删除
       team.Name                         AS teamName,       #团体名称
-      team.ManagerUserID                AS ManagerUserID  #团体管理者编号
+      team.CreatorID                    AS CreatorID      #团体创建者编号
     FROM activityPublish, team
     WHERE activityPublish.TeamID = team.ID;
 
@@ -310,9 +312,9 @@ CREATE VIEW view_team_user_detail
       teamUser.ID          AS ID,             #编号
       teamUser.TeamID      AS TeamID,         #志愿者团体编号
       teamUser.UserID      AS UserID,         #用户编号
-      teamUser.IsLocked    AS IsLocked,       #用户是否已经被锁定
-      teamUser.IsDeleted   AS IsDeleted,      #用户是否退出团体
-      team.ManagerUserID   AS ManagerUserID,  #团体管理者编号
+      teamUser.Status      AS Status,         #用户状态
+      teamUser.IsManager   AS IsManager,      #用户是否是管理者
+      team.CreatorID      AS CreatorID,       #团体创建者编号
       team.Name            AS TeamName,       #团体名称
       user.Name            AS UserName,       #用户姓名
       user.Phone           AS UserPhone,      #用户手机号
@@ -334,7 +336,7 @@ CREATE VIEW view_user_activity_detail
       userActivity.IsPresent        AS IsPresent,       #是否参加活动
       userActivity.Rating           AS Rating,          #管理者对参与者评分
       userActivity.Comment          AS Comment,         #管理者评价参与者
-      activityPublish.TeamID        AS TeamID,         #活动团队编队
+      activityPublish.TeamID        AS TeamID,          #活动团队编队
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
@@ -344,7 +346,7 @@ CREATE VIEW view_user_activity_detail
       activityPublish.Description       AS Description,   #活动简介
       activityPublish.Status        AS Status,          #活动状态
       team.Name                     AS TeamName,         #团队名称
-      team.ManagerUserID            AS ManagerUserID    #团队管理者编号
+      team.CreatorID                AS CreatorID        #团队创建者编号
     FROM userActivity, activityPublish ,team ,user
     WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID AND userActivity.UserID = user.ID;
 
@@ -404,14 +406,14 @@ CREATE VIEW view_team_detail
     SELECT
       team.ID              AS ID,
       team.Name            AS Name,
-      team.ManagerUserID   AS ManagerUserID,
-      user.Name            AS ManagerUserName,
-      user.Phone           AS ManagerUserPhone,
+      team.CreatorID      AS CreatorID,
+      user.Name            AS CreatorUserName,
+      user.Phone           AS CreatorUserPhone,
       team.CreateDate      AS CreateDate,
       team.Description     AS Description,
       team.IsDeleted       AS IsDeleted
     FROM team, user
-    WHERE team.ManagerUserID = user.ID;
+    WHERE team.CreatorID = user.ID;
 
 #显示发布志愿者需求详细视图
 CREATE VIEW `view_volunteer_request_detail`

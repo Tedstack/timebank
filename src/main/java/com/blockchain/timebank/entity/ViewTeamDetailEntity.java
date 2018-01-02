@@ -8,9 +8,9 @@ import java.sql.Date;
 public class ViewTeamDetailEntity {
     private long id;
     private String name;
-    private long managerUserId;
-    private String managerUserName;
-    private String managerUserPhone;
+    private Long creatorId;
+    private String creatorUserName;
+    private String creatorUserPhone;
     private Date createDate;
     private String description;
     private boolean isDeleted;
@@ -36,33 +36,33 @@ public class ViewTeamDetailEntity {
     }
 
     @Basic
-    @Column(name = "ManagerUserID", nullable = false)
-    public long getManagerUserId() {
-        return managerUserId;
+    @Column(name = "CreatorID", nullable = true)
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setManagerUserId(long managerUserId) {
-        this.managerUserId = managerUserId;
-    }
-
-    @Basic
-    @Column(name = "ManagerUserName", nullable = true, length = 20)
-    public String getManagerUserName() {
-        return managerUserName;
-    }
-
-    public void setManagerUserName(String managerUserName) {
-        this.managerUserName = managerUserName;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 
     @Basic
-    @Column(name = "ManagerUserPhone", nullable = false, length = 20)
-    public String getManagerUserPhone() {
-        return managerUserPhone;
+    @Column(name = "CreatorUserName", nullable = true, length = 20)
+    public String getCreatorUserName() {
+        return creatorUserName;
     }
 
-    public void setManagerUserPhone(String managerUserPhone) {
-        this.managerUserPhone = managerUserPhone;
+    public void setCreatorUserName(String creatorUserName) {
+        this.creatorUserName = creatorUserName;
+    }
+
+    @Basic
+    @Column(name = "CreatorUserPhone", nullable = false, length = 20)
+    public String getCreatorUserPhone() {
+        return creatorUserPhone;
+    }
+
+    public void setCreatorUserPhone(String creatorUserPhone) {
+        this.creatorUserPhone = creatorUserPhone;
     }
 
     @Basic
@@ -103,12 +103,12 @@ public class ViewTeamDetailEntity {
         ViewTeamDetailEntity that = (ViewTeamDetailEntity) o;
 
         if (id != that.id) return false;
-        if (managerUserId != that.managerUserId) return false;
         if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (managerUserName != null ? !managerUserName.equals(that.managerUserName) : that.managerUserName != null)
+        if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
+        if (creatorUserName != null ? !creatorUserName.equals(that.creatorUserName) : that.creatorUserName != null)
             return false;
-        if (managerUserPhone != null ? !managerUserPhone.equals(that.managerUserPhone) : that.managerUserPhone != null)
+        if (creatorUserPhone != null ? !creatorUserPhone.equals(that.creatorUserPhone) : that.creatorUserPhone != null)
             return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
@@ -120,9 +120,9 @@ public class ViewTeamDetailEntity {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (int) (managerUserId ^ (managerUserId >>> 32));
-        result = 31 * result + (managerUserName != null ? managerUserName.hashCode() : 0);
-        result = 31 * result + (managerUserPhone != null ? managerUserPhone.hashCode() : 0);
+        result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
+        result = 31 * result + (creatorUserName != null ? creatorUserName.hashCode() : 0);
+        result = 31 * result + (creatorUserPhone != null ? creatorUserPhone.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
