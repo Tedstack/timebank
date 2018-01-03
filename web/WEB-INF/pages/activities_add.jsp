@@ -49,8 +49,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="isPublic">
-                        <option value="true">志愿者</option>
-                        <option value="false">社区</option>
+                        <option value="志愿者">志愿者</option>
+                        <option value="社区">社区</option>
                     </select>
                 </div>
             </div>

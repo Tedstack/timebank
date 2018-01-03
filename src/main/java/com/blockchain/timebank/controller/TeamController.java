@@ -224,6 +224,10 @@ public class TeamController {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
             activityPublishEntity.setTeamId(teamId);
+            if(activityType.equalsIgnoreCase("志愿者"))
+                activityPublishEntity.setType(ActivityType.volunteerActivity);
+            else
+                activityPublishEntity.setType(ActivityType.communityActivity);
             activityPublishEntity.setPublic(isPublic);
             activityPublishEntity.setDeleted(false);
             activityPublishEntity.setName(activityName);
@@ -237,7 +241,6 @@ public class TeamController {
             activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
             activityPublishEntity.setAddress(address);
             activityPublishEntity.setCount(count);
-
             activityPublishService.saveActivityPublishEntity(activityPublishEntity);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -389,7 +392,18 @@ public class TeamController {
         ActivityPublishEntity activityPublishEntity = activityPublishService.findActivityPublishEntityByID(activityID);
         activityPublishEntity.setStatus(ActivityStatus.alreadyTerminate);
         activityPublishService.saveActivityPublishEntity(activityPublishEntity);
-
+        if(activityPublishEntity.getType().equalsIgnoreCase(ActivityType.volunteerActivity)){//志愿者活动结算志愿者时间
+            double diff=activityPublishEntity.getEndTime().getTime() - activityPublishEntity.getBeginTime().getTime();
+            diff=diff/(1000*60*60);
+            List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresent(activityID,true, true);//获取实际参加人员
+            for(int i=0;i<userActivityList.size();i++)
+            {
+                UserEntity user=userService.findUserEntityById(userActivityList.get(i).getUserId());
+                user.setTimeVol(user.getTimeVol()+diff);//增加志愿者时间
+                userService.saveUserEntity(user);//更新志愿者时间
+            }
+            return "ok_vol";
+        }
         return "ok";
     }
 

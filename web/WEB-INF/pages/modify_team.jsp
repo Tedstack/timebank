@@ -35,7 +35,7 @@
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
                                 <div class="weui-uploader__input-box">
-                                    <img src="<%out.print(team.getHeadImg());%>" style="width: 50px;display: block">
+                                    <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width: 50px;display: block">
                                     <%--<input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">--%>
                                 </div>
                             </div>
