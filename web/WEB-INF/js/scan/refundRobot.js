@@ -34,7 +34,7 @@ $(document).ready(function () {
             });
         },
         error: function (xhr, type) {
-            showAlert("getJSSDKSignature出错");
+            showAlert("代码修改中！");
         },
     });
 });

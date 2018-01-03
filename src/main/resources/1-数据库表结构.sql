@@ -45,7 +45,7 @@ ALTER TABLE `userAuth`
 
 # service 服务种类表
 CREATE TABLE `service` (
-  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '服务种类编号',
+  `ID` BIGINT(20) NOT NULL COMMENT '服务种类编号',
   `Type` VARCHAR(45) NOT NULL COMMENT '服务类型',
   `Name` VARCHAR(45)  NOT NULL COMMENT '服务名称',
   `Price` DOUBLE NOT NULL COMMENT '服务的参考价（时间元）',

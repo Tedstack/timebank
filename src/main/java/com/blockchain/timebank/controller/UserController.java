@@ -529,12 +529,12 @@ public class UserController {
     //服务者开始扫码
     @RequestMapping(value = "/serviceUserStartScan",method = RequestMethod.GET)
     public String serviceUserStartScan(ModelMap map,@RequestParam long recordID) throws InterruptedException {
-        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
-        TokenThread.appSecret = Configs.APPSECRET;
-        System.out.println("appid:"+TokenThread.appId);
-        System.out.println("appSecret:"+TokenThread.appSecret);
-        Thread thread = new Thread(new TokenThread());
-        thread.start(); //启动进程
+//        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+//        TokenThread.appSecret = Configs.APPSECRET;
+//        System.out.println("appid:"+TokenThread.appId);
+//        System.out.println("appSecret:"+TokenThread.appSecret);
+//        Thread thread = new Thread(new TokenThread());
+//        thread.start(); //启动进程
 
         map.addAttribute("recordID",recordID);
         return "request_qr_scan";
@@ -740,12 +740,12 @@ public class UserController {
     //申请者开始扫码
     @RequestMapping(value = "/requestApplyUserStartScan",method = RequestMethod.GET)
     public String requestApplyUserStartScan(ModelMap map,@RequestParam long matchID) throws InterruptedException {
-        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
-        TokenThread.appSecret = Configs.APPSECRET;
-        System.out.println("appid:"+TokenThread.appId);
-        System.out.println("appSecret:"+TokenThread.appSecret);
-        Thread thread = new Thread(new TokenThread());
-        thread.start(); //启动进程
+//        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+//        TokenThread.appSecret = Configs.APPSECRET;
+//        System.out.println("appid:"+TokenThread.appId);
+//        System.out.println("appSecret:"+TokenThread.appSecret);
+//        Thread thread = new Thread(new TokenThread());
+//        thread.start(); //启动进程
 
         map.addAttribute("matchID",matchID);
         VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchID);

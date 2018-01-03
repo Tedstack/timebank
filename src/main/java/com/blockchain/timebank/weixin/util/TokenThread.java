@@ -20,7 +20,7 @@ public class TokenThread implements Runnable {
 
 
     public void run() {
-        while (true) {
+        while (true) {//這裏就應該是死循環
             try {
                 accessToken = this.getAccessToken();
                 jsapiTicket = this.getJsapiTicket();
