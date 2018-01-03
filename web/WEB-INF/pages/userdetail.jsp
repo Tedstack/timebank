@@ -45,14 +45,7 @@
     </a>
 
 
-    <a class="weui-cell weui-cell_access" href="">
-        <div class="weui-cell__bd">
-            <p>个性签名</p>
-        </div>
-        <div class="weui-cell__ft"style="">
-            <%out.print(userEntity.getRemark());%>
-        </div>
-    </a>
+
 
     <div class="weui-cell">
         <div class="weui-cell__bd">

@@ -23,7 +23,7 @@
     UserEntity user = (UserEntity) request.getAttribute("user");
 %>
 
-<div class="weui-cells__title">个人信息</div>
+<div class="weui-cells__title">我的二维码</div>
 <div class="weui-cells weui-cells_form">
 
     <div class="weui-cell weui-cell_vcode">
@@ -36,6 +36,8 @@
         </div>
     </div>
 </div>
+<div id="qrcode" style="padding-left: 23%; padding-top: 30px">
+</div>
 
 <div class="button-sp-area">
     <div style="padding: 10px;">
@@ -45,14 +47,25 @@
 
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/qrcode.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var qrcode='<%=user.getQrCode()%>';
+    var qrcode2='<%=user.getQrCode()%>';
     var contextPath="${pageContext.request.contextPath}";
     $(function(){
-        if((qrcode!=='null')&&(qrcode!=="")){
-            $('#curqrcode').text(qrcode);
+        if((qrcode2!=='null')&&(qrcode2!=="")){
+            $('#curqrcode').text(qrcode2);
             $("#addBtn").text('无需添加');
             $("#commitBtn").hide();
+
+                var qrcode1 = new QRCode(document.getElementById("qrcode"), {
+                    width : 200,//设置宽高
+                    height : 200
+                });
+                qrcode1.makeCode(qrcode2);
+                document.getElementById("send").onclick =function(){
+                    qrcode1.makeCode(document.getElementById("getval").value);
+                }
+
         }else{
             $("#addBtn").on('click',function () {
                 <%
@@ -80,7 +93,7 @@
                 var targetUrl = "http://"+getDomainName()+contextPath+"/user/modifyPersonalInfo";
                 var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/startModifyPersonalInfo";
                 var curqrcode = $('#curqrcode').text();
-                var re = /^[a-zA-Z]\d{8}$/;
+                var re = /^[a-zA-Z]\d{9}$/;
                 if(!re.test(curqrcode)) {
                     showAlert("此二维码非邻里智助官方二维码！");
                     return;
