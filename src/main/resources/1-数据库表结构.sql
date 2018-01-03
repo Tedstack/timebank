@@ -312,6 +312,7 @@ CREATE TABLE `activityPublish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
+  `Type` VARCHAR(50) NOT NULL COMMENT '活动类型',
   `BeginTime` DATETIME NOT NULL COMMENT '活动开始时间',
   `EndTime` DATETIME NULL COMMENT '活动结束时间',
   `Address` VARCHAR(50) NOT NULL COMMENT '活动地点',
@@ -445,6 +446,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.ID                AS ID,            #编号
       activityPublish.TeamID            AS TeamID,        #志愿者团体编号
       activityPublish.Name              AS Name,          #活动名称
+      activityPublish.Type              AS Type,          #活动类型
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
       activityPublish.Address           AS Address,       #活动地点

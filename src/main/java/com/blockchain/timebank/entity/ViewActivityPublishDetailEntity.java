@@ -9,6 +9,7 @@ public class ViewActivityPublishDetailEntity {
     private long id;
     private long teamId;
     private String name;
+    private String type;
     private Timestamp beginTime;
     private Timestamp endTime;
     private String address;
@@ -49,6 +50,16 @@ public class ViewActivityPublishDetailEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "Type", nullable = false, length = 50)
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Basic
@@ -174,6 +185,7 @@ public class ViewActivityPublishDetailEntity {
         if (isPublic != that.isPublic) return false;
         if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
@@ -191,6 +203,7 @@ public class ViewActivityPublishDetailEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
