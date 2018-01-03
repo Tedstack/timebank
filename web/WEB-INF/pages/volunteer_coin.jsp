@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的时间币</title>
+    <title>我的志愿者时间</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -24,8 +24,8 @@
     <div class="weui-tab__panel">
         <div class="weui-panel">
             <div class="weui-panel__hd">
-                <span>志愿者币</span>
-                <a href="${pageContext.request.contextPath}/user/queryVolPublishAlComplete" style="float:right;text-decoration: none">志愿者币明细</a>
+                <span>志愿者时间</span>
+                <a href="${pageContext.request.contextPath}/user/queryVolPublishAlComplete" style="float:right;text-decoration: none">志愿者时间明细</a>
             </div>
             <div class="weui-panel__bd">
                 <div class="weui-msg">
@@ -34,12 +34,9 @@
                     </div>
 
                     <div class="weui-msg__text-area">
-                        <h1 class="weui-msg__title" style="font-size: x-large">我的志愿者币</h1>
+                        <h1 class="weui-msg__title" style="font-size: x-large">我的志愿者时间</h1>
                         <h2 class="weui-msg__title" style="font-size: xx-large"><%out.print(userEntity.getTimeVol()); %></h2>
                     </div>
-                </div>
-                <div class="weui-btn-area">
-                    <a href="${pageContext.request.contextPath}/user/" class="weui-btn weui-btn_primary">返回我的页面</a>
                 </div>
             </div>
         </div>

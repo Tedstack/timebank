@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>志愿者币详情</title>
+    <title>志愿者时间详情</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -25,7 +25,7 @@
     <div class="weui-panel">
 
         <div class="weui-panel__hd">
-            <span>志愿者币明细</span>
+            <span>志愿者时间明细</span>
         </div>
         <%
             List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordDetailList");

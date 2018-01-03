@@ -34,10 +34,11 @@
     <img src="../img/底部.png" width="100%" height="15">
 
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/publish/history_evaluation">
-        <div class="weui-cell__hd"><img src="../img/userdetails/消息.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+        <div class="weui-cell__hd"><img src="../img/userdetails/评价.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
             <p>我的历史评价</p>
         </div>
+        <div class="weui-cell__ft"style="">查看</div>
     </a>
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
         <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
@@ -61,7 +62,7 @@
         <div class="weui-cell__bd">
             <p>时间币</p>
         </div>
-        <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeCoin());%> 时间币</div>
+        <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeCoin());%></div>
     </a>
 
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/volunteer_coin">
@@ -69,7 +70,7 @@
         <div class="weui-cell__bd">
             <p>志愿者时间</p>
         </div>
-        <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeVol());%> 志愿者时间</div>
+        <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeVol());%></div>
     </a>
     <img src="../img/底部.png" width="100%" height="15">
 
