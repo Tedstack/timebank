@@ -24,6 +24,7 @@
 <body>
 <%
     String teamId=(String) request.getAttribute("teamId");
+    List<UserEntity> ManagerList=(List<UserEntity>) request.getAttribute("ManagerList");
     List<UserEntity> teamUserList=(List<UserEntity>) request.getAttribute("userList");
     List<UserEntity> lockedUserList=(List<UserEntity>) request.getAttribute("lockedList");
     List<UserEntity> appliedList=(List<UserEntity>) request.getAttribute("appliedList");
@@ -50,8 +51,30 @@
     </div>
 </div>
 <%}
+    if(ManagerList.size()>0){
+        %>
+    <p style="font-size: 13px;color: #888888;margin-left:3px;margin-bottom: 5px;">管理员</p>
+    <%for(int i=0;i<ManagerList.size();i++){%>
+    <div class="weui-panel__bd">
+        <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+            <label class="weui-cell weui-check__label" for=<%out.print(ManagerList.get(i).getId());%>>
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <img src="<%out.print(ManagerList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+                </div>
+                <div class="weui-cell__bd">
+                    <p><%out.print(ManagerList.get(i).getName());%></p>
+                    <p style="font-size: 13px;color: #888888;"><%out.print(ManagerList.get(i).getBirth());%></p>
+                </div>
+                <a onclick="demote(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>
+                    <img src="../img/demote.png" width="30" height="30">
+                </a>
+            </label>
+        </div>
+    </div>
+    <%}
+    }
     if(appliedList.size()>0){%>
-    <p style="font-size: 13px;color: #888888;">申请成员</p>
+    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;">申请成员</p>
     <%for(int i=0;i<appliedList.size();i++){%>
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
@@ -63,7 +86,10 @@
                     <p><%out.print(appliedList.get(i).getName());%></p>
                     <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p>
                 </div>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>
+                <a onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>
+                    <img src="../img/approve.png" width="30" height="30">
+                </a>
+                <%--<a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>--%>
             </label>
         </div>
     </div>
@@ -71,7 +97,7 @@
     }
     if(teamUserList.size()>0)
     {%>
-    <p style="font-size: 13px;color: #888888;">已有成员</p>
+    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;">已有成员</p>
     <%
     for (int i=0;i<teamUserList.size();i++) {
 %>
@@ -85,14 +111,19 @@
                 <p><%out.print(teamUserList.get(i).getName());%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p>
             </div>
-            <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>锁定</a>
+            <a onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>
+                <img src="../img/lock.png" width="30" height="30">
+            </a>
+            <a onclick="promte(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>
+                <img src="../img/promote.png" width="30" height="30">
+            </a>
         </label>
     </div>
 </div>
 <%     }
     }
     if(lockedUserList.size()>0){%>
-    <p style="font-size: 13px;color: #888888;">锁定成员</p>
+    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;">锁定成员</p>
     <%for(int i=0;i<lockedUserList.size();i++){
 %>
     <div class="weui-panel__bd">
@@ -105,7 +136,10 @@
                     <p><%out.print(lockedUserList.get(i).getName());%></p>
                     <p style="font-size: 13px;color: #888888;"><%out.print(lockedUserList.get(i).getBirth());%></p>
                 </div>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: coral" onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>解锁</a>
+                <a onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>
+                    <img src="../img/unlock.png" width="30" height="30">
+                </a>
+                <%--<a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: coral" onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>解锁</a>--%>
             </label>
         </div>
     </div>
@@ -207,6 +241,72 @@
                 },
                 error: function (xhr, type) {
                     showAlert("失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        }
+    }
+    function demote(t) {
+        var contextPath="${pageContext.request.contextPath}"
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/demoteManager";
+        var teamId=t.name;
+        var userId=t.id;
+        if(teamId!=null && userId!=null){
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "userId="+userId+"&teamId="+teamId,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="success"){
+                        showAlert("降级同意",function () {
+                            location.reload();
+                        });
+                    }
+                    if(data==="failure"){
+                        showAlert("降级失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("降级失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        }
+    }
+    function promte(t) {
+        var contextPath="${pageContext.request.contextPath}"
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/promoteManager";
+        var teamId=t.name;
+        var userId=t.id;
+        if(teamId!=null && userId!=null){
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "userId="+userId+"&teamId="+teamId,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="success"){
+                        showAlert("升级同意",function () {
+                            location.reload();
+                        });
+                    }
+                    if(data==="failure"){
+                        showAlert("升级失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("升级失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

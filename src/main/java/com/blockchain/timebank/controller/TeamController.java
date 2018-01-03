@@ -529,19 +529,25 @@ public class TeamController {
         long id = Long.parseLong(teamId);
         List<TeamUserEntity> userList=teamUserService.findAllUsersOfOneTeam(id);//only find user id
         List<UserEntity> memberList=new ArrayList<UserEntity>();
+        List<UserEntity> ManagerList=new ArrayList<UserEntity>();
         List<UserEntity> lockedList=new ArrayList<UserEntity>();
         List<UserEntity> appliedList=new ArrayList<UserEntity>();
         for(int i=0;i<userList.size();i++)
         {
             UserEntity user=userService.findUserEntityById(userList.get(i).getUserId());
-            if(userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
-                memberList.add(user);//已经加入成员
+            if(userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered)){
+                if(!userList.get(i).isManager())
+                    memberList.add(user);//已经加入成员
+                else
+                    ManagerList.add(user);
+            }
             else if(userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.isLocked))
                 lockedList.add(user);//锁定成员
             else if(userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
                 appliedList.add(user);
         }
         map.addAttribute("teamId",teamId);
+        map.addAttribute("ManagerList",ManagerList);
         map.addAttribute("userList",memberList);
         map.addAttribute("lockedList",lockedList);
         map.addAttribute("appliedList",appliedList);
@@ -569,6 +575,20 @@ public class TeamController {
         return TeamManage(userId,teamId,"approve");
     }
 
+    @RequestMapping(value="/demoteManager",method=RequestMethod.POST)
+    @ResponseBody
+    public String DemoteManager(@RequestParam String userId,@RequestParam String teamId)
+    {
+        return TeamManage(userId,teamId,"demote");
+    }
+
+    @RequestMapping(value="/promoteManager",method=RequestMethod.POST)
+    @ResponseBody
+    public String promteManager(@RequestParam String userId,@RequestParam String teamId)
+    {
+        return TeamManage(userId,teamId,"promote");
+    }
+
     private String TeamManage(String userId,String teamId,String type){
         long t_id = Long.parseLong(teamId);
         long u_id = Long.parseLong(userId);
@@ -583,7 +603,13 @@ public class TeamController {
             else if(type.equalsIgnoreCase("approve")){//同意加入
                 teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id,TeamUserStatus.inApplication);
                 teamUser.setStatus(TeamUserStatus.alreadyEntered);}
-            else//非法操作
+            else if(type.equalsIgnoreCase("demote")){//解除管理员
+                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id,TeamUserStatus.alreadyEntered);
+                teamUser.setManager(false);
+            }else if(type.equalsIgnoreCase("promote")){//提升管理员
+                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id,TeamUserStatus.alreadyEntered);
+                teamUser.setManager(true);
+            }else//非法操作
                 return "failure";
             teamUserService.saveTeamUser(teamUser);
             System.out.println("The user " + userId + " has been locked");

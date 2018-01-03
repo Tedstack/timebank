@@ -588,16 +588,12 @@ CREATE VIEW `view_volunteer_request_detail`
       `user`.`Phone` AS `UserPhone`,
       `user`.`HeadImgUrl` AS `HeadImgUrl`
     FROM
-      (((`volunteerRequest`
+      ((`volunteerRequest`
         JOIN `user`)
         JOIN `service`)
-        JOIN `volunteerRequestMatch`)
     WHERE
       ((`volunteerRequest`.`UserID` = `user`.`ID`)
-       AND (`volunteerRequest`.`ServiceID` = `service`.`ID`)
-       AND (`volunteerRequest`.`ID` = `volunteerRequestMatch`.`RequestID`)
-       AND (`volunteerRequestMatch`.`Status` <> '待支付')
-       AND (`volunteerRequestMatch`.`Status` <> '已完成'));
+       AND (`volunteerRequest`.`ServiceID` = `service`.`ID`));
 
 #显示志愿者需求申请详细视图
 CREATE VIEW `view_volunteer_request_match_detail`

@@ -14,8 +14,8 @@
     <title>首页</title>
     <link rel="stylesheet" href="css/weui.css">
     <link rel="stylesheet" href="css/weui-example.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">
+    <%--<link rel="stylesheet" href="css/bootstrap.min.css">--%>
+    <%--<link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">--%>
 </head>
 <body>
 
@@ -113,6 +113,15 @@
                     </div>
                     <p class="weui-grid__label">
                         专业服务
+                    </p>
+                </a>
+
+                <a href="${pageContext.request.contextPath}/request/volunteerList" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/服务类型/志愿者服务.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        志愿者需求
                     </p>
                 </a>
 

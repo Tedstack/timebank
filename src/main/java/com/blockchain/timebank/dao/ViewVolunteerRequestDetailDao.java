@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ViewVolunteerRequestDetailDao extends CrudRepository<ViewVolunteerRequestDetailEntity, Long> {
     List<ViewVolunteerRequestDetailEntity> findAll();
+    ViewVolunteerRequestDetailEntity findViewVolunteerRequestDetailEntityById(long id);
+    List<ViewVolunteerRequestDetailEntity> findViewVolunteerRequestDetailEntitiesByUserId(Long id);
 }

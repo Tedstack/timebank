@@ -7,7 +7,10 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "volunteerRequestMatch", schema = "mydb", catalog = "")
 public class VolunteerRequestMatchEntity {
-    private Long id;
+    private long id;
+    private Long applyUserId;
+    private Long requestUserId;
+    private Long requestId;
     private Timestamp beginTime;
     private Timestamp endTime;
     private Timestamp actualBeginTime;
@@ -20,12 +23,42 @@ public class VolunteerRequestMatchEntity {
 
     @Id
     @Column(name = "ID", nullable = false)
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "ApplyUserID", nullable = false)
+    public Long getApplyUserId() {
+        return applyUserId;
+    }
+
+    public void setApplyUserId(Long applyUserId) {
+        this.applyUserId = applyUserId;
+    }
+
+    @Basic
+    @Column(name = "RequestUserID", nullable = false)
+    public Long getRequestUserId() {
+        return requestUserId;
+    }
+
+    public void setRequestUserId(Long requestUserId) {
+        this.requestUserId = requestUserId;
+    }
+
+    @Basic
+    @Column(name = "RequestID", nullable = false)
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 
     @Basic
@@ -125,7 +158,11 @@ public class VolunteerRequestMatchEntity {
 
         VolunteerRequestMatchEntity that = (VolunteerRequestMatchEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (id != that.id) return false;
+        if (applyUserId != null ? !applyUserId.equals(that.applyUserId) : that.applyUserId != null) return false;
+        if (requestUserId != null ? !requestUserId.equals(that.requestUserId) : that.requestUserId != null)
+            return false;
+        if (requestId != null ? !requestId.equals(that.requestId) : that.requestId != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (actualBeginTime != null ? !actualBeginTime.equals(that.actualBeginTime) : that.actualBeginTime != null)
@@ -143,7 +180,10 @@ public class VolunteerRequestMatchEntity {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (applyUserId != null ? applyUserId.hashCode() : 0);
+        result = 31 * result + (requestUserId != null ? requestUserId.hashCode() : 0);
+        result = 31 * result + (requestId != null ? requestId.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         result = 31 * result + (actualBeginTime != null ? actualBeginTime.hashCode() : 0);
