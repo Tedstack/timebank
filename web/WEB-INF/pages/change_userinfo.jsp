@@ -68,14 +68,14 @@
 
         }else{
             $("#addBtn").on('click',function () {
-                <%
-                    TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
-                    TokenThread.appSecret = Configs.APPSECRET;
+                <%--<%--%>
+                    <%--TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret--%>
+                    <%--TokenThread.appSecret = Configs.APPSECRET;--%>
 
-                    Thread thread = new Thread(new TokenThread());
-                    thread.start(); //启动进程
-                %>
-                var qrcode = '';
+                    <%--Thread thread = new Thread(new TokenThread());--%>
+                    <%--thread.start(); //启动进程--%>
+                <%--%>--%>
+//                var qrcode = '';
                 wx.scanQRCode(
                     {
                         needResult:1,
