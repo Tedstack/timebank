@@ -38,7 +38,7 @@
 </div>
 <div  style="margin-top: 60px;">
 <%
-    if(teamUserList.size()==0 && lockedUserList.size()==0){
+    if(teamUserList.size()==0 && lockedUserList.size()==0 && ManagerList.size()==0 && appliedList.size()==0){
 %>
     <div class="container" style="margin-left: 20px;margin-top: 60px;">
     <div class="page home js_show">
@@ -65,9 +65,10 @@
                     <p><%out.print(ManagerList.get(i).getName());%></p>
                     <p style="font-size: 13px;color: #888888;"><%out.print(ManagerList.get(i).getBirth());%></p>
                 </div>
-                <a onclick="demote(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>
-                    <img src="../img/demote.png" width="30" height="30">
-                </a>
+                <%--<a onclick="demote(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>--%>
+                    <%--<img src="../img/demote.png" width="30" height="30">--%>
+                <%--</a>--%>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demote(this)" style="background-color: #ecc30a" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
             </label>
         </div>
     </div>
@@ -86,10 +87,10 @@
                     <p><%out.print(appliedList.get(i).getName());%></p>
                     <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p>
                 </div>
-                <a onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>
-                    <img src="../img/approve.png" width="30" height="30">
-                </a>
-                <%--<a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>--%>
+                <%--<a onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>--%>
+                    <%--<img src="../img/approve.png" width="30" height="30">--%>
+                <%--</a>--%>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="approve(this)" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>
             </label>
         </div>
     </div>
@@ -111,12 +112,16 @@
                 <p><%out.print(teamUserList.get(i).getName());%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p>
             </div>
-            <a onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>
-                <img src="../img/lock.png" width="30" height="30">
-            </a>
-            <a onclick="promte(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>
-                <img src="../img/promote.png" width="30" height="30">
-            </a>
+            <%--<a onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>--%>
+                <%--<img src="../img/lock.png" width="30" height="30">--%>
+            <%--</a>--%>
+            <%--<a onclick="promte(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>--%>
+                <%--<img src="../img/promote.png" width="30" height="30">--%>
+            <%--</a>--%>
+            <div class="weui-cell__bd" style="text-align: right;">
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a;" onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>锁定</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: grey" onclick="promte(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>提升</a>
+            </div>
         </label>
     </div>
 </div>
@@ -136,10 +141,10 @@
                     <p><%out.print(lockedUserList.get(i).getName());%></p>
                     <p style="font-size: 13px;color: #888888;"><%out.print(lockedUserList.get(i).getBirth());%></p>
                 </div>
-                <a onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>
-                    <img src="../img/unlock.png" width="30" height="30">
-                </a>
-                <%--<a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: coral" onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>解锁</a>--%>
+                <%--<a onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>--%>
+                    <%--<img src="../img/unlock.png" width="30" height="30">--%>
+                <%--</a>--%>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: coral" onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>解锁</a>
             </label>
         </div>
     </div>

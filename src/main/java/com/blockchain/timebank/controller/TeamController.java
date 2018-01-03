@@ -219,7 +219,7 @@ public class TeamController {
     // 发布活动
     @RequestMapping(value = "/publishActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String publishActivity(ModelMap map, @RequestParam long teamId, @RequestParam boolean isPublic, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
+    public String publishActivity(ModelMap map, @RequestParam long teamId,@RequestParam String activityType, @RequestParam boolean isPublic, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
             ,@RequestParam String endTime ,@RequestParam String applyEndTime, @RequestParam int count, @RequestParam String address) {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
@@ -660,13 +660,13 @@ public class TeamController {
                              String team_location){
         String idImg ="";
         if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/");
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/");
             if (!uploadDir.exists()){
                 uploadDir.mkdir();
             }
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = team_name + "_headImg" + suffix1;
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
             File imgFile = new File(path, idImg);
             try {
                 TeamEntity newTeam = new TeamEntity();
