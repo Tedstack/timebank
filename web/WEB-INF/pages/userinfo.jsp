@@ -25,21 +25,14 @@
         </div>
         <div class="weui-cell__bd">
             <p><%out.print(userEntity.getName());%></p>
-            <p style="font-size: 13px;color: #888888;">我的二维码:<%out.print(userEntity.getQrCode());%></p>
+            <p style="font-size: 13px;color: #888888;">邻里智助ID:<%out.print(userEntity.getQrCode());%></p>
         </div>
         <div class="weui-cell__ft">
             <img src="../img/二维码.png" style="width:20px;margin-right:5px;display:block">
         </div>
     </a>
     <img src="../img/底部.png" width="100%" height="15">
-
-    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/publish/history_evaluation">
-        <div class="weui-cell__hd"><img src="../img/userdetails/评价.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-        <div class="weui-cell__bd">
-            <p>我的历史评价</p>
-        </div>
-        <div class="weui-cell__ft"style="">查看</div>
-    </a>
+    
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
         <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">

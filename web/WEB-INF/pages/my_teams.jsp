@@ -56,9 +56,9 @@
 <div class="weui-panel__bd">
     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
         <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
-            <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(teamList.get(i).getId());%>">
-                <img src="<%teamList.get(i).getHeadImg();%>" style="width: 50px;display: block">
-            </a>
+            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;" >
+                <img src="../img/teamHeadImg/<%teamList.get(i).getHeadImg();%>" style="width: 50px;display: block">
+            </div>
             <div class="weui-cell__bd">
                 <p><%out.print(teamList.get(i).getName());%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
@@ -66,7 +66,11 @@
             <% if(teamList.get(i).isDeleted()){%>
             <p class="weui-btn weui-btn_mini weui-btn_primary">已删除</p>
             <%}else{%>
-            <a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>
+            <div class="weui-cell__bd" style="text-align: right;">
+                <a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>
+                <a href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">成员</a>
+            </div>
+            <%--<a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>--%>
             <%}%>
         </label>
     </div>

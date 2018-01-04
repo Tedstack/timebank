@@ -27,10 +27,9 @@
     List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
     List<Long> appliedList=(List<Long>) request.getAttribute("appliedList");
 %>
-<div class="page">
-    <div class="page__bd" style="height: 100%;">
-        <div class="weui-tab">
-            <div class="weui-panel weui-panel_access">
+<div class="weui-tab">
+    <div class="weui-tab__panel">
+        <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/return.png" width="20" height="15"alt="">团体列表</p>
@@ -84,23 +83,22 @@
             <%
                 }
             %>
-        </div>
-            <div class="weui-tabbar">
-                <a class="weui-tabbar__item weui-bar__item_on">
-                    <span style="display: inline-block;">
-                        <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-                    </span>
-                    <p class="weui-tabbar__label">所有团体</p>
-                </a>
-                <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
-                    <span style="display: inline-block;">
-                        <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-                    </span>
-                    <p class="weui-tabbar__label">已加入团体</p>
-                </a>
             </div>
         </div>
-    </div>
+        <div class="weui-tabbar">
+            <a class="weui-tabbar__item weui-bar__item_on">
+                <span style="display: inline-block;">
+                    <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+                </span>
+                <p class="weui-tabbar__label">所有团体</p>
+            </a>
+            <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
+                <span style="display: inline-block;">
+                    <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+                </span>
+                <p class="weui-tabbar__label">已加入团体</p>
+            </a>
+        </div>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>

@@ -55,6 +55,7 @@
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">团队介绍</label></div>
+        <div class="weui-cell__hd"><label class="weui-label" style="color: grey;">200字以内</label></div>
     </div>
     <div style="text-align:center;">
         <textarea id="describe" name="describe" rows="10" cols="30" placeholder=".... " maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"></textarea>

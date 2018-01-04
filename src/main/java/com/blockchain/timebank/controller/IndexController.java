@@ -45,9 +45,31 @@ public class IndexController {
                 System.out.println("用户的OPENID：" + wot.getOpenId());
 
                 String openId = wot.getOpenId();
+                String accessToken = wot.getAccessToken();
                 UserEntity userEntity = userService.findUserEntityByOpenID(wot.getOpenId());
+                SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 if(userEntity!=null){
                     userService.saveUserHeadImgUrl(userEntity, openId, wot.getAccessToken(), request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
+                    String country=snsUserInfo.getCountry();
+                    String province=snsUserInfo.getProvince();
+                    String city=snsUserInfo.getCity();
+                   String nickname=snsUserInfo.getNickName();
+                    int sex=snsUserInfo.getSex();
+                    String sex1;
+                    if(sex==1)
+                    {
+                        sex1="男";
+                    }
+                    else
+                    {
+                        sex1="女";
+                    }
+                    userEntity.setCountry(country);
+                    userEntity.setCity(city);
+                    userEntity.setProvince(province);
+                    userEntity.setSex(sex1);
+                    userEntity.setRemark(nickname);
+                    userService.updateUserEntity(userEntity);
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
                     SecurityContextHolder.getContext().setAuthentication(token);
                     return "redirect:/index";

@@ -45,6 +45,18 @@
 
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bd">
+                    <p>活动类型</p>
+                </div>
+                <div class="weui-cell__bd">
+                    <select id="activityType" class="weui-select" name="isPublic">
+                        <option value="志愿者">志愿者</option>
+                        <option value="社区">社区</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__bd">
                     <p>是否公开</p>
                 </div>
                 <div class="weui-cell__bd">
@@ -148,6 +160,7 @@
 
         $("#submitBtn").on('click',function () {
             var teamID = $("#teamOptions ").val();
+            var activityType=$("#activityType ").val();
             var isPublic = $("#isPublicOptions ").val();
             var activityName = $('#activityName').val();
             var description = $('#description').val();
@@ -192,6 +205,10 @@
                 return;
             }
 
+            if(activityType===""){
+                showAlert("请循着活动类型");
+                return;
+            }
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/publishActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/category";
             $.ajax({
@@ -199,7 +216,7 @@
                 cache: false,
                 url: targetUrl,
                 //dataType:'JSONP',
-                data: "teamId=" + teamID + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
+                data: "teamId=" + teamID +"&activityType=" + activityType + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

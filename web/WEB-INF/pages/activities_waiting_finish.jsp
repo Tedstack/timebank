@@ -170,10 +170,15 @@
                 },
                 success: function (data) {
                     if(data==="ok"){
-                        showAlert("操作成功",function () {
+                        showAlert("结束成功",function () {
                             goTo(targetUrl2);
                         });
-                    }else{
+                    }else if(data==="ok_vol"){
+                        showAlert("结束成功，已计算对应时间",function () {
+                            goTo(targetUrl2);
+                        });
+                    }
+                    else{
                         showAlert("操作失败");
                     }
                 },
