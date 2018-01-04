@@ -60,7 +60,21 @@ public class PublishController {
         map.addAttribute("teamList", teamList);
         return "publish_category";
     }
+    //活动发布申请页面
+    @RequestMapping(value = "/activities_category", method = RequestMethod.GET)
+    public String activities_categoryPage(ModelMap map) {
+        UserEntity user = getCurrentUser();
+        List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
 
+        //判断是否是团队管理者，若不是则无法发布服务
+        if(teamList.size()==0){
+            map.addAttribute("msg", "notManagerUser");
+            return "activities_notmanager";
+        }
+
+        map.addAttribute("teamList", teamList);
+        return "activities";
+    }
     //发布服务页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {
