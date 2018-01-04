@@ -41,7 +41,7 @@
 
 <div class="weui-tab">
     <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-left: 5px">
-        <div id="return" onclick="history.go(-1)"><img src="../img/蓝返回.png" style="width:20px; height:15px; display: inline-block" alt="">返回</div>
+        <div id="return" onclick="history.go(-1)"><img src="../img/返回.png" style="width:20px; height:15px; display: inline-block" alt="">返回</div>
     </div>
     <div class="weui-tab__panel">
 
@@ -56,7 +56,7 @@
 
         <div class="weui-cells" style="margin-top: 40px;">
             <div class="weui-cell" style="padding-left:15px">
-                <h2 style="color:#008487">服务详情</h2>
+                <h2 style="color:#76b852">服务详情</h2>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -94,7 +94,7 @@
                 <div class="weui-cell__bd">
                     <span class="detail-title">服务单价 ：</span><span class="detail-content"><%=detail.getPrice()%><%
                 if("志愿者服务".equals(detail.getServiceType())){
-                    out.print("志愿者币");
+                    out.print("志愿者时间");
                 } else if("互助服务".equals(detail.getServiceType())){
                     out.print("时间币");
                 } else{
@@ -120,7 +120,7 @@
 
         <div class="block block_tcxq mt10">
             <div class="title">
-                <span style="color:#008487">接受服务须知</span>
+                <span style="color:#76b852">接受服务须知</span>
             </div>
             <div class="con_u">
                 <p>需要服务者申请您的服务后，您可以选择接受或拒绝<br/><br/>接受服务后不可取消，拒绝服务不会影响您任何信誉或评价<br/><br/>若有任何变动请及时与申请服务者联系</p>
@@ -132,19 +132,19 @@
     <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
+            <p class="weui-tabbar__label" style="margin:0px">首页</p>
         </a>
         <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">服务</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">服务</p>
         </a>
         <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">活动</p>
+            <p class="weui-tabbar__label" style="margin:0px">活动</p>
         </a>
         <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
             <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
+            <p class="weui-tabbar__label" style="margin:0px">我</p>
         </a>
     </div>
 </div>

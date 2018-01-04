@@ -70,7 +70,7 @@
                 <div class="tags-rz">
                     <span class="tag-sm">
                         <%
-                            out.print("当前志愿者币："+timeVol);
+                            out.print("当前志愿者时间："+timeVol);
                         %>
                     </span>
                 </div>

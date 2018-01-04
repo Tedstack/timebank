@@ -57,7 +57,18 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">价格 <%out.print(recordDetailList.get(i).getPayMoney());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title" style="color:#76b852">待收款 :
+                                    <%
+                                        out.print(recordDetailList.get(i).getPayMoney());
+                                        String unit = "";
+                                        if(recordDetailList.get(i).getServiceId() / 100 == 1)
+                                            unit="志愿者时间";
+                                        else if(recordDetailList.get(i).getServiceId() / 100 == 2)
+                                            unit="时间币";
+                                        else
+                                            unit="元";
+                                        out.print("（"+ unit +"）");
+                                    %></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
@@ -76,10 +87,14 @@
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <ul class="weui-media-box__info">
+                            <p class="weui-media-box__desc">服务单价:
+                                <%
+                                    out.print(recordDetailList.get(i).getPublishPrice()+unit+"/小时");
+                                %></p>
+                            <%--<ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其他信息</li>
-                            </ul>
+                            </ul>--%>
                         </div>
                     </div>
                 </div>
