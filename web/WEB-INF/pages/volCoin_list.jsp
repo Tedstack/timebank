@@ -27,16 +27,17 @@
         <div class="weui-panel__hd">
             <span>志愿者时间明细</span>
         </div>
-        <%
-            List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordDetailList");
-            long userid = (long)request.getAttribute("userid");
-            if(list.isEmpty()) {
-                out.print("暂无任何记录");
-            }
-            else{
-                for(ViewRecordDetailEntity viewRecordDetailEntity:list){
-        %>
+
         <div class="weui-panel__bd">
+            <%
+                List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordDetailList");
+                long userid = (long)request.getAttribute("userid");
+                if(list.isEmpty()) {
+                    out.print("暂无任何记录");
+                }
+                else{
+                    for(ViewRecordDetailEntity viewRecordDetailEntity:list){
+            %>
             <a href=<%out.print("vol_detail?id="+viewRecordDetailEntity.getId()); %> class="weui-media-box weui-media-box_appmsg">
                 <div class="weui-media-box__hd">
                     <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(viewRecordDetailEntity.getServiceName());%>.png" width="50" height="50">

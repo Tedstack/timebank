@@ -16,7 +16,6 @@ public class TemplateUtil {
         //String accessToken = CommonUtil.getAccessToken(Configs.APPID, Configs.APPSECRET).getAccess_token();
         String accessToken = "";
         if(TokenThread.accessToken == null || TokenThread.accessToken.getAccessToken() == ""){
-            System.out.println(TokenThread.accessToken);
             accessToken = CommonUtil.getAccessToken(Configs.APPID, Configs.APPSECRET).getAccess_token();
         }
         else{

@@ -26,15 +26,16 @@
         <div class="weui-panel__hd">
             <span>时间币明细</span>
         </div>
-        <%
-            List<RechargeEntity> list = (List<RechargeEntity>)request.getAttribute("list");
-            if(list.isEmpty()) {
-                out.print("暂无任何记录");
-            }
-            else{
-                for(RechargeEntity rechargeEntity:list){
-        %>
+
         <div class="weui-panel__bd">
+            <%
+                List<RechargeEntity> list = (List<RechargeEntity>)request.getAttribute("list");
+                if(list.isEmpty()) {
+                    out.print("暂无任何记录");
+                }
+                else{
+                    for(RechargeEntity rechargeEntity:list){
+            %>
             <a href=<%out.print("coins_details?id="+rechargeEntity.getId()); %> class="weui-media-box weui-media-box_appmsg">
                 <div class="weui-media-box__hd">
                     <img class="weui-media-box__thumb" src="../img/支付.png">

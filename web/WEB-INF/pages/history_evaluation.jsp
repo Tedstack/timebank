@@ -22,24 +22,26 @@
 </head>
 <body>
 <div class="weui-tab">
-    <div class="weui-panel">
+    <div class="weui-tab__panel">
+    <div class="weui-panel weui-panel_access">
 
         <div class="weui-panel__hd">
             <span>我的历史评价信息</span>
         </div>
-        <%
-            List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordlist");
-            if(list.isEmpty()) {
-                out.print("暂无任何记录");
-            }
-            else{
-                for(ViewRecordDetailEntity viewRecordDetailEntity:list){
-        %>
+
         <div class="weui-panel__bd">
+            <%
+                List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordlist");
+                if(list.isEmpty()) {
+                    out.print("暂无任何记录");
+                }
+                else{
+                    for(ViewRecordDetailEntity viewRecordDetailEntity:list){
+            %>
             <a href=<%out.print("vol_detail?id="+viewRecordDetailEntity.getId()); %> class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__bd">
                 <div class="weui-media-box__title">
-                    <span><%out.print(viewRecordDetailEntity.getServiceName());%></span>
+                    <span>服务名称：<%out.print(viewRecordDetailEntity.getServiceName());%></span>
                     <span style="float: right"><%
                         Timestamp endTimestamp =viewRecordDetailEntity .getActualEndTime();
                         Date enddate = new Date(endTimestamp.getTime());
@@ -51,10 +53,10 @@
                             double rate = viewRecordDetailEntity.getRating();
                             int myrate = (int)(rate);
                             for(int i=0;i<myrate;i++){%>
-                            <img  src="../img/黄色星.png" width="5%" height="5%">
+                            <img  src="../img/黄色星.png" width="5%">
                             <%}%>
                         <%}%></span><br>
-                    <span>评价：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>服务评价：
                         <%
                             if(viewRecordDetailEntity.getComment()!=null){
                                 out.print(viewRecordDetailEntity.getComment());
@@ -63,9 +65,11 @@
                 </div>
             </div>
             </a>
+            <% } }%>
         </div>
-        <% } }%>
+
     </div>
+</div>
 </div>
 </body>
 </html>
