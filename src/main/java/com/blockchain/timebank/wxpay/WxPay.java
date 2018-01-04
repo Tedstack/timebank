@@ -89,7 +89,7 @@ public class WxPay {
                 "&openid=" + openid +
                 "&out_trade_no=" + out_trade_no +
                 "&spbill_create_ip=" + IP +
-                "&total_fee=" + String.valueOf(total_fee) +
+                "&total_fee=" + String.valueOf((int)total_fee) +
                 "&trade_type=" + ConfigUtil.TRADE_TYPE_JS +
                 "&key=" + ConfigUtil.API_KEY;//这个字段是用于之后MD5加密的，字段要按照ascii码顺序排序
         sign = MD5Util.MD5Encode(sign, "").toUpperCase();
@@ -105,7 +105,7 @@ public class WxPay {
         setXmlKV(sb, "openid", openid);
         setXmlKV(sb, "out_trade_no", out_trade_no);
         setXmlKV(sb, "spbill_create_ip", IP);
-        setXmlKV(sb, "total_fee", String.valueOf(total_fee));
+        setXmlKV(sb, "total_fee", String.valueOf((int)total_fee));
         setXmlKV(sb, "trade_type", ConfigUtil.TRADE_TYPE_JS);
         setXmlKV(sb, "sign", sign);
         sb.append("</xml>");

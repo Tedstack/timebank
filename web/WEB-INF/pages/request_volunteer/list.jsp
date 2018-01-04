@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="weui-tabbar" style="height:50px">
+    <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">首页</p>
@@ -62,6 +62,10 @@
         <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">服务</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
+            <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">活动</p>
         </a>
         <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
             <img src="../img/我的.png" alt="" class="weui-tabbar__icon">

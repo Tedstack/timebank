@@ -7,6 +7,7 @@ import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.RechargeService;
 import com.blockchain.timebank.service.UserService;
 import com.blockchain.timebank.weixin.util.SignUtil;
+import com.blockchain.timebank.weixin.util.TemplateUtil;
 import com.blockchain.timebank.wxpay.ConfigUtil;
 import com.blockchain.timebank.wxpay.WxPay;
 import com.blockchain.timebank.wxpay.XMLUtil;
@@ -50,6 +51,8 @@ public class RechargeController {
 
     @Autowired
     RechargeDao rechargeDao;
+
+    String uuid;
 
     private UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -157,7 +160,7 @@ public class RechargeController {
             String resXml = WxPay.convertStreamToString(inputStream);
             System.out.println("微信回调信息notify info----------------------" + resXml);
             String payStatus = rechargeService.checkPayResult(resXml);
-            String uuid = WxPay.getXmlPara(resXml, "out_trade_no");
+            uuid = WxPay.getXmlPara(resXml, "out_trade_no");
             System.out.println("找记录的UUID是： " + uuid);
 
             RechargeEntity recharge = rechargeService.findByUuid(uuid);
@@ -205,6 +208,20 @@ public class RechargeController {
         }
         System.out.println("发给微信的信息：--------------------" + retXml);
         return retXml;
+    }
+
+    //发送模板消息通知
+    @RequestMapping(value = "/send_template", method = RequestMethod.GET)
+    public String send_template(ModelMap map){
+        RechargeEntity recharge = rechargeService.findByUuid(uuid);
+        UserEntity user = getCurrentUser();
+        if("success".equals(recharge.getRechargeStatus())){
+            boolean result = TemplateUtil.testTemplate(user,recharge);
+            if(result)
+                System.out.println("模板发送成功");
+        }
+        map.addAttribute("TimeCoin",user.getTimeCoin());
+        return "coins_balance";
     }
 
 

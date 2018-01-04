@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>志愿者币详情</title>
+    <title>志愿者时间详情</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -31,31 +31,31 @@
             <% if(userid == details.getServiceUserId() ){ %>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>订单编号</p>
+                    <p>订单编号：</p>
                 </div>
                 <div class="weui-cell__ft"><%=details.getId()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                  <p>服务名称</p>
+                  <p>服务名称：</p>
                 </div>
                 <div class="weui-cell__ft"><%=details.getServiceName()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>服务对象</p>
+                    <p>服务对象：</p>
                 </div>
                 <div class="weui-cell__ft"><%=details.getServiceUserName()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>收入</p>
+                    <p>收入：</p>
                 </div>
                 <div class="weui-cell__ft">+<%=details.getPayMoney()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>服务开始时间</p>
+                    <p>服务开始时间：</p>
                 </div>
                 <div class="weui-cell__ft">
                     <%
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd">服务结束时间</div>
+                <div class="weui-cell__bd">服务结束时间：</div>
                 <div class="weui-cell__ft">
                     <%
                         Timestamp endTimestamp = details.getActualEndTime();
@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd"><p>备注</p></div>
+                <div class="weui-cell__bd"><p>评价：</p></div>
                 <div class="weui-cell__ft">
                     <%
 
@@ -94,31 +94,31 @@
             %>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>订单编号</p>
+                    <p>订单编号：</p>
                 </div>
                 <div class="weui-cell__ft"><%=details.getId()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>服务名称</p>
+                    <p>服务名称：</p>
                 </div>
                 <div class="weui-cell__ft"><%=details.getServiceName()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>提供服务者</p>
+                    <p>提供服务者：</p>
                 </div>
                 <div class="weui-cell__ft"><%=details.getServiceUserName()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>支出</p>
+                    <p>支出：</p>
                 </div>
                 <div class="weui-cell__ft">-<%=details.getPayMoney()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <p>服务开始时间</p>
+                    <p>服务开始时间：</p>
                 </div>
                 <div class="weui-cell__ft">
                     <%
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd">结束时间</div>
+                <div class="weui-cell__bd">结束时间：</div>
                 <div class="weui-cell__ft">
                     <%
                         Timestamp endTimestamp = details.getActualEndTime();
@@ -140,8 +140,17 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd"><p>备注</p></div>
-                <div class="weui-cell__ft"><%=details.getComment()%></div>
+                <div class="weui-cell__bd"><p>评价：</p></div>
+                <div class="weui-cell__ft">
+                    <%
+
+                        if(details.getComment() == null){
+                            out.print("无");
+                        }
+                        else{
+                            out.print(details.getComment());
+                        }
+                    %></div>
             </div>
             <%}%>
         </div>

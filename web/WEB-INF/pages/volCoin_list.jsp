@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>志愿者币详情</title>
+    <title>志愿者时间详情</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -25,18 +25,19 @@
     <div class="weui-panel">
 
         <div class="weui-panel__hd">
-            <span>志愿者币明细</span>
+            <span>志愿者时间明细</span>
         </div>
-        <%
-            List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordDetailList");
-            long userid = (long)request.getAttribute("userid");
-            if(list.isEmpty()) {
-                out.print("暂无任何记录");
-            }
-            else{
-                for(ViewRecordDetailEntity viewRecordDetailEntity:list){
-        %>
+
         <div class="weui-panel__bd">
+            <%
+                List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("recordDetailList");
+                long userid = (long)request.getAttribute("userid");
+                if(list.isEmpty()) {
+                    out.print("暂无任何记录");
+                }
+                else{
+                    for(ViewRecordDetailEntity viewRecordDetailEntity:list){
+            %>
             <a href=<%out.print("vol_detail?id="+viewRecordDetailEntity.getId()); %> class="weui-media-box weui-media-box_appmsg">
                 <div class="weui-media-box__hd">
                     <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(viewRecordDetailEntity.getServiceName());%>.png" width="50" height="50">
