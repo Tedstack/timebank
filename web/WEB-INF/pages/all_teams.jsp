@@ -24,8 +24,8 @@
 <%
     List<ViewTeamDetailEntity> myTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("myList");
     List<ViewTeamDetailEntity> otherTeamList=(List<ViewTeamDetailEntity>) request.getAttribute("otherList");
-    List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
-    List<Long> appliedList=(List<Long>) request.getAttribute("appliedList");
+    List<ViewTeamDetailEntity> alreadyInTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("alreadyInList");
+    List<ViewTeamDetailEntity> appliedList=(List<ViewTeamDetailEntity>) request.getAttribute("appliedList");
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
@@ -56,7 +56,42 @@
                 </div>
                 <%}
                     }%>
-            <%
+            <%  if(alreadyInTeamList.size()>0){
+                for(int i=0;i<alreadyInTeamList.size();i++)
+                {%>
+            <div class="weui-panel__bd">
+                <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+                    <label class="weui-cell weui-check__label" for=<%out.print(alreadyInTeamList.get(i).getId());%>>
+                        <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(alreadyInTeamList.get(i).getId());%>">
+                            <img src="../img/ECNU.png" style="width: 50px;display: block">
+                        </a>
+                        <div class="weui-cell__bd">
+                            <p><%out.print(alreadyInTeamList.get(i).getName());%></p>
+                            <p style="font-size: 13px;color: #888888;"><%out.print(alreadyInTeamList.get(i).getDescription());%></p>
+                        </div>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;">已加入</a>
+                    </label>
+                </div>
+            </div>
+            <%}
+            } if(appliedList.size()>0){
+                for(int i=0;i<appliedList.size();i++){%>
+            <div class="weui-panel__bd">
+                <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+                    <label class="weui-cell weui-check__label" for=<%out.print(appliedList.get(i).getId());%>>
+                        <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(appliedList.get(i).getId());%>">
+                            <img src="../img/ECNU.png" style="width: 50px;display: block">
+                        </a>
+                        <div class="weui-cell__bd">
+                            <p><%out.print(appliedList.get(i).getName());%></p>
+                            <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getDescription());%></p>
+                        </div>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ce3c39;">已申请</a>
+                    </label>
+                </div>
+            </div>
+            <%}
+            }
                 for (int i=0;i<otherTeamList.size();i++) {
             %>
             <div class="weui-panel__bd">
@@ -69,14 +104,7 @@
                             <p><%out.print(otherTeamList.get(i).getName());%></p>
                             <p style="font-size: 13px;color: #888888;"><%out.print(otherTeamList.get(i).getDescription());%></p>
                         </div>
-                        <% if(alreadyInTeamList.contains(otherTeamList.get(i).getId())){%>
-                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;" id=<%out.print(otherTeamList.get(i).getId());%>>已加入</a>
-                        <%}else if(appliedList.contains(otherTeamList.get(i).getId()))
-                            {%>
-                        <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ecc30a;" id=<%out.print(otherTeamList.get(i).getId());%>>待审核</a>
-                        <%}else{%>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  onclick="joinToTeam(this)" id=<%out.print(otherTeamList.get(i).getId());%>>加入</a>
-                        <%}%>
                     </label>
                 </div>
             </div>
