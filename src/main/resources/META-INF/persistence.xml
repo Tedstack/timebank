@@ -8,8 +8,8 @@
         <class>com.blockchain.timebank.entity.TimeaccountEntity</class>
         <class>com.blockchain.timebank.entity.PublishEntity</class>
         <class>com.blockchain.timebank.entity.ViewPublishDetailEntity</class>
-        <class>com.blockchain.timebank.entity.RecordEntity</class>
-        <class>com.blockchain.timebank.entity.ViewRecordDetailEntity</class>
+        <class>com.blockchain.timebank.entity.PublishOrderEntity</class>
+        <class>com.blockchain.timebank.entity.ViewPublishOrderDetailEntity</class>
         <class>com.blockchain.timebank.entity.ActivityPublishEntity</class>
         <class>com.blockchain.timebank.entity.TeamEntity</class>
         <class>com.blockchain.timebank.entity.ViewTeamDetailEntity</class>
