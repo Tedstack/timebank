@@ -15,6 +15,7 @@ public class PublishEntity {
     private Timestamp beginDate;
     private Timestamp endDate;
     private String extra;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -47,7 +48,7 @@ public class PublishEntity {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 100)
+    @Column(name = "Description", nullable = true, length = 400)
     public String getDescription() {
         return description;
     }
@@ -106,6 +107,16 @@ public class PublishEntity {
         this.extra = extra;
     }
 
+    @Basic
+    @Column(name = "CreateTime", nullable = true)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,6 +133,7 @@ public class PublishEntity {
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
 
         return true;
     }
@@ -140,6 +152,7 @@ public class PublishEntity {
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }
 }

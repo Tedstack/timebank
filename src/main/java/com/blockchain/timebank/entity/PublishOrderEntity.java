@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "record", schema = "mydb", catalog = "")
-public class RecordEntity {
+@Table(name = "publish_order", schema = "mydb", catalog = "")
+public class PublishOrderEntity {
     private long id;
     private long applyUserId;
     private long serviceUserId;
@@ -19,10 +19,11 @@ public class RecordEntity {
     private Timestamp actualBeginTime;
     private Timestamp actualEndTime;
     private Double payMoney;
-    private Double rating;
+    private Integer rating;
     private String comment;
     private String status;
     private String extra;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -155,17 +156,17 @@ public class RecordEntity {
     }
 
     @Basic
-    @Column(name = "Rating", nullable = true, precision = 0)
-    public Double getRating() {
+    @Column(name = "Rating", nullable = true)
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
     @Basic
-    @Column(name = "Comment", nullable = true, length = 100)
+    @Column(name = "Comment", nullable = true, length = 400)
     public String getComment() {
         return comment;
     }
@@ -194,12 +195,22 @@ public class RecordEntity {
         this.extra = extra;
     }
 
+    @Basic
+    @Column(name = "CreateTime", nullable = true)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RecordEntity that = (RecordEntity) o;
+        PublishOrderEntity that = (PublishOrderEntity) o;
 
         if (id != that.id) return false;
         if (applyUserId != that.applyUserId) return false;
@@ -222,6 +233,7 @@ public class RecordEntity {
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
 
         return true;
     }
@@ -245,6 +257,7 @@ public class RecordEntity {
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }
 }

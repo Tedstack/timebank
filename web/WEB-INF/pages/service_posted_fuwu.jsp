@@ -1,11 +1,12 @@
-<%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
+<%@ page import="com.blockchain.timebank.entity.PublishOrderEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,7 +19,7 @@
 </head>
 <body>
 <%
-    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
+    List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">

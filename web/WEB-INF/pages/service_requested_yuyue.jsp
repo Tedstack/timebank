@@ -45,7 +45,7 @@
             <div class="weui-tab__panel" style="padding-bottom: 50px; padding-top: 70px">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
+                    List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
                 %>
                 <%
                     for (int i=0;i<recordDetailList.size();i++) {

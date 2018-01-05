@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -15,7 +15,7 @@
 </head>
 <body>
 <%
-    List<ViewRecordDetailEntity> recordDetailList = (List<ViewRecordDetailEntity>) request.getAttribute("recordDetailList");
+    List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">

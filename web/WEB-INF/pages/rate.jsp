@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/7
@@ -22,7 +22,7 @@
 </head>
 <body>
 <%
-    ViewRecordDetailEntity record = (ViewRecordDetailEntity) request.getAttribute("viewRecordDetailEntity");
+    ViewPublishOrderDetailEntity record = (ViewPublishOrderDetailEntity) request.getAttribute("viewPublishOrderDetailEntity");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">

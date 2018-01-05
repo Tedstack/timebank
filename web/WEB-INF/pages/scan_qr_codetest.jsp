@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
+<%@ page import="com.blockchain.timebank.entity.PublishOrderEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

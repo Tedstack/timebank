@@ -1,21 +1,21 @@
 package com.blockchain.timebank.dao;
 
-import com.blockchain.timebank.entity.RecordEntity;
+import com.blockchain.timebank.entity.PublishOrderEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface RecordDao extends CrudRepository<RecordEntity, Long> {
+public interface RecordDao extends CrudRepository<PublishOrderEntity, Long> {
 
-    public RecordEntity findRecordEntityById(long ID);
+    public PublishOrderEntity findRecordEntityById(long ID);
 
-    public List<RecordEntity> findByApplyUserId(long ID);
+    public List<PublishOrderEntity> findByApplyUserId(long ID);
 
-    public List<RecordEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID,String status);
+    public List<PublishOrderEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status);
 
-    public List<RecordEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID,String status);
+    public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID, String status);
 
-    public List<RecordEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID,long serviceUserID);
+    public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID);
 }

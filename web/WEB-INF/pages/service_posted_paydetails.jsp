@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -18,7 +18,7 @@
 </head>
 <body>
 <%
-    ViewRecordDetailEntity recordDetail = (ViewRecordDetailEntity) request.getAttribute("viewRecordDetailEntity");
+    ViewPublishOrderDetailEntity recordDetail = (ViewPublishOrderDetailEntity) request.getAttribute("viewPublishOrderDetailEntity");
     String volunteerService = "志愿者服务";
 %>
 

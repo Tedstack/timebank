@@ -87,19 +87,19 @@ public class RecordController {
 
         if(hasMoney){
             try {
-                RecordEntity recordEntity = new RecordEntity();
-                recordEntity.setServiceUserId(serviceUserId);
-                recordEntity.setPublishId(publishId);
-                recordEntity.setApplyUserId(getCurrentUser().getId());
-                recordEntity.setApplyUserName(applyUserName);
-                recordEntity.setApplyUserPhone(applyUserPhone);
-                recordEntity.setApplyAddress(address);
+                PublishOrderEntity publishOrderEntity = new PublishOrderEntity();
+                publishOrderEntity.setServiceUserId(serviceUserId);
+                publishOrderEntity.setPublishId(publishId);
+                publishOrderEntity.setApplyUserId(getCurrentUser().getId());
+                publishOrderEntity.setApplyUserName(applyUserName);
+                publishOrderEntity.setApplyUserPhone(applyUserPhone);
+                publishOrderEntity.setApplyAddress(address);
                 Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                recordEntity.setBeginTime(new Timestamp(date.getTime()));
-                recordEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
-                recordEntity.setPayWay(payWay);
-                recordEntity.setStatus(OrderStatus.alreadyApply);
-                recordService.saveRecordEntity(recordEntity);
+                publishOrderEntity.setBeginTime(new Timestamp(date.getTime()));
+                publishOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
+                publishOrderEntity.setPayWay(payWay);
+                publishOrderEntity.setStatus(OrderStatus.alreadyApply);
+                recordService.saveRecordEntity(publishOrderEntity);
                 map.addAttribute("msg","ok");
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -122,22 +122,22 @@ public class RecordController {
     //服务者处理订单
     @RequestMapping(value = "/handleApplicantRecord", method = RequestMethod.GET)
     public String handleApplicantRecord(ModelMap map,@RequestParam long recordID,@RequestParam String handle){
-        RecordEntity recordEntity = recordService.findRecordEntityById(recordID);
+        PublishOrderEntity publishOrderEntity = recordService.findRecordEntityById(recordID);
         if(handle.equals("refuse")){
-            recordEntity.setStatus(OrderStatus.alreadyRefuse);
-            recordService.updateRecordEntity(recordEntity);
+            publishOrderEntity.setStatus(OrderStatus.alreadyRefuse);
+            recordService.updateRecordEntity(publishOrderEntity);
         }
 
         if(handle.equals("confirm")){
-            recordEntity.setStatus(OrderStatus.waitingService);
-            recordService.updateRecordEntity(recordEntity);
+            publishOrderEntity.setStatus(OrderStatus.waitingService);
+            recordService.updateRecordEntity(publishOrderEntity);
         }
 
-        UserEntity userEntity = userService.findUserEntityById(recordEntity.getApplyUserId());
-        PublishEntity publishEntity = publishService.findPublishEntityById(recordEntity.getPublishId());
+        UserEntity userEntity = userService.findUserEntityById(publishOrderEntity.getApplyUserId());
+        PublishEntity publishEntity = publishService.findPublishEntityById(publishOrderEntity.getPublishId());
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("publishEntity",publishEntity);
-        map.addAttribute("recordEntity",recordEntity);
+        map.addAttribute("recordEntity", publishOrderEntity);
 
         return "takendetails";
     }

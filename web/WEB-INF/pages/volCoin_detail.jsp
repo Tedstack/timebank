@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
@@ -24,7 +24,7 @@
 <div class="weui-tab">
     <div class="weui-panel">
         <%
-            ViewRecordDetailEntity details = (ViewRecordDetailEntity)request.getAttribute("vol_detail");
+            ViewPublishOrderDetailEntity details = (ViewPublishOrderDetailEntity)request.getAttribute("vol_detail");
             long userid = (long)request.getAttribute("userid");
         %>
         <div class="weui-cells">

@@ -1,7 +1,5 @@
 package com.blockchain.timebank.service;
 
-import com.blockchain.timebank.dao.RecordDao;
-import com.blockchain.timebank.dao.UserDao;
 import com.blockchain.timebank.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,7 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public void payTimeVol(long recordID) {
         //1.查询订单价格
-        RecordEntity record = recordService.findRecordEntityById(recordID);
+        PublishOrderEntity record = recordService.findRecordEntityById(recordID);
         double price = record.getPayMoney();
 
         //2.扣除申请者志愿者币账户

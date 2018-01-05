@@ -2,8 +2,9 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/24
@@ -28,7 +29,7 @@
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
-    List<ViewRecordDetailEntity> recordList = (List<ViewRecordDetailEntity>) request.getAttribute("recordList");
+    List<ViewPublishOrderDetailEntity> recordList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordList");
     int age = (int) request.getAttribute("age");
     double timeVol = (double) request.getAttribute("timeVol");
 %>

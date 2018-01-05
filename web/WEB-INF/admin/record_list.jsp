@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.PayWay" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -75,8 +75,8 @@
 
                         <%
                             double off,hour;
-                            List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>)request.getAttribute("list");
-                            for (ViewRecordDetailEntity detailEntity : list) {
+                            List<ViewPublishOrderDetailEntity> list = (List<ViewPublishOrderDetailEntity>)request.getAttribute("list");
+                            for (ViewPublishOrderDetailEntity detailEntity : list) {
                         %>
                         <tr>
                             <td><%=detailEntity.getStatus()%></td>

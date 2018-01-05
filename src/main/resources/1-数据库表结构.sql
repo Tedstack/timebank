@@ -71,24 +71,23 @@ ALTER TABLE `timeaccount`
   ADD CONSTRAINT `timeaccount_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);
 
 # publish 发布服务表
-/*CREATE TABLE `publish` (
-  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `UserID` BIGINT(20) NOT NULL COMMENT '发布者ID',
-  `ServiceID` BIGINT(20) NOT NULL COMMENT '服务种类ID',
-  `Description` VARCHAR(100) NULL COMMENT '发布描述',
-  `Price` DOUBLE NOT NULL COMMENT '发布的价格',
-  `Address` VARCHAR(100) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
-  `BeginDate` DATETIME NOT NULL COMMENT '服务起始日期',
-  `EndDate` DATETIME NOT NULL COMMENT '服务结束日期',
-  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='发布服务表';
-ALTER TABLE `publish`
-  ADD KEY `UserID` (`UserID`),
-  ADD KEY `ServiceID` (`ServiceID`);
-ALTER TABLE `publish`
-  ADD CONSTRAINT `publish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
-  ADD CONSTRAINT `publish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`);*/
+CREATE TABLE `publish` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `UserID` bigint(20) NOT NULL COMMENT '发布者ID',
+  `ServiceID` bigint(20) NOT NULL COMMENT '服务种类ID',
+  `Description` varchar(400) DEFAULT NULL COMMENT '发布描述',
+  `Price` double NOT NULL COMMENT '发布的价格',
+  `Address` varchar(100) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
+  `BeginDate` datetime NOT NULL COMMENT '服务起始日期',
+  `EndDate` datetime NOT NULL COMMENT '服务结束日期',
+  `Extra` varchar(50) DEFAULT NULL COMMENT '其它保留字段',
+  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '服务发布时间',
+  PRIMARY KEY (`ID`),
+  KEY `UserID` (`UserID`),
+  KEY `ServiceID` (`ServiceID`),
+  CONSTRAINT `publish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `publish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='发布服务表';
 
 # VolunteerPublish 志愿者服务发布表
 CREATE TABLE `VolunteerPublish` (
@@ -240,35 +239,35 @@ ALTER TABLE `ProfessionMatch`
   ADD CONSTRAINT `ProfessionMatch_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `ProfessionMatch_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `ProfessionPublish` (`ID`);
 
-# record 申请订单表
-/*CREATE TABLE `record` (
-  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `ApplyUserID` BIGINT(20) NOT NULL COMMENT '申请者ID',
-  `ServiceUserID` BIGINT(20) NOT NULL COMMENT '服务者ID',
-  `PublishID` BIGINT(20) NOT NULL COMMENT '发布服务ID',
-  `ApplyAddress` VARCHAR(100) NOT NULL COMMENT '上门服务地址',
-  `ApplyUserName` VARCHAR(20) NOT NULL COMMENT '申请者姓名',
-  `ApplyUserPhone` VARCHAR(20) NOT NULL COMMENT '申请者手机号',
-  `PayWay` INT NOT NULL COMMENT '支付方式',
-  `BeginTime` DATETIME NULL COMMENT '开始时间',
-  `EndTime` DATETIME NULL COMMENT '结束时间',
-  `ActualBeginTime` DATETIME NULL COMMENT '实际开始时间',
-  `ActualEndTime` DATETIME NULL COMMENT '实际结束时间',
-  `PayMoney` DOUBLE NULL COMMENT '实际支付金额',
-  `Rating` DOUBLE NULL COMMENT '服务满意度评分',
-  `Comment` VARCHAR(100) NULL COMMENT '服务评价',
-  `Status` VARCHAR(50) NOT NULL COMMENT '订单状态',
-  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='申请订单表';
-ALTER TABLE `record`
-  ADD KEY `ApplyUserID` (`ApplyUserID`),
-  ADD KEY `ServiceUserID` (`ServiceUserID`),
-  ADD KEY `PublishID` (`PublishID`);
-ALTER TABLE `record`
-  ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
-  ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
-  ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`);*/
+# publish_order 申请订单表
+CREATE TABLE `publish_order` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `ApplyUserID` bigint(20) NOT NULL COMMENT '申请者ID',
+  `ServiceUserID` bigint(20) NOT NULL COMMENT '服务者ID',
+  `PublishID` bigint(20) NOT NULL COMMENT '发布服务ID',
+  `ApplyAddress` varchar(100) NOT NULL COMMENT '上门服务地址',
+  `ApplyUserName` varchar(20) NOT NULL COMMENT '申请者姓名',
+  `ApplyUserPhone` varchar(20) NOT NULL COMMENT '申请者手机号',
+  `PayWay` int(11) NOT NULL COMMENT '支付方式',
+  `BeginTime` datetime DEFAULT NULL COMMENT '开始时间',
+  `EndTime` datetime DEFAULT NULL COMMENT '结束时间',
+  `ActualBeginTime` datetime DEFAULT NULL COMMENT '实际开始时间',
+  `ActualEndTime` datetime DEFAULT NULL COMMENT '实际结束时间',
+  `PayMoney` double DEFAULT NULL COMMENT '实际支付金额',
+  `Rating` int(11) DEFAULT NULL COMMENT '服务满意度评分',
+  `Comment` varchar(400) DEFAULT NULL COMMENT '服务评价',
+  `Status` varchar(50) NOT NULL COMMENT '订单状态',
+  `Extra` varchar(50) DEFAULT NULL COMMENT '其它保留字段',
+  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '服务申请时间',
+  PRIMARY KEY (`ID`),
+  KEY `ApplyUserID` (`ApplyUserID`),
+  KEY `ServiceUserID` (`ServiceUserID`),
+  KEY `PublishID` (`PublishID`),
+  CONSTRAINT `publish_order_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `publish_order_ibfk_2` FOREIGN KEY (`ServiceUserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `publish_order_ibfk_3` FOREIGN KEY (`PublishID`) REFERENCES `publish` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='申请订单表';
+
 
 # team 志愿者团体表
 CREATE TABLE `team` (
@@ -511,54 +510,60 @@ CREATE VIEW view_user_activity_detail
     WHERE userActivity.ActivityID = activityPublish.ID AND activityPublish.TeamID = team.ID AND userActivity.UserID = user.ID;
 
 # 显示已发布的服务详细信息视图
-/*CREATE VIEW view_publish_detail
-  AS
-    SELECT
-      publish.ID          AS ID,
-      publish.ServiceID   AS ServiceID,
-      user.ID             AS UserID,
-      publish.Price       AS Price,
-      publish.Description AS Description,
-      publish.Address     AS Address,
-      publish.BeginDate   AS BeginDate,
-      publish.EndDate     AS EndDate,
-      service.Type        AS ServiceType,
-      service.Name        AS ServiceName,
-      user.Name           AS UserName,
-      user.Sex            AS Sex,
-      user.Phone          AS UserPhone,
-      user.HeadImgUrl     AS HeadImgUrl
-    FROM publish, user, service
-    WHERE publish.UserID = user.ID AND publish.ServiceID = service.ID;*/
+CREATE VIEW view_publish_detail AS
+  SELECT
+    `mydb`.`publish`.`ID`          AS `ID`,
+    `mydb`.`publish`.`ServiceID`   AS `ServiceID`,
+    `mydb`.`user`.`ID`             AS `UserID`,
+    `mydb`.`publish`.`Price`       AS `Price`,
+    `mydb`.`publish`.`Description` AS `Description`,
+    `mydb`.`publish`.`Address`     AS `Address`,
+    `mydb`.`publish`.`BeginDate`   AS `BeginDate`,
+    `mydb`.`publish`.`EndDate`     AS `EndDate`,
+    `mydb`.`publish`.`CreateTime`  AS `CreateTime`,
+    `mydb`.`service`.`Type`        AS `ServiceType`,
+    `mydb`.`service`.`Name`        AS `ServiceName`,
+    `mydb`.`user`.`Name`           AS `UserName`,
+    `mydb`.`user`.`Sex`            AS `Sex`,
+    `mydb`.`user`.`Phone`          AS `UserPhone`,
+    `mydb`.`user`.`HeadImgUrl`     AS `HeadImgUrl`
+  FROM ((`mydb`.`publish`
+    JOIN `mydb`.`user`) JOIN `mydb`.`service`)
+  WHERE ((`mydb`.`publish`.`UserID` = `mydb`.`user`.`ID`) AND (`mydb`.`publish`.`ServiceID` = `mydb`.`service`.`ID`));
 
-# 显示已生成的RECORD的详细信息
-/*CREATE VIEW view_record_detail
-  AS
-    SELECT
-      record.ID              AS ID,               #订单编号
-      record.ApplyUserID     AS ApplyUserID,      #预约服务的用户ID
-      record.ApplyUserName   AS ApplyUserName,    #预约联系的姓名
-      record.ApplyUserPhone  AS ApplyUserPhone,   #预约联系的手机号
-      record.ApplyAddress    AS Address,          #预约上门服务的地址
-      record.BeginTime       AS BeginTime,        #预约开始服务的时间
-      record.EndTime         AS EndTime,          #预约结束服务的时间
-      record.ActualBeginTime AS ActualBeginTime,  #实际开始服务的时间
-      record.ActualEndTime   AS ActualEndTime,    #实际结束服务的时间
-      record.PayWay          AS PayWay,           #订单的付款方式
-      record.PayMoney        AS PayMoney,         #订单的实际付款金额
-      record.Status          AS Status,           #订单的状态
-      record.PublishID       AS PublishID,        #发布的编号
-      publish.Price          AS PublishPrice,     #发布的价格
-      publish.ServiceID      AS ServiceID,        #服务种类编号
-      service.Type           AS ServiceType,      #服务类型
-      service.Name           AS ServiceName,      #服务名称
-      record.ServiceUserID   AS ServiceUserID,    #服务者编号
-      serviceUser.Name       AS ServiceUserName,  #服务者姓名
-      serviceUser.Phone      AS ServiceUserPhone,  #服务者手机号
-      record.Rating          AS Rating,            #订单评分
-      record.Comment         AS Comment            #订单评价
-  FROM record, user AS serviceUser, publish, service
-  WHERE record.PublishID = publish.ID AND publish.ServiceID = service.ID AND record.ServiceUserID = serviceUser.ID;*/
+
+# 显示已生成的publish_order的详细信息
+CREATE VIEW view_publish_order_detail AS
+  SELECT
+    `mydb`.`publish_order`.`ID`              AS `ID`,
+    `mydb`.`publish_order`.`ApplyUserID`     AS `ApplyUserID`,
+    `mydb`.`publish_order`.`ApplyUserName`   AS `ApplyUserName`,
+    `mydb`.`publish_order`.`ApplyUserPhone`  AS `ApplyUserPhone`,
+    `mydb`.`publish_order`.`ApplyAddress`    AS `Address`,
+    `mydb`.`publish_order`.`BeginTime`       AS `BeginTime`,
+    `mydb`.`publish_order`.`EndTime`         AS `EndTime`,
+    `mydb`.`publish_order`.`ActualBeginTime` AS `ActualBeginTime`,
+    `mydb`.`publish_order`.`ActualEndTime`   AS `ActualEndTime`,
+    `mydb`.`publish_order`.`PayWay`          AS `PayWay`,
+    `mydb`.`publish_order`.`PayMoney`        AS `PayMoney`,
+    `mydb`.`publish_order`.`Status`          AS `Status`,
+    `mydb`.`publish_order`.`PublishID`       AS `PublishID`,
+    `mydb`.`publish_order`.`CreateTime`      AS `CreateTime`,
+    `mydb`.`publish`.`Price`                 AS `PublishPrice`,
+    `mydb`.`publish`.`ServiceID`             AS `ServiceID`,
+    `mydb`.`service`.`Type`                  AS `ServiceType`,
+    `mydb`.`service`.`Name`                  AS `ServiceName`,
+    `mydb`.`publish_order`.`ServiceUserID`   AS `ServiceUserID`,
+    `serviceuser`.`Name`                     AS `ServiceUserName`,
+    `serviceuser`.`Phone`                    AS `ServiceUserPhone`,
+    `mydb`.`publish_order`.`Rating`          AS `Rating`,
+    `mydb`.`publish_order`.`Comment`         AS `Comment`
+  FROM (((`mydb`.`publish_order`
+    JOIN `mydb`.`user` `serviceuser`) JOIN `mydb`.`publish`) JOIN `mydb`.`service`)
+  WHERE ((`mydb`.`publish_order`.`PublishID` = `mydb`.`publish`.`ID`) AND
+         (`mydb`.`publish`.`ServiceID` = `mydb`.`service`.`ID`) AND
+         (`mydb`.`publish_order`.`ServiceUserID` = `serviceuser`.`ID`));
+
 
 # 显示志愿者团体表的详细信息视图
 CREATE VIEW view_team_detail

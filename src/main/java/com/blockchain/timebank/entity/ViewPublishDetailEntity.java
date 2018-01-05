@@ -14,6 +14,7 @@ public class ViewPublishDetailEntity {
     private String address;
     private Timestamp beginDate;
     private Timestamp endDate;
+    private Timestamp createTime;
     private String serviceType;
     private String serviceName;
     private String userName;
@@ -62,7 +63,7 @@ public class ViewPublishDetailEntity {
     }
 
     @Basic
-    @Column(name = "Description", nullable = true, length = 100)
+    @Column(name = "Description", nullable = true, length = 400)
     public String getDescription() {
         return description;
     }
@@ -99,6 +100,16 @@ public class ViewPublishDetailEntity {
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
+    }
+
+    @Basic
+    @Column(name = "CreateTime", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
     @Basic
@@ -176,6 +187,7 @@ public class ViewPublishDetailEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (serviceType != null ? !serviceType.equals(that.serviceType) : that.serviceType != null) return false;
         if (serviceName != null ? !serviceName.equals(that.serviceName) : that.serviceName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
@@ -199,6 +211,7 @@ public class ViewPublishDetailEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);

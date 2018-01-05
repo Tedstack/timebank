@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "view_record_detail", schema = "mydb", catalog = "")
-public class ViewRecordDetailEntity {
+@Table(name = "view_publish_order_detail", schema = "mydb", catalog = "")
+public class ViewPublishOrderDetailEntity {
     private long id;
     private long applyUserId;
     private String applyUserName;
@@ -19,6 +19,7 @@ public class ViewRecordDetailEntity {
     private Double payMoney;
     private String status;
     private long publishId;
+    private Timestamp createTime;
     private double publishPrice;
     private long serviceId;
     private String serviceType;
@@ -26,7 +27,7 @@ public class ViewRecordDetailEntity {
     private long serviceUserId;
     private String serviceUserName;
     private String serviceUserPhone;
-    private Double rating;
+    private Integer rating;
     private String comment;
 
     @Id
@@ -160,6 +161,16 @@ public class ViewRecordDetailEntity {
     }
 
     @Basic
+    @Column(name = "CreateTime", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
     @Column(name = "PublishPrice", nullable = false, precision = 0)
     public double getPublishPrice() {
         return publishPrice;
@@ -230,17 +241,17 @@ public class ViewRecordDetailEntity {
     }
 
     @Basic
-    @Column(name = "Rating", nullable = true, precision = 0)
-    public Double getRating() {
+    @Column(name = "Rating", nullable = true)
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
     @Basic
-    @Column(name = "Comment", nullable = true, length = 100)
+    @Column(name = "Comment", nullable = true, length = 400)
     public String getComment() {
         return comment;
     }
@@ -254,7 +265,7 @@ public class ViewRecordDetailEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ViewRecordDetailEntity that = (ViewRecordDetailEntity) o;
+        ViewPublishOrderDetailEntity that = (ViewPublishOrderDetailEntity) o;
 
         if (id != that.id) return false;
         if (applyUserId != that.applyUserId) return false;
@@ -276,6 +287,7 @@ public class ViewRecordDetailEntity {
             return false;
         if (payMoney != null ? !payMoney.equals(that.payMoney) : that.payMoney != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (serviceType != null ? !serviceType.equals(that.serviceType) : that.serviceType != null) return false;
         if (serviceName != null ? !serviceName.equals(that.serviceName) : that.serviceName != null) return false;
         if (serviceUserName != null ? !serviceUserName.equals(that.serviceUserName) : that.serviceUserName != null)
@@ -305,6 +317,7 @@ public class ViewRecordDetailEntity {
         result = 31 * result + (payMoney != null ? payMoney.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (int) (publishId ^ (publishId >>> 32));
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         temp = Double.doubleToLongBits(publishPrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (int) (serviceId ^ (serviceId >>> 32));

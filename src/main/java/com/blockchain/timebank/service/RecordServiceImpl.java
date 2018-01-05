@@ -1,7 +1,7 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.RecordDao;
-import com.blockchain.timebank.entity.RecordEntity;
+import com.blockchain.timebank.entity.PublishOrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,35 +13,35 @@ public class RecordServiceImpl implements RecordService {
     @Autowired
     RecordDao recordDao;
 
-    public List<RecordEntity> findAll() {
-        return (List<RecordEntity>)recordDao.findAll();
+    public List<PublishOrderEntity> findAll() {
+        return (List<PublishOrderEntity>)recordDao.findAll();
     }
 
-    public RecordEntity saveRecordEntity(RecordEntity recordEntity) {
-        return recordDao.save(recordEntity);
+    public PublishOrderEntity saveRecordEntity(PublishOrderEntity publishOrderEntity) {
+        return recordDao.save(publishOrderEntity);
     }
 
-    public List<RecordEntity> findByApplyUserId(long ID) {
+    public List<PublishOrderEntity> findByApplyUserId(long ID) {
         return recordDao.findByApplyUserId(ID);
     }
 
-    public List<RecordEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status) {
+    public List<PublishOrderEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status) {
         return recordDao.findRecordEntitiesByServiceUserIdAndStatus(serviceUserID,status);
     }
 
-    public RecordEntity updateRecordEntity(RecordEntity recordEntity) {
-        return recordDao.save(recordEntity);
+    public PublishOrderEntity updateRecordEntity(PublishOrderEntity publishOrderEntity) {
+        return recordDao.save(publishOrderEntity);
     }
 
-    public RecordEntity findRecordEntityById(long ID) {
+    public PublishOrderEntity findRecordEntityById(long ID) {
         return recordDao.findRecordEntityById(ID);
     }
 
-    public List<RecordEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID, String status) {
+    public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID, String status) {
         return recordDao.findRecordEntitiesByApplyUserIdAndStatus(applyUserID,status);
     }
 
-    public List<RecordEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID) {
+    public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID) {
         return recordDao.findRecordEntitiesByApplyUserIdAndServiceUserId(applyUserID,serviceUserID);
     }
 }

@@ -1,18 +1,18 @@
 package com.blockchain.timebank.dao;
 
-import com.blockchain.timebank.entity.ViewRecordDetailEntity;
+import com.blockchain.timebank.entity.ViewPublishOrderDetailEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ViewRecordDetailDao extends CrudRepository<ViewRecordDetailEntity, Long> {
-    List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByServiceUserIdAndStatus(long serviceUserID,String status);
+public interface ViewRecordDetailDao extends CrudRepository<ViewPublishOrderDetailEntity, Long> {
+    List<ViewPublishOrderDetailEntity> findViewRecordDetailEntitiesByServiceUserIdAndStatus(long serviceUserID, String status);
 
-    List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByApplyUserIdAndStatus(long applyUserID,String status);
+    List<ViewPublishOrderDetailEntity> findViewRecordDetailEntitiesByApplyUserIdAndStatus(long applyUserID, String status);
 
-    ViewRecordDetailEntity findViewRecordDetailEntityById(long ID);
+    ViewPublishOrderDetailEntity findViewRecordDetailEntityById(long ID);
 
-    List<ViewRecordDetailEntity> findViewRecordDetailEntitiesByPublishIdAndStatus(long publishID,String status);
+    List<ViewPublishOrderDetailEntity> findViewRecordDetailEntitiesByPublishIdAndStatus(long publishID, String status);
 }

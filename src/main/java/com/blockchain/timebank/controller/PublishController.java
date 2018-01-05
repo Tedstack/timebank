@@ -1,6 +1,5 @@
 package com.blockchain.timebank.controller;
 
-import com.blockchain.timebank.dao.SelectServiceDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
@@ -128,8 +127,8 @@ public class PublishController {
         UserEntity userEntity = getCurrentUser();
         map.addAttribute("currentUser", userEntity);
         //取前十条评价
-        List<ViewRecordDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
-        List<ViewRecordDetailEntity> recordList = new ArrayList<ViewRecordDetailEntity>();
+        List<ViewPublishOrderDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> recordList = new ArrayList<ViewPublishOrderDetailEntity>();
         if(temp.size()<=10){
             recordList = temp;
         }else{
@@ -160,10 +159,10 @@ public class PublishController {
     //历史评价信息
     @RequestMapping(value = "/history_evaluation", method = RequestMethod.GET)
     public String history_evaluation(ModelMap map) {
-        List<ViewRecordDetailEntity> recordlist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        Iterator<ViewRecordDetailEntity> iter = recordlist.iterator();
+        List<ViewPublishOrderDetailEntity> recordlist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        Iterator<ViewPublishOrderDetailEntity> iter = recordlist.iterator();
         while(iter.hasNext()){
-            ViewRecordDetailEntity record = iter.next();
+            ViewPublishOrderDetailEntity record = iter.next();
             if(record.getRating() == null && record.getComment() == null){
                 iter.remove();
             }

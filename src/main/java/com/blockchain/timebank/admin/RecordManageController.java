@@ -36,7 +36,7 @@ public class RecordManageController {
 
     @RequestMapping(value = "/recordList", method = RequestMethod.GET)
     public String recordListPage(ModelMap map) {
-        List<ViewRecordDetailEntity> list = (List<ViewRecordDetailEntity>) viewRecordDetailDao.findAll();
+        List<ViewPublishOrderDetailEntity> list = (List<ViewPublishOrderDetailEntity>) viewRecordDetailDao.findAll();
         map.addAttribute("list", list);
         return "../admin/record_list";
     }
@@ -66,19 +66,19 @@ public class RecordManageController {
             return "../admin/record_add";
         }
         try {
-            RecordEntity recordEntity = new RecordEntity();
-            recordEntity.setServiceUserId(serviceUserId);
-            recordEntity.setPublishId(publishId);
-            recordEntity.setApplyUserId(applyUser.getId());
-            recordEntity.setApplyUserName(applyUserName);
-            recordEntity.setApplyUserPhone(applyUserPhone);
-            recordEntity.setApplyAddress(address);
+            PublishOrderEntity publishOrderEntity = new PublishOrderEntity();
+            publishOrderEntity.setServiceUserId(serviceUserId);
+            publishOrderEntity.setPublishId(publishId);
+            publishOrderEntity.setApplyUserId(applyUser.getId());
+            publishOrderEntity.setApplyUserName(applyUserName);
+            publishOrderEntity.setApplyUserPhone(applyUserPhone);
+            publishOrderEntity.setApplyAddress(address);
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            recordEntity.setBeginTime(new Timestamp(date.getTime()));
-            recordEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
-            recordEntity.setPayWay(payWay);
-            recordEntity.setStatus(OrderStatus.alreadyApply);
-            recordService.saveRecordEntity(recordEntity);
+            publishOrderEntity.setBeginTime(new Timestamp(date.getTime()));
+            publishOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
+            publishOrderEntity.setPayWay(payWay);
+            publishOrderEntity.setStatus(OrderStatus.alreadyApply);
+            recordService.saveRecordEntity(publishOrderEntity);
             map.addAttribute("ok", "添加成功！");
             return "../admin/record_add";
         } catch (ParseException e) {

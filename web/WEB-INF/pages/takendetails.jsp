@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.RecordEntity" %>
+<%@ page import="com.blockchain.timebank.entity.PublishOrderEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.PublishEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +13,7 @@
 </head>
 <body>
 <%
-    RecordEntity recordEntity = (RecordEntity) request.getAttribute("recordEntity");
+    PublishOrderEntity publishOrderEntity = (PublishOrderEntity) request.getAttribute("recordEntity");
     UserEntity userEntity = (UserEntity) request.getAttribute("userEntity");
     PublishEntity publishEntity = (PublishEntity) request.getAttribute("publishEntity");
 %>
@@ -22,14 +22,14 @@
         <div class="weui-cell__bd">
             <p>订单编号</p>
         </div>
-        <div class="weui-cell__ft"><%out.print(recordEntity.getId());%></div>
+        <div class="weui-cell__ft"><%out.print(publishOrderEntity.getId());%></div>
     </div>
 </div>
 <br>
 <div class="weui-form-preview">
     <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label">服务状态</label>
-        <em class="weui-form-preview__value"><%out.print(recordEntity.getStatus());%></em>
+        <em class="weui-form-preview__value"><%out.print(publishOrderEntity.getStatus());%></em>
     </div>
     <div class="weui-form-preview__bd">
         <p>
@@ -38,19 +38,19 @@
         </p>
         <p>
             <label class="weui-form-preview__label">开始时间</label>
-            <span class="weui-form-preview__value"><%out.print(recordEntity.getBeginTime());%></span>
+            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getBeginTime());%></span>
         </p>
         <p>
             <label class="weui-form-preview__label">结束时间</label>
-            <span class="weui-form-preview__value"><%out.print(recordEntity.getEndTime());%></span>
+            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getEndTime());%></span>
         </p>
         <p>
             <label class="weui-form-preview__label">地理位置</label>
-            <span class="weui-form-preview__value"><%out.print(recordEntity.getApplyAddress());%></span>
+            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getApplyAddress());%></span>
         </p>
         <p>
             <label class="weui-form-preview__label">支付方式</label>
-            <span class="weui-form-preview__value"><%out.print(recordEntity.getPayWay());%></span>
+            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getPayWay());%></span>
         </p>
         <p>
             <label class="weui-form-preview__label">预计收入</label>
