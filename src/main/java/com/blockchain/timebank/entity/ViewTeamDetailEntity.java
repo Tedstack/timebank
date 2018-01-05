@@ -14,6 +14,8 @@ public class ViewTeamDetailEntity {
     private Date createDate;
     private String description;
     private boolean isDeleted;
+    private String headImg;
+    private String address;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -95,6 +97,26 @@ public class ViewTeamDetailEntity {
         isDeleted = deleted;
     }
 
+    @Basic
+    @Column(name = "HeadImg", nullable = true, length = 100)
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    @Basic
+    @Column(name = "Address", nullable = true, length = 100)
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -112,6 +134,8 @@ public class ViewTeamDetailEntity {
             return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (headImg != null ? !headImg.equals(that.headImg) : that.headImg != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
 
         return true;
     }
@@ -126,6 +150,8 @@ public class ViewTeamDetailEntity {
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
+        result = 31 * result + (headImg != null ? headImg.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 }

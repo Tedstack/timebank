@@ -10,8 +10,10 @@ public class UserActivityEntity {
     private long userId;
     private boolean isAllow;
     private boolean isPresent;
-    private Double rating;
-    private String comment;
+    private Double managerRating;
+    private String managerComment;
+    private Double userRating;
+    private String userComment;
     private String extra;
 
     @Id
@@ -65,23 +67,43 @@ public class UserActivityEntity {
     }
 
     @Basic
-    @Column(name = "Rating", nullable = true, precision = 0)
-    public Double getRating() {
-        return rating;
+    @Column(name = "ManagerRating", nullable = true, precision = 0)
+    public Double getManagerRating() {
+        return managerRating;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setManagerRating(Double managerRating) {
+        this.managerRating = managerRating;
     }
 
     @Basic
-    @Column(name = "Comment", nullable = true, length = 100)
-    public String getComment() {
-        return comment;
+    @Column(name = "ManagerComment", nullable = true, length = 100)
+    public String getManagerComment() {
+        return managerComment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setManagerComment(String managerComment) {
+        this.managerComment = managerComment;
+    }
+
+    @Basic
+    @Column(name = "UserRating", nullable = true, precision = 0)
+    public Double getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(Double userRating) {
+        this.userRating = userRating;
+    }
+
+    @Basic
+    @Column(name = "UserComment", nullable = true, length = 100)
+    public String getUserComment() {
+        return userComment;
+    }
+
+    public void setUserComment(String userComment) {
+        this.userComment = userComment;
     }
 
     @Basic
@@ -106,8 +128,12 @@ public class UserActivityEntity {
         if (userId != that.userId) return false;
         if (isAllow != that.isAllow) return false;
         if (isPresent != that.isPresent) return false;
-        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+        if (managerRating != null ? !managerRating.equals(that.managerRating) : that.managerRating != null)
+            return false;
+        if (managerComment != null ? !managerComment.equals(that.managerComment) : that.managerComment != null)
+            return false;
+        if (userRating != null ? !userRating.equals(that.userRating) : that.userRating != null) return false;
+        if (userComment != null ? !userComment.equals(that.userComment) : that.userComment != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
@@ -120,8 +146,10 @@ public class UserActivityEntity {
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (isPresent ? 1 : 0);
-        result = 31 * result + (rating != null ? rating.hashCode() : 0);
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (managerRating != null ? managerRating.hashCode() : 0);
+        result = 31 * result + (managerComment != null ? managerComment.hashCode() : 0);
+        result = 31 * result + (userRating != null ? userRating.hashCode() : 0);
+        result = 31 * result + (userComment != null ? userComment.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }

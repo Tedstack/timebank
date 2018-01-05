@@ -337,8 +337,10 @@ CREATE TABLE `userActivity` (
   `UserID` BIGINT(20) NOT NULL COMMENT '用户编号',
   `IsAllow` BOOL NOT NULL COMMENT '用户是否已经通过审核',
   `IsPresent` BOOL NOT NULL COMMENT '用户是否出席活动',
-  `Rating` DOUBLE NULL COMMENT '活动管理者为参与者打分',
-  `Comment` VARCHAR(100) NULL COMMENT '活动管理者评价参与者',
+  `ManagerRating` DOUBLE NULL COMMENT '活动管理者为参与者打分',
+  `ManagerComment` VARCHAR(100) NULL COMMENT '活动管理者评价参与者',
+  `UserRating` DOUBLE NULL COMMENT '参与者为活动打分',
+  `UserComment` VARCHAR(100) NULL COMMENT '参与者评价活动',
   `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户加入活动表';
@@ -490,8 +492,10 @@ CREATE VIEW view_user_activity_detail
       user.Phone                    AS UserPhone,       #用户手机号
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
       userActivity.IsPresent        AS IsPresent,       #是否参加活动
-      userActivity.Rating           AS Rating,          #管理者对参与者评分
-      userActivity.Comment          AS Comment,         #管理者评价参与者
+      userActivity.ManagerRating    AS ManagerRating,     #管理者对参与者评分
+      userActivity.ManagerComment   AS ManagerComment,    #管理者评价参与者
+      userActivity.UserRating       AS UserRating,      #参与者对活动评分
+      userActivity.UserComment     AS UserComment,      #参与者评价活动
       activityPublish.TeamID        AS TeamID,          #活动团队编队
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
@@ -567,7 +571,9 @@ CREATE VIEW view_team_detail
       user.Phone           AS CreatorUserPhone,
       team.CreateDate      AS CreateDate,
       team.Description     AS Description,
-      team.IsDeleted       AS IsDeleted
+      team.IsDeleted       AS IsDeleted,
+      team.HeadImg          AS HeadImg,
+      team.Address          AS Address
     FROM team, user
     WHERE team.CreatorID = user.ID;
 

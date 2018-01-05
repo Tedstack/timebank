@@ -13,8 +13,10 @@ public class ViewUserActivityDetailEntity {
     private String userPhone;
     private boolean isAllow;
     private boolean isPresent;
-    private Double rating;
-    private String comment;
+    private Double managerRating;
+    private String managerComment;
+    private Double userRating;
+    private String userComment;
     private long teamId;
     private String name;
     private Timestamp beginTime;
@@ -98,23 +100,43 @@ public class ViewUserActivityDetailEntity {
     }
 
     @Basic
-    @Column(name = "Rating", nullable = true, precision = 0)
-    public Double getRating() {
-        return rating;
+    @Column(name = "ManagerRating", nullable = true, precision = 0)
+    public Double getManagerRating() {
+        return managerRating;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setManagerRating(Double managerRating) {
+        this.managerRating = managerRating;
     }
 
     @Basic
-    @Column(name = "Comment", nullable = true, length = 100)
-    public String getComment() {
-        return comment;
+    @Column(name = "ManagerComment", nullable = true, length = 100)
+    public String getManagerComment() {
+        return managerComment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setManagerComment(String managerComment) {
+        this.managerComment = managerComment;
+    }
+
+    @Basic
+    @Column(name = "UserRating", nullable = true, precision = 0)
+    public Double getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(Double userRating) {
+        this.userRating = userRating;
+    }
+
+    @Basic
+    @Column(name = "UserComment", nullable = true, length = 100)
+    public String getUserComment() {
+        return userComment;
+    }
+
+    public void setUserComment(String userComment) {
+        this.userComment = userComment;
     }
 
     @Basic
@@ -243,8 +265,12 @@ public class ViewUserActivityDetailEntity {
         if (count != that.count) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
-        if (rating != null ? !rating.equals(that.rating) : that.rating != null) return false;
-        if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
+        if (managerRating != null ? !managerRating.equals(that.managerRating) : that.managerRating != null)
+            return false;
+        if (managerComment != null ? !managerComment.equals(that.managerComment) : that.managerComment != null)
+            return false;
+        if (userRating != null ? !userRating.equals(that.userRating) : that.userRating != null) return false;
+        if (userComment != null ? !userComment.equals(that.userComment) : that.userComment != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
@@ -267,8 +293,10 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (isPresent ? 1 : 0);
-        result = 31 * result + (rating != null ? rating.hashCode() : 0);
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
+        result = 31 * result + (managerRating != null ? managerRating.hashCode() : 0);
+        result = 31 * result + (managerComment != null ? managerComment.hashCode() : 0);
+        result = 31 * result + (userRating != null ? userRating.hashCode() : 0);
+        result = 31 * result + (userComment != null ? userComment.hashCode() : 0);
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
