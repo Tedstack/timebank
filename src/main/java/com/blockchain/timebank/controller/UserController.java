@@ -102,6 +102,12 @@ public class UserController {
         return "/login";
     }
 
+    //扫码支付测试
+    @RequestMapping(value = "/scan",method = RequestMethod.GET)
+    public String scan (ModelMap map){
+        return "scan";
+    }
+
     // 注册请求接口
     @RequestMapping(value = "/register2", method = RequestMethod.POST)
     @ResponseBody
@@ -534,7 +540,7 @@ public class UserController {
 //        thread.start(); //启动进程
 
         map.addAttribute("recordID",recordID);
-        return "request_qr_scan";
+        return "returnRobot";
     }
 
     //服务者扫码结束

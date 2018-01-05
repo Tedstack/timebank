@@ -31,6 +31,7 @@
             <img src="../img/二维码.png" style="width:20px;margin-right:5px;display:block">
         </div>
     </a>
+    <img src="../img/底部.png" width="100%" height="15">
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/publish/history_evaluation">
         <div class="weui-cell__hd"><img src="../img/userdetails/评价.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
@@ -117,7 +118,7 @@
     <div class="weui-cell">
         <div class="weui-cell__bd">
             <div class="weui-flex">
-                <div class="weui-flex__item" display="none"></div>
+                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/scan" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
                 <div class="weui-flex__item" display="none"></div>
                 <div class="weui-flex__item" display="none"></div>
                 <div class="weui-flex__item" display="none"></div>
