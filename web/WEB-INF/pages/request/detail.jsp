@@ -135,7 +135,7 @@
         if(currentUserId != "" && currentUserId == publishUserId){
             $("#requestApply-button").hide();
             $("#requestOverDate-button").show();
-            $("#requestOverDate-button").html("不可申请自己的服务");
+            $("#requestOverDate-button").html("不可申请自己的需求");
         }
     });
     Date.prototype.Format = function (fmt) { //author: meizz
