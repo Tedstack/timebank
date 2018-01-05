@@ -63,7 +63,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <p><%out.print(ManagerList.get(i).getName());%></p>
-                    <p style="font-size: 13px;color: #888888;"><%out.print(ManagerList.get(i).getBirth());%></p>
+                    <%if(ManagerList.get(i).getBirth()!=null){%>
+                    <p style="font-size: 13px;color: #888888;"><%out.print(ManagerList.get(i).getBirth());%></p><%}%>
                 </div>
                 <%--<a onclick="demote(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>--%>
                     <%--<img src="../img/demote.png" width="30" height="30">--%>
@@ -85,7 +86,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <p><%out.print(appliedList.get(i).getName());%></p>
-                    <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p>
+                    <%if(appliedList.get(i).getBirth()!=null){%>
+                    <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p><%}%>
                 </div>
                 <%--<a onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>--%>
                     <%--<img src="../img/approve.png" width="30" height="30">--%>
@@ -110,7 +112,8 @@
             </div>
             <div class="weui-cell__bd">
                 <p><%out.print(teamUserList.get(i).getName());%></p>
-                <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p>
+                <%if(teamUserList.get(i).getBirth()!=null){%>
+                <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p><%}%>
             </div>
             <%--<a onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>--%>
                 <%--<img src="../img/lock.png" width="30" height="30">--%>
@@ -139,7 +142,8 @@
                 </a>
                 <div class="weui-cell__bd">
                     <p><%out.print(lockedUserList.get(i).getName());%></p>
-                    <p style="font-size: 13px;color: #888888;"><%out.print(lockedUserList.get(i).getBirth());%></p>
+                    <%if(lockedUserList.get(i).getBirth()!=null){%>
+                    <p style="font-size: 13px;color: #888888;"><%out.print(lockedUserList.get(i).getBirth());%></p><%}%>
                 </div>
                 <%--<a onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>--%>
                     <%--<img src="../img/unlock.png" width="30" height="30">--%>

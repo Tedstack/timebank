@@ -44,7 +44,7 @@
                     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                         <label class="weui-cell weui-check__label" for=<%out.print(myTeamList.get(i).getId());%>>
                             <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(myTeamList.get(i).getId());%>">
-                                <img src="../img/ECNU.png" style="width: 50px;display: block">
+                                <img src="../img/teamHeadImg/<%out.print(myTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                             </a>
                             <div class="weui-cell__bd">
                                 <p><%out.print(myTeamList.get(i).getName());%></p>
@@ -63,7 +63,7 @@
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(alreadyInTeamList.get(i).getId());%>>
                         <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(alreadyInTeamList.get(i).getId());%>">
-                            <img src="../img/ECNU.png" style="width: 50px;display: block">
+                            <img src="../img/teamHeadImg/<%out.print(alreadyInTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </a>
                         <div class="weui-cell__bd">
                             <p><%out.print(alreadyInTeamList.get(i).getName());%></p>
@@ -80,7 +80,7 @@
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(appliedList.get(i).getId());%>>
                         <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(appliedList.get(i).getId());%>">
-                            <img src="../img/ECNU.png" style="width: 50px;display: block">
+                            <img src="../img/teamHeadImg/<%out.print(appliedList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </a>
                         <div class="weui-cell__bd">
                             <p><%out.print(appliedList.get(i).getName());%></p>
@@ -98,7 +98,7 @@
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(otherTeamList.get(i).getId());%>>
                         <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(otherTeamList.get(i).getId());%>">
-                            <img src="../img/ECNU.png" style="width: 50px;display: block">
+                            <img src="../img/teamHeadImg/<%out.print(otherTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </a>
                         <div class="weui-cell__bd">
                             <p><%out.print(otherTeamList.get(i).getName());%></p>

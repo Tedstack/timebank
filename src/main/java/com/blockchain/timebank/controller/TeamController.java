@@ -753,6 +753,20 @@ public class TeamController {
         }
     }
 
+    @RequestMapping(value="/deleteTeam",method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteTeam(@RequestParam String teamId){
+        try {
+            TeamEntity Team=teamService.findById(Long.parseLong(teamId));
+            Team.setDeleted(true);
+            teamService.saveTeamEntity(Team);
+            return "success";
+        }catch (Exception e) {
+            System.out.println(e.toString());
+            return "failure";
+        }
+    }
+
     private UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {
