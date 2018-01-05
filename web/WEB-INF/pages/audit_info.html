@@ -1,0 +1,132 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>我的信息</title>
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <style>
+        .justify{
+            justify-content: center;
+        }
+        .align{
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="page input js_show">
+        <div class="page__bd">
+            <div class="weui-cells">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>姓名</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <p>张三</p>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>年龄</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <p>20</p>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>身份证号</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <p>12345678912345xxxx</p>
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <p>手机号</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <p>12345678901</p>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #f8f8f8; height:10px;"></div>
+            <div class="weui-flex">
+                <div class="weui-flex__item weui-flex justify align">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">身份证正面</p>
+                        </div>
+                        <div class="weui-uploader__bd">
+                            <div class="weui-uploader__file">
+                                <img src="../img/我的.png" height="79" width="79"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-flex__item weui-flex justify align">
+                    <div class="weui-uploader">
+                        <div class="weui-uploader__hd">
+                            <p class="weui-uploader__title">身份证背面</p>
+                        </div>
+                        <div class="weui-uploader__bd">
+                            <div class="weui-uploader__file">
+                                <img src="../img/我的.png" height="79" width="79"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-btn-area">
+                <a href="${pageContext.request.contextPath}/index" class="weui-btn weui-btn_primary">通过</a>
+            </div>
+            <div class="weui-cells__title">
+                <p>未通过原因</p>
+            </div>
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">
+                            <div class="weui-btn-area_inline">
+                                <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" id="failReason">选择原因</a>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" placeholder="其它原因请注明">
+                    </div>
+                </div>
+                <div class="weui-btn-area">
+                    <a href="${pageContext.request.contextPath}/index" class="weui-btn weui-btn_warn">未通过</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="../js/zepto/zepto.min.js"></script>
+<script src="../js/zepto/weui.min.js"></script>
+<script type="text/javascript">
+    $('#failReason').on('click', function () {
+        weui.picker([{
+            label: '照片模糊',
+            value: 0
+        }, {
+            label: '其他',
+            value: 1
+        }], {
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                console.log(result[0].label);
+                $('#failReason').html(result[0].label);
+            }
+        });
+    });
+</script>
+
+</body>

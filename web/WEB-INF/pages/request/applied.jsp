@@ -214,7 +214,7 @@
                                 </p></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/requestApplyUserStartScan?matchID=<%out.print(requestToService.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/requestApplyUserStartScan?matchID=<%out.print(requestToService.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
                             </div>
                         </div>
                     </div>
@@ -419,7 +419,12 @@
             panel_to_pay.hide();
             panel_completed.show();
         });
+
+        $("#navbar${pageContext.request.getParameter("tab")}").click();
+
     });
+
+
 </script>
 
 </body>

@@ -57,14 +57,14 @@
             </div>
         </div>
 
-        <a href="${pageContext.request.contextPath}/user/queryRequestAlreadyPublish" class="weui-cell weui-cell_access" href="javascript:;">
+        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-cell weui-cell_access" href="javascript:;">
             <div class="weui-cell__hd"><img src="../img/userdetails/我的发布.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
             <div class="weui-cell__bd">
                 <p>已发布的需求</p>
             </div>
         </a>
 
-        <a href="${pageContext.request.contextPath}/user/queryRequestMatchAlreadyApply" class="weui-cell weui-cell_access" href="javascript:;">
+        <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-cell weui-cell_access" href="javascript:;">
             <div class="weui-cell__hd">
                 <img src="../img/userdetails/我的申请.png" alt="" style="width:20px;margin-right:5px;display:block">
             </div>

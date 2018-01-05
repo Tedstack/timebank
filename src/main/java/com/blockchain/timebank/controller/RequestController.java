@@ -2,10 +2,7 @@ package com.blockchain.timebank.controller;
 
 
 import com.blockchain.timebank.entity.*;
-import com.blockchain.timebank.service.ServiceService;
-import com.blockchain.timebank.service.UserService;
-import com.blockchain.timebank.service.RequestOrderService;
-import com.blockchain.timebank.service.RequestService;
+import com.blockchain.timebank.service.*;
 import com.blockchain.timebank.weixin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -40,6 +38,9 @@ public class RequestController {
 
     @Autowired
     RequestOrderService requestOrderService;
+
+    @Autowired
+    AccountService accountService;
 
     //发布需求页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -242,6 +243,13 @@ public class RequestController {
 
     }
 
+    @RequestMapping(value = "/publishDetail", method = RequestMethod.GET)
+    public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
+        ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
+        map.addAttribute("detail", viewRequestDetailEntity);
+        return "request/publish_detail";
+    }
+
     @RequestMapping(value = "/applied", method = RequestMethod.GET)
     public String applied(ModelMap map){
         long id = getCurrentUser().getId();
@@ -269,7 +277,102 @@ public class RequestController {
         return "request/applied";
 
     }
-    
+
+    //申请者开始扫码
+    @RequestMapping(value = "/requestApplyUserStartScan",method = RequestMethod.GET)
+    public String requestApplyUserStartScan(ModelMap map,@RequestParam long matchID) throws InterruptedException {
+//        TokenThread.appId = Configs.APPID; //获取servlet初始参数appid和appsecret
+//        TokenThread.appSecret = Configs.APPSECRET;
+//        System.out.println("appid:"+TokenThread.appId);
+//        System.out.println("appSecret:"+TokenThread.appSecret);
+//        Thread thread = new Thread(new TokenThread());
+//        thread.start(); //启动进程
+
+        map.addAttribute("matchID",matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        map.addAttribute("isFirst", matchEntity.getActualBeginTime()==null);
+        return "request/qr_scan";
+    }
+
+    //申请者扫码结束
+    @RequestMapping(value = "/requestApplyUserCompleteScan",method = RequestMethod.POST)
+    @ResponseBody
+    public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchID){
+        String status = "";
+        UserEntity requestUser = userService.findUserEntityByQrCode(qrcode);
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        if(matchEntity.getRequestUserId()!=requestUser.getId()){
+            status = "notOneself";
+        }else{
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            if(matchEntity.getActualBeginTime()==null){
+                matchEntity.setActualBeginTime(timestamp);
+            }else{
+                matchEntity.setActualEndTime(timestamp);
+                matchEntity.setStatus(OrderStatus.waitingPay);
+                Timestamp beginStamp = matchEntity.getActualBeginTime();
+                Timestamp endStamp = matchEntity.getActualEndTime();
+                long begin = beginStamp.getTime();
+                long end = endStamp.getTime();
+
+                long l = end - begin;
+                String s = String.valueOf(l);
+                double d = Double.parseDouble(s);
+                BigDecimal price = requestService.findDetailById(matchEntity.getRequestId()).getPrice();
+                BigDecimal money = price.multiply(new BigDecimal ((d/(3600*1000))));
+
+                matchEntity.setPayMoney(money);
+            }
+
+            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+            status = "success";
+        }
+        //map.addAttribute("status",status);
+        return status;
+    }
+
+    //需求者开始付款
+    @RequestMapping(value = "/requestUserStartPay",method = RequestMethod.GET)
+    public String requestUserStartPay(ModelMap map,@RequestParam long matchID){
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
+
+        map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
+        return "request/request_paydetail";
+    }
+
+    //需求者跳转到评价订单页面
+    @RequestMapping(value = "/requestUserStartEvaluate",method = RequestMethod.GET)
+
+    public String requestUserStartEvaluate(ModelMap map,@RequestParam long recordID){
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+
+        map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
+        return "request/request_rate";
+    }
+
+    //需求者评价订单
+    @RequestMapping(value = "/requestUserEvaluateRecord",method = RequestMethod.POST)
+    @ResponseBody
+    public void requestUserEvaluateRecord(ModelMap map,@RequestParam long recordID,@RequestParam double rating,@RequestParam String comment){
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(recordID);
+        matchEntity.setRate((int)rating);
+        matchEntity.setComment(comment);
+        requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+    }
+
+    //志愿者需求的用户支付志愿者币
+    @RequestMapping(value = "/requestUserPayTimeVol",method = RequestMethod.POST)
+    @ResponseBody
+    public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
+        if(viewRequestOrderDetailEntity.getServiceType().equals("volunteer")){
+            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
+                accountService.payRequestTimeVol(matchID);
+            }
+        }
+
+    }
+
     private String getServiceTypeById(Long id){
         if(100<=id && id<200)
             return "volunteer";

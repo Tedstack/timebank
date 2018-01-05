@@ -28,7 +28,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/返回.png" width="20" height="15"alt="">评价</p>
+                    <p><img src="../img/返回.png" width="20" height="15" alt="">评价</p>
                 </div>
             </div>
             <div class="weui-panel__bd">
@@ -148,8 +148,8 @@
     var matchID='<%=match.getId()%>';
     $(function() {
         $("#btn").on('click', function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/user/requestUserEvaluateRecord";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryRequestMatchAlreadyComplete";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/request/requestUserStartEvaluate";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/request/applied?tab=4";
             var starNum = 0;
             var starText = $('#app').text();
             var comment = $('#text').val()

@@ -16,9 +16,9 @@
     <title>发布需求</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <script src="../../js/zepto/zepto.min.js"></script>
-    <script src="../../js/zepto/weui.min.js"></script>
-    <script src="../../js/scan/function.js"></script>
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 

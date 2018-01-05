@@ -113,7 +113,7 @@
                             <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
+                            <div class="weui-flex__item"><a href="<%out.print("publishDetail?id="+requestPublished.get(i).getId()+"&type="+requestPublished.get(i).getServiceType());%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                         </div>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}<%out.print("/user/requestUserStartPay?matchID="+requestToPay.get(i).getId());%>">支付</a></div>
+                                <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}<%out.print("/request/requestUserStartPay?matchID="+requestToPay.get(i).getId());%>">支付</a></div>
                             </div>
                         </div>
                     </div>
@@ -481,6 +481,9 @@
             panel_to_pay.hide();
             panel_completed.show();
         });
+
+        $("#navbar${pageContext.request.getParameter("tab")}").click();
+
     });
 </script>
 

@@ -83,7 +83,7 @@
         </p>
     </div>
     <div class="weui-form-preview__ft">
-        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="${pageContext.request.contextPath}/user/queryRequestMatchWaitingPay">返回</a>
+        <a class="weui-form-preview__btn weui-form-preview__btn_default" href="${pageContext.request.contextPath}/request/applied?tab=2">返回</a>
         <a class="weui-form-preview__btn weui-form-preview__btn_primary" id="payBtn">支付</a>
     </div>
 </div>
@@ -95,8 +95,8 @@
     var matchID = '<%=matchDetail.getId()%>';
     $(function(){
         $("#payBtn").on('click',function () {
-            var targetUrl = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"+"/user/requestUserPayTimeVol";
-            var targetUrl2 = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"+"/user/queryRequestMatchAlreadyComplete";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/request/requestUserStartEvaluate";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/request/applied?tab=4";
             var volunteerService = 'volunteer';
             if(type === volunteerService){
                 $.ajax({

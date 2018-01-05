@@ -65,7 +65,7 @@
         </p>
     </div>
     <div class="weui-form-preview__ft">
-        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="${pageContext.request.contextPath}/user/queryRequestWaitingConfirm">返回</a>
+        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="${pageContext.request.contextPath}/request/published?tab=2">返回</a>
     </div>
 </div>
 </body>

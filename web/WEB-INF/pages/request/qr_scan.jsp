@@ -62,7 +62,7 @@
     var contextPath="${pageContext.request.contextPath}";
     $(function() {
         $("#button1").on('click', function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/user/requestApplyUserCompleteScan";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/request/requestApplyUserCompleteScan";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryRequestMatchWaitingService";
             wx.scanQRCode(
                 {

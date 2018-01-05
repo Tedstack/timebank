@@ -169,7 +169,7 @@
 </div>
 
 <!-- jQuery 3 -->
-<script src="../../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 
 <script language="javascript">
     $(document).ready(function () {
