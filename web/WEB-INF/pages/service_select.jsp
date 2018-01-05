@@ -48,7 +48,7 @@
             color: #515151;
         }
         .active{
-            background-color:#008487 ;
+            background-color:#76b852 ;
             color: #ffffff;
         }
     </style>
@@ -75,7 +75,7 @@
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_text" style="padding-bottom: 25px">
                     <div style="margin-left: 15px">
-                        <span style="color:#008487">服务类型</span>
+                        <span style="color:#76b852">服务类型</span>
                         <%
                             out.print("<table><tbody>");
                             int i = 0;
@@ -111,7 +111,7 @@
                 </div>
                 <div class="weui-media-box weui-media-box_text">
                     <div style="margin-left: 15px">
-                        <span style="color:#008487">服务时间</span>
+                        <span style="color:#76b852">服务时间</span>
                         <div style="margin: 10px;margin-bottom: 30px">
                             <input id='select-begintime' class="weui-input" type="date" style="height: 50px;line-height: 34px;display: inline-block;width:40%;float: left" placeholder="开始时间">
                             <span style="margin:0 auto; vertical-align:middle">--</span>
@@ -121,14 +121,14 @@
                 </div>
                 <div class="weui-media-box weui-media-box_text" style="padding-bottom: 25px">
                     <div style="margin-left: 15px">
-                        <span style="color:#008487">服务金额</span>
+                        <span style="color:#76b852">服务金额</span>
                         <div class="range-slider"></div>
                     </div>
                 </div>
                 <div class="weui-media-box weui-media-box_text" style="padding-bottom: 25px">
                     <div style="margin-left: 15px; margin-top: 20px;margin-bottom: 30px; float:right">
                         <a class="weui-btn weui-btn_mini weui-btn_default" href="${pageContext.request.contextPath}/publish/list?type=<%out.print(request.getAttribute("type"));%>">取消</a>
-                        <a class="weui-btn weui-btn_mini" id="select-confirm" style="background-color: #008487">完成</a>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary" id="select-confirm" >完成</a>
                     </div>
                 </div>
             </div>
@@ -136,19 +136,19 @@
         <div class="weui-tabbar" style="height: 50px">
             <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
                 <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-                <p class="weui-tabbar__label">首页</p>
+                <p class="weui-tabbar__label" style="margin:0px">首页</p>
             </a>
             <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
                 <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-                <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">服务</p>
+                <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">服务</p>
             </a>
             <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
                 <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-                <p class="weui-tabbar__label">活动</p>
+                <p class="weui-tabbar__label" style="margin:0px">活动</p>
             </a>
             <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
                 <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-                <p class="weui-tabbar__label">我</p>
+                <p class="weui-tabbar__label" style="margin:0px">我</p>
             </a>
         </div>
     </div>
@@ -164,8 +164,7 @@
             format: '%s',
             width: 300,
             showLabels: true,
-            isRange : true,
-            theme:'theme-blue'
+            isRange : true //theme:'theme-blue'
         });
         $('.select-button').click(function(){
             $(this).toggleClass('active');

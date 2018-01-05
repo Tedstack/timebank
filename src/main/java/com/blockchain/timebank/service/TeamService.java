@@ -13,5 +13,7 @@ public interface TeamService {
 
     TeamEntity findById(long Id);
 
+    TeamEntity findTeamByName(String name);
+
     List<TeamEntity> findTeamsByCreatorId(long CreatorId);
 }

@@ -31,4 +31,5 @@ public class TeamServiceImpl implements TeamService {
         return teamDao.findTeamEntitiesByCreatorIdAndDeleted(CreatorId,false);
     }
 
+    public TeamEntity findTeamByName(String teamName){return teamDao.findTeamEntityByNameAndDeleted(teamName,false);}
 }

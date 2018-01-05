@@ -39,7 +39,7 @@
         </div>
 
         <div class="weui-cells__title">
-            <span style="color:#008487">需求详情</span>
+            <span style="color:#76b852">需求详情</span>
         </div>
         <div class="weui-cells">
 
@@ -69,7 +69,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <a class="weui-btn weui-btn_plain-default" href="${pageContext.request.contextPath}/request/volunteerApply?id=<%=detail.getId()%>">
-                        <%=detail.getPrice()%>志愿者币/小时 申请需求
+                        <%=detail.getPrice()%>志愿者时间/小时 申请需求
                     </a>
                 </div>
             </div>
@@ -77,7 +77,7 @@
 
         <article class="weui-article">
             <section>
-                <h2 class="title" style="color:#008487">申请须知</h2>
+                <h2 class="title" style="color:#76b852">申请须知</h2>
                 <section>
                     <p>
                         申请前请看清时间及需求地址<br/>

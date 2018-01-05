@@ -88,7 +88,7 @@
                                 <div class="weui-flex__item"diaplay="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">删除</a></div>
+                                <div class="weui-flex__item" style="color:#7ACF41">等待接受申请</div>
                             </div>
                         </div>
                     </div>

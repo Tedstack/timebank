@@ -59,22 +59,22 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">订单编号 <%out.print(recordDetailList.get(i).getId());%></p>
-                            <p class="weui-media-box__desc">开始时间
+                            <p class="weui-media-box__desc">订单编号 : <%out.print(recordDetailList.get(i).getId());%></p>
+                            <p class="weui-media-box__desc">开始时间 :
                                 <%
                                     Timestamp beginTimestamp = recordDetailList.get(i).getBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc">结束时间
+                            <p class="weui-media-box__desc">结束时间 :
                                 <%
                                     Timestamp endTimestamp = recordDetailList.get(i).getEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <p class="weui-media-box__desc" style="color: #7ACF41">预计付费
+                            <p class="weui-media-box__desc" style="color: #7ACF41">预计付费 :
                                 <%
                                     Timestamp beginStamp = recordDetailList.get(i).getBeginTime();
                                     Timestamp endStamp = recordDetailList.get(i).getEndTime();
@@ -90,12 +90,16 @@
                                     BigDecimal bg = new BigDecimal(money);
                                     double convertedMoney = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                                     out.print(convertedMoney);
+                                    if(recordDetailList.get(i).getServiceId() / 100 == 1)
+                                        out.print("（志愿者时间）");
+                                    else if (recordDetailList.get(i).getServiceId() / 100 == 2)
+                                        out.print("（时间币）");
+                                    else
+                                        out.print("（元)");
                                 %>
                             </p>
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta"><%out.print(recordDetailList.get(i).getServiceUserName());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(recordDetailList.get(i).getServiceUserPhone());%></li>
-                            </ul>
+                            <p class="weui-media-box__desc">服务人员 : <%out.print(recordDetailList.get(i).getServiceUserName());%></p>
+                            <p class="weui-media-box__desc">服务人手机号 : <%out.print(recordDetailList.get(i).getServiceUserPhone());%></p>
                         </div>
                     </div>
                 </div>

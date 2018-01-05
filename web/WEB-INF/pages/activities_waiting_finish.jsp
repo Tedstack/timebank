@@ -90,16 +90,23 @@
     <div id="terminateActivityBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">结束活动</div>
     <img src="../img/底部.png" width="375" height="10">
     <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">实际参与人员</div>
-    <div class="weui-cells">
+    <div class="weui-cells weui-cells_checkbox">
         <!--以下循环参加的人数-->
         <%
             for (int i=0;i<userActivityList.size();i++) {
         %>
-        <div class="weui-cell" id="cell1">
-            <div class="weui-cell__bd">
-                <p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserName());%></p>
+        <%--<div class="weui-cell" id="cell1">--%>
+            <%--<div class="weui-cell__bd">--%>
+                <%--<p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserName());%></p>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <label class="weui-cell weui-check__label" for=<%out.print(userActivityList.get(i).getId());%>>
+            <div class="weui-cell__hd">
+                <div class="weui-cell__bd" style="font-size: small;font-weight: normal">
+                    <%out.print(userActivityList.get(i).getUserName());%>
+                </div>
             </div>
-        </div>
+        </label>
         <%}%>
         <!--以上-->
     </div>

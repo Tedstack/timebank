@@ -4,6 +4,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.ViewRecordDetailEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: caozihan
@@ -31,6 +32,7 @@
     List<ViewRecordDetailEntity> recordList = (List<ViewRecordDetailEntity>) request.getAttribute("recordList");
     int age = (int) request.getAttribute("age");
     double timeVol = (double) request.getAttribute("timeVol");
+    UserEntity currentUser = (UserEntity) request.getAttribute("currentUser");
 %>
 
 <div class="weui-tab">
@@ -47,7 +49,7 @@
 
         <div class="weui-cells">
             <div class="weui-cell">
-                <span style="color:#008487">服务详情</span>
+                <span style="color:#76b852">服务详情</span>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -75,7 +77,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
-                    <a id="serviceApply-button" class="weui-btn weui-btn_plain-default" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" style="background-color: #008487; color:#fff; border:0px;display: none;text-decoration:none;">
+                    <a id="serviceApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
                         <%=detail.getPrice()%>元/小时 申请服务
                     </a>
                     <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
@@ -87,7 +89,7 @@
 
         <div class="block block_tcxq mt10">
             <div class="title">
-                <span style="color:#008487">申请须知</span>
+                <span style="color:#76b852">申请须知</span>
             </div>
             <div class="con_u">
                 <p>申请前请看清时间范围及服务区域<br/><br/>提交申请后不可取消，等待提供服务者确认接受后即可服务<br/><br/>若有任何变动请及时与服务者联系</p>
@@ -99,19 +101,19 @@
     <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
+            <p class="weui-tabbar__label" style="margin:0px">首页</p>
         </a>
         <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">服务</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">服务</p>
         </a>
         <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">活动</p>
+            <p class="weui-tabbar__label" style="margin:0px">活动</p>
         </a>
         <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
             <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
+            <p class="weui-tabbar__label" style="margin:0px">我</p>
         </a>
     </div>
 </div>
@@ -129,6 +131,16 @@
         } else{
             $("#serviceApply-button").show();
             $("#serviceOverDate-button").hide();
+        }
+        var currentUserId = "";
+        if(<%out.print(currentUser != null);%>) {
+            currentUserId = <%out.print(currentUser.getId());%>;
+        }
+        var publishUserId = <%out.print(detail.getUserId());%>;
+        if(currentUserId != "" && currentUserId == publishUserId){
+            $("#serviceApply-button").hide();
+            $("#serviceOverDate-button").show();
+            $("#serviceOverDate-button").html("不可申请自己的服务");
         }
     });
     Date.prototype.Format = function (fmt) { //author: meizz

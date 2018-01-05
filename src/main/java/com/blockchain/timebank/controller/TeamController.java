@@ -60,7 +60,9 @@ public class TeamController {
         List<ViewTeamDetailEntity> myTeam=new ArrayList<ViewTeamDetailEntity>();
         List<ViewTeamDetailEntity> otherTeam=new ArrayList<ViewTeamDetailEntity>();
         List<Long> alreadyInTeamList = new ArrayList<Long>();
+        List<ViewTeamDetailEntity> alreadyInTeam=new ArrayList<ViewTeamDetailEntity>();
         List<Long> appliedTeamList = new ArrayList<Long>();
+        List<ViewTeamDetailEntity> appliedTeam=new ArrayList<ViewTeamDetailEntity>();
         long currentId=getCurrentUser().getId();
         //从所有用户加入的团队中找到自己已经加入的团队
         for(int i=0;i<allTeamUser.size();i++){
@@ -75,13 +77,17 @@ public class TeamController {
         for(int i=0;i<list.size();i++){
             if(list.get(i).getCreatorId()==currentId)
                 myTeam.add(list.get(i));
+            else if(alreadyInTeamList.contains(list.get(i).getId()))
+                alreadyInTeam.add(list.get(i));
+            else if(appliedTeamList.contains(list.get(i).getId()))
+                appliedTeam.add(list.get(i));
             else
                 otherTeam.add(list.get(i));
         }
         map.addAttribute("myList", myTeam);
         map.addAttribute("otherList",otherTeam);
-        map.addAttribute("alreadyInList", alreadyInTeamList);
-        map.addAttribute("appliedList",appliedTeamList);
+        map.addAttribute("alreadyInList", alreadyInTeam);
+        map.addAttribute("appliedList",appliedTeam);
         return "all_teams";
     }
 
@@ -673,6 +679,8 @@ public class TeamController {
                              String describe,
                              String team_location){
         String idImg ="";
+        if(checkTeamNameExist(team_name))
+            return "nameExist";
         if (file != null && !file.isEmpty()) {
             File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/");
             if (!uploadDir.exists()){
@@ -713,6 +721,8 @@ public class TeamController {
     @RequestMapping(value="/modifyTeam",method = RequestMethod.POST)
     @ResponseBody
     public String modifyTeam(@RequestParam String teamId,@RequestParam String teamName,@RequestParam String describe){
+        if(checkTeamNameExist(teamName))
+            return "nameExist";
         try {
             TeamEntity team=teamService.findById(Long.parseLong(teamId));
             team.setName(teamName);
@@ -731,6 +741,18 @@ public class TeamController {
             return userEntity;
         } else {
             return null;
+        }
+    }
+
+    private boolean checkTeamNameExist(String teamName){
+        System.out.println("TeamName   "+teamName);
+        TeamEntity team;
+        team=teamService.findTeamByName(teamName);
+        if(team==null) {
+            return false;
+        }
+        else {
+            return true;
         }
     }
 }

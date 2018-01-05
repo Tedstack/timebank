@@ -89,7 +89,7 @@
                     <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
                     <span><%
                         if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者币）");
+                            out.print("（志愿者时间）");
                         } else if(detailEntity.getServiceType().equals("互助服务")){
                             out.print("（时间币）");
                         } else{
@@ -112,7 +112,7 @@
 
                     <span><%
                         if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者币）");
+                            out.print("（志愿者时间）");
                         } else if(detailEntity.getServiceType().equals("互助服务")){
                             out.print("（时间币）");
                         } else{

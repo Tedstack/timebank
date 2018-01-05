@@ -112,8 +112,9 @@
                         showAlert("创建成功",function () {
                             window.location.href="${pageContext.request.contextPath}/team/myTeams"
                         });
-                    }
-                    if(data==="failure"){
+                    }else if(data==="nameExist") {
+                        showAlert("该名已被使用");
+                    }else if(data==="failure"){
                         showAlert("创建失败");
                     }
                 },

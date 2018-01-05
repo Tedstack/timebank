@@ -41,7 +41,7 @@
                         <p class="weui-media-box__desc">
                             <span style="color: #7ACF41;">¥
                                 <%
-                                    out.print(viewVolunteerRequestDetailEntity.getPrice()+"志愿者币");
+                                    out.print(viewVolunteerRequestDetailEntity.getPrice()+"志愿者时间");
                                 %>
                             </span>
                             <br/>

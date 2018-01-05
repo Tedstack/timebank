@@ -33,11 +33,7 @@
                                 <p class="weui-uploader__title">团队头像</p>
                             </div>
                             <div class="weui-uploader__bd">
-                                <ul class="weui-uploader__files" id="files1"></ul>
-                                <div class="weui-uploader__input-box">
-                                    <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width: 50px;display: block">
-                                    <%--<input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">--%>
-                                </div>
+                                <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width:100px;display: block">
                             </div>
                         </div>
                     </div>
@@ -65,8 +61,11 @@
     <div style="text-align:center;">
         <textarea id="describe" rows="10" cols="30" maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"><%out.print(team.getDescription());%></textarea>
     </div>
+    <div style="padding: 10px; margin-top: 10px;">
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="modifyTeam" type="button">确认修改</a>
+    </div>
     <div style="padding: 10px; margin-bottom: 20px;">
-        <a href="javascript:;" class="weui-btn weui-btn_primary" id="create" type="button">确定</a>
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="deleteTeam" type="button" style="background-color: #ce3c39;">解散</a>
     </div>
 </div>
 
@@ -74,29 +73,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(function(){
-        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
-            $uploaderInput1 = $("#file1"),
-            $uploaderFiles1 = $("#files1");
-        $uploaderInput1.on("change", function(e){
-            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
-            for (var i = 0, len = files.length; i < len; ++i) {
-                var file = files[i];
-
-                if (url) {
-                    src = url.createObjectURL(file);
-                } else {
-                    src = e.target.result;
-                }
-
-                $uploaderFiles1.append(tmpl.replace("#url#", src));
-                $uploaderInput1.parent().hide();
-            }
-        });
-        $uploaderFiles1.on("click", "li", function(){
-            $galleryImg.attr("style", this.getAttribute("style"));
-            $gallery.fadeIn(100);
-        });
-        $("#create").on('click', function () {
+        $("#modifyTeam").on('click', function () {
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
             var teamId=document.getElementById("team_name").name;
@@ -116,12 +93,45 @@
                             window.location.href="${pageContext.request.contextPath}/team/myTeams"
                         });
                     }
+                    if(data==="nameExist"){
+                        showAlert("该名已被使用");
+                    }
                     if(data==="failure"){
                         showAlert("修改失败");
                     }
                 },
                 error: function (xhr, type) {
                     showAlert("修改失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        });
+        $("#deleteTeam").on('click', function () {
+            var contextPath="${pageContext.request.contextPath}"
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteTeam";
+            var teamId=document.getElementById("team_name").name;
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "teamId="+teamId,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="success"){
+                        showAlert("删除成功",function () {
+                            window.location.href="${pageContext.request.contextPath}/team/myTeams"
+                        });
+                    }
+                    if(data==="failure"){
+                        showAlert("删除失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("操作失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
