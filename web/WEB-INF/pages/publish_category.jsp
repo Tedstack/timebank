@@ -48,6 +48,10 @@
                     </a>
                     <img src="../img/底部.png" width="100%" height="15">
 
+                    <div style="padding: 10px; margin-bottom: 20px;">
+                        <a href="${pageContext.request.contextPath}/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
+                    </div>
+
                     <div class="weui-cell">
                         <div class="weui-cell__hd">
                             <img src="../img/服务名称/我的.png" alt="" style="width:20px;margin-right:5px;display:block">
@@ -76,7 +80,6 @@
 
 
                     <div style="padding: 10px; margin-bottom: 20px;">
-                        <a href="${pageContext.request.contextPath}/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
                         <a href="${pageContext.request.contextPath}/request/add" class="weui-btn weui-btn_primary">发布需求</a>
                     </div>
 
