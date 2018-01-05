@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "volunteerRequestMatch", schema = "mydb", catalog = "")
-public class VolunteerRequestMatchEntity {
+@Table(name = "requestOrder", schema = "mydb", catalog = "")
+public class RequestOrderEntity {
     private long id;
     private Long applyUserId;
     private Long requestUserId;
@@ -122,7 +122,7 @@ public class VolunteerRequestMatchEntity {
     }
 
     @Basic
-    @Column(name = "Comment", nullable = true, length = 100)
+    @Column(name = "Comment", nullable = true, length = 400)
     public String getComment() {
         return comment;
     }
@@ -156,7 +156,7 @@ public class VolunteerRequestMatchEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VolunteerRequestMatchEntity that = (VolunteerRequestMatchEntity) o;
+        RequestOrderEntity that = (RequestOrderEntity) o;
 
         if (id != that.id) return false;
         if (applyUserId != null ? !applyUserId.equals(that.applyUserId) : that.applyUserId != null) return false;

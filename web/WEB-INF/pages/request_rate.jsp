@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 02/01/2018
@@ -21,7 +21,7 @@
 </head>
 <body>
 <%
-    ViewVolunteerRequestMatchDetailEntity match = (ViewVolunteerRequestMatchDetailEntity) request.getAttribute("viewMatchDetailEntity");
+    ViewRequestOrderDetailEntity match = (ViewRequestOrderDetailEntity) request.getAttribute("viewMatchDetailEntity");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">

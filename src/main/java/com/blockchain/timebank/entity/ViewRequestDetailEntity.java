@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "view_volunteer_request_detail", schema = "mydb", catalog = "")
-public class ViewVolunteerRequestDetailEntity {
+@Table(name = "view_request_detail", schema = "mydb", catalog = "")
+public class ViewRequestDetailEntity {
     private Long id;
     private Long serviceId;
     private Long userId;
@@ -15,6 +15,8 @@ public class ViewVolunteerRequestDetailEntity {
     private String address;
     private Timestamp beginTime;
     private Timestamp endTime;
+    private Timestamp createTime;
+    private Byte isComplete;
     private String serviceType;
     private String serviceName;
     private String userName;
@@ -63,7 +65,7 @@ public class ViewVolunteerRequestDetailEntity {
     }
 
     @Basic
-    @Column(name = "Description", nullable = false, length = 300)
+    @Column(name = "Description", nullable = false, length = 400)
     public String getDescription() {
         return description;
     }
@@ -103,7 +105,27 @@ public class ViewVolunteerRequestDetailEntity {
     }
 
     @Basic
-    @Column(name = "ServiceType", nullable = false, length = 45)
+    @Column(name = "CreateTime", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
+    @Column(name = "IsComplete", nullable = true)
+    public Byte getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Byte isComplete) {
+        this.isComplete = isComplete;
+    }
+
+    @Basic
+    @Column(name = "ServiceType", nullable = false, length = 9)
     public String getServiceType() {
         return serviceType;
     }
@@ -167,7 +189,7 @@ public class ViewVolunteerRequestDetailEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ViewVolunteerRequestDetailEntity that = (ViewVolunteerRequestDetailEntity) o;
+        ViewRequestDetailEntity that = (ViewRequestDetailEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (serviceId != null ? !serviceId.equals(that.serviceId) : that.serviceId != null) return false;
@@ -177,6 +199,8 @@ public class ViewVolunteerRequestDetailEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (isComplete != null ? !isComplete.equals(that.isComplete) : that.isComplete != null) return false;
         if (serviceType != null ? !serviceType.equals(that.serviceType) : that.serviceType != null) return false;
         if (serviceName != null ? !serviceName.equals(that.serviceName) : that.serviceName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
@@ -197,6 +221,8 @@ public class ViewVolunteerRequestDetailEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (isComplete != null ? isComplete.hashCode() : 0);
         result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);

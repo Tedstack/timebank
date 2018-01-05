@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
@@ -21,7 +21,7 @@
 </head>
 <body>
 <%
-    List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = (List<ViewVolunteerRequestMatchDetailEntity>) request.getAttribute("matchDetailList");
+    List<ViewRequestOrderDetailEntity> matchDetailList = (List<ViewRequestOrderDetailEntity>) request.getAttribute("matchDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -126,14 +126,12 @@
                 </div>
 
                 <img src="../img/底部.png" width="100%" height="15">
+                <br/>
+                <%}%>
+                <!--一个订单详情结束，以上可修改-->
             </div>
-            <br>
-        </div>
-        <%}%>
-        <!--一个订单详情结束，以上可修改-->
-    </div>
     <!--weui-tab_panel的结束位置-->
-</div>
+        </div>
 </div>
 <div class="weui-tabbar" style="height: 50px">
     <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">

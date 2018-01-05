@@ -1,8 +1,9 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 02/01/2018
@@ -20,7 +21,7 @@
 </head>
 <body>
 <%
-    List<ViewVolunteerRequestDetailEntity> requestList = (List<ViewVolunteerRequestDetailEntity>) request.getAttribute("requestPublished");
+    List<ViewRequestDetailEntity> requestList = (List<ViewRequestDetailEntity>) request.getAttribute("requestPublished");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">

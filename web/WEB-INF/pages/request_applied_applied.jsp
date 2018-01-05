@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
@@ -50,7 +50,7 @@
             <div class="weui-tab__panel" style="padding-bottom: 50px; padding-top: 70px">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = (List<ViewVolunteerRequestMatchDetailEntity>) request.getAttribute("matchDetailList");
+                    List<ViewRequestOrderDetailEntity> matchDetailList = (List<ViewRequestOrderDetailEntity>) request.getAttribute("matchDetailList");
                 %>
                 <%
                     for (int i=0;i<matchDetailList.size();i++) {

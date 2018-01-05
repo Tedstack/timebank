@@ -1,6 +1,6 @@
-<%@ page import="com.blockchain.timebank.entity.VolunteerRequestMatchEntity" %>
+<%@ page import="com.blockchain.timebank.entity.RequestOrderEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
-<%@ page import="com.blockchain.timebank.entity.VolunteerRequestEntity" %>
+<%@ page import="com.blockchain.timebank.entity.RequestEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
@@ -19,9 +19,9 @@
 </head>
 <body>
 <%
-    VolunteerRequestMatchEntity matchEntity = (VolunteerRequestMatchEntity) request.getAttribute("matchEntity");
+    RequestOrderEntity matchEntity = (RequestOrderEntity) request.getAttribute("matchEntity");
     UserEntity userEntity = (UserEntity) request.getAttribute("userEntity");
-    VolunteerRequestEntity requestEntity = (VolunteerRequestEntity) request.getAttribute("requestEntity");
+    RequestEntity requestEntity = (RequestEntity) request.getAttribute("requestEntity");
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 %>
 <div class="weui-cells">

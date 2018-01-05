@@ -1,7 +1,8 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.math.BigDecimal" %><%--
+<%@ page import="java.math.BigDecimal" %>
+<%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 02/01/2018
@@ -22,14 +23,14 @@
 <body>
 
 <%
-    ViewVolunteerRequestDetailEntity detailEntity = (ViewVolunteerRequestDetailEntity) request.getAttribute("detail");
+    ViewRequestDetailEntity detailEntity = (ViewRequestDetailEntity) request.getAttribute("detail");
 %>
 
 
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
-        <form onsubmit="return check()" action="${pageContext.request.contextPath}/request/volunteerApplySubmit" method="post">
+        <form onsubmit="return check()" action="${pageContext.request.contextPath}/request/applySubmit" method="post">
             <input style="display: none" type="number" name="requestUserId" value="<%=detailEntity.getUserId()%>"/>
             <input style="display: none" type="number" name="requestId" value="<%=detailEntity.getId()%>"/>
 
@@ -72,7 +73,23 @@
 
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <label class="weui-label"><%out.print(detailEntity.getServiceType().replace("服务", "需求"));%></label>
+                    <label class="weui-label">
+                        <%
+                            String type = null;
+                            switch (detailEntity.getServiceType()){
+                                case "volunteer":
+                                    type = "志愿者需求";
+                                    break;
+                                case "technic":
+                                    type = "专业需求";
+                                    break;
+                                case "mutualAid":
+                                    type = "互助需求";
+                                    break;
+                            }
+                            out.print(type);
+                        %>
+                    </label>
                 </div>
                 <div class="weui-cell__ft">
                     <p><img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png"

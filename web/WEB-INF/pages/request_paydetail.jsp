@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %><%--
@@ -23,7 +23,7 @@
 </head>
 <body>
 <%
-    ViewVolunteerRequestMatchDetailEntity matchDetail = (ViewVolunteerRequestMatchDetailEntity) request.getAttribute("viewMatchDetailEntity");
+    ViewRequestOrderDetailEntity matchDetail = (ViewRequestOrderDetailEntity) request.getAttribute("viewMatchDetailEntity");
     String volunteerService = "志愿者需求";
 %>
 

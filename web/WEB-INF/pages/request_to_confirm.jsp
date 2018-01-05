@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -21,7 +21,7 @@
 </head>
 <body>
 <%
-    List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = (List<ViewVolunteerRequestMatchDetailEntity>) request.getAttribute("matchDetailList");
+    List<ViewRequestOrderDetailEntity> matchDetailList = (List<ViewRequestOrderDetailEntity>) request.getAttribute("matchDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -110,8 +110,8 @@
                                     %>
                                 </p></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleVolunteerRequestMatch?handle=refuse&matchID=<%out.print(matchDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleVolunteerRequestMatch?handle=confirm&matchID=<%out.print(matchDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleRequestMatch?handle=refuse&matchID=<%out.print(matchDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleRequestMatch?handle=confirm&matchID=<%out.print(matchDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
                             </div>
                         </div>
                     </div>

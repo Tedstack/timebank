@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "volunteerRequest", schema = "mydb", catalog = "")
-public class VolunteerRequestEntity {
+@Table(name = "request", schema = "mydb", catalog = "")
+public class RequestEntity {
     private long id;
     private Long userId;
     private Long serviceId;
@@ -18,7 +18,9 @@ public class VolunteerRequestEntity {
     private String address;
     private Timestamp beginTime;
     private Timestamp endTime;
+    private Byte isComplete;
     private String extra;
+    private Timestamp createTime;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -51,7 +53,7 @@ public class VolunteerRequestEntity {
     }
 
     @Basic
-    @Column(name = "Description", nullable = false, length = 300)
+    @Column(name = "Description", nullable = false, length = 400)
     public String getDescription() {
         return description;
     }
@@ -131,6 +133,16 @@ public class VolunteerRequestEntity {
     }
 
     @Basic
+    @Column(name = "IsComplete", nullable = true)
+    public Byte getIsComplete() {
+        return isComplete;
+    }
+
+    public void setIsComplete(Byte isComplete) {
+        this.isComplete = isComplete;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -140,12 +152,22 @@ public class VolunteerRequestEntity {
         this.extra = extra;
     }
 
+    @Basic
+    @Column(name = "CreateTime", nullable = true)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VolunteerRequestEntity that = (VolunteerRequestEntity) o;
+        RequestEntity that = (RequestEntity) o;
 
         if (id != that.id) return false;
         if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
@@ -160,7 +182,9 @@ public class VolunteerRequestEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (isComplete != null ? !isComplete.equals(that.isComplete) : that.isComplete != null) return false;
         if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
 
         return true;
     }
@@ -178,7 +202,9 @@ public class VolunteerRequestEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (isComplete != null ? isComplete.hashCode() : 0);
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;
     }
 }

@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="javax.swing.text.html.HTMLDocument" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 29/12/2017
@@ -15,18 +16,18 @@
     <title>发布需求</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <script src="../js/zepto/zepto.min.js"></script>
-    <script src="../js/zepto/weui.min.js"></script>
-    <script src="../js/scan/function.js"></script>
+    <script src="../../js/zepto/zepto.min.js"></script>
+    <script src="../../js/zepto/weui.min.js"></script>
+    <script src="../../js/scan/function.js"></script>
 </head>
 <body>
 
 <%
-    Map<String, ArrayList<String>> map = new HashMap<>();
+    Map<String, Map<Long, String>> map = new HashMap<>();
     List<ServiceEntity> list = (List<ServiceEntity>) request.getAttribute("service_list");
     for (ServiceEntity service : list) {
-        if (!map.containsKey(service.getType())) map.put(service.getType(), new ArrayList<String>());
-        map.get(service.getType()).add(service.getName());
+        if (!map.containsKey(service.getType())) map.put(service.getType(), new HashMap<Long, String>());
+        map.get(service.getType()).put(service.getId(), service.getName());
     }
 %>
 
@@ -57,7 +58,7 @@
 
                 <%
                     for (String type : map.keySet()) {
-                        List<String> names = map.get(type);
+                        Iterator id_names = map.get(type).entrySet().iterator();
                 %>
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after weui-name" id="<%out.print(type);%>">
@@ -65,10 +66,11 @@
                         <label class="weui-label">需求名称</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="serviceName">
+                        <select class="weui-select" name="serviceId">
                             <%
-                                for (String name : names) {
-                                    out.print("<option value='" + name + "'>" + name + "</option>");
+                                while(id_names.hasNext()) {
+                                    Map.Entry entry = (Map.Entry) id_names.next();
+                                    out.print("<option value='" + entry.getKey().toString() + "'>" + entry.getValue() + "</option>");
                                 }
                             %>
                         </select>
@@ -168,7 +170,7 @@
         $('.weui-name:gt(0)').hide();$('.weui-name:gt(0)').find('.weui-select').attr("name","");
         $('.weui-select:eq(0)').change(function () {
             $('.weui-name').hide();$('.weui-name').find('.weui-select').attr("name","");
-            $('#'+$(this).val()).show();$('#'+$(this).val()).find('.weui-select').attr("name","serviceName");
+            $('#'+$(this).val()).show();$('#'+$(this).val()).find('.weui-select').attr("name","serviceId");
         });
     });
 
@@ -196,7 +198,9 @@
         }
         if(beginTime != "" && endTime != ""){
             beginTime = beginTime.replace(/\-/gi,"/");
+            beginTime = beginTime.replace("T"," ");
             endTime = endTime.replace(/\-/gi,"/");
+            endTime = endTime.replace("T"," ");
             beginTime = new Date(beginTime).getTime();
             endTime = new Date(endTime).getTime();
             if(beginTime>endTime){

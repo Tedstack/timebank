@@ -4,8 +4,8 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
-import com.blockchain.timebank.service.VolunteerRequestMatchService;
-import com.blockchain.timebank.service.VolunteerRequestService;
+import com.blockchain.timebank.service.RequestOrderService;
+import com.blockchain.timebank.service.RequestService;
 import com.blockchain.timebank.weixin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +36,10 @@ public class RequestController {
     ServiceService serviceService;
 
     @Autowired
-    VolunteerRequestService volunteerRequestService;
+    RequestService requestService;
 
     @Autowired
-    VolunteerRequestMatchService volunteerRequestMatchService;
+    RequestOrderService requestOrderService;
 
     //发布需求页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -46,83 +47,69 @@ public class RequestController {
         UserEntity user =  getCurrentUser();
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
         map.addAttribute("service_list", list);
-        return "request_add";
+        return "request/add";
     }
 
     //发布需求提交接口
     @RequestMapping(value = "/add/submit", method = RequestMethod.POST)
     public String addSubmitPage(ModelMap map,
-                                @RequestParam String serviceType,
-                                @RequestParam String serviceName,
+                                @RequestParam Long serviceId,
                                 @RequestParam String description,
                                 @RequestParam String beginTime,
                                 @RequestParam String endTime,
                                 @RequestParam BigDecimal price,
                                 @RequestParam String address) {
         try {
-            if (serviceType.equals("志愿者服务")) {
-                try {
-                    UserEntity user =  getCurrentUser();
-                    VolunteerRequestEntity volunteerRequestEntity = new VolunteerRequestEntity();
-                    volunteerRequestEntity.setAddress(address);
-                    volunteerRequestEntity.setDescription(description);
-                    volunteerRequestEntity.setUserId(user.getId());
-                    volunteerRequestEntity.setPrice(price);
-                    volunteerRequestEntity.setServiceId(serviceService.findFirstByTypeAndName(serviceType, serviceName).getId());//serviceId
-                    Date beginDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(beginTime);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-                    Date endDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(endTime);
-                    volunteerRequestEntity.setBeginTime(new Timestamp(beginDateTime.getTime()));
-                    volunteerRequestEntity.setEndTime(new Timestamp(endDateTime.getTime()));
-                    volunteerRequestEntity.setRequesterName(user.getName());
-                    volunteerRequestEntity.setRequesterPhone(user.getPhone());
-                    volunteerRequestEntity.setPayway(1);
-                    volunteerRequestService.saveVolunteerRequestEntity(volunteerRequestEntity);
-                }
-                catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        } catch (Exception e) {
+            UserEntity user =  getCurrentUser();
+            RequestEntity requestEntity = new RequestEntity();
+            requestEntity.setAddress(address);
+            requestEntity.setDescription(description);
+            requestEntity.setUserId(user.getId());
+            requestEntity.setPrice(price);
+            requestEntity.setServiceId(serviceId);//serviceId
+            Date beginDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(beginTime);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(endTime);
+            requestEntity.setBeginTime(new Timestamp(beginDateTime.getTime()));
+            requestEntity.setEndTime(new Timestamp(endDateTime.getTime()));
+            requestEntity.setRequesterName(user.getName());
+            requestEntity.setRequesterPhone(user.getPhone());
+            requestEntity.setPayway(1);
+            requestService.saveRequestEntity(requestEntity);
+        }
+        catch (ParseException e) {
             e.printStackTrace();
         }
-        map.addAttribute("type", serviceType);
-        return "redirect:/request/volunteerList";
+
+        List<ViewRequestDetailEntity> viewRequestDetailEntities = requestService.findAllRequestDetailByType(getServiceTypeById(serviceId));
+        map.addAttribute("list", viewRequestDetailEntities);
+        map.addAttribute("type", getServiceTypeById(serviceId));
+        return "redirect:/request/list";
     }
 
     //志愿者需求详细列表
-    @RequestMapping(value = "/detail_volunteer", method = RequestMethod.GET)
-    public String detailVolunteerPage(ModelMap map, @RequestParam long id) {
-        ViewVolunteerRequestDetailEntity viewVolunteerRequestDetailEntity = volunteerRequestService.findDetailById(id);
-        map.addAttribute("detail", viewVolunteerRequestDetailEntity);
-
-        UserEntity user = userService.findUserEntityById(viewVolunteerRequestDetailEntity.getUserId());
-        String cardID = user.getIdCard();
-        try {
-            Map<String, Object> info =  CommonUtil.getCarInfo(cardID);
-            map.addAttribute("age",info.get("age"));
-        } catch (Exception e) {
-            map.addAttribute("age",-1);
-            e.printStackTrace();
-        }
-
-        map.addAttribute("timeVol", user.getTimeVol());
-        return "request_volunteer/detail";
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public String detailVolunteerPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
+        ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
+        map.addAttribute("detail", viewRequestDetailEntity);
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("currentUser", userEntity);
+        map.addAttribute("type", type);
+        return "request/detail";
     }
 
-    //志愿者申请需求页面
-    @RequestMapping(value = "/volunteerApply", method = RequestMethod.GET)
-    public String volunteerApply(ModelMap map, long id){
+    //申请需求页面
+    @RequestMapping(value = "/apply", method = RequestMethod.GET)
+    public String apply(ModelMap map, long id){
         UserEntity userEntity = getCurrentUser();
-        map.addAttribute("detail", volunteerRequestService.findDetailById(id));
+        map.addAttribute("detail", requestService.findDetailById(id));
         map.addAttribute("name", userEntity.getName());
         map.addAttribute("phone", userEntity.getPhone());
-        return "request_volunteer/apply";
+        return "request/apply";
     }
 
-    //志愿者需求申请提交
-    @RequestMapping(value = "/volunteerApplySubmit", method = RequestMethod.POST)
-    public String volunteerApplySubmit(ModelMap map,
+    //需求申请提交
+    @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)
+    public String applySubmit(ModelMap map,
                                        @RequestParam long requestUserId,
                                        @RequestParam long requestId,
                                        @RequestParam String beginTime,
@@ -134,16 +121,16 @@ public class RequestController {
             isOneself = true;
         }
         try {
-            VolunteerRequestMatchEntity volunteerRequestMatchEntity = new VolunteerRequestMatchEntity();
-            volunteerRequestMatchEntity.setApplyUserId(applyUserId);
-            volunteerRequestMatchEntity.setRequestUserId(requestUserId);
-            volunteerRequestMatchEntity.setRequestId(requestId);
-            volunteerRequestMatchEntity.setApplyUserId(getCurrentUser().getId());
+            RequestOrderEntity requestOrderEntity = new RequestOrderEntity();
+            requestOrderEntity.setApplyUserId(applyUserId);
+            requestOrderEntity.setRequestUserId(requestUserId);
+            requestOrderEntity.setRequestId(requestId);
+            requestOrderEntity.setApplyUserId(getCurrentUser().getId());
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            volunteerRequestMatchEntity.setBeginTime(new Timestamp(date.getTime()));
-            volunteerRequestMatchEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
-            volunteerRequestMatchEntity.setStatus(OrderStatus.alreadyApply);
-            volunteerRequestMatchService.saveVolunteerRequestMatchEntity(volunteerRequestMatchEntity);
+            requestOrderEntity.setBeginTime(new Timestamp(date.getTime()));
+            requestOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
+            requestOrderEntity.setStatus(OrderStatus.alreadyApply);
+            requestOrderService.saveVolunteerRequestMatchEntity(requestOrderEntity);
             map.addAttribute("msg","ok");
         } catch (ParseException e) {
             e.printStackTrace();
@@ -154,14 +141,16 @@ public class RequestController {
             map.addAttribute("msg","error");
             map.addAttribute("detail","isOneself");
         }
-        return "request_volunteer/apply_result";
+        return "request/apply_result";
     }
 
-    @RequestMapping(value = "/volunteerList", method = RequestMethod.GET)
-    public String volunteerList(ModelMap map) {
-        List<ViewVolunteerRequestDetailEntity> viewVolunteerRequestDetailEntities = volunteerRequestService.findAllVolunteerRequestDetail();
-        map.addAttribute("list", viewVolunteerRequestDetailEntities);
-        return "request_volunteer/list";
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String volunteerList(ModelMap map, @RequestParam String type) {
+        List<ViewRequestDetailEntity> viewRequestDetailEntities = requestService.findAllRequestDetailByType(type);
+        map.addAttribute("list", viewRequestDetailEntities);
+        map.addAttribute("type", type);
+        return "request/list";
+
     }
 
     //条件筛选需求
@@ -170,30 +159,125 @@ public class RequestController {
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
         map.addAttribute("service_list", list);
         map.addAttribute("type", type);
-        return "service_select";
+        return "request/select";
+    }
+
+    @RequestMapping(value = "/selectList", method = RequestMethod.GET)
+    //public String listPage(ModelMap map, @RequestParam String type, @RequestParam String[] serviceName, @RequestParam Date upperDate, @RequestParam Date lowerDate, @RequestParam String upper, @RequestParam String lower) {
+    public String selectRequestList(ModelMap map, @RequestParam String type,@RequestParam String upper, @RequestParam String lower, @RequestParam String upperDate, @RequestParam String lowerDate, @RequestParam String serviceName) {
+        try {
+            BigDecimal upperPrice = BigDecimal.valueOf(Double.valueOf(upper));
+            BigDecimal lowerPrice = BigDecimal.valueOf(Double.valueOf(lower));
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = sdf.parse(lowerDate);
+            Date endDate = sdf.parse(upperDate);
+            Timestamp lowerTime = new Timestamp(startDate.getTime());
+            Timestamp upperTime = new Timestamp(endDate.getTime());
+            String[] serviceNameArr = serviceName.split(",");
+            //List<ViewPublishDetailEntity> list = selectServiceDao.findPublishEntityByCondition(type, serviceName, upperTime, lowerTime, upperPrice, lowerPrice);
+            List<ViewRequestDetailEntity> list = requestService.findAllByCondition(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
+            //倒序排列
+            Collections.reverse(list);
+            map.addAttribute("list", list);
+            map.addAttribute("type", type);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return "request/list";
     }
 
     //需求者处理订单
-    @RequestMapping(value = "/handleVolunteerRequestMatch", method = RequestMethod.GET)
-    public String handleApplicantRecord(ModelMap map,@RequestParam long matchID,@RequestParam String handle){
-        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchID);
+    @RequestMapping(value = "/handleRequestMatch", method = RequestMethod.GET)
+    public String handleRequestMatch(ModelMap map,@RequestParam long matchID,@RequestParam String handle){
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
         if(handle.equals("refuse")){
             matchEntity.setStatus(OrderStatus.alreadyRefuse);
-            volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
         }
 
         if(handle.equals("confirm")){
             matchEntity.setStatus(OrderStatus.waitingService);
-            volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
         }
 
         UserEntity userEntity = userService.findUserEntityById(matchEntity.getApplyUserId());
-        VolunteerRequestEntity requestEntity = volunteerRequestService.findRequestById(matchEntity.getRequestId());
+        RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("requestEntity",requestEntity);
         map.addAttribute("matchEntity",matchEntity);
 
-        return "request_volunteer/taken_detail";
+        return "request/taken_detail";
+    }
+
+    @RequestMapping(value = "/published", method = RequestMethod.GET)
+    public String published(ModelMap map){
+        long id = getCurrentUser().getId();
+        
+        List<ViewRequestDetailEntity> requestPublished = requestService.findUserRequestPublished(id);
+        //倒序排列
+        Collections.reverse(requestPublished);
+        map.addAttribute("requestPublished", requestPublished);
+        
+        List<ViewRequestOrderDetailEntity> requestToConfirm = requestOrderService.findUserRequestToConfirm(id);
+        //倒序排列
+        Collections.reverse(requestToConfirm);
+        map.addAttribute("requestToConfirm", requestToConfirm);
+
+        List<ViewRequestOrderDetailEntity> requestToService = requestOrderService.findUserRequestToServe(id);
+        //倒序排列
+        Collections.reverse(requestToService);
+        map.addAttribute("requestToService", requestToService);
+
+        List<ViewRequestOrderDetailEntity> requestToPay = requestOrderService.findUserRequestToPay(id);
+        //倒序排列
+        Collections.reverse(requestToPay);
+        map.addAttribute("requestToPay", requestToPay);
+        
+        List<ViewRequestOrderDetailEntity> requestCompleted = requestOrderService.findUserRequestCompleted(id);
+        //倒序排列
+        Collections.reverse(requestCompleted);
+        map.addAttribute("requestCompleted", requestCompleted);
+        
+        return "request/published";
+
+    }
+
+    @RequestMapping(value = "/applied", method = RequestMethod.GET)
+    public String applied(ModelMap map){
+        long id = getCurrentUser().getId();
+
+        List<ViewRequestOrderDetailEntity> requestApplied = requestOrderService.findUserApplyApplied(id);
+        //倒序排列
+        Collections.reverse(requestApplied);
+        map.addAttribute("requestApplied", requestApplied);
+
+        List<ViewRequestOrderDetailEntity> requestToService = requestOrderService.findUserApplyToServe(id);
+        //倒序排列
+        Collections.reverse(requestToService);
+        map.addAttribute("requestToService", requestToService);
+
+        List<ViewRequestOrderDetailEntity> requestToPay = requestOrderService.findUserApplyToPay(id);
+        //倒序排列
+        Collections.reverse(requestToPay);
+        map.addAttribute("requestToPay", requestToPay);
+
+        List<ViewRequestOrderDetailEntity> requestCompleted = requestOrderService.findUserApplyCompleted(id);
+        //倒序排列
+        Collections.reverse(requestCompleted);
+        map.addAttribute("requestCompleted", requestCompleted);
+        
+        return "request/applied";
+
+    }
+    
+    private String getServiceTypeById(Long id){
+        if(100<=id && id<200)
+            return "volunteer";
+        else if(200<=id && id<300)
+            return "technic";
+        else
+            return "mutualAid";
+
     }
 
     private UserEntity getCurrentUser() {

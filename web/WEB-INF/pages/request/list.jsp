@@ -1,5 +1,6 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestDetailEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 29/12/2017
@@ -19,34 +20,54 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">
             <div class="weui-panel__hd">
-                <span>志愿者需求</span>
-                <a href="javascript:;" onclick="window.location.href='${pageContext.request.contextPath}/request/select?type=volunteer'" style="float:right">筛选</a>
+                <span>
+                    <%
+                        String type = null;
+                        String moneyType = null;
+                        switch ((String) request.getAttribute("type")){
+                            case "volunteer":
+                                type = "志愿者需求";
+                                moneyType = "志愿者时间";
+                                break;
+                            case "technic":
+                                type = "专业需求";
+                                moneyType = "元";
+                                break;
+                            case "mutualAid":
+                                type = "互助需求";
+                                moneyType = "时间币";
+                                break;
+                        }
+                        out.print(type);
+                    %>
+                </span>
+                <a href="javascript:;" onclick="window.location.href='${pageContext.request.contextPath}/request/select?type=<%out.print(request.getAttribute("type"));%>'" style="float:right">筛选</a>
             </div>
             <div class="weui-panel__bd">
 
                 <%
-                    List<ViewVolunteerRequestDetailEntity> list = (List<ViewVolunteerRequestDetailEntity>) request.getAttribute("list");
-                    for (ViewVolunteerRequestDetailEntity viewVolunteerRequestDetailEntity : list) {
+                    List<ViewRequestDetailEntity> list = (List<ViewRequestDetailEntity>) request.getAttribute("list");
+                    for (ViewRequestDetailEntity viewRequestDetailEntity : list) {
                 %>
 
-                <a href="<%out.print("detail_volunteer?id="+viewVolunteerRequestDetailEntity.getId());%>" class="weui-media-box weui-media-box_appmsg">
+                <a href="<%out.print("detail?id="+viewRequestDetailEntity.getId()+"&type="+type);%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" style="" src="<%out.print(viewVolunteerRequestDetailEntity.getHeadImgUrl());%>">
+                        <img class="weui-media-box__thumb" style="" src="<%out.print(viewRequestDetailEntity.getHeadImgUrl());%>">
                     </div>
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title" style="display:inline-block">
-                            <img style="height:20.5px; vertical-align: text-bottom" src="../img/服务名称/<%out.print(viewVolunteerRequestDetailEntity.getServiceName());%>.png" />
-                            <%out.print(viewVolunteerRequestDetailEntity.getServiceName());%>
+                            <img style="height:20.5px; vertical-align: text-bottom" src="../img/服务名称/<%out.print(viewRequestDetailEntity.getServiceName());%>.png" />
+                            <%out.print(viewRequestDetailEntity.getServiceName());%>
                         </h4>
                         <p class="weui-media-box__desc">
                             <span style="color: #7ACF41;">¥
                                 <%
-                                    out.print(viewVolunteerRequestDetailEntity.getPrice()+"志愿者时间");
+                                    out.print(viewRequestDetailEntity.getPrice()+moneyType);
                                 %>
                             </span>
                             <br/>
-                            <%out.print(viewVolunteerRequestDetailEntity.getUserName());%> &nbsp;&nbsp;&nbsp;
-                            <%out.print(viewVolunteerRequestDetailEntity.getAddress());%>
+                            <%out.print(viewRequestDetailEntity.getUserName());%> &nbsp;&nbsp;&nbsp;
+                            <%out.print(viewRequestDetailEntity.getAddress());%>
                         </p>
                     </div>
                 </a>

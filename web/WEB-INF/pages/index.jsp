@@ -116,12 +116,30 @@
                     </p>
                 </a>
 
-                <a href="${pageContext.request.contextPath}/request/volunteerList" class="weui-grid">
+                <a href="${pageContext.request.contextPath}/request/list?type=volunteer" class="weui-grid">
                     <div class="weui-grid__icon">
                         <img src="img/服务类型/志愿者服务.png" alt="">
                     </div>
                     <p class="weui-grid__label">
                         志愿者需求
+                    </p>
+                </a>
+
+                <a href="${pageContext.request.contextPath}/request/list?type=mutualAid" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/服务类型/互助.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        互助需求
+                    </p>
+                </a>
+
+                <a href="${pageContext.request.contextPath}/request/list?type=technic" class="weui-grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/服务类型/专业.png" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        专业需求
                     </p>
                 </a>
 

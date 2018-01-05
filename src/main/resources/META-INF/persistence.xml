@@ -20,16 +20,16 @@
         <class>com.blockchain.timebank.entity.ViewActivityPublishDetailEntity</class>
         <class>com.blockchain.timebank.entity.UserActivityEntity</class>
         <class>com.blockchain.timebank.entity.ViewUserActivityDetailEntity</class>
-        <class>com.blockchain.timebank.entity.VolunteerRequestEntity</class>
-        <class>com.blockchain.timebank.entity.VolunteerRequestMatchEntity</class>
-        <class>com.blockchain.timebank.entity.ViewVolunteerRequestDetailEntity</class>
-        <class>com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity</class>
+        <class>com.blockchain.timebank.entity.ViewRequestDetailEntity</class>
+        <class>com.blockchain.timebank.entity.ViewRequestOrderDetailEntity</class>
         <class>com.blockchain.timebank.entity.VolunteerPublishEntity</class>
         <class>com.blockchain.timebank.entity.VolunteerMatchEntity</class>
         <class>com.blockchain.timebank.entity.CooperationPublishEntity</class>
         <class>com.blockchain.timebank.entity.CooperationMatchEntity</class>
         <class>com.blockchain.timebank.entity.ProfessionPublishEntity</class>
         <class>com.blockchain.timebank.entity.ProfessionMatchEntity</class>
+        <class>com.blockchain.timebank.entity.RequestEntity</class>
+        <class>com.blockchain.timebank.entity.RequestOrderEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb?characterEncoding=utf-8"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

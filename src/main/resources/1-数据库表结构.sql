@@ -394,12 +394,12 @@ ALTER TABLE `technicAuth`
   ADD CONSTRAINT `technicAuth_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   ADD CONSTRAINT `technicAuth_ibfk_2` FOREIGN KEY (`AuthID`) REFERENCES `userAuth` (`ID`);
 
-#发布志愿者需求表
-CREATE TABLE `volunteerRequest` (
+#发布需求表
+CREATE TABLE `request` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `UserID` bigint(20) NOT NULL COMMENT '发布者ID',
   `ServiceID` bigint(20) NOT NULL COMMENT '服务种类ID',
-  `Description` varchar(300) NOT NULL COMMENT '发布描述',
+  `Description` varchar(400) NOT NULL COMMENT '发布描述',
   `Payway` int(11) NOT NULL COMMENT '支付方式',
   `Price` decimal(12,2) DEFAULT NULL COMMENT '发布价格',
   `RequesterName` varchar(20) NOT NULL COMMENT '需求者姓名',
@@ -407,38 +407,41 @@ CREATE TABLE `volunteerRequest` (
   `Address` varchar(300) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
   `BeginTime` datetime NOT NULL COMMENT '服务起始时间',
   `EndTime` datetime NOT NULL COMMENT '服务结束时间',
+  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `IsComplete` tinyint(1) DEFAULT '0',
   `Extra` varchar(50) DEFAULT NULL COMMENT '其他保留字段',
   PRIMARY KEY (`ID`),
   KEY `volunteerRequest_ID_index` (`ID`),
   KEY `volunteerRequest_ibfk_1` (`UserID`),
   KEY `volunteerRequest_ibfk_2` (`ServiceID`),
-  CONSTRAINT `volunteerRequest_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
-  CONSTRAINT `volunteerRequest_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='发布志愿者需求表';
+  CONSTRAINT `request_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `request_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='发布需求表';
 
-#志愿者需求申请订单表
-CREATE TABLE `volunteerRequestMatch` (
+#需求申请订单表
+CREATE TABLE `requestOrder` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `ApplyUserID` bigint(20) NOT NULL COMMENT '申请者ID',
   `RequestUserID` bigint(20) NOT NULL COMMENT '服务者ID',
   `RequestID` bigint(20) NOT NULL COMMENT '发布服务ID',
   `BeginTime` datetime DEFAULT NULL COMMENT '开始时间',
   `EndTime` datetime DEFAULT NULL COMMENT '结束时间',
+  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ActualBeginTime` datetime DEFAULT NULL COMMENT '实际开始时间',
   `ActualEndTime` datetime DEFAULT NULL COMMENT '实际结束时间',
   `PayMoney` decimal(12,2) DEFAULT NULL COMMENT '实际支付金额',
   `Rate` int(11) DEFAULT NULL COMMENT '服务满意度评分',
-  `Comment` varchar(100) DEFAULT NULL COMMENT '服务评价',
+  `Comment` varchar(400) DEFAULT NULL COMMENT '服务评价',
   `Status` varchar(50) NOT NULL COMMENT '订单状态',
   `Extra` varchar(50) DEFAULT NULL COMMENT '其它保留字段',
   PRIMARY KEY (`ID`),
   KEY `ApplyUserID` (`ApplyUserID`),
   KEY `RequestUserID` (`RequestUserID`),
   KEY `RequestID` (`RequestID`),
-  CONSTRAINT `volunteerRequestMatch_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
-  CONSTRAINT `volunteerRequestMatch_ibfk_2` FOREIGN KEY (`RequestUserID`) REFERENCES `user` (`ID`),
-  CONSTRAINT `volunteerRequestMatch_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `volunteerRequest` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='志愿者需求申请订单表';
+  CONSTRAINT `requestOrder_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `requestOrder_ibfk_2` FOREIGN KEY (`RequestUserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `requestOrder_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `request` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='需求申请订单表';
 
 # 显示志愿者团体活动详细的信息视图
 CREATE VIEW view_activity_publish_detail
@@ -582,66 +585,100 @@ CREATE VIEW view_team_detail
     FROM team, user
     WHERE team.CreatorID = user.ID;
 
-#显示发布志愿者需求详细视图
-CREATE VIEW `view_volunteer_request_detail`
-  AS
-    SELECT
-      `volunteerRequest`.`ID` AS `ID`,
-      `volunteerRequest`.`ServiceID` AS `ServiceID`,
-      `user`.`ID` AS `UserID`,
-      `volunteerRequest`.`Price` AS `Price`,
-      `volunteerRequest`.`Description` AS `Description`,
-      `volunteerRequest`.`Address` AS `Address`,
-      `volunteerRequest`.`BeginTime` AS `BeginTime`,
-      `volunteerRequest`.`EndTime` AS `EndTime`,
-      `service`.`Type` AS `ServiceType`,
-      `service`.`Name` AS `ServiceName`,
-      `user`.`Name` AS `UserName`,
-      `user`.`Sex` AS `Sex`,
-      `user`.`Phone` AS `UserPhone`,
-      `user`.`HeadImgUrl` AS `HeadImgUrl`
-    FROM
-      ((`volunteerRequest`
-        JOIN `user`)
-        JOIN `service`)
-    WHERE
-      ((`volunteerRequest`.`UserID` = `user`.`ID`)
-       AND (`volunteerRequest`.`ServiceID` = `service`.`ID`));
+#显示发布需求详细视图
+CREATE VIEW `mydb`.`view_request_detail` AS
+  SELECT
+    `mydb`.`request`.`ID` AS `ID`,
+    `mydb`.`request`.`ServiceID` AS `ServiceID`,
+    `mydb`.`user`.`ID` AS `UserID`,
+    `mydb`.`request`.`Price` AS `Price`,
+    `mydb`.`request`.`Description` AS `Description`,
+    `mydb`.`request`.`Address` AS `Address`,
+    `mydb`.`request`.`BeginTime` AS `BeginTime`,
+    `mydb`.`request`.`EndTime` AS `EndTime`,
+    `mydb`.`request`.`CreateTime` AS `CreateTime`,
+    `mydb`.`request`.`IsComplete` AS `IsComplete`,
+    (CASE
+     WHEN
+       ((100 <= `mydb`.`request`.`ServiceID`)
+        AND (`mydb`.`request`.`ServiceID` < 200))
+       THEN
+         'volunteer'
+     WHEN
+       ((200 <= `mydb`.`request`.`ServiceID`)
+        AND (`mydb`.`request`.`ServiceID` < 300))
+       THEN
+         'technic'
+     WHEN
+       ((300 <= `mydb`.`request`.`ServiceID`)
+        AND (`mydb`.`request`.`ServiceID` < 400))
+       THEN
+         'mutualAid'
+     END) AS `ServiceType`,
+    `mydb`.`service`.`Name` AS `ServiceName`,
+    `mydb`.`user`.`Name` AS `UserName`,
+    `mydb`.`user`.`Sex` AS `Sex`,
+    `mydb`.`user`.`Phone` AS `UserPhone`,
+    `mydb`.`user`.`HeadImgUrl` AS `HeadImgUrl`
+  FROM
+    ((`mydb`.`request`
+      JOIN `mydb`.`user`)
+      JOIN `mydb`.`service`)
+  WHERE
+    ((`mydb`.`request`.`UserID` = `mydb`.`user`.`ID`)
+     AND (`mydb`.`request`.`ServiceID` = `mydb`.`service`.`ID`));
 
-#显示志愿者需求申请详细视图
-CREATE VIEW `view_volunteer_request_match_detail`
-  AS
-    SELECT
-      `volunteerRequestMatch`.`ID` AS `ID`,
-      `volunteerRequestMatch`.`ApplyUserID` AS `ApplyUserID`,
-      `applyUser`.`Name` AS `ApplyUserName`,
-      `applyUser`.`Phone` AS `ApplyUserPhone`,
-      `volunteerRequest`.`Address` AS `Address`,
-      `volunteerRequestMatch`.`BeginTime` AS `BeginTime`,
-      `volunteerRequestMatch`.`EndTime` AS `EndTime`,
-      `volunteerRequestMatch`.`ActualBeginTime` AS `ActualBeginTime`,
-      `volunteerRequestMatch`.`ActualEndTime` AS `ActualEndTime`,
-      `volunteerRequest`.`Payway` AS `PayWay`,
-      `volunteerRequestMatch`.`PayMoney` AS `PayMoney`,
-      `volunteerRequestMatch`.`Status` AS `Status`,
-      `volunteerRequestMatch`.`RequestID` AS `RequestID`,
-      `volunteerRequest`.`Price` AS `RequestPrice`,
-      `volunteerRequest`.`ServiceID` AS `ServiceID`,
-      `service`.`Type` AS `ServiceType`,
-      `service`.`Name` AS `ServiceName`,
-      `volunteerRequestMatch`.`RequestUserID` AS `RequestUserID`,
-      `requestUser`.`Name` AS `RequestUserName`,
-      `requestUser`.`Phone` AS `RequestUserPhone`,
-      `volunteerRequestMatch`.`Rate` AS `Rate`,
-      `volunteerRequestMatch`.`Comment` AS `Comment`
-    FROM
-      ((((`volunteerRequestMatch`
-        JOIN `user` `requestUser`)
-        JOIN `user` `applyUser`)
-        JOIN `volunteerRequest`)
-        JOIN `service`)
-    WHERE
-      ((`volunteerRequestMatch`.`RequestID` = `volunteerRequest`.`ID`)
-       AND (`volunteerRequest`.`ServiceID` = `service`.`ID`)
-       AND (`volunteerRequestMatch`.`RequestUserID` = `requestUser`.`ID`)
-       AND (`volunteerRequestMatch`.`ApplyUserID` = `applyUser`.`ID`))
+#显示需求申请详细视图
+CREATE VIEW `mydb`.`view_request_order_detail` AS
+  SELECT
+    `mydb`.`requestorder`.`ID` AS `ID`,
+    `mydb`.`requestorder`.`ApplyUserID` AS `ApplyUserID`,
+    `applyUser`.`Name` AS `ApplyUserName`,
+    `applyUser`.`Phone` AS `ApplyUserPhone`,
+    `mydb`.`request`.`Address` AS `Address`,
+    `mydb`.`requestorder`.`BeginTime` AS `BeginTime`,
+    `mydb`.`requestorder`.`EndTime` AS `EndTime`,
+    `mydb`.`requestorder`.`CreateTime` AS `CreateTime`,
+    `mydb`.`requestorder`.`ActualBeginTime` AS `ActualBeginTime`,
+    `mydb`.`requestorder`.`ActualEndTime` AS `ActualEndTime`,
+    `mydb`.`request`.`Payway` AS `PayWay`,
+    `mydb`.`requestorder`.`PayMoney` AS `PayMoney`,
+    `mydb`.`requestorder`.`Status` AS `Status`,
+    `mydb`.`requestorder`.`RequestID` AS `RequestID`,
+    `mydb`.`request`.`Price` AS `RequestPrice`,
+    `mydb`.`request`.`ServiceID` AS `ServiceID`,
+    `mydb`.`request`.`IsComplete` AS `IsComplete`,
+    (CASE
+     WHEN
+       ((100 <= `mydb`.`request`.`ServiceID`)
+        AND (`mydb`.`request`.`ServiceID` < 200))
+       THEN
+         'volunteer'
+     WHEN
+       ((200 <= `mydb`.`request`.`ServiceID`)
+        AND (`mydb`.`request`.`ServiceID` < 300))
+       THEN
+         'technic'
+     WHEN
+       ((300 <= `mydb`.`request`.`ServiceID`)
+        AND (`mydb`.`request`.`ServiceID` < 400))
+       THEN
+         'mutualAid'
+     END) AS `ServiceType`,
+    `mydb`.`service`.`Name` AS `ServiceName`,
+    `mydb`.`requestorder`.`RequestUserID` AS `RequestUserID`,
+    `requestUser`.`Name` AS `RequestUserName`,
+    `requestUser`.`Phone` AS `RequestUserPhone`,
+    `mydb`.`requestorder`.`Rate` AS `Rate`,
+    `mydb`.`requestorder`.`Comment` AS `Comment`
+  FROM
+    ((((`mydb`.`requestorder`
+      JOIN `mydb`.`user` `requestUser`)
+      JOIN `mydb`.`user` `applyUser`)
+      JOIN `mydb`.`request`)
+      JOIN `mydb`.`service`)
+  WHERE
+    ((`mydb`.`requestorder`.`RequestID` = `mydb`.`request`.`ID`)
+     AND (`mydb`.`request`.`ServiceID` = `mydb`.`service`.`ID`)
+     AND (`mydb`.`requestorder`.`RequestUserID` = `requestUser`.`ID`)
+     AND (`mydb`.`requestorder`.`ApplyUserID` = `applyUser`.`ID`));

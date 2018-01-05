@@ -51,10 +51,10 @@ public class UserController {
     AccountService accountService;
 
     @Autowired
-    VolunteerRequestService volunteerRequestService;
+    RequestService requestService;
 
     @Autowired
-    VolunteerRequestMatchService volunteerRequestMatchService;
+    RequestOrderService requestOrderService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -639,7 +639,7 @@ public class UserController {
     //查询用户发布服务的接口：已发布
     @RequestMapping(value = "/queryRequestAlreadyPublish",method = RequestMethod.GET)
     public String queryRequestAlreadyPublish(ModelMap map){
-        List<ViewVolunteerRequestDetailEntity> requestPublished = volunteerRequestService.findUserRequestPublished(getCurrentUser().getId());
+        List<ViewRequestDetailEntity> requestPublished = requestService.findUserRequestPublished(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(requestPublished);
@@ -650,7 +650,7 @@ public class UserController {
     //查询用户发布需求的接口：待确认
     @RequestMapping(value = "/queryRequestWaitingConfirm",method = RequestMethod.GET)
     public String queryRequestWaitingConfirm(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserRequestToConfirm(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailList = requestOrderService.findUserRequestToConfirm(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailList);
@@ -661,7 +661,7 @@ public class UserController {
     //查询用户发布需求的接口：待服务
     @RequestMapping(value = "/queryRequestWaitingService",method = RequestMethod.GET)
     public String queryRequestWaitingService(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailEntities = volunteerRequestMatchService.findUserRequestToServe(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailEntities = requestOrderService.findUserRequestToServe(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailEntities);
@@ -672,7 +672,7 @@ public class UserController {
     //查询用户发布服务的接口：待付款
     @RequestMapping(value = "/queryRequestWaitingCollect",method = RequestMethod.GET)
     public String queryRequestWaitingCollect(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserRequestToPay(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailList = requestOrderService.findUserRequestToPay(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailList);
@@ -683,7 +683,7 @@ public class UserController {
     //查询用户发布服务的接口：已完成
     @RequestMapping(value = "/queryRequestAlreadyComplete",method = RequestMethod.GET)
     public String queryRequestAlreadyComplete(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserRequestCompleted(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailList = requestOrderService.findUserRequestCompleted(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailList);
@@ -700,7 +700,7 @@ public class UserController {
     //查询用户申请需求订单的接口：已申请
     @RequestMapping(value = "/queryRequestMatchAlreadyApply",method = RequestMethod.GET)
     public String queryRequestAlreadyApply(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailEntities = volunteerRequestMatchService.findUserApplyApplied(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailEntities = requestOrderService.findUserApplyApplied(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailEntities);
@@ -711,7 +711,7 @@ public class UserController {
     //查询用户申请需求订单的接口：待服务
     @RequestMapping(value = "/queryRequestMatchWaitingService",method = RequestMethod.GET)
     public String queryRequestMatchWaitingService(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserApplyToServe(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailList = requestOrderService.findUserApplyToServe(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailList);
@@ -722,7 +722,7 @@ public class UserController {
     //查询用户申请需求订单的接口：待收款
     @RequestMapping(value = "/queryRequestMatchWaitingPay",method = RequestMethod.GET)
     public String queryRequestMatchWaitingPay(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserApplyToPay(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailList = requestOrderService.findUserApplyToPay(getCurrentUser().getId());
 
         //倒序排列
         Collections.reverse(matchDetailList);
@@ -733,7 +733,7 @@ public class UserController {
     //查询用户申请需求订单的接口：已完成
     @RequestMapping(value = "/queryRequestMatchAlreadyComplete",method = RequestMethod.GET)
     public String queryRequestMatchAlreadyComplete(ModelMap map){
-        List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = volunteerRequestMatchService.findUserApplyCompleted(getCurrentUser().getId());
+        List<ViewRequestOrderDetailEntity> matchDetailList = requestOrderService.findUserApplyCompleted(getCurrentUser().getId());
         //倒序排列
         Collections.reverse(matchDetailList);
         map.addAttribute("matchDetailList", matchDetailList);
@@ -751,7 +751,7 @@ public class UserController {
 //        thread.start(); //启动进程
 
         map.addAttribute("matchID",matchID);
-        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
         map.addAttribute("isFirst", matchEntity.getActualBeginTime()==null);
         return "request_qr_scan";
     }
@@ -762,7 +762,7 @@ public class UserController {
     public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchId){
         String status = "";
         UserEntity requestUser = userService.findUserEntityByQrCode(qrcode);
-        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchId);
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchId);
         if(matchEntity.getApplyUserId()!=requestUser.getId()){
             status = "notOneself";
         }else{
@@ -787,7 +787,7 @@ public class UserController {
                 matchEntity.setPayMoney(bg);
             }
 
-            volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
             status = "success";
         }
         //map.addAttribute("status",status);
@@ -797,18 +797,18 @@ public class UserController {
     //需求者开始付款
     @RequestMapping(value = "/requestUserStartPay",method = RequestMethod.GET)
     public String requestUserStartPay(ModelMap map,@RequestParam long recordID){
-        ViewVolunteerRequestMatchDetailEntity viewVolunteerRequestMatchDetailEntity = volunteerRequestMatchService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(recordID);
 
-        map.addAttribute("viewMatchDetailEntity",viewVolunteerRequestMatchDetailEntity);
+        map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
         return "service_posted_paydetails";
     }
 
     //需求者跳转到评价订单页面
     @RequestMapping(value = "/requestUserStartEvaluate",method = RequestMethod.GET)
     public String requestUserStartEvaluate(ModelMap map,@RequestParam long recordID){
-        ViewVolunteerRequestMatchDetailEntity viewVolunteerRequestMatchDetailEntity = volunteerRequestMatchService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(recordID);
 
-        map.addAttribute("viewMatchDetailEntity",viewVolunteerRequestMatchDetailEntity);
+        map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
         return "request_rate";
     }
 
@@ -816,19 +816,19 @@ public class UserController {
     @RequestMapping(value = "/requestUserEvaluateRecord",method = RequestMethod.POST)
     @ResponseBody
     public void requestUserEvaluateRecord(ModelMap map,@RequestParam long recordID,@RequestParam double rating,@RequestParam String comment){
-        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(recordID);
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(recordID);
         matchEntity.setRate((int)rating);
         matchEntity.setComment(comment);
-        volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+        requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
     }
 
     //志愿者需求的用户支付志愿者币
     @RequestMapping(value = "/requestUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
     public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
-        ViewVolunteerRequestMatchDetailEntity viewVolunteerRequestMatchDetailEntity = volunteerRequestMatchService.findViewVolunteerRequestMatchDetailEntityById(matchID);
-        if(viewVolunteerRequestMatchDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
-            if(getCurrentUser().getId()==viewVolunteerRequestMatchDetailEntity.getApplyUserId()){
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
+        if(viewRequestOrderDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
+            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getApplyUserId()){
                 accountService.payRequestTimeVol(matchID);
             }
         }

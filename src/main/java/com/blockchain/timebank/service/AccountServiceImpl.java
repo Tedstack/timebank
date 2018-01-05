@@ -17,7 +17,7 @@ public class AccountServiceImpl implements AccountService {
     RecordService recordService;
 
     @Autowired
-    VolunteerRequestMatchService volunteerRequestMatchService;
+    RequestOrderService requestOrderService;
 
     @Transactional
     public void payTimeVol(long recordID) {
@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
 
     public void payRequestTimeVol(long matchID) {
         //1.查询订单价格
-        VolunteerRequestMatchEntity matchEntity = volunteerRequestMatchService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
         BigDecimal price = matchEntity.getPayMoney();
 
         //2.扣除申请者志愿者币账户
@@ -67,6 +67,6 @@ public class AccountServiceImpl implements AccountService {
 
         //4.更改订单状态
         matchEntity.setStatus(OrderStatus.alreadyComplete);
-        volunteerRequestMatchService.updateVolunteerRequestMatchEntity(matchEntity);
+        requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
     }
 }

@@ -1,8 +1,10 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.util.Date" %><%--
+<%@ page import="java.util.Date" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 29/12/2017
@@ -20,10 +22,8 @@
 <body>
 
 <%
-    ViewVolunteerRequestDetailEntity detail = (ViewVolunteerRequestDetailEntity) request.getAttribute("detail");
-    List<ViewVolunteerRequestDetailEntity> recordList = (List<ViewVolunteerRequestDetailEntity>) request.getAttribute("recordList");
-    int age = (int) request.getAttribute("age");
-    double timeVol = (double) request.getAttribute("timeVol");
+    ViewRequestDetailEntity detail = (ViewRequestDetailEntity) request.getAttribute("detail");
+    UserEntity currentUser = (UserEntity) request.getAttribute("currentUser");
 %>
 
 <div class="weui-tab">
@@ -68,8 +68,11 @@
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <a class="weui-btn weui-btn_plain-default" href="${pageContext.request.contextPath}/request/volunteerApply?id=<%=detail.getId()%>">
-                        <%=detail.getPrice()%>志愿者时间/小时 申请需求
+                    <a id="requestApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/request/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
+                        <%=detail.getPrice()%>志愿者时间/小时 申请服务
+                    </a>
+                    <a id="requestOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
+                        服务已过期，不可申请
                     </a>
                 </div>
             </div>
@@ -109,5 +112,47 @@
         </a>
     </div>
 </div>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script language="javascript">
+    $(document).ready(function () {
+        var detailEndDate = "<%out.print(detail.getEndTime().toString().substring(0,10));%>";
+        detailEndDate =detailEndDate.replace(/\-/gi,"/");
+        var detailEndTime = new Date(detailEndDate).getTime();
+        var nowDate = new Date(new Date().Format("yyyy/MM/dd"))
+        var nowTime = nowDate.getTime();
+        if(detailEndTime < nowTime){
+            $("#requestApply-button").hide();
+            $("#requestOverDate-button").show();
+        } else{
+            $("#requestApply-button").show();
+            $("#requestOverDate-button").hide();
+        }
+        var currentUserId = "";
+        if(<%out.print(currentUser != null);%>) {
+            currentUserId = <%out.print(currentUser.getId());%>;
+        }
+        var publishUserId = <%out.print(detail.getUserId());%>;
+        if(currentUserId != "" && currentUserId == publishUserId){
+            $("#requestApply-button").hide();
+            $("#requestOverDate-button").show();
+            $("#requestOverDate-button").html("不可申请自己的服务");
+        }
+    });
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+</script>
 </body>
 </html>

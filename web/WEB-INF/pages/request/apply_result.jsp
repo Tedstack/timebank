@@ -30,7 +30,7 @@
     </div>
     <div class="weui-msg__text-area">
         <label class="weui-msg__title" id="status">预约成功</label>
-        <p class="weui-msg__desc">等待需求者确认<a href="${pageContext.request.contextPath}/user/queryOrderAlreadyApply">查看我的订单</a></p>
+        <p class="weui-msg__desc">等待需求者确认<a href="${pageContext.request.contextPath}/user/queryRequestMatchAlreadyApply">查看我的订单</a></p>
     </div>
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">

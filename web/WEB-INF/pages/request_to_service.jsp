@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewVolunteerRequestMatchDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
@@ -21,7 +21,7 @@
 </head>
 <body>
 <%
-    List<ViewVolunteerRequestMatchDetailEntity> matchDetailList = (List<ViewVolunteerRequestMatchDetailEntity>) request.getAttribute("matchDetailList");
+    List<ViewRequestOrderDetailEntity> matchDetailList = (List<ViewRequestOrderDetailEntity>) request.getAttribute("matchDetailList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -117,7 +117,7 @@
                                 %>
                             </p></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/userdetail" class="weui-btn weui-btn_mini weui-btn_primary">二维码</a></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/startModifyPersonalInfo" class="weui-btn weui-btn_mini weui-btn_primary">二维码</a></div>
                         </div>
                     </div>
                 </div>
