@@ -32,7 +32,7 @@
             </div>
             <div class="weui-cell__ft">
                 <%
-                    if(userActivityList.get(i).getRating()==null){
+                    if(userActivityList.get(i).getManagerRating()==null){
                         out.print("<a href='"+ request.getContextPath() +"/team/managerUserStartEvaluateUser?userActivityID="+ userActivityList.get(i).getId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
                     }else{
                         out.print("<a class='weui-btn weui-btn_mini weui-btn_default'>已评</a>");

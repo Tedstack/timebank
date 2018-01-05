@@ -104,8 +104,14 @@
                                 <div class="weui-flex__item"diaplay="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
-                                <%--<div class="weui-flex__item"><a href="" class="weui-btn weui-btn_mini weui-btn_default">举报</a></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/pingjia_activities" class="weui-btn weui-btn_mini weui-btn_primary">评价</a></div>--%>
+                                <div class="weui-flex__item">
+                                    <%
+                                        if(userActivityList.get(i).getUserComment()==null)
+                                            out.print("<a href='"+ request.getContextPath() +"/record/pingjia_activities?activityId="+userActivityList.get(i).getActivityId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
+                                        else
+                                            out.print("<a class='weui-btn weui-btn_mini weui-btn_primary'>已评价</a>");
+                                    %>
+                                </div>
                             </div>
                         </div>
 
@@ -117,7 +123,6 @@
             </div>
             <!--weui-tab_panel的结束位置-->
         </div>
-    </div>
     <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">

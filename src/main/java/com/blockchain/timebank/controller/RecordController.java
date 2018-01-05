@@ -1,5 +1,6 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.PublishService;
@@ -35,6 +36,9 @@ public class RecordController {
     @Autowired
     PublishService publishService;
 
+    @Autowired
+    ViewActivityPublishDetailDao viewActivityPublishDetailDao;
+
     //申请服务页面
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public String applyPage(ModelMap map, long id) {
@@ -54,8 +58,9 @@ public class RecordController {
 
     //申请评价活动页面（参与活动的成员）
     @RequestMapping(value = "/pingjia_activities", method = RequestMethod.GET)
-    public String Pingjiaactivities(ModelMap map) {
-
+    public String Pingjiaactivities(ModelMap map,@RequestParam long activityId) {
+        ViewActivityPublishDetailEntity activityy=viewActivityPublishDetailDao.findOne(activityId);
+        map.addAttribute("activityDetail",activityy);
         return "activities_rate";
     }
 

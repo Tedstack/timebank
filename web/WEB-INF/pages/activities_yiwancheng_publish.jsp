@@ -85,7 +85,7 @@
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <div class="weui-flex">
-                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/managerGetEvaluateList?activityID=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"diaplay="none"></div>

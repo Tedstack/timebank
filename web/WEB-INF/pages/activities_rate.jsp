@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/20
@@ -21,6 +21,9 @@
     <script src="../js/scan/function.js"></script>
 </head>
 <body>
+<%
+    ViewActivityPublishDetailEntity activityDetail=(ViewActivityPublishDetailEntity) request.getAttribute("activityDetail");
+%>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-panel weui-panel_access">
@@ -35,14 +38,12 @@
                         <img class="weui-media-box__thumb" src="../img/服务名称/旅居.png" alt="">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">活动名称</h4>
-                        <p class="weui-media-box__desc">活动组织者</p>
-                        <p class="weui-media-box__desc">活动梗概</p>
-                        <ul class="weui-media-box__info">
-                            <li class="weui-media-box__info__meta">内容1</li>
-                            <li class="weui-media-box__info__meta">内容2</li>
-                            <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"></li>
-                            <li class="weui-media-box__info__meta">内容3</li>
+                        <h4 class="weui-media-box__title">活动名称:<%out.print(activityDetail.getName());%></h4>
+                        <p class="weui-media-box__desc">活动组织:<%out.print(activityDetail.getTeamName());%></p>
+                        <p class="weui-media-box__desc">活动梗概:</p>
+                        <ul class="weui-media-box__info" style="margin-top: 1px;">
+                            <li class="weui-media-box__info__meta">地点:<%out.print(activityDetail.getAddress());%></li>
+                            <li class="weui-media-box__info__meta">简介:<%out.print(activityDetail.getDescription());%></li>
                         </ul>
                     </div>
                 </a>
@@ -71,7 +72,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：服务非常满意，服务者的态度也很好" rows="3"></textarea>
+                    <textarea name="text" class="weui-textarea" id="commentIndex" placeholder="例：活动丰富有意义" rows="3"></textarea>
                 </div>
             </div>
         </div>
@@ -82,7 +83,7 @@
                     <div class="weui-flex__item"display="none"></div>
                     <div class="weui-flex__item"display="none"></div>
                     <div class="weui-flex__item"display="none"></div>
-                    <div class="weui-flex__item"><div class="weui-btn weui-btn_mini weui-btn_primary" id="btn">提交</div></div>
+                    <div class="weui-flex__item"><a class="weui-btn weui-btn_mini weui-btn_primary" id="submitComment">提交</a></div>
                 </div>
             </div>
         </div>
@@ -103,5 +104,54 @@
             }
         }
     })
+    var contextPath="${pageContext.request.contextPath}";
+    var activityId='<%=activityDetail.getId()%>';
+    $(function() {
+        $("#submitComment").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/userEvaluateActivity";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyCompleteActivities2";
+            var starNum = 0;
+            var starText = $('#app').text();
+            var comment = $('#commentIndex').val();
+            if(starText==="极差"){
+                starNum = 1;
+            }
+            if(starText==="失望"){
+                starNum = 2;
+            }
+            if(starText==="一般"){
+                starNum = 3;
+            }
+            if(starText==="满意"){
+                starNum = 4;
+            }
+            if(starText==="惊喜"){
+                starNum = 5;
+            }
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "userActivityID=" + activityId + "&rating=" + starNum + "&comment=" + comment,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="ok"){
+                        showAlert("评价成功",function () {
+                            goTo(targetUrl2);
+                        })
+                    }
+                },
+                error: function (xhr, type) {
+                    alert(type);
+                    showAlert("评价失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        });
+    });
 </script>
 </html>

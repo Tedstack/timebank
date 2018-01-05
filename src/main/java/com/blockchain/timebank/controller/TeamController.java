@@ -433,6 +433,14 @@ public class TeamController {
         return "user_activity_rate_list";
     }
 
+    //获取成员对活动的评价
+    @RequestMapping(value = "/managerGetEvaluateList",method = RequestMethod.GET)
+    public String managerGetEvaluateList(ModelMap map,@RequestParam long activityID){
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresentAndStatus(activityID, true, true, ActivityStatus.alreadyTerminate);
+        map.addAttribute("userActivityList",userActivityList);
+        return "user_activity_comment_list";
+    }
+
     //跳转到待评价团员评价页面
     @RequestMapping(value = "/managerUserStartEvaluateUser",method = RequestMethod.GET)
     public String managerUserStartEvaluateUser(ModelMap map,@RequestParam long userActivityID){
@@ -445,12 +453,23 @@ public class TeamController {
     //申请者评价团员
     @RequestMapping(value = "/managerUserEvaluateUser",method = RequestMethod.POST)
     @ResponseBody
-    public String managerUserEvaluateUser(ModelMap map,@RequestParam long userActivityID,@RequestParam double rating,@RequestParam String comment){
+    public String managerUserEvaluateUser(@RequestParam long userActivityID,@RequestParam double rating,@RequestParam String comment){
         UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
-        userActivityEntity.setRating(rating);
-        userActivityEntity.setComment(comment);
+        userActivityEntity.setManagerRating(rating);
+        userActivityEntity.setManagerComment(comment);
         userActivityService.updateUserActivityEntity(userActivityEntity);
 
+        return "ok";
+    }
+
+    //团员评价活动
+    @RequestMapping(value = "/userEvaluateActivity",method = RequestMethod.POST)
+    @ResponseBody
+    public String userEvaluateActivity(@RequestParam long userActivityID,@RequestParam double rating,@RequestParam String comment){
+        UserActivityEntity userActivityEntity = userActivityService.findUserFromActivity(getCurrentUser().getId(),userActivityID);
+        userActivityEntity.setUserRating(rating);
+        userActivityEntity.setUserComment(comment);
+        userActivityService.updateUserActivityEntity(userActivityEntity);
         return "ok";
     }
 
@@ -460,7 +479,7 @@ public class TeamController {
         long userID = userActivityEntity.getUserId();
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(userID,true,true,ActivityStatus.alreadyTerminate);
         for(int i=userActivityList.size()-1;i>=0;i--){
-            if(userActivityList.get(i).getRating()==null){
+            if(userActivityList.get(i).getManagerRating()==null){
                 userActivityList.remove(i);
             }
         }
