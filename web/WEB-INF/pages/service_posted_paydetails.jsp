@@ -15,6 +15,10 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
+    <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/refundRobot.js"></script>
+    <script src="../js/scan/configs.js"></script>
 </head>
 <body>
 <%
@@ -106,10 +110,18 @@
                         dialogLoading.hide();
                     }
                 });
-            }else{
-                showAlert("当前不支持非志愿者服务类型的订单支付")
-            }
+            }else {
+                wx.scanQRCode(
+                    {
+                        needResult: 0,
+                        success: function (res) {
 
+                            //alert(JSON.stringify(res.resultStr));
+
+                        }
+                    }
+                );
+            }
         });
     });
 </script>

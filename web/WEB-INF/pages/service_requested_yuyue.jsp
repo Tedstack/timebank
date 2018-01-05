@@ -84,12 +84,7 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__bd">
-                            <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item" style="color:#7ACF41">等待接受申请</div>
-                            </div>
+                            <p class="weui-tabbar__label" style="float:right;color:#76b852;font-size:16px">等待接受申请</p>
                         </div>
                     </div>
                 </div>

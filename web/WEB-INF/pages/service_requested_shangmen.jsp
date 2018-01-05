@@ -93,9 +93,9 @@
                                     if(recordDetailList.get(i).getServiceId() / 100 == 1)
                                         out.print("（志愿者时间）");
                                     else if (recordDetailList.get(i).getServiceId() / 100 == 2)
-                                        out.print("（时间币）");
+                                        out.print("（元）");
                                     else
-                                        out.print("（元)");
+                                        out.print("（时间币)");
                                 %>
                             </p>
                             <p class="weui-media-box__desc">服务人员 : <%out.print(recordDetailList.get(i).getServiceUserName());%></p>
