@@ -81,10 +81,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="weui-cells weui-cells_form">
-                    <div class="weui-btn-area">
-                        <a class="weui-btn weui-btn_primary" id="button1" type="button" href="javascript:;">提交审核</a>
-                    </div>
+                <div class="weui-btn-area">
+                    <a class="weui-btn weui-btn_primary" id="button1" type="button" href="javascript:;">提交审核</a>
                 </div>
             </form>
 

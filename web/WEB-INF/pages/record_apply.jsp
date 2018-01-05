@@ -15,8 +15,6 @@
     <title>服务申请</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link href="../css/mobile-main.css" rel="stylesheet" />
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
@@ -34,135 +32,146 @@
         <form onsubmit="return check()" action="${pageContext.request.contextPath}/record/applySubmit" method="post">
 
             <%--<div class="page">--%>
+            <div class="weui-cells">
+                <input style="display: none" type="number" name="serviceUserId" value="<%=detailEntity.getUserId()%>"/>
+                <input style="display: none" type="number" name="publishId" value="<%=detailEntity.getId()%>"/>
 
-            <input style="display: none" type="number" name="serviceUserId" value="<%=detailEntity.getUserId()%>"/>
-            <input style="display: none" type="number" name="publishId" value="<%=detailEntity.getId()%>"/>
-
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><p>姓名</p></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" name="applyUserName" type="text"
-                           value="<%out.print(request.getAttribute("name"));%>"/>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">姓名</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="applyUserName" type="text"
+                               value="<%out.print(request.getAttribute("name"));%>"/>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><p>手机号</p></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
-                           value="<%out.print(request.getAttribute("phone"));%>"/>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">手机号</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
+                               value="<%out.print(request.getAttribute("phone"));%>"/>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><p>服务地址</p></div>
-                <div class="weui-cell__bd">
-                    <input id="service_address" class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务地址</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input id="service_address" class="weui-input" name="address" type="text" placeholder="请输入上门服务地址"/>
+                    </div>
                 </div>
-            </div>
 
-                <%
-                    Date nowDate = new Date();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-                    String nowTime = formatter.format(nowDate);
-                %>
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><p>开始时间</p></div>
-                <div class="weui-cell__bd">
-                    <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>">
+                    <%
+                        Date nowDate = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                        String nowTime = formatter.format(nowDate);
+                    %>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">开始时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>">
+                    </div>
                 </div>
-            </div>
 
-            <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>服务时间</p>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务时间</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="serveTime" id="select_serveTime">
+                            <option value="1">1小时</option>
+                            <option value="2">2小时</option>
+                            <option value="3">3小时</option>
+                            <option value="4">4小时</option>
+                            <option value="5">5小时</option>
+                            <option value="6">6小时</option>
+                            <option value="7">7小时</option>
+                            <option value="8">8小时</option>
+                            <option value="9">9小时</option>
+                            <option value="10">10小时</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="weui-cell__bd">
-                    <select class="weui-select" name="serveTime" id="select_serveTime">
-                        <option value="1">1小时</option>
-                        <option value="2">2小时</option>
-                        <option value="3">3小时</option>
-                        <option value="4">4小时</option>
-                        <option value="5">5小时</option>
-                        <option value="6">6小时</option>
-                        <option value="7">7小时</option>
-                        <option value="8">8小时</option>
-                        <option value="9">9小时</option>
-                        <option value="10">10小时</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>支付方式</p>
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">支付方式</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="payWay">
+                            <%
+                                if (detailEntity.getServiceType().equals("志愿者服务")) {
+                                    out.print("<option value='1'>志愿者时间</option>");
+                                } else if(detailEntity.getServiceType().equals("互助服务")){
+                                    out.print("<option value='2'>时间币</option>");
+                                }else{
+                                    out.print("<option value='3'>元</option>");
+                                }
+                            %>
+                        </select>
+                    </div>
                 </div>
-                <div class="weui-cell__bd">
-                    <select class="weui-select" name="payWay">
-                        <%
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label"><%out.print(detailEntity.getServiceType());%></label>
+                    </div>
+                    <div class="weui-cell__bd"></div>
+                    <div class="weui-cell__ft">
+                        <img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png" style="height:18px;margin-right:5px;display:inline;vertical-align: text-bottom">
+                        <span><%out.print(detailEntity.getServiceName());%>服务</span>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务单价</label>
+                    </div>
+                    <div class="weui-cell__bd"></div>
+                    <div class="weui-cell__ft">
+                        <span id="eachPrice"><%out.print(detailEntity.getPrice());%>
+                            <%
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                out.print("<option value='1'>志愿者时间</option>");
+                                out.print("（志愿者时间/h）");
                             } else if(detailEntity.getServiceType().equals("互助服务")){
-                                out.print("<option value='2'>时间币</option>");
-                            }else{
-                                out.print("<option value='3'>元</option>");
+                                out.print("（时间币/h）");
+                            } else{
+                                out.print("（元/h）");
                             }
-                        %>
-                    </select>
+                        %></span>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">预计付费</label>
+                    </div>
+                    <div class="weui-cell__bd"></div>
+                    <div class="weui-cell__ft">
+                        <span id="sumPrice"><%out.print(detailEntity.getPrice());%></span>
+
+                        <span><%
+                            if (detailEntity.getServiceType().equals("志愿者服务")) {
+                                out.print("（志愿者时间/h）");
+                            } else if(detailEntity.getServiceType().equals("互助服务")){
+                                out.print("（时间币/h）");
+                            } else{
+                                out.print("（元/h）");
+                            }
+                        %></span>
+                    </div>
                 </div>
             </div>
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p><%out.print(detailEntity.getServiceType());%></p>
-                </div>
-                <div class="weui-cell__hd"><img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png"
-                                                alt="" style="width:20px;margin-right:5px;display:block"></div>
-                <div class="weui-cell__ft">
-                    <%out.print(detailEntity.getServiceName());%>服务
-                </div>
-            </div>
-
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>服务单价</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
-                    <span><%
-                        if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者时间/h）");
-                        } else if(detailEntity.getServiceType().equals("互助服务")){
-                            out.print("（时间币/h）");
-                        } else{
-                            out.print("（元/h）");
-                        }
-                    %></span>
-                </div>
-            </div>
-
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>预计付费</p>
-                </div>
-                <div class="weui-cell__ft">
-                    <span id="sumPrice"><%out.print(detailEntity.getPrice());%></span>
-
-                    <span><%
-                        if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者时间/h）");
-                        } else if(detailEntity.getServiceType().equals("互助服务")){
-                            out.print("（时间币/h）");
-                        } else{
-                            out.print("（元/h）");
-                        }
-                    %></span>
-                </div>
-            </div>
-
-            <div style="padding: 10px;">
+            <div class="weui-btn-area">
                 <button type="submit" class="weui-btn weui-btn_primary">提交订单</button>
             </div>
 

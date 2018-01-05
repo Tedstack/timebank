@@ -15,8 +15,6 @@
     <title>发布服务</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link href="../css/mobile-main.css" rel="stylesheet" />
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
@@ -37,11 +35,11 @@
         <form action="${pageContext.request.contextPath}/publish/add/submit" method="post" onsubmit="return check();">
             <div class="weui-cells__title">发布服务</div>
 
-            <div class="weui-cells weui-cells_form">
+            <div class="weui-cells">
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__bd">
-                        <p>服务类型</p>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务类型</label>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="serviceType">
@@ -63,8 +61,8 @@
                 %>
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after weui-name" id="<%out.print(type);%>">
-                    <div class="weui-cell__bd">
-                        <p>服务名称</p>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务名称</label>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="serviceName">
@@ -82,8 +80,8 @@
                 %>
 
                 <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p>服务描述</p></div>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务描述</label></div>
                     <div class="weui-cell__bd">
                         <div class="weui-cell__bd">
                             <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
@@ -97,32 +95,35 @@
                     String nowTime = formatter.format(nowDate);
                 %>
                 <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p>开始日期</p></div>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">开始日期</label>
+                    </div>
                     <div class="weui-cell__bd">
                         <input id="beginDate" class="weui-input" name="beginDate" type="date" value="" min=<%out.print(nowTime);%>>
                     </div>
                 </div>
 
                 <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p>结束日期</p></div>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">结束日期</label>
+                    </div>
                     <div class="weui-cell__bd">
                         <input id="endDate" class="weui-input" name="endDate" type="date" value="" min=<%out.print(nowTime);%>>
                     </div>
                 </div>
 
                 <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <p>服务价格</p></div>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务价格</label>
+                    </div>
                     <div class="weui-cell__bd">
                         <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
                     </div>
                 </div>
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
-                    <div class="weui-cell__bd">
-                        <p>服务范围</p>
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务范围</label>
                     </div>
                     <div class="weui-cell__bd">
                         <%--黄浦区、徐汇区、长宁区、静安区、普陀区、虹口区、杨浦区、宝山区、闵行区、嘉定区、浦东新区、松江区、金山区、青浦区、奉贤区、崇明区--%>
@@ -149,7 +150,7 @@
 
             </div>
 
-            <div style="padding: 10px; margin-bottom: 20px;">
+            <div class="weui-btn-area">
                 <button class="weui-btn weui-btn_primary" type="submit">发布</button>
             </div>
         </form>

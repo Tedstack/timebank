@@ -31,111 +31,113 @@
     <div class="weui-tab__panel">
 
         <form onsubmit="return check()" action="${pageContext.request.contextPath}/request/applySubmit" method="post">
-            <input style="display: none" type="number" name="requestUserId" value="<%=detailEntity.getUserId()%>"/>
-            <input style="display: none" type="number" name="requestId" value="<%=detailEntity.getId()%>"/>
+            <div class="weui-cells">
+                <input style="display: none" type="number" name="requestUserId" value="<%=detailEntity.getUserId()%>"/>
+                <input style="display: none" type="number" name="requestId" value="<%=detailEntity.getId()%>"/>
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><label class="weui-label">姓名</label></div>
-                <div class="weui-cell__ft">
-                    <p><%out.print(request.getAttribute("name"));%></p>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd"><label class="weui-label">姓名</label></div>
+                    <div class="weui-cell__ft">
+                        <p><%out.print(request.getAttribute("name"));%></p>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><label class="weui-label">手机号</label></div>
-                <div class="weui-cell__ft">
-                    <p><%out.print(request.getAttribute("phone"));%></p>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd"><label class="weui-label">手机号</label></div>
+                    <div class="weui-cell__ft">
+                        <p><%out.print(request.getAttribute("phone"));%></p>
+                    </div>
                 </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bd"><label class="weui-label">开始时间</label></div>
-                <div class="weui-cell__ft">
-                    <%
-                        out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getBeginTime()));
-                    %>
-                    <input id="service_beginTime" name="beginTime" style="display: none" type="datetime-local" value="<%out.print(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(detailEntity.getBeginTime()));%>"/>
-                </div>
-            </div>
-
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <label class="weui-label">需求时间</label>
-                </div>
-                <div class="weui-cell__ft">
-                    <%
-                        BigDecimal sumTime = new BigDecimal((detailEntity.getEndTime().getTime() - detailEntity.getBeginTime().getTime())/3600000);
-                        out.print(sumTime+"小时");
-                    %>
-                    <input name="serveTime" id="select_serveTime" style="display: none" type="number" value="<%out.print(sumTime);%>"/>
-                </div>
-            </div>
-
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <label class="weui-label">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd"><label class="weui-label">开始时间</label></div>
+                    <div class="weui-cell__ft">
                         <%
-                            String type = null;
-                            switch (detailEntity.getServiceType()){
-                                case "volunteer":
-                                    type = "志愿者需求";
-                                    break;
-                                case "technic":
-                                    type = "专业需求";
-                                    break;
-                                case "mutualAid":
-                                    type = "互助需求";
-                                    break;
+                            out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getBeginTime()));
+                        %>
+                        <input id="service_beginTime" name="beginTime" style="display: none" type="datetime-local" value="<%out.print(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(detailEntity.getBeginTime()));%>"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <label class="weui-label">需求时间</label>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <%
+                            BigDecimal sumTime = new BigDecimal((detailEntity.getEndTime().getTime() - detailEntity.getBeginTime().getTime())/3600000);
+                            out.print(sumTime+"小时");
+                        %>
+                        <input name="serveTime" id="select_serveTime" style="display: none" type="number" value="<%out.print(sumTime);%>"/>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <label class="weui-label">
+                            <%
+                                String type = null;
+                                switch (detailEntity.getServiceType()){
+                                    case "volunteer":
+                                        type = "志愿者需求";
+                                        break;
+                                    case "technic":
+                                        type = "专业需求";
+                                        break;
+                                    case "mutualAid":
+                                        type = "互助需求";
+                                        break;
+                                }
+                                out.print(type);
+                            %>
+                        </label>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <p><img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png"
+                                                    alt="" style="height:19px;display:inline;vertical-align: text-bottom">
+                        <%out.print(detailEntity.getServiceName());%>需求</p>
+                    </div>
+                </div>
+
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <label class="weui-label">服务单价(/h)</label>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
+                        <span><%
+                            if (detailEntity.getServiceType().equals("志愿者服务")) {
+                                out.print("（志愿者时间）");
+                            } else if(detailEntity.getServiceType().equals("互助服务")){
+                                out.print("（时间币）");
+                            } else{
+                                out.print("（元）");
                             }
-                            out.print(type);
-                        %>
-                    </label>
+                        %></span>
+                    </div>
                 </div>
-                <div class="weui-cell__ft">
-                    <p><img src="../img/服务名称/<%out.print(detailEntity.getServiceName());%>.png"
-                                                alt="" style="height:19px;display:inline;vertical-align: text-bottom">
-                    <%out.print(detailEntity.getServiceName());%>需求</p>
-                </div>
-            </div>
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <label class="weui-label">服务单价(/h)</label>
-                </div>
-                <div class="weui-cell__ft">
-                    <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
-                    <span><%
-                        if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者时间）");
-                        } else if(detailEntity.getServiceType().equals("互助服务")){
-                            out.print("（时间币）");
-                        } else{
-                            out.print("（元）");
-                        }
-                    %></span>
-                </div>
-            </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <label class="weui-label">预计付费</label>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <span id="sumPrice">
+                            <%
+                                out.print(detailEntity.getPrice().multiply(sumTime));
+                            %>
+                        </span>
 
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <label class="weui-label">预计付费</label>
-                </div>
-                <div class="weui-cell__ft">
-                    <span id="sumPrice">
-                        <%
-                            out.print(detailEntity.getPrice().multiply(sumTime));
-                        %>
-                    </span>
-
-                    <span><%
-                        if (detailEntity.getServiceType().equals("志愿者服务")) {
-                            out.print("（志愿者时间）");
-                        } else if(detailEntity.getServiceType().equals("互助服务")){
-                            out.print("（时间币）");
-                        } else{
-                            out.print("（元）");
-                        }
-                    %></span>
+                        <span><%
+                            if (detailEntity.getServiceType().equals("志愿者服务")) {
+                                out.print("（志愿者时间）");
+                            } else if(detailEntity.getServiceType().equals("互助服务")){
+                                out.print("（时间币）");
+                            } else{
+                                out.print("（元）");
+                            }
+                        %></span>
+                    </div>
                 </div>
             </div>
 

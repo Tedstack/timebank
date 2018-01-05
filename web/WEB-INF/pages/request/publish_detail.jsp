@@ -14,19 +14,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link href="../css/dj_base_838a930.css" rel="stylesheet" type="text/css">
-    <link href="../css/dj_dc_content_f60f458.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.0.min.css">
-    <style>
-        .weui-cell{
-            padding-left: 20px;
-        }
-        .detail-content{
-            color:#999
-        }
-    </style>
-    <title>已发布服务详情</title>
+    <title>已发布需求详情</title>
 </head>
 <body>
 
@@ -48,10 +36,8 @@
 %>
 
 <div class="weui-tab">
-    <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-left: 5px">
-        <div id="return" onclick="history.go(-1)"><img src="../img/返回.png" style="width:20px; height:15px; display: inline-block" alt="">返回</div>
-    </div>
     <div class="weui-tab__panel">
+
 
         <!--以下内容在右侧显示-->
         <%--<div class="enterbar bar_shop border_b mt10" style="margin-bottom: 0; padding-left: 15px">
@@ -62,29 +48,41 @@
             </div>
         </div>--%>
 
-        <div class="weui-cells" style="margin-top: 40px;">
-            <div class="weui-cell" style="padding-left:15px">
-                <h2 style="color:#76b852">需求详情</h2>
-            </div>
+        <div class="weui-cells__title" style="color:#76b852">
+            <h2>需求详情</h2>
+        </div>
+        <div class="weui-cells">
+
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">需求类型 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">需求类型 ：</span><span class="detail-content"><%=type%></span>
+                    <p><%=type%></p>
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">需求名称 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">需求名称 ：</span><span class="detail-content"><%=detail.getServiceName()%></span>
+                    <p><%=detail.getServiceName()%></p>
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">需求地址 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">需求地址 ：</span><span class="detail-content"><%=detail.getAddress()%></span>
+                    <p><%=detail.getAddress()%></p>
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">开始时间 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">持续时间 ：</span>
-                    <span class="detail-content">
+                    <p>
 
                         <%
                             SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -92,15 +90,32 @@
                             Date dateBegin = new Date(timestampBegin.getTime());
                             Timestamp timestampEnd = detail.getEndTime();
                             Date dateEnd = new Date(timestampEnd.getTime());
-                            out.print(bartDateFormat.format(dateBegin) + " 至 " + bartDateFormat.format(dateEnd));
+                            out.print(bartDateFormat.format(dateBegin));
                         %>
 
-                    </span>
+                    </p>
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">结束时间 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">服务单价 ：</span><span class="detail-content"><%=detail.getPrice()%><%
+                    <p>
+
+                        <%
+                            out.print(bartDateFormat.format(dateEnd));
+                        %>
+
+                    </p>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">需求单价 ：</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <p><%=detail.getPrice()%><%
                     if("volunteer".equals(detail.getServiceType())){
                         out.print("志愿者时间");
                     } else if("mutualAid".equals(detail.getServiceType())){
@@ -108,32 +123,39 @@
                     } else{
                         out.print("元");
                     }
-                %>/小时</span>
+                %>/小时</p>
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">预留电话 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">预留电话 ：</span><span class="detail-content"><%=detail.getUserPhone()%></span>
+                    <p><%=detail.getUserPhone()%></p>
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">需求描述 ：</label>
+                </div>
                 <div class="weui-cell__bd">
-                    <span class="detail-title">服务描述 ：</span><span class="detail-content"><%=detail.getDescription()%></span>
+                    <p><%=detail.getDescription()%></p>
                 </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bd"></div>
             </div>
         </div>
 
-        <div class="block block_tcxq mt10">
-            <div class="title">
-                <span style="color:#76b852">接受服务须知</span>
-            </div>
-            <div class="con_u">
-                <p>需要服务者申请您的服务后，您可以选择接受或拒绝<br/><br/>接受服务后不可取消，拒绝服务不会影响您任何信誉或评价<br/><br/>若有任何变动请及时与申请服务者联系</p>
-            </div>
-        </div>
+        <article class="weui-article">
+            <section>
+                <h2 class="title" style="color:#76b852">接受服务须知</h2>
+                <section>
+                    <p>
+                        需要服务者申请您的服务后，您可以选择接受或拒绝<br/>
+                        接受服务后不可取消，拒绝服务不会影响您任何信誉或评价<br/>
+                        若有任何变动请及时与申请服务者联系
+                    </p>
+                </section>
+            </section>
+        </article>
 
     </div>
 

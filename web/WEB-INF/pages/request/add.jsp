@@ -135,7 +135,7 @@
 
             </div>
 
-            <div style="padding: 10px; margin-bottom: 20px;">
+            <div class="weui-btn-area">
                 <input class="weui-btn weui-btn_primary" type="submit" value="发布"/>
             </div>
         </form>
