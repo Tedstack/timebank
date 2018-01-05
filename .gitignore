@@ -1,6 +1,5 @@
 out/
-target/
 .idea/
 /timebankWeb.iml
-/src/main/resources/1-数据库表结构.sql
 web/WEB-INF/pages/TestPage.html
+/target/
