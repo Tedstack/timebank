@@ -42,11 +42,11 @@
                 <p>已申请的服务</p>
             </div>
         </a>
-        <img src="../img/底部.png" width="375" height="15">
+        <div style="background-color: #f8f8f8; height:10px;"></div>
         <div style="padding: 10px; margin-bottom: 20px;">
             <a href="${pageContext.request.contextPath}/publish/add" class="weui-btn weui-btn_primary">发布服务</a>
         </div>
-        <img src="../img/底部.png" width="375" height="15">
+        <div style="background-color: #f8f8f8; height:10px;"></div>
 
         <div class="weui-cell">
             <div class="weui-cell__hd">
@@ -72,7 +72,7 @@
                 <p>已申请的需求</p>
             </div>
         </a>
-        <img src="../img/底部.png" width="100%" height="15">
+        <div style="background-color: #f8f8f8; height:10px;"></div>
 
         <div style="padding: 10px; margin-bottom: 20px;">
             <a href="${pageContext.request.contextPath}/request/add" class="weui-btn weui-btn_primary">发布需求</a>

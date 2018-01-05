@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <img src="../img/底部.png" width="375" height="15">
+                <div style="background-color: #f8f8f8; height:10px;"></div>
                     </div>
                     <br>
                 </div>

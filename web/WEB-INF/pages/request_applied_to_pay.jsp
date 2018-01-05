@@ -131,19 +131,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="weui-cell">
-                        <div class="weui-cell__bd">
-                            <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}<%out.print("/user/applyUserStartPay?recordID="+matchDetailList.get(i).getId());%>">支付</a></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <img src="../img/底部.png" width="100%" height="15">
+                <div style="background-color: #f8f8f8; height:10px;"></div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>

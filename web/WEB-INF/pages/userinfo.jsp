@@ -31,7 +31,7 @@
             <img src="../img/二维码.png" style="width:20px;margin-right:5px;display:block">
         </div>
     </a>
-    <img src="../img/底部.png" width="100%" height="15">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/publish/history_evaluation">
         <div class="weui-cell__hd"><img src="../img/userdetails/评价.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
@@ -39,7 +39,7 @@
         </div>
         <div class="weui-cell__ft"style="">查看</div>
     </a>
-    <img src="../img/底部.png" width="100%" height="15">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
         <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
@@ -55,7 +55,7 @@
         <div class="weui-cell__ft"style="">查看</div>
     </a>
 
-    <img src="../img/底部.png" width="100%" height="15">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
 
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/recharge/coins_balance">
         <div class="weui-cell__hd"><img src="../img/userdetails/时间币.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
@@ -72,7 +72,7 @@
         </div>
         <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeVol());%></div>
     </a>
-    <img src="../img/底部.png" width="100%" height="15">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
 
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/<%
         if(userEntity.getIsVerify() != null && userEntity.getIsVerify() == 1){
@@ -114,7 +114,7 @@
             </c:choose>
         </div>
     </a>
-    <img src="../img/底部.png" width="100%" height="15">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cell">
         <div class="weui-cell__bd">
             <div class="weui-flex">

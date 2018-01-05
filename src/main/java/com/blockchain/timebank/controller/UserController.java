@@ -759,11 +759,11 @@ public class UserController {
     //申请者扫码结束
     @RequestMapping(value = "/requestApplyUserCompleteScan",method = RequestMethod.POST)
     @ResponseBody
-    public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchId){
+    public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchID){
         String status = "";
         UserEntity requestUser = userService.findUserEntityByQrCode(qrcode);
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchId);
-        if(matchEntity.getApplyUserId()!=requestUser.getId()){
+        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        if(matchEntity.getRequestUserId()!=requestUser.getId()){
             status = "notOneself";
         }else{
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -796,15 +796,16 @@ public class UserController {
 
     //需求者开始付款
     @RequestMapping(value = "/requestUserStartPay",method = RequestMethod.GET)
-    public String requestUserStartPay(ModelMap map,@RequestParam long recordID){
-        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+    public String requestUserStartPay(ModelMap map,@RequestParam long matchID){
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
 
         map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
-        return "service_posted_paydetails";
+        return "request_paydetail";
     }
 
     //需求者跳转到评价订单页面
     @RequestMapping(value = "/requestUserStartEvaluate",method = RequestMethod.GET)
+
     public String requestUserStartEvaluate(ModelMap map,@RequestParam long recordID){
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(recordID);
 
@@ -827,8 +828,8 @@ public class UserController {
     @ResponseBody
     public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
-        if(viewRequestOrderDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
-            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getApplyUserId()){
+        if(viewRequestOrderDetailEntity.getServiceType().equals("volunteer")){
+            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
                 accountService.payRequestTimeVol(matchID);
             }
         }

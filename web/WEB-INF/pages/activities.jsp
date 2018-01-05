@@ -43,7 +43,7 @@
                         </div>
                     </a>
 
-                    <img src="../img/底部.png" width="100%" height="15">
+                    <div style="background-color: #f8f8f8; height:10px;"></div>
 
                     <div style="padding: 10px; margin-bottom: 20px;">
 

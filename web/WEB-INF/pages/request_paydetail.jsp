@@ -24,6 +24,19 @@
 <body>
 <%
     ViewRequestOrderDetailEntity matchDetail = (ViewRequestOrderDetailEntity) request.getAttribute("viewMatchDetailEntity");
+    String type = null;
+    switch (matchDetail.getServiceType()){
+        case "volunteer":
+            type = "志愿者需求";
+            break;
+        case "technic":
+            type = "专业需求";
+            break;
+        case "mutualAid":
+            type = "互助需求";
+            break;
+    }
+
     String volunteerService = "志愿者需求";
 %>
 
@@ -39,7 +52,7 @@
         </p>
         <p>
             <label class="weui-form-preview__label">服务类型:</label>
-            <span class="weui-form-preview__value"><%out.print(matchDetail.getServiceType());%></span>
+            <span class="weui-form-preview__value"><%out.print(type);%></span>
         </p>
         <p>
             <label class="weui-form-preview__label">服务名称:</label>
@@ -82,9 +95,9 @@
     var matchID = '<%=matchDetail.getId()%>';
     $(function(){
         $("#payBtn").on('click',function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/user/requestUserPayTimeVol";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryRequestMatchAlreadyComplete";
-            var volunteerService = '志愿者服务';
+            var targetUrl = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"+"/user/requestUserPayTimeVol";
+            var targetUrl2 = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"+"/user/queryRequestMatchAlreadyComplete";
+            var volunteerService = 'volunteer';
             if(type === volunteerService){
                 $.ajax({
                     type: 'POST',
