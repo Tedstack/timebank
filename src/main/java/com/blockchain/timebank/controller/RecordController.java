@@ -142,7 +142,7 @@ public class RecordController {
         PublishEntity publishEntity = publishService.findPublishEntityById(publishOrderEntity.getPublishId());
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("publishEntity",publishEntity);
-        map.addAttribute("recordEntity", publishOrderEntity);
+        map.addAttribute("publishOrderEntity", publishOrderEntity);
 
         return "takendetails";
     }

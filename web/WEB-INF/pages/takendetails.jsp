@@ -13,7 +13,7 @@
 </head>
 <body>
 <%
-    PublishOrderEntity publishOrderEntity = (PublishOrderEntity) request.getAttribute("recordEntity");
+    PublishOrderEntity publishOrderEntity = (PublishOrderEntity) request.getAttribute("publishOrderEntity");
     UserEntity userEntity = (UserEntity) request.getAttribute("userEntity");
     PublishEntity publishEntity = (PublishEntity) request.getAttribute("publishEntity");
 %>

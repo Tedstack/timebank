@@ -587,7 +587,7 @@ public class UserController {
     public String applyUserStartPay(ModelMap map,@RequestParam long recordID){
         ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
 
-        map.addAttribute("viewRecordDetailEntity", viewPublishOrderDetailEntity);
+        map.addAttribute("viewPublishOrderDetailEntity", viewPublishOrderDetailEntity);
         return "service_posted_paydetails";
     }
 
@@ -596,7 +596,7 @@ public class UserController {
     public String applyUserStartEvaluate(ModelMap map,@RequestParam long recordID){
         ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
 
-        map.addAttribute("viewRecordDetailEntity", viewPublishOrderDetailEntity);
+        map.addAttribute("viewPublishOrderDetailEntity", viewPublishOrderDetailEntity);
         return "rate";
     }
 
