@@ -183,7 +183,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("锁定失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
@@ -216,7 +216,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("解锁失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
@@ -245,7 +245,7 @@
                         });
                     }
                     if(data==="failure"){
-                        showAlert("失败");
+                        showAlert("同意失败");
                     }
                 },
                 error: function (xhr, type) {
@@ -282,7 +282,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("降级失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
@@ -315,7 +315,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("升级失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
