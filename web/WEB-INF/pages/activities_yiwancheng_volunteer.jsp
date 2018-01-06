@@ -24,9 +24,8 @@
 <%
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
 %>
-<div class="page">
-    <div class="page__bd" style="height: 100%;">
-        <div class="weui-tab">
+<div class="weui-tab" style="height: 100%;">
+    <div class="weui-tab__panel">
             <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/返回.png" width="20" height="15"alt="">已完成</p>
@@ -109,7 +108,7 @@
                                         if(userActivityList.get(i).getUserComment()==null)
                                             out.print("<a href='"+ request.getContextPath() +"/record/pingjia_activities?activityId="+userActivityList.get(i).getActivityId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
                                         else
-                                            out.print("<a class='weui-btn weui-btn_mini weui-btn_primary'>已评价</a>");
+                                            out.print("<a class='weui-btn weui-btn_mini weui-btn_primary'  style='background-color: coral'>已评价</a>");
                                     %>
                                 </div>
                             </div>
