@@ -4,6 +4,8 @@ public interface AccountService {
 
     void payTimeVol(long recordID);
 
+    void payTimeCoin(long recordID);
+
     void updateOrderToComplete(long recordID);
 
     void payRequestTimeVol(long matchID);

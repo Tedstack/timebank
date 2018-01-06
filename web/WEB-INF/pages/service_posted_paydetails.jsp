@@ -99,7 +99,9 @@
             var targetUrl = "http://"+getDomainName()+contextPath+"/user/applyUserPayTimeVol";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryOrderAlreadyComplete";
             var volunteerService = '志愿者服务';
-            if(type === volunteerService){
+            var mutualHelpService = '互助服务';
+            var professionService = '专业服务';
+            if(type === volunteerService || type === mutualHelpService){
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -125,7 +127,7 @@
                         dialogLoading.hide();
                     }
                 });
-            }else {
+            }else if(type === professionService){
                 wx.scanQRCode(
                     {
                         needResult: 0,
