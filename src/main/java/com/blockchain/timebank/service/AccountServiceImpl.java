@@ -34,12 +34,48 @@ public class AccountServiceImpl implements AccountService {
         applyUser.setTimeVol(timeVol);
         userService.updateUserEntity(applyUser);
 
-        //3.增加服务者时间币账户
+        //3.增加服务者志愿者币账户
         UserEntity serviceUser = userService.findUserEntityById(record.getServiceUserId());
         double timeVol2 = serviceUser.getTimeVol() + price;
         serviceUser.setTimeVol(timeVol2);
         userService.updateUserEntity(serviceUser);
 
+        //4.更改订单状态
+        record.setStatus(OrderStatus.alreadyComplete);
+        recordService.updateRecordEntity(record);
+    }
+
+    //支付时间币
+    @Transactional
+    public void payTimeCoin(long recordID) {
+        //1.查询订单价格
+        PublishOrderEntity record = recordService.findRecordEntityById(recordID);
+        double price = record.getPayMoney();
+
+        //2.扣除申请者时间币账户
+        UserEntity applyUser = userService.findUserEntityById(record.getApplyUserId());
+        if(applyUser.getTimeCoin()<price){
+            throw new AccountServiceException("您的金额不足！");
+        }
+        double timeCoin = applyUser.getTimeCoin() - price;
+        applyUser.setTimeVol(timeCoin);
+        userService.updateUserEntity(applyUser);
+
+        //3.增加服务者时间币账户
+        UserEntity serviceUser = userService.findUserEntityById(record.getServiceUserId());
+        double timeCoin2 = serviceUser.getTimeCoin() + price;
+        serviceUser.setTimeCoin(timeCoin2);
+        userService.updateUserEntity(serviceUser);
+
+        //4.更改订单状态
+        record.setStatus(OrderStatus.alreadyComplete);
+        recordService.updateRecordEntity(record);
+    }
+
+    @Transactional
+    public void updateOrderToComplete(long recordID) {
+        //1.查询订单价格
+        PublishOrderEntity record = recordService.findRecordEntityById(recordID);
         //4.更改订单状态
         record.setStatus(OrderStatus.alreadyComplete);
         recordService.updateRecordEntity(record);

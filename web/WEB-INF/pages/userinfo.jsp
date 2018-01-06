@@ -118,7 +118,9 @@
     <div class="weui-cell">
         <div class="weui-cell__bd">
             <div class="weui-flex">
-                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/user/scan" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a></div>
+                <div class="weui-flex__item" display="none">
+                   <%-- <a href="${pageContext.request.contextPath}/user/scan" class="weui-btn weui-btn_mini weui-btn_primary">扫码</a>--%>
+                </div>
                 <div class="weui-flex__item" display="none"></div>
                 <div class="weui-flex__item" display="none"></div>
                 <div class="weui-flex__item" display="none"></div>

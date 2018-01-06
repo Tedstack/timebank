@@ -12,6 +12,10 @@
     <title>待收款</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 <%
@@ -98,6 +102,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                <%
+                    if(recordDetailList.get(i).getServiceId() / 100 == 2){
+                        out.print("<a class='weui-btn weui-btn_mini weui-btn_primary' style='float:right' id='ensurePay-btn' name ='" + recordDetailList.get(i).getId() +"'>确认收款</a>");
+                    }
+                %>
+                    </div>
+                </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
@@ -148,6 +161,39 @@
         $("#navbar5").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="queryPublishAlreadyComplete";
+        });
+        $("#ensurePay-btn").on('click', function () {
+            var contextPath="${pageContext.request.contextPath}";
+            var recordID = $(this).attr("name");
+            console.log(recordID);
+            var targetUrl = "${pageContext.request.contextPath}/user/updateOrderToComplete";
+            var targetUrl2 = "${pageContext.request.contextPath}/user/queryPublishAlreadyComplete";
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "recordID=" + recordID,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    //alert(data);
+                    showAlert("确认收款成功",function () {
+                        goTo(targetUrl2);
+                    })
+                },
+                error: function (xhr, type) {
+                    //alert(type);
+                    showAlert("确认收款失败",function () {
+                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
+                    })
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+                //goTo(targetUrl2);
         });
     });
 </script>

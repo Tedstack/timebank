@@ -41,6 +41,21 @@
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceType());%></span>
         </p>
         <p>
+            <label class="weui-form-preview__label">付款方式:</label>
+            <span class="weui-form-preview__value" style="color:#76b852">
+                <%
+                    String unit = "";
+                    if(recordDetail.getServiceId() / 100 == 1)
+                        unit="志愿者时间";
+                    else if(recordDetail.getServiceId() / 100 == 2)
+                        unit="元";
+                    else
+                        unit="时间币";
+                    out.print(unit);
+                %>
+            </span>
+        </p>
+        <p>
             <label class="weui-form-preview__label">服务名称:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceName());%></span>
         </p>
@@ -84,7 +99,9 @@
             var targetUrl = "http://"+getDomainName()+contextPath+"/user/applyUserPayTimeVol";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryOrderAlreadyComplete";
             var volunteerService = '志愿者服务';
-            if(type === volunteerService){
+            var mutualHelpService = '互助服务';
+            var professionService = '专业服务';
+            if(type === volunteerService || type === mutualHelpService){
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -110,7 +127,7 @@
                         dialogLoading.hide();
                     }
                 });
-            }else {
+            }else if(type === professionService){
                 wx.scanQRCode(
                     {
                         needResult: 0,

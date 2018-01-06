@@ -611,6 +611,13 @@ public class UserController {
     }
 
     //申请志愿者服务的用户支付志愿者币
+    @RequestMapping(value = "/updateOrderToComplete",method = RequestMethod.POST)
+    @ResponseBody
+    public void updateOrderToComplete(ModelMap map,@RequestParam long recordID) {
+        accountService.updateOrderToComplete(recordID);
+    }
+
+    //申请志愿者或互助服务的用户支付志愿者币或时间币
     @RequestMapping(value = "/applyUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
     public void applyUserPayTimeCoin(ModelMap map,@RequestParam long recordID) {
@@ -618,6 +625,10 @@ public class UserController {
         if(viewPublishOrderDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
             if(getCurrentUser().getId()== viewPublishOrderDetailEntity.getApplyUserId()){
                 accountService.payTimeVol(recordID);
+            }
+        } else if(viewPublishOrderDetailEntity.getServiceType().equals(ServiceType.mutualHelpService)){
+            if(getCurrentUser().getId()== viewPublishOrderDetailEntity.getApplyUserId()){
+                accountService.payTimeCoin(recordID);
             }
         }
 
