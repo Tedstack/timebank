@@ -41,6 +41,21 @@
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceType());%></span>
         </p>
         <p>
+            <label class="weui-form-preview__label">付款方式:</label>
+            <span class="weui-form-preview__value" style="color:#76b852">
+                <%
+                    String unit = "";
+                    if(recordDetail.getServiceId() / 100 == 1)
+                        unit="志愿者时间";
+                    else if(recordDetail.getServiceId() / 100 == 2)
+                        unit="元";
+                    else
+                        unit="时间币";
+                    out.print(unit);
+                %>
+            </span>
+        </p>
+        <p>
             <label class="weui-form-preview__label">服务名称:</label>
             <span class="weui-form-preview__value"><%out.print(recordDetail.getServiceName());%></span>
         </p>

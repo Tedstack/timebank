@@ -45,6 +45,15 @@ public class AccountServiceImpl implements AccountService {
         recordService.updateRecordEntity(record);
     }
 
+    @Transactional
+    public void updateOrderToComplete(long recordID) {
+        //1.查询订单价格
+        PublishOrderEntity record = recordService.findRecordEntityById(recordID);
+        //4.更改订单状态
+        record.setStatus(OrderStatus.alreadyComplete);
+        recordService.updateRecordEntity(record);
+    }
+
     public void payRequestTimeVol(long matchID) {
         //1.查询订单价格
         RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);

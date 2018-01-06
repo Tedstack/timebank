@@ -611,6 +611,13 @@ public class UserController {
     }
 
     //申请志愿者服务的用户支付志愿者币
+    @RequestMapping(value = "/updateOrderToComplete",method = RequestMethod.POST)
+    @ResponseBody
+    public void updateOrderToComplete(ModelMap map,@RequestParam long recordID) {
+        accountService.updateOrderToComplete(recordID);
+    }
+
+    //申请志愿者服务的用户支付志愿者币
     @RequestMapping(value = "/applyUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
     public void applyUserPayTimeCoin(ModelMap map,@RequestParam long recordID) {
