@@ -69,7 +69,7 @@
                 <%--<a onclick="demote(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>--%>
                     <%--<img src="../img/demote.png" width="30" height="30">--%>
                 <%--</a>--%>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demote(this)" style="background-color: #ecc30a" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demoteManager(this)" style="background-color: #ecc30a" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
             </label>
         </div>
     </div>
@@ -92,7 +92,7 @@
                 <%--<a onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>--%>
                     <%--<img src="../img/approve.png" width="30" height="30">--%>
                 <%--</a>--%>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="approve(this)" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="approveApply(this)" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>
             </label>
         </div>
     </div>
@@ -123,7 +123,7 @@
             <%--</a>--%>
             <div class="weui-cell__bd" style="text-align: right;">
                 <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a;" onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>锁定</a>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: grey" onclick="promte(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>提升</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: grey" onclick="PromteManager(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>提升</a>
             </div>
         </label>
     </div>
@@ -224,7 +224,7 @@
             });
         }
     }
-    function approve(t) {
+    function approveApply(t) {
         var contextPath="${pageContext.request.contextPath}"
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/approveUser";
         var teamId=t.name;
@@ -239,7 +239,7 @@
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
-                    if(data==="success"){
+                    if(data==="success"){ v
                         showAlert("已同意",function () {
                             location.reload();
                         });
@@ -257,7 +257,7 @@
             });
         }
     }
-    function demote(t) {
+    function demoteManager(t) {
         var contextPath="${pageContext.request.contextPath}"
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/demoteManager";
         var teamId=t.name;
@@ -290,7 +290,7 @@
             });
         }
     }
-    function promte(t) {
+    function PromteManager(t) {
         var contextPath="${pageContext.request.contextPath}"
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/promoteManager";
         var teamId=t.name;

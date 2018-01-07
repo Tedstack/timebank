@@ -31,7 +31,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-                <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
+                <div class="weui-flex__item"id="return" onclick="goBack()" >
                     <p><img src="../img/return.png" width="20" height="15"alt="">团体列表</p>
                 </div>
             </div>
@@ -102,7 +102,13 @@
                         </a>
                         <div class="weui-cell__bd">
                             <p><%out.print(otherTeamList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(otherTeamList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">
+                                <%if(otherTeamList.get(i).getDescription().length()<=30)
+                                    out.print(otherTeamList.get(i).getDescription());
+                                  else
+                                    out.print(otherTeamList.get(i).getDescription().substring(0,30)+"...");
+                                %>
+                            </p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  onclick="joinToTeam(this)" id=<%out.print(otherTeamList.get(i).getId());%>>加入</a>
                     </label>
@@ -169,5 +175,8 @@
                 showAlert("请选择要加入的团体");
             }
         }
+         function goBack() {
+             window.location.href="${pageContext.request.contextPath}/user/";
+         }
 </script>
 </html>

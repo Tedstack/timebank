@@ -96,6 +96,11 @@
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
             var formData = new FormData($("#teamDetail")[0]);
+            if(document.getElementById("team_name").value===""){
+                showAlert("请填写团体名称");}
+            else if(document.getElementById("team_location").value===""){
+                showAlert("请填写团体主要活动地点");
+            }else{
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -113,7 +118,7 @@
                             window.location.href="${pageContext.request.contextPath}/team/myTeams"
                         });
                     }else if(data==="nameExist") {
-                        showAlert("该名已被使用");
+                        showAlert("团队名称已被使用");
                     }else if(data==="failure"){
                         showAlert("创建失败");
                     }
@@ -125,6 +130,7 @@
                     dialogLoading.hide();
                 }
             });
+            }
         });
     });
 </script>

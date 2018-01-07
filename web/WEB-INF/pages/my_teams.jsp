@@ -67,10 +67,8 @@
             <p class="weui-btn weui-btn_mini weui-btn_primary">已删除</p>
             <%}else{%>
             <div class="weui-cell__bd" style="text-align: right;">
-                <a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>
-                <a href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">成员</a>
+                <a href="${pageContext.request.contextPath}/team/viewTeamInfoPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</a>
             </div>
-            <%--<a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(teamList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">编辑</a>--%>
             <%}%>
         </label>
     </div>

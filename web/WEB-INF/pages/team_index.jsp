@@ -27,15 +27,20 @@
     String managerName=(String) request.getAttribute("managerName");
 %>
 <div class="page">
-    <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
+    <div class="weui-panel__hd">
+        <div class="weui-flex__item" id="return" onclick="goBack()" >
+            <p><img src="../img/back.png" width="20" height="15"alt="">团体主页</p>
+        </div>
+    </div>
+    <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
         <div class="weui-navbar__item" style="background-color: #0076FF;">
-            <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;border: none;color:#ffffff;height: 27px;font-size: 14px;">简介</a>
+            <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;border: none;color:#ffffff;height: 25px;font-size: 14px;">简介</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/teamMember?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">成员</a>
+            <a href="${pageContext.request.contextPath}/team/teamMember?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">历史活动</a>
+            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">历史活动</a>
         </div>
     </div>
     <div style="margin-top:100px;text-align:center;">
@@ -73,6 +78,14 @@
                 <div class="weui-panel__bd">
                     <div class="weui-form-preview__hd">
                         <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label"><li style="font-size: 15px;">活动地点</li></label>
+                            <em class="weui-form-preview__value" style="font-size: 15px;"><%out.print(team.getAddress());%></em>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-form-preview__hd">
+                        <div class="weui-form-preview__item">
                             <label class="weui-form-preview__label"><li style="font-size: 15px;">简介</li></label>
                             <em class="weui-form-preview__value" style="font-size: 15px;"><%out.print(team.getDescription());%></em>
                         </div>
@@ -85,5 +98,8 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function goBack() {
+        window.location.href="${pageContext.request.contextPath}/team/teamList";
+    }
 </script>
 </html>
