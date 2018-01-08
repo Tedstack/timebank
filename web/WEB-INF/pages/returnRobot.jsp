@@ -25,6 +25,7 @@
 <body>
 <%
     long recordID = (long) request.getAttribute("recordID");
+    boolean isFirst = (boolean) request.getAttribute("isFirst");
 %>
 <div class="page">
     <div class="weui-msg">
@@ -33,8 +34,22 @@
         </div>
         <!--第一次扫码时h2和p内都显示/前的部分，第二次扫码显示后半部分-->
         <div class="weui-msg__text-area">
-            <h2 class="weui-msg__title">扫码开始服务/扫码结束服务</h2>
-            <p class="weui-msg__desc">您这是第一次扫码，将开始服务，服务结束后，请及时进行第二次扫码/您这是第二次扫码，扫码成功后将结束此次服务</p>
+            <h2 class="weui-msg__title">
+                <%
+                    if(isFirst)
+                        out.print("扫码开始服务");
+                    else
+                        out.print("扫码结束服务");
+                %>
+            </h2>
+            <p class="weui-msg__desc">
+                <%
+                    if(isFirst)
+                        out.print("您这是第一次扫码，将开始服务，服务结束后，请及时进行第二次扫码");
+                    else
+                        out.print("您这是第二次扫码，扫码成功后将结束此次服务");
+                %>
+            </p>
         </div>
         <!--以上~~-->
         <div class="weui-msg__opr-area">

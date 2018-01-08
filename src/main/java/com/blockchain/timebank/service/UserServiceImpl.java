@@ -65,15 +65,14 @@ public class UserServiceImpl implements UserService {
         return userDao.findUserEntityByOpenId(openID);
     }
 
-    public void saveUserHeadImgUrl(UserEntity userEntity, String openId, String accessToken){
-        long id = userEntity.getId();
+    public String saveUserHeadImgUrl(UserEntity userEntity,String path){
+        String phone = userEntity.getPhone()+".jpg";
         String headImgUrl = userEntity.getHeadImgUrl();
-        if("noID".equals(openId) || null == openId) return;
-        SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
-        if(null == snsUserInfo) return;
-        String url = snsUserInfo.getHeadimgurl();
-        if(url != null && !url.equals(headImgUrl)){
-            userUpdateDao.updataUserHeadImgUrl(url, id);
+        String status = CommonUtil.getImageByUrl(headImgUrl,path,phone);
+        if("success".equals(status)){
+            return path+phone;
+        }else{
+            return path+"defaultAvatar.jpg";
         }
     }
 

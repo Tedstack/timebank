@@ -538,7 +538,8 @@ public class UserController {
 //        System.out.println("appSecret:"+TokenThread.appSecret);
 //        Thread thread = new Thread(new TokenThread());
 //        thread.start(); //启动进程
-
+        PublishOrderEntity matchEntity = recordService.findRecordEntityById(recordID);
+        map.addAttribute("isFirst", matchEntity.getActualBeginTime()==null);
         map.addAttribute("recordID",recordID);
         return "returnRobot";
     }

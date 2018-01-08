@@ -51,8 +51,10 @@ public class IndexController {
                 if(userEntity!=null){
                     String headImgUrl = userEntity.getHeadImgUrl();
                     String url = snsUserInfo.getHeadimgurl();
+                    String localHeadUrl = "";
                     if(url != null && !url.equals(headImgUrl)){
                         userEntity.setHeadImgUrl(url);
+                        localHeadUrl = userService.saveUserHeadImgUrl(userEntity,request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
                     }
                     String country=snsUserInfo.getCountry();
                     String province=snsUserInfo.getProvince();
@@ -106,7 +108,7 @@ public class IndexController {
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 System.out.println("昵称：" + snsUserInfo.getNickName());
 
-                //userService.saveUserHeadImgUrl(null, openId, accessToken, request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
+                //userService.saveUserHeadImgUrl(null,openId, accessToken, request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
                 map.addAttribute("code",code);
                 map.addAttribute("openID",wot.getOpenId());
             }else{
