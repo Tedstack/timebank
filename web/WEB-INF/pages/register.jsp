@@ -61,6 +61,16 @@
 <script src="http://lib.sinaapp.com/js/jquery/1.12.4/jquery-1.12.4.min.js"></script>
 <script src="js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
+
     var openID='<%=openID%>';
     var code='<%=code%>';
     var contextPath="${pageContext.request.contextPath}";

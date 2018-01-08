@@ -69,6 +69,16 @@
 <!-- 引入组件库 -->
 <script src="//unpkg.com/element-ui@2.0.7/lib/index.js"></script>
 <script type="text/javascript">
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
+
     var userActivityID='<%=userActivityEntity.getId()%>';
     var activityID='<%=userActivityEntity.getActivityId()%>';
     new Vue({

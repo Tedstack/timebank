@@ -52,13 +52,30 @@
         <!--以上~~-->
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a class="weui-btn weui-btn_primary" id="button1">扫码</a>
+                <a class="weui-btn weui-btn_primary" id="button1">
+                    <%
+                        if(isFirst)
+                            out.print("扫码开始服务");
+                        else
+                            out.print("扫码结束服务");
+                    %>
+                </a>
             </p>
         </div>
     </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
+
     var contextPath="${pageContext.request.contextPath}";
     $(function() {
         $("#button1").on('click', function () {

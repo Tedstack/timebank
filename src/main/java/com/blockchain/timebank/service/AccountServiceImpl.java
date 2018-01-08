@@ -58,7 +58,7 @@ public class AccountServiceImpl implements AccountService {
             throw new AccountServiceException("您的金额不足！");
         }
         double timeCoin = applyUser.getTimeCoin() - price;
-        applyUser.setTimeVol(timeCoin);
+        applyUser.setTimeCoin(timeCoin);
         userService.updateUserEntity(applyUser);
 
         //3.增加服务者时间币账户

@@ -150,6 +150,16 @@
     </div>
 </div>
 <script type="text/javascript">
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
+
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),

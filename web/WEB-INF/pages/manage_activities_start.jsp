@@ -100,6 +100,15 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
     var contextPath="${pageContext.request.contextPath}";
 
     var wConfirm = window.confirm;

@@ -113,6 +113,15 @@
 </div>
 
 <script type="text/javascript">
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $gallery = $("#gallery"), $galleryImg = $("#galleryImg"),
@@ -209,7 +218,6 @@
                 uploadUrl = baseUrl + "/timebank/user/uploadUserInfo",
                 notiUrl = baseUrl + "/timebank/user/realnameNotification";
             var formData = new FormData($("#userForm")[0]);
-            console.log(formData.getAll("ID"));
             $.ajax({
                 url: uploadUrl,
                 type: 'POST',
@@ -229,10 +237,8 @@
                     //...
                 },
                 error: function (data) {
-                    if(data=="failure")
-                    {
-                        showAlert("很抱歉，上传信息失败，请稍后尝试！");
-                    }
+                    showAlert("很抱歉，上传信息失败，请稍后尝试！");
+
                     //...
                 },
                 complete: function (xhr, type) {

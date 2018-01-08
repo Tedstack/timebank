@@ -96,7 +96,7 @@
                     Date nowDate = new Date();
                     Date nextDate = new Date();
                     nextDate.setTime(nextDate.getTime() + 3600000);
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
                     String nowTime = formatter.format(nowDate);
                     String nextTime = formatter.format(nextDate);
                 %>
@@ -104,7 +104,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">开始时间</label></div>
                     <div class="weui-cell__bd">
-                        <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value placeholder="<%out.print(nowTime);%>" min=<%out.print(nowTime);%>/>
+                        <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%=nowTime%>" placeholder="<%out.print(nowTime);%>" min=<%out.print(nowTime);%>/>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">结束时间</label></div>
                     <div class="weui-cell__bd">
-                        <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value placeholder="<%out.print(nextTime);%>" min=<%out.print(nextTime);%>/>
+                        <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%=nextTime%>" placeholder="<%out.print(nextTime);%>" min=<%out.print(nextTime);%>/>
                     </div>
                 </div>
 
@@ -165,6 +165,12 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    $(function(){
+        $("#beginTime").blur(function () {
+            alert($("#beginTime").val());
+        });
+    });
+
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
         $('.weui-name:gt(0)').hide();$('.weui-name:gt(0)').find('.weui-select').attr("name","");

@@ -337,7 +337,7 @@ public class RequestController {
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
 
         map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
-        return "request/request_paydetail";
+        return "request/paydetail";
     }
 
     //需求者跳转到评价订单页面

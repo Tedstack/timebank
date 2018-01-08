@@ -137,7 +137,17 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-         function joinToTeam(t) {
+    var xmlHttpRequest;
+    $(function(){
+        if(window.XMLHttpRequest){
+            xmlHttpRequest=new XMLHttpRequest();
+        }else{
+            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlHttpRequest.open("GET","AjaxServlet",true);
+    });
+
+    function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
             var teamId=t.id;//取要加入团队的Id
