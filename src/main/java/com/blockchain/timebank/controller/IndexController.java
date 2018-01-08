@@ -49,11 +49,17 @@ public class IndexController {
                 UserEntity userEntity = userService.findUserEntityByOpenID(wot.getOpenId());
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 if(userEntity!=null){
-                    userService.saveUserHeadImgUrl(userEntity, openId, wot.getAccessToken());
+                    String headImgUrl = userEntity.getHeadImgUrl();
+                    String url = snsUserInfo.getHeadimgurl();
+                    if(url != null && !url.equals(headImgUrl)){
+                        userEntity.setHeadImgUrl(url);
+                    }
                     String country=snsUserInfo.getCountry();
                     String province=snsUserInfo.getProvince();
                     String city=snsUserInfo.getCity();
                    String nickname=snsUserInfo.getNickName();
+
+                    System.out.println("======nickName:"+nickname+"======headImgUrl:"+url);
                     int sex=snsUserInfo.getSex();
                     String sex1;
                     if(sex==1)
