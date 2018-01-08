@@ -20,7 +20,7 @@
 <div class="weui-cells weui-cells_form">
     <div class="weui-panel__hd weui-cells__title">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/return.png" width="20" height="15"alt="">修改团体信息</p>
+            <p><img src="../img/return.png" width="20" height="15"alt="">查看团体信息</p>
         </div>
     </div>
     <div class="weui-cells_form weui-cells">
@@ -46,23 +46,38 @@
             <label class="weui-label">团队名称</label>
         </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" name=<%out.print(team.getId());%> id="team_name" value=<%out.print(team.getName());%>>
+            <p class="weui-input"><%out.print(team.getName());%></p>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="team_location" value=<%out.print(team.getAddress());%>>
+            <p class="weui-input"><%out.print(team.getAddress());%></p>
         </div>
+    </div>
+    <div class="weui-panel__ft">
+        <a href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(team.getId());%>" class="weui-cell weui-cell_access weui-cell_link">
+            <div class="weui-cell__bd"><label class="weui-label" style="font-size: 17px;color: #1a1a1a;">团体成员</label></div>
+            <span class="weui-cell__ft"></span>
+        </a>
+    </div>
+    <div class="weui-panel__ft">
+        <a href="${pageContext.request.contextPath}/team" class="weui-cell weui-cell_access weui-cell_link">
+            <div class="weui-cell__bd"><label class="weui-label" style="font-size: 17px;color: #1a1a1a;">历史活动</label></div>
+            <span class="weui-cell__ft"></span>
+        </a>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">团队介绍</label></div>
     </div>
     <div style="text-align:center;">
-        <textarea id="describe" rows="10" cols="30" maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"><%out.print(team.getDescription());%></textarea>
+        <textarea readonly id="describe" rows="10" cols="30" maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"><%out.print(team.getDescription());%></textarea>
     </div>
     <div style="padding: 10px; margin-top: 10px;">
-        <a href="javascript:;" class="weui-btn weui-btn_primary" id="modifyTeam" type="button">确认修改</a>
+        <a href="${pageContext.request.contextPath}/team/modifyPage?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_primary" id="modifyTeam" type="button">修改</a>
+    </div>
+    <div style="padding: 10px; margin-bottom: 20px;">
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="deleteTeam" name=<%out.print(team.getId());%> type="button" style="background-color: #ce3c39;">解散</a>
     </div>
 </div>
 
@@ -70,35 +85,30 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(function(){
-        $("#modifyTeam").on('click', function () {
+        $("#deleteTeam").on('click', function () {
             var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
-            var teamId=document.getElementById("team_name").name;
-            var teamName=document.getElementById("team_name").value;
-            var describe=document.getElementById("describe").value;
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteTeam";
+            var teamId=document.getElementById("deleteTeam").name;
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "teamId="+teamId+"&teamName="+teamName+"&describe="+describe,
+                data: "teamId="+teamId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
                     if(data==="success"){
-                        showAlert("修改成功",function () {
+                        showAlert("删除成功",function () {
                             window.location.href="${pageContext.request.contextPath}/team/myTeams"
                         });
                     }
-                    if(data==="nameExist"){
-                        showAlert("该名已被使用");
-                    }
                     if(data==="failure"){
-                        showAlert("修改失败");
+                        showAlert("删除失败");
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("修改失败");
+                    showAlert("操作失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

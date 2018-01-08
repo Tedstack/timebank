@@ -202,6 +202,9 @@
             if(count===""){
                 showAlert("请填写参与人数");
                 return;
+            }else if(count==="0"){
+                showAlert("参与人数不能为0");
+                return;
             }
 
             if(address===""){
@@ -214,7 +217,7 @@
                 return;
             }
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/publishActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/category";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/activities_category";
             $.ajax({
                 type: 'POST',
                 cache: false,

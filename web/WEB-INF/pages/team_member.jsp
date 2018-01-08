@@ -29,16 +29,20 @@
     String managerName=(String) request.getAttribute("managerName");
 %>
 <div class="page">
-    <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
-
+    <div class="weui-panel__hd">
+        <div class="weui-flex__item" id="return" onclick="goBack()" >
+            <p><img src="../img/back.png" width="20" height="15"alt="">团体成员</p>
+        </div>
+    </div>
+    <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">简介</a>
+            <a href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
         </div>
         <div class="weui-navbar__item" style="background-color: #0076FF;">
-            <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;color: #ffffff;border: none;height: 27px;font-size: 14px; ">成员</a>
+            <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;color: #ffffff;border: none;height: 25px;font-size: 14px; ">成员</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 27px;font-size: 14px;">历史活动</a>
+            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">历史活动</a>
         </div>
     </div>
     <div class="weui-panel__bd" style="margin : 80px 0px 10px 0px;">
@@ -76,5 +80,8 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function goBack() {
+        window.location.href="${pageContext.request.contextPath}/team/teamList";
+    }
 </script>
 </html>

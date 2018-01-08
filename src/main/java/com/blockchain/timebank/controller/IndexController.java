@@ -49,7 +49,7 @@ public class IndexController {
                 UserEntity userEntity = userService.findUserEntityByOpenID(wot.getOpenId());
                 SNSUserInfo snsUserInfo = AdvancedUtil.getSNSUserInfo(accessToken, openId);
                 if(userEntity!=null){
-                    userService.saveUserHeadImgUrl(userEntity, openId, wot.getAccessToken(), request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/userAvatar/");
+                    userService.saveUserHeadImgUrl(userEntity, openId, wot.getAccessToken());
                     String country=snsUserInfo.getCountry();
                     String province=snsUserInfo.getProvince();
                     String city=snsUserInfo.getCity();

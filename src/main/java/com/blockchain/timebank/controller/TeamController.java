@@ -682,6 +682,7 @@ public class TeamController {
         map.addAttribute("isMember",isMember);
         map.addAttribute("publicActivity",publicActivity);
         map.addAttribute("privateActivity",privateActivity);
+        map.addAttribute("teamId",teamId);
         return "team_history";
     }
 
@@ -729,6 +730,14 @@ public class TeamController {
         return "failure";
     }
 
+    @RequestMapping(value="/viewTeamInfoPage",method = RequestMethod.GET)
+    public String goToViewTeamInfoPage(ModelMap map,@RequestParam String teamId){
+        long id = Long.parseLong(teamId);
+        TeamEntity teamEntity=teamService.findById(id);
+        map.addAttribute("teamEntity",teamEntity);
+        return "view_teamInfo";
+    }
+
     @RequestMapping(value="/modifyPage",method = RequestMethod.GET)
     public String goToModifyPage(ModelMap map,@RequestParam String teamId){
         long id = Long.parseLong(teamId);
@@ -740,11 +749,14 @@ public class TeamController {
     @RequestMapping(value="/modifyTeam",method = RequestMethod.POST)
     @ResponseBody
     public String modifyTeam(@RequestParam String teamId,@RequestParam String teamName,@RequestParam String describe){
-        if(checkTeamNameExist(teamName))
-            return "nameExist";
         try {
             TeamEntity team=teamService.findById(Long.parseLong(teamId));
-            team.setName(teamName);
+            if(!team.getName().equalsIgnoreCase(teamName)){
+                if(checkTeamNameExist(teamName))
+                    return "nameExist";
+                else
+                    team.setName(teamName);
+            }
             team.setDescription(describe);
             teamService.saveTeamEntity(team);
             return "success";
@@ -760,6 +772,13 @@ public class TeamController {
             TeamEntity Team=teamService.findById(Long.parseLong(teamId));
             Team.setDeleted(true);
             teamService.saveTeamEntity(Team);
+            List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByTeamIdAndDeletedAndStatus(Team.getId(),false ,ActivityStatus.waitingForApply);
+            for(int i=0;i<activityDetailList.size();i++)
+            {
+                ActivityPublishEntity activity=activityPublishService.findActivityPublishEntityByID(activityDetailList.get(i).getId());
+                activity.setDeleted(true);
+                activityPublishService.saveActivityPublishEntity(activity);
+            }
             return "success";
         }catch (Exception e) {
             System.out.println(e.toString());
