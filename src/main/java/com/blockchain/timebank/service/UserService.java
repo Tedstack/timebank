@@ -29,5 +29,5 @@ public interface UserService {
 
     UserEntity findUserEntityByOpenID(String openID);
 
-    void saveUserHeadImgUrl(UserEntity userEntity, String openId, String accessToken, String path);
+    void saveUserHeadImgUrl(UserEntity userEntity, String openId, String accessToken);
 }

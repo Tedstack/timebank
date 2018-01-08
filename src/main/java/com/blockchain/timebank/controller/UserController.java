@@ -93,7 +93,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             UserEntity user = getCurrentUser();
-            user.setOpenId(null);
+            //user.setOpenId(null);
             userService.updateUserEntity(user);
 
             SecurityContextHolder.getContext().setAuthentication(null);
