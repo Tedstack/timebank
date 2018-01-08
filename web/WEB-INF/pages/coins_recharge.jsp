@@ -13,7 +13,6 @@
     <title>我的时间币</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
 <body>
 
@@ -36,7 +35,7 @@
 
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-            <button type="submit" id="btn_charge" class="weui-btn weui-btn_primary">下一步</button>
+            <button type="submit" id="btn_charge" class="weui-btn weui-btn_primary">支付</button>
         </p>
     </div>
 
@@ -44,13 +43,20 @@
 
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script>
+<script type="text/javascript">
     var url='${pageContext.request.contextPath}';
 
     $(document).ready(function(){
         $("#btn_charge").click(function () {
             var amount = $("#totalAmount").val();
-            alert(url + "/recharge/coins_recharge_submit" + amount);
+           // alert(url + "/recharge/coins_recharge_submit" + amount);
+            if(amount ===""){
+                alert("请输入充值金额");
+                return;
+            }else if(amount ==="0"){
+                alert("请输入有效金额");
+                return;
+            }
             $.post(
                 url + "/recharge/coins_recharge_submit",
                 {
@@ -58,9 +64,9 @@
                 },
                 function (data, status) {
                     console.log("accept data:" + data);
-                    alert(data);
+                    //alert(data);
                     var obj=JSON.parse(data);
-                    alert(obj.packageStr);
+                    //alert(obj.packageStr);
                     function onBridgeReady(){
                         WeixinJSBridge.invoke(
                                 'getBrandWCPayRequest', {
