@@ -27,7 +27,8 @@ public class TokenThread implements Runnable {
                 if (null != accessToken) {
                     //System.out.println("TokenThread:"+accessToken.getAccessToken());
                     //System.out.println("TokenThread:"+jsapiTicket.getJsapiTicket());
-                    Thread.sleep(7000 * 1000); //获取到access_token 休眠7000秒
+                   // Thread.sleep(7000 * 1000); //获取到access_token 休眠7000秒
+                    Thread.sleep(3600 * 1000); //获取到access_token 休眠3600秒
 
                 } else {
                     Thread.sleep(1000 * 3); //获取的access_token为空 休眠3秒
