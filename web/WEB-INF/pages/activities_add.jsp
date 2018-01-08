@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -86,12 +88,18 @@
                 </div>
             </div>
 
+            <%
+                Date nowDate = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                String nowTime = formatter.format(nowDate);
+            %>
+
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>活动开始时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value=""/>
+                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -100,7 +108,7 @@
                     <p>活动结束时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value=""/>
+                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="" min="<%out.print(nowTime);%>" />
                 </div>
             </div>
 
@@ -109,7 +117,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" class="weui-input" type="datetime-local" value=""/>
+                    <input id="applyEndTime" class="weui-input" type="datetime-local" value=""  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -193,7 +201,7 @@
                 showAlert("请选择活动结束时间");
                 return;
             }
-
+            
             if(applyEndTime===""){
                 showAlert("请选择申请加入活动结束时间");
                 return;
@@ -216,6 +224,17 @@
                 showAlert("请循着活动类型");
                 return;
             }
+
+            if(beginTime>endTime){
+                showAlert("活动结束时间不能早于活动开始时间");
+                return;
+            }
+
+            if(applyEndTime>endTime){
+                showAlert("申请加入活动时间不能晚于活动结束时间");
+                return;
+            }
+
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/publishActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/activities_category";
             $.ajax({
