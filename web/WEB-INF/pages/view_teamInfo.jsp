@@ -17,10 +17,10 @@
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
 %>
-<div class="weui-cells weui-cells_form">
-    <div class="weui-panel__hd weui-cells__title">
+<div class="weui-cells weui-cells_form" style="margin-top: 0px;">
+    <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/return.png" width="20" height="15"alt="">查看团体信息</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">查看团体信息</p>
         </div>
     </div>
     <div class="weui-cells_form weui-cells">

@@ -30,13 +30,13 @@
     List<UserEntity> appliedList=(List<UserEntity>) request.getAttribute("appliedList");
 %>
 <div class="page">
-    <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
-        <div class="weui-navbar__item" style="background-color: #888;border: #888;">
-            <p style="font-size: 20px;">团体成员</p>
+    <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
+        <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
+            <p><img src="../img/back.png" width="20" height="15"alt="">查看团体信息</p>
         </div>
     </div>
 </div>
-<div  style="margin-top: 60px;">
+<div  style="margin-top: 10px;">
 <%
     if(teamUserList.size()==0 && lockedUserList.size()==0 && ManagerList.size()==0 && appliedList.size()==0){
 %>

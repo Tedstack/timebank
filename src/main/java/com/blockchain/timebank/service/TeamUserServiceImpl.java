@@ -35,4 +35,6 @@ public class TeamUserServiceImpl implements TeamUserService {
     }
 
     public TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamId,String status){return teamUserDao.findByUserIdAndTeamIdAndStatus(userId,teamId,status);}
+
+    public TeamUserEntity findByUserIdAndTeamId(long userID,long teamId){return teamUserDao.findByUserIdAndTeamId(userID,teamId);}
 }

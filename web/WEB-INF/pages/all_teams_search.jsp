@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>团体列表</title>
+    <title>搜索结果</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
@@ -22,6 +22,7 @@
 </head>
 <body>
 <%
+    String param=(String) request.getAttribute("param");
     List<ViewTeamDetailEntity> myTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("myList");
     List<ViewTeamDetailEntity> otherTeamList=(List<ViewTeamDetailEntity>) request.getAttribute("otherList");
     List<ViewTeamDetailEntity> alreadyInTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("alreadyInList");
@@ -43,7 +44,7 @@
                             <form class="weui-search-bar__form">
                                 <div class="weui-search-bar__box" style="height:5%;">
                                     <i class="weui-icon-search"></i>
-                                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="">
+                                    <input type="search" class="weui-search-bar__input" id="searchInput" value=<%out.print(param);%> required="">
                                     <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
                                 </div>
                                 <label class="weui-search-bar__label" id="searchText">
@@ -143,35 +144,11 @@
             %>
             </div>
         </div>
-        <div class="weui-tabbar">
-            <a class="weui-tabbar__item weui-bar__item_on">
-                <span style="display: inline-block;">
-                    <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-                </span>
-                <p class="weui-tabbar__label">所有团体</p>
-            </a>
-            <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
-                <span style="display: inline-block;">
-                    <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-                </span>
-                <p class="weui-tabbar__label">已加入团体</p>
-            </a>
-        </div>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var xmlHttpRequest;
-    $(function(){
-        if(window.XMLHttpRequest){
-            xmlHttpRequest=new XMLHttpRequest();
-        }else{
-            xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlHttpRequest.open("GET","AjaxServlet",true);
-    });
-
-    function joinToTeam(t) {
+         function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
             var teamId=t.id;//取要加入团队的Id
@@ -247,6 +224,8 @@
              var param=this.value;
              if(param.length){
                  window.location.href="${pageContext.request.contextPath}/team/searchTeam?param="+param;
+             }else{
+                 window.location.href="${pageContext.request.contextPath}/team/teamList";
              }
          });
          $searchClear.on('click', function(){

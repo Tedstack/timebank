@@ -13,10 +13,12 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-<div class="weui-cells weui-cells_form">
+<div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
-    <div class="weui-cells__title">
-        <p>团队头像</p>
+    <div class="weui-panel__hd weui-cells__title">
+        <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
+            <p><img src="../img/back.png" width="20" height="15"alt="">创建团队</p>
+        </div>
     </div>
     <div class="weui-cells_form weui-cells">
         <div class="weui-cell" style="margin-left: 130px;">

@@ -5,6 +5,7 @@ import com.blockchain.timebank.dao.ViewTeamDetailDao;
 import com.blockchain.timebank.dao.ViewUserActivityDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.weixin.util.TemplateUtil;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/team")
@@ -91,6 +93,39 @@ public class TeamController {
         return "all_teams";
     }
 
+    //搜索页面，效率需要改进
+    @RequestMapping(value = "/searchTeam", method = RequestMethod.GET)
+    public String searchTeam(ModelMap map,@RequestParam String param){
+        map.addAttribute("param",param);
+        List<ViewTeamDetailEntity> teamList=viewTeamDetailDao.findTeamByCondition(param,param);
+        //从所有用户加入的团队中找到自己已经加入的团队
+        List<ViewTeamDetailEntity> myTeam=new ArrayList<ViewTeamDetailEntity>();
+        List<ViewTeamDetailEntity> otherTeam=new ArrayList<ViewTeamDetailEntity>();
+        List<ViewTeamDetailEntity> alreadyInTeam=new ArrayList<ViewTeamDetailEntity>();
+        List<ViewTeamDetailEntity> appliedTeam=new ArrayList<ViewTeamDetailEntity>();
+        Long userId=getCurrentUser().getId();
+        for(int i=0;i<teamList.size();i++){
+            if(teamList.get(i).getCreatorId()==userId)
+                myTeam.add(teamList.get(i));
+            else {
+                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(userId, teamList.get(i).getId());
+                if (teamUser != null) {
+                    if (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) && teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
+                        alreadyInTeam.add(teamList.get(i));
+                    else if (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
+                        appliedTeam.add(teamList.get(i));
+                } else {
+                    otherTeam.add(teamList.get(i));
+                }
+            }
+        }
+        map.addAttribute("myList", myTeam);
+        map.addAttribute("otherList",otherTeam);
+        map.addAttribute("alreadyInList", alreadyInTeam);
+        map.addAttribute("appliedList",appliedTeam);
+        return "all_teams_search";
+    }
+
     @RequestMapping(value = "/chosenTeam", method = RequestMethod.GET)
     public String chosenTeamListPage(ModelMap map) {
         List<TeamUserEntity> allTeamUser = teamUserService.findAll();
@@ -117,6 +152,9 @@ public class TeamController {
             teamUser.setUserId(userId);
             teamUser.setStatus(TeamUserStatus.inApplication);
             teamUserService.addUserToTeam(teamUser);
+//          TeamEntity team=teamService.findById(teamIDList.get(i));
+//          UserEntity user=userService.findUserEntityById(team.setCreatorId());
+//          TemplateUtil.testTemplate(user);
         }
         JSONObject result = new JSONObject();
         result.put("msg","ok");
@@ -748,16 +786,37 @@ public class TeamController {
 
     @RequestMapping(value="/modifyTeam",method = RequestMethod.POST)
     @ResponseBody
-    public String modifyTeam(@RequestParam String teamId,@RequestParam String teamName,@RequestParam String describe){
+    public String modifyTeam(HttpServletRequest request,
+                             @RequestParam(value = "file1", required = false) MultipartFile file,
+                             String team_id,
+                             String team_name,
+                             String describe,
+                             String team_location){
         try {
-            TeamEntity team=teamService.findById(Long.parseLong(teamId));
-            if(!team.getName().equalsIgnoreCase(teamName)){
-                if(checkTeamNameExist(teamName))
+            TeamEntity team=teamService.findById(Long.parseLong(team_id));
+            String idImg ="";
+            //判断是否需要上传头像
+            if (file != null && !file.isEmpty()) {
+                File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                String date=new java.sql.Date(System.currentTimeMillis()).toString();
+                String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+                idImg = team_name + "_headImg_" +date+ suffix1;
+                String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
+                File imgFile = new File(path, idImg);
+                team.setHeadImg(idImg);
+                file.transferTo(imgFile);
+            }
+            if(!team.getName().equalsIgnoreCase(team_name)){
+                if(checkTeamNameExist(team_name))
                     return "nameExist";
                 else
-                    team.setName(teamName);
+                    team.setName(team_name);
             }
             team.setDescription(describe);
+            team.setAddress(team_location);
             teamService.saveTeamEntity(team);
             return "success";
         }catch (Exception e) {

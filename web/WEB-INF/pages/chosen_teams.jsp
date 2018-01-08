@@ -33,7 +33,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/return.png" width="20" height="15"alt="">团体列表</p>
+                    <p><img src="../img/back.png" width="20" height="15"alt="">团体列表</p>
                 </div>
             </div>
             <br>

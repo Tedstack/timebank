@@ -25,13 +25,13 @@
     List<TeamEntity> teamList = (List<TeamEntity>) request.getAttribute("allTeamList");
 %>
 <div class="page">
-    <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
-        <div class="weui-navbar__item" style="background-color: #888;border: #888;">
-            <p style="font-size: 20px;">我的团体</p>
+    <div class="weui-panel__hd">
+        <div class="weui-flex__item" id="return" onclick="goBack()" >
+            <p><img src="../img/back.png" width="20" height="15"alt="">  我的团体</p>
         </div>
     </div>
 </div>
-<div  style="margin-top: 60px;">
+<div  style="margin-top: 10px;">
 <%
     if(teamList.size()==0){
 %>
@@ -87,5 +87,8 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function goBack(){
+        window.location.href="${pageContext.request.contextPath}/user/";
+    }
 </script>
 </html>

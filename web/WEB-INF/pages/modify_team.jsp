@@ -17,10 +17,11 @@
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
 %>
-<div class="weui-cells weui-cells_form">
+<div class="weui-cells weui-cells_form" style="margin-top: 0px;">
+    <form id="teamDetail" method="post">
     <div class="weui-panel__hd weui-cells__title">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/return.png" width="20" height="15"alt="">修改团体信息</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">修改团体信息</p>
         </div>
     </div>
     <div class="weui-cells_form weui-cells">
@@ -30,10 +31,16 @@
                     <div class="weui-flex__item weui-flex justify align">
                         <div class="weui-uploader">
                             <div class="weui-uploader__hd">
-                                <p class="weui-uploader__title">团队头像</p>
+                                <p class="weui-uploader__title">点击更改头像</p>
                             </div>
                             <div class="weui-uploader__bd">
-                                <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width:100px;display: block">
+                                <ul class="weui-uploader__files" id="files1"></ul>
+                                <a id="changeImg" href="javascript:">
+                                    <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width:100px;display: block">
+                                </a>
+                                <div class="weui-uploader__input-box" id="addHeadImg" style="display: none;">
+                                    <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -43,29 +50,37 @@
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd">
+            <label class="weui-label">团队编号</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input readonly class="weui-input" name="team_id" value=<%out.print(team.getId());%>>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
             <label class="weui-label">团队名称</label>
         </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" name=<%out.print(team.getId());%> id="team_name" value=<%out.print(team.getName());%>>
+            <input class="weui-input" name="team_name" value=<%out.print(team.getName());%>>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="team_location" value=<%out.print(team.getAddress());%>>
+            <input class="weui-input" id="team_location" name="team_location" value=<%out.print(team.getAddress());%>>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">团队介绍</label></div>
     </div>
     <div style="text-align:center;">
-        <textarea id="describe" rows="10" cols="30" maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"><%out.print(team.getDescription());%></textarea>
+        <textarea name="describe" rows="10" cols="30" maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"><%out.print(team.getDescription());%></textarea>
     </div>
     <div style="padding: 10px; margin-top: 10px;">
         <a href="javascript:;" class="weui-btn weui-btn_primary" id="modifyTeam" type="button">确认修改</a>
     </div>
+    </form>
 </div>
-
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
@@ -80,17 +95,40 @@
     });
 
     $(function(){
-        $("#modifyTeam").on('click', function () {
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+            $uploaderInput1 = $("#file1"),
+            $uploaderFiles1 = $("#files1");
+        $uploaderInput1.on("change", function(e){
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+
+                $uploaderFiles1.append(tmpl.replace("#url#", src));
+                $uploaderInput1.parent().hide();
+            }
+        });
+        $uploaderFiles1.on("click", "li", function(){
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+        $("#modifyTeam").on('click', function (){
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
-            var teamId=document.getElementById("team_name").name;
-            var teamName=document.getElementById("team_name").value;
-            var describe=document.getElementById("describe").value;
+            var formData = new FormData($("#teamDetail")[0]);
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "teamId="+teamId+"&teamName="+teamName+"&describe="+describe,
+                data: formData,
+                async: false,
+                contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                processData: false,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -108,12 +146,18 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("修改失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
                 }
             });
+        });
+        $("#changeImg").on('click', function (){
+            var pre_Img=document.getElementById("changeImg");
+            var add_Img=document.getElementById("addHeadImg");
+            pre_Img.style.display="none";
+            add_Img.style.display="inline";
         });
     });
 </script>
