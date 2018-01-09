@@ -13,4 +13,5 @@ public interface ViewUserActivityDetailDao extends CrudRepository<ViewUserActivi
     List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(long userID, String status, boolean isAllow);
     List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresentAndStatus(long activityID, boolean isAllow, boolean isPresent ,String status);
     List<ViewUserActivityDetailEntity> findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(long userID, boolean isAllow, boolean isPresent, String status);
+    ViewUserActivityDetailEntity findViewUserActivityDetailEntityByUserIdAndActivityId(long userId,long activityId);
 }
