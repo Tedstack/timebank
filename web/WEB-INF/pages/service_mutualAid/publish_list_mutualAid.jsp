@@ -41,7 +41,7 @@
                         <h4 class="weui-media-box__title" style="display:inline-block"><%out.print(viewPublishEntity.getServiceName());%></h4>
                         <div style="color: #7ACF41;">¥
                             <%
-                                out.print(viewPublishEntity.getPrice()+"时间币");
+                                out.print(viewPublishEntity.getPrice()+"时间币/小时");
                             %></div>
                         <div><p class="weui-media-box__desc">
                             <%out.print(viewPublishEntity.getUserName());%> &nbsp;&nbsp;&nbsp;

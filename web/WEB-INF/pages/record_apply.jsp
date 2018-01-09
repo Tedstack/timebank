@@ -77,7 +77,7 @@
                         <label class="weui-label">开始时间</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>">
+                        <input id="service_beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%out.print(nowTime);%>" min="<%out.print(nowTime);%>">
                     </div>
                 </div>
 
@@ -101,22 +101,23 @@
                     </div>
                 </div>
 
-                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell">
                     <div class="weui-cell__hd">
                         <label class="weui-label">支付方式</label>
                     </div>
-                    <div class="weui-cell__bd">
-                        <select class="weui-select" name="payWay">
+                    <div class="weui-cell__bd"></div>
+                    <div class="weui-cell__ft">
+                        <span>
                             <%
                                 if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                    out.print("<option value='1'>志愿者时间</option>");
+                                    out.print("志愿者时间");
                                 } else if(detailEntity.getServiceType().equals("互助服务")){
-                                    out.print("<option value='2'>时间币</option>");
+                                    out.print("时间币");
                                 }else{
-                                    out.print("<option value='3'>元</option>");
+                                    out.print("元");
                                 }
                             %>
-                        </select>
+                        </span>
                     </div>
                 </div>
 
