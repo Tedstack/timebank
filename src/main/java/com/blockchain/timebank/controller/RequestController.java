@@ -42,10 +42,20 @@ public class RequestController {
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    TechnicAuthService technicAuthService;
+
     //发布需求页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {
         UserEntity user =  getCurrentUser();
+        if(user.getIsVerify()==null){
+            map.addAttribute("msg", "notVerify");
+            return "request/fail_page";
+        }else if(user.getIsVerify()==0){
+            map.addAttribute("msg", "failVerify");
+            return "request/fail_page";
+        }
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
         map.addAttribute("service_list", list);
         return "request/add";
@@ -102,7 +112,19 @@ public class RequestController {
     @RequestMapping(value = "/apply", method = RequestMethod.GET)
     public String apply(ModelMap map, long id){
         UserEntity userEntity = getCurrentUser();
-        map.addAttribute("detail", requestService.findDetailById(id));
+        ViewRequestDetailEntity requestDetailEntity = requestService.findDetailById(id);
+        if(userEntity.getIsVerify()==null){
+            map.addAttribute("msg", "applierNotVerify");
+            return "request/fail_page";
+        }else if(userEntity.getIsVerify()==0){
+            map.addAttribute("msg", "applierFailVerify");
+            return "request/fail_page";
+        }
+        else if(requestDetailEntity.getServiceId()>=200&&requestDetailEntity.getServiceId()<300&&technicAuthService.findTechAuthCountByUserId(userEntity.getId())==0){
+            map.addAttribute("msg", "applierNotTechVerify");
+            return "request/fail_page";
+        }
+        map.addAttribute("detail", requestDetailEntity);
         map.addAttribute("name", userEntity.getName());
         map.addAttribute("phone", userEntity.getPhone());
         return "request/apply";
