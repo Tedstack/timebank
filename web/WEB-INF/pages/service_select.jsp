@@ -182,6 +182,8 @@
             var range = aa.split(',');
             var upperPrice = range[1];
             var lowerPrice = range[0];
+            console.log("upperDate",upperDate);
+            console.log("lowerDate",lowerDate);
             if(check(serviceName, lowerDate, upperDate, upperPrice, lowerPrice)){
                 location.href="${pageContext.request.contextPath}/publish/selectList?type="+ type +"&upper="+ upperPrice + "&lower=" + lowerPrice
                     + "&upperDate=" + upperDate + "&lowerDate=" + lowerDate + "&serviceName=" + serviceName;
