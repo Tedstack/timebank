@@ -77,7 +77,7 @@
                 <div class="weui-cells weui-cells_form">
                     <div class="weui-cell">
                         <div class="weui-cell__bd">
-                            <input class="weui-input" id="ID" name="idNum" pattern="^([0-9]){7,18}(x|X)?$" placeholder="请输入身份证号">
+                            <input class="weui-input" id="ID" name="idNum" pattern="^([0-9]){7,18}(x|X)?$" maxlength="18" placeholder="请输入身份证号">
                         </div>
                     </div>
                 </div>
