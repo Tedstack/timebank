@@ -160,11 +160,11 @@
 
                         <span><%
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                out.print("（志愿者时间/h）");
+                                out.print("（志愿者时间）");
                             } else if(detailEntity.getServiceType().equals("互助服务")){
-                                out.print("（时间币/h）");
+                                out.print("（时间币）");
                             } else{
-                                out.print("（元/h）");
+                                out.print("（元）");
                             }
                         %></span>
                     </div>
@@ -207,10 +207,10 @@
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
         $('#select_serveTime').change(function () {
-            var sum = $(this).val() * $('#eachPrice').text();
+            var hours = parseInt($(this).val());
+            var eachPrice = parseInt($('#eachPrice').text());
+            var sum = hours * eachPrice;
             $('#sumPrice').text(sum);
-            console.log($('#eachPrice').text() + " " + sum);
-            console.log($(this).val() + " " + $('#eachPrice').val());
         });
     });
     function check(){

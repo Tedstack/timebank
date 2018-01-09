@@ -1,5 +1,6 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.TechnicAuthDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
@@ -44,6 +45,9 @@ public class PublishController {
     @Autowired
     ViewRecordDetailDao viewRecordDetailDao;
 
+    @Autowired
+    TechnicAuthDao technicAuthDao;
+
     //服务种类页面
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
@@ -85,7 +89,13 @@ public class PublishController {
             map.addAttribute("msg", "failVerify");
             return "publish_service_result";
         }
-
+        UserEntity currentUser = getCurrentUser();
+        List<TechnicAuthEntity> technicAuthEntities = technicAuthDao.findTechnicAuthEntitiesByUserId(currentUser.getId());
+        if(technicAuthEntities != null && technicAuthEntities.size() != 0){
+            map.addAttribute("isTechnicUser", true);
+        } else {
+            map.addAttribute("isTechnicUser", false);
+        }
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
         map.addAttribute("service_list", list);
         return "publish_add";
