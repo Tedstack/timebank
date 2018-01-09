@@ -32,7 +32,7 @@
         </div>
     </a>
     <div style="background-color: #f8f8f8; height:10px;"></div>
-    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/publish/history_evaluation">
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/history_evaluation">
         <div class="weui-cell__hd"><img src="../img/userdetails/评价.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
             <p>我的历史评价</p>

@@ -2,8 +2,11 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
+import com.blockchain.timebank.dao.ViewRequestDetailDao;
+import com.blockchain.timebank.dao.ViewRequestOrderDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -55,6 +58,9 @@ public class UserController {
 
     @Autowired
     RequestOrderService requestOrderService;
+
+    @Autowired
+    ViewRequestOrderDetailDao viewRequestOrderDetailDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -641,6 +647,58 @@ public class UserController {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
         return "service_posted_detail";
+    }
+
+    //历史评价信息
+    @RequestMapping(value = "/history_evaluation", method = RequestMethod.GET)
+    public String history_evaluation(ModelMap map) {
+        List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<Evaluation_entity> recordlist = new ArrayList<Evaluation_entity>();
+        Iterator<ViewPublishOrderDetailEntity> iter1 = servicelist.iterator();
+        Iterator<ViewRequestOrderDetailEntity> iter2 = requestlist.iterator();
+        while(iter1.hasNext()){
+            ViewPublishOrderDetailEntity record = iter1.next();
+            if(null == record.getRating() && null == record.getComment()){
+                ;
+            }
+            else{
+                Evaluation_entity entity = new Evaluation_entity() ;
+                entity.setClassify("service");
+                entity.setId(record.getId());
+                entity.setService_name(record.getServiceName());
+                entity.setRating(record.getRating());
+                entity.setService_type(record.getServiceType());
+                entity.setComment(record.getComment());
+                entity.setEndTime(record.getActualEndTime());
+                recordlist.add(entity);
+            }
+        }
+        while(iter2.hasNext()){
+            ViewRequestOrderDetailEntity record2 = iter2.next();
+            if(null == record2.getRate() && null == record2.getComment()){
+                ;
+            }
+            else{
+                Evaluation_entity entity = new Evaluation_entity();
+                entity.setClassify("request");
+                entity.setId(record2.getId());
+                entity.setService_name(record2.getServiceName());
+                entity.setRating(record2.getRate());
+                entity.setService_type(record2.getServiceType());
+                entity.setComment(record2.getComment());
+                entity.setEndTime(record2.getActualEndTime());
+                recordlist.add(entity);
+            }
+        }
+
+        if(recordlist.size()>0){
+            MySortList<Evaluation_entity> msList = new MySortList<Evaluation_entity>();
+            msList.sortByMethod(recordlist,"getEndTime",true);
+        }
+        map.addAttribute("recordlist",recordlist);
+        return "history_evaluation";
+
     }
 
 
