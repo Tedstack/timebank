@@ -1,8 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ActivityType" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="org.omg.CORBA.Request" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,14 +15,19 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link href="../css/mobile-main.css" rel="stylesheet" />
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
 </head>
 <body>
-
+<%
+    ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
+    List<TeamEntity> teamList=(List<TeamEntity>) request.getAttribute("teamList");
+    String beginTime=(String) request.getAttribute("beiginTime");
+    String endTime=(String) request.getAttribute("endTime");
+    String applyTime=(String) request.getAttribute("applyTime");
+%>
 <div class="weui-tab">
     <div class="weui-tab__panel">
 
@@ -36,11 +44,13 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select id="teamOptions" class="weui-select" name="team">
-                        <c:forEach var="value" items="${teamList}">
-                            <option value="${value.id}">
-                                ${value.name}
-                            </option>
-                        </c:forEach>
+                        <%for(int i=0;i<teamList.size();i++){
+                        if(activityPublishDetail.getTeamId()==teamList.get(i).getId()){%>
+                        <option value=<%out.print(teamList.get(i).getId());%> selected="selected"><%out.print(teamList.get(i).getName());%></option>
+                        <%}else{%>
+                        <option value=<%out.print(teamList.get(i).getId());%>><%out.print(teamList.get(i).getName());%></option>
+                        <%}
+                        }%>
                     </select>
                 </div>
             </div>
@@ -51,29 +61,42 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="isPublic">
-                        <option value="志愿者">志愿者</option>
+                        <%if(activityPublishDetail.getType().equalsIgnoreCase(ActivityType.volunteerActivity)){%>
+                        <option value="志愿者" selected="selected">志愿者</option>
                         <option value="社区">社区</option>
+                        <%}else{%>
+                        <option value="志愿者">志愿者</option>
+                        <option value="社区" selected="selected">社区</option>
+                        <%}%>
                     </select>
                 </div>
             </div>
-
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bd">
                     <p>是否公开</p>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="isPublicOptions" class="weui-select" name="isPublic">
-                        <option value="true">公开</option>
+                        <%if(activityPublishDetail.isPublic()){%>
+                        <option value="true" selected="selected">公开</option>
                         <option value="false">不公开</option>
+                        <%}else{%>
+                        <option value="true">公开</option>
+                        <option value="false" selected="selected">不公开</option>
+                        <%}%>
                     </select>
                 </div>
             </div>
-
+            <div class="weui-cell" style="display:none;">
+                <div class="weui-cell__bd">
+                    <input id="activityId" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getId());%>>
+                </div>
+            </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>活动名称</p></div>
                 <div class="weui-cell__bd">
-                    <input id="activityName" class="weui-input" type="text" placeholder="请输入活动名称"/>
+                    <input id="activityName" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getName());%>>
                 </div>
             </div>
             <div class="weui-cell">
@@ -82,7 +105,7 @@
                 </div>
                 <div class="weui-cell__bd">
                     <div class="weui-cell__bd">
-                        <textarea id="description" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
+                        <textarea id="description" class="weui-textarea" name="description" rows="3"><%out.print(activityPublishDetail.getDescription());%></textarea>
                         <%--<div class="weui-textarea-counter"><span>0</span>/200</div>--%>
                     </div>
                 </div>
@@ -99,7 +122,7 @@
                     <p>活动开始时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>"/>
+                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%out.print(beginTime);%>" min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -108,7 +131,7 @@
                     <p>活动结束时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="" min="<%out.print(nowTime);%>" />
+                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%out.print(endTime);%>" min="<%out.print(nowTime);%>" />
                 </div>
             </div>
 
@@ -117,7 +140,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" class="weui-input" type="datetime-local" value=""  min="<%out.print(nowTime);%>"/>
+                    <input id="applyEndTime" class="weui-input" type="datetime-local" value="<%out.print(applyTime);%>"  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -126,7 +149,7 @@
                     <p>参与人数</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" placeholder="请输入参与人数"/>
+                    <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" value=<%out.print(activityPublishDetail.getCount());%>>
                 </div>
             </div>
 
@@ -135,12 +158,12 @@
                     <p>活动详细地址</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="address" class="weui-input" name="address" type="text" placeholder="请输入详细地址"/>
+                    <input id="address" class="weui-input" name="address" type="text" value=<%out.print(activityPublishDetail.getAddress());%>>
                 </div>
             </div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;">
-            <button id="submitBtn" class="weui-btn weui-btn_primary">发布</button>
+            <button id="submitBtn" class="weui-btn weui-btn_primary">确认修改</button>
         </div>
     </div>
 </div>
@@ -173,6 +196,7 @@
             var applyEndTime = $('#applyEndTime').val();
             var count = $('#count').val();
             var address = $('#address').val();
+            var activityId= $('#activityId').val();
 
             if(activityName===""){
                 showAlert("请填写活动名称");
@@ -227,28 +251,27 @@
                 return;
             }
 
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/publishActivity";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/activities_category";
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                //dataType:'JSONP',
-                data: "teamId=" + teamID +"&activityType=" + activityType + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
+                data: "teamId=" + teamID +"&activityType=" + activityType + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address+"&activityId="+activityId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
-                    if(data==="ok"){
-                        showAlert("发布成功",function () {
+                    if(data==="success"){
+                        showAlert("修改成功",function () {
                             goTo(targetUrl2);
                         });
                     }else{
-                        showAlert("发布失败");
+                        showAlert("修改失败");
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("发布失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

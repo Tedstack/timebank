@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="com.blockchain.timebank.entity.ServiceEntity" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -23,11 +24,13 @@
 <body>
 
 <%
-    Map<String, Map<Long, String>> map = new HashMap<>();
     List<ServiceEntity> list = (List<ServiceEntity>) request.getAttribute("service_list");
+    ArrayList<Long> serviceId = new ArrayList<>();
+    ArrayList<String> serviceName = new ArrayList<>();
+    String[] types = {"志愿者需求", "专业需求", "互助需求"};
     for (ServiceEntity service : list) {
-        if (!map.containsKey(service.getType())) map.put(service.getType(), new HashMap<Long, String>());
-        map.get(service.getType()).put(service.getId(), service.getName());
+        serviceId.add(service.getId());
+        serviceName.add(service.getName());
     }
 %>
 
@@ -45,8 +48,8 @@
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="serviceType">
                             <%
-                                for (String type : map.keySet()) {
-                                    out.print("<option value='" + type + "'>" + type.replace("服务", "需求") + "</option>");
+                                for (String type : types) {
+                                    out.print("<option value='" + type + "'>" + type + "</option>");
                                 }
                             %>
                             <%--<option value="2">志愿者需求</option>--%>
@@ -57,20 +60,23 @@
                 </div>
 
                 <%
-                    for (String type : map.keySet()) {
-                        Iterator id_names = map.get(type).entrySet().iterator();
+                    for (int i=0; i<3; i++) {
+
                 %>
 
-                <div class="weui-cell weui-cell_select weui-cell_select-after weui-name" id="<%out.print(type);%>">
+                <div class="weui-cell weui-cell_select weui-cell_select-after weui-name" id="<%out.print(types[i]);%>">
                     <div class="weui-cell__hd">
                         <label class="weui-label">需求名称</label>
                     </div>
                     <div class="weui-cell__bd">
                         <select class="weui-select" name="serviceId">
                             <%
-                                while(id_names.hasNext()) {
-                                    Map.Entry entry = (Map.Entry) id_names.next();
-                                    out.print("<option value='" + entry.getKey().toString() + "'>" + entry.getValue() + "</option>");
+                                for (ServiceEntity serviceEntity : list){
+                                    if (serviceEntity.getId()>=(i+1)*100 && serviceEntity.getId()<(i+2)*100){
+                            %>
+                            <option value="<%=serviceEntity.getId()%>"><%=serviceEntity.getName()%></option>
+                            <%
+                                    }
                                 }
                             %>
                         </select>
@@ -104,7 +110,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">开始时间</label></div>
                     <div class="weui-cell__bd">
-                        <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%=nowTime%>" placeholder="<%out.print(nowTime);%>" min=<%out.print(nowTime);%>/>
+                        <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%=nowTime%>" placeholder="<%out.print(nowTime);%>" min="<%out.print(nowTime);%>"/>
                     </div>
                 </div>
 
@@ -112,7 +118,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">结束时间</label></div>
                     <div class="weui-cell__bd">
-                        <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%=nextTime%>" placeholder="<%out.print(nextTime);%>" min=<%out.print(nextTime);%>/>
+                        <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%=nextTime%>" placeholder="<%out.print(nextTime);%>" min="<%out.print(nextTime);%>"/>
                     </div>
                 </div>
 
@@ -165,11 +171,6 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    $(function(){
-        $("#beginTime").blur(function () {
-            alert($("#beginTime").val());
-        });
-    });
 
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");

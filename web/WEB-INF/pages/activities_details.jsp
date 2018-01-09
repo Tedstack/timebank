@@ -26,12 +26,20 @@
 <%
     ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
+    String isApplied=(String) request.getAttribute("isApplied");
+    String type=(String) request.getAttribute("type");
 %>
 <!-- 使用 -->
 
 <div class="weui-tab">
     <div class="weui-tab__panel">
-
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">
+                <div class="weui-flex__item"id="return" onclick="goBack()" >
+                    <p><img src="../img/back.png" alt="" style="width: 6%;display: inline;">活动详情</p>
+                </div>
+            </div>
+        </div>
         <!--以下内容在右侧显示-->
         <div class="enterbar bar_shop border_b mt10" style="margin-bottom: 0;">
             <a href="javascript:void(0)">
@@ -39,9 +47,6 @@
                     <img src="../img/服务类型/志愿者服务.png" alt="">
                 </div>
                 <div class="txt"><%out.print(activityPublishDetail.getName());%></div>
-                <%--<div class="tags-rz">
-                    <span class="tag-sm">志愿者活动</span>
-                </div>--%>
             </a>
         </div>
 
@@ -126,11 +131,14 @@
             </div>
             <div class="con_u"><%out.print(activityPublishDetail.getDescription());%></div>
         </div>
-
-
-
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a id="applyBtn" class="weui-btn weui-btn_primary">申请参与</a>
+            <%if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
+            <a class="weui-btn weui-btn_primary" style="background-color: coral;">报名成功</a>
+            <%}else if(type.equalsIgnoreCase("0")){%>
+            <a id="applyBtn" class="weui-btn weui-btn_primary">报名参与</a>
+            <%}else{%>
+            <a style="display:none;" id="applyBtn" class="weui-btn weui-btn_primary"></a>
+            <%}%>
         </div>
         <%--<div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
         <div class="weui-cells">
@@ -184,10 +192,13 @@
     var activityID='<%=activityPublishDetail.getId()%>';
     var contextPath="${pageContext.request.contextPath}";
 
+    function goBack(){
+        window.location.href="${pageContext.request.contextPath}/team/teamActivities";
+    }
+
     $(function(){
         $("#applyBtn").on('click',function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/teamActivities";
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -200,7 +211,7 @@
                 success: function (data) {
                     if(data==="ok"){
                         showAlert("申请成功",function () {
-                            goTo(targetUrl2);
+                            location.reload();
                         });
                     }else if(data==="upperLimit"){
                         showAlert("活动名额已满，停止报名");

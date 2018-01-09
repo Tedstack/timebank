@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -234,13 +235,18 @@ public class TeamController {
 
     // 团队活动详情页面
     @RequestMapping(value = "/teamActivityDetails", method = RequestMethod.GET)
-    public String teamActivityDetails(ModelMap map, @RequestParam long activityID) {
+    public String teamActivityDetails(ModelMap map, @RequestParam String type,@RequestParam long activityID) {
 
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID,true);
-
+        ViewUserActivityDetailEntity userActivity=viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId(getCurrentUser().getId(),activityID);
+        String isApplied="false";
+        if(userActivity!=null)
+            isApplied="true";
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
+        map.addAttribute("isApplied",isApplied);
+        map.addAttribute("type",type);
         return "activities_details";
     }
 
@@ -344,6 +350,54 @@ public class TeamController {
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         return "manage_activities";
+    }
+
+    @RequestMapping(value = "/modifyActivityPage", method = RequestMethod.GET)
+    public String goToModifyPage(ModelMap map, @RequestParam long activityId) {
+        List<TeamEntity> teamList = teamService.findTeamsByCreatorId(getCurrentUser().getId());
+        ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityId);
+        String beiginTime=activityPublishDetail.getBeginTime().toString();
+        beiginTime=beiginTime.substring(0,10)+"T"+beiginTime.substring(11,19);
+        String endTime=activityPublishDetail.getEndTime().toString();
+        endTime=endTime.substring(0,10)+"T"+endTime.substring(11,19);
+        String applyTime=activityPublishDetail.getApplyEndTime().toString();
+        applyTime=endTime.substring(0,10)+"T"+applyTime.substring(11,19);
+        map.addAttribute("activityPublishDetail", activityPublishDetail);
+        map.addAttribute("teamList",teamList);
+        map.addAttribute("beiginTime",beiginTime);
+        map.addAttribute("endTime",endTime);
+        map.addAttribute("applyTime",applyTime);
+        return "activities_modify";
+    }
+
+    @RequestMapping(value = "/modifyActivity",method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyActivity(@RequestParam long teamId,@RequestParam String activityType, @RequestParam boolean isPublic, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
+            ,@RequestParam String endTime ,@RequestParam String applyEndTime, @RequestParam int count, @RequestParam String address,@RequestParam String activityId) {
+        try {
+            ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
+            activity.setTeamId(teamId);
+            if(activityType.equalsIgnoreCase("志愿者"))
+                activity.setType(ActivityType.volunteerActivity);
+            else
+                activity.setType(ActivityType.communityActivity);
+            activity.setPublic(isPublic);
+            activity.setName(activityName);
+            activity.setDescription(description);
+            activity.setStatus(ActivityStatus.waitingForApply);
+            Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
+            Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " "));
+            Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
+            activity.setBeginTime(new Timestamp(beginDate.getTime()));
+            activity.setEndTime(new Timestamp(endDate.getTime()));
+            activity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
+            activity.setAddress(address);
+            activity.setCount(count);
+            activityPublishService.saveActivityPublishEntity(activity);
+            return "success";
+        }catch(Exception e){
+            return "failure";
+        }
     }
 
     //带申请活动中移除报名用户

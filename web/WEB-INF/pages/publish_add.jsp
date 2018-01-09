@@ -42,7 +42,7 @@
                         <label class="weui-label">服务类型</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="serviceType">
+                        <select class="weui-select" name="serviceType" id = "addServiceType">
                             <%
                                 for (String type : map.keySet()) {
                                     out.print("<option value='" + type + "'>" + type + "</option>");
@@ -190,10 +190,16 @@
     });
 
     function check(){
+        var addServiceType = document.getElementById("addServiceType").value;
         var serviceDescription = document.getElementById("serviceDescription").value;
         var beginDate = document.getElementById("beginDate").value;
         var endDate = document.getElementById("endDate").value;
         var servicePrice = document.getElementById("servicePrice").value;
+        var isTechnicUser = <%out.print(request.getAttribute("isTechnicUser"));%>;
+        if(addServiceType === "专业服务" && isTechnicUser == false){
+            showAlert("发布专业服务请先认证专业技能");
+            return false;
+        }
 
         if(serviceDescription===""){
             showAlert("请填写服务描述");

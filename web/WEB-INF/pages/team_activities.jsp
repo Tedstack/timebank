@@ -37,7 +37,7 @@
                 <%
                     for (int i=0;i<activityList.size();i++) {
                 %>
-                <a href="${pageContext.request.contextPath}/team/teamActivityDetails?activityID=<%out.print(activityList.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
+                <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID=<%out.print(activityList.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
                         <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
                     </div>

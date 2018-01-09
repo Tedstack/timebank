@@ -86,7 +86,17 @@
                             <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"diaplay="none"></div>
+                            <%
+                                Date nowDate = new Date();
+                                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                String nowTime = formatter.format(nowDate);
+                                Timestamp applyEndTime = activityDetailList.get(i).getApplyEndTime();
+                                if(formatter.format(applyEndTime).compareTo(nowTime)>=0){
+                            %>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/modifyActivityPage?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a">修改</a></div>
+                            <%}else{%>
+                            <div class="weui-flex__item"display="none"></div>
+                            <%}%>
                             <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
                         </div>
                     </div>

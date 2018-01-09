@@ -47,7 +47,7 @@
                             <lable class="weui-label">证书名称</lable>
                         </div>
                         <div class="weui-cell__bd">
-                            <input id="techName" name="techName" class="weui-input" placeholder="请输入专业技能证书名称">
+                            <input id="techName" name="techName" class="weui-input" maxlength="40" placeholder="请输入专业技能证书名称">
                         </div>
                     </div>
                     <div class="weui-cell">
@@ -55,7 +55,7 @@
                             <lable class="weui-label">证书等级</lable>
                         </div>
                         <div class="weui-cell__bd">
-                            <input id="techLevel" name="techLevel" class="weui-input" placeholder="请输入专业技能证书等级">
+                            <input id="techLevel" name="techLevel" class="weui-input" maxlength="20" placeholder="请输入专业技能证书等级">
                         </div>
                     </div>
                     <div class="weui-cell">
@@ -63,7 +63,7 @@
                             <label class="weui-label">证书编号</label>
                         </div>
                         <div class="weui-cell__bd">
-                            <input id="techId" name="techId" class="weui-input" placeholder="请输入专业技能证书编号">
+                            <input id="techId" name="techId" class="weui-input" maxlength="20" placeholder="请输入专业技能证书编号">
                         </div>
                     </div>
                 </div>

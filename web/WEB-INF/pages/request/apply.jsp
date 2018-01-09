@@ -61,7 +61,7 @@
 
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
-                        <label class="weui-label">需求时间</label>
+                        <label class="weui-label">持续时间</label>
                     </div>
                     <div class="weui-cell__ft">
                         <%
@@ -76,7 +76,7 @@
                     <div class="weui-cell__bd">
                         <label class="weui-label">
                             <%
-                                String type = null;
+                                String type = "";
                                 switch (detailEntity.getServiceType()){
                                     case "volunteer":
                                         type = "志愿者需求";
@@ -106,12 +106,16 @@
                     <div class="weui-cell__ft">
                         <span id="eachPrice"><%out.print(detailEntity.getPrice());%></span>
                         <span><%
-                            if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                out.print("（志愿者时间）");
-                            } else if(detailEntity.getServiceType().equals("互助服务")){
-                                out.print("（时间币）");
-                            } else{
-                                out.print("（元）");
+                            switch (type) {
+                                case "志愿者需求":
+                                    out.print("（志愿者时间）");
+                                    break;
+                                case "互助需求":
+                                    out.print("（时间币）");
+                                    break;
+                                case "专业需求":
+                                    out.print("（元）");
+                                    break;
                             }
                         %></span>
                     </div>
@@ -129,12 +133,16 @@
                         </span>
 
                         <span><%
-                            if (detailEntity.getServiceType().equals("志愿者服务")) {
-                                out.print("（志愿者时间）");
-                            } else if(detailEntity.getServiceType().equals("互助服务")){
-                                out.print("（时间币）");
-                            } else{
-                                out.print("（元）");
+                            switch (type) {
+                                case "志愿者需求":
+                                    out.print("（志愿者时间）");
+                                    break;
+                                case "互助需求":
+                                    out.print("（时间币）");
+                                    break;
+                                case "专业需求":
+                                    out.print("（元）");
+                                    break;
                             }
                         %></span>
                     </div>
