@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>团体成员</title>
+    <title>团队成员</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
@@ -32,7 +32,7 @@
 <div class="page">
     <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">查看团体信息</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">查看团队信息</p>
         </div>
     </div>
 </div>
@@ -46,7 +46,7 @@
             <h1 class="page__title">
                 <font face="黑体" style="font-size: 40px;">Sorry</font>
             </h1>
-            <p class="page__desc">还没有人加入你的团体</p>
+            <p class="page__desc">还没有人加入你的团队</p>
         </div>
     </div>
 </div>

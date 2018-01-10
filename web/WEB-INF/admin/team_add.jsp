@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>志愿者团体创建</title>
+    <title>志愿者团队创建</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -30,13 +30,13 @@
             <li class="breadcrumb-item">
                 <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">志愿者团体添加</li>
+            <li class="breadcrumb-item active">志愿者团队添加</li>
         </ol>
 
         <!-- Example Bar Chart Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-bar-chart"></i> 团体信息
+                <i class="fa fa-bar-chart"></i> 团队信息
             </div>
             <div class="card-body">
 
@@ -54,7 +54,7 @@
                 <form action="${pageContext.request.contextPath}/admin/teamAddSubmit" method="post">
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">团体名称</label>
+                        <label class="col-sm-1 col-form-label">团队名称</label>
                         <div class="col-sm-4">
                             <input class="form-control" type="text" name="name" placeholder="请输入名称" required>
                         </div>

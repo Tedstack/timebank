@@ -46,7 +46,7 @@
                         <thead>
                         <tr>
                             <th>名称</th>
-                            <th>发布的团体</th>
+                            <th>发布的团队</th>
                             <th>开始时间</th>
                             <th>时长</th>
                             <th>地点</th>

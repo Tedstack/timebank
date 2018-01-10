@@ -33,7 +33,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="goBack()" >
-                    <p><img src="../img/back.png" width="20" height="15"alt="">团体列表</p>
+                    <p><img src="../img/back.png" width="20" height="15"alt="">团队列表</p>
                 </div>
             </div>
             <div class="container" id="container">
@@ -183,7 +183,7 @@
                     }
                 });
             }else{
-                showAlert("请选择要加入的团体");
+                showAlert("请选择要加入的团队");
             }
         }
          function goBack() {

@@ -129,15 +129,17 @@
             <div class="title">
                 <span>详情描述</span>
             </div>
-            <div class="con_u"><%out.print(activityPublishDetail.getDescription());%></div>
+            <div class="con_u" style="font-size: 14px;"><%out.print(activityPublishDetail.getDescription());%></div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;">
             <%if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
             <a class="weui-btn weui-btn_primary" style="background-color: coral;">报名成功</a>
             <%}else if(type.equalsIgnoreCase("0")){%>
             <a id="applyBtn" class="weui-btn weui-btn_primary">报名参与</a>
-            <%}else{%>
+            <%}else if(type.equalsIgnoreCase("1")){%>
             <a style="display:none;" id="applyBtn" class="weui-btn weui-btn_primary"></a>
+            <%}else{%>
+            <a style="display:none;" id="quitBtn" class="weui-btn weui-btn_primary">退出</a>
             <%}%>
         </div>
         <%--<div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
@@ -154,25 +156,6 @@
             <%}%>
             <!--以上-->
         </div>--%>
-    </div>
-
-    <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
-            <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
-            <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">服务</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
-            <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
-        </a>
     </div>
 </div>
 
@@ -193,12 +176,50 @@
     var contextPath="${pageContext.request.contextPath}";
 
     function goBack(){
-        window.location.href="${pageContext.request.contextPath}/team/teamActivities";
+        var type='<%=type%>';
+        if(type==='0')
+            window.location.href="${pageContext.request.contextPath}/team/teamActivities";
+        else
+            history.go(-1);
     }
 
     $(function(){
         $("#applyBtn").on('click',function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "activityID=" + activityID,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    if(data==="ok"){
+                        showAlert("申请成功",function () {
+                            location.reload();
+                        });
+                    }else if(data==="upperLimit"){
+                        showAlert("活动名额已满，停止报名");
+                    }else if(data==="managerError"){
+                        showAlert("团队管理员不能参加自己发布的活动");
+                    }else if(data==="alreadyApply"){
+                        showAlert("您已申请参加此活动");
+                    }else{
+                        showAlert("申请失败");
+                    }
+                },
+                error: function (xhr, type) {
+                    showAlert("申请失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+        });
+        $("#quitBtn").on('click',function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/quitFromActivity";
             $.ajax({
                 type: 'POST',
                 cache: false,

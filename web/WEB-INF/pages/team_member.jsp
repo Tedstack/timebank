@@ -26,12 +26,13 @@
 <body>
 <%
     List<UserEntity> userList=(List<UserEntity>) request.getAttribute("userList");
-    String managerName=(String) request.getAttribute("managerName");
+    List<UserEntity> managerList=(List<UserEntity>) request.getAttribute("managerList");
+    UserEntity creator=(UserEntity) request.getAttribute("creator");
 %>
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">团体成员</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">团队成员</p>
         </div>
     </div>
     <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
@@ -49,15 +50,34 @@
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="../img/ezio.jpg" style="width: 50px;display: block">
+                    <img src="<%out.print(creator.getHeadImgUrl());%>" style="width: 50px;display: block">
                 </div>
                 <div class="weui-cell__bd">
-                    <p><%out.print(managerName);%></p>
+                    <p><%out.print(creator.getName());%></p>
                     <p style="font-size: 13px;color: #888888;">创建者</p>
                 </div>
             </label>
         </div>
     </div>
+    <%
+        if(managerList.size()>0){
+            for(int i=0;i<managerList.size();i++){%>
+    <div class="weui-panel__bd" style="margin : 0px 0px 10px 0px;">
+        <div class="weui-cells weui-cells_checkbox">
+            <label class="weui-cell weui-check__label">
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                    <img src="<%out.print(managerList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+                </div>
+                <div class="weui-cell__bd">
+                    <p><%out.print(managerList.get(i).getName());%></p>
+                    <p style="font-size: 13px;color: #888888;">管理员</p>
+                </div>
+            </label>
+        </div>
+    </div>
+            <%}
+        }
+    %>
     <%
         for(int i=0;i<userList.size();i++)
         {
@@ -66,7 +86,7 @@
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="../img/我的.png" style="width: 50px;display: block">
+                    <img src="<%out.print(userList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
                 </div>
                 <div class="weui-cell__bd">
                     <p><%out.print(userList.get(i).getName());%></p>

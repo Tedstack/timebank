@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>团体成员列表</title>
+    <title>团队成员列表</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -37,7 +37,7 @@
             <li class="breadcrumb-item">
                 <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active"> <span class="badge badge-primary"><%=teamDetailEntity.getName()%></span> 团体成员列表</li>
+            <li class="breadcrumb-item active"> <span class="badge badge-primary"><%=teamDetailEntity.getName()%></span> 团队成员列表</li>
         </ol>
         <!-- Example DataTables Card-->
         <div class="card mb-3">
@@ -113,7 +113,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>您确认要锁定该用户吗？锁定后该用户将不能申请团体组织的活动</p>
+                    <p>您确认要锁定该用户吗？锁定后该用户将不能申请团队组织的活动</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
@@ -138,7 +138,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>您确认要解锁该用户吗？解锁后该用户可以正常申请团体组织的活动</p>
+                    <p>您确认要解锁该用户吗？解锁后该用户可以正常申请团队组织的活动</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>

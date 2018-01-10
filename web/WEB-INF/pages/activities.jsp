@@ -25,6 +25,19 @@
                     <div class="weui-cell">
                         <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                         <div class="weui-cell__bd">
+                            <p style="color: #7ACF41;">所有活动</p>
+                        </div>
+                    </div>
+                    <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-cell weui-cell_access">
+                        <div class="weui-cell__hd"><img src="../img/activity.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                        <div class="weui-cell__bd">
+                            <p>可参与活动</p>
+                        </div>
+                    </a>
+
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                        <div class="weui-cell__bd">
                             <p style="color: #7ACF41;">我的活动</p>
                         </div>
                     </div>

@@ -148,7 +148,7 @@
                         <img src="img/userdetails/专业服务认证.png" alt="">
                     </div>
                     <p class="weui-grid__label">
-                        团体活动
+                        团队活动
                     </p>
                 </a>
                 <%--<a href="${pageContext.request.contextPath}/publish/list?type=社区O2O服务" class="weui-grid">

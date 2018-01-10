@@ -250,7 +250,7 @@ public class TeamController {
         return "activities_details";
     }
 
-    //申请发布团体活动页面
+    //申请发布团队活动页面
     @RequestMapping(value = "/startPublishActivity", method = RequestMethod.GET)
     public String startPublishActivity(ModelMap map) {
         UserEntity user = getCurrentUser();
@@ -328,6 +328,19 @@ public class TeamController {
 
         userActivityService.addUserActivity(userActivityEntity);
 
+        return "ok";
+    }
+
+    @RequestMapping(value = "/quitFromActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String quitFromActivity(ModelMap map, @RequestParam long activityID) {
+        try {
+            UserActivityEntity userActivity=userActivityService.findUserFromActivity(getCurrentUser().getId(),activityID);
+            userActivity.setPresent(false);
+            userActivityService.updateUserActivityEntity(userActivity);
+        }catch (Exception e){
+            return "fail";
+        }
         return "ok";
     }
 
@@ -422,7 +435,7 @@ public class TeamController {
         return "ok";
     }
 
-    //待执行团体活动页面（发布活动）
+    //待执行团队活动页面（发布活动）
     @RequestMapping(value = "/activitiesWaitingToExecute", method = RequestMethod.GET)
     public String activitiesWaitingToExecute(ModelMap map) {
         List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.waitingForExecute);
@@ -462,7 +475,7 @@ public class TeamController {
         return result.toString();
     }
 
-    //已开始团体活动页面（发布活动）
+    //已开始团队活动页面（发布活动）
     @RequestMapping(value = "/alreadyStartedActivities", method = RequestMethod.GET)
     public String alreadyStartedActivities(ModelMap map) {
         List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.alreadyStart);
@@ -505,7 +518,7 @@ public class TeamController {
         return "ok";
     }
 
-    //申请已完成团体活动页面（发布活动）
+    //申请已完成团队活动页面（发布活动）
     @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
     public String alreadyCompleteActivities(ModelMap map) {
         List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(),false ,ActivityStatus.alreadyTerminate);
@@ -629,19 +642,24 @@ public class TeamController {
     {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity=teamService.findById(id);
-        UserEntity Manager=userService.findUserEntityById(teamEntity.getCreatorId());
+        UserEntity creator=userService.findUserEntityById(teamEntity.getCreatorId());
         List<TeamUserEntity> userList=teamUserService.findAllUsersOfOneTeam(id);//only find user id
         List<UserEntity> memberList=new ArrayList<UserEntity>();
+        List<UserEntity> managerList=new ArrayList<UserEntity>();
         for(int i=0;i<userList.size();i++)
         {
             if(!userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.isLocked))
             {
                 UserEntity user=userService.findUserEntityById(userList.get(i).getUserId());
-                memberList.add(user);
+                if(userList.get(i).isManager())
+                    managerList.add(user);
+                else
+                    memberList.add(user);
             }
         }
         map.addAttribute("userList",memberList);
-        map.addAttribute("managerName",Manager.getName());
+        map.addAttribute("managerList",managerList);
+        map.addAttribute("creator",creator);
         map.addAttribute("teamId",teamId);
         return "team_member";
     }
@@ -760,7 +778,7 @@ public class TeamController {
         List<ActivityPublishEntity> publicActivity=new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity=new ArrayList<ActivityPublishEntity>();
         long userId=getCurrentUser().getId();
-        //判断用户在这个团体内
+        //判断用户在这个团队内
         TeamUserEntity team=teamUserService.findByUserIdAndTeamIdAndStatus(userId,id,TeamUserStatus.alreadyEntered);
         if(team!=null)
             isMember=true;
