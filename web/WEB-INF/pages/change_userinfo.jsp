@@ -64,7 +64,7 @@
     $(function(){
         if((qrcode2!=='null')&&(qrcode2!=="")){
             $('#curqrcode').text(qrcode2);
-            $("#addBtn").text('无需添加');
+            $("#addBtn").hide();
             $("#commitBtn").hide();
 
                 var qrcode1 = new QRCode(document.getElementById("qrcode"), {
