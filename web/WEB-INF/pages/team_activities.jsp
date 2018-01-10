@@ -96,7 +96,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
+        $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
     });
 </script>
 

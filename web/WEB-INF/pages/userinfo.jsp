@@ -25,7 +25,12 @@
         </div>
         <div class="weui-cell__bd">
             <p><%out.print(userEntity.getName());%></p>
-            <p style="font-size: 13px;color: #888888;">邻里智助ID:<%out.print(userEntity.getQrCode());%></p>
+            <p style="font-size: 13px;color: #888888;">邻里智助ID:<%
+                if( userEntity.getQrCode()==null)
+                    out.print("暂无");
+                else {
+                    out.print(userEntity.getQrCode());
+                }%></p>
         </div>
         <div class="weui-cell__ft">
             <img src="../img/二维码.png" style="width:20px;margin-right:5px;display:block">
@@ -145,7 +150,7 @@
         <p class="weui-tabbar__label">活动</p>
     </a>
     <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-        <img src="../img/我的.png" alt="" class="weui-tabbar__icon weui-bar__item_on">
+        <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">我</p>
     </a>
 </div>
@@ -156,7 +161,7 @@
 
 <script>
     $(document).ready(function () {
-        $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
+        $('.weui-tabbar:eq(0)').find('a:eq(3)').addClass("weui-bar__item_on");
     });
 </script>
 
