@@ -128,14 +128,14 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseTeam" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-group"></i>
-                            <span class="nav-link-text">志愿者团体管理</span>
+                            <span class="nav-link-text">志愿者团队管理</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseTeam">
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin/teamList">团体列表</a>
+                                <a href="${pageContext.request.contextPath}/admin/teamList">团队列表</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin/teamAdd">添加团体</a>
+                                <a href="${pageContext.request.contextPath}/admin/teamAdd">添加团队</a>
                             </li>
                         </ul>
                     </li>

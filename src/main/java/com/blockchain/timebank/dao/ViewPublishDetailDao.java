@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ViewPublishDetailDao extends CrudRepository<ViewPublishDetailEntity, Long>{
 
-    public List<ViewPublishDetailEntity> findAllByServiceType(String serviceType);
+    public List<ViewPublishDetailEntity> findAllByServiceTypeOrderByCreateTime(String serviceType);
 
     public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserId(long userID);
 

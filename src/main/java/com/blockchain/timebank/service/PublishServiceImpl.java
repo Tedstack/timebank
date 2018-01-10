@@ -43,7 +43,7 @@ public class PublishServiceImpl implements PublishService {
     }
 
     public List<ViewPublishDetailEntity> findAllByServiceType(String type){
-        List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
+        List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceTypeOrderByCreateTime(type);
         return getAndSetHeadImgUrl(list);
     }
 

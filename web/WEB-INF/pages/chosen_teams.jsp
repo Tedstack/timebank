@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>已选团体</title>
+    <title>已选团队</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
@@ -33,7 +33,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/back.png" width="20" height="15"alt="">团体列表</p>
+                    <p><img src="../img/back.png" width="20" height="15"alt="">团队列表</p>
                 </div>
             </div>
             <br>
@@ -41,7 +41,7 @@
                 for (int i=0;i<teamList.size();i++) {
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){
             %>
-            <div class="weui-panel__bd">
+            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
                         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
@@ -125,5 +125,9 @@
                 });
             }
         }
+    function viewTeamPage(t) {
+        var teamId=t.id;
+        window.location.href="${pageContext.request.contextPath}/team/teamIndex?teamId="+teamId;
+    }
 </script>
 </html>

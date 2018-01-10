@@ -84,7 +84,7 @@
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
+                            <div class="weui-flex__item"><a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/teamActivityDetails?type=2&activityID=<%out.print(userActivityList.get(i).getActivityId());%>">查看</a></div>
                         </div>
                     </div>
                 </div>

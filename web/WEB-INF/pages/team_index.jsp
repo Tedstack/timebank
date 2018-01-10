@@ -29,7 +29,7 @@
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">团体主页</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">团队主页</p>
         </div>
     </div>
     <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
@@ -48,7 +48,7 @@
             <table align="center" cellpadding="0" style="margin:auto">
                 <tr>
                     <td align="right" width="80">
-                        <img src="../img/ECNU.png" style="width: 80px;display: block">
+                        <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width: 80px;display: block">
                     </td>
                     <td width="5"></td>
                     <td align="center" width="100">

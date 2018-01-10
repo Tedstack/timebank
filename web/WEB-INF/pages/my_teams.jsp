@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的团体</title>
+    <title>我的团队</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
@@ -27,7 +27,7 @@
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">  我的团体</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">  我的团队</p>
         </div>
     </div>
 </div>
@@ -41,12 +41,12 @@
             <h1 class="page__title">
                 <font face="黑体" style="font-size: 40px;">Sorry</font>
             </h1>
-            <p class="page__desc">你还没有自己的小团体</p>
+            <p class="page__desc">你还没有自己的小团队</p>
         </div>
     </div>
     <div style="text-align:center;margin-top: 40px;height:100px;">
         <div style="margin:50px;">
-            <a href="${pageContext.request.contextPath}/team/createPage" class="weui-btn weui-btn_plain-default">创建自己的团体</a>
+            <a href="${pageContext.request.contextPath}/team/createPage" class="weui-btn weui-btn_plain-default">创建自己的团队</a>
         </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
             <span style="display: inline-block;">
                 <img src="../img/add.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
             </span>
-            <p class="weui-tabbar__label">新建团体</p>
+            <p class="weui-tabbar__label">新建团队</p>
         </a>
     </div>
     <%}%>
@@ -87,6 +87,16 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    $(function() {
+        if (window.history && window.history.pushState) {
+            $(window).on('popstate', function () {
+                window.history.pushState('forward', null, '#');
+                window.history.forward(1);
+            });
+        }
+        window.history.pushState('forward', null, '#');
+        window.history.forward(1);
+    });
     function goBack(){
         window.location.href="${pageContext.request.contextPath}/user/";
     }

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>团体活动发布</title>
+    <title>团队活动发布</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -32,13 +32,13 @@
             <li class="breadcrumb-item">
                 <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">团体活动发布</li>
+            <li class="breadcrumb-item active">团队活动发布</li>
         </ol>
 
         <!-- Example Bar Chart Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-bar-chart"></i> 团体活动信息
+                <i class="fa fa-bar-chart"></i> 团队活动信息
             </div>
             <div class="card-body">
 
@@ -57,7 +57,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">发布的团体</label>
+                        <label class="col-sm-1 col-form-label">发布的团队</label>
                         <div class="col-sm-4">
                             <select name="teamId" class="form-control">
                                 <%

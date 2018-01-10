@@ -20,7 +20,7 @@
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">查看团体信息</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">查看团队信息</p>
         </div>
     </div>
     <div class="weui-cells_form weui-cells">
@@ -57,7 +57,7 @@
     </div>
     <div class="weui-panel__ft">
         <a href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(team.getId());%>" class="weui-cell weui-cell_access weui-cell_link">
-            <div class="weui-cell__bd"><label class="weui-label" style="font-size: 17px;color: #1a1a1a;">团体成员</label></div>
+            <div class="weui-cell__bd"><label class="weui-label" style="font-size: 17px;color: #1a1a1a;">团队成员</label></div>
             <span class="weui-cell__ft"></span>
         </a>
     </div>

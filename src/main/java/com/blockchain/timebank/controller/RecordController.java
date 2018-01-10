@@ -5,6 +5,7 @@ import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.RecordService;
+import com.blockchain.timebank.service.UserActivityService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +38,9 @@ public class RecordController {
     PublishService publishService;
 
     @Autowired
+    UserActivityService userActivityService;
+
+    @Autowired
     ViewActivityPublishDetailDao viewActivityPublishDetailDao;
 
     //申请服务页面
@@ -63,11 +67,14 @@ public class RecordController {
         return "";
     }
 
-    //申请评价活动页面（参与活动的成员）
+    //申请评价活动页面（参与活动的成员）num代表评价次数
     @RequestMapping(value = "/pingjia_activities", method = RequestMethod.GET)
-    public String Pingjiaactivities(ModelMap map,@RequestParam long activityId) {
+    public String pingjiaActivities(ModelMap map,@RequestParam String num,@RequestParam long activityId) {
         ViewActivityPublishDetailEntity activityy=viewActivityPublishDetailDao.findOne(activityId);
+        UserActivityEntity userActivity=userActivityService.findUserFromActivity(getCurrentUser().getId(),activityId);
         map.addAttribute("activityDetail",activityy);
+        map.addAttribute("userActivity",userActivity);
+        map.addAttribute("rateCount",num);
         return "activities_rate";
     }
 

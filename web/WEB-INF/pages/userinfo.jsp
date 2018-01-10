@@ -48,14 +48,14 @@
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/teamList">
         <div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
-            <p>所有团体</p>
+            <p>所有团队</p>
         </div>
         <div class="weui-cell__ft"style="">选择</div>
     </a>
     <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/team/myTeams">
-        <div class="weui-cell__hd"><img src="../img/我的团体.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+        <div class="weui-cell__hd"><img src="../img/我的团队.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
-            <p>我的团体</p>
+            <p>我的团队</p>
         </div>
         <div class="weui-cell__ft"style="">查看</div>
     </a>

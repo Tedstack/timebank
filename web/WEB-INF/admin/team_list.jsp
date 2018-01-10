@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>志愿者团体列表</title>
+    <title>志愿者团队列表</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -32,20 +32,20 @@
             <li class="breadcrumb-item">
                 <a href="/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">志愿者团体列表</li>
+            <li class="breadcrumb-item active">志愿者团队列表</li>
         </ol>
         <!-- Example DataTables Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> 志愿者团体表
+                <i class="fa fa-table"></i> 志愿者团队表
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>团体名称</th>
-                            <th>团体管理者</th>
+                            <th>团队名称</th>
+                            <th>团队管理者</th>
                             <th>成员列表</th>
                             <th>团队简介</th>
                             <th>创建日期</th>

@@ -32,7 +32,7 @@
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">团体历史活动</p>
+            <p><img src="../img/back.png" width="20" height="15"alt="">团队历史活动</p>
         </div>
     </div>
     <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
@@ -71,7 +71,7 @@
                     out.print(bartDateFormat2.format(date2));
                 %></p>
             <ul class="weui-media-box__info">
-                <li class="weui-media-box__info__meta"><%out.print(publicActivity.get(i).getCount());%>人</li>
+                <li class="weui-media-box__info__meta" style="margin-bottom: 2px;"><%out.print(publicActivity.get(i).getCount());%>人</li>
                 <li class="weui-media-box__info__meta"><%out.print(publicActivity.get(i).getAddress());%></li>
             </ul>
         </div>

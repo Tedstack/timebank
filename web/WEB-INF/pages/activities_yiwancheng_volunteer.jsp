@@ -106,9 +106,9 @@
                                 <div class="weui-flex__item">
                                     <%
                                         if(userActivityList.get(i).getUserComment()==null)
-                                            out.print("<a href='"+ request.getContextPath() +"/record/pingjia_activities?activityId="+userActivityList.get(i).getActivityId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
+                                            out.print("<a href='"+ request.getContextPath() +"/record/pingjia_activities?num=0&activityId="+userActivityList.get(i).getActivityId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
                                         else
-                                            out.print("<a class='weui-btn weui-btn_mini weui-btn_primary'  style='background-color: coral'>已评价</a>");
+                                            out.print("<a href='"+ request.getContextPath() +"/record/pingjia_activities?num=1&activityId="+userActivityList.get(i).getActivityId()+"'class='weui-btn weui-btn_mini weui-btn_primary'  style='background-color: coral'>再评价</a>");
                                     %>
                                 </div>
                             </div>

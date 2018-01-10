@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>团体列表</title>
+    <title>团队列表</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
@@ -32,7 +32,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="goBack()" >
-                    <p><img src="../img/back.png" width="20" height="15"alt="">团体列表</p>
+                    <p><img src="../img/back.png" width="20" height="15"alt="">团队列表</p>
                 </div>
             </div>
             <div class="container" id="container">
@@ -64,15 +64,21 @@
                     if(myTeamList.size()>0){
                         for(int i=0;i<myTeamList.size();i++){
                 %>
-                <div class="weui-panel__bd">
+                <div class="weui-panel__bd" id="<%out.print(myTeamList.get(i).getId());%>" onclick="viewTeamPage(this)">
                     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                         <label class="weui-cell weui-check__label" for=<%out.print(myTeamList.get(i).getId());%>>
-                            <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(myTeamList.get(i).getId());%>">
+                            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                                 <img src="../img/teamHeadImg/<%out.print(myTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
-                            </a>
+                            </div>
                             <div class="weui-cell__bd">
                                 <p><%out.print(myTeamList.get(i).getName());%></p>
-                                <p style="font-size: 13px;color: #888888;"><%out.print(myTeamList.get(i).getDescription());%></p>
+                                <p style="font-size: 13px;color: #888888;">
+                                    <%if(myTeamList.get(i).getDescription().length()<=30)
+                                        out.print(myTeamList.get(i).getDescription());
+                                    else
+                                        out.print(myTeamList.get(i).getDescription().substring(0,30)+"...");
+                                    %>
+                                </p>
                             </div>
                             <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #b3d7ff;">我的</a>
                         </label>
@@ -83,15 +89,21 @@
             <%  if(alreadyInTeamList.size()>0){
                 for(int i=0;i<alreadyInTeamList.size();i++)
                 {%>
-            <div class="weui-panel__bd">
+            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(alreadyInTeamList.get(i).getId());%>">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(alreadyInTeamList.get(i).getId());%>>
-                        <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(alreadyInTeamList.get(i).getId());%>">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                             <img src="../img/teamHeadImg/<%out.print(alreadyInTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
-                        </a>
+                        </div>
                         <div class="weui-cell__bd">
                             <p><%out.print(alreadyInTeamList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(alreadyInTeamList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">
+                                <%if(alreadyInTeamList.get(i).getDescription().length()<=30)
+                                    out.print(alreadyInTeamList.get(i).getDescription());
+                                else
+                                    out.print(alreadyInTeamList.get(i).getDescription().substring(0,30)+"...");
+                                %>
+                            </p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;">已加入</a>
                     </label>
@@ -100,15 +112,21 @@
             <%}
             } if(appliedList.size()>0){
                 for(int i=0;i<appliedList.size();i++){%>
-            <div class="weui-panel__bd">
+            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(appliedList.get(i).getId());%>">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(appliedList.get(i).getId());%>>
-                        <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(appliedList.get(i).getId());%>">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                             <img src="../img/teamHeadImg/<%out.print(appliedList.get(i).getHeadImg());%>" style="width: 50px;display: block">
-                        </a>
+                        </div>
                         <div class="weui-cell__bd">
                             <p><%out.print(appliedList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">
+                                <%if(appliedList.get(i).getDescription().length()<=30)
+                                    out.print(appliedList.get(i).getDescription());
+                                else
+                                    out.print(appliedList.get(i).getDescription().substring(0,30)+"...");
+                                %>
+                            </p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ce3c39;">已申请</a>
                     </label>
@@ -118,12 +136,12 @@
             }
                 for (int i=0;i<otherTeamList.size();i++) {
             %>
-            <div class="weui-panel__bd">
+            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(otherTeamList.get(i).getId());%>">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(otherTeamList.get(i).getId());%>>
-                        <a class="weui-cell__hd" style="position: relative;margin-right: 10px;" href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(otherTeamList.get(i).getId());%>">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
                             <img src="../img/teamHeadImg/<%out.print(otherTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
-                        </a>
+                        </div>
                         <div class="weui-cell__bd">
                             <p><%out.print(otherTeamList.get(i).getName());%></p>
                             <p style="font-size: 13px;color: #888888;">
@@ -148,13 +166,13 @@
                 <span style="display: inline-block;">
                     <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                 </span>
-                <p class="weui-tabbar__label">所有团体</p>
+                <p class="weui-tabbar__label">所有团队</p>
             </a>
             <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
                 <span style="display: inline-block;">
                     <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                 </span>
-                <p class="weui-tabbar__label">已加入团体</p>
+                <p class="weui-tabbar__label">已加入团队</p>
             </a>
         </div>
 </div>
@@ -257,5 +275,9 @@
              cancelSearch();
              $searchInput.blur();
          });
+         function viewTeamPage(t) {
+             var teamId=t.id;
+             window.location.href="${pageContext.request.contextPath}/team/teamIndex?teamId="+teamId;
+         }
 </script>
 </html>

@@ -1,4 +1,5 @@
-<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewActivityPublishDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.UserActivityEntity" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/20
@@ -23,6 +24,8 @@
 <body>
 <%
     ViewActivityPublishDetailEntity activityDetail=(ViewActivityPublishDetailEntity) request.getAttribute("activityDetail");
+    String num=(String) request.getAttribute("rateCount");
+    UserActivityEntity userActivity=(UserActivityEntity) request.getAttribute("userActivity");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -49,7 +52,6 @@
                 </a>
             </div>
         </div>
-
         <div class="weui-cell">
             <div class="weui-cell__bd">
                 <div class="weui-flex">
@@ -59,8 +61,7 @@
                     <div class="weui-flex__item">
                         <div class="weui-flex__item">
                             <div id="app">
-                                <el-rate v-model="value3" show-text>
-                                </el-rate>
+                                <el-rate v-model="value3" show-text></el-rate>
                             </div>
                         </div>
                     </div>
@@ -72,7 +73,11 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
+                    <%if(num.equalsIgnoreCase("0")){%>
                     <textarea name="text" class="weui-textarea" id="commentIndex" placeholder="例：活动丰富有意义" rows="3"></textarea>
+                    <%}else{%>
+                    <textarea name="text" class="weui-textarea" id="commentIndex" rows="3"><%out.print(userActivity.getUserComment());%></textarea>
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -105,12 +110,19 @@
         }
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
-
     new Vue({
         el:'#app',
         data:function(){
-            return {
-                value3: 4
+            var num='<%=num%>';
+            var rate='<%=userActivity.getUserRating()%>'
+            if(num==="0") {
+                return {
+                    value3: 4
+                }
+            }else{
+                return {
+                    value3:rate
+                }
             }
         }
     })
@@ -137,6 +149,12 @@
             }
             if(starText==="惊喜"){
                 starNum = 5;
+            }
+            if(starNum<=3){
+                if(comment==="") {
+                    showAlert("评价少于3星请给出具体理由");
+                    return;
+                }
             }
             $.ajax({
                 type: 'POST',

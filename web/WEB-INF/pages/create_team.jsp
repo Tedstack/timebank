@@ -109,9 +109,9 @@
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
             var formData = new FormData($("#teamDetail")[0]);
             if(document.getElementById("team_name").value===""){
-                showAlert("请填写团体名称");}
+                showAlert("请填写团队名称");}
             else if(document.getElementById("team_location").value===""){
-                showAlert("请填写团体主要活动地点");
+                showAlert("请填写团队主要活动地点");
             }else{
             $.ajax({
                 type: 'POST',
