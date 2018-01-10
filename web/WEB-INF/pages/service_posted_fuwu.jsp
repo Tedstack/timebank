@@ -119,9 +119,9 @@
                         <div class="weui-flex__item">
                             <a href="${pageContext.request.contextPath}/user/serviceUserStartScan?recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">
                                 <%if(recordDetailList.get(i).getActualBeginTime()==null){
-                                    out.print("开始服务");
+                                    out.print("开始");
                                 }else if(recordDetailList.get(i).getActualEndTime()==null){
-                                    out.print("结束服务");
+                                    out.print("结束");
                                 }%>
                             </a>
                         </div>
