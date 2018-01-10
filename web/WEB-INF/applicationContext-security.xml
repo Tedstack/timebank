@@ -34,13 +34,15 @@
         <intercept-url pattern="/css/**" access="permitAll()"/>
         <intercept-url pattern="/js/**" access="permitAll()"/>
         <intercept-url pattern="/login" access="permitAll()"/>
+        <intercept-url pattern="/loginPage" access="permitAll()"/>
+        <intercept-url pattern="/index" access="permitAll()"/>
         <intercept-url pattern="/register" access="permitAll()"/>
         <intercept-url pattern="/user/login" access="permitAll()"/>
         <intercept-url pattern="/user/register2" access="permitAll()"/>
         <intercept-url pattern="/user/register" access="permitAll()"/>
         <intercept-url pattern="/recharge/weixin_notify**" access="permitAll()"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
-        <form-login login-page="/login" authentication-failure-url="/login?error=1"/>
+        <form-login login-page="/loginPage" authentication-failure-url="/login?error=1"/>
         <csrf disabled="true"/>
         <remember-me remember-me-cookie="remember-me" remember-me-parameter="remember-me"
                      user-service-ref="customUserDetailsService"

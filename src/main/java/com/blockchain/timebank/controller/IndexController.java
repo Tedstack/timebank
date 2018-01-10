@@ -8,6 +8,7 @@ import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
 import com.blockchain.timebank.weixin.util.AdvancedUtil;
 import com.blockchain.timebank.weixin.util.Configs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,8 +31,14 @@ public class IndexController {
     public String indexPage() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(principal.toString());
-        return "index";
 
+        return "index";
+    }
+
+    @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+    public String loginPage2(HttpServletRequest request, ModelMap map) {
+
+        return "login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
