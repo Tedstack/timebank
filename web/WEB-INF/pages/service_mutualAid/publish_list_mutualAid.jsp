@@ -1,5 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: caozihan
@@ -16,6 +18,14 @@
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <title>服务列表</title>
+    <style>
+        .overtimeFlag{
+            float:right;
+            font-size:16px;
+            color:#848c99;
+            margin-top: 28px;
+        }
+    </style>
 </head>
 <body>
 <div class="weui-tab">
@@ -29,7 +39,8 @@
 
                 <%
                     List<ViewPublishDetailEntity> list = (List<ViewPublishDetailEntity>) request.getAttribute("list");
-                    for (ViewPublishDetailEntity viewPublishEntity : list) {
+                    for (int i = 0; i < list.size(); i++) {
+                        ViewPublishDetailEntity viewPublishEntity = list.get(i);
                 %>
 
                 <a href="<%out.print("detail?id="+viewPublishEntity.getId()+"&type=mutualAid");%>" class="weui-media-box weui-media-box_appmsg">
@@ -39,7 +50,15 @@
                     <div class="weui-media-box__bd">
                         <img class="weui-media-box__thumb" style="width:25px; margin-top: 5px" src="../img/服务名称/<%out.print(viewPublishEntity.getServiceName());%>.png" />
                         <h4 class="weui-media-box__title" style="display:inline-block"><%out.print(viewPublishEntity.getServiceName());%></h4>
-                        <div style="color: #7ACF41;">¥
+                        <%
+                            Date currentDate = new Date();
+                            SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+                            String currentTime = sdf.format(currentDate);
+                            if(viewPublishEntity.getEndDate().getTime() < new Date(currentTime).getTime()){
+                                out.print("<span class='overtimeFlag'>已过期</span>");
+                            }
+                        %>
+                        <div style="color: #7ACF41;">
                             <%
                                 out.print(viewPublishEntity.getPrice()+"时间币/小时");
                             %></div>
