@@ -53,9 +53,9 @@
                             </form>
                             <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
                         </div>
-                        <div class="page__ft j_bottom">
-                            <a href="javascript:home()"><img src="./images/icon_footer_link.png"></a>
-                        </div>
+                        <%--<div class="page__ft j_bottom">--%>
+                            <%--<a href="javascript:home()"><img src="../images/icon_footer_link.png"></a>--%>
+                        <%--</div>--%>
                      </div>
                 </div>
             </div>
