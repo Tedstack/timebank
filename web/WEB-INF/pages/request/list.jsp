@@ -1,6 +1,8 @@
 <%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewRequestDetailEntity" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 29/12/2017
@@ -13,6 +15,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <style>
+        .overtimeFlag{
+            float:right;
+            font-size:16px;
+            color:#848c99;
+            line-height:57px;
+        }
+    </style>
     <title>需求列表</title>
 </head>
 <body>
@@ -41,7 +51,7 @@
                         out.print(type);
                     %>
                 </span>
-                <a href="javascript:;" onclick="window.location.href='${pageContext.request.contextPath}/request/select?type=<%out.print(request.getAttribute("type"));%>'" style="float:right">筛选</a>
+                <a href="/timebank/request/select?type=<%out.print(request.getAttribute("type"));%>" style="float:right">筛选</a>
             </div>
             <div class="weui-panel__bd">
 
@@ -59,6 +69,14 @@
                             <img style="height:20.5px; vertical-align: text-bottom" src="../img/服务名称/<%out.print(viewRequestDetailEntity.getServiceName());%>.png" />
                             <%out.print(viewRequestDetailEntity.getServiceName());%>
                         </h4>
+                        <%
+                            Date currentDate = new Date();
+                            SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+                            String currentTime = sdf.format(currentDate);
+                            if(viewRequestDetailEntity.getEndTime().getTime() < new Date(currentTime).getTime()){
+                                out.print("<span class='overtimeFlag'>已过期</span>");
+                            }
+                        %>
                         <p class="weui-media-box__desc">
                             <span style="color: #7ACF41;">¥
                                 <%

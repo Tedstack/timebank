@@ -18,10 +18,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/request")
@@ -195,12 +192,10 @@ public class RequestController {
             Date startDate = sdf.parse(lowerDate);
             Date endDate = sdf.parse(upperDate);
             Timestamp lowerTime = new Timestamp(startDate.getTime());
-            Timestamp upperTime = new Timestamp(endDate.getTime());
+            Timestamp upperTime = new Timestamp(endDate.getTime()+24*60*60*1000);
             String[] serviceNameArr = serviceName.split(",");
             //List<ViewPublishDetailEntity> list = selectServiceDao.findPublishEntityByCondition(type, serviceName, upperTime, lowerTime, upperPrice, lowerPrice);
             List<ViewRequestDetailEntity> list = requestService.findAllByCondition(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
-            //倒序排列
-            Collections.reverse(list);
             map.addAttribute("list", list);
             map.addAttribute("type", type);
         } catch(Exception e){

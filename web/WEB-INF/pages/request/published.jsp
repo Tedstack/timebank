@@ -349,7 +349,7 @@
                                 <span class="weui-form-preview__value"><%out.print(requestCompleted.get(i).getId());%></span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务实收款</label>
+                                <label class="weui-form-preview__label">实付款</label>
                                 <span class="weui-form-preview__value">
                                     <%
                                         if(requestCompleted.get(i).getStatus().equals("已完成")){
@@ -361,7 +361,7 @@
                                 </span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务对象:</label>
+                                <label class="weui-form-preview__label">服务者:</label>
                                 <span class="weui-form-preview__value"><%out.print(requestCompleted.get(i).getApplyUserName());%></span>
                             </div>
                             <div class="weui-form-preview__item">

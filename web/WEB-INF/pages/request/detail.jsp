@@ -81,7 +81,7 @@
                         /小时 申请服务
                     </a>
                     <a id="requestOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
-                        服务已过期，不可申请
+                        需求已过期，不可申请
                     </a>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                 <section>
                     <p>
                         申请前请看清时间及需求地址<br/>
-                        提交申请后不可取消，等待提供需求者确认接受后即可服务<br/>
+                        提交申请后不可取消，等待提供需求者确认接受后即可提供服务<br/>
                         若有任何变动请及时与需求者联系<br/>
                     </p>
                 </section>

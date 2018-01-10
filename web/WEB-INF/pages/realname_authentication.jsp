@@ -234,6 +234,10 @@
                     {
                         location.href=notiUrl;
                     }
+                    else if(data=="failure")
+                    {
+                        showAlert("很抱歉，上传信息失败，请稍后尝试！");
+                    }
                     //...
                 },
                 error: function (data) {

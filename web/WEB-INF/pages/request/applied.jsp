@@ -293,13 +293,13 @@
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务状态</label>
+                                <label class="weui-form-preview__label">需求状态</label>
                                 <em class="weui-form-preview__value" style="color: #7ACF41"><%out.print(requestCompleted.get(i).getStatus());%></em>
                             </div>
                         </div>
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务名称</label>
+                                <label class="weui-form-preview__label">需求名称</label>
                                 <span class="weui-form-preview__value"><%out.print(requestCompleted.get(i).getServiceName());%></span>
                             </div>
                             <div class="weui-form-preview__item">

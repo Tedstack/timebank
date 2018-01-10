@@ -80,7 +80,7 @@
     $(function() {
         $("#button1").on('click', function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/request/requestApplyUserCompleteScan";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/user/queryRequestMatchWaitingService";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/request/applied?tag=2";
             wx.scanQRCode(
                 {
                     needResult:1,
