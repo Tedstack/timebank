@@ -80,21 +80,27 @@ public class RecordController {
 
     //申请服务页面
     @RequestMapping(value = "/applySubmit", method = RequestMethod.POST)
-    public String applySubmit(ModelMap map, @RequestParam long serviceUserId, @RequestParam long publishId, @RequestParam String applyUserName, @RequestParam String applyUserPhone, @RequestParam String address, @RequestParam String beginTime, @RequestParam int serveTime, @RequestParam int payWay) {
+    public String applySubmit(ModelMap map, @RequestParam long serviceUserId, @RequestParam long publishId, @RequestParam String applyUserName, @RequestParam String applyUserPhone, @RequestParam String address, @RequestParam String beginTime, @RequestParam int serveTime) {
 
         //判断余额是否充足
-        double price = publishService.findPublishEntityById(publishId).getPrice();
+        PublishEntity publishEntity = publishService.findPublishEntityById(publishId);
+        double price = publishEntity.getPrice();
         double sum = price * serveTime;
         boolean hasMoney = true;
-        if(payWay==1){
+        long serviceId = publishEntity.getServiceId();
+        int payWay = 1;
+        if(serviceId / 100 ==1){
+            payWay = 1;
             if(getCurrentUser().getTimeVol()<sum){
                 hasMoney = false;
             }
-        }
-        if(payWay==2){
+        }else if(serviceId / 100 ==3){
+            payWay = 2;
             if(getCurrentUser().getTimeCoin()<sum){
                 hasMoney = false;
             }
+        } else{
+            payWay = 3;
         }
 
         //判断是否申请自己的服务
