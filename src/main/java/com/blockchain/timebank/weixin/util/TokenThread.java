@@ -71,7 +71,7 @@ public class TokenThread implements Runnable {
      */
     private JsapiTicket getJsapiTicket(){
         NetWorkHelper netHelper = new NetWorkHelper();
-        String Url = js_api_ticket_url.replace("ACCESS_TOKEN",this.getAccessToken().getAccessToken());
+        String Url = js_api_ticket_url.replace("ACCESS_TOKEN",accessToken.getAccessToken());
         String result = netHelper.getHttpsResponse(Url,"");
         //System.out.println("getJsapiTicket:"+result);
         JSONObject json = JSONObject.parseObject(result);

@@ -117,5 +117,5 @@ function returnRobot(robotCodeType, robotCodeValue) {
     });
 }
 wx.error(function (res) {
-    showAlert("微信接口出错");
+    showAlert("测试号token获取到上限，如需测试，请转移至官方号进行相应操作");
 });
