@@ -59,7 +59,7 @@
     <div class="page__bd" style="height: 100%;">
             <div class="weui-cell"style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/返回.png" width="20" height="15"alt="">待支付</p>
+                    <p><img src="../img/返回.png" width="20" height="15"alt="">待付款</p>
                 </div>
                 <div class="weui-flex__item"></div>
                 <div class="weui-flex__item"></div>

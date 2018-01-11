@@ -46,7 +46,7 @@ public class MessageUtil {
         return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
     }
 
-    public static boolean apply_success(UserEntity user, ViewTeamDetailEntity teamDetailEntity){
+    public static boolean apply_success(UserEntity user, ViewActivityPublishDetailEntity teamDetailEntity){
         /*
         * 报名成功通知
         *{{first.DATA}}
@@ -65,10 +65,10 @@ public class MessageUtil {
         * */
         UserEntity userEntity = user;
         String str_first = "您好，您已成功报名了志愿活动！";
-        String team_name = teamDetailEntity.getName();
-        String activity_name = teamDetailEntity.getDescription();
+        String team_name = teamDetailEntity.getTeamName();
+        String activity_name = teamDetailEntity.getName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String begin_time = bartDateFormat.format(teamDetailEntity.getCreateDate());
+        String begin_time = bartDateFormat.format(teamDetailEntity);
         String address = teamDetailEntity.getAddress();
         String str_remark = "点击详情查看具体细节";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
