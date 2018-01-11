@@ -1,12 +1,15 @@
 package com.blockchain.timebank.controller;
 
+import com.blockchain.timebank.dao.UserDao;
 import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
+import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.PublishService;
 import com.blockchain.timebank.service.RecordService;
 import com.blockchain.timebank.service.UserActivityService;
 import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.weixin.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +36,12 @@ public class RecordController {
 
     @Autowired
     ViewPublishDetailDao viewPublishDetailDao;
+
+    @Autowired
+    ViewRecordDetailDao viewPublishOrderDetailDao;
+
+    @Autowired
+    UserDao userDao;
 
     @Autowired
     PublishService publishService;
@@ -124,8 +133,15 @@ public class RecordController {
                 publishOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
                 publishOrderEntity.setPayWay(payWay);
                 publishOrderEntity.setStatus(OrderStatus.alreadyApply);
-                recordService.saveRecordEntity(publishOrderEntity);
+                PublishOrderEntity insertPublishOrder = recordService.saveRecordEntity(publishOrderEntity);
                 map.addAttribute("msg","ok");
+                //发消息给发布服务的人
+                UserEntity userEntity = userDao.findUserEntityById(serviceUserId);
+                ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewPublishOrderDetailDao.findViewRecordDetailEntityById(insertPublishOrder.getId());
+                if(userEntity != null && viewPublishOrderDetailEntity != null) {
+                    System.out.println("===========================进入判断===============================");
+                    MessageUtil.customer_appoint(userEntity, viewPublishOrderDetailEntity);
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
                 map.addAttribute("msg","error");

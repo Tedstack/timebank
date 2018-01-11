@@ -146,19 +146,24 @@ public class AdvancedUtil {
 		boolean result = false;
 		// 请求地址拼接
 		String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
-		requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
-		// 模板消息发送
-		String respJSON = CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());
-		System.out.println(respJSON);
-		JSONObject jsonObject = JSONObject.fromObject(respJSON);
-		if (null != jsonObject) {
-			int errorCode = jsonObject.getInt("errcode");
-			String errorMsg = jsonObject.getString("errmsg");
-			if (0 == errorCode) {
-				result = true;
-			} else {
-				System.out.println("模板消息发送错误 errcode:" + errorCode);
+		if(accessToken != null) {
+			requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
+			// 模板消息发送
+			String respJSON = CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());
+			System.out.println(respJSON);
+			JSONObject jsonObject = JSONObject.fromObject(respJSON);
+			if (null != jsonObject) {
+				int errorCode = jsonObject.getInt("errcode");
+				String errorMsg = jsonObject.getString("errmsg");
+				if (0 == errorCode) {
+					result = true;
+				} else {
+					System.out.println("模板消息发送错误 errcode:" + errorCode);
+				}
 			}
+		}
+		else{
+			System.out.println("accessToken为空");
 		}
 		return result;
 	}
