@@ -214,6 +214,9 @@
                             showAlert("申请成功",function () {
                                 location.reload();
                             });
+                        }else if(dataJson.msg==="msgFail"){
+                            showAlert("信息发送失败");
+                            return;
                         }
                     },
                     error: function (xhr, type) {

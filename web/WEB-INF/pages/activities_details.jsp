@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-            <div class="weui-cell">
+            <div class="weui-cell" onclick="goToUserList(this)">
                 <div class="weui-cell__bd">
                     <p>报名人数</p>
                 </div>
@@ -139,7 +139,7 @@
             <%}else if(type.equalsIgnoreCase("1")){%>
             <a style="display:none;" id="applyBtn" class="weui-btn weui-btn_primary"></a>
             <%}else{%>
-            <a style="display:none;" id="quitBtn" class="weui-btn weui-btn_primary">退出</a>
+            <a style="background-color: #ce3c39;" id="quitBtn" class="weui-btn weui-btn_primary">退出</a>
             <%}%>
         </div>
         <%--<div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
@@ -181,6 +181,10 @@
             window.location.href="${pageContext.request.contextPath}/team/teamActivities";
         else
             history.go(-1);
+    }
+
+    function goToUserList(u){
+        window.location.href="${pageContext.request.contextPath}/team/userActivityList?activityId="+activityID;
     }
 
     $(function(){
@@ -231,17 +235,11 @@
                 },
                 success: function (data) {
                     if(data==="ok"){
-                        showAlert("申请成功",function () {
-                            location.reload();
+                        showAlert("退出成功",function () {
+                            window.location.href="${pageContext.request.contextPath}/team/alreadyApplyActivities";
                         });
-                    }else if(data==="upperLimit"){
-                        showAlert("活动名额已满，停止报名");
-                    }else if(data==="managerError"){
-                        showAlert("团队管理员不能参加自己发布的活动");
-                    }else if(data==="alreadyApply"){
-                        showAlert("您已申请参加此活动");
                     }else{
-                        showAlert("申请失败");
+                        showAlert("退出失败");
                     }
                 },
                 error: function (xhr, type) {

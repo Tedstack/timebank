@@ -56,6 +56,12 @@
         </div>
     </div>
     <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="content_number" name="content_number" placeholder="默认注册手机号"/>
+        </div>
+     </div>
+    <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">团队介绍</label></div>
         <div class="weui-cell__hd"><label class="weui-label" style="color: grey;">200字以内</label></div>
     </div>

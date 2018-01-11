@@ -1,7 +1,8 @@
 <%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.blockchain.timebank.entity.TeamUserEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.TeamUserEntity" %>
+<%@ page import="com.blockchain.timebank.entity.TeamEntity" %><%--
   Created by IntelliJ IDEA.
   User: bobo9978
   Date: 2017/12/7
@@ -27,6 +28,7 @@
 <%
     List<ViewTeamDetailEntity> teamList = (List<ViewTeamDetailEntity>) request.getAttribute("list");
     List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
+    List<TeamEntity> myTeam=(List<TeamEntity>) request.getAttribute("myTeam");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -37,6 +39,27 @@
                 </div>
             </div>
             <br>
+            <p style="font-size: 13px;color: #1a1a1a;margin-bottom: 10px;">我创建的团队</p>
+            <%
+                for (int i=0;i<myTeam.size();i++) {
+            %>
+            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(myTeam.get(i).getId());%>">
+                <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+                    <label class="weui-cell weui-check__label" for=<%out.print(myTeam.get(i).getId());%>>
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                            <img src="../img/teamHeadImg/<%out.print(myTeam.get(i).getHeadImg());%>" style="width: 50px;display: block">
+                        </div>
+                        <div class="weui-cell__bd">
+                            <p><%out.print(myTeam.get(i).getName());%></p>
+                            <p style="font-size: 13px;color: #888888;"><%out.print(myTeam.get(i).getDescription());%></p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <%
+                }
+            %>
+            <p style="font-size: 13px;color: #1a1a1a;margin-top: 10px;margin-bottom: 10px;">我加入的团队</p>
             <%
                 for (int i=0;i<teamList.size();i++) {
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){

@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="weui-cell">
+    <div class="weui-cell" style="display:none;">
         <div class="weui-cell__hd">
             <label class="weui-label">团队编号</label>
         </div>

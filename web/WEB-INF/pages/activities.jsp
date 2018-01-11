@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>服务种类</title>
+    <title>团队活动</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
@@ -22,19 +22,6 @@
         <div class="weui-tab">
             <div class="weui-tab__panel">
                 <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">
-                    <div class="weui-cell">
-                        <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-                        <div class="weui-cell__bd">
-                            <p style="color: #7ACF41;">所有活动</p>
-                        </div>
-                    </div>
-                    <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-cell weui-cell_access">
-                        <div class="weui-cell__hd"><img src="../img/activity.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
-                        <div class="weui-cell__bd">
-                            <p>可参与活动</p>
-                        </div>
-                    </a>
-
                     <div class="weui-cell">
                         <div class="weui-cell__hd"><img src="../img/服务名称/所有服务.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                         <div class="weui-cell__bd">
