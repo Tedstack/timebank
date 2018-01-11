@@ -1,9 +1,6 @@
 package com.blockchain.timebank.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -26,7 +23,7 @@ public class ViewActivityPublishDetailEntity {
     private String teamName;
     private Long creatorId;
 
-    @Basic
+    @Id
     @Column(name = "ID", nullable = false)
     public long getId() {
         return id;
