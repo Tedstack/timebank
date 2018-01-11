@@ -452,6 +452,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.TeamID            AS TeamID,        #志愿者团体编号
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.Type              AS Type,          #活动类型
+      activityPublish.HeadImg           AS HeadImg,       #活动头像
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
       activityPublish.Address           AS Address,       #活动地点
