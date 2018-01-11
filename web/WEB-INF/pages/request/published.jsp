@@ -57,7 +57,7 @@
         </div>
         <div class="weui-tab">
             <!--published start-->
-            <div class="weui-tab__panel" id="published" style="padding-bottom: 50px; padding-top: 70px;display: block">
+            <div class="weui-tab__panel" id="published" style="padding-bottom: 50px; padding-top: 70px;">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i = 0; i< requestPublished.size(); i++) {
@@ -124,7 +124,7 @@
             <!--published end-->
             
             <!--to_confirm start-->
-            <div class="weui-tab__panel" id="to_confirm" style="padding-bottom: 50px; padding-top: 70px;display: none">
+            <div class="weui-tab__panel" id="to_confirm" style="padding-bottom: 50px; padding-top: 70px;">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<requestToConfirm.size();i++) {
@@ -196,7 +196,7 @@
             <!--to_confirm end-->
             
             <!--to_service start-->
-            <div class="weui-tab__panel" id="to_service" style="padding-bottom: 50px; padding-top: 70px;display: none">
+            <div class="weui-tab__panel" id="to_service" style="padding-bottom: 50px; padding-top: 70px;">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<requestToService.size();i++) {
@@ -275,7 +275,7 @@
             <!--to_service end-->
             
             <!--to_pay start-->
-            <div class="weui-tab__panel" id="to_pay" style="padding-bottom: 50px; padding-top: 70px;display: none">
+            <div class="weui-tab__panel" id="to_pay" style="padding-bottom: 50px; padding-top: 70px;">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<requestToPay.size();i++) {

@@ -161,14 +161,14 @@
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
                             <p class="weui-media-box__desc">订单编号 <%out.print(requestToService.get(i).getId());%></p>
-                            <p class="weui-media-box__desc">开始时间
+                            <p class="weui-media-box__desc" style="color: #7ACF41">开始时间
                                 <%
                                     Timestamp beginTimestamp = requestToService.get(i).getBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc">结束时间
+                            <p class="weui-media-box__desc" style="color: #7ACF41">结束时间
                                 <%
                                     Timestamp endTimestamp = requestToService.get(i).getEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
@@ -185,10 +185,9 @@
                                     out.print("结束服务");
                                 }
                             %></p>
-                            <ul class="weui-media-box__info">
-                                <li class="weui-media-box__info__meta"><%out.print(requestToService.get(i).getRequestUserName());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra"><%out.print(requestToService.get(i).getRequestUserPhone());%></li>
-                            </ul>
+                            <p class="weui-media-box__desc">需求者: <%out.print(requestToService.get(i).getRequestUserName());%></p>
+                            <p class="weui-media-box__desc" style="color: #7ACF41">联系方式: <%out.print(requestToService.get(i).getRequestUserPhone());%></p>
+
                         </div>
                     </div>
                     <div class="weui-cell">

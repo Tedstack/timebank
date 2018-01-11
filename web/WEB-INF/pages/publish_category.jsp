@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>服务种类</title>
+    <title>服务</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
@@ -61,14 +61,14 @@
                         </div>
                     </div>
 
-                    <a href="${pageContext.request.contextPath}/request/published" class="weui-cell weui-cell_access" href="javascript:;">
+                    <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-cell weui-cell_access" href="javascript:;">
                         <div class="weui-cell__hd"><img src="../img/userdetails/我的发布.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
                         <div class="weui-cell__bd">
                             <p>已发布的需求</p>
                         </div>
                     </a>
 
-                    <a href="${pageContext.request.contextPath}/request/applied" class="weui-cell weui-cell_access" href="javascript:;">
+                    <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-cell weui-cell_access" href="javascript:;">
                         <div class="weui-cell__hd">
                             <img src="../img/userdetails/我的申请.png" alt="" style="width:20px;margin-right:5px;display:block">
                         </div>
