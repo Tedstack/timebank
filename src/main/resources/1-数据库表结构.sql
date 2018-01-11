@@ -312,6 +312,7 @@ CREATE TABLE `activityPublish` (
   `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
   `Type` VARCHAR(50) NOT NULL COMMENT '活动类型',
+  `HeadImg` VARCHAR(100) NULL COMMENT '活动头像',
   `BeginTime` DATETIME NOT NULL COMMENT '活动开始时间',
   `EndTime` DATETIME NULL COMMENT '活动结束时间',
   `Address` VARCHAR(50) NOT NULL COMMENT '活动地点',
