@@ -140,7 +140,7 @@ public class RecordController {
                 ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewPublishOrderDetailDao.findViewRecordDetailEntityById(insertPublishOrder.getId());
                 if(userEntity != null && viewPublishOrderDetailEntity != null) {
                     System.out.println("===========================进入判断===============================");
-                    MessageUtil.customer_appoint(userEntity, viewPublishOrderDetailEntity);
+                    //MessageUtil.customer_appoint(userEntity, viewPublishOrderDetailEntity);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
