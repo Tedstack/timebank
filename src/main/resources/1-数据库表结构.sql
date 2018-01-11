@@ -495,6 +495,7 @@ CREATE VIEW view_user_activity_detail
       userActivity.UserID           AS UserID,        #用户编号
       user.Name                     AS UserName,        #用户名
       user.Phone                    AS UserPhone,       #用户手机号
+      user.HeadImgUrl               AS UserHeadImg,     #用户头像
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
       userActivity.IsPresent        AS IsPresent,       #是否参加活动
       userActivity.ManagerRating    AS ManagerRating,     #管理者对参与者评分
