@@ -580,6 +580,7 @@ CREATE VIEW view_team_detail
       team.CreatorID      AS CreatorID,
       user.Name            AS CreatorUserName,
       user.Phone           AS CreatorUserPhone,
+      team.Phone           AS TeamPhone,      #团队手机联系方式
       team.CreateDate      AS CreateDate,
       team.Description     AS Description,
       team.IsDeleted       AS IsDeleted,
