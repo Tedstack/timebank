@@ -274,6 +274,7 @@ CREATE TABLE `team` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '团体名称',
   `CreatorID` BIGINT(20) NOT NULL COMMENT '团体创建者ID',
+  `Phone` VARCHAR(20) NOT NULL COMMENT '团队联系手机号',
   `Description` VARCHAR(200) NULL COMMENT '团体简介',
   `CreateDate` DATE NOT NULL COMMENT '创建日期',
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',

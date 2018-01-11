@@ -9,6 +9,7 @@ public class TeamEntity {
     private long id;
     private String name;
     private Long creatorId;
+    private String phone;
     private String description;
     private Date createDate;
     private boolean isDeleted;
@@ -44,6 +45,16 @@ public class TeamEntity {
 
     public void setCreatorId(Long creatorId) {
         this.creatorId = creatorId;
+    }
+
+    @Basic
+    @Column(name = "Phone", nullable = false, length = 20)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Basic
@@ -117,6 +128,7 @@ public class TeamEntity {
         if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
+        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         if (headImg != null ? !headImg.equals(that.headImg) : that.headImg != null) return false;
@@ -131,6 +143,7 @@ public class TeamEntity {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (isDeleted ? 1 : 0);
