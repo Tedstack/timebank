@@ -1,8 +1,15 @@
 package com.blockchain.timebank.admin;
 
+import com.blockchain.timebank.entity.TechnicAuthEntity;
+import com.blockchain.timebank.entity.UserAuthEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.TeamService;
+import com.blockchain.timebank.service.TechnicAuthService;
+import com.blockchain.timebank.service.UserAuthService;
 import com.blockchain.timebank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +37,12 @@ public class UserManageController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserAuthService userAuthService;
+
+    @Autowired
+    TechnicAuthService technicAuthService;
 
 
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
@@ -78,10 +94,53 @@ public class UserManageController {
         return "../admin/user_verify";
     }
 
+    @RequestMapping(value = "/userTechVerifyList", method = RequestMethod.GET)
+    public String userTechVerifyPage(ModelMap map) {
+        List<TechnicAuthEntity> list_tech = technicAuthService.findAll();
+        map.addAttribute("list_tech", list_tech);
+        return "../admin/user_tech_verify_list";
+    }
+
+    @RequestMapping(value = "/userTechVerify", method = RequestMethod.GET)
+    public String userTechVerifyPage(ModelMap map, @RequestParam long techId) {
+        TechnicAuthEntity technicAuthEntity = technicAuthService.findTechnicAuthEntityById(techId);
+        map.addAttribute("tech", technicAuthEntity);
+        map.addAttribute("user", userService.findUserEntityById(technicAuthEntity.getUserId()));
+        return "../admin/user_tech_verify";
+    }
+
+    @RequestMapping(value = "/userTechVerifySubmit", method = RequestMethod.POST)
+    public String userTechVerifySubmit(ModelMap map, @RequestParam long techId, @RequestParam int isVerify){
+        TechnicAuthEntity technicAuthEntity = technicAuthService.findTechnicAuthEntityById(techId);
+        technicAuthEntity.setVerified(isVerify==1);
+        technicAuthEntity.setAuthId(getCurrentUser().getId());
+        technicAuthEntity.setAuthDate(new Timestamp(new java.util.Date().getTime()));
+        technicAuthService.saveTechnicAuthEntity(technicAuthEntity);
+        map.addAttribute("tech", technicAuthEntity);
+        map.addAttribute("user", userService.findUserEntityById(technicAuthEntity.getUserId()));
+        map.addAttribute("ok", "提交成功！");
+        return "../admin/user_tech_verify";
+    }
+
     @RequestMapping(value = "/userVerifySubmit", method = RequestMethod.POST)
     public String userVerifySubmit(ModelMap map, @RequestParam long userId, @RequestParam int isVerify) {
         UserEntity userEntity = userService.findUserEntityById(userId);
         userEntity.setIsVerify(isVerify);
+        if (isVerify == 1){
+            SimpleDateFormat cardBirth = new SimpleDateFormat("yyyyMMdd");
+            try {
+                Date birth = new Date(cardBirth.parse(userEntity.getIdCard().substring(6, 14)).getTime());
+                userEntity.setBirth(birth);
+
+                String sex = Integer.parseInt(userEntity.getIdCard().substring(16, 17)) % 2 == 0 ? "女" : "男";
+                userEntity.setSex(sex);
+            }
+            catch (ParseException e){
+                e.printStackTrace();
+            }
+
+
+        }
         userService.saveUserEntity(userEntity);
         map.addAttribute("user", userEntity);
         map.addAttribute("ok", "提交成功！");
@@ -170,6 +229,15 @@ public class UserManageController {
     }
 
 
+    private UserAuthEntity getCurrentUser() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userDetails != null) {
+            UserAuthEntity userEntity = userAuthService.findUserAuthEntityByPhone(userDetails.getUsername());
+            return userEntity;
+        } else {
+            return null;
+        }
+    }
     // 文件上传路径
     private String getUploadPath() {
         return request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
