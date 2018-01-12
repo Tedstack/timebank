@@ -52,7 +52,10 @@
                                 <a href="${pageContext.request.contextPath}/admin/userList">用户列表</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin/userVerifyList">审核认证</a>
+                                <a href="${pageContext.request.contextPath}/admin/userVerifyList">实名审核认证</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/userTechVerifyList">专业技能审核认证</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath}/admin/userAdd">添加用户</a>
