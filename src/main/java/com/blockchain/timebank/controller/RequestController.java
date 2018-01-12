@@ -3,7 +3,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
-import com.blockchain.timebank.weixin.util.CommonUtil;
+import com.blockchain.timebank.weixin.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -150,7 +150,25 @@ public class RequestController {
             requestOrderEntity.setBeginTime(new Timestamp(date.getTime()));
             requestOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
             requestOrderEntity.setStatus(OrderStatus.alreadyApply);
-            requestOrderService.saveVolunteerRequestMatchEntity(requestOrderEntity);
+            RequestOrderEntity insertRequestOrderEntity = requestOrderService.saveRequestOrderEntity(requestOrderEntity);
+
+            UserEntity userEntity = userService.findUserEntityById(requestUserId);
+            ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(insertRequestOrderEntity.getId());
+            if(userEntity != null && viewRequestOrderDetailEntity != null) {
+                System.out.println("===========================进入判断===============================");
+                int try_num = 3;
+                while(!MessageUtil.customer_appoint(userEntity, viewRequestOrderDetailEntity)){
+                    if (--try_num==0)
+                        break;
+                }
+
+            }
+            else if (userEntity==null){
+                System.out.println("===========================user_entity null===========================");
+            }
+            else{
+                System.out.println("===========================request_order_entity null===========================");
+            }
             map.addAttribute("msg","ok");
         } catch (ParseException e) {
             e.printStackTrace();
@@ -207,15 +225,15 @@ public class RequestController {
     //需求者处理订单
     @RequestMapping(value = "/handleRequestMatch", method = RequestMethod.GET)
     public String handleRequestMatch(ModelMap map,@RequestParam long matchID,@RequestParam String handle){
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
         if(handle.equals("refuse")){
             matchEntity.setStatus(OrderStatus.alreadyRefuse);
-            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+            requestOrderService.updateRequestOrderEntity(matchEntity);
         }
 
         if(handle.equals("confirm")){
             matchEntity.setStatus(OrderStatus.waitingService);
-            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+            requestOrderService.updateRequestOrderEntity(matchEntity);
         }
 
         UserEntity userEntity = userService.findUserEntityById(matchEntity.getApplyUserId());
@@ -306,7 +324,7 @@ public class RequestController {
 //        thread.start(); //启动进程
 
         map.addAttribute("matchID",matchID);
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
         map.addAttribute("isFirst", matchEntity.getActualBeginTime()==null);
         return "request/qr_scan";
     }
@@ -317,7 +335,7 @@ public class RequestController {
     public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchID){
         String status = "";
         UserEntity requestUser = userService.findUserEntityByQrCode(qrcode);
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
         if(matchEntity.getRequestUserId()!=requestUser.getId()){
             status = "notOneself";
         }else{
@@ -341,7 +359,7 @@ public class RequestController {
                 matchEntity.setPayMoney(money);
             }
 
-            requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+            requestOrderService.updateRequestOrderEntity(matchEntity);
             status = "success";
         }
         //map.addAttribute("status",status);
@@ -351,7 +369,7 @@ public class RequestController {
     //需求者开始付款
     @RequestMapping(value = "/requestUserStartPay",method = RequestMethod.GET)
     public String requestUserStartPay(ModelMap map,@RequestParam long matchID){
-        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
 
         map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
         return "request/paydetail";
@@ -361,7 +379,7 @@ public class RequestController {
     @RequestMapping(value = "/requestUserStartEvaluate",method = RequestMethod.GET)
 
     public String requestUserStartEvaluate(ModelMap map,@RequestParam long recordID){
-        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(recordID);
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(recordID);
 
         map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
         return "request/request_rate";
@@ -371,17 +389,17 @@ public class RequestController {
     @RequestMapping(value = "/requestUserEvaluateRecord",method = RequestMethod.POST)
     @ResponseBody
     public void requestUserEvaluateRecord(ModelMap map,@RequestParam long recordID,@RequestParam double rating,@RequestParam String comment){
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(recordID);
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(recordID);
         matchEntity.setRate((int)rating);
         matchEntity.setComment(comment);
-        requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+        requestOrderService.updateRequestOrderEntity(matchEntity);
     }
 
     //志愿者需求的用户支付志愿者币
     @RequestMapping(value = "/requestUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
     public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
-        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findViewVolunteerRequestMatchDetailEntityById(matchID);
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
         if(viewRequestOrderDetailEntity.getServiceType().equals("volunteer")){
             if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
                 accountService.payRequestTimeVol(matchID);

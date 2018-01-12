@@ -83,7 +83,7 @@ public class AccountServiceImpl implements AccountService {
 
     public void payRequestTimeVol(long matchID) {
         //1.查询订单价格
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
         BigDecimal price = matchEntity.getPayMoney();
 
         //2.扣除申请者志愿者币账户
@@ -103,6 +103,6 @@ public class AccountServiceImpl implements AccountService {
 
         //4.更改订单状态
         matchEntity.setStatus(OrderStatus.alreadyComplete);
-        requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+        requestOrderService.updateRequestOrderEntity(matchEntity);
     }
 }

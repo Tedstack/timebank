@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ViewRequestOrderDetailDao extends CrudRepository<ViewRequestOrderDetailEntity, Long> {
-    List<ViewRequestOrderDetailEntity> findViewVolunteerRequestMatchDetailEntitiesByRequestUserId(long id);
-    List<ViewRequestOrderDetailEntity> findViewVolunteerRequestMatchDetailEntitiesByRequestUserIdAndStatus(long id, String status);
-    List<ViewRequestOrderDetailEntity> findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(long id, String status);
-    ViewRequestOrderDetailEntity findViewVolunteerRequestMatchDetailEntityById(long id);
+    List<ViewRequestOrderDetailEntity> findViewRequestOrderDetailEntitiesByRequestUserId(long id);
+    List<ViewRequestOrderDetailEntity> findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(long id, String status);
+    List<ViewRequestOrderDetailEntity> findViewRequestOrderDetailByApplyUserIdAndStatus(long id, String status);
+    ViewRequestOrderDetailEntity findViewRequestOrderDetailById(long id);
 }

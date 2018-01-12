@@ -2,7 +2,6 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
-import com.blockchain.timebank.dao.ViewRequestDetailDao;
 import com.blockchain.timebank.dao.ViewRequestOrderDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
@@ -653,7 +652,7 @@ public class UserController {
     @RequestMapping(value = "/history_evaluation", method = RequestMethod.GET)
     public String history_evaluation(ModelMap map) {
         List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<Evaluation_entity> recordlist = new ArrayList<Evaluation_entity>();
         Iterator<ViewPublishOrderDetailEntity> iter1 = servicelist.iterator();
         Iterator<ViewRequestOrderDetailEntity> iter2 = requestlist.iterator();
