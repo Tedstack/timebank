@@ -119,7 +119,7 @@
                     <p>活动开始时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>"/>
+                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="2018-1-1T12:00" min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -128,7 +128,7 @@
                     <p>活动结束时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="" min="<%out.print(nowTime);%>" />
+                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="2018-1-1T12:00" min="<%out.print(nowTime);%>" />
                 </div>
             </div>
 
@@ -137,7 +137,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value=""  min="<%out.print(nowTime);%>"/>
+                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="2018-1-1T12:00"  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 

@@ -143,27 +143,6 @@
     var activityId='<%=activityPublishDetail.getId()%>';
     var contextPath="${pageContext.request.contextPath}";
 
-    var wConfirm = window.confirm;
-    window.confirm = function (message) {
-        try {
-            var iframe = document.createElement("IFRAME");
-            iframe.style.display = "none";
-            iframe.setAttribute("src", 'data:text/plain,');
-            document.documentElement.appendChild(iframe);
-            var alertFrame = window.frames[0];
-            var iwindow = alertFrame.window;
-            if (iwindow == undefined) {
-                iwindow = alertFrame.contentWindow;
-            }
-            var result=iwindow.confirm(message);
-            iframe.parentNode.removeChild(iframe);
-            return result;
-        }
-        catch (exc) {
-            return wConfirm(message);
-        }
-    }
-
     $(function(){
         for (var i=0; i<=userActivityList.length; i++) {
             (function(i) {
@@ -189,13 +168,10 @@
         $("#terminateApplyBtn").on('click',function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
-
-            var r=confirm("确认结束报名");
-            if(r==true){
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: targetUrl,
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
                     //dataType:'JSONP',
                     data: "activityID=" + activityId,
                     beforeSend: function (XHR) {
@@ -217,7 +193,6 @@
                         dialogLoading.hide();
                     }
                 });
-            }
         });
 
         function post(userActivityID){

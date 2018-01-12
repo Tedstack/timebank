@@ -210,6 +210,8 @@
                         showAlert("团队管理员不能参加自己发布的活动");
                     }else if(data==="alreadyApply"){
                         showAlert("您已申请参加此活动");
+                    }else if(data==="messageFail"){
+                        showAlert("消息发送失败");
                     }else{
                         showAlert("申请失败");
                     }

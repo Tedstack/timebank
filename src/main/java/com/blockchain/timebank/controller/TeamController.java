@@ -355,8 +355,11 @@ public class TeamController {
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
         userActivityService.addUserActivity(userActivityEntity);
-
-        return "ok";
+        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
+        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
+            return "ok";
+        else
+            return "messageFail";
     }
 
     @RequestMapping(value = "/quitFromActivity", method = RequestMethod.POST)
@@ -614,7 +617,6 @@ public class TeamController {
         userActivityEntity.setManagerRating(rating);
         userActivityEntity.setManagerComment(comment);
         userActivityService.updateUserActivityEntity(userActivityEntity);
-
         return "ok";
     }
 
@@ -745,6 +747,13 @@ public class TeamController {
         return "my_team_member";
     }
 
+    @RequestMapping(value = "/myTeamHistory", method = RequestMethod.GET)
+    public String myTeamHistoryView(ModelMap map, @RequestParam String teamId) {
+        List<ActivityPublishEntity> activityList=activityPublishService.findAllByTeamIdAndStatus(Long.parseLong(teamId),ActivityStatus.alreadyTerminate);
+        map.addAttribute("activityList",activityList);
+        return "my_team_history";
+    }
+
     @RequestMapping(value = "/lockMember", method = RequestMethod.POST)
     @ResponseBody
     public String blockTeamMember(@RequestParam String userId, @RequestParam String teamId) {
@@ -760,7 +769,13 @@ public class TeamController {
     @RequestMapping(value = "/approveUser", method = RequestMethod.POST)
     @ResponseBody
     public String ApproveUser(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "approve");
+        String result = TeamManage(userId, teamId, "approve");
+        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
+        TeamEntity team=teamService.findById(Long.parseLong(teamId));
+        if(MessageUtil.team_join_success(user,team))
+            return result;
+        else
+            return "message send fail";
     }
 
     @RequestMapping(value = "/demoteManager", method = RequestMethod.POST)
@@ -772,13 +787,7 @@ public class TeamController {
     @RequestMapping(value = "/promoteManager", method = RequestMethod.POST)
     @ResponseBody
     public String promteManager(@RequestParam String userId, @RequestParam String teamId) {
-        String result = TeamManage(userId, teamId, "promote");
-        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
-        TeamEntity team=teamService.findById(Long.parseLong(teamId));
-        if(MessageUtil.team_join_success(user,team))
-            return result;
-        else
-            return "message send fail";
+        return TeamManage(userId, teamId, "promote");
     }
 
     private String TeamManage(String userId, String teamId, String type) {
@@ -816,7 +825,7 @@ public class TeamController {
     public String teamHistoryActivity(ModelMap map, @RequestParam String teamId) {
         boolean isMember = false;
         long id = Long.parseLong(teamId);
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, "已结束");
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, ActivityStatus.alreadyTerminate);
         List<ActivityPublishEntity> publicActivity = new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
         long userId = getCurrentUser().getId();

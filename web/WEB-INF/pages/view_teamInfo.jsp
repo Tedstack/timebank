@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>修改信息</title>
+    <title>查看团队信息</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/zepto/zepto.min.js"></script>
@@ -62,7 +62,7 @@
         </a>
     </div>
     <div class="weui-panel__ft">
-        <a href="${pageContext.request.contextPath}/team" class="weui-cell weui-cell_access weui-cell_link">
+        <a href="${pageContext.request.contextPath}/team/myTeamHistory?teamId=<%out.print(team.getId());%>" class="weui-cell weui-cell_access weui-cell_link">
             <div class="weui-cell__bd"><label class="weui-label" style="font-size: 17px;color: #1a1a1a;">历史活动</label></div>
             <span class="weui-cell__ft"></span>
         </a>

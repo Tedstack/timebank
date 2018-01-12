@@ -111,35 +111,10 @@
     });
     var contextPath="${pageContext.request.contextPath}";
 
-    var wConfirm = window.confirm;
-    window.confirm = function (message) {
-        try {
-            var iframe = document.createElement("IFRAME");
-            iframe.style.display = "none";
-            iframe.setAttribute("src", 'data:text/plain,');
-            document.documentElement.appendChild(iframe);
-            var alertFrame = window.frames[0];
-            var iwindow = alertFrame.window;
-            if (iwindow == undefined) {
-                iwindow = alertFrame.contentWindow;
-            }
-            var result=iwindow.confirm(message);
-            iframe.parentNode.removeChild(iframe);
-            return result;
-        }
-        catch (exc) {
-            return wConfirm(message);
-        }
-    }
-
     $(function(){
         var check = document.getElementsByName("checkbox1");
 
         $("#startActivityBtn").on('click', function () {
-            var r=confirm("确认开始活动");
-            if(r==false){
-                return;
-            }
 
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/startActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyStartedActivities";
@@ -167,7 +142,7 @@
                         var dataJson = JSON.parse(value);
 
                         if(dataJson.msg==="ok"){
-                            showAlert("操作成功",function () {
+                            showAlert("活动已开始",function () {
                                 goTo(targetUrl2);
                             });
                         }

@@ -12,6 +12,6 @@ function getAppSecret()
 
 function getDomainName()
 {
-    var domainName = "www.coocir.com";
+    var domainName = "localhost:8080";
     return domainName;
 }

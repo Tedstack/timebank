@@ -43,7 +43,7 @@
                             <img src="../img/teamHeadImg/<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
                         </div>
                         <div class="weui-cell__bd">
-                            <p><%out.print(userList.get(i).getName());%></p>
+                            <p><%out.print(userList.get(i).getUserName());%></p>
                         </div>
                     </label>
                 </div>
