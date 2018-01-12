@@ -29,7 +29,8 @@ public class MessageUtil {
         UserEntity userEntity = user;
         String str_first = "您已成功加入团队！";
         String team_name = team.getName();
-        String join_time = "2017-1-10";
+        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String join_time = bartDateFormat.format(new Date().getTime());
         String str_remark = "可进入查看我的团队详情";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
         templateParamList.add(new TemplateParam("first",str_first, "#173177"));
@@ -118,7 +119,8 @@ public class MessageUtil {
         UserEntity userEntity = user;
         String str_first = "您已提交加入团队申请，请等待管理员审核！！";
         String team_name = team.getName();
-        String apply_time="2017-01-01 12:18";
+        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String apply_time = bartDateFormat.format(new Date().getTime());
         String str_remark = "点击详情进入团队主页!";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
         templateParamList.add(new TemplateParam("first",str_first, "#173177"));
