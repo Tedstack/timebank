@@ -4,6 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.blockchain.timebank.weixin.model.AccessToken;
 import com.blockchain.timebank.weixin.model.JsapiTicket;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by xu on 2017/7/10.
  */
@@ -21,23 +27,55 @@ public class TokenThread implements Runnable {
 
     public void run() {
         while (true) {//這裏就應該是死循環
+            //int count = 0;
+            File file = null;
+            FileWriter fw=null;
+            try{
+                file = new File("/home/ubuntu/logs/access_token_log.txt");
+                fw = new FileWriter(file,true);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+            PrintWriter pw = new PrintWriter(fw);
             try {
                 accessToken = this.getAccessToken();
                 jsapiTicket = this.getJsapiTicket();
+                long timestamp = new Date().getTime();
+                long lastTokenTime =timestamp/3600000;
+                pw.println(bartDateFormat.format(timestamp));
+               /* if("00:00".equals(format2.format(timestamp))){
+                    pw.println(bartDateFormat.format(new Date().getTime()));
+                    count=0;
+                }*/
+                //count++;
+                //pw.println("access_token获取第"+count+"次"+accessToken.getAccessToken());
                 if (null != accessToken) {
-                    //System.out.println("TokenThread:"+accessToken.getAccessToken());
-                    //System.out.println("TokenThread:"+jsapiTicket.getJsapiTicket());
-                   // Thread.sleep(7000 * 1000); //获取到access_token 休眠7000秒
-                    Thread.sleep(3600 * 1000); //获取到access_token 休眠3600秒
+                    pw.flush();
+                    while(true){
+                        Thread.sleep(60 * 1000);
+                        if(new Date().getTime()/3600000 != lastTokenTime){
+                            pw.println("睡眠已到时间,更新access_token");
+                            break;
+                        }
+                    }
 
                 } else {
+                    pw.println("获取accessToken为空，线程睡3秒");
+                    pw.flush();
                     Thread.sleep(1000 * 3); //获取的access_token为空 休眠3秒
                 }
+                pw.flush();
             } catch (Exception e) {
                 //System.out.println("发生异常：" + e.getMessage());
-                //e.printStackTrace();
+                e.printStackTrace();
+                pw.println("发生异常：" + e.getMessage());
+                pw.flush();
                 try {
                     Thread.sleep(1000 * 10); //发生异常休眠1秒
+                    pw.println("获取accessToken失败，线程休眠10秒");
+                    pw.flush();
                 } catch (Exception e1) {
 
                 }
