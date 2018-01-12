@@ -15,6 +15,6 @@ public interface ViewPublishDetailDao extends CrudRepository<ViewPublishDetailEn
 
     public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserIdAndIsDelete(long userID,int isDelete);
 
-    public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByServiceTypeAndIsDelete(String serviceType,int isDelete);
+    public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(String serviceType,int isDelete);
 
 }
