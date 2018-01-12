@@ -84,7 +84,11 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__bd">
-                            <p class="weui-tabbar__label" style="float:right;color:#76b852;font-size:16px">等待接受申请</p>
+                            <%if(recordDetailList.get(i).getEndTime().getTime() < new Date().getTime()){%>
+                                <p class="weui-tabbar__label" style="float:right;color:#999;font-size:16px">申请已过期</p>
+                            <%}else {%>
+                                <p class="weui-tabbar__label" style="float:right;color:#76b852;font-size:16px">等待接受申请</p>
+                            <%}%>
                         </div>
                     </div>
                 </div>
