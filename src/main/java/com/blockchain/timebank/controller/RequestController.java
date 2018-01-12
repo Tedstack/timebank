@@ -279,7 +279,7 @@ public class RequestController {
     }
 
     @RequestMapping(value = "deletePublish", method = RequestMethod.GET)
-    public String deletePublish(ModelMap map, @RequestParam long id, @RequestParam String type) {
+    public String deletePublish(ModelMap map, @RequestParam long id) {
         List<RequestOrderEntity> requestOrderEntityList = requestOrderService.findByRequestId(id);
         String deleteMsg = "删除成功";
         boolean isDelete = true;

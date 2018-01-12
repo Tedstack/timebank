@@ -163,46 +163,45 @@
                         </div>
                     </div>
                     <div class="weui-cell">
-                        <div class="weui-cell__bd">
-                            <div class="weui-cell__bd" >
+                        <div class="weui-cell__bd" >
+                            <%
+                                if(requestToConfirm.get(i).getEndTime().getTime() < new Date().getTime()){
+                            %>
+                        </div>
+                        <div class="weui-cell__ft">
+                            <a id="applyOverDate-button" class="weui-btn weui-btn_mini weui-btn-default" style="background-color: #999; color:#fff; border:0px;text-decoration:none;" onclick="return false;">
+                                申请已过期
+                            </a>
+                        </div>
+                        <%} else {%>
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"><p>预估价:</p></div>
+                            <div class="weui-flex__item"><p>
                                 <%
-                                    if(requestToConfirm.get(i).getEndTime().getTime() < new Date().getTime()){
+                                    Timestamp beginStamp = requestToConfirm.get(i).getBeginTime();
+                                    Timestamp endStamp = requestToConfirm.get(i).getEndTime();
+                                    long begin = beginStamp.getTime();
+                                    long end = endStamp.getTime();
+
+                                    long l = end - begin;
+                                    String s = String.valueOf(l);
+                                    double d = Double.parseDouble(s);
+                                    BigDecimal price = requestToConfirm.get(i).getRequestPrice();
+                                    BigDecimal money = price.multiply(new BigDecimal(d/(3600*1000)));
+
+                                    double convertedMoney = money.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                                    out.print(convertedMoney);
                                 %>
-                            </div>
-                            <div class="weui-cell__ft">
-                                <a id="applyOverDate-button" class="weui-btn weui-btn_mini weui-btn-default" style="background-color: #999; color:#fff; border:0px;text-decoration:none;" onclick="return false;">
-                                    申请已过期
-                                </a>
-                            </div>
-                            <%} else {%>
-                            <div class="weui-flex">
-                                <div class="weui-flex__item"><p>预估价:</p></div>
-                                <div class="weui-flex__item"><p>
-                                    <%
-                                        Timestamp beginStamp = requestToConfirm.get(i).getBeginTime();
-                                        Timestamp endStamp = requestToConfirm.get(i).getEndTime();
-                                        long begin = beginStamp.getTime();
-                                        long end = endStamp.getTime();
-
-                                        long l = end - begin;
-                                        String s = String.valueOf(l);
-                                        double d = Double.parseDouble(s);
-                                        BigDecimal price = requestToConfirm.get(i).getRequestPrice();
-                                        BigDecimal money = price.multiply(new BigDecimal(d/(3600*1000)));
-
-                                        double convertedMoney = money.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                                        out.print(convertedMoney);
-                                    %>
-                                </p></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleRequestMatch?handle=refuse&matchID=<%out.print(requestToConfirm.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleRequestMatch?handle=confirm&matchID=<%out.print(requestToConfirm.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
-                            </div>
+                            </p></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleRequestMatch?handle=refuse&matchID=<%out.print(requestToConfirm.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/request/handleRequestMatch?handle=confirm&matchID=<%out.print(requestToConfirm.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
                         </div>
                     </div>
                     <%}%>
                 </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
+            </div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
@@ -421,6 +420,8 @@
         </div>
         </div>
     </div>
+
+
     <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
