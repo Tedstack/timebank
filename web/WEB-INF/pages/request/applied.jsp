@@ -72,13 +72,13 @@
             <div class="weui-navbar__item weui-bar__item_on" id="navbar1">
                 已预约
             </div>
-            <div class="weui-navbar__item"id="navbar2">
+            <div class="weui-navbar__item" id="navbar2">
                 待服务
             </div>
-            <div class="weui-navbar__item"id="navbar3">
+            <div class="weui-navbar__item" id="navbar3">
                 待收款
             </div>
-            <div class="weui-navbar__item"id="navbar4">
+            <div class="weui-navbar__item" id="navbar4">
                 已完成
             </div>
         </div>
@@ -86,7 +86,7 @@
         <div class="weui-tab">
             
             <!--applied start-->
-            <div class="weui-tab__panel" id="applied" style="padding-bottom: 50px; padding-top: 70px">
+            <div class="weui-tab__panel" id="applied" style="padding-bottom: 50px; padding-top: 70px;display: block">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 
                 <%
@@ -144,7 +144,7 @@
             <!--applied end-->
             
             <!--to_service start-->
-            <div class="weui-tab__panel" id="to_service" style="padding-bottom: 50px; padding-top: 70px">
+            <div class="weui-tab__panel" id="to_service" style="padding-bottom: 50px; padding-top: 70px;display: none">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<requestToService.size();i++) {
@@ -228,7 +228,7 @@
             <!--to_service end-->
             
             <!--to_pay start-->
-            <div class="weui-tab__panel" id="to_pay" style="padding-bottom: 50px; padding-top: 70px">
+            <div class="weui-tab__panel" id="to_pay" style="padding-bottom: 50px; padding-top: 70px;display: none">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<requestToPay.size();i++) {
@@ -272,10 +272,21 @@
                                 <li class="weui-media-box__info__meta"><%out.print(requestToPay.get(i).getAddress());%></li>
                                 <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">需求人：<%out.print(requestToPay.get(i).getRequestUserName());%></li>
                             </ul>
+
                         </div>
                     </div>
 
                 </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <%
+                            if(requestToPay.get(i).getServiceId() / 100 == 2){
+                                out.print("<a class='weui-btn weui-btn_mini weui-btn_primary' style='float:right' id='ensurePay-btn' name ='" + requestToPay.get(i).getId() +"'>确认收款</a>");
+                            }
+                        %>
+                    </div>
+                </div>
+
                 <div style="background-color: #f8f8f8; height:10px;"></div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
@@ -283,7 +294,7 @@
             <!--to_pay end-->
             
             <!--completed start-->
-            <div class="weui-tab__panel" id="completed" style="padding-bottom: 50px; padding-top: 70px">
+            <div class="weui-tab__panel" id="completed" style="padding-bottom: 50px; padding-top: 70px;display: none">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<requestCompleted.size();i++) {
@@ -419,8 +430,41 @@
             panel_completed.show();
         });
 
-        $("#navbar${pageContext.request.getParameter("tab")}").click();
+        $("#navbar${pageContext.request.getParameter("tab")==null?1:pageContext.request.getParameter("tab")}").click();
 
+        $("#ensurePay-btn").on('click', function () {
+            var contextPath="${pageContext.request.contextPath}";
+            var orderID = $(this).attr("name");
+            console.log(orderID);
+            var targetUrl = "${pageContext.request.contextPath}/request/updateOrderToComplete";
+            var targetUrl2 = "${pageContext.request.contextPath}/request/applied?tab=4";
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                //dataType:'JSONP',
+                data: "orderID=" + orderID,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    //alert(data);
+                    showAlert("确认收款成功",function () {
+                        goTo(targetUrl2);
+                    })
+                },
+                error: function (xhr, type) {
+                    //alert(type);
+                    showAlert("确认收款失败",function () {
+                        //goTo("http://www.hlb9978.com/user/queryOrderWaitingPay");
+                    })
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+            //goTo(targetUrl2);
+        });
     });
 
 

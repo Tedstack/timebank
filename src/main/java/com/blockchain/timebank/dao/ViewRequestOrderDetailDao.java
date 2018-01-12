@@ -10,4 +10,5 @@ public interface ViewRequestOrderDetailDao extends CrudRepository<ViewRequestOrd
     List<ViewRequestOrderDetailEntity> findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(long id, String status);
     List<ViewRequestOrderDetailEntity> findViewRequestOrderDetailByApplyUserIdAndStatus(long id, String status);
     ViewRequestOrderDetailEntity findViewRequestOrderDetailById(long id);
+
 }

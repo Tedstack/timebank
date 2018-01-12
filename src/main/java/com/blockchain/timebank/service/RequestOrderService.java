@@ -28,5 +28,7 @@ public interface RequestOrderService {
 
     List<ViewRequestOrderDetailEntity> findUserApplyCompleted(long id);
 
+    List<RequestOrderEntity> findByRequestId(long id);
+
     ViewRequestOrderDetailEntity findRequestOrderDetailById(long id);
 }

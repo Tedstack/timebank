@@ -13,6 +13,7 @@ public class RequestOrderEntity {
     private Long requestId;
     private Timestamp beginTime;
     private Timestamp endTime;
+    private Timestamp createTime;
     private Timestamp actualBeginTime;
     private Timestamp actualEndTime;
     private BigDecimal payMoney;
@@ -23,7 +24,6 @@ public class RequestOrderEntity {
 
     @Id
     @Column(name = "ID", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -80,6 +80,16 @@ public class RequestOrderEntity {
 
     public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
+    }
+
+    @Basic
+    @Column(name = "CreateTime", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
     @Basic
@@ -166,6 +176,7 @@ public class RequestOrderEntity {
         if (requestId != null ? !requestId.equals(that.requestId) : that.requestId != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (actualBeginTime != null ? !actualBeginTime.equals(that.actualBeginTime) : that.actualBeginTime != null)
             return false;
         if (actualEndTime != null ? !actualEndTime.equals(that.actualEndTime) : that.actualEndTime != null)
@@ -187,6 +198,7 @@ public class RequestOrderEntity {
         result = 31 * result + (requestId != null ? requestId.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (actualBeginTime != null ? actualBeginTime.hashCode() : 0);
         result = 31 * result + (actualEndTime != null ? actualEndTime.hashCode() : 0);
         result = 31 * result + (payMoney != null ? payMoney.hashCode() : 0);

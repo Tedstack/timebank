@@ -113,6 +113,7 @@
                             <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="<%out.print("deletePublish?id="+requestPublished.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">删除</a></div>
                             <div class="weui-flex__item"><a href="<%out.print("publishDetail?id="+requestPublished.get(i).getId()+"&type="+requestPublished.get(i).getServiceType());%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                         </div>
                     </div>
@@ -163,6 +164,17 @@
                     </div>
                     <div class="weui-cell">
                         <div class="weui-cell__bd">
+                            <div class="weui-cell__bd" >
+                                <%
+                                    if(requestToConfirm.get(i).getEndTime().getTime() < new Date().getTime()){
+                                %>
+                            </div>
+                            <div class="weui-cell__ft">
+                                <a id="applyOverDate-button" class="weui-btn weui-btn_mini weui-btn-default" style="background-color: #999; color:#fff; border:0px;text-decoration:none;" onclick="return false;">
+                                    申请已过期
+                                </a>
+                            </div>
+                            <%} else {%>
                             <div class="weui-flex">
                                 <div class="weui-flex__item"><p>预估价:</p></div>
                                 <div class="weui-flex__item"><p>
@@ -188,6 +200,7 @@
                             </div>
                         </div>
                     </div>
+                    <%}%>
                 </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
                 <%}%>

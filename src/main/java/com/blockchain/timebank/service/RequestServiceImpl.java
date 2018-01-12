@@ -23,7 +23,7 @@ public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
 
     public List<ViewRequestDetailEntity> findAllRequestDetailByType(String type) {
-        return viewRequestDetailDao.findViewRequestDetailEntitiesByServiceTypeOrderByCreateTime(type);
+        return viewRequestDetailDao.findViewRequestDetailEntitiesByServiceTypeAndIsDeletedOrderByCreateTime(type, (byte) 0);
     }
 
     public void saveRequestEntity(RequestEntity requestEntity) {

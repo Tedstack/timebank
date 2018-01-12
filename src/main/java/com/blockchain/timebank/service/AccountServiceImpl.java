@@ -17,6 +17,9 @@ public class AccountServiceImpl implements AccountService {
     RecordService recordService;
 
     @Autowired
+    RequestService requestService;
+
+    @Autowired
     RequestOrderService requestOrderService;
 
     @Transactional
@@ -116,5 +119,49 @@ public class AccountServiceImpl implements AccountService {
         //4.更改订单状态
         matchEntity.setStatus(OrderStatus.alreadyComplete);
         requestOrderService.updateRequestOrderEntity(matchEntity);
+
+        //5.更改需求状态
+        RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
+        requestEntity.setIsComplete((byte) 1);
+        requestService.saveRequestEntity(requestEntity);
+    }
+
+    public void payRequestTimeCoin(long matchID) {
+        //1.查询订单价格
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
+        BigDecimal price = matchEntity.getPayMoney();
+
+        //2.扣除申请者志愿者币账户
+        UserEntity requestUser = userService.findUserEntityById(matchEntity.getRequestUserId());
+        if(requestUser.getTimeCoin()<price.doubleValue()){
+            throw new AccountServiceException("您的金额不足！");
+        }
+        double timeVol = requestUser.getTimeVol() - price.doubleValue();
+        requestUser.setTimeVol(timeVol);
+        userService.updateUserEntity(requestUser);
+
+        //3.增加服务者时间币账户
+        UserEntity applyUser = userService.findUserEntityById(matchEntity.getApplyUserId());
+        double timeVol2 = applyUser.getTimeCoin() + price.doubleValue();
+        applyUser.setTimeVol(timeVol2);
+        userService.updateUserEntity(applyUser);
+
+        //4.更改订单状态
+        matchEntity.setStatus(OrderStatus.alreadyComplete);
+        requestOrderService.updateRequestOrderEntity(matchEntity);
+
+        //5.更改需求状态
+        RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
+        requestEntity.setIsComplete((byte) 1);
+        requestService.saveRequestEntity(requestEntity);
+
+    }
+
+    public void updateRequestOrderToComplete(long orderID) {
+        //1.查询订单价格
+        RequestOrderEntity order = requestOrderService.findRequestOrderEntityById(orderID);
+        //4.更改订单状态
+        order.setStatus(OrderStatus.alreadyComplete);
+        requestOrderService.saveRequestOrderEntity(order);
     }
 }

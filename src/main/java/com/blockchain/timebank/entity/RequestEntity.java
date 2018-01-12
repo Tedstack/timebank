@@ -18,9 +18,10 @@ public class RequestEntity {
     private String address;
     private Timestamp beginTime;
     private Timestamp endTime;
-    private Byte isComplete;
-    private String extra;
     private Timestamp createTime;
+    private Byte isComplete;
+    private Byte isDeleted;
+    private String extra;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -133,6 +134,16 @@ public class RequestEntity {
     }
 
     @Basic
+    @Column(name = "CreateTime", nullable = false)
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
     @Column(name = "IsComplete", nullable = true)
     public Byte getIsComplete() {
         return isComplete;
@@ -143,6 +154,16 @@ public class RequestEntity {
     }
 
     @Basic
+    @Column(name = "IsDeleted", nullable = true)
+    public Byte getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Byte isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -150,16 +171,6 @@ public class RequestEntity {
 
     public void setExtra(String extra) {
         this.extra = extra;
-    }
-
-    @Basic
-    @Column(name = "CreateTime", nullable = true)
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
     }
 
     @Override
@@ -182,9 +193,10 @@ public class RequestEntity {
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
-        if (isComplete != null ? !isComplete.equals(that.isComplete) : that.isComplete != null) return false;
-        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (isComplete != null ? !isComplete.equals(that.isComplete) : that.isComplete != null) return false;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
+        if (extra != null ? !extra.equals(that.extra) : that.extra != null) return false;
 
         return true;
     }
@@ -202,9 +214,10 @@ public class RequestEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (isComplete != null ? isComplete.hashCode() : 0);
-        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (isComplete != null ? isComplete.hashCode() : 0);
+        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
+        result = 31 * result + (extra != null ? extra.hashCode() : 0);
         return result;
     }
 }

@@ -73,7 +73,10 @@
                             Date currentDate = new Date();
                             SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
                             String currentTime = sdf.format(currentDate);
-                            if(viewRequestDetailEntity.getEndTime().getTime() < new Date(currentTime).getTime()){
+                            if(viewRequestDetailEntity.getIsComplete()==(byte) 1){
+                                out.print("<span class='overtimeFlag'>已完成</span>");
+                            }
+                            else if(viewRequestDetailEntity.getEndTime().getTime() < new Date(currentTime).getTime()){
                                 out.print("<span class='overtimeFlag'>已过期</span>");
                             }
                         %>

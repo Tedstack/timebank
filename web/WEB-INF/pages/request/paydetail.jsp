@@ -105,10 +105,12 @@
     var matchID = '<%=matchDetail.getId()%>';
     $(function(){
         $("#payBtn").on('click',function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/request/requestUserPayTimeVol";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/request/published?tab=4";
+            var targetUrl = "${pageContext.request.contextPath}/request/requestUserPayTimeVol";
+            var targetUrl2 = "${pageContext.request.contextPath}/request/published?tab=5";
             var volunteerService = 'volunteer';
-            if(type === volunteerService){
+            var mutualHelpService = 'mutualAid';
+            var professionService = 'technic';
+            if(type === volunteerService || type === mutualHelpService){
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -134,8 +136,19 @@
                         dialogLoading.hide();
                     }
                 });
-            }else{
-                showAlert("当前不支持非志愿者服务类型的订单支付")
+            }else if(type === professionService){
+                if(confirm("请扫描对方微信收款码支付<%out.print(matchDetail.getPayMoney());%>元")){
+                    wx.scanQRCode(
+                        {
+                            needResult: 0,
+                            success: function (res) {
+
+                                //alert(JSON.stringify(res.resultStr));
+
+                            }
+                        }
+                    );
+                }
             }
 
         });

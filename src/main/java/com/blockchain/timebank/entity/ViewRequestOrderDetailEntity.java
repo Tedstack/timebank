@@ -1,6 +1,9 @@
 package com.blockchain.timebank.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -32,7 +35,7 @@ public class ViewRequestOrderDetailEntity {
     private Integer rate;
     private String comment;
 
-    @Id
+    @Basic
     @Column(name = "ID", nullable = false)
     public Long getId() {
         return id;
@@ -203,7 +206,7 @@ public class ViewRequestOrderDetailEntity {
     }
 
     @Basic
-    @Column(name = "ServiceType", nullable = false, length = 9)
+    @Column(name = "ServiceType", nullable = true, length = 9)
     public String getServiceType() {
         return serviceType;
     }

@@ -278,7 +278,34 @@ public class RequestController {
 
     }
 
-    @RequestMapping(value = "/publishDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "deletePublish", method = RequestMethod.GET)
+    public String deletePublish(ModelMap map, @RequestParam long id, @RequestParam String type) {
+        List<RequestOrderEntity> requestOrderEntityList = requestOrderService.findByRequestId(id);
+        String deleteMsg = "删除成功";
+        boolean isDelete = true;
+        for(RequestOrderEntity record : requestOrderEntityList){
+            String status = record.getStatus();
+            if(!"已拒绝".equals(status)){
+                if(!"已申请".equals(status)){
+                    isDelete = false;
+                    deleteMsg="您已接受过服务，无法删除";
+                    break;
+                }else{
+                    isDelete = false;
+                    deleteMsg="请拒绝所有申请后删除";
+                }
+            }
+        }
+        if(isDelete){
+            RequestEntity requestEntity = requestService.findRequestById(id);
+            requestEntity.setIsDeleted((byte)1);
+            requestService.saveRequestEntity(requestEntity);
+        }
+        map.addAttribute("deleteMsg", deleteMsg);
+        return "service_delete_result";
+    }
+
+        @RequestMapping(value = "/publishDetail", method = RequestMethod.GET)
     public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
         map.addAttribute("detail", viewRequestDetailEntity);
@@ -405,7 +432,19 @@ public class RequestController {
                 accountService.payRequestTimeVol(matchID);
             }
         }
+        else if(viewRequestOrderDetailEntity.getServiceType().equals("mutualAid")){
+            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
+                accountService.payRequestTimeCoin(matchID);
+            }
+        }
 
+    }
+
+
+    @RequestMapping(value = "/updateOrderToComplete",method = RequestMethod.POST)
+    @ResponseBody
+    public void updateOrderToComplete(ModelMap map,@RequestParam long orderID) {
+        accountService.updateRequestOrderToComplete(orderID);
     }
 
     private String getServiceTypeById(Long id){

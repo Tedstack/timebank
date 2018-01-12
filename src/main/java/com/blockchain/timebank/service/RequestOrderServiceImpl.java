@@ -49,7 +49,7 @@ public class RequestOrderServiceImpl implements RequestOrderService {
     }
 
     public RequestOrderEntity findRequestOrderEntityById(long id) {
-        return requestOrderDao.findVolunteerRequestMatchEntityById(id);
+        return requestOrderDao.findRequestOrderEntityById(id);
     }
 
     public RequestOrderEntity updateRequestOrderEntity(RequestOrderEntity requestOrderEntity) {
@@ -65,6 +65,10 @@ public class RequestOrderServiceImpl implements RequestOrderService {
         matchDetailEntities.addAll(viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(id, OrderStatus.alreadyComplete));
         return matchDetailEntities;
 
+    }
+
+    public List<RequestOrderEntity> findByRequestId(long id) {
+        return requestOrderDao.findRequestOrderEntitiesByRequestId(id);
     }
 
     public ViewRequestOrderDetailEntity findRequestOrderDetailById(long id) {

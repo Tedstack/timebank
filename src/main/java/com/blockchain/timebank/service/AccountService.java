@@ -9,4 +9,9 @@ public interface AccountService {
     void updateOrderToComplete(long recordID);
 
     void payRequestTimeVol(long matchID);
+
+    void payRequestTimeCoin(long matchID);
+
+    void updateRequestOrderToComplete(long recordID);
+
 }

@@ -1,6 +1,9 @@
 package com.blockchain.timebank.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -17,6 +20,7 @@ public class ViewRequestDetailEntity {
     private Timestamp endTime;
     private Timestamp createTime;
     private Byte isComplete;
+    private Byte isDeleted;
     private String serviceType;
     private String serviceName;
     private String userName;
@@ -24,7 +28,7 @@ public class ViewRequestDetailEntity {
     private String userPhone;
     private String headImgUrl;
 
-    @Id
+    @Basic
     @Column(name = "ID", nullable = false)
     public Long getId() {
         return id;
@@ -125,7 +129,17 @@ public class ViewRequestDetailEntity {
     }
 
     @Basic
-    @Column(name = "ServiceType", nullable = false, length = 9)
+    @Column(name = "IsDeleted", nullable = true)
+    public Byte getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Byte isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    @Basic
+    @Column(name = "ServiceType", nullable = true, length = 9)
     public String getServiceType() {
         return serviceType;
     }
@@ -201,6 +215,7 @@ public class ViewRequestDetailEntity {
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (isComplete != null ? !isComplete.equals(that.isComplete) : that.isComplete != null) return false;
+        if (isDeleted != null ? !isDeleted.equals(that.isDeleted) : that.isDeleted != null) return false;
         if (serviceType != null ? !serviceType.equals(that.serviceType) : that.serviceType != null) return false;
         if (serviceName != null ? !serviceName.equals(that.serviceName) : that.serviceName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
@@ -223,6 +238,7 @@ public class ViewRequestDetailEntity {
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (isComplete != null ? isComplete.hashCode() : 0);
+        result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);

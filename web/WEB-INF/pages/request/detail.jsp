@@ -146,6 +146,11 @@
             $("#requestOverDate-button").show();
             $("#requestOverDate-button").html("不可申请自己的需求");
         }
+        if(<%=detail.getIsComplete()==(byte) 1%>){
+            $("#requestApply-button").hide();
+            $("#requestOverDate-button").show();
+            $("#requestOverDate-button").html("需求已完成");
+        }
     });
     Date.prototype.Format = function (fmt) { //author: meizz
         var o = {
