@@ -189,4 +189,53 @@ public class MessageUtil {
             return false;
         }
     }
+
+    public static boolean customer_appoint(UserEntity user, ViewRequestOrderDetailEntity viewRequestOrderDetailEntity){
+        /*
+        * 用户预约通知
+        *{{first.DATA}}
+          预约类型：{{keyword1.DATA}}
+          预约时间：{{keyword2.DATA}}
+          预约人姓名：{{keyword3.DATA}}
+          预约人电话：{{keyword4.DATA}}
+          {{remark.DATA}}
+          样例：
+          你有新的预约通知。
+          预约类型：参观
+          预约时间：2017年5月5日 13:00-14:00
+          预约人姓名：小王
+          预约人电话：18788888888
+        * */
+        UserEntity userEntity = user;
+        String str_first = "您有新的预约通知！";
+        String  type_name = viewRequestOrderDetailEntity.getServiceType()+":"+viewRequestOrderDetailEntity.getServiceName();
+        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String time = bartDateFormat.format(viewRequestOrderDetailEntity.getBeginTime())+"-"+bartDateFormat.format(viewRequestOrderDetailEntity.getEndTime());
+        String applyName = viewRequestOrderDetailEntity.getApplyUserName();
+        String phone = viewRequestOrderDetailEntity.getApplyUserPhone();
+        String str_remark = "点击详情查看具体细节";
+        List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+        templateParamList.add(new TemplateParam("first",str_first, "#173177"));
+        templateParamList.add(new TemplateParam("keyword1", type_name, "#173177"));
+        templateParamList.add(new TemplateParam("keyword2",time,"#173177"));
+        templateParamList.add(new TemplateParam("keyword3",applyName,"#173177"));
+        templateParamList.add(new TemplateParam("keyword4",phone,"#173177"));
+        templateParamList.add(new TemplateParam("REMARK",str_remark, "#173177"));
+
+        Template template = new Template();
+        template.setTemplateId("qEYO2xxF0FYvQIJddgcQiLTSJi9VSi5kfnDZU1Gbv3E");
+        template.setToUser(user.getOpenId());
+        template.setTopColor("#173177");
+        template.setUrl("");/*此处可以加入想要跳转的链接*/
+        template.setTemplateParamList(templateParamList);
+        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        }
+        else{
+            System.out.println("tokenThread.accessToken为空");
+            return false;
+        }
+    }
+
+
 }

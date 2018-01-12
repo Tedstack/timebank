@@ -22,6 +22,7 @@ public class ViewPublishOrderDetailEntity {
     private Timestamp createTime;
     private double publishPrice;
     private long serviceId;
+    private int isDelete;
     private String serviceType;
     private String serviceName;
     private long serviceUserId;
@@ -191,6 +192,16 @@ public class ViewPublishOrderDetailEntity {
     }
 
     @Basic
+    @Column(name = "isDelete", nullable = false)
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    @Basic
     @Column(name = "ServiceType", nullable = false, length = 45)
     public String getServiceType() {
         return serviceType;
@@ -273,6 +284,7 @@ public class ViewPublishOrderDetailEntity {
         if (publishId != that.publishId) return false;
         if (Double.compare(that.publishPrice, publishPrice) != 0) return false;
         if (serviceId != that.serviceId) return false;
+        if (isDelete != that.isDelete) return false;
         if (serviceUserId != that.serviceUserId) return false;
         if (applyUserName != null ? !applyUserName.equals(that.applyUserName) : that.applyUserName != null)
             return false;
@@ -321,6 +333,7 @@ public class ViewPublishOrderDetailEntity {
         temp = Double.doubleToLongBits(publishPrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (int) (serviceId ^ (serviceId >>> 32));
+        result = 31 * result + isDelete;
         result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (int) (serviceUserId ^ (serviceUserId >>> 32));

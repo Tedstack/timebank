@@ -248,8 +248,8 @@
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
-                    if(data==="success"){ v
-                        showAlert("已同意",function () {
+                    if(data==="success"){
+                        showAlert("已同意并发送信息",function () {
                             location.reload();
                         });
                     }
@@ -318,6 +318,9 @@
                         showAlert("升级同意",function () {
                             location.reload();
                         });
+                    }
+                    if(data==="message send fail"){
+                        showAlert("消息发送失败");
                     }
                     if(data==="failure"){
                         showAlert("升级失败");

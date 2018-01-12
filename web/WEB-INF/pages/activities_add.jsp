@@ -34,12 +34,12 @@
                     <div class="weui-flex">
                         <div class="weui-flex__item weui-flex justify align">
                             <div class="weui-uploader">
-                                <div class="weui-uploader__hd">
-                                    <p class="weui-uploader__title">添加活动封面</p>
+                                <div class="weui-uploader__hd" style="margin-bottom: 0px;">
+                                    <p class="weui-uploader__title" style="margin: 0 0 0 0;">添加活动封面</p>
                                 </div>
                                 <div class="weui-uploader__bd">
-                                    <ul class="weui-uploader__files" id="files1"></ul>
-                                    <div class="weui-uploader__input-box">
+                                    <ul class="weui-uploader__files" id="files1" style="margin-bottom: 0px;"></ul>
+                                    <div class="weui-uploader__input-box" style="width: 100px;height: 110px;">
                                         <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                     <p>活动开始时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="" min="<%out.print(nowTime);%>"/>
+                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="2018-1-1T12:00" min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -128,7 +128,7 @@
                     <p>活动结束时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="" min="<%out.print(nowTime);%>" />
+                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="2018-1-1T12:00" min="<%out.print(nowTime);%>" />
                 </div>
             </div>
 
@@ -137,7 +137,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value=""  min="<%out.print(nowTime);%>"/>
+                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="2018-1-1T12:00"  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -160,7 +160,7 @@
             </div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;">
-            <button id="submitBtn" class="weui-btn weui-btn_primary">发布</button>
+            <a href="javascript:;" id="submitBtn" class="weui-btn weui-btn_primary">发布</a>
         </div>
     </div>
     </form>
@@ -205,9 +205,7 @@
             $gallery.fadeIn(100);
         });
         $("#submitBtn").on('click',function () {
-            var teamID = $("#teamOptions ").val();
             var activityType=$("#activityType ").val();
-            var isPublic = $("#isPublicOptions ").val();
             var activityName = $('#activityName').val();
             var description = $('#description').val();
             var beginTime = $('#beginTime').val();
@@ -266,6 +264,11 @@
 
             if(applyEndTime>endTime){
                 showAlert("申请加入活动时间不能晚于活动结束时间");
+                return;
+            }
+
+            if(jQuery("input[id='file1']").val()===""){
+                showAlert("请上传一张活动封面");
                 return;
             }
 

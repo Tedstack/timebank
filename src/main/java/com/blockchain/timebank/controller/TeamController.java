@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -274,7 +275,9 @@ public class TeamController {
     // 发布活动
     @RequestMapping(value = "/publishActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String publishActivity(long teamId,
+    public String publishActivity(HttpServletRequest request,
+                                  @RequestParam(value = "file1", required = false) MultipartFile file,
+                                  long teamId,
                                   String activityType,
                                   boolean isPublic,
                                   String activityName,
@@ -282,30 +285,45 @@ public class TeamController {
                                   String beginTime, String endTime, String applyEndTime,
                                   int count,
                                   String address) {
-        try {
-            ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
-            activityPublishEntity.setTeamId(teamId);
-            if (activityType.equalsIgnoreCase("志愿者"))
-                activityPublishEntity.setType(ActivityType.volunteerActivity);
-            else
-                activityPublishEntity.setType(ActivityType.communityActivity);
-            activityPublishEntity.setPublic(isPublic);
-            activityPublishEntity.setDeleted(false);
-            activityPublishEntity.setName(activityName);
-            activityPublishEntity.setDescription(description);
-            activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
-            Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
-            Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " "));
-            Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
-            activityPublishEntity.setBeginTime(new Timestamp(beginDate.getTime()));
-            activityPublishEntity.setEndTime(new Timestamp(endDate.getTime()));
-            activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
-            activityPublishEntity.setAddress(address);
-            activityPublishEntity.setCount(count);
-            activityPublishService.saveActivityPublishEntity(activityPublishEntity);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "error";
+        int activityNum=activityPublishService.findAllByDeleted(false).size()+activityPublishService.findAllByDeleted(true).size();
+        String idImg = "";
+        if (file != null && !file.isEmpty()) {
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/");
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String date = new java.sql.Date(System.currentTimeMillis()).toString();
+            String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            idImg = Integer.toString(activityNum+1) + "_Img_"+date + suffix1;
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/";
+            File imgFile = new File(path, idImg);
+            try {
+                ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+                activityPublishEntity.setTeamId(teamId);
+                if (activityType.equalsIgnoreCase("志愿者"))
+                    activityPublishEntity.setType(ActivityType.volunteerActivity);
+                else
+                    activityPublishEntity.setType(ActivityType.communityActivity);
+                activityPublishEntity.setPublic(isPublic);
+                activityPublishEntity.setDeleted(false);
+                activityPublishEntity.setName(activityName);
+                activityPublishEntity.setDescription(description);
+                activityPublishEntity.setHeadImg(idImg);
+                file.transferTo(imgFile);
+                activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
+                Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
+                Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " "));
+                Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
+                activityPublishEntity.setBeginTime(new Timestamp(beginDate.getTime()));
+                activityPublishEntity.setEndTime(new Timestamp(endDate.getTime()));
+                activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
+                activityPublishEntity.setAddress(address);
+                activityPublishEntity.setCount(count);
+                activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "error";
+            }
         }
         return "ok";
     }
@@ -337,8 +355,11 @@ public class TeamController {
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
         userActivityService.addUserActivity(userActivityEntity);
-
-        return "ok";
+        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
+        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
+            return "ok";
+        else
+            return "messageFail";
     }
 
     @RequestMapping(value = "/quitFromActivity", method = RequestMethod.POST)
@@ -346,7 +367,7 @@ public class TeamController {
     public String quitFromActivity(ModelMap map, @RequestParam long activityID) {
         try {
             UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);
-            userActivity.setPresent(false);
+            userActivity.setAllow(false);
             userActivityService.updateUserActivityEntity(userActivity);
         } catch (Exception e) {
             return "fail";
@@ -395,11 +416,35 @@ public class TeamController {
 
     @RequestMapping(value = "/modifyActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyActivity(@RequestParam long teamId, @RequestParam String activityType, @RequestParam boolean isPublic, @RequestParam String activityName, @RequestParam String description, @RequestParam String beginTime
-            , @RequestParam String endTime, @RequestParam String applyEndTime, @RequestParam int count, @RequestParam String address, @RequestParam String activityId) {
+    public String modifyActivity(HttpServletRequest request,
+                                 @RequestParam(value = "file1", required = false) MultipartFile file,
+                                 long teamOptions,
+                                 String activityType,
+                                 boolean isPublic,
+                                 String activityName,
+                                 String description,
+                                 String beginTime, String endTime, String applyEndTime,
+                                 int count,
+                                 String address,
+                                 String activityId) throws IOException {
+        ActivityPublishEntity activity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
+        String idImg="";
+        if (file != null && !file.isEmpty()) {
+            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/");
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            Random random=new Random();
+            int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
+            String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            idImg = Long.toString(activity.getId()) + "_Img_"+Integer.toString(ram) + suffix1;
+            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/";
+            File imgFile = new File(path, idImg);
+            activity.setHeadImg(idImg);
+            file.transferTo(imgFile);
+        }
         try {
-            ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
-            activity.setTeamId(teamId);
+            activity.setTeamId(teamOptions);
             if (activityType.equalsIgnoreCase("志愿者"))
                 activity.setType(ActivityType.volunteerActivity);
             else
@@ -572,7 +617,6 @@ public class TeamController {
         userActivityEntity.setManagerRating(rating);
         userActivityEntity.setManagerComment(comment);
         userActivityService.updateUserActivityEntity(userActivityEntity);
-
         return "ok";
     }
 
@@ -605,10 +649,9 @@ public class TeamController {
     //申请已申请的活动页面（参与活动）
     @RequestMapping(value = "/alreadyApplyActivities", method = RequestMethod.GET)
     public String alreadyApplyActivities(ModelMap map) {
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(getCurrentUser().getId(), true, true, ActivityStatus.waitingForApply);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForApply, true);
         //倒序排列
         Collections.reverse(userActivityList);
-
         map.addAttribute("userActivityList", userActivityList);
         return "activities_yishenqin_volunteer";
     }
@@ -704,6 +747,13 @@ public class TeamController {
         return "my_team_member";
     }
 
+    @RequestMapping(value = "/myTeamHistory", method = RequestMethod.GET)
+    public String myTeamHistoryView(ModelMap map, @RequestParam String teamId) {
+        List<ActivityPublishEntity> activityList=activityPublishService.findAllByTeamIdAndStatus(Long.parseLong(teamId),ActivityStatus.alreadyTerminate);
+        map.addAttribute("activityList",activityList);
+        return "my_team_history";
+    }
+
     @RequestMapping(value = "/lockMember", method = RequestMethod.POST)
     @ResponseBody
     public String blockTeamMember(@RequestParam String userId, @RequestParam String teamId) {
@@ -719,7 +769,13 @@ public class TeamController {
     @RequestMapping(value = "/approveUser", method = RequestMethod.POST)
     @ResponseBody
     public String ApproveUser(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "approve");
+        String result = TeamManage(userId, teamId, "approve");
+        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
+        TeamEntity team=teamService.findById(Long.parseLong(teamId));
+        if(MessageUtil.team_join_success(user,team))
+            return result;
+        else
+            return "message send fail";
     }
 
     @RequestMapping(value = "/demoteManager", method = RequestMethod.POST)
@@ -731,13 +787,7 @@ public class TeamController {
     @RequestMapping(value = "/promoteManager", method = RequestMethod.POST)
     @ResponseBody
     public String promteManager(@RequestParam String userId, @RequestParam String teamId) {
-        String result = TeamManage(userId, teamId, "promote");
-        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
-        TeamEntity team=teamService.findById(Long.parseLong(teamId));
-        if(MessageUtil.team_join_success(user,team))
-            return result;
-        else
-            return "message send fail";
+        return TeamManage(userId, teamId, "promote");
     }
 
     private String TeamManage(String userId, String teamId, String type) {
@@ -775,7 +825,7 @@ public class TeamController {
     public String teamHistoryActivity(ModelMap map, @RequestParam String teamId) {
         boolean isMember = false;
         long id = Long.parseLong(teamId);
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, "已结束");
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, ActivityStatus.alreadyTerminate);
         List<ActivityPublishEntity> publicActivity = new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
         long userId = getCurrentUser().getId();
@@ -817,8 +867,9 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
+            String date = new java.sql.Date(System.currentTimeMillis()).toString();
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = team_name + "_headImg" + suffix1;
+            idImg = team_name + "_headImg_"+date + suffix1;
             String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
             File imgFile = new File(path, idImg);
             try {
@@ -833,6 +884,7 @@ public class TeamController {
                 newTeam.setHeadImg(idImg);
                 file.transferTo(imgFile);
                 newTeam.setCreatorId(userId);
+                newTeam.setPhone(content_number);
                 newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
                 newTeam.setDeleted(false);
                 newTeam.setDescription(describe);
@@ -925,12 +977,7 @@ public class TeamController {
     @RequestMapping(value = "/userActivityList", method = RequestMethod.GET)
     public String viewUserActivityList(ModelMap map, @RequestParam long activityId) {
         List<ViewUserActivityDetailEntity> list = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityId, true);
-        List<UserEntity> userList = new ArrayList<UserEntity>();
-        for (int i = 0; i < list.size(); i++) {
-            UserEntity user = userService.findUserEntityById(list.get(i).getUserId());
-            userList.add(user);
-        }
-        map.addAttribute("userList", userList);
+        map.addAttribute("userList", list);
         return "user_activities_list";
     }
 

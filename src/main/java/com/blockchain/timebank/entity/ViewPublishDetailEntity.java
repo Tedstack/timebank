@@ -15,6 +15,7 @@ public class ViewPublishDetailEntity {
     private Timestamp beginDate;
     private Timestamp endDate;
     private Timestamp createTime;
+    private int isDelete;
     private String serviceType;
     private String serviceName;
     private String userName;
@@ -113,6 +114,16 @@ public class ViewPublishDetailEntity {
     }
 
     @Basic
+    @Column(name = "isDelete", nullable = false)
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    @Basic
     @Column(name = "ServiceType", nullable = false, length = 45)
     public String getServiceType() {
         return serviceType;
@@ -183,6 +194,7 @@ public class ViewPublishDetailEntity {
         if (serviceId != that.serviceId) return false;
         if (userId != that.userId) return false;
         if (Double.compare(that.price, price) != 0) return false;
+        if (isDelete != that.isDelete) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
@@ -212,6 +224,7 @@ public class ViewPublishDetailEntity {
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + isDelete;
         result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
         result = 31 * result + (serviceName != null ? serviceName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);

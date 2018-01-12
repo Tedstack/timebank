@@ -18,56 +18,56 @@ public class RequestOrderServiceImpl implements RequestOrderService {
     @Autowired
     ViewRequestOrderDetailDao viewRequestOrderDetailDao;
 
-    public void saveVolunteerRequestMatchEntity(RequestOrderEntity requestOrderEntity) {
-        requestOrderDao.save(requestOrderEntity);
+    public RequestOrderEntity saveRequestOrderEntity(RequestOrderEntity requestOrderEntity) {
+        return requestOrderDao.save(requestOrderEntity);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserRequestToConfirm(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.alreadyApply);
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.alreadyApply);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserRequestToServe(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.waitingService);
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.waitingService);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserRequestToPay(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.waitingPay);
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.waitingPay);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserRequestCompleted(long id) {
-        List<ViewRequestOrderDetailEntity> matchDetailEntities = viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.alreadyRefuse);
-        matchDetailEntities.addAll(viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.alreadyComplete));
+        List<ViewRequestOrderDetailEntity> matchDetailEntities = viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.alreadyRefuse);
+        matchDetailEntities.addAll(viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(id, OrderStatus.alreadyComplete));
         return matchDetailEntities;
     }
 
     public List<ViewRequestOrderDetailEntity> findUserApplyApplied(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(id, OrderStatus.alreadyApply);
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(id, OrderStatus.alreadyApply);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserApplyToServe(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(id, OrderStatus.waitingService);
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(id, OrderStatus.waitingService);
     }
 
-    public RequestOrderEntity findVolunteerRequestMatchEntityById(long id) {
+    public RequestOrderEntity findRequestOrderEntityById(long id) {
         return requestOrderDao.findVolunteerRequestMatchEntityById(id);
     }
 
-    public RequestOrderEntity updateVolunteerRequestMatchEntity(RequestOrderEntity requestOrderEntity) {
+    public RequestOrderEntity updateRequestOrderEntity(RequestOrderEntity requestOrderEntity) {
         return requestOrderDao.save(requestOrderEntity);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserApplyToPay(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(id, OrderStatus.waitingPay);
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(id, OrderStatus.waitingPay);
     }
 
     public List<ViewRequestOrderDetailEntity> findUserApplyCompleted(long id) {
-        List<ViewRequestOrderDetailEntity> matchDetailEntities = viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(id, OrderStatus.alreadyRefuse);
-        matchDetailEntities.addAll(viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(id, OrderStatus.alreadyComplete));
+        List<ViewRequestOrderDetailEntity> matchDetailEntities = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(id, OrderStatus.alreadyRefuse);
+        matchDetailEntities.addAll(viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(id, OrderStatus.alreadyComplete));
         return matchDetailEntities;
 
     }
 
-    public ViewRequestOrderDetailEntity findViewVolunteerRequestMatchDetailEntityById(long id) {
-        return viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntityById(id);
+    public ViewRequestOrderDetailEntity findRequestOrderDetailById(long id) {
+        return viewRequestOrderDetailDao.findViewRequestOrderDetailById(id);
     }
 }

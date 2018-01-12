@@ -51,7 +51,7 @@
                         out.print(type);
                     %>
                 </span>
-                <a href="/timebank/request/select?type=<%out.print(request.getAttribute("type"));%>" style="float:right">筛选</a>
+                <a href="javascript:;" onclick="window.location.href='${pageContext.request.contextPath}/request/select?type=<%out.print(request.getAttribute("type"));%>'" style="float:right;color:#337ab7">筛选</a>
             </div>
             <div class="weui-panel__bd">
 

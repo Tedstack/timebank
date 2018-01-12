@@ -78,6 +78,14 @@
                 <div class="weui-panel__bd">
                     <div class="weui-form-preview__hd">
                         <div class="weui-form-preview__item">
+                            <label class="weui-form-preview__label"><li style="font-size: 15px;">联系方式</li></label>
+                            <em class="weui-form-preview__value" style="font-size: 15px;"><%out.print(team.getPhone());%></em>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-panel__bd">
+                    <div class="weui-form-preview__hd">
+                        <div class="weui-form-preview__item">
                             <label class="weui-form-preview__label"><li style="font-size: 15px;">活动地点</li></label>
                             <em class="weui-form-preview__value" style="font-size: 15px;"><%out.print(team.getAddress());%></em>
                         </div>

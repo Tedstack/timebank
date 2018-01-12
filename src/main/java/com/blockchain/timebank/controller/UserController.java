@@ -45,6 +45,12 @@ public class UserController {
     ViewRecordDetailDao viewRecordDetailDao;
 
     @Autowired
+    PublishDao publishDao;
+
+    @Autowired
+    RecordDao recordDao;
+
+    @Autowired
     ViewPublishDetailDao viewPublishDetailDao;
 
     @Autowired
@@ -428,7 +434,7 @@ public class UserController {
     //查询用户发布服务的接口：已发布
     @RequestMapping(value = "/queryPublishAlreadyPublish",method = RequestMethod.GET)
     public String queryPublishAlreadyPublish(ModelMap map){
-        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserId(getCurrentUser().getId());
+        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserIdAndIsDelete(getCurrentUser().getId(),0);
 
         //倒序排列
         Collections.reverse(publishList);
@@ -649,12 +655,40 @@ public class UserController {
         return "service_posted_detail";
     }
 
+    //删除已发布的服务
+    @RequestMapping(value = "/deletePublish", method = RequestMethod.GET)
+    public String deletePublishService(ModelMap map, @RequestParam long id) {
+        List<PublishOrderEntity> publishOrderList = recordDao.findByPublishId(id);
+        String deleteMsg = "删除成功";
+        boolean isDelete = true;
+        for(PublishOrderEntity record : publishOrderList){
+            String status = record.getStatus();
+            if(!"已拒绝".equals(status)){
+                if(!"已申请".equals(status)){
+                    isDelete = false;
+                    deleteMsg="您已接受过服务，无法删除";
+                    break;
+                }else{
+                    isDelete = false;
+                    deleteMsg="请拒绝所有申请后删除";
+                }
+            }
+        }
+        if(isDelete){
+            PublishEntity publishEntity = publishDao.findPublishEntityById(id);
+            publishEntity.setIsDelete(1);
+            publishDao.save(publishEntity);
+        }
+        map.addAttribute("deleteMsg", deleteMsg);
+        return "service_delete_result";
+    }
+
     //历史评价信息
     @RequestMapping(value = "/history_evaluation", method = RequestMethod.GET)
     public String history_evaluation(ModelMap map) {
         List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(getCurrentUser().getId(), true, true, ActivityStatus.alreadyTerminate);
+        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<Evaluation_entity> recordlist = new ArrayList<Evaluation_entity>();
         Iterator<ViewPublishOrderDetailEntity> iter1 = servicelist.iterator();
         Iterator<ViewRequestOrderDetailEntity> iter2 = requestlist.iterator();

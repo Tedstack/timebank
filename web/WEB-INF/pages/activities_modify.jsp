@@ -29,21 +29,44 @@
     String applyTime=(String) request.getAttribute("applyTime");
 %>
 <div class="weui-tab">
+    <form id="activityDetail" method="post">
     <div class="weui-tab__panel">
-
         <div class="weui-panel__hd">
             <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                <p><img src="../img/返回.png" width="20" height="15"alt="">发布活动</p>
+                <p><img src="../img/返回.png" width="20" height="15"alt="">活动更改</p>
             </div>
         </div>
         <div class="weui-panel__bd">
-
+            <div class="weui-cells_form weui-cells">
+                <div class="weui-cell" style="margin-left: 130px;">
+                    <div class="weui-cell__bd">
+                        <div class="weui-flex">
+                            <div class="weui-flex__item weui-flex justify align">
+                                <div class="weui-uploader">
+                                    <div class="weui-uploader__hd" style="margin-bottom: 0px;">
+                                        <p class="weui-uploader__title" style="margin: 0 0 0 0;">点击更改封面</p>
+                                    </div>
+                                    <div class="weui-uploader__bd">
+                                        <ul class="weui-uploader__files" id="files1" style="margin-bottom: 0px;"></ul>
+                                        <a id="changeImg" href="javascript:">
+                                            <img src="../img/teamHeadImg/<%out.print(activityPublishDetail.getHeadImg());%>" style="width:100px;display: block">
+                                        </a>
+                                        <div class="weui-uploader__input-box" id="addHeadImg" style="display: none;width: 100px;height: 110px;">
+                                            <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bd">
                     <p>团队选择</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <select id="teamOptions" class="weui-select" name="team">
+                    <select id="teamOptions" class="weui-select" name="teamOptions">
                         <%for(int i=0;i<teamList.size();i++){
                         if(activityPublishDetail.getTeamId()==teamList.get(i).getId()){%>
                         <option value=<%out.print(teamList.get(i).getId());%> selected="selected"><%out.print(teamList.get(i).getName());%></option>
@@ -60,7 +83,7 @@
                     <p>活动类型</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <select id="activityType" class="weui-select" name="isPublic">
+                    <select id="activityType" class="weui-select" name="activityType">
                         <%if(activityPublishDetail.getType().equalsIgnoreCase(ActivityType.volunteerActivity)){%>
                         <option value="志愿者" selected="selected">志愿者</option>
                         <option value="社区">社区</option>
@@ -89,14 +112,14 @@
             </div>
             <div class="weui-cell" style="display:none;">
                 <div class="weui-cell__bd">
-                    <input id="activityId" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getId());%>>
+                    <input id="activityId" name="activityId" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getId());%>>
                 </div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>活动名称</p></div>
                 <div class="weui-cell__bd">
-                    <input id="activityName" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getName());%>>
+                    <input id="activityName" name="activityName" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getName());%>>
                 </div>
             </div>
             <div class="weui-cell">
@@ -140,7 +163,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" class="weui-input" type="datetime-local" value="<%out.print(applyTime);%>"  min="<%out.print(nowTime);%>"/>
+                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="<%out.print(applyTime);%>"  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -163,9 +186,10 @@
             </div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;">
-            <button id="submitBtn" class="weui-btn weui-btn_primary">确认修改</button>
+            <a id="submitBtn" class="weui-btn weui-btn_primary">确认修改</a>
         </div>
     </div>
+    </form>
 </div>
 
 <!-- jQuery 3 -->
@@ -184,11 +208,37 @@
     var contextPath="${pageContext.request.contextPath}";
 
     $(function(){
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#);width: 100px;height: 110px;"></li>',
+            $uploaderInput1 = $("#file1"),
+            $uploaderFiles1 = $("#files1");
+        $uploaderInput1.on("change", function(e){
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
 
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+
+                $uploaderFiles1.append(tmpl.replace("#url#", src));
+                $uploaderInput1.parent().hide();
+            }
+        });
+        $uploaderFiles1.on("click", "li", function(){
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
+
+        $("#changeImg").on('click', function (){
+            var pre_Img=document.getElementById("changeImg");
+            var add_Img=document.getElementById("addHeadImg");
+            pre_Img.style.display="none";
+            add_Img.style.display="inline";
+        });
         $("#submitBtn").on('click',function () {
-            var teamID = $("#teamOptions ").val();
             var activityType=$("#activityType ").val();
-            var isPublic = $("#isPublicOptions ").val();
             var activityName = $('#activityName').val();
             var description = $('#description').val();
             var beginTime = $('#beginTime').val();
@@ -197,7 +247,7 @@
             var count = $('#count').val();
             var address = $('#address').val();
             var activityId= $('#activityId').val();
-
+            var formData = new FormData($("#activityDetail")[0]);
             if(activityName===""){
                 showAlert("请填写活动名称");
                 return;
@@ -257,7 +307,10 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "teamId=" + teamID +"&activityType=" + activityType + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address+"&activityId="+activityId,
+                data: formData,
+                async: false,
+                contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                processData: false,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

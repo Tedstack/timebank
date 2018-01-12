@@ -31,12 +31,16 @@ public class AccountServiceImpl implements AccountService {
             throw new AccountServiceException("您的金额不足！");
         }
         double timeVol = applyUser.getTimeVol() - price;
+        BigDecimal bigTimeVol = new BigDecimal(timeVol);
+        timeVol  =   bigTimeVol.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         applyUser.setTimeVol(timeVol);
         userService.updateUserEntity(applyUser);
 
         //3.增加服务者志愿者币账户
         UserEntity serviceUser = userService.findUserEntityById(record.getServiceUserId());
         double timeVol2 = serviceUser.getTimeVol() + price;
+        BigDecimal bigTimeVol2 = new BigDecimal(timeVol2);
+        timeVol2  =   bigTimeVol2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         serviceUser.setTimeVol(timeVol2);
         userService.updateUserEntity(serviceUser);
 
@@ -58,12 +62,16 @@ public class AccountServiceImpl implements AccountService {
             throw new AccountServiceException("您的金额不足！");
         }
         double timeCoin = applyUser.getTimeCoin() - price;
+        BigDecimal bigTimeCoin = new BigDecimal(timeCoin);
+        timeCoin  =   bigTimeCoin.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         applyUser.setTimeCoin(timeCoin);
         userService.updateUserEntity(applyUser);
 
         //3.增加服务者时间币账户
         UserEntity serviceUser = userService.findUserEntityById(record.getServiceUserId());
         double timeCoin2 = serviceUser.getTimeCoin() + price;
+        BigDecimal bigTimeCoin2 = new BigDecimal(timeCoin2);
+        timeCoin2  =   bigTimeCoin2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         serviceUser.setTimeCoin(timeCoin2);
         userService.updateUserEntity(serviceUser);
 
@@ -83,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
 
     public void payRequestTimeVol(long matchID) {
         //1.查询订单价格
-        RequestOrderEntity matchEntity = requestOrderService.findVolunteerRequestMatchEntityById(matchID);
+        RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
         BigDecimal price = matchEntity.getPayMoney();
 
         //2.扣除申请者志愿者币账户
@@ -92,17 +100,21 @@ public class AccountServiceImpl implements AccountService {
             throw new AccountServiceException("您的金额不足！");
         }
         double timeVol = requestUser.getTimeVol() - price.doubleValue();
+        BigDecimal bigTimeVol = new BigDecimal(timeVol);
+        timeVol  =   bigTimeVol.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         requestUser.setTimeVol(timeVol);
         userService.updateUserEntity(requestUser);
 
         //3.增加服务者时间币账户
         UserEntity applyUser = userService.findUserEntityById(matchEntity.getApplyUserId());
         double timeVol2 = applyUser.getTimeVol() + price.doubleValue();
+        BigDecimal bigTimeVol2 = new BigDecimal(timeVol2);
+        timeVol2  =   bigTimeVol2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         applyUser.setTimeVol(timeVol2);
         userService.updateUserEntity(applyUser);
 
         //4.更改订单状态
         matchEntity.setStatus(OrderStatus.alreadyComplete);
-        requestOrderService.updateVolunteerRequestMatchEntity(matchEntity);
+        requestOrderService.updateRequestOrderEntity(matchEntity);
     }
 }

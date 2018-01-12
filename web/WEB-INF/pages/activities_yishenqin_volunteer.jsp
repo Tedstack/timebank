@@ -22,13 +22,6 @@
     <div class="weui-tab__panel">
     <div class="weui-panel weui-panel_access" style="height: 100%;">
         <div class="weui-tab">
-            <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
-                <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/返回.png" width="20" height="15"alt="">已申请</p>
-                </div>
-                <div class="weui-flex__item"></div>
-                <div class="weui-flex__item"></div>
-            </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
                     已申请
@@ -46,7 +39,7 @@
                 <%
                     for (int i=0;i<userActivityList.size();i++) {
                 %>
-                <div class="weui-panel__bd">
+                <div class="weui-panel__bd" id="<%out.print(userActivityList.get(i).getActivityId());%>" onclick="viewActivityDetail(this)">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
                             <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
@@ -78,17 +71,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="weui-cell">
-                    <div class="weui-cell__bd">
-                        <div class="weui-flex">
-                            <div class="weui-flex__item"diaplay="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/teamActivityDetails?type=2&activityID=<%out.print(userActivityList.get(i).getActivityId());%>">查看</a></div>
-                        </div>
-                    </div>
-                </div>
+                <%--<div class="weui-cell">--%>
+                    <%--<div class="weui-cell__bd">--%>
+                        <%--<div class="weui-flex">--%>
+                            <%--<div class="weui-flex__item"diaplay="none"></div>--%>
+                            <%--<div class="weui-flex__item"display="none"></div>--%>
+                            <%--<div class="weui-flex__item"display="none"></div>--%>
+                            <%--<div class="weui-flex__item"display="none"></div>--%>
+                            <%--<div class="weui-flex__item"><a class="weui-btn weui-btn_mini weui-btn_primary" href=>查看</a></div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
@@ -118,6 +111,10 @@
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function viewActivityDetail(t){
+        var id=t.id;
+        location.href="${pageContext.request.contextPath}/team/teamActivityDetails?type=2&activityID="+id;
+    }
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');

@@ -6,7 +6,7 @@ import com.blockchain.timebank.entity.RequestOrderEntity;
 import java.util.List;
 
 public interface RequestOrderService {
-    void saveVolunteerRequestMatchEntity(RequestOrderEntity requestOrderEntity);
+    RequestOrderEntity saveRequestOrderEntity(RequestOrderEntity requestOrderEntity);
 
     List<ViewRequestOrderDetailEntity> findUserRequestToConfirm(long id);
 
@@ -20,13 +20,13 @@ public interface RequestOrderService {
 
     List<ViewRequestOrderDetailEntity> findUserApplyToServe(long id);
 
-    RequestOrderEntity findVolunteerRequestMatchEntityById(long id);
+    RequestOrderEntity findRequestOrderEntityById(long id);
 
-    RequestOrderEntity updateVolunteerRequestMatchEntity(RequestOrderEntity requestOrderEntity);
+    RequestOrderEntity updateRequestOrderEntity(RequestOrderEntity requestOrderEntity);
 
     List<ViewRequestOrderDetailEntity> findUserApplyToPay(long id);
 
     List<ViewRequestOrderDetailEntity> findUserApplyCompleted(long id);
 
-    ViewRequestOrderDetailEntity findViewVolunteerRequestMatchDetailEntityById(long id);
+    ViewRequestOrderDetailEntity findRequestOrderDetailById(long id);
 }

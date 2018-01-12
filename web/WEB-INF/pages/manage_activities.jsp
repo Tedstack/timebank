@@ -14,7 +14,6 @@
     <title>管理活动</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link href="../css/mobile-main.css" rel="stylesheet" />
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
@@ -34,7 +33,7 @@
         </div>
         <div class="weui-cell__ft" style="color: #0D0D0D">发起团队：<%out.print(activityPublishDetail.getTeamName());%></div>
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cells__title" style="color: #0D0D0D">活动详情</div>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
@@ -43,7 +42,7 @@
             </div>
         </div>
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cell " href="javascript:;">
         <div class="weui-cell__bd">
             <p>活动开始时间</p>
@@ -83,9 +82,9 @@
             %>
         </div>
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div id="terminateApplyBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">结束报名</div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员(<%out.print(userActivityList.size());%>/<%out.print(activityPublishDetail.getCount());%>)</div>
     <div class="weui-cells">
         <!--以下循环参加的人数-->
@@ -144,27 +143,6 @@
     var activityId='<%=activityPublishDetail.getId()%>';
     var contextPath="${pageContext.request.contextPath}";
 
-    var wConfirm = window.confirm;
-    window.confirm = function (message) {
-        try {
-            var iframe = document.createElement("IFRAME");
-            iframe.style.display = "none";
-            iframe.setAttribute("src", 'data:text/plain,');
-            document.documentElement.appendChild(iframe);
-            var alertFrame = window.frames[0];
-            var iwindow = alertFrame.window;
-            if (iwindow == undefined) {
-                iwindow = alertFrame.contentWindow;
-            }
-            var result=iwindow.confirm(message);
-            iframe.parentNode.removeChild(iframe);
-            return result;
-        }
-        catch (exc) {
-            return wConfirm(message);
-        }
-    }
-
     $(function(){
         for (var i=0; i<=userActivityList.length; i++) {
             (function(i) {
@@ -190,13 +168,10 @@
         $("#terminateApplyBtn").on('click',function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
             var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
-
-            var r=confirm("确认结束报名");
-            if(r==true){
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: targetUrl,
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
                     //dataType:'JSONP',
                     data: "activityID=" + activityId,
                     beforeSend: function (XHR) {
@@ -218,7 +193,6 @@
                         dialogLoading.hide();
                     }
                 });
-            }
         });
 
         function post(userActivityID){

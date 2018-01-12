@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.ViewUserActivityDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: Ted
   Date: 2018/1/11
@@ -22,7 +22,7 @@
 </head>
 <body>
 <%
-    List<UserEntity> userList = (List<UserEntity>) request.getAttribute("userList");
+    List<ViewUserActivityDetailEntity> userList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -36,14 +36,14 @@
             <%
                 for (int i=0;i<userList.size();i++) {
             %>
-            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(userList.get(i).getId());%>">
+            <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(userList.get(i).getId());%>>
                         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                            <img src="../img/teamHeadImg/<%out.print(userList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+                            <img src="../img/teamHeadImg/<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
                         </div>
                         <div class="weui-cell__bd">
-                            <p><%out.print(userList.get(i).getName());%></p>
+                            <p><%out.print(userList.get(i).getUserName());%></p>
                         </div>
                     </label>
                 </div>
