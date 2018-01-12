@@ -48,7 +48,7 @@
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/activityImg/<%out.print(activityDetailList.get(i).getHeadImg());%>" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">

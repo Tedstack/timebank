@@ -26,6 +26,7 @@
 %>
 <div class="weui-tab" style="height: 100%;">
     <div class="weui-tab__panel">
+        <div class="weui-panel weui-panel_access">
             <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/返回.png" width="20" height="15"alt="">已完成</p>
@@ -122,6 +123,7 @@
             </div>
             <!--weui-tab_panel的结束位置-->
         </div>
+    </div>
     <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">

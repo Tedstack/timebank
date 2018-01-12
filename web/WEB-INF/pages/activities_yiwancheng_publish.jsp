@@ -20,9 +20,9 @@
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>
-<div class="page">
-    <div class="page__bd" style="height: 100%;">
-        <div class="weui-tab">
+<div class="weui-tab">
+    <div class="weui-tab__panel" style="height: 100%;padding-top:0px;">
+        <div class="weui-panel weui-panel_access">
             <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/返回.png" width="20" height="15"alt="">已完成</p>
@@ -53,7 +53,7 @@
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/activityImg/<%out.print(activityDetailList.get(i).getHeadImg());%>" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">

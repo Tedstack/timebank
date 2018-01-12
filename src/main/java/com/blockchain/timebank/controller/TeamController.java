@@ -653,7 +653,11 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForApply, true);
         //倒序排列
         Collections.reverse(userActivityList);
+        List<ActivityPublishEntity> activityList=new ArrayList<ActivityPublishEntity>();
+        for(int i=0;i<userActivityList.size();i++)
+            activityList.add(activityPublishService.findActivityPublishEntityByID(userActivityList.get(i).getActivityId()));
         map.addAttribute("userActivityList", userActivityList);
+        map.addAttribute("activityList", activityList);
         return "activities_yishenqin_volunteer";
     }
 
@@ -663,8 +667,11 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForExecute, true);
         //倒序排列
         Collections.reverse(userActivityList);
-
+        List<ActivityPublishEntity> activityList=new ArrayList<ActivityPublishEntity>();
+        for(int i=0;i<userActivityList.size();i++)
+            activityList.add(activityPublishService.findActivityPublishEntityByID(userActivityList.get(i).getActivityId()));
         map.addAttribute("userActivityList", userActivityList);
+        map.addAttribute("activityList", activityList);
         return "activities_daizhixing_volunteer";
     }
 

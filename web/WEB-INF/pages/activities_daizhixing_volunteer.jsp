@@ -1,4 +1,5 @@
 <%@ page import="com.blockchain.timebank.entity.ViewUserActivityDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
@@ -17,6 +18,7 @@
 <body>
 <%
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
+    List<ActivityPublishEntity> activityList=(List<ActivityPublishEntity>) request.getAttribute("activityList");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -48,7 +50,7 @@
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/userdetails/专业服务认证.png" alt="">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/activityImg/<%out.print(activityList.get(i).getHeadImg());%>" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
