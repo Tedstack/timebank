@@ -17,6 +17,7 @@
 <body>
 <%
     UserActivityEntity userActivityEntity = (UserActivityEntity) request.getAttribute("userActivityEntity");
+    String type=(String) request.getAttribute("type");
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
@@ -43,7 +44,11 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
+                    <%if(type.equalsIgnoreCase("0")){%>
                     <textarea name="text" class="weui-textarea" id="text" placeholder="例：服务非常满意，服务者的态度也很好" rows="3"></textarea>
+                    <%}else{%>
+                    <textarea name="text" class="weui-textarea" id="text" rows="3"><%out.print(userActivityEntity.getManagerComment());%></textarea>
+                    <%}%>
                     <div class="weui-textarea-counter"><span>0</span>/200</div>
                 </div>
             </div>
@@ -78,14 +83,21 @@
         }
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
-
+    var type='<%=type%>';
+    var rate='<%=userActivityEntity.getManagerRating()%>';
     var userActivityID='<%=userActivityEntity.getId()%>';
     var activityID='<%=userActivityEntity.getActivityId()%>';
     new Vue({
         el:'#app',
         data:function(){
-            return {
-                value3: 4
+            if(type==='0') {
+                return {
+                    value3: 4
+                }
+            }else{
+                return {
+                    value3: rate
+                }
             }
         }
     })
@@ -111,6 +123,9 @@
             }
             if(starText==="惊喜"){
                 starNum = 5;
+            }
+            if(starNum<=3 && comment===""){
+                showAlert("少于三星请填写具体原因");
             }
             //alert("服务评分："+$('#app').text()+"\n"+"服务者态度："+$('#app2').text()+"\n"+"详细评价："+$('#text').val());
             //alert("服务评分："+$('#app').text()+"\n"+"详细评价："+$('#text').val()+starNum);

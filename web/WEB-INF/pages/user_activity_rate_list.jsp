@@ -19,8 +19,12 @@
 <%
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
 %>
-<div class="weui-tab__panel">
-    <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">参加活动人员</div>
+<div class="weui-tab__panel" style="color: #7ACF41;">
+    <div class="weui-panel__hd">
+        <div class="weui-flex__item" id="return" onclick="history.go(-1)" >
+            <p><img src="../img/back.png" width="20" height="15"alt="">参加活动人员</p>
+        </div>
+    </div>
     <div class="weui-cells">
         <!--以下循环参加的人数-->
         <%
@@ -33,9 +37,9 @@
             <div class="weui-cell__ft">
                 <%
                     if(userActivityList.get(i).getManagerRating()==null){
-                        out.print("<a href='"+ request.getContextPath() +"/team/managerUserStartEvaluateUser?userActivityID="+ userActivityList.get(i).getId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
+                        out.print("<a href='"+ request.getContextPath() +"/team/managerUserStartEvaluateUser?type=0&userActivityID="+ userActivityList.get(i).getId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
                     }else{
-                        out.print("<a class='weui-btn weui-btn_mini weui-btn_default'>已评</a>");
+                        out.print("<a href='"+ request.getContextPath() +"/team/managerUserStartEvaluateUser?type=1&userActivityID="+ userActivityList.get(i).getId()+"' class='weui-btn weui-btn_mini weui-btn_default'>再评</a>");
                     }
                 %>
             </div>

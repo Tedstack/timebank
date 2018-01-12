@@ -602,10 +602,11 @@ public class TeamController {
 
     //跳转到待评价团员评价页面
     @RequestMapping(value = "/managerUserStartEvaluateUser", method = RequestMethod.GET)
-    public String managerUserStartEvaluateUser(ModelMap map, @RequestParam long userActivityID) {
+    public String managerUserStartEvaluateUser(ModelMap map,@RequestParam String type, @RequestParam long userActivityID) {
         UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
 
         map.addAttribute("userActivityEntity", userActivityEntity);
+        map.addAttribute("type",type);
         return "user_activity_rate";
     }
 
