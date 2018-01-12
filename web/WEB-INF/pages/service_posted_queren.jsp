@@ -87,31 +87,44 @@
                         </div>
                     </div>
                     <div class="weui-cell">
-                        <div class="weui-cell__bd">
-                            <div class="weui-flex">
-                                <div class="weui-flex__item"><p>预估价:</p></div>
-                                <div class="weui-flex__item"><p>
-                                    <%
-                                        Timestamp beginStamp = recordDetailList.get(i).getBeginTime();
-                                        Timestamp endStamp = recordDetailList.get(i).getEndTime();
-                                        long begin = beginStamp.getTime();
-                                        long end = endStamp.getTime();
-
-                                        long l = end - begin;
-                                        String s = String.valueOf(l);
-                                        double d = Double.parseDouble(s);
-                                        double price = recordDetailList.get(i).getPublishPrice();
-                                        double money = price * (d/(3600*1000));
-                                        BigDecimal bg = new BigDecimal(money);
-                                        double convertedMoney = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                                        out.print(convertedMoney);
-                                    %>
-                                </p></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=refuse&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
-                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=confirm&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
-                            </div>
+                        <div class="weui-cell__bd" >
+                            <%
+                                if(recordDetailList.get(i).getEndTime().getTime() < new Date().getTime()){
+                            %>
                         </div>
+                        <div class="weui-cell__ft">
+                            <a id="applyOverDate-button" class="weui-btn weui-btn_mini weui-btn-default" style="background-color: #999; color:#fff; border:0px;text-decoration:none;" onclick="return false;">
+                                申请已过期
+                            </a>
+                        </div>
+                        <%} else {%>
+                        <div class="weui-flex">
+                            <div class="weui-flex__item"><p>预估价:</p></div>
+                            <div class="weui-flex__item"><p>
+                                <%
+                                    Timestamp beginStamp = recordDetailList.get(i).getBeginTime();
+                                    Timestamp endStamp = recordDetailList.get(i).getEndTime();
+                                    long begin = beginStamp.getTime();
+                                    long end = endStamp.getTime();
+
+                                    long l = end - begin;
+                                    String s = String.valueOf(l);
+                                    double d = Double.parseDouble(s);
+                                    double price = recordDetailList.get(i).getPublishPrice();
+                                    double money = price * (d/(3600*1000));
+                                    BigDecimal bg = new BigDecimal(money);
+                                    double convertedMoney = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                                    out.print(convertedMoney);
+                                %>
+                            </p></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=refuse&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">拒绝</a></div>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=confirm&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">接受</a></div>
+                        </div>
+                    </div>
+                    <div class="weui-cell__ft">
+                    </div>
+                    <%}%>
                     </div>
                 </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
@@ -143,6 +156,8 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(function(){
+
+
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="queryPublishAlreadyPublish";
