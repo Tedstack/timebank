@@ -1,8 +1,5 @@
 package com.blockchain.timebank.controller;
-
-import com.blockchain.timebank.dao.ViewPublishDetailDao;
-import com.blockchain.timebank.dao.ViewRecordDetailDao;
-import com.blockchain.timebank.dao.ViewRequestOrderDetailDao;
+import com.blockchain.timebank.dao.*;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
 import com.blockchain.timebank.util.*;
@@ -45,6 +42,12 @@ public class UserController {
 
     @Autowired
     ViewRecordDetailDao viewRecordDetailDao;
+
+    @Autowired
+    PublishDao publishDao;
+
+    @Autowired
+    RecordDao recordDao;
 
     @Autowired
     ViewPublishDetailDao viewPublishDetailDao;
@@ -427,7 +430,7 @@ public class UserController {
     //查询用户发布服务的接口：已发布
     @RequestMapping(value = "/queryPublishAlreadyPublish",method = RequestMethod.GET)
     public String queryPublishAlreadyPublish(ModelMap map){
-        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserId(getCurrentUser().getId());
+        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserIdAndIsDelete(getCurrentUser().getId(),0);
 
         //倒序排列
         Collections.reverse(publishList);
@@ -646,6 +649,34 @@ public class UserController {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
         return "service_posted_detail";
+    }
+
+    //删除已发布的服务
+    @RequestMapping(value = "/deletePublish", method = RequestMethod.GET)
+    public String deletePublishService(ModelMap map, @RequestParam long id) {
+        List<PublishOrderEntity> publishOrderList = recordDao.findByPublishId(id);
+        String deleteMsg = "删除成功";
+        boolean isDelete = true;
+        for(PublishOrderEntity record : publishOrderList){
+            String status = record.getStatus();
+            if(!"已拒绝".equals(status)){
+                if(!"已申请".equals(status)){
+                    isDelete = false;
+                    deleteMsg="您已接受过服务，无法删除";
+                    break;
+                }else{
+                    isDelete = false;
+                    deleteMsg="请拒绝所有申请后删除";
+                }
+            }
+        }
+        if(isDelete){
+            PublishEntity publishEntity = publishDao.findPublishEntityById(id);
+            publishEntity.setIsDelete(1);
+            publishDao.save(publishEntity);
+        }
+        map.addAttribute("deleteMsg", deleteMsg);
+        return "service_delete_result";
     }
 
     //历史评价信息
