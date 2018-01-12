@@ -43,7 +43,13 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        }
+        else{
+            System.out.println("tokenThread.accessToken为空");
+            return false;
+        }
     }
 
     public static boolean apply_success(UserEntity user, ViewActivityPublishDetailEntity teamDetailEntity){
@@ -85,7 +91,13 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        }
+        else{
+            System.out.println("tokenThread.accessToken为空");
+            return false;
+        }
 
     }
 
@@ -118,7 +130,13 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        }
+        else{
+            System.out.println("tokenThread.accessToken为空");
+            return false;
+        }
     }
 
     public static boolean customer_appoint(UserEntity user, ViewPublishOrderDetailEntity viewPublishOrderDetailEntity){
@@ -159,6 +177,12 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        }
+        else{
+            System.out.println("tokenThread.accessToken为空");
+            return false;
+        }
     }
 }
