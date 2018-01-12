@@ -1,9 +1,6 @@
 package com.blockchain.timebank.controller;
 
-import com.blockchain.timebank.dao.ViewPublishDetailDao;
-import com.blockchain.timebank.dao.ViewRecordDetailDao;
-import com.blockchain.timebank.dao.ViewRequestDetailDao;
-import com.blockchain.timebank.dao.ViewRequestOrderDetailDao;
+import com.blockchain.timebank.dao.*;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
 import com.blockchain.timebank.util.*;
@@ -61,6 +58,9 @@ public class UserController {
 
     @Autowired
     ViewRequestOrderDetailDao viewRequestOrderDetailDao;
+
+    @Autowired
+    ViewUserActivityDetailDao viewUserActivityDetailDao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
@@ -654,9 +654,11 @@ public class UserController {
     public String history_evaluation(ModelMap map) {
         List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewVolunteerRequestMatchDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(getCurrentUser().getId(), true, true, ActivityStatus.alreadyTerminate);
         List<Evaluation_entity> recordlist = new ArrayList<Evaluation_entity>();
         Iterator<ViewPublishOrderDetailEntity> iter1 = servicelist.iterator();
         Iterator<ViewRequestOrderDetailEntity> iter2 = requestlist.iterator();
+        Iterator<ViewUserActivityDetailEntity> iter3 = userActivityList.iterator();
         while(iter1.hasNext()){
             ViewPublishOrderDetailEntity record = iter1.next();
             if(null == record.getRating() && null == record.getComment()){
@@ -691,6 +693,26 @@ public class UserController {
                 recordlist.add(entity);
             }
         }
+
+        while(iter3.hasNext()){
+            ViewUserActivityDetailEntity record3 = iter3.next();
+            if(null == record3.getManagerRating() && null == record3.getManagerComment()){
+                ;
+            }
+            else{
+                Evaluation_entity entity = new Evaluation_entity();
+                entity.setClassify("team_activity");
+                entity.setId(record3.getActivityId());
+                entity.setService_name(record3.getName());
+                double rate = Double.valueOf(record3.getManagerRating());
+                entity.setRating((int)rate);
+                entity.setService_type(record3.getTeamName());
+                entity.setComment(record3.getManagerComment());
+                entity.setEndTime(record3.getEndTime());
+                recordlist.add(entity);
+            }
+        }
+
 
         if(recordlist.size()>0){
             MySortList<Evaluation_entity> msList = new MySortList<Evaluation_entity>();

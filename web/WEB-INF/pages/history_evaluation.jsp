@@ -116,6 +116,38 @@
                 </div>
             </a>
             <%}%>
+            <% if("team_activity".equals(evaluation_entity.getClassify())){%>
+            <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(evaluation_entity.getId());%>" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__bd">
+                    <div class="weui-media-box__title">
+                        <span>团队名称：<%out.print(evaluation_entity.getService_type());%></span><br>
+                        <span>活动名称：<%out.print(evaluation_entity.getService_name());%></span>
+                        <span style="float: right"><%
+                            Timestamp endTimestamp = evaluation_entity.getEndTime();
+                            Date enddate = new Date(endTimestamp.getTime());
+                            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            out.print(bartDateFormat.format(enddate));
+                        %></span><br>
+                        <span>管理员评分：<%
+                            if(null != evaluation_entity.getRating()){
+                                Integer rate = evaluation_entity.getRating();
+                                for(int i=0;i<rate.intValue();i++){%>
+                            <img  src="../img/黄色星.png" width="5%">
+                            <%}%>
+                        <%}%></span><br>
+                        <span>管理员评价：
+                        <%
+                            if(evaluation_entity.getComment()!=null){
+                                out.print(evaluation_entity.getComment());
+                            }
+                            else{
+                                out.print("无");
+                            }
+                        %></span><br>
+                    </div>
+                </div>
+            </a>
+            <%}%>
             <% } }%>
         </div>
 
