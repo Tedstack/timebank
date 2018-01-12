@@ -39,7 +39,7 @@
                 %>
                 <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID=<%out.print(activityList.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
                     <div class="weui-media-box__hd">
-                        <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
+                        <img class="weui-media-box__thumb" src="../img/activityImg/<%out.print(activityList.get(i).getHeadImg());%>" alt="">
                     </div>
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%out.print(activityList.get(i).getName());%></h4>

@@ -64,13 +64,13 @@
                     if(myTeamList.size()>0){
                         for(int i=0;i<myTeamList.size();i++){
                 %>
-                <div class="weui-panel__bd" id="<%out.print(myTeamList.get(i).getId());%>" onclick="viewTeamPage(this)">
+                <div class="weui-panel__bd">
                     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                         <label class="weui-cell weui-check__label" for=<%out.print(myTeamList.get(i).getId());%>>
-                            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;"  id="<%out.print(myTeamList.get(i).getId());%>" onclick="viewTeamPage(this)">
                                 <img src="../img/teamHeadImg/<%out.print(myTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                             </div>
-                            <div class="weui-cell__bd">
+                            <div class="weui-cell__bd"  id="<%out.print(myTeamList.get(i).getId());%>" onclick="viewTeamPage(this)">
                                 <p><%out.print(myTeamList.get(i).getName());%></p>
                                 <p style="font-size: 13px;color: #888888;">
                                     <%if(myTeamList.get(i).getDescription().length()<=30)
@@ -89,13 +89,13 @@
             <%  if(alreadyInTeamList.size()>0){
                 for(int i=0;i<alreadyInTeamList.size();i++)
                 {%>
-            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(alreadyInTeamList.get(i).getId());%>">
+            <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(alreadyInTeamList.get(i).getId());%>>
-                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;"  onclick="viewTeamPage(this)" id="<%out.print(alreadyInTeamList.get(i).getId());%>">
                             <img src="../img/teamHeadImg/<%out.print(alreadyInTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </div>
-                        <div class="weui-cell__bd">
+                        <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(alreadyInTeamList.get(i).getId());%>">
                             <p><%out.print(alreadyInTeamList.get(i).getName());%></p>
                             <p style="font-size: 13px;color: #888888;">
                                 <%if(alreadyInTeamList.get(i).getDescription().length()<=30)
@@ -112,13 +112,13 @@
             <%}
             } if(appliedList.size()>0){
                 for(int i=0;i<appliedList.size();i++){%>
-            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(appliedList.get(i).getId());%>">
+            <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(appliedList.get(i).getId());%>>
-                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;"  onclick="viewTeamPage(this)" id="<%out.print(appliedList.get(i).getId());%>">
                             <img src="../img/teamHeadImg/<%out.print(appliedList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </div>
-                        <div class="weui-cell__bd">
+                        <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(appliedList.get(i).getId());%>">
                             <p><%out.print(appliedList.get(i).getName());%></p>
                             <p style="font-size: 13px;color: #888888;">
                                 <%if(appliedList.get(i).getDescription().length()<=30)
@@ -136,13 +136,13 @@
             }
                 for (int i=0;i<otherTeamList.size();i++) {
             %>
-            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(otherTeamList.get(i).getId());%>">
+            <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(otherTeamList.get(i).getId());%>>
-                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;" onclick="viewTeamPage(this)" id="<%out.print(otherTeamList.get(i).getId());%>">
                             <img src="../img/teamHeadImg/<%out.print(otherTeamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </div>
-                        <div class="weui-cell__bd">
+                        <div class="weui-cell__bd" onclick="viewTeamPage(this)" id="<%out.print(otherTeamList.get(i).getId());%>">
                             <p><%out.print(otherTeamList.get(i).getName());%></p>
                             <p style="font-size: 13px;color: #888888;">
                                 <%if(otherTeamList.get(i).getDescription().length()<=30)
@@ -161,7 +161,7 @@
             %>
             </div>
         </div>
-        <div class="weui-tabbar">
+    <div class="weui-tabbar">
             <a class="weui-tabbar__item weui-bar__item_on">
                 <span style="display: inline-block;">
                     <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
@@ -216,7 +216,6 @@
                             });
                         }else if(dataJson.msg==="msgFail"){
                             showAlert("信息发送失败");
-                            return;
                         }
                     },
                     error: function (xhr, type) {

@@ -50,7 +50,7 @@
                 <%
                     for (int i=0;i<userActivityList.size();i++) {
                 %>
-                <div class="page__bd">
+                <div class="page__bd" id="<%out.print(userActivityList.get(i).getActivityId());%>" onclick="goToActivityDetail(this)">
                     <div class="weui-form-preview">
                         <div class="weui-form-preview__hd">
                             <div class="weui-form-preview__item">
@@ -143,6 +143,10 @@
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function goToActivityDetail(a) {
+        var id=a.id;
+        window.location.href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID="+id;
+    }
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
