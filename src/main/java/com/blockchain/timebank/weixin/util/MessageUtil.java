@@ -44,6 +44,7 @@ public class MessageUtil {
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            System.out.println("加入团队提醒获取的token"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
@@ -92,6 +93,7 @@ public class MessageUtil {
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            System.out.println("成功报名志愿者活动获取的token"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
@@ -131,6 +133,7 @@ public class MessageUtil {
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            System.out.println("团队申请获取的accessToken"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
@@ -160,8 +163,8 @@ public class MessageUtil {
         String  type_name = viewPublishOrderDetailEntity.getServiceType()+":"+viewPublishOrderDetailEntity.getServiceName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = bartDateFormat.format(viewPublishOrderDetailEntity.getBeginTime())+"-"+bartDateFormat.format(viewPublishOrderDetailEntity.getEndTime());
-        String service_Name = viewPublishOrderDetailEntity.getServiceUserName();
-        String phone = viewPublishOrderDetailEntity.getServiceUserPhone();
+        String service_Name = viewPublishOrderDetailEntity.getApplyUserName();
+        String phone = viewPublishOrderDetailEntity.getApplyUserPhone();
         String str_remark = "点击详情查看具体细节";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
         templateParamList.add(new TemplateParam("first",str_first, "#173177"));
@@ -178,6 +181,7 @@ public class MessageUtil {
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+            System.out.println("预约成功获取的accessToken"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
