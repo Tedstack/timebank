@@ -51,6 +51,7 @@ public class TokenThread implements Runnable {
                 }*/
                 //count++;
                 //pw.println("access_token获取第"+count+"次"+accessToken.getAccessToken());
+                pw.println("access_token获取"+accessToken.getAccessToken());
                 if (null != accessToken) {
                     pw.flush();
                     while(true){
