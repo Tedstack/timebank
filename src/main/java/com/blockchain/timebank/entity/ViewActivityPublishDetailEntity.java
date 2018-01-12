@@ -10,6 +10,7 @@ public class ViewActivityPublishDetailEntity {
     private long teamId;
     private String name;
     private String type;
+    private String headImg;
     private Timestamp beginTime;
     private Timestamp endTime;
     private String address;
@@ -60,6 +61,16 @@ public class ViewActivityPublishDetailEntity {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Basic
+    @Column(name = "HeadImg", nullable = true, length = 100)
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 
     @Basic
@@ -186,6 +197,7 @@ public class ViewActivityPublishDetailEntity {
         if (isDeleted != that.isDeleted) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (headImg != null ? !headImg.equals(that.headImg) : that.headImg != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
@@ -204,6 +216,7 @@ public class ViewActivityPublishDetailEntity {
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (headImg != null ? headImg.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);

@@ -11,6 +11,7 @@ public class ViewUserActivityDetailEntity {
     private long userId;
     private String userName;
     private String userPhone;
+    private String userHeadImg;
     private boolean isAllow;
     private boolean isPresent;
     private Double managerRating;
@@ -77,6 +78,16 @@ public class ViewUserActivityDetailEntity {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    @Basic
+    @Column(name = "UserHeadImg", nullable = true, length = 255)
+    public String getUserHeadImg() {
+        return userHeadImg;
+    }
+
+    public void setUserHeadImg(String userHeadImg) {
+        this.userHeadImg = userHeadImg;
     }
 
     @Basic
@@ -265,6 +276,7 @@ public class ViewUserActivityDetailEntity {
         if (count != that.count) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
+        if (userHeadImg != null ? !userHeadImg.equals(that.userHeadImg) : that.userHeadImg != null) return false;
         if (managerRating != null ? !managerRating.equals(that.managerRating) : that.managerRating != null)
             return false;
         if (managerComment != null ? !managerComment.equals(that.managerComment) : that.managerComment != null)
@@ -291,6 +303,7 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
+        result = 31 * result + (userHeadImg != null ? userHeadImg.hashCode() : 0);
         result = 31 * result + (isAllow ? 1 : 0);
         result = 31 * result + (isPresent ? 1 : 0);
         result = 31 * result + (managerRating != null ? managerRating.hashCode() : 0);

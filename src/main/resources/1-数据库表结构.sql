@@ -274,6 +274,7 @@ CREATE TABLE `team` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '团体名称',
   `CreatorID` BIGINT(20) NOT NULL COMMENT '团体创建者ID',
+  `Phone` VARCHAR(20) NOT NULL COMMENT '团队联系手机号',
   `Description` VARCHAR(200) NULL COMMENT '团体简介',
   `CreateDate` DATE NOT NULL COMMENT '创建日期',
   `IsDeleted` BOOL NOT NULL COMMENT '是否已经被删除',
@@ -312,6 +313,7 @@ CREATE TABLE `activityPublish` (
   `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
   `Type` VARCHAR(50) NOT NULL COMMENT '活动类型',
+  `HeadImg` VARCHAR(100) NULL COMMENT '活动头像',
   `BeginTime` DATETIME NOT NULL COMMENT '活动开始时间',
   `EndTime` DATETIME NULL COMMENT '活动结束时间',
   `Address` VARCHAR(50) NOT NULL COMMENT '活动地点',
@@ -451,6 +453,7 @@ CREATE VIEW view_activity_publish_detail
       activityPublish.TeamID            AS TeamID,        #志愿者团体编号
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.Type              AS Type,          #活动类型
+      activityPublish.HeadImg           AS HeadImg,       #活动头像
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
       activityPublish.Address           AS Address,       #活动地点
@@ -492,6 +495,7 @@ CREATE VIEW view_user_activity_detail
       userActivity.UserID           AS UserID,        #用户编号
       user.Name                     AS UserName,        #用户名
       user.Phone                    AS UserPhone,       #用户手机号
+      user.HeadImgUrl               AS UserHeadImg,     #用户头像
       userActivity.IsAllow          AS IsAllow,       #审核是否通过
       userActivity.IsPresent        AS IsPresent,       #是否参加活动
       userActivity.ManagerRating    AS ManagerRating,     #管理者对参与者评分
@@ -577,6 +581,7 @@ CREATE VIEW view_team_detail
       team.CreatorID      AS CreatorID,
       user.Name            AS CreatorUserName,
       user.Phone           AS CreatorUserPhone,
+      team.Phone           AS TeamPhone,      #团队手机联系方式
       team.CreateDate      AS CreateDate,
       team.Description     AS Description,
       team.IsDeleted       AS IsDeleted,

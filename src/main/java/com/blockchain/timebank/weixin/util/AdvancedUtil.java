@@ -171,44 +171,45 @@ public class AdvancedUtil {
 
 
 
+/*
 	public static void main(String[] args) {
 		// 获取access_token
 		String accessToekn = CommonUtil.getAccessToken("wx0057906b9b02c814", "bc39d8c8f72aef4394a4ab54729b0e95").getAccess_token();
-		// String json = makeTextCustomMessage("oTnKKuHeARMSuDIv7iFr43WyWNKY", "点击查看<a href=\"http://m.blog.csdn.net/blog/lyq8479\">柳峰的博客</a>");
-		// sendCustomMessage(accessToekn, json);
+		 String json = makeTextCustomMessage("oTnKKuHeARMSuDIv7iFr43WyWNKY", "点击查看<a href=\"http://m.blog.csdn.net/blog/lyq8479\">柳峰的博客</a>");
+		 sendCustomMessage(accessToekn, json);
 
-		// List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
-		// templateParamList.add(new TemplateParam("first", "亲爱的顾客，您好！现为您安排的K房如下", "#173177"));
-		// templateParamList.add(new TemplateParam("keyword1", "2015年09月09日 10:20", "#173177"));
-		// templateParamList.add(new TemplateParam("keyword2", "天河店", "#173177"));
-		// templateParamList.add(new TemplateParam("keyword3", "018房", "#173177"));
-		// templateParamList.add(new TemplateParam("keyword4", "自由人", "#173177"));
-		// templateParamList.add(new TemplateParam("keyword5", "42元/位", "#173177"));
-		// templateParamList.add(new TemplateParam("remark", "祝您欢唱愉快！", "#173177"));
-		//
-		// Template template = new Template();
-		// template.setTemplateId("1uzEiP79vQJEwijdfXcdDwwsXBp4l8OB3pgSQx12lFM");
-		// template.setToUser("oAuZ6s_lfFc-OqbrWkZzZsJp6R6M");
-		// template.setTopColor("#173177");
-		// template.setUrl("");
-		// template.setTemplateParamList(templateParamList);
+		 List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+		 templateParamList.add(new TemplateParam("first", "亲爱的顾客，您好！现为您安排的K房如下", "#173177"));
+		 templateParamList.add(new TemplateParam("keyword1", "2015年09月09日 10:20", "#173177"));
+		 templateParamList.add(new TemplateParam("keyword2", "天河店", "#173177"));
+		 templateParamList.add(new TemplateParam("keyword3", "018房", "#173177"));
+		 templateParamList.add(new TemplateParam("keyword4", "自由人", "#173177"));
+		 templateParamList.add(new TemplateParam("keyword5", "42元/位", "#173177"));
+		 templateParamList.add(new TemplateParam("remark", "祝您欢唱愉快！", "#173177"));
 
-		// {"group":{"id":101,"name":"测试组"}}
-		// createGroup(accessToekn, "测试组");
+		 Template template = new Template();
+		 template.setTemplateId("1uzEiP79vQJEwijdfXcdDwwsXBp4l8OB3pgSQx12lFM");
+		 template.setToUser("oAuZ6s_lfFc-OqbrWkZzZsJp6R6M");
+		 template.setTopColor("#173177");
+		 template.setUrl("");
+		 template.setTemplateParamList(templateParamList);
 
-		// List<WeixinGroup> groupList = getGroups(accessToekn);
-		// for(WeixinGroup group : groupList) {
-		// System.out.println(group.getId() + " - " + group.getName() +"  - " + group.getCount());
-		// }
+		 {"group":{"id":101,"name":"测试组"}}
+		 createGroup(accessToekn, "测试组");
 
-		// int groupId = getMemberGroup(accessToekn, "oAuZ6s_lfFc-OqbrWkZzZsJp6R6M");
-		// System.out.println(groupId);
+		 List<WeixinGroup> groupList = getGroups(accessToekn);
+		 for(WeixinGroup group : groupList) {
+		 System.out.println(group.getId() + " - " + group.getName() +"  - " + group.getCount());
+		 }
 
-		// updateGroupName(accessToekn, 101, "管理员");
+		 int groupId = getMemberGroup(accessToekn, "oAuZ6s_lfFc-OqbrWkZzZsJp6R6M");
+		 System.out.println(groupId);
 
-		// updateMemberGroup(accessToekn, "oAuZ6s_lfFc-OqbrWkZzZsJp6R6M", 101);
+		 updateGroupName(accessToekn, 101, "管理员");
 
-		// deleteGroup(accessToekn, 101);
+		 updateMemberGroup(accessToekn, "oAuZ6s_lfFc-OqbrWkZzZsJp6R6M", 101);
+
+		 deleteGroup(accessToekn, 101);
 
 		WeixinUser weixinUser = getUserInfo(accessToekn, "oAuZ6s_lfFc-OqbrWkZzZsJp6R6M");
 		System.out.println("昵称：" + weixinUser.getNickname());
@@ -231,5 +232,6 @@ public class AdvancedUtil {
 		sendTemplateMessage(accessToekn, template);
 
 	}
+*/
 
 }

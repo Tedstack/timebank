@@ -11,6 +11,7 @@ public class ViewTeamDetailEntity {
     private Long creatorId;
     private String creatorUserName;
     private String creatorUserPhone;
+    private String teamPhone;
     private Date createDate;
     private String description;
     private boolean isDeleted;
@@ -65,6 +66,16 @@ public class ViewTeamDetailEntity {
 
     public void setCreatorUserPhone(String creatorUserPhone) {
         this.creatorUserPhone = creatorUserPhone;
+    }
+
+    @Basic
+    @Column(name = "TeamPhone", nullable = false, length = 20)
+    public String getTeamPhone() {
+        return teamPhone;
+    }
+
+    public void setTeamPhone(String teamPhone) {
+        this.teamPhone = teamPhone;
     }
 
     @Basic
@@ -132,6 +143,7 @@ public class ViewTeamDetailEntity {
             return false;
         if (creatorUserPhone != null ? !creatorUserPhone.equals(that.creatorUserPhone) : that.creatorUserPhone != null)
             return false;
+        if (teamPhone != null ? !teamPhone.equals(that.teamPhone) : that.teamPhone != null) return false;
         if (createDate != null ? !createDate.equals(that.createDate) : that.createDate != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (headImg != null ? !headImg.equals(that.headImg) : that.headImg != null) return false;
@@ -147,6 +159,7 @@ public class ViewTeamDetailEntity {
         result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         result = 31 * result + (creatorUserName != null ? creatorUserName.hashCode() : 0);
         result = 31 * result + (creatorUserPhone != null ? creatorUserPhone.hashCode() : 0);
+        result = 31 * result + (teamPhone != null ? teamPhone.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (isDeleted ? 1 : 0);

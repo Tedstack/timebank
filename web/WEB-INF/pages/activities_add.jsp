@@ -21,21 +21,41 @@
 <body>
 
 <div class="weui-tab">
+    <form id="teamDetail" method="post">
     <div class="weui-tab__panel">
-
         <div class="weui-panel__hd">
             <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                 <p><img src="../img/返回.png" width="20" height="15"alt="">发布活动</p>
             </div>
         </div>
+        <div class="weui-cells_form weui-cells">
+            <div class="weui-cell" style="margin-left: 130px;">
+                <div class="weui-cell__bd">
+                    <div class="weui-flex">
+                        <div class="weui-flex__item weui-flex justify align">
+                            <div class="weui-uploader">
+                                <div class="weui-uploader__hd">
+                                    <p class="weui-uploader__title">添加活动封面</p>
+                                </div>
+                                <div class="weui-uploader__bd">
+                                    <ul class="weui-uploader__files" id="files1"></ul>
+                                    <div class="weui-uploader__input-box">
+                                        <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="weui-panel__bd">
-
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bd">
                     <p>团队选择</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <select id="teamOptions" class="weui-select" name="team">
+                    <select id="teamOptions" class="weui-select" name="teamId">
                         <c:forEach var="value" items="${teamList}">
                             <option value="${value.id}">
                                 ${value.name}
@@ -50,7 +70,7 @@
                     <p>活动类型</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <select id="activityType" class="weui-select" name="isPublic">
+                    <select id="activityType" class="weui-select" name="activityType">
                         <option value="志愿者">志愿者</option>
                         <option value="社区">社区</option>
                     </select>
@@ -62,7 +82,7 @@
                     <p>是否公开</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <select id="isPublicOptions" class="weui-select" name="isPublic">
+                    <select id="isPublicOptions" class="weui-select" name="isPublicOptions">
                         <option value="true">公开</option>
                         <option value="false">不公开</option>
                     </select>
@@ -73,7 +93,7 @@
                 <div class="weui-cell__bd">
                     <p>活动名称</p></div>
                 <div class="weui-cell__bd">
-                    <input id="activityName" class="weui-input" type="text" placeholder="请输入活动名称"/>
+                    <input id="activityName" name="activityName" class="weui-input" type="text" placeholder="请输入活动名称"/>
                 </div>
             </div>
             <div class="weui-cell">
@@ -117,7 +137,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" class="weui-input" type="datetime-local" value=""  min="<%out.print(nowTime);%>"/>
+                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value=""  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -143,6 +163,7 @@
             <button id="submitBtn" class="weui-btn weui-btn_primary">发布</button>
         </div>
     </div>
+    </form>
 </div>
 
 <!-- jQuery 3 -->
@@ -161,7 +182,28 @@
     var contextPath="${pageContext.request.contextPath}";
 
     $(function(){
+        var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
+            $uploaderInput1 = $("#file1"),
+            $uploaderFiles1 = $("#files1");
+        $uploaderInput1.on("change", function(e){
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
 
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+
+                $uploaderFiles1.append(tmpl.replace("#url#", src));
+                $uploaderInput1.parent().hide();
+            }
+        });
+        $uploaderFiles1.on("click", "li", function(){
+            $galleryImg.attr("style", this.getAttribute("style"));
+            $gallery.fadeIn(100);
+        });
         $("#submitBtn").on('click',function () {
             var teamID = $("#teamOptions ").val();
             var activityType=$("#activityType ").val();
@@ -173,7 +215,7 @@
             var applyEndTime = $('#applyEndTime').val();
             var count = $('#count').val();
             var address = $('#address').val();
-
+            var formData = new FormData($("#teamDetail")[0]);
             if(activityName===""){
                 showAlert("请填写活动名称");
                 return;
@@ -234,7 +276,11 @@
                 cache: false,
                 url: targetUrl,
                 //dataType:'JSONP',
-                data: "teamId=" + teamID +"&activityType=" + activityType + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
+                // data: "teamId=" + teamID +"&activityType=" + activityType + "&isPublic=" + isPublic + "&activityName=" + activityName + "&description=" + description + "&beginTime=" + beginTime +"&endTime=" + endTime +"&applyEndTime=" + applyEndTime + "&count=" + count +"&address=" + address,
+                data:formData,
+                async: false,
+                contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                processData: false,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
