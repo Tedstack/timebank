@@ -123,6 +123,15 @@
                             <p class="weui-media-box__desc">需求人手机号:<%out.print(requestApplied.get(i).getRequestUserPhone());%></p>
                         </div>
 
+                        <div class="weui-cell">
+                            <div class="weui-cell__bd">
+                                <%if(requestApplied.get(i).getEndTime().getTime() < new Date().getTime()){%>
+                                <p class="weui-tabbar__label" style="float:right;color:#999;font-size:16px">申请已过期</p>
+                                <%}else {%>
+                                <p class="weui-tabbar__label" style="float:right;color:#76b852;font-size:16px">等待接受申请</p>
+                                <%}%>
+                            </div>
+                        </div>
                     </div>
                     <%--<div class="weui-cell">--%>
                     <%--<div class="weui-cell__bd">--%>
