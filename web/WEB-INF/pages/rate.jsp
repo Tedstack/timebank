@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>--%>
-        <img src="../img/底部.png" width="375" height="10">
+        <div style="background-color: #f8f8f8; height:10px;"></div>
         <div class="weui-cells__title">详细评价</div>
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">

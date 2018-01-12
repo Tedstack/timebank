@@ -31,7 +31,7 @@
         </div>
         <div class="weui-cell__ft" style="color: #0D0D0D">发起团队：<%out.print(activityPublishDetail.getTeamName());%></div>
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cells__title" style="color: #0D0D0D">活动详情</div>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cell " href="javascript:;">
         <div class="weui-cell__bd">
             <p>活动开始时间</p>
@@ -54,7 +54,7 @@
             %>
         </div>
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">请勾选实际参加人员</div>
     <div class="weui-cells weui-cells_checkbox">
 
@@ -73,7 +73,7 @@
         <%}%>
 
     </div>
-    <img src="../img/底部.png" width="375" height="10">
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <div id="startActivityBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">开始活动</div>
 </div>
 
