@@ -14,6 +14,7 @@ public class PublishEntity {
     private String address;
     private Timestamp beginDate;
     private Timestamp endDate;
+    private int isDelete;
     private String extra;
     private Timestamp createTime;
 
@@ -98,6 +99,16 @@ public class PublishEntity {
     }
 
     @Basic
+    @Column(name = "isDelete", nullable = true)
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    @Basic
     @Column(name = "Extra", nullable = true, length = 50)
     public String getExtra() {
         return extra;
@@ -128,6 +139,7 @@ public class PublishEntity {
         if (userId != that.userId) return false;
         if (serviceId != that.serviceId) return false;
         if (Double.compare(that.price, price) != 0) return false;
+        if (isDelete != that.isDelete) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (beginDate != null ? !beginDate.equals(that.beginDate) : that.beginDate != null) return false;
@@ -151,6 +163,7 @@ public class PublishEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (beginDate != null ? beginDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + isDelete;
         result = 31 * result + (extra != null ? extra.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         return result;

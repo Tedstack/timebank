@@ -80,6 +80,7 @@ CREATE TABLE `publish` (
   `Address` varchar(100) NOT NULL COMMENT '服务地点（JSONARRAY，省，市，区/县）',
   `BeginDate` datetime NOT NULL COMMENT '服务起始日期',
   `EndDate` datetime NOT NULL COMMENT '服务结束日期',
+  `isDelete` int(11) NOT NULL DEFAULT '0' COMMENT '服务删除标志位',
   `Extra` varchar(50) DEFAULT NULL COMMENT '其它保留字段',
   `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '服务发布时间',
   PRIMARY KEY (`ID`),
@@ -87,7 +88,7 @@ CREATE TABLE `publish` (
   KEY `ServiceID` (`ServiceID`),
   CONSTRAINT `publish_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `publish_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='发布服务表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='发布服务表';
 
 # VolunteerPublish 志愿者服务发布表
 CREATE TABLE `VolunteerPublish` (
@@ -528,6 +529,7 @@ CREATE VIEW view_publish_detail AS
     `mydb`.`publish`.`BeginDate`   AS `BeginDate`,
     `mydb`.`publish`.`EndDate`     AS `EndDate`,
     `mydb`.`publish`.`CreateTime`  AS `CreateTime`,
+    `mydb`.`publish`.`isDelete`    AS `isDelete`,
     `mydb`.`service`.`Type`        AS `ServiceType`,
     `mydb`.`service`.`Name`        AS `ServiceName`,
     `mydb`.`user`.`Name`           AS `UserName`,
@@ -558,6 +560,7 @@ CREATE VIEW view_publish_order_detail AS
     `mydb`.`publish_order`.`CreateTime`      AS `CreateTime`,
     `mydb`.`publish`.`Price`                 AS `PublishPrice`,
     `mydb`.`publish`.`ServiceID`             AS `ServiceID`,
+    `mydb`.`publish`.`isDelete`              AS `isDelete`,
     `mydb`.`service`.`Type`                  AS `ServiceType`,
     `mydb`.`service`.`Name`                  AS `ServiceName`,
     `mydb`.`publish_order`.`ServiceUserID`   AS `ServiceUserID`,

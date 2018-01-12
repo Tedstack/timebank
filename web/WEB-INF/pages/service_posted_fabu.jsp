@@ -93,6 +93,7 @@
                         <div class="weui-flex__item"diaplay="none"></div>
                         <div class="weui-flex__item"display="none"></div>
                         <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item"><a href="<%out.print("deletePublish?id="+viewPublishDetailEntity.getId());%>" class="weui-btn weui-btn_mini weui-btn_default">删除</a></div>
                         <div class="weui-flex__item"><a href="<%out.print("fabuDetail?id="+viewPublishDetailEntity.getId()+"&type="+viewPublishDetailEntity.getServiceType());%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</a></div>
                     </div>
                 </div>

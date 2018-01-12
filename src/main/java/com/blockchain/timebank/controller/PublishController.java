@@ -104,7 +104,7 @@ public class PublishController {
     //服务显示列表
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(ModelMap map, @RequestParam String type) {
-        List<ViewPublishDetailEntity> list = publishService.findAllByServiceType(type);
+        List<ViewPublishDetailEntity> list = viewPublishDetailDao.findViewPublishDetailEntitiesByServiceTypeAndIsDelete(type, 0);
         // List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
         //倒序排列
         Collections.reverse(list);

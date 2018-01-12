@@ -13,6 +13,8 @@ public interface RecordDao extends CrudRepository<PublishOrderEntity, Long> {
 
     public List<PublishOrderEntity> findByApplyUserId(long ID);
 
+    public List<PublishOrderEntity> findByPublishId(long ID);
+
     public List<PublishOrderEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status);
 
     public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID, String status);
