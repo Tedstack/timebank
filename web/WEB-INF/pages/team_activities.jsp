@@ -58,8 +58,8 @@
                                 out.print(bartDateFormat2.format(date2));
                             %></p>
                         <ul class="weui-media-box__info">
-                            <li class="weui-media-box__info__meta"><%out.print(activityList.get(i).getCount());%>人</li>
-                            <li class="weui-media-box__info__meta"><%out.print(activityList.get(i).getAddress());%></li>
+                            <li class="weui-media-box__info__meta">报名人数：<%out.print(activityList.get(i).getCount());%></li>
+                            <li class="weui-media-box__info__meta">活动地点<%out.print(activityList.get(i).getAddress());%></li>
                         </ul>
                     </div>
                 </a>
