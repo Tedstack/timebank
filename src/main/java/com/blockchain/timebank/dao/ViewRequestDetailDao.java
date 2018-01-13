@@ -10,10 +10,10 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface ViewRequestDetailDao extends CrudRepository<ViewRequestDetailEntity, Long> {
-    List<ViewRequestDetailEntity> findViewRequestDetailEntitiesByServiceTypeAndIsDeletedOrderByCreateTime(String type, Byte deleted);
+    List<ViewRequestDetailEntity> findViewRequestDetailEntitiesByServiceTypeAndIsDeletedOrderByCreateTimeDesc(String type, Byte deleted);
     ViewRequestDetailEntity findViewRequestDetailEntityById(long id);
-    List<ViewRequestDetailEntity> findViewRequestDetailEntitiesByUserId(Long id);
+    List<ViewRequestDetailEntity> findViewRequestDetailEntitiesByUserIdAndIsDeleted(Long id, byte isDeleted);
     @Query("select e from ViewRequestDetailEntity e where e.serviceType=?1 and e.price <= ?2 and e.price >=?3 and e.endTime <= ?4 and e.endTime>= ?5 and e.beginTime <= ?4 and e.beginTime >= ?5 and e.serviceName in ?6")
-    List<ViewRequestDetailEntity> findViewRequestDetailEntityByConditionOrderByCreateTime(String type, BigDecimal upperPrice, BigDecimal lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr);
+    List<ViewRequestDetailEntity> findViewRequestDetailEntityByConditionOrderByCreateTimeDesc(String type, BigDecimal upperPrice, BigDecimal lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr);
 
 }

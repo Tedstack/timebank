@@ -134,7 +134,7 @@ public class RequestEntity {
     }
 
     @Basic
-    @Column(name = "CreateTime", nullable = false)
+    @Column(name = "CreateTime", nullable = true)
     public Timestamp getCreateTime() {
         return createTime;
     }

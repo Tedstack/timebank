@@ -302,7 +302,7 @@ public class RequestController {
             requestService.saveRequestEntity(requestEntity);
         }
         map.addAttribute("deleteMsg", deleteMsg);
-        return "service_delete_result";
+        return "request/delete_detail";
     }
 
         @RequestMapping(value = "/publishDetail", method = RequestMethod.GET)
