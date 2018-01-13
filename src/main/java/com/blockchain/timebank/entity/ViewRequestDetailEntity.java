@@ -16,8 +16,8 @@ public class ViewRequestDetailEntity {
     private Timestamp beginTime;
     private Timestamp endTime;
     private Timestamp createTime;
-    private Byte isComplete;
-    private Byte isDeleted;
+    private Integer isComplete;
+    private Integer isDeleted;
     private String serviceType;
     private String serviceName;
     private String userName;
@@ -116,22 +116,22 @@ public class ViewRequestDetailEntity {
     }
 
     @Basic
-    @Column(name = "IsComplete", nullable = true)
-    public Byte getIsComplete() {
+    @Column(name = "IsComplete", nullable = false)
+    public Integer getIsComplete() {
         return isComplete;
     }
 
-    public void setIsComplete(Byte isComplete) {
+    public void setIsComplete(Integer isComplete) {
         this.isComplete = isComplete;
     }
 
     @Basic
-    @Column(name = "IsDeleted", nullable = true)
-    public Byte getIsDeleted() {
+    @Column(name = "IsDeleted", nullable = false)
+    public Integer getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
     }
 

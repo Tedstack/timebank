@@ -122,7 +122,7 @@ public class AccountServiceImpl implements AccountService {
 
         //5.更改需求状态
         RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
-        requestEntity.setIsComplete((byte) 1);
+        requestEntity.setIsComplete(1);
         requestService.saveRequestEntity(requestEntity);
     }
 
@@ -152,7 +152,7 @@ public class AccountServiceImpl implements AccountService {
 
         //5.更改需求状态
         RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
-        requestEntity.setIsComplete((byte) 1);
+        requestEntity.setIsComplete(1);
         requestService.saveRequestEntity(requestEntity);
 
     }

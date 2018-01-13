@@ -19,8 +19,8 @@ public class RequestEntity {
     private Timestamp beginTime;
     private Timestamp endTime;
     private Timestamp createTime;
-    private Byte isComplete;
-    private Byte isDeleted;
+    private Integer isComplete = 0;
+    private Integer isDeleted = 0;
     private String extra;
 
     @Id
@@ -145,21 +145,21 @@ public class RequestEntity {
 
     @Basic
     @Column(name = "IsComplete", nullable = true)
-    public Byte getIsComplete() {
+    public Integer getIsComplete() {
         return isComplete;
     }
 
-    public void setIsComplete(Byte isComplete) {
+    public void setIsComplete(Integer isComplete) {
         this.isComplete = isComplete;
     }
 
     @Basic
     @Column(name = "IsDeleted", nullable = true)
-    public Byte getIsDeleted() {
+    public Integer getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(Byte isDeleted) {
+    public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
     }
 

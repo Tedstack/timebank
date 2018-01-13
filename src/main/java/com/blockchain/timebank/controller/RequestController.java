@@ -298,7 +298,7 @@ public class RequestController {
         }
         if(isDelete){
             RequestEntity requestEntity = requestService.findRequestById(id);
-            requestEntity.setIsDeleted((byte)1);
+            requestEntity.setIsDeleted(1);
             requestService.saveRequestEntity(requestEntity);
         }
         map.addAttribute("deleteMsg", deleteMsg);

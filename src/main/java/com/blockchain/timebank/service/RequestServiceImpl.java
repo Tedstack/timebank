@@ -23,7 +23,7 @@ public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
 
     public List<ViewRequestDetailEntity> findAllRequestDetailByType(String type) {
-        return viewRequestDetailDao.findViewRequestDetailEntitiesByServiceTypeAndIsDeletedOrderByCreateTimeDesc(type, (byte) 0);
+        return viewRequestDetailDao.findViewRequestDetailEntitiesByServiceTypeAndIsDeletedOrderByCreateTimeDesc(type, 0);
     }
 
     public void saveRequestEntity(RequestEntity requestEntity) {
@@ -35,7 +35,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     public List<ViewRequestDetailEntity> findUserRequestPublished(long id) {
-        return viewRequestDetailDao.findViewRequestDetailEntitiesByUserIdAndIsDeleted(new Long(id), (byte) 0);
+        return viewRequestDetailDao.findViewRequestDetailEntitiesByUserIdAndIsDeleted(id, 0);
     }
 
     public RequestEntity findRequestById(long id) {
