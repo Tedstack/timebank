@@ -252,8 +252,9 @@
                         showAlert("已同意并发送信息",function () {
                             location.reload();
                         });
-                    }
-                    if(data==="failure"){
+                    }else if(data==="messageFail"){
+                        showAlert("已同意但发送信息失败");
+                    }else if(data==="failure"){
                         showAlert("同意失败");
                     }
                 },

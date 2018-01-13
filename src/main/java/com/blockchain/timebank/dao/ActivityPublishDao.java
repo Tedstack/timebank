@@ -13,4 +13,6 @@ public interface ActivityPublishDao extends CrudRepository<ActivityPublishEntity
     List<ActivityPublishEntity> findByDeletedAndStatus(boolean isDeleted, String status);
 
     List<ActivityPublishEntity> findAllByTeamIdAndStatus(long teamId,String status);
+
+    List<ActivityPublishEntity> findAllByTeamId(long teamId);
 }

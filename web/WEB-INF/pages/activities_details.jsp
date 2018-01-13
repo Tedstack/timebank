@@ -100,6 +100,7 @@
                     <p>报名人数</p>
                 </div>
                 <div class="weui-cell__ft"><%out.print(userActivityList.size());%>/<%out.print(activityPublishDetail.getCount());%></div>
+                <span class="weui-cell__ft"></span>
             </div>
 
             <div class="weui-cell">
@@ -131,9 +132,9 @@
             </div>
             <div class="con_u" style="font-size: 14px;"><%out.print(activityPublishDetail.getDescription());%></div>
         </div>
-        <div style="padding: 10px; margin-bottom: 20px;">
+        <div style="padding: 10px; margin-bottom: 20px;text-align: center;">
             <%if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
-            <a class="weui-btn weui-btn_primary" style="background-color: coral;">报名成功</a>
+            <p style="font-size: 20px;color: #ce3c39;">已经报名成功</p>
             <%}else if(type.equalsIgnoreCase("0")){%>
             <a id="applyBtn" class="weui-btn weui-btn_primary">报名参与</a>
             <%}else if(type.equalsIgnoreCase("1")){%>
@@ -142,20 +143,6 @@
             <a style="background-color: #ce3c39;" id="quitBtn" class="weui-btn weui-btn_primary">退出</a>
             <%}%>
         </div>
-        <div class="weui-cells__title" style="color: #7ACF41;text-align:center;font-size: small;font-weight: bold">已报名人员</div>
-        <%--<div class="weui-cells">--%>
-            <%--<!--以下循环参加的人数-->--%>
-            <%--<%--%>
-                <%--for (int i=0;i<userActivityList.size();i++) {--%>
-            <%--%>--%>
-            <%--<div class="weui-cell" id="cell1">--%>
-                <%--<div class="weui-cell__bd">--%>
-                    <%--<p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserName());%></p>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<%}%>--%>
-            <%--<!--以上-->--%>
-        <%--</div>--%>
     </div>
 </div>
 

@@ -25,18 +25,21 @@
         <!--以下循环参加的人数-->
         <%
             for (int i=0;i<userActivityList.size();i++) {
-                if(userActivityList.get(i).getUserComment()!=null){
         %>
         <div class="weui-cell" id="cell1">
             <div class="weui-cell__bd">
                 <p style="font-size: 90%;margin-left: 5px;"><%out.print(userActivityList.get(i).getUserName());%></p>
             </div>
             <div class="weui-cell__ft">
-                <p style="font-size: 90%"><%out.print(userActivityList.get(i).getUserComment());%></p>
+                <p style="font-size: 90%">
+                    <%if(userActivityList.get(i).getUserComment()!=null){
+                        out.print(userActivityList.get(i).getUserComment());
+                    }else
+                        out.print("暂未评价");%>
+                </p>
             </div>
         </div>
-        <%}
-            }%>
+        <%}%>
         <!--以上-->
     </div>
 </div>

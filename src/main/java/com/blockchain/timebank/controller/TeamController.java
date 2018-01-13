@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -154,18 +155,18 @@ public class TeamController {
             teamUser.setUserId(userId);
             teamUser.setStatus(TeamUserStatus.inApplication);
             teamUserService.addUserToTeam(teamUser);
-            TeamEntity team = teamService.findById(teamIDList.get(i));
-            UserEntity user = userService.findUserEntityById(team.getCreatorId());
-            if (MessageUtil.sign_team(user, team))
-                isSent = true;
-            else
-                isSent = false;
+//            TeamEntity team = teamService.findById(teamIDList.get(i));
+//            UserEntity user = userService.findUserEntityById(team.getCreatorId());
+//            if (MessageUtil.sign_team(user, team))
+//                isSent = true;
+//            else
+//                isSent = false;
         }
         JSONObject result = new JSONObject();
-        if (isSent)
+//        if (isSent)
             result.put("msg", "ok");
-        else
-            result.put("msg", "msgFail");
+//        else
+//            result.put("msg", "msgFail");
         return result.toString();
     }
 
@@ -206,6 +207,7 @@ public class TeamController {
         Collections.reverse(activityList);
 
         //因为使用remove方法，此处循环用倒叙
+        long currentId= getCurrentUser().getId();
         for (int i = activityList.size() - 1; i >= 0; i--) {
             List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityList.get(i).getId(), true);
             //判断活动已报名人数是否达到活动要求人数，已达到的活动下架不显示
@@ -216,21 +218,10 @@ public class TeamController {
 
             //活动不公开
             if (!activityList.get(i).isPublic()) {
-                long teamID = activityList.get(i).getTeamId();
-                List<TeamUserEntity> teamUsersList = teamUserService.findAllUsersOfOneTeam(teamID);
-
-                //判断当前用户是否加入私有活动的团队，未加入则将该私有活动移除，不显示，当前用户无权限查看
-                boolean isRemove = true;
-
-                for (int j = 0; j < teamUsersList.size(); j++) {
-                    if (teamUsersList.get(j).getUserId() == getCurrentUser().getId()) {
-                        isRemove = false;
-                        break;
-                    }
-                }
-
-                if (isRemove) {
-                    activityList.remove(i);
+                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(currentId,activityList.get(i).getTeamId());
+                if(teamUser!=null){
+                    if(teamUser.getStatus()!=TeamUserStatus.alreadyEntered)
+                        activityList.remove(i);
                 }
             }
         }
@@ -350,11 +341,11 @@ public class TeamController {
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
         userActivityService.addUserActivity(userActivityEntity);
-        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
-        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
-            return "ok";
-        else
-            return "messageFail";
+//        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
+//        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
+              return "ok";
+//        else
+//            return "messageFail";
     }
 
     @RequestMapping(value = "/quitFromActivity", method = RequestMethod.POST)
@@ -772,13 +763,14 @@ public class TeamController {
     @RequestMapping(value = "/approveUser", method = RequestMethod.POST)
     @ResponseBody
     public String ApproveUser(@RequestParam String userId, @RequestParam String teamId) {
-        String result = TeamManage(userId, teamId, "approve");
-        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
-        TeamEntity team=teamService.findById(Long.parseLong(teamId));
-        if(MessageUtil.team_join_success(user,team))
-            return result;
-        else
-            return "message send fail";
+        return TeamManage(userId, teamId, "approve");
+//        String result = TeamManage(userId, teamId, "approve");
+//        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
+//        TeamEntity team=teamService.findById(Long.parseLong(teamId));
+//        if(MessageUtil.team_join_success(user,team))
+//            return result;
+//        else
+//            return "messageFail";
     }
 
     @RequestMapping(value = "/demoteManager", method = RequestMethod.POST)
@@ -870,9 +862,10 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            String date = new java.sql.Date(System.currentTimeMillis()).toString();
+            Random random=new Random();
+            int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = team_name + "_headImg_"+date + suffix1;
+            idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
             String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
             File imgFile = new File(path, idImg);
             try {
@@ -933,9 +926,10 @@ public class TeamController {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
-                String date = new java.sql.Date(System.currentTimeMillis()).toString();
+                Random random=new Random();
+                int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
                 String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-                idImg = team_name + "_headImg_" + date + suffix1;
+                idImg = team_name + "_headImg_" + Integer.toString(ram) + suffix1;
                 String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
@@ -963,11 +957,10 @@ public class TeamController {
             TeamEntity Team = teamService.findById(Long.parseLong(teamId));
             Team.setDeleted(true);
             teamService.saveTeamEntity(Team);
-            List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByTeamIdAndDeletedAndStatus(Team.getId(), false, ActivityStatus.waitingForApply);
-            for (int i = 0; i < activityDetailList.size(); i++) {
-                ActivityPublishEntity activity = activityPublishService.findActivityPublishEntityByID(activityDetailList.get(i).getId());
-                activity.setDeleted(true);
-                activityPublishService.saveActivityPublishEntity(activity);
+            List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamId(Team.getId());
+            for (int i = 0; i < activityList.size(); i++) {
+                activityList.get(i).setDeleted(true);
+                activityPublishService.saveActivityPublishEntity(activityList.get(i));
             }
             return "success";
         } catch (Exception e) {
