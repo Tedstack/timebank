@@ -331,13 +331,8 @@ public class TeamController {
     // 申请加入活动
     @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String applyToJoinActivity(ModelMap map, @RequestParam long activityID) {
+    public String applyToJoinActivity(@RequestParam long activityID) {
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
-        //判断活动已报名人数是否达到活动要求人数，已达到报名人数上限的活动不允许报名
-        if (userActivityList.size() >= viewActivityPublishDetailEntity.getCount()) {
-            return "upperLimit";
-        }
 
         //判断是否重复申请
         UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);

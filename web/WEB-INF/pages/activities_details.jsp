@@ -207,7 +207,7 @@
                     }else if(data==="upperLimit"){
                         showAlert("活动名额已满，停止报名");
                     }else if(data==="managerError"){
-                        showAlert("团队管理员不能参加自己发布的活动");
+                        showAlert("团队管理员不能报名自己发布的活动");
                     }else if(data==="alreadyApply"){
                         showAlert("您已申请参加此活动");
                     }else if(data==="messageFail"){

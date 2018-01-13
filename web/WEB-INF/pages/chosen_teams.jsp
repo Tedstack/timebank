@@ -30,8 +30,8 @@
     List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
     List<TeamEntity> myTeam=(List<TeamEntity>) request.getAttribute("myTeam");
 %>
-<div class="page">
-    <div class="page__bd" style="height: 100%;">
+<div class="weui-tab">
+    <div class="weui-tab__panel" style="height: 100%;padding-top: 0px;">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <br>
-            <p style="font-size: 13px;color: #1a1a1a;margin-bottom: 10px;">我创建的团队</p>
+            <p style="font-size: 13px;color: #1a1a1a;margin-bottom: 10px;margin-left: 5px;">我创建的团队</p>
             <%
                 for (int i=0;i<myTeam.size();i++) {
             %>
@@ -59,7 +59,7 @@
             <%
                 }
             %>
-            <p style="font-size: 13px;color: #1a1a1a;margin-top: 10px;margin-bottom: 10px;">我加入的团队</p>
+            <p style="font-size: 13px;color: #1a1a1a;margin-top: 10px;margin-bottom: 10px;margin-left: 5px;">我加入的团队</p>
             <%
                 for (int i=0;i<teamList.size();i++) {
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){
@@ -83,21 +83,21 @@
                 }
             %>
         </div>
-        <div class="weui-tabbar">
-                <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item">
+    </div>
+    <div class="weui-tabbar">
+    <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item">
                     <span style="display: inline-block;position: relative;">
                         <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
-                    <p class="weui-tabbar__label">所有团队</p>
-                </a>
-                <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+        <p class="weui-tabbar__label">所有团队</p>
+    </a>
+    <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
                     <span style="display: inline-block;position: relative;">
                         <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                     </span>
-                    <p class="weui-tabbar__label">已加入团队</p>
-                </a>
-        </div>
-    </div>
+        <p class="weui-tabbar__label">已加入团队</p>
+    </a>
+</div>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
