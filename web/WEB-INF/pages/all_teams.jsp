@@ -31,8 +31,8 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-                <div class="weui-flex__item"id="return" onclick="goBack()" >
-                    <p><img src="../img/back.png" width="20" height="15"alt="">团队列表</p>
+                <div class="weui-flex__item">
+                    <p>  团队列表</p>
                 </div>
             </div>
             <div class="container" id="container">
@@ -178,6 +178,10 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/utils.js"></script>
+<script type="text/javascript">
+    back_to("${pageContext.request.contextPath}/user/");
+</script>
 <script type="text/javascript">
     var xmlHttpRequest;
     $(function(){
@@ -190,8 +194,8 @@
     });
 
     function joinToTeam(t) {
-            var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+            var contextPath="${pageContext.request.contextPath}";
+            var targetUrl = "http://"+location.host+"/timebank/team/addUserToTeam";
             var teamId=t.id;//取要加入团队的Id
             $.ajax({
                 type: 'POST',
@@ -221,9 +225,6 @@
                 }
             });
     }
-         function goBack() {
-             window.location.href="${pageContext.request.contextPath}/user/";
-         }
          var $searchBar = $('#searchBar'),
              $searchResult = $('#searchResult'),
              $searchText = $('#searchText'),

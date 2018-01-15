@@ -1,5 +1,12 @@
 <%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: weiyi
+  Date: 2017/12/24
+  Time: 18:46
+  To change this template use File | Settings | File Templates.
+--%>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -117,8 +124,8 @@
             $gallery.fadeIn(100);
         });
         $("#modifyTeam").on('click', function (){
-            var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
+            var contextPath="${pageContext.request.contextPath}";
+            var targetUrl = "http://"+location.host+"/timebank/team/modifyTeam";
             var formData = new FormData($("#teamDetail")[0]);
             $.ajax({
                 type: 'POST',

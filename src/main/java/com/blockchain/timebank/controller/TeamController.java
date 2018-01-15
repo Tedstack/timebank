@@ -3,6 +3,7 @@ package com.blockchain.timebank.controller;
 import com.blockchain.timebank.dao.ViewActivityPublishDetailDao;
 import com.blockchain.timebank.dao.ViewTeamDetailDao;
 import com.blockchain.timebank.dao.ViewUserActivityDetailDao;
+import com.blockchain.timebank.dao.ViewTeamUserDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
 import com.blockchain.timebank.weixin.util.MessageUtil;
@@ -55,6 +56,9 @@ public class TeamController {
 
     @Autowired
     ViewUserActivityDetailDao viewUserActivityDetailDao;
+
+    @Autowired
+    ViewTeamUserDetailDao viewTeamUserDetailDao;
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -682,18 +686,8 @@ public class TeamController {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
         UserEntity creator = userService.findUserEntityById(teamEntity.getCreatorId());
-        List<TeamUserEntity> userList = teamUserService.findAllUsersOfOneTeam(id);//only find user id
-        List<UserEntity> memberList = new ArrayList<UserEntity>();
-        List<UserEntity> managerList = new ArrayList<UserEntity>();
-        for (int i = 0; i < userList.size(); i++) {
-            if (!userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.isLocked)) {
-                UserEntity user = userService.findUserEntityById(userList.get(i).getUserId());
-                if (userList.get(i).isManager())
-                    managerList.add(user);
-                else
-                    memberList.add(user);
-            }
-        }
+        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndIsManager(id,false);
+        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndIsManager(id,true);
         map.addAttribute("userList", memberList);
         map.addAttribute("managerList", managerList);
         map.addAttribute("creator", creator);

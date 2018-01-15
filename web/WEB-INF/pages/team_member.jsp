@@ -1,8 +1,5 @@
-<%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
-<%@ page import="com.blockchain.timebank.entity.TeamUserEntity" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.*" %><%--
   Created by IntelliJ IDEA.
   User: weiyi
   Date: 2017/12/24
@@ -25,17 +22,12 @@
 </head>
 <body>
 <%
-    List<UserEntity> userList=(List<UserEntity>) request.getAttribute("userList");
-    List<UserEntity> managerList=(List<UserEntity>) request.getAttribute("managerList");
+    List<ViewTeamUserDetailEntity> userList=(List<ViewTeamUserDetailEntity>) request.getAttribute("userList");
+    List<ViewTeamUserDetailEntity> managerList=(List<ViewTeamUserDetailEntity>) request.getAttribute("managerList");
     UserEntity creator=(UserEntity) request.getAttribute("creator");
 %>
 <div class="page">
-    <div class="weui-panel__hd">
-        <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">团队成员</p>
-        </div>
-    </div>
-    <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
+    <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
             <a href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
         </div>
@@ -66,10 +58,10 @@
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="<%out.print(managerList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+                    <img src="<%out.print(managerList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
                 </div>
                 <div class="weui-cell__bd">
-                    <p><%out.print(managerList.get(i).getName());%></p>
+                    <p><%out.print(managerList.get(i).getUserName());%></p>
                     <p style="font-size: 13px;color: #888888;">管理员</p>
                 </div>
             </label>
@@ -86,10 +78,10 @@
         <div class="weui-cells weui-cells_checkbox">
             <label class="weui-cell weui-check__label">
                 <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="<%out.print(userList.get(i).getHeadImgUrl());%>" style="width: 50px;display: block">
+                    <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
                 </div>
                 <div class="weui-cell__bd">
-                    <p><%out.print(userList.get(i).getName());%></p>
+                    <p><%out.print(userList.get(i).getUserName());%></p>
                     <p style="font-size: 13px;color: #888888;">成员</p>
                 </div>
             </label>
@@ -99,9 +91,8 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/utils.js"></script>
 <script type="text/javascript">
-    function goBack() {
-        window.location.href="${pageContext.request.contextPath}/team/teamList";
-    }
+    back_to("${pageContext.request.contextPath}/team/teamList");
 </script>
 </html>

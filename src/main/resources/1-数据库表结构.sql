@@ -483,7 +483,8 @@ CREATE VIEW view_team_user_detail
       user.Name            AS UserName,       #用户姓名
       user.Phone           AS UserPhone,      #用户手机号
       user.Sex             AS UserSex,        #用户性别
-      user.Birth           AS UserBirth       #用户出生年月
+      user.Birth           AS UserBirth,      #用户出生年月
+      user.HeadImgUrl      AS UserHeadImg     #用户头像Url
     FROM teamUser, team, user
     WHERE teamUser.TeamID = team.ID AND teamUser.UserID = user.ID;
 

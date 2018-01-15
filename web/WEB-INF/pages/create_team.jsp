@@ -110,22 +110,23 @@
             $galleryImg.attr("style", this.getAttribute("style"));
             $gallery.fadeIn(100);
         });
-        $("#create").on('click', function () {
-            var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
+        $("#create").on('click', function (){
+            var targetUrl = "http://"+location.host+"/timebank/team/createTeam";
             var formData = new FormData($("#teamDetail")[0]);
             if(document.getElementById("team_name").value===""){
-                showAlert("请填写团队名称");}
-            else if(document.getElementById("team_location").value===""){
+                showAlert("请填写团队名称");
+                return;}
+            else if(document.getElementById("team_location").value==="") {
                 showAlert("请填写团队主要活动地点");
-            }else{
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
                 data: formData,
                 async: false,
-                contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
                 processData: false,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
@@ -133,9 +134,9 @@
                 success: function (data) {
                     if(data==="success"){
                         showAlert("创建成功",function () {
-                            window.location.href="${pageContext.request.contextPath}/team/myTeams"
+                            window.location.href="${pageContext.request.contextPath}/team/myTeams";
                         });
-                    }else if(data=="missImg"){
+                    }else if(data==="missImg"){
                         showAlert("未上传头像");
                     }else if(data==="nameExist") {
                         showAlert("团队名称已被使用");
@@ -150,7 +151,6 @@
                     dialogLoading.hide();
                 }
             });
-            }
         });
     });
 </script>

@@ -30,12 +30,7 @@
     List<ActivityPublishEntity> privateActivity=(List<ActivityPublishEntity>) request.getAttribute("privateActivity");
 %>
 <div class="page">
-    <div class="weui-panel__hd">
-        <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">团队历史活动</p>
-        </div>
-    </div>
-    <div class="weui-navbar" style="top: 0px;margin : 35px 0px 10px 0px;">
+    <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
             <a href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
         </div>
@@ -81,32 +76,38 @@
     <%
         for(int i=0;i<privateActivity.size();i++){
     %>
-    <div class="weui-panel__bd">
-        <div class="weui-cells weui-cells_checkbox">
-            <label class="weui-cell weui-check__label">
-                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                    <img src="../img/ezio.jpg" style="width: 50px;display: block">
-                </div>
-                <div class="weui-cell__bd">
-                    <p><%out.print(privateActivity.get(i).getName());%></p>
-                    <%--<p style="font-size: 13px;color: #888888;">地点：中山北路3773号</p>--%>
-                    <p style="font-size: 13px;color: #888888;">概要:<%out.print(privateActivity.get(i).getDescription());%></p>
-                </div>
-                <div class="weui-cell__bd" style="text-align: right;">
-                    <p style="font-size: 13px;color: #888888;"><%out.print(privateActivity.get(i).getBeginTime());%></p>
-                    <p>~</p>
-                    <p style="font-size: 13px;color: #888888;"><%out.print(privateActivity.get(i).getEndTime());%></p>
-                </div>
-            </label>
+    <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(privateActivity.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
         </div>
-    </div>
+        <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title"><%out.print(privateActivity.get(i).getName());%></h4>
+            <p class="weui-media-box__desc">开始时间:
+                <%
+                    Timestamp beginTimestamp = privateActivity.get(i).getBeginTime();
+                    Date date = new Date(beginTimestamp.getTime());
+                    SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    out.print(bartDateFormat.format(date));
+                %></p>
+            <p class="weui-media-box__desc">结束时间:
+                <%
+                    Timestamp endTimestamp = privateActivity.get(i).getEndTime();
+                    Date date2 = new Date(endTimestamp.getTime());
+                    SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    out.print(bartDateFormat2.format(date2));
+                %></p>
+            <ul class="weui-media-box__info">
+                <li class="weui-media-box__info__meta" style="margin-bottom: 2px;"><%out.print(privateActivity.get(i).getCount());%>人</li>
+                <li class="weui-media-box__info__meta"><%out.print(privateActivity.get(i).getAddress());%></li>
+            </ul>
+        </div>
+    </a>
     <%}%>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/utils.js"></script>
 <script type="text/javascript">
-    function goBack() {
-        window.location.href="${pageContext.request.contextPath}/team/teamList";
-    }
+    back_to("${pageContext.request.contextPath}/team/teamList");
 </script>
 </html>

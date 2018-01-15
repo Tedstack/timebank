@@ -17,9 +17,10 @@ public class ViewTeamUserDetailEntity {
     private String userPhone;
     private String userSex;
     private Date userBirth;
+    private String userHeadImg;
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
@@ -29,7 +30,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "TeamID", nullable = false)
+    @Column(name = "TeamID")
     public long getTeamId() {
         return teamId;
     }
@@ -39,7 +40,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserID", nullable = false)
+    @Column(name = "UserID")
     public long getUserId() {
         return userId;
     }
@@ -49,7 +50,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "Status", nullable = false, length = 50)
+    @Column(name = "Status")
     public String getStatus() {
         return status;
     }
@@ -59,17 +60,17 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "IsManager", nullable = false)
-    public boolean isManager() {
+    @Column(name = "IsManager")
+    public boolean getIsManager() {
         return isManager;
     }
 
-    public void setManager(boolean manager) {
-        isManager = manager;
+    public void setIsManager(boolean isManager) {
+        this.isManager = isManager;
     }
 
     @Basic
-    @Column(name = "CreatorID", nullable = true)
+    @Column(name = "CreatorID")
     public Long getCreatorId() {
         return creatorId;
     }
@@ -79,7 +80,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "TeamName", nullable = false, length = 40)
+    @Column(name = "TeamName")
     public String getTeamName() {
         return teamName;
     }
@@ -89,7 +90,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserName", nullable = true, length = 20)
+    @Column(name = "UserName")
     public String getUserName() {
         return userName;
     }
@@ -99,7 +100,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserPhone", nullable = false, length = 20)
+    @Column(name = "UserPhone")
     public String getUserPhone() {
         return userPhone;
     }
@@ -109,7 +110,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserSex", nullable = true, length = 10)
+    @Column(name = "UserSex")
     public String getUserSex() {
         return userSex;
     }
@@ -119,13 +120,23 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserBirth", nullable = true)
+    @Column(name = "UserBirth")
     public Date getUserBirth() {
         return userBirth;
     }
 
     public void setUserBirth(Date userBirth) {
         this.userBirth = userBirth;
+    }
+
+    @Basic
+    @Column(name = "UserHeadImg")
+    public String getUserHeadImg() {
+        return userHeadImg;
+    }
+
+    public void setUserHeadImg(String userHeadImg) {
+        this.userHeadImg = userHeadImg;
     }
 
     @Override
@@ -146,6 +157,7 @@ public class ViewTeamUserDetailEntity {
         if (userPhone != null ? !userPhone.equals(that.userPhone) : that.userPhone != null) return false;
         if (userSex != null ? !userSex.equals(that.userSex) : that.userSex != null) return false;
         if (userBirth != null ? !userBirth.equals(that.userBirth) : that.userBirth != null) return false;
+        if (userHeadImg != null ? !userHeadImg.equals(that.userHeadImg) : that.userHeadImg != null) return false;
 
         return true;
     }
@@ -163,6 +175,7 @@ public class ViewTeamUserDetailEntity {
         result = 31 * result + (userPhone != null ? userPhone.hashCode() : 0);
         result = 31 * result + (userSex != null ? userSex.hashCode() : 0);
         result = 31 * result + (userBirth != null ? userBirth.hashCode() : 0);
+        result = 31 * result + (userHeadImg != null ? userHeadImg.hashCode() : 0);
         return result;
     }
 }
