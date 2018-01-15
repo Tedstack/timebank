@@ -108,6 +108,19 @@ public class PublishController {
         // List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
         //倒序排列
         Collections.reverse(list);
+        List<ViewPublishDetailEntity> overTimeList = new ArrayList<ViewPublishDetailEntity>();
+        Date currentDate = new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+        String currentTime = sdf.format(currentDate);
+        Iterator iterator = list.iterator();
+        while(iterator.hasNext()){
+            ViewPublishDetailEntity viewPublishDetailEntity = (ViewPublishDetailEntity)iterator.next();
+            if(viewPublishDetailEntity.getEndDate().getTime() < new Date(currentTime).getTime()){
+                iterator.remove();
+                overTimeList.add(viewPublishDetailEntity);
+            }
+        }
+        list.addAll(overTimeList);
         map.addAttribute("list", list);
         map.addAttribute("type", type);
         //return "publish_list";
@@ -204,6 +217,19 @@ public class PublishController {
             List<ViewPublishDetailEntity> list = publishService.findAllByCondition(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
             //倒序排列
             Collections.reverse(list);
+            List<ViewPublishDetailEntity> overTimeList = new ArrayList<ViewPublishDetailEntity>();
+            Date currentDate = new Date();
+            String currentTime = sdf.format(currentDate);
+            Iterator iterator = list.iterator();
+            while(iterator.hasNext()){
+                ViewPublishDetailEntity viewPublishDetailEntity = (ViewPublishDetailEntity)iterator.next();
+                if(viewPublishDetailEntity!=null && viewPublishDetailEntity.getEndDate().getTime() < new Date().getTime()){
+                    iterator.remove();
+                    overTimeList.add(viewPublishDetailEntity);
+                }
+            }
+            list.addAll(overTimeList);
+            System.out.println(list == null);
             map.addAttribute("list", list);
             map.addAttribute("type", type);
         } catch(Exception e){
