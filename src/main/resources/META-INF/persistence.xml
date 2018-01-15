@@ -31,7 +31,7 @@
         <class>com.blockchain.timebank.entity.RequestEntity</class>
         <class>com.blockchain.timebank.entity.RequestOrderEntity</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb?characterEncoding=utf-8"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="timebank2018"/>
