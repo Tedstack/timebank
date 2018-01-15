@@ -195,13 +195,27 @@
             var range = aa.split(',');
             var upperPrice = range[1];
             var lowerPrice = range[0];
-            if(check(serviceName, lowerDate, upperDate, upperPrice, lowerPrice)){
-                location.href="${pageContext.request.contextPath}/request/selectList?type="+ type +"&upper="+ upperPrice + "&lower=" + lowerPrice
-                    + "&upperDate=" + upperDate + "&lowerDate=" + lowerDate + "&serviceName=" + serviceName;
-             }
+            if(serviceName===""){
+                $('.select-button').each(function(){
+                    serviceName = serviceName + $(this).html() + ',';
+                });
+            }
+            if(lowerDate===""){
+                lowerDate = "1970-01-01";
+            }
+            if(upperDate===""){
+                upperDate = "2030-01-01";
+            }
+            if(upperPrice==0 && lowerPrice==0){
+                lowerPrice = 0
+                upperPrice = 200;
+
+            }
+            location.href="${pageContext.request.contextPath}/request/selectList?type="+ type +"&upper="+ upperPrice + "&lower=" + lowerPrice
+                + "&upperDate=" + upperDate + "&lowerDate=" + lowerDate + "&serviceName=" + serviceName;
         });
 
-        function check(serviceName, lowerDate, upperDate, upperPrice, lowerPrice){
+        /*function check(serviceName, lowerDate, upperDate, upperPrice, lowerPrice){
             if(serviceName===""){
                 showAlert("请选择需求名称");
                 return false;
@@ -219,7 +233,7 @@
                 return false;
             }
             return true;
-        }
+        }*/
     </script>
 </body>
 </html>
