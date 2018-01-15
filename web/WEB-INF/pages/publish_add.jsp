@@ -119,6 +119,9 @@
                     <div class="weui-cell__bd">
                         <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
                     </div>
+                    <div class="weui-cell__ft">
+                        <span id = "priceUnit-span">志愿者时间</span>
+                    </div>
                 </div>
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -187,6 +190,15 @@
             $('.weui-name').hide();$('.weui-name').find('.weui-select').attr("name","");
             $('#'+$(this).val()).show();$('#'+$(this).val()).find('.weui-select').attr("name","serviceName");
         });
+       $("#addServiceType").change(function () {
+           var type = $(this).val();
+           if(type === "志愿者服务"){
+               $("#priceUnit-span").html("志愿者时间");
+           } else if(type === "互助服务"){
+               $("#priceUnit-span").html("时间币");
+           } else
+               $("#priceUnit-span").html("元");
+       });
     });
 
     function check(){
@@ -226,6 +238,10 @@
                 showAlert("服务结束时间不能早于开始时间");
                 return false;
             }
+        }
+        if(servicePrice < 0){
+            showAlert("服务金额不得小于0");
+            return false;
         }
         return true;
     }

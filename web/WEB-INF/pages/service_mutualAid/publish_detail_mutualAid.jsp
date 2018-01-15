@@ -69,7 +69,7 @@
                             Date dateBegin = new Date(timestampBegin.getTime());
                             Timestamp timestampEnd = detail.getEndDate();
                             Date dateEnd = new Date(timestampEnd.getTime());
-                            out.print(bartDateFormat.format(dateBegin) + " - " + bartDateFormat.format(dateEnd));
+                            out.print(bartDateFormat.format(dateBegin) + " 至 " + bartDateFormat.format(dateEnd));
                         %>
 
                     </span>

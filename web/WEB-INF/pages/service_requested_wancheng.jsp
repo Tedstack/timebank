@@ -103,7 +103,25 @@
                                 <label class="weui-form-preview__label">服务地点</label>
                                 <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getAddress());%></span>
                             </div>
-
+                            <%if(recordDetailList.get(i).getRating()!=null){%>
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">服务评分</label>
+                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getRating());%>分</span>
+                            </div>
+                            <div class="weui-form-preview__item">
+                                <label class="weui-form-preview__label">服务评价</label>
+                                <span class="weui-form-preview__value">
+                                    <%
+                                        if(recordDetailList.get(i).getComment()!=null){
+                                            out.print(recordDetailList.get(i).getComment());
+                                        }
+                                        else{
+                                            out.print("无");
+                                        }
+                                    %>
+                                </span>
+                            </div>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -113,13 +131,13 @@
                             <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">举报</a></div>
+                            <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item">
                                 <%
                                     if(recordDetailList.get(i).getRating()==null){
                                         out.print("<a href='"+ request.getContextPath() +"/user/applyUserStartEvaluate?recordID="+ recordDetailList.get(i).getId()+"' class='weui-btn weui-btn_mini weui-btn_primary'>评价</a>");
                                     }else{
-                                        out.print("<a class='weui-btn weui-btn_mini weui-btn_default'>已评</a>");
+                                        out.print("<span>已评价</span>");
                                     }
                                 %>
                             </div>
