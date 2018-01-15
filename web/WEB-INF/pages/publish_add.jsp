@@ -84,7 +84,8 @@
                         <label class="weui-label">服务描述</label></div>
                     <div class="weui-cell__bd">
                         <div class="weui-cell__bd">
-                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
+                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3" onkeyup="checkLen(this)"></textarea>
+                            <div style="float:right; color:#999"><span id="description-count">0</span>/200</div>
                         </div>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                         <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
                     </div>
                     <div class="weui-cell__ft">
-                        <span id = "priceUnit-span">志愿者时间</span>
+                        <span id = "priceUnit-span">志愿者时间/h</span>
                     </div>
                 </div>
 
@@ -193,13 +194,22 @@
        $("#addServiceType").change(function () {
            var type = $(this).val();
            if(type === "志愿者服务"){
-               $("#priceUnit-span").html("志愿者时间");
+               $("#priceUnit-span").html("志愿者时间/h");
            } else if(type === "互助服务"){
-               $("#priceUnit-span").html("时间币");
+               $("#priceUnit-span").html("时间币/h");
            } else
-               $("#priceUnit-span").html("元");
+               $("#priceUnit-span").html("元/h");
        });
     });
+
+    function checkLen(obj)
+    {
+        var maxChars = 200;//最多字符数
+        if (obj.value.length > maxChars)
+            obj.value = obj.value.substring(0,maxChars);
+        var curr = obj.value.length;
+        document.getElementById("description-count").innerHTML = curr.toString();
+    }
 
     function check(){
         var addServiceType = document.getElementById("addServiceType").value;
@@ -240,7 +250,7 @@
             }
         }
         if(servicePrice < 0){
-            showAlert("服务金额不得小于0");
+            showAlert("服务金额不能为负");
             return false;
         }
         return true;

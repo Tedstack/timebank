@@ -72,7 +72,12 @@
                                 <span class="weui-form-preview__value">
                                     <%
                                         if(recordDetailList.get(i).getStatus().equals("已完成")){
-                                            out.print(recordDetailList.get(i).getPayMoney());
+                                            if(recordDetailList.get(i).getPayWay() == 1)
+                                                out.print(recordDetailList.get(i).getPayMoney()+"志愿者时间");
+                                            else if(recordDetailList.get(i).getPayWay() == 2)
+                                                out.print(recordDetailList.get(i).getPayMoney()+"时间币");
+                                            else
+                                                out.print(recordDetailList.get(i).getPayMoney()+"元");
                                         }else{
                                             out.print("未进行服务，未产生费用");
                                         }
@@ -80,11 +85,11 @@
                                 </span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务对象:</label>
+                                <label class="weui-form-preview__label">服务对象</label>
                                 <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getApplyUserName());%></span>
                             </div>
                             <div class="weui-form-preview__item">
-                                <label class="weui-form-preview__label">服务开始时间:</label>
+                                <label class="weui-form-preview__label">服务开始时间</label>
                                 <span class="weui-form-preview__value">
                                      <%
                                          if(recordDetailList.get(i).getStatus().equals("已完成")){
