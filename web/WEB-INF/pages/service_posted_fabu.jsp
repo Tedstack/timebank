@@ -27,10 +27,10 @@
 %>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
-        <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
+        <%--<div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
             <div id="return" onclick="history.go(-1)"><img src="../img/返回.png" width="20" height="15"alt="">已发布</div>
-        </div>
-        <div class="weui-navbar" style="position:fixed; top:34px">
+        </div>--%>
+        <div class="weui-navbar" style="position:fixed;">
             <div class="weui-navbar__item weui-bar__item_on"id="navbar1"style="color: #7ACF41">
                 已发布
             </div>
@@ -125,6 +125,8 @@
     </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/utils.js"></script>
+<script type="text/javascript">back_to("${pageContext.request.contextPath}/publish/category");</script>
 <script type="text/javascript">
     $(function(){
         $("#navbar1").on('click', function () {

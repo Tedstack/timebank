@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.PublishOrderEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.PublishEntity" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,11 +39,20 @@
         </p>
         <p>
             <label class="weui-form-preview__label">开始时间</label>
-            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getBeginTime());%></span>
+            <span class="weui-form-preview__value">
+                <%
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    out.print(df.format(publishOrderEntity.getBeginTime()));
+                %>
+            </span>
         </p>
         <p>
             <label class="weui-form-preview__label">结束时间</label>
-            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getEndTime());%></span>
+            <span class="weui-form-preview__value">
+                <%
+                    out.print(df.format(publishOrderEntity.getEndTime()));
+                %>
+            </span>
         </p>
         <p>
             <label class="weui-form-preview__label">地理位置</label>
@@ -50,11 +60,20 @@
         </p>
         <p>
             <label class="weui-form-preview__label">支付方式</label>
-            <span class="weui-form-preview__value"><%out.print(publishOrderEntity.getPayWay());%></span>
+            <span class="weui-form-preview__value">
+                <%
+                    if(publishOrderEntity.getPayWay() == 1)
+                        out.print("志愿者时间");
+                    else if(publishOrderEntity.getPayWay() == 2)
+                        out.print("时间币");
+                    else
+                        out.print("元");
+                %>
+            </span>
         </p>
         <p>
             <label class="weui-form-preview__label">预计收入</label>
-            <span class="weui-form-preview__value">C <%out.print(publishEntity.getPrice());%></span>
+            <span class="weui-form-preview__value"><%out.print(publishEntity.getPrice());%></span>
         </p>
     </div>
     <div class="weui-form-preview__ft">

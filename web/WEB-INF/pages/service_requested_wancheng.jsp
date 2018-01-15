@@ -20,14 +20,14 @@
 
 <div class="page">
     <div class="page__bd" style="height: 100%;">
-            <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
+            <%--<div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
                     <p><img src="../img/返回.png" width="20" height="15"alt="">已完成</p>
                 </div>
                 <div class="weui-flex__item"></div>
                 <div class="weui-flex__item"></div>
-            </div>
-            <div class="weui-navbar" style="position:fixed; top:34px">
+            </div>--%>
+            <div class="weui-navbar" style="position:fixed;">
                 <div class="weui-navbar__item"id="navbar1">
                     已预约
                 </div>
@@ -172,6 +172,8 @@
     </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/utils.js"></script>
+<script type="text/javascript">back_to("${pageContext.request.contextPath}/publish/category");</script>
 <script type="text/javascript">
     $(function(){
         $("#navbar1").on('click', function () {
