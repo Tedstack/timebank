@@ -142,11 +142,13 @@ public class AdvancedUtil {
 	}
 
 	/*模板消息发送*/
-	public static boolean sendTemplateMessage(String accessToken, Template template) {
+	public static boolean sendTemplateMessage(Template template) {
 		boolean result = false;
+		String accessToken = TokenThread.accessToken;
 		// 请求地址拼接
 		String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
 		if(accessToken != null) {
+			System.out.println("通过网页获取的access_token"+accessToken);
 			requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
 			// 模板消息发送
 			String respJSON = CommonUtil.httpsRequest(requestUrl, "POST", template.toJSON());

@@ -49,6 +49,7 @@ public class TemplateUtil {
         template.setUrl("http://www.i-linli.com/timebanktest/recharge/coins_balance");
         template.setTemplateParamList(templateParamList);
 
-        return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+       // return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        return AdvancedUtil.sendTemplateMessage(template);
     }
 }

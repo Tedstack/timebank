@@ -44,14 +44,15 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+     /*   if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
             System.out.println("加入团队提醒获取的token"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
             System.out.println("tokenThread.accessToken为空");
             return false;
-        }
+        }*/
+        return AdvancedUtil.sendTemplateMessage(template);
     }
 
     public static boolean apply_success(UserEntity user, ViewActivityPublishDetailEntity teamDetailEntity){
@@ -93,14 +94,15 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+        /*if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
             System.out.println("成功报名志愿者活动获取的token"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
             System.out.println("tokenThread.accessToken为空");
             return false;
-        }
+        }*/
+        return AdvancedUtil.sendTemplateMessage(template);
 
     }
 
@@ -134,14 +136,15 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+        /*if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
             System.out.println("团队申请获取的accessToken"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
             System.out.println("tokenThread.accessToken为空");
             return false;
-        }
+        }*/
+        return AdvancedUtil.sendTemplateMessage(template);
     }
 
     public static boolean customer_appoint(UserEntity user, ViewPublishOrderDetailEntity viewPublishOrderDetailEntity){
@@ -182,19 +185,21 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+       /* if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
             System.out.println("预约成功获取的accessToken"+TokenThread.accessToken.getAccessToken());
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
-        }
+        }*//*
+
         else{
             System.out.println("tokenThread.accessToken为空");
             return false;
-        }
+        }*/
+        return AdvancedUtil.sendTemplateMessage(template);
     }
 
     public static boolean customer_appoint(UserEntity user, ViewRequestOrderDetailEntity viewRequestOrderDetailEntity){
-        /*
-        * 用户预约通知
+
+        /* 用户预约通知
         *{{first.DATA}}
           预约类型：{{keyword1.DATA}}
           预约时间：{{keyword2.DATA}}
@@ -207,7 +212,7 @@ public class MessageUtil {
           预约时间：2017年5月5日 13:00-14:00
           预约人姓名：小王
           预约人电话：18788888888
-        * */
+        */
         UserEntity userEntity = user;
         String str_first = "您有新的预约通知！";
         String  type_name = viewRequestOrderDetailEntity.getServiceType()+":"+viewRequestOrderDetailEntity.getServiceName();
@@ -228,15 +233,16 @@ public class MessageUtil {
         template.setTemplateId("qEYO2xxF0FYvQIJddgcQiLTSJi9VSi5kfnDZU1Gbv3E");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("");/*此处可以加入想要跳转的链接*/
+        template.setUrl("");//此处可以加入想要跳转的链接
         template.setTemplateParamList(templateParamList);
-        if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
+        /*if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
             return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         }
         else{
             System.out.println("tokenThread.accessToken为空");
             return false;
-        }
+        }*/
+        return AdvancedUtil.sendTemplateMessage(template);
     }
 
 

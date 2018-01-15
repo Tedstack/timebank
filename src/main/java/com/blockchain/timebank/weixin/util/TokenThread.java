@@ -4,9 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.blockchain.timebank.weixin.model.AccessToken;
 import com.blockchain.timebank.weixin.model.JsapiTicket;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,65 +18,37 @@ public class TokenThread implements Runnable {
 
     public static String appSecret= Configs.APPSECRET;
 
-    public static AccessToken accessToken = null;
+   // public static AccessToken accessToken = null;
 
-    public static JsapiTicket jsapiTicket = null;
+   // public static JsapiTicket jsapiTicket = null;
+    public static String accessToken = null;
 
-    public final static String js_api_ticket_url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
+    public static String jsapiTicket = null;
+
+  //  public final static String js_api_ticket_url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
 
 
     public void run() {
         while (true) {//這裏就應該是死循環
-            //int count = 0;
-            File file = null;
-            FileWriter fw=null;
-            try{
-                file = new File("/home/ubuntu/logs/access_token_log.txt");
-                fw = new FileWriter(file,true);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
-            PrintWriter pw = new PrintWriter(fw);
+            SimpleDateFormat format = new SimpleDateFormat("mm");
             try {
                 accessToken = this.getAccessToken();
                 jsapiTicket = this.getJsapiTicket();
-                long timestamp = new Date().getTime();
-                long lastTokenTime =timestamp/3600000;
-                pw.println(bartDateFormat.format(timestamp));
-               /* if("00:00".equals(format2.format(timestamp))){
-                    pw.println(bartDateFormat.format(new Date().getTime()));
-                    count=0;
-                }*/
-                //count++;
-                //pw.println("access_token获取第"+count+"次"+accessToken.getAccessToken());
-                pw.println("access_token获取"+accessToken.getAccessToken());
                 if (null != accessToken) {
-                    pw.flush();
                     while(true){
                         Thread.sleep(60 * 1000);
-                        if(new Date().getTime()/3600000 != lastTokenTime){
-                            pw.println("睡眠已到时间,更新access_token");
+                        if("04".equals(format.format(new Date()))){
                             break;
                         }
                     }
 
                 } else {
-                    pw.println("获取accessToken为空，线程睡3秒");
-                    pw.flush();
                     Thread.sleep(1000 * 3); //获取的access_token为空 休眠3秒
                 }
-                pw.flush();
             } catch (Exception e) {
-                //System.out.println("发生异常：" + e.getMessage());
                 e.printStackTrace();
-                pw.println("发生异常：" + e.getMessage());
-                pw.flush();
                 try {
                     Thread.sleep(1000 * 10); //发生异常休眠1秒
-                    pw.println("获取accessToken失败，线程休眠10秒");
-                    pw.flush();
                 } catch (Exception e1) {
 
                 }
@@ -88,7 +60,7 @@ public class TokenThread implements Runnable {
      * 获取access_token
      * @return
      */
-    private AccessToken getAccessToken(){
+  /*  private AccessToken getAccessToken(){
         NetWorkHelper netHelper = new NetWorkHelper();
         String Url = String.format("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s",this.appId,this.appSecret);
         String result = netHelper.getHttpsResponse(Url,"");
@@ -104,10 +76,10 @@ public class TokenThread implements Runnable {
         return token;
     }
 
-    /**
+    *//**
      * 获取jsapi_ticket
      * @return
-     */
+     *//*
     private JsapiTicket getJsapiTicket(){
         NetWorkHelper netHelper = new NetWorkHelper();
         String Url = js_api_ticket_url.replace("ACCESS_TOKEN",accessToken.getAccessToken());
@@ -121,6 +93,67 @@ public class TokenThread implements Runnable {
         jsapiTicket.setExpiresin(json.getInteger("expires_in"));
 
         return jsapiTicket;
+    }*/
+    //从进程中获取accessToken
+    private String getAccessToken(){
+        String url = "http://120.132.30.227:8686/access_token";
+        String result = null;
+        result = sendPost(url);
+        return result;
+    }
+    //从进程中获取JsapiTicket
+    private String getJsapiTicket(){
+        String url = "http://120.132.30.227:8686/js_api_ticket";
+        String result = null;
+        result = sendPost(url);
+        return result;
+    }
+    //发送http请求
+    private String sendPost(String url) {
+       PrintWriter out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            // 打开和URL之间的连接
+            URLConnection conn = realUrl.openConnection();
+            // 设置通用的请求属性
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+            conn.setRequestProperty("user-agent",
+                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // 发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = new PrintWriter(conn.getOutputStream());
+            // 发送请求参数
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            System.out.println("发送 POST 请求出现异常！"+e);
+            e.printStackTrace();
+        }
+        //使用finally块来关闭输出流、输入流
+        finally{
+            try{
+                if(out!=null){
+                    out.close();
+                }
+                if(in!=null){
+                    in.close();
+                }
+            }
+            catch(IOException ex){
+                ex.printStackTrace();
+            }
+        }
+        return result;
     }
 
 }

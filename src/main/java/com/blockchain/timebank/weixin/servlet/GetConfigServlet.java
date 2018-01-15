@@ -4,7 +4,6 @@ package com.blockchain.timebank.weixin.servlet;
 import com.alibaba.fastjson.JSON;
 import com.blockchain.timebank.weixin.util.Sign;
 import com.blockchain.timebank.weixin.util.TokenThread;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +22,8 @@ public class GetConfigServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("GetConfigServlet doPost");
         String url = request.getParameter("url");
-        String jsapi_tickec = TokenThread.jsapiTicket.getJsapiTicket();
+       // String jsapi_tickec = TokenThread.jsapiTicket.getJsapiTicket();
+        String jsapi_tickec = TokenThread.jsapiTicket;
         Map<String, String> jssdk = Sign.main(jsapi_tickec,url);
         String str = JSON.toJSONString(jssdk);
         response.setCharacterEncoding("UTF-8");
