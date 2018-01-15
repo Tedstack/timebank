@@ -146,25 +146,23 @@ public class TeamController {
 
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String addUserToTeam(@RequestParam List<Long> teamIDList) {
+    public String addUserToTeam(@RequestParam long teamId) {
         long userId = getCurrentUser().getId();
-        boolean isSent = false;
-        for (int i = 0; i < teamIDList.size(); i++) {
-            TeamUserEntity teamUser = new TeamUserEntity();
-            teamUser.setTeamId(teamIDList.get(i));
-            teamUser.setUserId(userId);
-            teamUser.setStatus(TeamUserStatus.inApplication);
-            teamUserService.addUserToTeam(teamUser);
+//        boolean isSent = false;
+        TeamUserEntity teamUser = new TeamUserEntity();
+        teamUser.setTeamId(teamId);
+        teamUser.setUserId(userId);
+        teamUser.setStatus(TeamUserStatus.inApplication);
+        teamUserService.addUserToTeam(teamUser);
 //            TeamEntity team = teamService.findById(teamIDList.get(i));
 //            UserEntity user = userService.findUserEntityById(team.getCreatorId());
 //            if (MessageUtil.sign_team(user, team))
 //                isSent = true;
 //            else
 //                isSent = false;
-        }
         JSONObject result = new JSONObject();
 //        if (isSent)
-            result.put("msg", "ok");
+        result.put("msg", "ok");
 //        else
 //            result.put("msg", "msgFail");
         return result.toString();
@@ -172,30 +170,27 @@ public class TeamController {
 
     @RequestMapping(value = "/quiteFromTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String deleteUserFromTeam(@RequestParam List<Long> teamIDList) {
+    public String deleteUserFromTeam(@RequestParam long teamId) {
         JSONObject result = new JSONObject();
         long userId = getCurrentUser().getId();
         System.out.println("userId:" + userId);
-        for (int i = 0; i < teamIDList.size(); i++) {
-            System.out.println("teamId:" + teamIDList.get(i));
-            //用户状态是已加入
-            TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(userId, teamIDList.get(i), TeamUserStatus.alreadyEntered);
-            if (teamUser != null) {
-                teamUser.setStatus(TeamUserStatus.isDeleted);
-                teamUserService.saveTeamUser(teamUser);
-                result.put("msg", "ok");
-                return result.toString();
-            }
-            //已加入状态是被锁定
-            teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(userId, teamIDList.get(i), TeamUserStatus.isLocked);
-            if (teamUser != null) {
-                teamUser.setStatus(TeamUserStatus.isDeleted);
-                teamUserService.saveTeamUser(teamUser);
-                result.put("msg", "ok");
-                return result.toString();
-            } else
-                result.put("msg", "fail");
+        //用户状态是已加入
+        TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(userId, teamId, TeamUserStatus.alreadyEntered);
+        if (teamUser != null) {
+            teamUser.setStatus(TeamUserStatus.isDeleted);
+            teamUserService.saveTeamUser(teamUser);
+            result.put("msg", "ok");
+            return result.toString();
         }
+        //已加入状态是被锁定
+        teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(userId, teamId, TeamUserStatus.isLocked);
+        if (teamUser != null) {
+            teamUser.setStatus(TeamUserStatus.isDeleted);
+            teamUserService.saveTeamUser(teamUser);
+            result.put("msg", "ok");
+            return result.toString();
+        } else
+            result.put("msg", "fail");
         return result.toString();
     }
 
@@ -890,7 +885,7 @@ public class TeamController {
                 return "failure";
             }
         }
-        return "failure";
+        return "missImg";
     }
 
     @RequestMapping(value = "/viewTeamInfoPage", method = RequestMethod.GET)

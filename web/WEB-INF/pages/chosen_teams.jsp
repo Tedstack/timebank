@@ -113,41 +113,34 @@
     });
 
     function quitFromTeam(t) {
-            var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/quiteFromTeam";
-            var teamId=t.id;//退出团队的Id
-             var check_val = [];
-             check_val.push(teamId);
-            if(check_val.length!==0){
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: targetUrl,
-                    dataType:'json',
-                    traditional:true,
-                    data: {"teamIDList":check_val},
-                    beforeSend: function (XHR) {
-                        dialogLoading = showLoading();
-                    },
-                    success: function (data) {
-                        var value = JSON.stringify(data);
-                        var dataJson = JSON.parse(value);
-
-                        if(dataJson.msg==="ok"){
-                            showAlert("退出成功",function () {
-                                location.reload();
-                            });
-                        }
-                    },
-                    error: function (xhr, type) {
-                        showAlert("退出失败");
-                    },
-                    complete: function (xhr, type) {
-                        dialogLoading.hide();
-                    }
-                });
+        var contextPath="${pageContext.request.contextPath}"
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/quiteFromTeam";
+        var teamId=t.id;//退出团队的Id
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: targetUrl,
+            data: "teamId="+teamId,
+            beforeSend: function (XHR) {
+                dialogLoading = showLoading();
+            },
+            success: function (data) {
+                var value = JSON.stringify(data);
+                var dataJson = JSON.parse(value);
+                if(dataJson.msg==="ok"){
+                    showAlert("退出成功",function () {
+                        location.reload();
+                    });
+                }
+            },
+            error: function (xhr, type) {
+                showAlert("退出失败");
+            },
+            complete: function (xhr, type) {
+                dialogLoading.hide();
             }
-        }
+        });
+    }
     function viewTeamPage(t) {
         var teamId=t.id;
         window.location.href="${pageContext.request.contextPath}/team/teamIndex?teamId="+teamId;

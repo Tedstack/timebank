@@ -193,42 +193,34 @@
             var contextPath="${pageContext.request.contextPath}"
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
             var teamId=t.id;//取要加入团队的Id
-             var check_val = [];
-             check_val.push(teamId);
-            if(check_val.length!==0){
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: targetUrl,
-                    dataType:'json',
-                    traditional:true,
-                    data: {"teamIDList":teamId},
-                    beforeSend: function (XHR) {
-                        dialogLoading = showLoading();
-                    },
-                    success: function (data) {
-                        var value = JSON.stringify(data);
-                        var dataJson = JSON.parse(value);
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: targetUrl,
+                data: "teamId="+teamId,
+                beforeSend: function (XHR) {
+                    dialogLoading = showLoading();
+                },
+                success: function (data) {
+                    var value = JSON.stringify(data);
+                    var dataJson = JSON.parse(value);
 
-                        if(dataJson.msg==="ok"){
-                            showAlert("申请成功",function () {
-                                location.reload();
-                            });
-                        }else if(dataJson.msg==="msgFail"){
-                            showAlert("信息发送失败");
-                        }
-                    },
-                    error: function (xhr, type) {
-                        showAlert("加入失败");
-                    },
-                    complete: function (xhr, type) {
-                        dialogLoading.hide();
+                    if(dataJson.msg==="ok"){
+                        showAlert("申请成功",function () {
+                            location.reload();
+                        });
+                    }else if(dataJson.msg==="msgFail"){
+                        showAlert("信息发送失败");
                     }
-                });
-            }else{
-                showAlert("请选择要加入的团体");
-            }
-        }
+                },
+                error: function (xhr, type) {
+                    showAlert("加入失败");
+                },
+                complete: function (xhr, type) {
+                    dialogLoading.hide();
+                }
+            });
+    }
          function goBack() {
              window.location.href="${pageContext.request.contextPath}/user/";
          }

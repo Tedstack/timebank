@@ -135,6 +135,8 @@
                         showAlert("创建成功",function () {
                             window.location.href="${pageContext.request.contextPath}/team/myTeams"
                         });
+                    }else if(data=="missImg"){
+                        showAlert("未上传头像");
                     }else if(data==="nameExist") {
                         showAlert("团队名称已被使用");
                     }else if(data==="failure"){
@@ -142,7 +144,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("创建失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
