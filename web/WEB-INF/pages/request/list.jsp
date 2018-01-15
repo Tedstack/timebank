@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="../js/utils.js"></script>
+    <script type="text/javascript">back_to("${pageContext.request.contextPath}/index");</script>
     <style>
         .overtimeFlag{
             float:right;
