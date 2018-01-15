@@ -672,17 +672,18 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/teamIndex", method = RequestMethod.GET)
-    public String teamIndexView(ModelMap map, @RequestParam String teamId) {
+    public String teamIndexView(ModelMap map, @RequestParam String tab,@RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
         UserEntity Manager = userService.findUserEntityById(teamEntity.getCreatorId());
+        map.addAttribute("tab",tab);
         map.addAttribute("teamEntity", teamEntity);
         map.addAttribute("managerName", Manager.getName());
         return "team_index";
     }
 
     @RequestMapping(value = "/teamMember", method = RequestMethod.GET)
-    public String teamMemberView(ModelMap map, @RequestParam String teamId) {
+    public String teamMemberView(ModelMap map, @RequestParam String tab,@RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
         UserEntity creator = userService.findUserEntityById(teamEntity.getCreatorId());
@@ -692,6 +693,7 @@ public class TeamController {
         map.addAttribute("managerList", managerList);
         map.addAttribute("creator", creator);
         map.addAttribute("teamId", teamId);
+        map.addAttribute("tab",tab);
         return "team_member";
     }
 
@@ -806,7 +808,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/historyActivity", method = RequestMethod.GET)
-    public String teamHistoryActivity(ModelMap map, @RequestParam String teamId) {
+    public String teamHistoryActivity(ModelMap map,@RequestParam String tab, @RequestParam String teamId) {
         boolean isMember = false;
         long id = Long.parseLong(teamId);
         List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, ActivityStatus.alreadyTerminate);
@@ -827,6 +829,7 @@ public class TeamController {
         map.addAttribute("publicActivity", publicActivity);
         map.addAttribute("privateActivity", privateActivity);
         map.addAttribute("teamId", teamId);
+        map.addAttribute("tab",tab);
         return "team_history";
     }
 

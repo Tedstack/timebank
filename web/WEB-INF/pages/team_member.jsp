@@ -25,17 +25,18 @@
     List<ViewTeamUserDetailEntity> userList=(List<ViewTeamUserDetailEntity>) request.getAttribute("userList");
     List<ViewTeamUserDetailEntity> managerList=(List<ViewTeamUserDetailEntity>) request.getAttribute("managerList");
     UserEntity creator=(UserEntity) request.getAttribute("creator");
+    String tab=(String) request.getAttribute("tab");
 %>
 <div class="page">
     <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
+            <a href="${pageContext.request.contextPath}/team/teamIndex?tab=0&teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
         </div>
         <div class="weui-navbar__item" style="background-color: #0076FF;">
             <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;color: #ffffff;border: none;height: 25px;font-size: 14px; ">成员</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/historyActivity?teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">历史活动</a>
+            <a href="${pageContext.request.contextPath}/team/historyActivity?tab=0&teamId=<%out.print((String) request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">历史活动</a>
         </div>
     </div>
     <div class="weui-panel__bd" style="margin : 80px 0px 10px 0px;">
@@ -93,6 +94,8 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script src="../js/utils.js"></script>
 <script type="text/javascript">
-    back_to("${pageContext.request.contextPath}/team/teamList");
+    var tab='<%=tab%>';
+    if(tab==='0')
+        back_to("${pageContext.request.contextPath}/team/teamList");
 </script>
 </html>

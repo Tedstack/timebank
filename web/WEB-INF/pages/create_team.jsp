@@ -60,13 +60,16 @@
         <div class="weui-cell__bd">
             <input class="weui-input" id="content_number" name="content_number" placeholder="默认注册手机号"/>
         </div>
-     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">团队介绍</label></div>
-        <div class="weui-cell__hd"><label class="weui-label" style="color: grey;">200字以内</label></div>
     </div>
-    <div style="text-align:center;">
-        <textarea id="describe" name="describe" rows="10" cols="30" placeholder=".... " maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"></textarea>
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label">团队介绍</label></div>
+        <div class="weui-cell__bd">
+            <div class="weui-cell__bd">
+                <textarea id="teamDescription" class="weui-textarea" name="describe" placeholder="请输入描述..." rows="3" onkeyup="checkLen(this)"></textarea>
+                <div style="float:right; color:#999"><span id="description-count">0</span>/200</div>
+            </div>
+        </div>
     </div>
     <div style="padding: 10px; margin-bottom: 20px;">
         <a href="javascript:;" class="weui-btn weui-btn_primary" id="create" type="button">确定</a>
@@ -153,5 +156,14 @@
             });
         });
     });
+
+    function checkLen(obj)
+    {
+        var maxChars = 200;//最多字符数
+        if (obj.value.length > maxChars)
+            obj.value = obj.value.substring(0,maxChars);
+        var curr = obj.value.length;
+        document.getElementById("description-count").innerHTML = curr.toString();
+    }
 </script>
 </html>

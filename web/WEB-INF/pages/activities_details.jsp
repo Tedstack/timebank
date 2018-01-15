@@ -59,11 +59,12 @@
                 <div class="weui-cell__ft"><%out.print(activityPublishDetail.getName());%></div>
             </div>
 
-            <div class="weui-cell">
+            <div class="weui-cell" id="<%out.print(activityPublishDetail.getTeamId());%>" onclick="viewTeamInfo(this)">
                 <div class="weui-cell__bd">
                     <p>组织团队</p>
                 </div>
                 <div class="weui-cell__ft"><%out.print(activityPublishDetail.getTeamName());%></div>
+                <img src="../img/more.png" width="20" height="20" style="width: 6%;">
             </div>
 
             <div class="weui-cell">
@@ -100,7 +101,7 @@
                     <p>报名人数</p>
                 </div>
                 <div class="weui-cell__ft"><%out.print(userActivityList.size());%>/<%out.print(activityPublishDetail.getCount());%></div>
-                <span class="weui-cell__ft"></span>
+                <img src="../img/more.png" width="20" height="20" style="width: 6%;">
             </div>
 
             <div class="weui-cell">
@@ -172,6 +173,11 @@
 
     function goToUserList(u){
         window.location.href="${pageContext.request.contextPath}/team/userActivityList?activityId="+activityID;
+    }
+
+    function viewTeamInfo(t){
+        var id=t.id;
+        window.location.href="${pageContext.request.contextPath}/team/teamIndex?tab=1&teamId="+id;
     }
 
     $(function(){

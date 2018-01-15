@@ -27,8 +27,8 @@
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
     <div class="weui-panel__hd weui-cells__title">
-        <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">修改团队信息</p>
+        <div class="weui-flex__item">
+            <p> 修改团队信息</p>
         </div>
     </div>
     <div class="weui-cells_form weui-cells">
@@ -78,10 +78,14 @@
         </div>
     </div>
     <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">团队介绍</label></div>
-    </div>
-    <div style="text-align:center;">
-        <textarea name="describe" rows="10" cols="30" maxlength=200 style="width:250px; height:180px; border:solid 1px #4d4d4d;resize:none; font-size: 16px; padding:3px;border-radius: 1px;"><%out.print(team.getDescription());%></textarea>
+        <div class="weui-cell__hd">
+            <label class="weui-label">团队介绍</label></div>
+        <div class="weui-cell__bd">
+            <div class="weui-cell__bd">
+                <textarea id="teamDescription" class="weui-textarea" name="describe" rows="3" onkeyup="checkLen(this)"><%out.print(team.getDescription());%></textarea>
+                <div style="float:right; color:#999"><span id="description-count"><%out.print(team.getDescription().length());%></span>/200</div>
+            </div>
+        </div>
     </div>
     <div style="padding: 10px; margin-top: 10px;">
         <a href="javascript:;" class="weui-btn weui-btn_primary" id="modifyTeam" type="button">确认修改</a>
@@ -166,5 +170,13 @@
             add_Img.style.display="inline";
         });
     });
+    function checkLen(obj)
+    {
+        var maxChars = 200;//最多字符数
+        if (obj.value.length > maxChars)
+            obj.value = obj.value.substring(0,maxChars);
+        var curr = obj.value.length;
+        document.getElementById("description-count").innerHTML = curr.toString();
+    }
 </script>
 </html>

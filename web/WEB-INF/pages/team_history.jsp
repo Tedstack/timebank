@@ -28,14 +28,15 @@
 <%
     List<ActivityPublishEntity> publicActivity=(List<ActivityPublishEntity>) request.getAttribute("publicActivity");
     List<ActivityPublishEntity> privateActivity=(List<ActivityPublishEntity>) request.getAttribute("privateActivity");
+    String tab=(String) request.getAttribute("tab");
 %>
 <div class="page">
     <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
-            <a href="${pageContext.request.contextPath}/team/teamIndex?teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
+            <a href="${pageContext.request.contextPath}/team/teamIndex?tab=0&teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF;">
-            <a href="${pageContext.request.contextPath}/team/teamMember?teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
+            <a href="${pageContext.request.contextPath}/team/teamMember?tab=0&teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
         </div>
         <div class="weui-navbar__item" style="background-color: #0076FF;">
             <a lass="weui-btn weui-btn_plain-default" style="background-color:#0076FF;border: none;color:#ffffff;height: 25px;font-size: 14px;">历史活动</a>
@@ -47,7 +48,7 @@
     %>
     <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(publicActivity.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
+            <img class="weui-media-box__thumb" src="../img/activityImg/<%out.print(publicActivity.get(i).getHeadImg());%>" alt="">
         </div>
         <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title"><%out.print(publicActivity.get(i).getName());%></h4>
@@ -78,7 +79,7 @@
     %>
     <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(privateActivity.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
         <div class="weui-media-box__hd">
-            <img class="weui-media-box__thumb" src="../img/userdetails/专业服务认证.png" alt="">
+            <img class="weui-media-box__thumb" src="../img/activityImg/<%out.print(privateActivity.get(i).getHeadImg());%>" alt="">
         </div>
         <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title"><%out.print(privateActivity.get(i).getName());%></h4>
@@ -108,6 +109,8 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script src="../js/utils.js"></script>
 <script type="text/javascript">
-    back_to("${pageContext.request.contextPath}/team/teamList");
+    var tab='<%=tab%>';
+    if(tab==='0')
+        back_to("${pageContext.request.contextPath}/team/teamList");
 </script>
 </html>
