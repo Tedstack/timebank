@@ -39,7 +39,7 @@ public class MessageUtil {
         templateParamList.add(new TemplateParam("REMARK",str_remark, "#173177"));
 
         Template template = new Template();
-        template.setTemplateId("-5-0HZeo4Yh1eHQA8aD-kEPOx5v8TqCPEZHDfnqmACk");
+        template.setTemplateId("Ak8Bbtgn2Mes6i0Hh7AAwIdc3Xb9sMxG1HE6ata943I");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
@@ -89,7 +89,7 @@ public class MessageUtil {
         templateParamList.add(new TemplateParam("REMARK",str_remark, "#173177"));
 
         Template template = new Template();
-        template.setTemplateId("9LSNLuG22FxbGV6FAHIY6fmVKC2J-6dzp2USkQwi3jA");
+        template.setTemplateId("pSvMh9CtTUJrkkbNVbAWW0bIN2Xr5LMHEzF3zw9z05o");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
@@ -180,7 +180,7 @@ public class MessageUtil {
         templateParamList.add(new TemplateParam("REMARK",str_remark, "#173177"));
 
         Template template = new Template();
-        template.setTemplateId("qEYO2xxF0FYvQIJddgcQiLTSJi9VSi5kfnDZU1Gbv3E");
+        template.setTemplateId("RNV0kGzN9THHwld16ACBN9XJDlYfCK3x2neGpf5V9bY");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
@@ -230,7 +230,7 @@ public class MessageUtil {
         templateParamList.add(new TemplateParam("REMARK",str_remark, "#173177"));
 
         Template template = new Template();
-        template.setTemplateId("qEYO2xxF0FYvQIJddgcQiLTSJi9VSi5kfnDZU1Gbv3E");
+        template.setTemplateId("RNV0kGzN9THHwld16ACBN9XJDlYfCK3x2neGpf5V9bY");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
         template.setUrl("");//此处可以加入想要跳转的链接
