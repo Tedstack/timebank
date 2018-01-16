@@ -55,14 +55,6 @@
             </div>
         </div>
     </div>
-    <div class="weui-cell" style="display:none;">
-        <div class="weui-cell__hd">
-            <label class="weui-label">团队编号</label>
-        </div>
-        <div class="weui-cell__bd">
-            <input readonly class="weui-input" name="team_id" value=<%out.print(team.getId());%>>
-        </div>
-    </div>
     <div class="weui-cell">
         <div class="weui-cell__hd">
             <label class="weui-label">团队名称</label>

@@ -29,15 +29,26 @@
     List<ActivityPublishEntity> publicActivity=(List<ActivityPublishEntity>) request.getAttribute("publicActivity");
     List<ActivityPublishEntity> privateActivity=(List<ActivityPublishEntity>) request.getAttribute("privateActivity");
     String tab=(String) request.getAttribute("tab");
+    long activityId= CommenData.getActivityId();
 %>
 <div class="page">
     <div class="weui-navbar" style="top: 0px;margin : 0px 0px 10px 0px;">
+        <%if(tab.equalsIgnoreCase("0")){%>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
             <a href="${pageContext.request.contextPath}/team/teamIndex?tab=0&teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF;">
             <a href="${pageContext.request.contextPath}/team/teamMember?tab=0&teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
         </div>
+        <%}else{%>
+        <div class="weui-navbar__item" style="border:1px solid #0076FF">
+            <a href="${pageContext.request.contextPath}/team/teamIndex?tab=1&teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">简介</a>
+        </div>
+        <div class="weui-navbar__item" style="border:1px solid #0076FF;">
+            <a href="${pageContext.request.contextPath}/team/teamMember?tab=1&teamId=<%out.print(request.getAttribute("teamId"));%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
+        </div>
+        <%}%>
+
         <div class="weui-navbar__item" style="background-color: #0076FF;">
             <a lass="weui-btn weui-btn_plain-default" style="background-color:#0076FF;border: none;color:#ffffff;height: 25px;font-size: 14px;">历史活动</a>
         </div>
@@ -110,7 +121,10 @@
 <script src="../js/utils.js"></script>
 <script type="text/javascript">
     var tab='<%=tab%>';
+    var activityId='<%=activityId%>';
     if(tab==='0')
         back_to("${pageContext.request.contextPath}/team/teamList");
+    else
+        back_to("${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID="+activityId);
 </script>
 </html>

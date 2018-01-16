@@ -142,6 +142,9 @@
         });
     });
 </script>
-
+<script src="../js/utils.js"></script>
+<script type="text/javascript">
+    back_to("${pageContext.request.contextPath}/publish/activities_category");
+</script>
 </body>
 </html>

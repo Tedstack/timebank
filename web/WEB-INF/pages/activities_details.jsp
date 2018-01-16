@@ -36,7 +36,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="goBack()" >
-                    <p><img src="../img/back.png" alt="" style="width: 6%;display: inline;">活动详情</p>
+                    <p>活动详情</p>
                 </div>
             </div>
         </div>
@@ -247,6 +247,15 @@
         });
     });
 </script>
-
+<script src="../js/utils.js"></script>
+<script type="text/javascript">
+    var type='<%=type%>';
+    if(type==='0')
+        back_to("${pageContext.request.contextPath}/team/teamActivities");
+    else if(type==='1')
+        back_to("${pageContext.request.contextPath}/team/alreadyCompleteActivities2");
+    else
+        back_to("${pageContext.request.contextPath}/team/alreadyApplyActivities");
+</script>
 </body>
 </html>

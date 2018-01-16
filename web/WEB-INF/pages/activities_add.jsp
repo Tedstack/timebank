@@ -24,8 +24,8 @@
     <form id="teamDetail" method="post">
     <div class="weui-tab__panel">
         <div class="weui-panel__hd">
-            <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                <p><img src="../img/返回.png" width="20" height="15"alt="">发布活动</p>
+            <div class="weui-flex__item">
+                <p style="margin-bottom: 0px;"> 发布活动</p>
             </div>
         </div>
         <div class="weui-cells_form weui-cells">
@@ -146,7 +146,7 @@
                     <p>参与人数</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" placeholder="请输入参与人数"/>
+                    <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" min="1" placeholder="请输入参与人数"/>
                 </div>
             </div>
 
@@ -242,8 +242,8 @@
             if(count===""){
                 showAlert("请填写参与人数");
                 return;
-            }else if(count==="0"){
-                showAlert("参与人数不能为0");
+            }else if(count.valueOf()<1){
+                showAlert("参与人数至少大于0");
                 return;
             }
 
@@ -306,6 +306,5 @@
         });
     });
 </script>
-
 </body>
 </html>

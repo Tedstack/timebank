@@ -233,6 +233,7 @@ public class TeamController {
         String isApplied = "false";
         if (userActivity != null)
             isApplied = "true";
+        CommenData.setActivityId(activityID);
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         map.addAttribute("isApplied", isApplied);
@@ -681,8 +682,8 @@ public class TeamController {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
         UserEntity creator = userService.findUserEntityById(teamEntity.getCreatorId());
-        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndIsManager(id,false);
-        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndIsManager(id,true);
+        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,false,TeamUserStatus.alreadyEntered);
+        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,true,TeamUserStatus.alreadyEntered);
         map.addAttribute("userList", memberList);
         map.addAttribute("managerList", managerList);
         map.addAttribute("creator", creator);
@@ -718,7 +719,7 @@ public class TeamController {
             else if (userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
                 appliedList.add(user);
         }
-        map.addAttribute("teamId", teamId);
+        CommenData.setTeamId(id);
         map.addAttribute("ManagerList", ManagerList);
         map.addAttribute("userList", memberList);
         map.addAttribute("lockedList", lockedList);
@@ -735,20 +736,20 @@ public class TeamController {
 
     @RequestMapping(value = "/lockMember", method = RequestMethod.POST)
     @ResponseBody
-    public String blockTeamMember(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "lock");
+    public String blockTeamMember(@RequestParam String userId) {
+        return TeamManage(userId, "lock");
     }
 
     @RequestMapping(value = "/UnlockMember", method = RequestMethod.POST)
     @ResponseBody
-    public String UnblockTeamMember(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "unlock");
+    public String UnblockTeamMember(@RequestParam String userId) {
+        return TeamManage(userId, "unlock");
     }
 
     @RequestMapping(value = "/approveUser", method = RequestMethod.POST)
     @ResponseBody
-    public String ApproveUser(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "approve");
+    public String ApproveUser(@RequestParam String userId) {
+        return TeamManage(userId, "approve");
 //        String result = TeamManage(userId, teamId, "approve");
 //        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
 //        TeamEntity team=teamService.findById(Long.parseLong(teamId));
@@ -760,18 +761,18 @@ public class TeamController {
 
     @RequestMapping(value = "/demoteManager", method = RequestMethod.POST)
     @ResponseBody
-    public String DemoteManager(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "demote");
+    public String DemoteManager(@RequestParam String userId) {
+        return TeamManage(userId, "demote");
     }
 
     @RequestMapping(value = "/promoteManager", method = RequestMethod.POST)
     @ResponseBody
-    public String promteManager(@RequestParam String userId, @RequestParam String teamId) {
-        return TeamManage(userId, teamId, "promote");
+    public String promteManager(@RequestParam String userId) {
+        return TeamManage(userId, "promote");
     }
 
-    private String TeamManage(String userId, String teamId, String type) {
-        long t_id = Long.parseLong(teamId);
+    private String TeamManage(String userId, String type) {
+        long t_id = CommenData.getTeamId();
         long u_id = Long.parseLong(userId);
         try {
             TeamUserEntity teamUser = new TeamUserEntity();
@@ -882,6 +883,7 @@ public class TeamController {
     @RequestMapping(value = "/viewTeamInfoPage", method = RequestMethod.GET)
     public String goToViewTeamInfoPage(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
+        CommenData.setTeamId(id);
         TeamEntity teamEntity = teamService.findById(id);
         map.addAttribute("teamEntity", teamEntity);
         return "view_teamInfo";
@@ -899,12 +901,11 @@ public class TeamController {
     @ResponseBody
     public String modifyTeam(HttpServletRequest request,
                              @RequestParam(value = "file1", required = false) MultipartFile file,
-                             String team_id,
                              String team_name,
                              String describe,
                              String team_location) {
         try {
-            TeamEntity team = teamService.findById(Long.parseLong(team_id));
+            TeamEntity team = teamService.findById(CommenData.getTeamId());
             String idImg = "";
             //判断是否需要上传头像
             if (file != null && !file.isEmpty()) {

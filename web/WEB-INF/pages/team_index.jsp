@@ -1,6 +1,7 @@
 <%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.TeamEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="com.blockchain.timebank.entity.CommenData" %><%--
   Created by IntelliJ IDEA.
   User: weiyi
   Date: 2017/12/24
@@ -26,18 +27,28 @@
     TeamEntity team=(TeamEntity) request.getAttribute("teamEntity");
     String managerName=(String) request.getAttribute("managerName");
     String tab=(String) request.getAttribute("tab");
+    long activityId= CommenData.getActivityId();
 %>
 <div class="page">
     <div class="weui-navbar" style="top: 0px;margin :0px 0px 10px 0px;">
         <div class="weui-navbar__item" style="background-color: #0076FF;">
             <a class="weui-btn weui-btn_plain-default" style="background-color:#0076FF;border: none;color:#ffffff;height: 25px;font-size: 14px;">简介</a>
         </div>
+        <%if(tab.equalsIgnoreCase("0")){%>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
             <a href="${pageContext.request.contextPath}/team/teamMember?tab=0&teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
         </div>
         <div class="weui-navbar__item" style="border:1px solid #0076FF">
             <a href="${pageContext.request.contextPath}/team/historyActivity?tab=0&teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">历史活动</a>
         </div>
+        <%}else{%>
+        <div class="weui-navbar__item" style="border:1px solid #0076FF">
+            <a href="${pageContext.request.contextPath}/team/teamMember?tab=1&teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">成员</a>
+        </div>
+        <div class="weui-navbar__item" style="border:1px solid #0076FF">
+            <a href="${pageContext.request.contextPath}/team/historyActivity?tab=1&teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="border: none;height: 25px;font-size: 14px;">历史活动</a>
+        </div>
+        <%}%>
     </div>
     <div style="margin-top:100px;text-align:center;">
             <br>
@@ -104,10 +115,11 @@
 <script src="../js/utils.js"></script>
 <script type="text/javascript">
     var tab='<%=tab%>';
+    var activityId='<%=activityId%>';
     if(tab==='0')
         back_to("${pageContext.request.contextPath}/team/teamList");
     else
-        back_to("${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID="+);
+        back_to("${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID="+activityId);
 </script>
 <script type="text/javascript">
 </script>

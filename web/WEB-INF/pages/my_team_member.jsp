@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.TeamUserEntity" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
+<%@ page import="com.blockchain.timebank.entity.CommenData" %><%--
   Created by IntelliJ IDEA.
   User: weiyi
   Date: 2017/12/24
@@ -23,7 +24,7 @@
 </head>
 <body>
 <%
-    String teamId=(String) request.getAttribute("teamId");
+    long teamId= CommenData.getTeamId();
     List<UserEntity> ManagerList=(List<UserEntity>) request.getAttribute("ManagerList");
     List<UserEntity> teamUserList=(List<UserEntity>) request.getAttribute("userList");
     List<UserEntity> lockedUserList=(List<UserEntity>) request.getAttribute("lockedList");
@@ -31,8 +32,8 @@
 %>
 <div class="page">
     <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
-        <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">查看团队信息</p>
+        <div class="weui-flex__item">
+            <p>查看团队成员信息</p>
         </div>
     </div>
 </div>
@@ -66,10 +67,7 @@
                     <%if(ManagerList.get(i).getBirth()!=null){%>
                     <p style="font-size: 13px;color: #888888;"><%out.print(ManagerList.get(i).getBirth());%></p><%}%>
                 </div>
-                <%--<a onclick="demote(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>--%>
-                    <%--<img src="../img/demote.png" width="30" height="30">--%>
-                <%--</a>--%>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demoteManager(this)" style="background-color: #ecc30a" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demoteManager(this)" style="background-color: #ecc30a" onclick="approve(this)" id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
             </label>
         </div>
     </div>
@@ -89,10 +87,7 @@
                     <%if(appliedList.get(i).getBirth()!=null){%>
                     <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p><%}%>
                 </div>
-                <%--<a onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>--%>
-                    <%--<img src="../img/approve.png" width="30" height="30">--%>
-                <%--</a>--%>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="approveApply(this)" style="background-color: #ce3c39" onclick="approve(this)" name=<%out.print(teamId);%> id=<%out.print(appliedList.get(i).getId());%>>同意</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="approveApply(this)" style="background-color: #ce3c39" onclick="approve(this)" id=<%out.print(appliedList.get(i).getId());%>>同意</a>
             </label>
         </div>
     </div>
@@ -115,15 +110,9 @@
                 <%if(teamUserList.get(i).getBirth()!=null){%>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p><%}%>
             </div>
-            <%--<a onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>--%>
-                <%--<img src="../img/lock.png" width="30" height="30">--%>
-            <%--</a>--%>
-            <%--<a onclick="promte(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>--%>
-                <%--<img src="../img/promote.png" width="30" height="30">--%>
-            <%--</a>--%>
             <div class="weui-cell__bd" style="text-align: right;">
-                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a;" onclick="lockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>锁定</a>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: grey" onclick="PromteManager(this)" name=<%out.print(teamId);%> id=<%out.print(teamUserList.get(i).getId());%>>提升</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a;" onclick="lockTeamMember(this)"  id=<%out.print(teamUserList.get(i).getId());%>>锁定</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: grey" onclick="PromteManager(this)"  id=<%out.print(teamUserList.get(i).getId());%>>提升</a>
             </div>
         </label>
     </div>
@@ -145,10 +134,7 @@
                     <%if(lockedUserList.get(i).getBirth()!=null){%>
                     <p style="font-size: 13px;color: #888888;"><%out.print(lockedUserList.get(i).getBirth());%></p><%}%>
                 </div>
-                <%--<a onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>--%>
-                    <%--<img src="../img/unlock.png" width="30" height="30">--%>
-                <%--</a>--%>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: coral" onclick="UnlockTeamMember(this)" name=<%out.print(teamId);%> id=<%out.print(lockedUserList.get(i).getId());%>>解锁</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: coral" onclick="UnlockTeamMember(this)" id=<%out.print(lockedUserList.get(i).getId());%>>解锁</a>
             </label>
         </div>
     </div>
@@ -168,16 +154,15 @@
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
     function lockTeamMember(t) {
-        var contextPath="${pageContext.request.contextPath}"
+        var contextPath="${pageContext.request.contextPath}";
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/lockMember";
-        var teamId=t.name;
         var userId=t.id;
-        if(teamId!=null && userId!=null){
+        if(userId!=null){
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId+"&teamId="+teamId,
+                data: "userId="+userId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -201,16 +186,15 @@
         }
     }
     function UnlockTeamMember(t) {
-        var contextPath="${pageContext.request.contextPath}"
+        var contextPath="${pageContext.request.contextPath}";
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/UnlockMember";
-        var teamId=t.name;
         var userId=t.id;
-        if(teamId!=null && userId!=null){
+        if(userId!=null){
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId+"&teamId="+teamId,
+                data: "userId="+userId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -234,16 +218,15 @@
         }
     }
     function approveApply(t) {
-        var contextPath="${pageContext.request.contextPath}"
+        var contextPath="${pageContext.request.contextPath}";
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/approveUser";
-        var teamId=t.name;
         var userId=t.id;
-        if(teamId!=null && userId!=null){
+        if(userId!=null){
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId+"&teamId="+teamId,
+                data: "userId="+userId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -268,16 +251,15 @@
         }
     }
     function demoteManager(t) {
-        var contextPath="${pageContext.request.contextPath}"
+        var contextPath="${pageContext.request.contextPath}";
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/demoteManager";
-        var teamId=t.name;
         var userId=t.id;
-        if(teamId!=null && userId!=null){
+        if(userId!=null){
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId+"&teamId="+teamId,
+                data: "userId="+userId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -303,14 +285,13 @@
     function PromteManager(t) {
         var contextPath="${pageContext.request.contextPath}"
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/promoteManager";
-        var teamId=t.name;
         var userId=t.id;
-        if(teamId!=null && userId!=null){
+        if(userId!=null){
             $.ajax({
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId+"&teamId="+teamId,
+                data: "userId="+userId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
