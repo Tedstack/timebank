@@ -7,6 +7,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="com.blockchain.timebank.weixin.util.FormatOrderIdUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -61,7 +62,7 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">订单号<%out.print(recordDetailList.get(i).getId());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">订单号<%out.print(FormatOrderIdUtil.getServiceOrderFormatId(recordDetailList.get(i)));%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
 

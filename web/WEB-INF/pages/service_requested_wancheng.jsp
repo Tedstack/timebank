@@ -3,6 +3,7 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.weixin.util.FormatOrderIdUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -73,7 +74,7 @@
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(recordDetailList.get(i).getId());%></span>
+                                <span class="weui-form-preview__value"><%out.print(FormatOrderIdUtil.getServiceOrderFormatId(recordDetailList.get(i)));%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">服务提供者</label>
