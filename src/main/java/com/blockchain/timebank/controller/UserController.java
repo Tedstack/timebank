@@ -461,7 +461,7 @@ public class UserController {
             MySortList<Service_request_entity> msList = new MySortList<Service_request_entity>();
             msList.sortByMethod(recordlist,"getActualEndTime",true);
         }
-        map.addAttribute("recordDetailList", recordDetailList);
+        map.addAttribute("recordDetailList", recordlist);
         map.addAttribute("userid",CommenData.getUserId());
         return "volCoin_list";
 
@@ -472,7 +472,7 @@ public class UserController {
         Service_request_entity service = new Service_request_entity();
         if ("service".equals(clarify)) {
             ViewPublishOrderDetailEntity record = viewRecordDetailDao.findOne(id);
-            map.addAttribute("userid", getCurrentUser().getId());
+            map.addAttribute("userid", CommenData.getUserId());
             service.setClarify("service");
             service.setId(record.getId());
             service.setNeedUserid(record.getApplyUserId());
@@ -528,9 +528,9 @@ public class UserController {
             }
             service.setOrderid(time + record_id);
             map.addAttribute("vol_detail", service);
-            map.addAttribute("userid", getCurrentUser().getId());
+            map.addAttribute("userid", CommenData.getUserId());
         }
-        return "vol_detail";
+        return "volCoin_detail";
     }
 
     /**
