@@ -1,7 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.TeamUserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
-<%@ page import="com.blockchain.timebank.entity.CommenData" %><%--
   Created by IntelliJ IDEA.
   User: weiyi
   Date: 2017/12/24
@@ -24,7 +22,7 @@
 </head>
 <body>
 <%
-    long teamId= CommenData.getTeamId();
+    String teamId= (String)request.getAttribute("teamId");
     List<UserEntity> ManagerList=(List<UserEntity>) request.getAttribute("ManagerList");
     List<UserEntity> teamUserList=(List<UserEntity>) request.getAttribute("userList");
     List<UserEntity> lockedUserList=(List<UserEntity>) request.getAttribute("lockedList");
@@ -145,6 +143,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     var xmlHttpRequest;
+    var teamId=<%=teamId%>;
     $(function(){
         if(window.XMLHttpRequest){
             xmlHttpRequest=new XMLHttpRequest();
@@ -162,7 +161,7 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId,
+                data: "userId="+userId+"&teamId="+teamId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -194,7 +193,7 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId,
+                data: "userId="+userId+"&teamId="+teamId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -259,7 +258,7 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId,
+                data: "userId="+userId+"&teamId="+teamId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
@@ -291,7 +290,7 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId,
+                data: "userId="+userId+"&teamId="+teamId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },

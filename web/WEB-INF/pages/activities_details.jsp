@@ -177,7 +177,7 @@
 
     function viewTeamInfo(t){
         var id=t.id;
-        window.location.href="${pageContext.request.contextPath}/team/teamIndex?tab=1&teamId="+id;
+        window.location.href="${pageContext.request.contextPath}/team/teamInfo?teamId="+id;
     }
 
     $(function(){
