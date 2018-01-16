@@ -14,7 +14,7 @@
     <div class="weui-panel">
         <div class="weui-panel__hd">
             <span>时间币</span>
-            <a href="${pageContext.request.contextPath}/recharge/coins_list" style="float:right;text-decoration: none">时间币明细</a>
+            <a href="${pageContext.request.contextPath}/user/coins_list" style="float:right;text-decoration: none">时间币明细</a>
         </div>
         <div class="weui-cell__bd">
             <div class="weui-msg">

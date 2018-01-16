@@ -74,7 +74,7 @@ public class RechargeController {
     }
 
     //充值列表查看页面
-    @RequestMapping(value = "/coins_list", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/coins_list", method = RequestMethod.GET)
     public String getCoinList(ModelMap map){
         UserEntity user=getCurrentUser();
         List<RechargeEntity> list = rechargeDao.findByUserId(user.getId());
@@ -82,14 +82,14 @@ public class RechargeController {
         Collections.reverse(list);
         map.addAttribute("list", list);
         return "coins_list";
-    }
+    }*/
     //充值查询明细
-    @RequestMapping(value = "/coins_details",method = RequestMethod.GET)
+   /* @RequestMapping(value = "/coins_details",method = RequestMethod.GET)
     public String getCoinDetail(ModelMap map,@RequestParam long id){
         RechargeEntity rechargeEntity = rechargeDao.findOne(id);
         map.addAttribute("rechargeEntity",rechargeEntity);
         return "/coins_details";
-    }
+    }*/
 
     //时间币充值页面
 

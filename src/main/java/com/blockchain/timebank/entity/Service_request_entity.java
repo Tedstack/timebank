@@ -1,5 +1,6 @@
 package com.blockchain.timebank.entity;
 
+import com.blockchain.timebank.weixin.util.FormatOrderIdUtil;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -130,5 +131,43 @@ public class Service_request_entity {
 
     public void setActualEndTime(Timestamp actualEndTime) {
         ActualEndTime = actualEndTime;
+    }
+
+    public static Service_request_entity set_service(ViewPublishOrderDetailEntity record){
+        Service_request_entity service = new Service_request_entity();
+        service.setClarify("service");
+        service.setId(record.getId());
+        service.setNeedUserid(record.getApplyUserId());
+        service.setNeedUsername(record.getApplyUserName());
+        service.setServiceUserid(record.getServiceUserId());
+        service.setServiceUserName(record.getServiceUserName());
+        service.setActualBeginTime(record.getActualBeginTime());
+        service.setActualEndTime(record.getActualEndTime());
+        service.setService_name(record.getServiceName());
+        service.setService_type(record.getServiceType());
+        service.setComment(record.getComment());
+        service.setRate(record.getRating());
+        BigDecimal money = BigDecimal.valueOf(Double.valueOf(record.getPayMoney()));
+        service.setPaymoney(money);
+        service.setOrderid(FormatOrderIdUtil.format(record.getCreateTime(),record.getId()));
+        return service;
+    }
+    public static Service_request_entity set_request(ViewRequestOrderDetailEntity record){
+        Service_request_entity request = new Service_request_entity();
+        request.setClarify("request");
+        request.setId(record.getId());
+        request.setNeedUserid(record.getRequestUserId());
+        request.setNeedUsername(record.getRequestUserName());
+        request.setServiceUserid(record.getApplyUserId());
+        request.setServiceUserName(record.getApplyUserName());
+        request.setActualBeginTime(record.getActualBeginTime());
+        request.setActualEndTime(record.getActualEndTime());
+        request.setService_name(record.getServiceName());
+        request.setService_type(record.getServiceType());
+        request.setComment(record.getComment());
+        request.setRate(record.getRate());
+        request.setPaymoney(record.getPayMoney());
+        request.setOrderid(FormatOrderIdUtil.format(record.getCreateTime(),record.getId()));
+        return request;
     }
 }

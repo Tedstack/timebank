@@ -416,44 +416,17 @@ public class UserController {
                 iter.remove();
             }
             else{
-                Service_request_entity service = new Service_request_entity();
-                service.setClarify("service");
-                service.setId(record.getId());
-                service.setNeedUserid(record.getApplyUserId());
-                service.setNeedUsername(record.getApplyUserName());
-                service.setServiceUserid(record.getServiceUserId());
-                service.setServiceUserName(record.getServiceUserName());
-                service.setActualBeginTime(record.getActualBeginTime());
-                service.setActualEndTime(record.getActualEndTime());
-                service.setService_name(record.getServiceName());
-                service.setService_type(record.getServiceType());
-                service.setComment(record.getComment());
-                service.setRate(record.getRating());
-                BigDecimal money = BigDecimal.valueOf(Double.valueOf(record.getPayMoney()));
-                service.setPaymoney(money);
+                Service_request_entity service = Service_request_entity.set_service(record);
                 recordlist.add(service);
             }
         }
         while(iter2.hasNext()){
             ViewRequestOrderDetailEntity record = iter2.next();
             if(!(record.getServiceType().equals("volunteer"))){
-                iter.remove();
+                iter2.remove();
             }
             else{
-                Service_request_entity request = new Service_request_entity();
-                request.setClarify("request");
-                request.setId(record.getId());
-                request.setNeedUserid(record.getRequestUserId());
-                request.setNeedUsername(record.getRequestUserName());
-                request.setServiceUserid(record.getApplyUserId());
-                request.setServiceUserName(record.getApplyUserName());
-                request.setActualBeginTime(record.getActualBeginTime());
-                request.setActualEndTime(record.getActualEndTime());
-                request.setService_name(record.getServiceName());
-                request.setService_type(record.getServiceType());
-                request.setComment(record.getComment());
-                request.setRate(record.getRate());
-                request.setPaymoney(record.getPayMoney());
+               Service_request_entity request = Service_request_entity.set_request(record);
                 recordlist.add(request);
             }
         }
@@ -473,64 +446,83 @@ public class UserController {
         if ("service".equals(clarify)) {
             ViewPublishOrderDetailEntity record = viewRecordDetailDao.findOne(id);
             map.addAttribute("userid", CommenData.getUserId());
-            service.setClarify("service");
-            service.setId(record.getId());
-            service.setNeedUserid(record.getApplyUserId());
-            service.setNeedUsername(record.getApplyUserName());
-            service.setServiceUserid(record.getServiceUserId());
-            service.setServiceUserName(record.getServiceUserName());
-            service.setActualBeginTime(record.getActualBeginTime());
-            service.setActualEndTime(record.getActualEndTime());
-            service.setService_name(record.getServiceName());
-            service.setService_type(record.getServiceType());
-            service.setComment(record.getComment());
-            service.setRate(record.getRating());
-            BigDecimal money = BigDecimal.valueOf(Double.valueOf(record.getPayMoney()));
-            service.setPaymoney(money);
-            SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
-            String time = format.format(record.getCreateTime());
-            String record_id = String.valueOf(record.getId());
-            if (record_id.length() == 1) {
-                record_id = "00" + record_id;
-            } else if (record_id.length() == 2) {
-                record_id = "0" + record_id;
-            } else if (record_id.length() > 3) {
-                record_id = record_id.substring(record_id.length() - 3, record_id.length());
-            }
-            service.setOrderid(time + record_id);
+            service = Service_request_entity.set_service(record);
             map.addAttribute("vol_detail", service);
 
         }
         if ("request".equals(clarify)) {
             ViewRequestOrderDetailEntity record = viewRequestOrderDetailDao.findOne(id);
-            service.setClarify("request");
-            service.setId(record.getId());
-            service.setNeedUserid(record.getRequestUserId());
-            service.setNeedUsername(record.getRequestUserName());
-            service.setServiceUserid(record.getApplyUserId());
-            service.setServiceUserName(record.getApplyUserName());
-            service.setActualBeginTime(record.getActualBeginTime());
-            service.setActualEndTime(record.getActualEndTime());
-            service.setService_name(record.getServiceName());
-            service.setService_type(record.getServiceType());
-            service.setComment(record.getComment());
-            service.setRate(record.getRate());
-            service.setPaymoney(record.getPayMoney());
-            SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
-            String time = format.format(record.getCreateTime());
-            String record_id = String.valueOf(record.getId());
-            if (record_id.length() == 1) {
-                record_id = "00" + record_id;
-            } else if (record_id.length() == 2) {
-                record_id = "0" + record_id;
-            } else if (record_id.length() > 3) {
-                record_id = record_id.substring(record_id.length() - 3, record_id.length());
-            }
-            service.setOrderid(time + record_id);
+            service = Service_request_entity.set_request(record);
             map.addAttribute("vol_detail", service);
             map.addAttribute("userid", CommenData.getUserId());
         }
         return "volCoin_detail";
+    }
+
+    //时间币列表
+    @RequestMapping(value = "/coins_list", method = RequestMethod.GET)
+    public String getCoinList(ModelMap map){
+        /*UserEntity user=getCurrentUser();
+        List<RechargeEntity> list = rechargeDao.findByUserId(user.getId());
+        //倒序排列
+        Collections.reverse(list);*/
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(),OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyComplete);
+        List<ViewRequestOrderDetailEntity> requestDetailList = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(CommenData.getUserId(),OrderStatus.alreadyComplete);
+        List<ViewRequestOrderDetailEntity> requestDetailList2 = viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(CommenData.getUserId(),OrderStatus.alreadyComplete);
+        recordDetailList.addAll(recordDetailList2);
+        requestDetailList.addAll(requestDetailList2);
+        Iterator<ViewPublishOrderDetailEntity> iter = recordDetailList.iterator();
+        Iterator<ViewRequestOrderDetailEntity> iter2 = requestDetailList.iterator();
+        List<Service_request_entity> recordlist = new ArrayList<Service_request_entity>();
+        while(iter.hasNext()){
+            ViewPublishOrderDetailEntity record = iter.next();
+            if(!(record.getServiceType().equals("互助服务"))){
+                iter.remove();
+            }
+            else{
+                Service_request_entity service = Service_request_entity.set_service(record);
+                recordlist.add(service);
+            }
+        }
+        while(iter2.hasNext()){
+            ViewRequestOrderDetailEntity record = iter2.next();
+            if(!(record.getServiceType().equals("mutualAid"))){
+                iter2.remove();
+            }
+            else{
+                Service_request_entity request = Service_request_entity.set_request(record);
+                recordlist.add(request);
+            }
+        }
+        if(recordlist.size()>0){
+            MySortList<Service_request_entity> msList = new MySortList<Service_request_entity>();
+            msList.sortByMethod(recordlist,"getActualEndTime",true);
+        }
+        map.addAttribute("list",recordlist);
+        map.addAttribute("userid",CommenData.getUserId());
+        return "coins_list";
+    }
+    //时间币明细
+    @RequestMapping(value = "/coins_details",method = RequestMethod.GET)
+    public String getCoinDetail(ModelMap map,@RequestParam long id,@RequestParam String clarify){
+       /* RechargeEntity rechargeEntity = rechargeDao.findOne(id);
+        map.addAttribute("rechargeEntity",rechargeEntity);*/
+        Service_request_entity service = new Service_request_entity();
+        if ("service".equals(clarify)) {
+            ViewPublishOrderDetailEntity record = viewRecordDetailDao.findOne(id);
+            map.addAttribute("userid", CommenData.getUserId());
+            service = Service_request_entity.set_service(record);
+            map.addAttribute("coin_entity", service);
+
+        }
+        if ("request".equals(clarify)) {
+            ViewRequestOrderDetailEntity record = viewRequestOrderDetailDao.findOne(id);
+            service = Service_request_entity.set_request(record);
+            map.addAttribute("coin_entity", service);
+            map.addAttribute("userid", CommenData.getUserId());
+        }
+        return "/coins_details";
     }
 
     /**

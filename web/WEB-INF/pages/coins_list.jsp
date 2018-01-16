@@ -1,7 +1,8 @@
-<%@ page import="com.blockchain.timebank.entity.RechargeEntity" %>
+<%@ page import="com.blockchain.timebank.entity.Service_request_entity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp" %>
 <%--
   Created by IntelliJ IDEA.
   User: hanyunxia
@@ -29,35 +30,52 @@
 
         <div class="weui-panel__bd">
             <%
-                List<RechargeEntity> list = (List<RechargeEntity>)request.getAttribute("list");
+                List<Service_request_entity> list = (List<Service_request_entity>)request.getAttribute("list");
+                long userid = (long)request.getAttribute("userid");
                 if(list.isEmpty()) {
                     out.print("暂无任何记录");
                 }
                 else{
-                    for(RechargeEntity rechargeEntity:list){
+                    for(Service_request_entity coins_list :list){
             %>
-            <a href=<%out.print("coins_details?id="+rechargeEntity.getId()); %> class="weui-media-box weui-media-box_appmsg">
+            <a href="<%out.print("coins_details?id="+coins_list.getId()+"&clarify="+coins_list.getClarify());%>" class="weui-media-box weui-media-box_appmsg">
                 <div class="weui-media-box__hd">
-                    <img class="weui-media-box__thumb" src="../img/支付.png">
+                    <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(coins_list.getService_name());%>.png" width="5%" >
                 </div>
                 <div class="weui-media-box__bd">
                     <div class="weui-media-box__title">
-                        <span>充值</span>
-                        <span style="float: right">+<%out.print(rechargeEntity.getTotalAmount());%></span>
+                        <span><%
+                            if("service".equals(coins_list.getClarify()))
+                            {
+                                out.println("互助服务—" + coins_list.getService_name());
+                            }
+                            if("request".equals(coins_list.getClarify())) {
+                                out.println("互助需求—" + coins_list.getService_name());
+                            }
+                        %></span>
+                        <%
+                            if(userid == coins_list.getServiceUserid()){
+                        %>
+                        <span style="float: right">+<%out.print(coins_list.getPaymoney());%></span>
+                        <%}%>
+                        <%
+                            if(userid == coins_list.getNeedUserid()){
+                        %>
+                        <span style="float: right">-<%out.print(coins_list.getPaymoney());%></span>
+                        <%}%>
                     </div>
                     <div class="weui-media-box__info">
-                        <span><%
-                            String datetime  = rechargeEntity.getRechargeDate();
-                            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            Date date = bartDateFormat.parse(datetime);
-                            out.print(bartDateFormat.format(date));
-                        %></span>
+                        <%
+                            Timestamp endTimestamp = coins_list.getActualEndTime();
+                            Date enddate = new Date(endTimestamp.getTime());
+                            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            out.print(bartDateFormat.format(enddate));
+                        %>
                     </div>
                 </div>
             </a>
             <% } }%>
         </div>
-
     </div>
 </div>
 </body>
