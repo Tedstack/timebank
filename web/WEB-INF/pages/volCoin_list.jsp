@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.Service_request_entity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
@@ -22,7 +22,8 @@
 </head>
 <body>
 <div class="weui-tab">
-    <div class="weui-panel">
+    <div class="weui-tab__panel">
+    <div class="weui-panel weui-panel_access">
 
         <div class="weui-panel__hd">
             <span>志愿者时间明细</span>
@@ -30,30 +31,38 @@
 
         <div class="weui-panel__bd">
             <%
-                List<ViewPublishOrderDetailEntity> list = (List<ViewPublishOrderDetailEntity>)request.getAttribute("recordDetailList");
+                List<Service_request_entity> list = (List<Service_request_entity>)request.getAttribute("recordDetailList");
                 long userid = (long)request.getAttribute("userid");
                 if(list.isEmpty()) {
                     out.print("暂无任何记录");
                 }
                 else{
-                    for(ViewPublishOrderDetailEntity viewPublishOrderDetailEntity :list){
+                    for(Service_request_entity viewPublishOrderDetailEntity :list){
             %>
-            <a href=<%out.print("vol_detail?id="+viewPublishOrderDetailEntity.getId()); %> class="weui-media-box weui-media-box_appmsg">
+            <a href="<%out.print("vol_detail?id="+viewPublishOrderDetailEntity.getId()+"&clarify="+viewPublishOrderDetailEntity.getClarify());%>" class="weui-media-box weui-media-box_appmsg">
                 <div class="weui-media-box__hd">
-                    <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(viewPublishOrderDetailEntity.getServiceName());%>.png" width="50" height="50">
+                    <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(viewPublishOrderDetailEntity.getService_name());%>.png" width="5%" >
                 </div>
                 <div class="weui-media-box__bd">
                     <div class="weui-media-box__title">
-                        <span><%out.print(viewPublishOrderDetailEntity.getServiceName());%></span>
+                        <span><%
+                            if("service".equals(viewPublishOrderDetailEntity.getClarify()))
+                            {
+                                out.println("志愿者服务—" + viewPublishOrderDetailEntity.getService_name());
+                            }
+                            if("request".equals(viewPublishOrderDetailEntity.getClarify())) {
+                                out.println("志愿者需求—" + viewPublishOrderDetailEntity.getService_name());
+                            }
+                        %></span>
                         <%
-                            if(userid == viewPublishOrderDetailEntity.getServiceUserId()){
+                            if(userid == viewPublishOrderDetailEntity.getServiceUserid()){
                         %>
-                        <span style="float: right">+<%out.print(viewPublishOrderDetailEntity.getPayMoney());%></span>
+                        <span style="float: right">+<%out.print(viewPublishOrderDetailEntity.getPaymoney());%></span>
                         <%}%>
                         <%
-                            if(userid == viewPublishOrderDetailEntity.getApplyUserId()){
+                            if(userid == viewPublishOrderDetailEntity.getNeedUserid()){
                         %>
-                        <span style="float: right">-<%out.print(viewPublishOrderDetailEntity.getPayMoney());%></span>
+                        <span style="float: right">-<%out.print(viewPublishOrderDetailEntity.getPaymoney());%></span>
                         <%}%>
                     </div>
                     <div class="weui-media-box__info">
@@ -66,8 +75,9 @@
                     </div>
                 </div>
             </a>
+            <% } }%>
         </div>
-        <% } }%>
+    </div>
     </div>
 </div>
 </body>

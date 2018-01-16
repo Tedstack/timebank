@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -401,28 +402,137 @@ public class UserController {
     public String queryVolPublicAlComplete(ModelMap map){
         List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
+        List<ViewRequestOrderDetailEntity> requestDetailList = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<ViewRequestOrderDetailEntity> requestDetailList2 = viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         recordDetailList.addAll(recordDetailList2);
+        requestDetailList.addAll(requestDetailList2);
         Iterator<ViewPublishOrderDetailEntity> iter = recordDetailList.iterator();
+        Iterator<ViewRequestOrderDetailEntity> iter2 = requestDetailList.iterator();
+        List<Service_request_entity> recordlist = new ArrayList<Service_request_entity>();
         while(iter.hasNext()){
             ViewPublishOrderDetailEntity record = iter.next();
             if(!(record.getServiceType().equals("志愿者服务"))){
                 iter.remove();
             }
+            else{
+                Service_request_entity service = new Service_request_entity();
+                service.setClarify("service");
+                service.setId(record.getId());
+                service.setNeedUserid(record.getApplyUserId());
+                service.setNeedUsername(record.getApplyUserName());
+                service.setServiceUserid(record.getServiceUserId());
+                service.setServiceUserName(record.getServiceUserName());
+                service.setActualBeginTime(record.getActualBeginTime());
+                service.setActualEndTime(record.getActualEndTime());
+                service.setService_name(record.getServiceName());
+                service.setService_type(record.getServiceType());
+                service.setComment(record.getComment());
+                service.setRate(record.getRating());
+                BigDecimal money = BigDecimal.valueOf(Double.valueOf(record.getPayMoney()));
+                service.setPaymoney(money);
+                recordlist.add(service);
+            }
         }
-        if(recordDetailList.size()>0){
-            Collections.reverse(recordDetailList);
+        while(iter2.hasNext()){
+            ViewRequestOrderDetailEntity record = iter2.next();
+            if(!(record.getServiceType().equals("volunteer"))){
+                iter.remove();
+            }
+            else{
+                Service_request_entity request = new Service_request_entity();
+                request.setClarify("request");
+                request.setId(record.getId());
+                request.setNeedUserid(record.getRequestUserId());
+                request.setNeedUsername(record.getRequestUserName());
+                request.setServiceUserid(record.getApplyUserId());
+                request.setServiceUserName(record.getApplyUserName());
+                request.setActualBeginTime(record.getActualBeginTime());
+                request.setActualEndTime(record.getActualEndTime());
+                request.setService_name(record.getServiceName());
+                request.setService_type(record.getServiceType());
+                request.setComment(record.getComment());
+                request.setRate(record.getRate());
+                request.setPaymoney(record.getPayMoney());
+                recordlist.add(request);
+            }
         }
-        map.addAttribute("recordDetailList", recordDetailList);
+        if(recordlist.size()>0){
+            MySortList<Service_request_entity> msList = new MySortList<Service_request_entity>();
+            msList.sortByMethod(recordlist,"getActualEndTime",true);
+        }
+        map.addAttribute("recordDetailList", recordlist);
         map.addAttribute("userid",getCurrentUser().getId());
         return "volCoin_list";
 
     }
     //显示志愿者币详情
     @RequestMapping(value="/vol_detail",method = RequestMethod.GET)
-    public String detailPage(ModelMap map, @RequestParam long id){
-        ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewRecordDetailDao.findOne(id);
-        map.addAttribute("vol_detail", viewPublishOrderDetailEntity);
-        map.addAttribute("userid",getCurrentUser().getId());
+    public String detailPage(ModelMap map, @RequestParam long id,@RequestParam String clarify){
+        Service_request_entity service = new Service_request_entity();
+        if("service".equals(clarify)) {
+            ViewPublishOrderDetailEntity record = viewRecordDetailDao.findOne(id);
+            map.addAttribute("userid", getCurrentUser().getId());
+            service.setClarify("service");
+            service.setId(record.getId());
+            service.setNeedUserid(record.getApplyUserId());
+            service.setNeedUsername(record.getApplyUserName());
+            service.setServiceUserid(record.getServiceUserId());
+            service.setServiceUserName(record.getServiceUserName());
+            service.setActualBeginTime(record.getActualBeginTime());
+            service.setActualEndTime(record.getActualEndTime());
+            service.setService_name(record.getServiceName());
+            service.setService_type(record.getServiceType());
+            service.setComment(record.getComment());
+            service.setRate(record.getRating());
+            BigDecimal money = BigDecimal.valueOf(Double.valueOf(record.getPayMoney()));
+            service.setPaymoney(money);
+            SimpleDateFormat  format = new SimpleDateFormat("yyMMddHHmmss");
+            String time = format.format(record.getCreateTime());
+            String record_id = String.valueOf(record.getId());
+            if(record_id.length()==1){
+                record_id = "00" + record_id;
+            }
+            else if(record_id.length() ==2){
+                record_id = "0" + record_id;
+            }
+            else if(record_id.length() > 3){
+                record_id = record_id.substring(record_id.length()-3,record_id.length());
+            }
+            service.setOrderid(time+record_id);
+            map.addAttribute("vol_detail", service);
+
+        }
+        if("request".equals(clarify)) {
+            ViewRequestOrderDetailEntity record = viewRequestOrderDetailDao.findOne(id);
+            service.setClarify("request");
+            service.setId(record.getId());
+            service.setNeedUserid(record.getRequestUserId());
+            service.setNeedUsername(record.getRequestUserName());
+            service.setServiceUserid(record.getApplyUserId());
+            service.setServiceUserName(record.getApplyUserName());
+            service.setActualBeginTime(record.getActualBeginTime());
+            service.setActualEndTime(record.getActualEndTime());
+            service.setService_name(record.getServiceName());
+            service.setService_type(record.getServiceType());
+            service.setComment(record.getComment());
+            service.setRate(record.getRate());
+            service.setPaymoney(record.getPayMoney());
+            SimpleDateFormat  format = new SimpleDateFormat("yyMMddHHmmss");
+            String time = format.format(record.getCreateTime());
+            String record_id = String.valueOf(record.getId());
+            if(record_id.length()==1){
+                record_id = "00" + record_id;
+            }
+            else if(record_id.length() ==2){
+                record_id = "0" + record_id;
+            }
+            else if(record_id.length() > 3){
+                record_id = record_id.substring(record_id.length()-3,record_id.length());
+            }
+            service.setOrderid(time+record_id);
+            map.addAttribute("vol_detail", service);
+            map.addAttribute("userid", getCurrentUser().getId());
+        }
         return "volCoin_detail";
     }
 
@@ -649,7 +759,7 @@ public class UserController {
 
     //服务详细列表
     @RequestMapping(value = "/fabuDetail", method = RequestMethod.GET)
-    public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
+    public String coindetailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
         return "service_posted_detail";

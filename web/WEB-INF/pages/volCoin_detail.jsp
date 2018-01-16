@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.Service_request_entity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
@@ -24,22 +24,30 @@
 <div class="weui-tab">
     <div class="weui-panel">
         <%
-            ViewPublishOrderDetailEntity details = (ViewPublishOrderDetailEntity)request.getAttribute("vol_detail");
+            Service_request_entity details = (Service_request_entity)request.getAttribute("vol_detail");
             long userid = (long)request.getAttribute("userid");
         %>
         <div class="weui-cells">
-            <% if(userid == details.getServiceUserId() ){ %>
+            <% if(userid == details.getServiceUserid() ){ %>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>订单编号：</p>
                 </div>
-                <div class="weui-cell__ft"><%=details.getId()%></div>
+                <div class="weui-cell__ft"><%=details.getOrderid()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                   <p>服务名称：</p>
                 </div>
-                <div class="weui-cell__ft"><%=details.getServiceName()%></div>
+                <div class="weui-cell__ft"><%
+                    if("service".equals(details.getClarify()))
+                    {
+                        out.println("志愿者服务：" + details.getService_name());
+                    }
+                    if("request".equals(details.getClarify())){
+                        out.println("志愿者需求：" + details.getService_name());
+                    }
+                %></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -51,7 +59,7 @@
                 <div class="weui-cell__bd">
                     <p>收入：</p>
                 </div>
-                <div class="weui-cell__ft">+<%=details.getPayMoney()%></div>
+                <div class="weui-cell__ft">+<%=details.getPaymoney()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -90,19 +98,27 @@
                     %></div>
             </div>
             <%}%>
-            <% if (userid== details.getApplyUserId()){
+            <% if (userid== details.getNeedUserid()){
             %>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>订单编号：</p>
                 </div>
-                <div class="weui-cell__ft"><%=details.getId()%></div>
+                <div class="weui-cell__ft"><%=details.getOrderid()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>服务名称：</p>
                 </div>
-                <div class="weui-cell__ft"><%=details.getServiceName()%></div>
+                <div class="weui-cell__ft"><%
+                    if("service".equals(details.getClarify()))
+                    {
+                        out.println("志愿者服务：" + details.getService_name());
+                    }
+                    if("request".equals(details.getClarify())){
+                    out.println("志愿者需求：" + details.getService_name());
+                }
+                %></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
@@ -114,7 +130,7 @@
                 <div class="weui-cell__bd">
                     <p>支出：</p>
                 </div>
-                <div class="weui-cell__ft">-<%=details.getPayMoney()%></div>
+                <div class="weui-cell__ft">-<%=details.getPaymoney()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
