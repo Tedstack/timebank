@@ -80,7 +80,7 @@ public class RecordController {
     @RequestMapping(value = "/pingjia_activities", method = RequestMethod.GET)
     public String pingjiaActivities(ModelMap map,@RequestParam String num,@RequestParam long activityId) {
         ViewActivityPublishDetailEntity activityy=viewActivityPublishDetailDao.findOne(activityId);
-        UserActivityEntity userActivity=userActivityService.findUserFromActivity(getCurrentUser().getId(),activityId);
+        UserActivityEntity userActivity=userActivityService.findUserFromActivity(CommenData.getUserId(),activityId);
         map.addAttribute("activityDetail",activityy);
         map.addAttribute("userActivity",userActivity);
         map.addAttribute("rateCount",num);
@@ -114,7 +114,7 @@ public class RecordController {
 
         //判断是否申请自己的服务
         boolean isOneself = false;
-        if(serviceUserId == getCurrentUser().getId()){
+        if(serviceUserId == CommenData.getUserId()){
             isOneself = true;
         }
 
@@ -124,7 +124,7 @@ public class RecordController {
                 PublishOrderEntity publishOrderEntity = new PublishOrderEntity();
                 publishOrderEntity.setServiceUserId(serviceUserId);
                 publishOrderEntity.setPublishId(publishId);
-                publishOrderEntity.setApplyUserId(getCurrentUser().getId());
+                publishOrderEntity.setApplyUserId(CommenData.getUserId());
                 publishOrderEntity.setApplyUserName(applyUserName);
                 publishOrderEntity.setApplyUserPhone(applyUserPhone);
                 publishOrderEntity.setApplyAddress(address);

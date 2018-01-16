@@ -186,7 +186,7 @@ public class PublishController {
             PublishEntity publishEntity = new PublishEntity();
             publishEntity.setAddress(address);
             publishEntity.setDescription(description);
-            publishEntity.setUserId(getCurrentUser().getId());
+            publishEntity.setUserId(CommenData.getUserId());
             publishEntity.setPrice(price);
             publishEntity.setServiceId(serviceService.findFirstByTypeAndName(serviceType, serviceName).getId());//serviceId
             Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")

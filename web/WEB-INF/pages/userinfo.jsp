@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %><%--
+<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
+<%@ page import="com.blockchain.timebank.entity.CommenData" %><%--
   Created by IntelliJ IDEA.
   User: toyking
   Date: 2017/10/24

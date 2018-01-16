@@ -206,15 +206,10 @@
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
-                    var value = JSON.stringify(data);
-                    var dataJson = JSON.parse(value);
-
-                    if(dataJson.msg==="ok"){
+                    if(data==="success"){
                         showAlert("申请成功",function () {
                             location.reload();
                         });
-                    }else if(dataJson.msg==="msgFail"){
-                        showAlert("信息发送失败");
                     }
                 },
                 error: function (xhr, type) {

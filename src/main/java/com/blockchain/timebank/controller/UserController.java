@@ -90,6 +90,7 @@ public class UserController {
             map.addAttribute("error", "错误的用户名或者密码");
             return "login";
         } else {
+            CommenData.setUserId(userEntity.getId());
             userEntity.setOpenId(openID);
             userService.updateUserEntity(userEntity);
 
@@ -333,7 +334,7 @@ public class UserController {
                 if(imgFile2!=null)
                     file2.transferTo(imgFile2);
                 file3.transferTo(imgFile3);
-                technicAuthEntity.setUserId(getCurrentUser().getId());
+                technicAuthEntity.setUserId(CommenData.getUserId());
                 if (technicAuthService.insertTechnicAuthEntity(technicAuthEntity))
                     msg = "upload success";
             } catch (Exception e) {
@@ -399,8 +400,8 @@ public class UserController {
     //查询用户发布服务接口：已完成的志愿者服务
     @RequestMapping(value="/queryVolPublishAlComplete",method = RequestMethod.GET)
     public String queryVolPublicAlComplete(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(),OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyComplete);
         recordDetailList.addAll(recordDetailList2);
         Iterator<ViewPublishOrderDetailEntity> iter = recordDetailList.iterator();
         while(iter.hasNext()){
@@ -413,7 +414,7 @@ public class UserController {
             Collections.reverse(recordDetailList);
         }
         map.addAttribute("recordDetailList", recordDetailList);
-        map.addAttribute("userid",getCurrentUser().getId());
+        map.addAttribute("userid",CommenData.getUserId());
         return "volCoin_list";
 
     }
@@ -422,7 +423,7 @@ public class UserController {
     public String detailPage(ModelMap map, @RequestParam long id){
         ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewRecordDetailDao.findOne(id);
         map.addAttribute("vol_detail", viewPublishOrderDetailEntity);
-        map.addAttribute("userid",getCurrentUser().getId());
+        map.addAttribute("userid",CommenData.getUserId());
         return "volCoin_detail";
     }
 
@@ -434,7 +435,7 @@ public class UserController {
     //查询用户发布服务的接口：已发布
     @RequestMapping(value = "/queryPublishAlreadyPublish",method = RequestMethod.GET)
     public String queryPublishAlreadyPublish(ModelMap map){
-        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserIdAndIsDelete(getCurrentUser().getId(),0);
+        List<ViewPublishDetailEntity> publishList = viewPublishDetailDao.findViewPublishDetailEntitiesByUserIdAndIsDelete(CommenData.getUserId(),0);
 
         //倒序排列
         Collections.reverse(publishList);
@@ -445,7 +446,7 @@ public class UserController {
     //查询用户发布服务的接口：待确认
     @RequestMapping(value = "/queryPublishWaitingConfirm",method = RequestMethod.GET)
     public String queryPublishWaitingConfirm(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyApply);
 
         //倒序排列
         Collections.reverse(recordDetailList);
@@ -456,7 +457,7 @@ public class UserController {
     //查询用户发布服务的接口：待服务
     @RequestMapping(value = "/queryPublishWaitingService",method = RequestMethod.GET)
     public String queryPublishWaitingService(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingService);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(), OrderStatus.waitingService);
 
         //倒序排列
         Collections.reverse(recordDetailList);
@@ -467,7 +468,7 @@ public class UserController {
     //查询用户发布服务的接口：待收款
     @RequestMapping(value = "/queryPublishWaitingCollect",method = RequestMethod.GET)
     public String queryPublishWaitingCollect(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingPay);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(), OrderStatus.waitingPay);
 
         //倒序排列
         Collections.reverse(recordDetailList);
@@ -478,8 +479,8 @@ public class UserController {
     //查询用户发布服务的接口：已完成
     @RequestMapping(value = "/queryPublishAlreadyComplete",method = RequestMethod.GET)
     public String queryPublishAlreadyComplete(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
-        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyRefuse);
 
         recordDetailList.addAll(recordDetailList2);
 
@@ -498,7 +499,7 @@ public class UserController {
     //查询用户申请订单的接口：已申请
     @RequestMapping(value = "/queryOrderAlreadyApply",method = RequestMethod.GET)
     public String queryAlreadyApplyOrder(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyApply);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyApply);
 
         //倒序排列
         Collections.reverse(recordDetailList);
@@ -509,7 +510,7 @@ public class UserController {
     //查询用户申请订单的接口：待上门
     @RequestMapping(value = "/queryOrderWaitingService",method = RequestMethod.GET)
     public String queryWaitingServiceOrder(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingService);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.waitingService);
 
         //倒序排列
         Collections.reverse(recordDetailList);
@@ -520,7 +521,7 @@ public class UserController {
     //查询用户申请订单的接口：待付款
     @RequestMapping(value = "/queryOrderWaitingPay",method = RequestMethod.GET)
     public String queryWaitingPayOrder(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.waitingPay);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.waitingPay);
 
         //倒序排列
         Collections.reverse(recordDetailList);
@@ -531,8 +532,8 @@ public class UserController {
     //查询用户申请订单的接口：已完成
     @RequestMapping(value = "/queryOrderAlreadyComplete",method = RequestMethod.GET)
     public String queryAlreadyCompleteOrder(ModelMap map){
-        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
-        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
+        List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(CommenData.getUserId(), OrderStatus.alreadyRefuse);
         recordDetailList.addAll(recordDetailList2);
 
         //倒序排列
@@ -636,11 +637,11 @@ public class UserController {
     public void applyUserPayTimeCoin(ModelMap map,@RequestParam long recordID) {
         ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
         if(viewPublishOrderDetailEntity.getServiceType().equals(ServiceType.volunteerService)){
-            if(getCurrentUser().getId()== viewPublishOrderDetailEntity.getApplyUserId()){
+            if(CommenData.getUserId()== viewPublishOrderDetailEntity.getApplyUserId()){
                 accountService.payTimeVol(recordID);
             }
         } else if(viewPublishOrderDetailEntity.getServiceType().equals(ServiceType.mutualHelpService)){
-            if(getCurrentUser().getId()== viewPublishOrderDetailEntity.getApplyUserId()){
+            if(CommenData.getUserId()== viewPublishOrderDetailEntity.getApplyUserId()){
                 accountService.payTimeCoin(recordID);
             }
         }
@@ -686,9 +687,9 @@ public class UserController {
     //历史评价信息
     @RequestMapping(value = "/history_evaluation", method = RequestMethod.GET)
     public String history_evaluation(ModelMap map) {
-        List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(getCurrentUser().getId(), true, true, ActivityStatus.alreadyTerminate);
-        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(CommenData.getUserId(),OrderStatus.alreadyComplete);
+        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(CommenData.getUserId(), true, true, ActivityStatus.alreadyTerminate);
+        List<ViewRequestOrderDetailEntity> requestlist = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(CommenData.getUserId(),OrderStatus.alreadyComplete);
         List<Evaluation_entity> recordlist = new ArrayList<Evaluation_entity>();
         Iterator<ViewPublishOrderDetailEntity> iter1 = servicelist.iterator();
         Iterator<ViewRequestOrderDetailEntity> iter2 = requestlist.iterator();
@@ -773,7 +774,7 @@ public class UserController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {
             try {
-                return technicAuthService.findTechnicAuthEntitiesByUserId(getCurrentUser().getId());
+                return technicAuthService.findTechnicAuthEntitiesByUserId(CommenData.getUserId());
             }
             catch (Exception e){
                 System.out.println(e);

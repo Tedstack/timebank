@@ -106,6 +106,8 @@
     var tab='<%=tab%>';
     if(tab==='0')
         back_to("${pageContext.request.contextPath}/team/teamList");
+    else
+        back_to("${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID="+);
 </script>
 <script type="text/javascript">
 </script>
