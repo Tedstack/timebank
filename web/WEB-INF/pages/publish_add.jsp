@@ -84,7 +84,7 @@
                         <label class="weui-label">服务描述</label></div>
                     <div class="weui-cell__bd">
                         <div class="weui-cell__bd">
-                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3" onkeyup="checkLen(this)"></textarea>
+                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3" maxlength="400" oninput="checkLen(this)"></textarea>
                             <div style="float:right; color:#999"><span id="description-count">0</span>/200</div>
                         </div>
                     </div>
@@ -202,13 +202,26 @@
        });
     });
 
+    function getLength(str) {
+        return str.replace(/[^ -~]/g, 'AA').length;
+    }
+
+    function limitMaxLength(str, maxLength) {
+        var result = [];
+        for (var i = 0; i < maxLength; i++) {
+            var char = str[i]
+            if (/[^ -~]/.test(char))
+                maxLength--;
+            result.push(char);
+        }
+        return result.join('');
+    }
+
     function checkLen(obj)
     {
-        var maxChars = 200;//最多字符数
-        if (obj.value.length > maxChars)
-            obj.value = obj.value.substring(0,maxChars);
-        var curr = obj.value.length;
-        document.getElementById("description-count").innerHTML = curr.toString();
+        if (getLength(obj.value) > 400)
+            obj.value = limitMaxLength(obj.value, 400);
+        document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
 
     function check(){

@@ -7,6 +7,7 @@ import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.TechnicAuthService;
 import com.blockchain.timebank.service.UserAuthService;
 import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.entity.CommenData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -113,7 +114,7 @@ public class UserManageController {
     public String userTechVerifySubmit(ModelMap map, @RequestParam long techId, @RequestParam int isVerify){
         TechnicAuthEntity technicAuthEntity = technicAuthService.findTechnicAuthEntityById(techId);
         technicAuthEntity.setVerified(isVerify==1);
-        technicAuthEntity.setAuthId(getCurrentUser().getId());
+        technicAuthEntity.setAuthId(CommenData.getUserId());
         technicAuthEntity.setAuthDate(new Timestamp(new java.util.Date().getTime()));
         technicAuthService.saveTechnicAuthEntity(technicAuthEntity);
         map.addAttribute("tech", technicAuthEntity);

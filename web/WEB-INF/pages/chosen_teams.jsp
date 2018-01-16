@@ -64,16 +64,16 @@
                 for (int i=0;i<teamList.size();i++) {
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){
             %>
-            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
+            <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
-                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
                             <img src="../img/teamHeadImg/<%out.print(teamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
                         </div>
-                            <div class="weui-cell__bd">
-                              <p><%out.print(teamList.get(i).getName());%></p>
-                              <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
-                            </div>
+                        <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
+                            <p><%out.print(teamList.get(i).getName());%></p>
+                            <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
+                        </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="quitFromTeam(this)" id=<%out.print(teamList.get(i).getId());%>>退出</a>
                     </label>
                 </div>
@@ -113,7 +113,7 @@
     });
 
     function quitFromTeam(t) {
-        var contextPath="${pageContext.request.contextPath}"
+        var contextPath="${pageContext.request.contextPath}";
         var targetUrl = "http://"+getDomainName()+contextPath+"/team/quiteFromTeam";
         var teamId=t.id;//退出团队的Id
         $.ajax({
@@ -125,9 +125,7 @@
                 dialogLoading = showLoading();
             },
             success: function (data) {
-                var value = JSON.stringify(data);
-                var dataJson = JSON.parse(value);
-                if(dataJson.msg==="ok"){
+                if(data==="success"){
                     showAlert("退出成功",function () {
                         location.reload();
                     });

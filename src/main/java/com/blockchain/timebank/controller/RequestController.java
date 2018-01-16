@@ -134,7 +134,7 @@ public class RequestController {
                                        @RequestParam long requestId,
                                        @RequestParam String beginTime,
                                        @RequestParam int serveTime){
-        long applyUserId = getCurrentUser().getId();
+        long applyUserId = CommenData.getUserId();
         //判断是否申请自己的服务
         boolean isOneself = false;
         if(requestUserId == applyUserId){
@@ -145,7 +145,7 @@ public class RequestController {
             requestOrderEntity.setApplyUserId(applyUserId);
             requestOrderEntity.setRequestUserId(requestUserId);
             requestOrderEntity.setRequestId(requestId);
-            requestOrderEntity.setApplyUserId(getCurrentUser().getId());
+            requestOrderEntity.setApplyUserId(CommenData.getUserId());
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
             requestOrderEntity.setBeginTime(new Timestamp(date.getTime()));
             requestOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
@@ -247,7 +247,7 @@ public class RequestController {
 
     @RequestMapping(value = "/published", method = RequestMethod.GET)
     public String published(ModelMap map){
-        long id = getCurrentUser().getId();
+        long id = CommenData.getUserId();
         
         List<ViewRequestDetailEntity> requestPublished = requestService.findUserRequestPublished(id);
         //倒序排列
@@ -314,7 +314,7 @@ public class RequestController {
 
     @RequestMapping(value = "/applied", method = RequestMethod.GET)
     public String applied(ModelMap map){
-        long id = getCurrentUser().getId();
+        long id = CommenData.getUserId();
 
         List<ViewRequestOrderDetailEntity> requestApplied = requestOrderService.findUserApplyApplied(id);
         //倒序排列
@@ -428,12 +428,12 @@ public class RequestController {
     public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
         if(viewRequestOrderDetailEntity.getServiceType().equals("volunteer")){
-            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
+            if(CommenData.getUserId()== viewRequestOrderDetailEntity.getRequestUserId()){
                 accountService.payRequestTimeVol(matchID);
             }
         }
         else if(viewRequestOrderDetailEntity.getServiceType().equals("mutualAid")){
-            if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
+            if(CommenData.getUserId()== viewRequestOrderDetailEntity.getRequestUserId()){
                 accountService.payRequestTimeCoin(matchID);
             }
         }

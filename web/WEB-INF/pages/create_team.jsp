@@ -58,7 +58,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="content_number" name="content_number" placeholder="默认注册手机号"/>
+            <input class="weui-input" id="content_number" type="number" pattern="[0-9]*" name="content_number" placeholder="默认注册手机号"/>
         </div>
     </div>
     <div class="weui-cell">

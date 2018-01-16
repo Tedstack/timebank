@@ -59,6 +59,19 @@
 
                 <%
                     List<ViewRequestDetailEntity> list = (List<ViewRequestDetailEntity>) request.getAttribute("list");
+                    Date currentDate = new Date();
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+                    String currentTime = sdf.format(currentDate);
+                    int i = 0, s = 0;
+                    while (s<list.size()){
+                        if(list.get(i).getEndTime().getTime() < new Date(currentTime).getTime()){
+                            list.add(list.get(i));
+                            list.remove(i);
+                        }
+                        else
+                            i++;
+                        s++;
+                    }
                     for (ViewRequestDetailEntity viewRequestDetailEntity : list) {
                 %>
 
@@ -72,9 +85,6 @@
                             <%out.print(viewRequestDetailEntity.getServiceName());%>
                         </h4>
                         <%
-                            Date currentDate = new Date();
-                            SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
-                            String currentTime = sdf.format(currentDate);
                             if(viewRequestDetailEntity.getIsComplete()==(byte) 1){
                                 out.print("<span class='overtimeFlag'>已完成</span>");
                             }

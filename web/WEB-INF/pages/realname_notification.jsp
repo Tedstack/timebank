@@ -12,6 +12,8 @@
     <title>我的信息</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="../js/utils.js"></script>
+    <script type="text/javascript">back_to("${pageContext.request.contextPath}/user/");</script>
 </head>
 <body>
 <div class="weui-msg">
