@@ -34,7 +34,7 @@
             <form class="weui-cells weui-cells_form" id="userForm" method="post" action="uploadUserInfo">
 
                 <div class="weui-cells__title">
-                    <p>身份证照片</p>
+                    <p>身份证照片(长按可删除)</p>
                 </div>
                 <div class="weui-cells_form weui-cells">
                     <div class="weui-cell">
@@ -101,7 +101,7 @@
                     <h2 class="title">注意事项</h2>
                     <section>
                         <p>
-                            1. 照片必须清晰，且含有完整身份证。<br/>
+                            1. 照片必须清晰，且含有完整身份证。照片大小不得超过5MB。<br/>
                             2. 所填写证件号码必须与上传的照片一致。<br/>
                             3. 上传的照片必须是原始的，不得使用任何软件修改。
                         </p>
@@ -113,6 +113,18 @@
 </div>
 
 <script type="text/javascript">
+    $.fn.longPress = function(fn) {
+        var timeout = undefined;
+        var $this = this;
+        for(var i = 0;i<$this.length;i++){
+            $this[i].addEventListener('touchstart', function(event) {
+                timeout = setTimeout(fn, 500);  //长按时间超过800ms，则执行传入的方法
+            }, false);
+            $this[i].addEventListener('touchend', function(event) {
+                clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
+            }, false);
+        }
+    };
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
@@ -132,6 +144,13 @@
         ;
 
         $uploaderInput1.on("change", function(e){
+            if ($uploaderInput1[0].files.length <= 0) return;
+
+            if ($uploaderInput1[0].files[0].size > 1024*1024*5) {
+                $uploaderInput1[0].value='';
+                alert('图片过大请重新选择');
+                return;
+            }
             var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
             for (var i = 0, len = files.length; i < len; ++i) {
                 var file = files[i];
@@ -147,6 +166,13 @@
             }
         });
         $uploaderInput2.on("change", function(e){
+            if ($uploaderInput2[0].files.length <= 0) return;
+
+            if ($uploaderInput2[0].files[0].size > 1024*1024*5) {
+                $uploaderInput2[0].value='';
+                alert('图片过大请重新选择');
+                return;
+            }
             var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
             for (var i = 0, len = files.length; i < len; ++i) {
                 var file = files[i];
@@ -167,10 +193,21 @@
             $galleryImg.attr("style", this.getAttribute("style"));
             $gallery.fadeIn(100);
         });
+        $uploaderFiles1.longPress(function () {
+            $uploaderFiles1.empty();
+            $uploaderInput1.parent().show();
+            $uploaderInput1[0].value='';
+        });
         $uploaderFiles2.on("click", "li", function(){
             $galleryImg.attr("style", this.getAttribute("style"));
             $gallery.fadeIn(100);
         });
+        $uploaderFiles2.longPress(function () {
+            $uploaderFiles2.empty();
+            $uploaderInput2.parent().show();
+            $uploaderInput2[0].value='';
+        });
+
         $gallery.on("click", function(){
             $gallery.fadeOut(100);
         });

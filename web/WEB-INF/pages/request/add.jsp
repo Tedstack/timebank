@@ -93,7 +93,8 @@
                     </div>
                     <div class="weui-cell__bd">
                         <div class="weui-cell__bd">
-                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
+                            <textarea id="serviceDescription" class="weui-textarea" name="description" placeholder="请输入描述" oninput="checkLen(this)" rows="3" maxlength="400"></textarea>
+                            <div style="float:right; color:#999"><span id="description-count">0</span>/200</div>
                         </div>
                     </div>
                 </div>
@@ -126,7 +127,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">需求价格</label></div>
                     <div class="weui-cell__bd">
-                        <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入需求价格" min="0"/>
+                        <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入需求价格" min="0" max="200"/>
                     </div>
                 </div>
 
@@ -135,7 +136,7 @@
                         <label class="weui-label">需求地址</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" name="address" id="address" placeholder="请输入需求地址">
+                        <input class="weui-input" type="text" name="address" id="address" placeholder="请输入需求地址" maxlength="300">
                     </div>
                 </div>
 
@@ -180,6 +181,28 @@
             $('#'+$(this).val()).show();$('#'+$(this).val()).find('.weui-select').attr("name","serviceId");
         });
     });
+
+    function getLength(str) {
+        return str.replace(/[^ -~]/g, 'AA').length;
+    }
+
+    function limitMaxLength(str, maxLength) {
+        var result = [];
+        for (var i = 0; i < maxLength; i++) {
+            var char = str[i]
+            if (/[^ -~]/.test(char))
+                maxLength--;
+            result.push(char);
+        }
+        return result.join('');
+    }
+
+    function checkLen(obj)
+    {
+        if (getLength(obj.value) > 400)
+            obj.value = limitMaxLength(obj.value, 400);
+        document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
+    }
 
     function check(){
         var serviceDescription = document.getElementById("serviceDescription").value;
