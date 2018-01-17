@@ -121,7 +121,7 @@
         });
         $("#modifyTeam").on('click', function (){
             var contextPath="${pageContext.request.contextPath}";
-            var targetUrl = "http://"+location.host+"/timebank/team/modifyTeam";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
             var formData = new FormData($("#teamDetail")[0]);
             $.ajax({
                 type: 'POST',

@@ -114,7 +114,8 @@
             $gallery.fadeIn(100);
         });
         $("#create").on('click', function (){
-            var targetUrl = "http://"+location.host+"/timebank/team/createTeam";
+            var contextPath="${pageContext.request.contextPath}";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
             var formData = new FormData($("#teamDetail")[0]);
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");

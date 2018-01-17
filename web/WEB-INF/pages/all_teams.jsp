@@ -196,7 +196,7 @@
 
     function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}";
-            var targetUrl = "http://"+location.host+"/timebank/team/addUserToTeam";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
             var teamId=t.id;//取要加入团队的Id
             $.ajax({
                 type: 'POST',
