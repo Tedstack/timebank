@@ -40,11 +40,12 @@
                     <div class="page__bd">
                         <!--<a href="javascript:;" class="weui-btn weui-btn_primary">点击展现searchBar</a>-->
                         <div class="weui-search-bar" id="searchBar">
-                            <form class="weui-search-bar__form">
+                            <form class="weui-search-bar__form" action="${pageContext.request.contextPath}/team/searchTeam" method="get">
                                 <div class="weui-search-bar__box" style="height:5%;">
                                     <i class="weui-icon-search"></i>
-                                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="">
+                                    <input type="search" class="weui-search-bar__input" name="searchInput" id="searchInput" onkeypress="keySearch(event)" onkeydown="keySearch()" placeholder="搜索" required="">
                                     <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                                    <button id="goSearch" type="submit" style="display:none;"></button>
                                 </div>
                                 <label class="weui-search-bar__label" id="searchText">
                                     <i class="weui-icon-search"></i>
@@ -243,19 +244,6 @@
          });
          $searchInput.on('blur', function () {
              if(!this.value.length) cancelSearch();
-         })
-             .on('input', function(){
-                 if(this.value.length) {
-                     $searchResult.show();
-                 } else {
-                     $searchResult.hide();
-                 }
-             });
-         $searchInput.on("change", function(){
-             var param=this.value;
-             if(param.length){
-                 window.location.href="${pageContext.request.contextPath}/team/searchTeam?param="+param;
-             }
          });
          $searchClear.on('click', function(){
              hideSearchResult();
@@ -267,7 +255,14 @@
          });
          function viewTeamPage(t) {
              var teamId=t.id;
-             window.location.href="${pageContext.request.contextPath}/team/teamIndex?tab=0&teamId="+teamId;
+             window.location.href="${pageContext.request.contextPath}/team/teamInfo?teamId="+teamId;
+         }
+
+         function keySearch(event) {
+             var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+             if (keyCode == 13) {
+                 document.getElementById("goSearch").click();
+             }
          }
 </script>
 </html>

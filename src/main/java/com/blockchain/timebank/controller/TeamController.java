@@ -95,9 +95,9 @@ public class TeamController {
 
     //搜索页面，效率需要改进
     @RequestMapping(value = "/searchTeam", method = RequestMethod.GET)
-    public String searchTeam(ModelMap map, @RequestParam String param) {
-        map.addAttribute("param", param);
-        List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findTeamByCondition(param);
+    public String searchTeam(ModelMap map, @RequestParam String searchInput) {
+        map.addAttribute("param", searchInput);
+        List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findTeamByCondition(searchInput);
         //从所有用户加入的团队中找到自己已经加入的团队
         List<ViewTeamDetailEntity> myTeam = new ArrayList<ViewTeamDetailEntity>();
         List<ViewTeamDetailEntity> otherTeam = new ArrayList<ViewTeamDetailEntity>();
