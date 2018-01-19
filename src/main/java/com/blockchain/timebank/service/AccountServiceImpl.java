@@ -22,6 +22,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     RequestOrderService requestOrderService;
 
+    @Autowired
+    RechargeService rechargeService;
+
     @Transactional
     public void payTimeVol(long recordID) {
         //1.查询订单价格
@@ -157,6 +160,26 @@ public class AccountServiceImpl implements AccountService {
         requestEntity.setIsComplete(1);
         requestService.saveRequestEntity(requestEntity);
 
+    }
+
+    @Transactional
+    public void updateRechargeTimeCoin(String rechargeUuid ,String sign){
+        RechargeEntity rechargeEntity = rechargeService.findByUuid(rechargeUuid);
+        if("ok".equals(sign)) {
+            //修改recharge表的支付状态
+            rechargeEntity.setRechargeStatus("success");
+            rechargeService.saveRechargeEntity(rechargeEntity);
+            long userid = rechargeEntity.getUserId();
+            //修改用户账户中的
+            UserEntity userEntity = userService.findUserEntityById(userid);
+            double amount = rechargeEntity.getTotalAmount() + userEntity.getTimeCoin();
+            userEntity.setTimeCoin(amount);
+            userService.updateUserEntity(userEntity);
+        }
+        else{
+            rechargeEntity.setRechargeStatus("fail");
+            rechargeService.saveRechargeEntity(rechargeEntity);
+        }
     }
 
     public void updateRequestOrderToComplete(long orderID) {
