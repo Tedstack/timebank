@@ -285,8 +285,8 @@ public class RequestController {
         boolean isDelete = true;
         for(RequestOrderEntity record : requestOrderEntityList){
             String status = record.getStatus();
-            if(!"已拒绝".equals(status)){
-                if(!"已申请".equals(status)){
+            if(!OrderStatus.alreadyRefuse.equals(status)){
+                if(!OrderStatus.alreadyApply.equals(status)){
                     isDelete = false;
                     deleteMsg="您已接受过服务，无法删除";
                     break;
@@ -397,6 +397,10 @@ public class RequestController {
     @RequestMapping(value = "/requestUserStartPay",method = RequestMethod.GET)
     public String requestUserStartPay(ModelMap map,@RequestParam long matchID){
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
+        if(viewRequestOrderDetailEntity.getRequestUserId()!=getCurrentUser().getId())
+            return "redirect:index";
+        if(viewRequestOrderDetailEntity.getStatus().equals(OrderStatus.alreadyComplete))
+            return "redirect:request/published?tab=4";
 
         map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
         return "request/paydetail";
@@ -404,7 +408,6 @@ public class RequestController {
 
     //需求者跳转到评价订单页面
     @RequestMapping(value = "/requestUserStartEvaluate",method = RequestMethod.GET)
-
     public String requestUserStartEvaluate(ModelMap map,@RequestParam long recordID){
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(recordID);
 
