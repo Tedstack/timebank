@@ -31,9 +31,9 @@
                     <p class="weui-btn-area">
                         <a href="${pageContext.request.contextPath}/recharge/coins_recharge" class="weui-btn weui-btn_primary">充值</a>
                     </p>
-                    <p class="weui-btn-area">
+                    <%--<p class="weui-btn-area">
                         <a href="" class="weui-btn weui-btn_default">提现</a>
-                    </p>
+                    </p>--%>
                 </div>
             </div>
         </div>
