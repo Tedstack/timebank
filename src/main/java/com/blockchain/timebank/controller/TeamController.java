@@ -97,7 +97,9 @@ public class TeamController {
     @RequestMapping(value = "/searchTeam", method = RequestMethod.GET)
     public String searchTeam(ModelMap map, @RequestParam String searchInput) {
         map.addAttribute("param", searchInput);
-        List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findTeamByCondition(searchInput);
+        if(searchInput.equalsIgnoreCase(""))
+            return "all_teams";
+        List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findAllByNameLikeAndDeleted(searchInput+"%",false);
         //从所有用户加入的团队中找到自己已经加入的团队
         List<ViewTeamDetailEntity> myTeam = new ArrayList<ViewTeamDetailEntity>();
         List<ViewTeamDetailEntity> otherTeam = new ArrayList<ViewTeamDetailEntity>();

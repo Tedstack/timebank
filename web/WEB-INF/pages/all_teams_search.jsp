@@ -33,7 +33,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="goBack()" >
-                    <p><img src="../img/back.png" width="20" height="15"alt="">团队列表</p>
+                    <p> 团队列表</p>
                 </div>
             </div>
             <div class="container" id="container">
@@ -41,10 +41,10 @@
                     <div class="page__bd">
                         <!--<a href="javascript:;" class="weui-btn weui-btn_primary">点击展现searchBar</a>-->
                         <div class="weui-search-bar" id="searchBar">
-                            <form class="weui-search-bar__form">
+                            <form class="weui-search-bar__form" action="${pageContext.request.contextPath}/team/searchTeam" method="get">
                                 <div class="weui-search-bar__box" style="height:5%;">
                                     <i class="weui-icon-search"></i>
-                                    <input type="search" class="weui-search-bar__input" id="searchInput" value=<%out.print(param);%> required="">
+                                    <input type="search" class="weui-search-bar__input" name="searchInput" id="searchInput" value=<%out.print(param);%> required="">
                                     <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
                                 </div>
                                 <label class="weui-search-bar__label" id="searchText">
@@ -238,7 +238,13 @@
          });
          function viewTeamPage(t) {
              var teamId=t.id;
-             window.location.href="${pageContext.request.contextPath}/team/teamIndex?tab=0&teamId="+teamId;
+             window.location.href="${pageContext.request.contextPath}/team/teamInfo?teamId="+teamId;
+         }
+         function keySearch(event) {
+             var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+             if (keyCode == 13) {
+                 document.getElementById("goSearch").click();
+             }
          }
 </script>
 </html>
