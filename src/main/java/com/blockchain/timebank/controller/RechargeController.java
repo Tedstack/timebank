@@ -55,6 +55,7 @@ public class RechargeController {
 
     @Autowired
     AccountService accountService;
+
     String uuid;
 
     private UserEntity getCurrentUser() {
@@ -108,7 +109,7 @@ public class RechargeController {
         rechargeEntity.setUserId(userEntity.getId());
         rechargeEntity.setTotalAmount(totalAmount);
         rechargeEntity.setRechargeDate(reDate);
-        //rechargeEntity.setRechargeStatus("submit");
+        rechargeEntity.setRechargeStatus("submit");
         //rechargeEntity.setExtra("no");
 
         RechargeEntity rechargeEntity2 = rechargeService.saveRechargeEntity(rechargeEntity);
