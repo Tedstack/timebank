@@ -23,6 +23,7 @@ public class RequestOrderEntity {
     private String extra;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public long getId() {
         return id;
