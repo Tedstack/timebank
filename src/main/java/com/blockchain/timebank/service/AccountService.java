@@ -14,4 +14,6 @@ public interface AccountService {
 
     void updateRequestOrderToComplete(long recordID);
 
+    void updateRechargeTimeCoin(String rechargeUuid,String sign);
+
 }
