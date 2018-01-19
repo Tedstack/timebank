@@ -1,5 +1,5 @@
 var config = {
-    appid: 'wxb0f6b07f01978a2a',//正式
+    appid: 'wx1c0cd113cada8f82',//正式
     server_url:
     {
         get_jssdk_Signature: '/Wechat/getJSSDKSignature',
