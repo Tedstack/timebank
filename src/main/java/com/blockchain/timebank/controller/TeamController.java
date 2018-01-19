@@ -834,7 +834,6 @@ public class TeamController {
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
-//          String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
             String path = "/home/ubuntu/opt/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             try {
