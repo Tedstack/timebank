@@ -92,6 +92,7 @@ public class AccountServiceImpl implements AccountService {
         recordService.updateRecordEntity(record);
     }
 
+    @Transactional
     public void payRequestTimeVol(long matchID) {
         //1.查询订单价格
         RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
@@ -126,6 +127,7 @@ public class AccountServiceImpl implements AccountService {
         requestService.saveRequestEntity(requestEntity);
     }
 
+    @Transactional
     public void payRequestTimeCoin(long matchID) {
         //1.查询订单价格
         RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);

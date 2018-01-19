@@ -315,8 +315,8 @@
 
         function post(){
             var baseUrl = "http://" + location.host,
-                uploadUrl = baseUrl + "/timebank/user/uploadTechInfo",
-                notiUrl = baseUrl + "/timebank/user/techNotification";
+                uploadUrl = baseUrl + "/timebanktest/user/uploadTechInfo",
+                notiUrl = baseUrl + "/timebanktest/user/techNotification";
             var formData = new FormData($("#userForm")[0]);
             $.ajax({
                 url: uploadUrl,

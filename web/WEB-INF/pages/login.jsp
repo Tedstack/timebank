@@ -214,7 +214,7 @@
                 <input type="password" placeholder="密码" id="password" name="password"/>
                 <input type="hidden" name="openID" value="<%out.print(openID);%>"/>
                 <button type="submit" id="login">登　录</button>
-                <p class="message">还没有账户? <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb0f6b07f01978a2a&redirect_uri=http%3A%2F%2Fwww.coocir.com%2Ftimebank%2Fregister&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">注册新账户</a></p>
+                <p class="message">还没有账户? <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1c0cd113cada8f82&redirect_uri=http%3A%2F%2Fwww.i-linli.com%2Ftimebanktest%2Fregister&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">注册新账户</a></p>
                 <p class="message">以游客身份登录 <a href="${pageContext.request.contextPath}/index">查看</a></p>
             </form>
         </div>

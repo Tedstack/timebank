@@ -1,7 +1,9 @@
 <%@ page import="com.blockchain.timebank.entity.RequestOrderEntity" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.RequestEntity" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.weixin.util.FormatOrderIdUtil" %>
+<%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 02/01/2018
@@ -19,7 +21,7 @@
 </head>
 <body>
 <%
-    RequestOrderEntity matchEntity = (RequestOrderEntity) request.getAttribute("matchEntity");
+    ViewRequestOrderDetailEntity matchEntity = (ViewRequestOrderDetailEntity) request.getAttribute("matchEntity");
     UserEntity userEntity = (UserEntity) request.getAttribute("userEntity");
     RequestEntity requestEntity = (RequestEntity) request.getAttribute("requestEntity");
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -29,7 +31,7 @@
         <div class="weui-cell__bd">
             <p>订单编号</p>
         </div>
-        <div class="weui-cell__ft"><%out.print(matchEntity.getId());%></div>
+        <div class="weui-cell__ft"><%out.print(FormatOrderIdUtil.getRequestOrderFormatId(matchEntity));%></div>
     </div>
 </div>
 <br>

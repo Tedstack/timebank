@@ -3,7 +3,8 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.math.BigDecimal" %><%--
+<%@ page import="java.math.BigDecimal" %>
+<%@ page import="com.blockchain.timebank.weixin.util.FormatOrderIdUtil" %><%--
   Created by IntelliJ IDEA.
   User: Mihaly
   Date: 05/01/2018
@@ -254,7 +255,7 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">订单号编号 <%out.print(requestToPay.get(i).getId());%></p>
+                            <p class="weui-media-box__desc">订单号编号 <%out.print(FormatOrderIdUtil.getRequestOrderFormatId(requestToPay.get(i)));%></p>
                             <p class="weui-media-box__desc">开始时间
                                 <%
                                     Timestamp beginTimestamp = requestToPay.get(i).getActualBeginTime();
@@ -334,7 +335,7 @@
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(requestCompleted.get(i).getId());%></span>
+                                <span class="weui-form-preview__value"><%out.print(FormatOrderIdUtil.getRequestOrderFormatId(requestCompleted.get(i)));%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">需求者</label>

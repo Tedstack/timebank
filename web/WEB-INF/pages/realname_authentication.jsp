@@ -252,8 +252,8 @@
         });
         function post(){
             var baseUrl = "http://" + location.host,
-                uploadUrl = baseUrl + "/timebank/user/uploadUserInfo",
-                notiUrl = baseUrl + "/timebank/user/realnameNotification";
+                uploadUrl = baseUrl + "/timebanktest/user/uploadUserInfo",
+                notiUrl = baseUrl + "/timebanktest/user/realnameNotification";
             var formData = new FormData($("#userForm")[0]);
             $.ajax({
                 url: uploadUrl,

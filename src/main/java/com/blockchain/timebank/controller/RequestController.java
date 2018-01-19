@@ -240,7 +240,7 @@ public class RequestController {
         RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("requestEntity",requestEntity);
-        map.addAttribute("matchEntity",matchEntity);
+        map.addAttribute("matchEntity",requestOrderService.findRequestOrderDetailById(matchID));
 
         return "request/taken_detail";
     }

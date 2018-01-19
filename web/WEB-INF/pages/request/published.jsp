@@ -5,6 +5,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.ViewRequestOrderDetailEntity" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="com.blockchain.timebank.weixin.util.FormatOrderIdUtil" %>
 <%--
   Created by IntelliJ IDEA.
   User: Mihaly
@@ -137,7 +138,7 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">订单号<%out.print(requestToConfirm.get(i).getId());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">订单号<%out.print(FormatOrderIdUtil.getRequestOrderFormatId(requestToConfirm.get(i)));%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
 
@@ -358,7 +359,7 @@
                         <div class="weui-form-preview__bd">
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">订单号</label>
-                                <span class="weui-form-preview__value"><%out.print(requestCompleted.get(i).getId());%></span>
+                                <span class="weui-form-preview__value"><%out.print(FormatOrderIdUtil.getRequestOrderFormatId(requestCompleted.get(i)));%></span>
                             </div>
                             <div class="weui-form-preview__item">
                                 <label class="weui-form-preview__label">实付款</label>
