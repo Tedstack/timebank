@@ -104,23 +104,7 @@ public class PublishController {
     //服务显示列表
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listPage(ModelMap map, @RequestParam String type) {
-        List<ViewPublishDetailEntity> list = viewPublishDetailDao.findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(type, 0);
-        // List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceType(type);
-        //倒序排列
-        Collections.reverse(list);
-        List<ViewPublishDetailEntity> overTimeList = new ArrayList<ViewPublishDetailEntity>();
-        Date currentDate = new Date();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
-        String currentTime = sdf.format(currentDate);
-        Iterator iterator = list.iterator();
-        while(iterator.hasNext()){
-            ViewPublishDetailEntity viewPublishDetailEntity = (ViewPublishDetailEntity)iterator.next();
-            if(viewPublishDetailEntity.getEndDate().getTime() < new Date(currentTime).getTime()){
-                iterator.remove();
-                overTimeList.add(viewPublishDetailEntity);
-            }
-        }
-        list.addAll(overTimeList);
+        List<ViewPublishDetailEntity> list = publishService.findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(type);
         map.addAttribute("list", list);
         map.addAttribute("type", type);
         //return "publish_list";

@@ -18,4 +18,6 @@ public interface PublishService {
     List<ViewPublishDetailEntity> findAllByServiceType(String type);
 
     List<ViewPublishDetailEntity> findAllByCondition(String type, double upperPrice, double lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr);
+
+    List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(String type);
 }
