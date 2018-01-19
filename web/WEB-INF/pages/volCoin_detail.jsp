@@ -53,7 +53,7 @@
                 <div class="weui-cell__bd">
                     <p>服务对象：</p>
                 </div>
-                <div class="weui-cell__ft"><%=details.getServiceUserName()%></div>
+                <div class="weui-cell__ft"><%=details.getNeedUsername()%></div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">

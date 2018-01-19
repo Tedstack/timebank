@@ -44,14 +44,6 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-     /*   if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
-            System.out.println("加入团队提醒获取的token"+TokenThread.accessToken.getAccessToken());
-            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
-        }
-        else{
-            System.out.println("tokenThread.accessToken为空");
-            return false;
-        }*/
         return AdvancedUtil.sendTemplateMessage(template);
     }
 
@@ -94,14 +86,6 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        /*if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
-            System.out.println("成功报名志愿者活动获取的token"+TokenThread.accessToken.getAccessToken());
-            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
-        }
-        else{
-            System.out.println("tokenThread.accessToken为空");
-            return false;
-        }*/
         return AdvancedUtil.sendTemplateMessage(template);
 
     }
@@ -136,14 +120,6 @@ public class MessageUtil {
         template.setTopColor("#173177");
         template.setUrl("");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-        /*if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
-            System.out.println("团队申请获取的accessToken"+TokenThread.accessToken.getAccessToken());
-            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
-        }
-        else{
-            System.out.println("tokenThread.accessToken为空");
-            return false;
-        }*/
         return AdvancedUtil.sendTemplateMessage(template);
     }
 
@@ -169,7 +145,7 @@ public class MessageUtil {
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = bartDateFormat.format(viewPublishOrderDetailEntity.getBeginTime())+"-"+bartDateFormat.format(viewPublishOrderDetailEntity.getEndTime());
         String service_Name = viewPublishOrderDetailEntity.getApplyUserName();
-        String phone = viewPublishOrderDetailEntity.getApplyUserPhone();
+        String phone = viewPublishOrderDetailEntity.getApplyUserPhone().substring(0,7)+"xxxx";
         String str_remark = "点击详情查看具体细节";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
         templateParamList.add(new TemplateParam("first",str_first, "#173177"));
@@ -183,17 +159,8 @@ public class MessageUtil {
         template.setTemplateId("RNV0kGzN9THHwld16ACBN9XJDlYfCK3x2neGpf5V9bY");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("");/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://www.i-linli.com/timebanktest/user/queryPublishWaitingConfirm");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
-       /* if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
-            System.out.println("预约成功获取的accessToken"+TokenThread.accessToken.getAccessToken());
-            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
-        }*//*
-
-        else{
-            System.out.println("tokenThread.accessToken为空");
-            return false;
-        }*/
         return AdvancedUtil.sendTemplateMessage(template);
     }
 
@@ -219,7 +186,7 @@ public class MessageUtil {
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = bartDateFormat.format(viewRequestOrderDetailEntity.getBeginTime())+"-"+bartDateFormat.format(viewRequestOrderDetailEntity.getEndTime());
         String applyName = viewRequestOrderDetailEntity.getApplyUserName();
-        String phone = viewRequestOrderDetailEntity.getApplyUserPhone();
+        String phone = viewRequestOrderDetailEntity.getApplyUserPhone().substring(0,7)+"xxxx";
         String str_remark = "点击详情查看具体细节";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
         templateParamList.add(new TemplateParam("first",str_first, "#173177"));
@@ -233,15 +200,8 @@ public class MessageUtil {
         template.setTemplateId("RNV0kGzN9THHwld16ACBN9XJDlYfCK3x2neGpf5V9bY");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("");//此处可以加入想要跳转的链接
+        template.setUrl("http://www.i-linli.com/timebanktest/request/published?tab=2");//此处可以加入想要跳转的链接
         template.setTemplateParamList(templateParamList);
-        /*if(null != TokenThread.accessToken && null != TokenThread.accessToken.getAccessToken()) {
-            return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
-        }
-        else{
-            System.out.println("tokenThread.accessToken为空");
-            return false;
-        }*/
         return AdvancedUtil.sendTemplateMessage(template);
     }
 
