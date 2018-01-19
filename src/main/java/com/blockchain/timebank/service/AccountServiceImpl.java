@@ -70,6 +70,8 @@ public class AccountServiceImpl implements AccountService {
         applyUser.setTimeCoin(timeCoin);
         userService.updateUserEntity(applyUser);
 
+        new RuntimeException();
+
         //3.增加服务者时间币账户
         UserEntity serviceUser = userService.findUserEntityById(record.getServiceUserId());
         double timeCoin2 = serviceUser.getTimeCoin() + price;
