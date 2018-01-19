@@ -13,4 +13,6 @@ public interface TeamUserDao extends CrudRepository<TeamUserEntity, Long> {
     TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamId,String Status);
 
     TeamUserEntity findByUserIdAndTeamId(long userId,long teamId);
+
+    TeamUserEntity findByUserIdAndTeamIdAndStatusNot(long userId,long teamId,String Status);
 }

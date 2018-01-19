@@ -13,6 +13,8 @@ public interface TeamUserService {
 
     TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamID,String status);
 
+    TeamUserEntity findByUserIdAndTeamIdAndStatusNot(long userId,long teamID,String status);
+
     TeamUserEntity saveTeamUser(TeamUserEntity teamUserEntity);
 
     List<TeamUserEntity> findAllUsersOfOneTeam(long teamID);
