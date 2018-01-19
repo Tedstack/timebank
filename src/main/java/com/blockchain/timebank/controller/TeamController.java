@@ -677,9 +677,9 @@ public class TeamController {
         long userId = getCurrentUser().getId();
         String isMember="false";
         //判断用户在这个团队内
-        TeamUserEntity team = teamUserService.findByUserIdAndTeamIdAndStatus(userId, id, TeamUserStatus.alreadyEntered);
-        if (team != null)
-            isMember = "true";
+        TeamUserEntity team = teamUserService.findByUserIdAndTeamIdAndStatusNot(userId, id, TeamUserStatus.isDeleted);
+        if(team!=null || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
+            isMember="true";
         for (int i = 0; i < activityList.size(); i++) {
             if (activityList.get(i).isPublic())
                 publicActivity.add(activityList.get(i));
@@ -825,7 +825,8 @@ public class TeamController {
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/");
+            File uploadDir = new File("~/opt/picture/teamHeadImg");
+            System.out.println("File path:++++"+request.getSession().getServletContext().getRealPath("/"));
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
@@ -833,7 +834,8 @@ public class TeamController {
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
+//          String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
+            String path = "~/opt/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             try {
                 TeamEntity newTeam = new TeamEntity();

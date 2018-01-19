@@ -105,6 +105,15 @@
                     </div>
                 </div>
             </div>
+            <div class="weui-panel__bd">
+                <div class="weui-form-preview__hd">
+                    <div class="weui-form-preview__item">
+                        <%if(isMember.equalsIgnoreCase("false")){%>
+                        <a onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -257,6 +266,33 @@
         index.style.display="none";
         member.style.display="none";
         activity.style.display="block";
+    }
+    function joinToTeam() {
+        var contextPath="${pageContext.request.contextPath}";
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+        var teamId='<%=team.getId()%>';//取要加入团队的Id
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: targetUrl,
+            data: "teamId="+teamId,
+            beforeSend: function (XHR) {
+                dialogLoading = showLoading();
+            },
+            success: function (data) {
+                if(data==="success"){
+                    showAlert("申请成功",function () {
+                        location.reload();
+                    });
+                }
+            },
+            error: function (xhr, type) {
+                showAlert("加入失败");
+            },
+            complete: function (xhr, type) {
+                dialogLoading.hide();
+            }
+        });
     }
 </script>
 <script type="text/javascript">
