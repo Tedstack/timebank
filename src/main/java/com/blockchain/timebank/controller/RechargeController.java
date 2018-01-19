@@ -203,6 +203,7 @@ public class RechargeController {
     //发送模板消息通知
     @RequestMapping(value = "/send_template", method = RequestMethod.GET)
     public String send_template(ModelMap map){
+        System.out.println("进入");
         RechargeEntity recharge = rechargeService.findByUuid(uuid);
         UserEntity user = getCurrentUser();
         if("success".equals(recharge.getRechargeStatus())){

@@ -167,14 +167,15 @@ public class AccountServiceImpl implements AccountService {
         RechargeEntity rechargeEntity = rechargeService.findByUuid(rechargeUuid);
         if("ok".equals(sign)) {
             //修改recharge表的支付状态
-            rechargeEntity.setRechargeStatus("success");
-            rechargeService.saveRechargeEntity(rechargeEntity);
             long userid = rechargeEntity.getUserId();
             //修改用户账户中的
             UserEntity userEntity = userService.findUserEntityById(userid);
             double amount = rechargeEntity.getTotalAmount()*100 + userEntity.getTimeCoin();
             userEntity.setTimeCoin(amount);
             userService.updateUserEntity(userEntity);
+            rechargeEntity.setRechargeStatus("success");
+            rechargeService.saveRechargeEntity(rechargeEntity);
+            System.out.println(rechargeEntity.getRechargeStatus());
         }
         else{
             rechargeEntity.setRechargeStatus("fail");
