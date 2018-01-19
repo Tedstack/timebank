@@ -80,6 +80,8 @@ public class WxPay {
         HttpPost httppost = new HttpPost("https://api.mch.weixin.qq.com/pay/unifiedorder");
 
         String nonce_str = getNonceStr().toUpperCase();//随机
+        //将用户输入的金额转化为分
+        String amount = changeY2F(total_fee);
         //组装请求参数,按照ASCII排序
         String sign = "appid=" + ConfigUtil.APPID +
                 "&body=" + body +
@@ -89,7 +91,7 @@ public class WxPay {
                 "&openid=" + openid +
                 "&out_trade_no=" + out_trade_no +
                 "&spbill_create_ip=" + IP +
-                "&total_fee=" + String.valueOf((int)total_fee) +
+                "&total_fee=" + amount +
                 "&trade_type=" + ConfigUtil.TRADE_TYPE_JS +
                 "&key=" + ConfigUtil.API_KEY;//这个字段是用于之后MD5加密的，字段要按照ascii码顺序排序
         sign = MD5Util.MD5Encode(sign, "").toUpperCase();
@@ -105,7 +107,7 @@ public class WxPay {
         setXmlKV(sb, "openid", openid);
         setXmlKV(sb, "out_trade_no", out_trade_no);
         setXmlKV(sb, "spbill_create_ip", IP);
-        setXmlKV(sb, "total_fee", String.valueOf((int)total_fee));
+        setXmlKV(sb, "total_fee", amount);
         setXmlKV(sb, "trade_type", ConfigUtil.TRADE_TYPE_JS);
         setXmlKV(sb, "sign", sign);
         sb.append("</xml>");
@@ -411,7 +413,7 @@ public class WxPay {
     * 将用户输入的金额转换为分
     * @ return total_fee
     * */
-    private static String changeY2F(double total_fee) {
+    private  static String changeY2F(double total_fee) {
         String amount = Double.toString(total_fee);
         String currency = amount.replaceAll("\\$|\\￥|\\,", ""); // 处理包含, ￥
         // 或者$的金额

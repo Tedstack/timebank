@@ -16,45 +16,59 @@
 </head>
 <body>
 
+<div class="weui-tab">
+    <div class="weui-panel">
+        <div class="weui-msg">
 
-<div class="weui-msg">
+            <div class="weui-msg__icon-area">
+                <img src="../img/coin.jpg" width="100" height="100">
+            </div>
 
-    <div class="weui-msg__icon-area">
-        <img src="../img/coin.jpg" width="100" height="100">
-    </div>
+            <div class="weui-msg__text-area">
+                <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="number" id="totalAmount" name="totalAmount" style="font-size: xx-large"  placeholder="0.00" step="0.01" min="0.01" required/>
 
-    <div class="weui-msg__text-area">
-        <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
-        <div class="weui-cell">
-            <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
-            <div class="weui-cell__bd">
-                <input class="weui-input" type="number" id="totalAmount" name="totalAmount" style="font-size: xx-large"  placeholder="" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-msg__opr-area">
+                <p class="weui-btn-area">
+                    <button type="submit" id="btn_charge" class="weui-btn weui-btn_primary">支付</button>
+                </p>
+            </div>
+
+        </div>
+        <div class="weui-media-box">
+            <div class="weui-media-box__title">
+                <span style="color:#76b852">充值时间币须知</span>
+            </div>
+            <div class="weui-media-box__info">
+               <span>用户您好，目前时间币充值只用于测试,暂无提现功能<br><br>￥0.01 = 1时间币</span>
             </div>
         </div>
     </div>
-
-    <div class="weui-msg__opr-area">
-        <p class="weui-btn-area">
-            <button type="submit" id="btn_charge" class="weui-btn weui-btn_primary">支付</button>
-        </p>
-    </div>
-
 </div>
-
-
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
 
     $(document).ready(function(){
         $("#btn_charge").click(function () {
+            var reg = new RegExp("^\\d+(\\.\\d{0,2})?$");
             var amount = $("#totalAmount").val();
            // alert(url + "/recharge/coins_recharge_submit" + amount);
             if(amount ===""){
                 alert("请输入充值金额");
                 return;
-            }else if(amount ==="0"){
+            }else if(amount <"0.01") {
                 alert("请输入有效金额");
+                return;
+            }else if(!reg.test(amount)){
+                alert("请您输入正确的金额（只包含两位小数）");
                 return;
             }
             $.post(

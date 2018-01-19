@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.blockchain.timebank.dao.RechargeDao;
 import com.blockchain.timebank.entity.RechargeEntity;
 import com.blockchain.timebank.entity.UserEntity;
+import com.blockchain.timebank.service.AccountService;
 import com.blockchain.timebank.service.RechargeService;
 import com.blockchain.timebank.service.UserService;
 import com.blockchain.timebank.weixin.util.SignUtil;
@@ -52,6 +53,8 @@ public class RechargeController {
     @Autowired
     RechargeDao rechargeDao;
 
+    @Autowired
+    AccountService accountService;
     String uuid;
 
     private UserEntity getCurrentUser() {
@@ -73,23 +76,6 @@ public class RechargeController {
         return "coins_balance";
     }
 
-    //充值列表查看页面
-   /* @RequestMapping(value = "/coins_list", method = RequestMethod.GET)
-    public String getCoinList(ModelMap map){
-        UserEntity user=getCurrentUser();
-        List<RechargeEntity> list = rechargeDao.findByUserId(user.getId());
-        //倒序排列
-        Collections.reverse(list);
-        map.addAttribute("list", list);
-        return "coins_list";
-    }*/
-    //充值查询明细
-   /* @RequestMapping(value = "/coins_details",method = RequestMethod.GET)
-    public String getCoinDetail(ModelMap map,@RequestParam long id){
-        RechargeEntity rechargeEntity = rechargeDao.findOne(id);
-        map.addAttribute("rechargeEntity",rechargeEntity);
-        return "/coins_details";
-    }*/
 
     //时间币充值页面
 
@@ -122,8 +108,8 @@ public class RechargeController {
         rechargeEntity.setUserId(userEntity.getId());
         rechargeEntity.setTotalAmount(totalAmount);
         rechargeEntity.setRechargeDate(reDate);
-        rechargeEntity.setRechargeStatus("submit");
-        rechargeEntity.setExtra("no");
+        //rechargeEntity.setRechargeStatus("submit");
+        //rechargeEntity.setExtra("no");
 
         RechargeEntity rechargeEntity2 = rechargeService.saveRechargeEntity(rechargeEntity);
         rechargeEntity2.setUuid(rechargeEntity2.getId() + "-" + new SimpleDateFormat("yyyyMMddhhmmss").format(date));
@@ -165,7 +151,7 @@ public class RechargeController {
 
             RechargeEntity recharge = rechargeService.findByUuid(uuid);
             if (payStatus.equals("ok")) {
-                recharge.setRechargeStatus("success");
+               // recharge.setRechargeStatus("success");
                 retXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>" + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml>";
 
 
@@ -179,7 +165,7 @@ public class RechargeController {
                  * 此处最好修改成事务处理模式
                  *
                  */
-                if (recharge.getExtra().equals("no")) {
+               /* if (recharge.getExtra().equals("no")) {
                     UserEntity curUser = userService.findUserEntityById(recharge.getUserId());
                     Double amount = recharge.getTotalAmount();
                     Double coins = curUser.getTimeCoin();
@@ -188,6 +174,9 @@ public class RechargeController {
                     recharge.setExtra("yes");
                     userService.saveUserEntity(curUser);
                 }
+*/
+               //更新充值记录表和用户时间币字段
+               accountService.updateRechargeTimeCoin(uuid,payStatus);
 
 
 
