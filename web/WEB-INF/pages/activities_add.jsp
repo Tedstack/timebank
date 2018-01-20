@@ -37,6 +37,9 @@
                                 <div class="weui-uploader__hd" style="margin-bottom: 0px;">
                                     <p class="weui-uploader__title" style="margin: 0 0 0 0;">添加活动封面</p>
                                 </div>
+                                <div class="weui-uploader__hd">
+                                    <p class="weui-uploader__title" style="color: #6c757d;font-size: 17px;">(长按重新选择)</p>
+                                </div>
                                 <div class="weui-uploader__bd">
                                     <ul class="weui-uploader__files" id="files1" style="margin-bottom: 0px;"></ul>
                                     <div class="weui-uploader__input-box" style="width: 100px;height: 110px;">
@@ -178,7 +181,18 @@
         }
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
-
+    $.fn.longPress = function(fn) {
+        var timeout = undefined;
+        var $this = this;
+        for(var i = 0;i<$this.length;i++){
+            $this[i].addEventListener('touchstart', function(event) {
+                timeout = setTimeout(fn, 500);  //长按时间超过800ms，则执行传入的方法
+            }, false);
+            $this[i].addEventListener('touchend', function(event) {
+                clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
+            }, false);
+        }
+    };
     var contextPath="${pageContext.request.contextPath}";
 
     $(function(){
@@ -203,6 +217,11 @@
         $uploaderFiles1.on("click", "li", function(){
             $galleryImg.attr("style", this.getAttribute("style"));
             $gallery.fadeIn(100);
+        });
+        $uploaderFiles1.longPress(function () {
+            $uploaderFiles1.empty();
+            $uploaderInput1.parent().show();
+            $uploaderInput1[0].value='';
         });
         $("#submitBtn").on('click',function () {
             var activityType=$("#activityType ").val();

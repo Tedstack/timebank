@@ -270,14 +270,14 @@ public class TeamController {
         int activityNum=activityPublishService.findAllByDeleted(false).size()+activityPublishService.findAllByDeleted(true).size();
         String idImg = "";
         if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/");
+            File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String date = new java.sql.Date(System.currentTimeMillis()).toString();
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = Integer.toString(activityNum+1) + "_Img_"+date + suffix1;
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/";
+            String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             try {
                 ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
@@ -407,7 +407,7 @@ public class TeamController {
         ActivityPublishEntity activity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
         String idImg="";
         if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/");
+            File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
@@ -415,7 +415,7 @@ public class TeamController {
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = Long.toString(activity.getId()) + "_Img_"+Integer.toString(ram) + suffix1;
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/activityImg/";
+            String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             activity.setHeadImg(idImg);
             file.transferTo(imgFile);
@@ -825,7 +825,7 @@ public class TeamController {
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
-            File uploadDir = new File("/home/ubuntu/opt/picture/teamHeadImg");
+            File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
             System.out.println("File path:++++"+request.getSession().getServletContext().getRealPath("/"));
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -834,7 +834,7 @@ public class TeamController {
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
-            String path = "/home/ubuntu/opt/picture/teamHeadImg";
+            String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             try {
                 TeamEntity newTeam = new TeamEntity();
@@ -890,7 +890,7 @@ public class TeamController {
             String idImg = "";
             //判断是否需要上传头像
             if (file != null && !file.isEmpty()) {
-                File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/");
+                File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
@@ -898,7 +898,7 @@ public class TeamController {
                 int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
                 String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
                 idImg = team_name + "_headImg_" + Integer.toString(ram) + suffix1;
-                String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/teamHeadImg/";
+                String path = "/home/ubuntu/timebank/picture/teamHeadImg";
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);
