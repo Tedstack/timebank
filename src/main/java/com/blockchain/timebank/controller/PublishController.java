@@ -10,6 +10,7 @@ import com.blockchain.timebank.service.ServiceService;
 import com.blockchain.timebank.service.UserService;
 import com.blockchain.timebank.weixin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,12 @@ public class PublishController {
     //服务种类页面
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
+        //判断是否时匿名登陆 游客模式
+        if(isAnonymous()){
+            map.addAttribute("msg", "notManagerUser");
+            return "publish_category_notManager";
+        }
+
         UserEntity user = getCurrentUser();
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
 
@@ -66,6 +73,12 @@ public class PublishController {
     //活动发布申请页面
     @RequestMapping(value = "/activities_category", method = RequestMethod.GET)
     public String activities_categoryPage(ModelMap map) {
+        //判断是否是匿名登陆 游客模式
+        if(isAnonymous()){
+            map.addAttribute("msg", "notManagerUser");
+            return "activities_notmanager";
+        }
+
         UserEntity user = getCurrentUser();
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
 
@@ -238,4 +251,16 @@ public class PublishController {
             return null;
         }
     }
+
+    private boolean isAnonymous(){
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        for (GrantedAuthority grantedAuthority : authorities) {
+            System.out.println("isAnonymous:" + grantedAuthority.getAuthority());
+            if(grantedAuthority.getAuthority().equals("ROLE_ANONYMOUS")){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

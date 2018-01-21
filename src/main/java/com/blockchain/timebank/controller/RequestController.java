@@ -5,6 +5,7 @@ import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
 import com.blockchain.timebank.weixin.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -468,5 +469,16 @@ public class RequestController {
         } else {
             return null;
         }
+    }
+
+    private boolean isAnonymous(){
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        for (GrantedAuthority grantedAuthority : authorities) {
+            System.out.println("isAnonymous:" + grantedAuthority.getAuthority());
+            if(grantedAuthority.getAuthority().equals("ROLE_ANONYMOUS")){
+                return true;
+            }
+        }
+        return false;
     }
 }
