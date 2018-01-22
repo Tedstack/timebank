@@ -40,7 +40,7 @@
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(userList.get(i).getId());%>>
                         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                            <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
+                            <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;height: 50px;display: block">
                         </div>
                         <div class="weui-cell__bd">
                             <p><%out.print(userList.get(i).getUserName());%></p>
