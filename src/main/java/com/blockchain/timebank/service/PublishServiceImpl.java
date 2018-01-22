@@ -27,23 +27,28 @@ public class PublishServiceImpl implements PublishService {
     @Autowired
     SelectServiceDao selectServiceDao;
 
+    @Transactional
     public PublishEntity savePublishEntity(PublishEntity publishEntity) {
         return publishDao.save(publishEntity);
     }
 
+    @Transactional(readOnly=true)
     public List<PublishEntity> findAllPublishEntity() {
         List<PublishEntity> list = (List<PublishEntity>) publishDao.findAll();
         return list;
     }
 
+    @Transactional(readOnly=true)
     public List<PublishEntity> findByUserID(long ID) {
         return publishDao.findByUserId(ID);
     }
 
+    @Transactional(readOnly=true)
     public PublishEntity findPublishEntityById(long ID) {
         return publishDao.findPublishEntityById(ID);
     }
 
+    @Transactional(readOnly=true)
     public List<ViewPublishDetailEntity> findAllByServiceType(String type){
         List<ViewPublishDetailEntity> list = viewPublishDetailDao.findAllByServiceTypeOrderByCreateTime(type);
         return getAndSetHeadImgUrl(list);
