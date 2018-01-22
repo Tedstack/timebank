@@ -74,8 +74,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="activityType">
-                        <option value="志愿者">志愿者</option>
-                        <option value="社区">社区</option>
+                        <option value="社区">娱乐活动</option>
+                        <option value="志愿者">志愿服务</option>
                     </select>
                 </div>
             </div>
@@ -86,8 +86,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select id="isPublicOptions" class="weui-select" name="isPublicOptions">
-                        <option value="true">公开</option>
-                        <option value="false">不公开</option>
+                        <option value="true">所有人</option>
+                        <option value="false">团队成员</option>
                     </select>
                 </div>
             </div>
@@ -113,8 +113,11 @@
 
             <%
                 Date nowDate = new Date();
+                Date nextDate = new Date();
+                nextDate.setTime(nextDate.getTime() + 3600000);
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
                 String nowTime = formatter.format(nowDate);
+                String nextTime = formatter.format(nextDate);
             %>
 
             <div class="weui-cell">
@@ -122,7 +125,7 @@
                     <p>活动开始时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="2018-01-01T12:00" min="<%out.print(nowTime);%>"/>
+                    <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%=nowTime%>" placeholder="<%out.print(nowTime);%>" min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -131,7 +134,7 @@
                     <p>活动结束时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="2018-01-01T12:00" min="<%out.print(nowTime);%>" />
+                    <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%=nextTime%>" placeholder="<%out.print(nextTime);%>" min="<%out.print(nextTime);%>" />
                 </div>
             </div>
 
@@ -140,7 +143,7 @@
                     <p>申请加入活动截至时间</p>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="2018-01-01T12:00"  min="<%out.print(nowTime);%>"/>
+                    <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="<%=nowTime%>"  min="<%out.print(nowTime);%>"/>
                 </div>
             </div>
 
@@ -194,7 +197,7 @@
         }
     };
     var contextPath="${pageContext.request.contextPath}";
-
+    var nowTime='<%=nowTime%>';
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $uploaderInput1 = $("#file1"),
@@ -279,10 +282,16 @@
             if(beginTime>endTime){
                 showAlert("活动结束时间不能早于活动开始时间");
                 return;
+            }else if(beginTime<nowTime){
+                showAlert("开始时间不合法！");
+                return;
             }
 
             if(applyEndTime>endTime){
                 showAlert("申请加入活动时间不能晚于活动结束时间");
+                return;
+            } else if(applyEndTime<nowTime){
+                showAlert("报名截止时间不合法！");
                 return;
             }
 

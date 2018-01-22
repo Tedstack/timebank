@@ -21,6 +21,8 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
+    <script src="../js/utils.js"></script>
+    <script type="text/javascript">back_to(document.referrer);</script>
 </head>
 <body>
 <%
@@ -179,7 +181,6 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                //dataType:'JSONP',
                 data: "activityID=" + activityID,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
@@ -202,7 +203,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("申请失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
@@ -238,16 +239,6 @@
             });
         });
     });
-</script>
-<script src="../js/utils.js"></script>
-<script type="text/javascript">
-    var type='<%=type%>';
-    if(type==='0')
-        back_to("${pageContext.request.contextPath}/team/teamActivities");
-    else if(type==='1')
-        back_to("${pageContext.request.contextPath}/team/alreadyCompleteActivities2");
-    else
-        back_to("${pageContext.request.contextPath}/team/alreadyApplyActivities");
 </script>
 </body>
 </html>

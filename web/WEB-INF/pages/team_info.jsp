@@ -111,7 +111,7 @@
                 <div class="weui-form-preview__hd">
                     <div class="weui-form-preview__item">
                         <%if(isMember.equalsIgnoreCase("false")){%>
-                        <a onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
+                        <a id="addUser" onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
                         <%}%>
                     </div>
                 </div>
@@ -283,7 +283,8 @@
             success: function (data) {
                 if(data==="success"){
                     showAlert("申请成功",function () {
-                        location.reload();
+                        var addUser=document.getElementById("addUser");
+                        addUser.style.display=none;
                     });
                 }
             },

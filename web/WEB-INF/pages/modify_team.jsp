@@ -154,6 +154,14 @@
             $uploaderInput1[0].value='';
         });
         $("#modifyTeam").on('click', function (){
+            var teamName=document.getElementById("team_name").value;
+            if(teamName.length===0){
+                showAlert("团队名称不能为空！");
+                return;
+            }else if(teamName.length>12){
+                showAlert("团队名称过长！");
+                return;
+            }
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
             var formData = new FormData($("#teamDetail")[0]);

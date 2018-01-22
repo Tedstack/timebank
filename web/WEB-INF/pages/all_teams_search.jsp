@@ -32,7 +32,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-                <div class="weui-flex__item"id="return" onclick="goBack()" >
+                <div class="weui-flex__item"id="return">
                     <p> 团队列表</p>
                 </div>
             </div>

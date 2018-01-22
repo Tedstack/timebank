@@ -19,6 +19,8 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/utils.js"></script>
+    <script type="text/javascript">back_to(document.referrer);</script>
 </head>
 <body>
 <%

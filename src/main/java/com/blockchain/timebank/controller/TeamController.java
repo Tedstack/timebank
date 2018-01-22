@@ -274,16 +274,17 @@ public class TeamController {
                                   String beginTime, String endTime, String applyEndTime,
                                   int count,
                                   String address) {
-        int activityNum=activityPublishService.findAllByDeleted(false).size()+activityPublishService.findAllByDeleted(true).size();
         String idImg = "";
         if (file != null && !file.isEmpty()) {
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
+            Random random=new Random();
+            int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String date = new java.sql.Date(System.currentTimeMillis()).toString();
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = Integer.toString(activityNum+1) + "_Img_"+date + suffix1;
+            idImg = Long.toString(getCurrentUser().getId()) + "_ActImg_"+date+"_"+Integer.toString(ram) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             try {
@@ -300,12 +301,9 @@ public class TeamController {
                 activityPublishEntity.setHeadImg(idImg);
                 file.transferTo(imgFile);
                 activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
-                Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
-                Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " "));
-                Date applyEndDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " "));
-                activityPublishEntity.setBeginTime(new Timestamp(beginDate.getTime()));
-                activityPublishEntity.setEndTime(new Timestamp(endDate.getTime()));
-                activityPublishEntity.setApplyEndTime(new Timestamp(applyEndDate.getTime()));
+                activityPublishEntity.setBeginTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " ")).getTime()));
+                activityPublishEntity.setEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " ")).getTime()));
+                activityPublishEntity.setApplyEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " ")).getTime()));
                 activityPublishEntity.setAddress(address);
                 activityPublishEntity.setCount(count);
                 activityPublishService.saveActivityPublishEntity(activityPublishEntity);
@@ -401,8 +399,7 @@ public class TeamController {
 
     @RequestMapping(value = "/modifyActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyActivity(HttpServletRequest request,
-                                 @RequestParam(value = "file1", required = false) MultipartFile file,
+    public String modifyActivity(@RequestParam(value = "file1", required = false) MultipartFile file,
                                  long teamOptions,
                                  String activityType,
                                  boolean isPublic,
@@ -422,7 +419,7 @@ public class TeamController {
             Random random=new Random();
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = Long.toString(activity.getId()) + "_Img_"+Integer.toString(ram) + suffix1;
+            idImg = Long.toString(activity.getId()) + "_ActImg_"+Integer.toString(ram) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             activity.setHeadImg(idImg);
