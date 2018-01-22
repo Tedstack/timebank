@@ -114,7 +114,7 @@ public class RechargeController {
 
         RechargeEntity rechargeEntity2 = rechargeService.saveRechargeEntity(rechargeEntity);
         rechargeEntity2.setUuid(rechargeEntity2.getId() + "-" + new SimpleDateFormat("yyyyMMddhhmmss").format(date));
-        rechargeService.saveRechargeEntity(rechargeEntity);
+        rechargeService.saveRechargeEntity(rechargeEntity2);
 
         String prePayXml = rechargeService.getUnifiedMessage(userEntity.getOpenId(), amount, rechargeEntity.getUuid(), request);
 
@@ -187,8 +187,9 @@ public class RechargeController {
 
             } else {
                 recharge.setRechargeStatus("failed");
+                accountService.updateRechargeTimeCoin(uuid,payStatus);
             }
-            rechargeService.saveRechargeEntity(recharge);
+           // rechargeService.saveRechargeEntity(recharge);
 
 
         } catch (IOException e) {
@@ -203,7 +204,6 @@ public class RechargeController {
     //发送模板消息通知
     @RequestMapping(value = "/send_template", method = RequestMethod.GET)
     public String send_template(ModelMap map){
-        System.out.println("进入");
         RechargeEntity recharge = rechargeService.findByUuid(uuid);
         UserEntity user = getCurrentUser();
         if("success".equals(recharge.getRechargeStatus())){
