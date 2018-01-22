@@ -93,6 +93,7 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script src="../js/utils.js"></script>
+<script type="text/javascript">back_to(document.referrer);</script>
 <script type="text/javascript">
     back_to("${pageContext.request.contextPath}/user/");
 </script>

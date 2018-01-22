@@ -18,6 +18,4 @@ public interface TeamUserService {
     TeamUserEntity saveTeamUser(TeamUserEntity teamUserEntity);
 
     List<TeamUserEntity> findAllUsersOfOneTeam(long teamID);
-
-    TeamUserEntity findByUserIdAndTeamId(long userID,long teamId);
 }

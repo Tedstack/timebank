@@ -111,12 +111,14 @@ public class TeamController {
             if (teamList.get(i).getCreatorId() == userId)
                 myTeam.add(teamList.get(i));
             else {
-                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(userId, teamList.get(i).getId());
+                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatusNot(userId, teamList.get(i).getId(),TeamUserStatus.isDeleted);
                 if (teamUser != null) {
-                    if (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) && teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
+                    if (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) || teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
                         alreadyInTeam.add(teamList.get(i));
                     else if (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
                         appliedTeam.add(teamList.get(i));
+                    else
+                        otherTeam.add(teamList.get(i));
                 } else {
                     otherTeam.add(teamList.get(i));
                 }
@@ -212,7 +214,7 @@ public class TeamController {
                 if(currentId==0000)
                     activityList.remove(i);
                 else {
-                    TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(currentId, activityList.get(i).getTeamId());
+                    TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatusNot(currentId, activityList.get(i).getTeamId(),TeamUserStatus.isDeleted);
                     if (teamUser != null) {
                         if (teamUser.getStatus() != TeamUserStatus.alreadyEntered)
                             activityList.remove(i);
@@ -231,17 +233,15 @@ public class TeamController {
 
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
-        ViewUserActivityDetailEntity userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId( getCurrentUser().getId(), activityID);
+        ViewUserActivityDetailEntity userActivity=null;
+        if(!isAnonymous())
+            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId( getCurrentUser().getId(), activityID);
         String isApplied = "false";
-        String isAnonymous="false";
-        if(isAnonymous())
-            isAnonymous="true";
         if (userActivity != null)
             isApplied = "true";
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         map.addAttribute("isApplied", isApplied);
-        map.addAttribute("isAnonymous", isAnonymous);
         map.addAttribute("type", type);
         return "activities_details";
     }

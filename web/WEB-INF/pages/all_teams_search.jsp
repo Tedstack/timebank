@@ -73,7 +73,13 @@
                             </div>
                             <div class="weui-cell__bd" onclick="viewTeamPage(this)" id="<%out.print(myTeamList.get(i).getId());%>">
                                 <p><%out.print(myTeamList.get(i).getName());%></p>
-                                <p style="font-size: 13px;color: #888888;"><%out.print(myTeamList.get(i).getDescription());%></p>
+                                <p style="font-size: 13px;color: #888888;">
+                                    <%if(myTeamList.get(i).getDescription().length()<=30)
+                                        out.print(myTeamList.get(i).getDescription());
+                                    else
+                                        out.print(myTeamList.get(i).getDescription().substring(0,30)+"...");
+                                    %>
+                                </p>
                             </div>
                             <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #b3d7ff;">我的</a>
                         </label>
@@ -92,7 +98,13 @@
                         </div>
                         <div class="weui-cell__bd" onclick="viewTeamPage(this)" id="<%out.print(alreadyInTeamList.get(i).getId());%>">
                             <p><%out.print(alreadyInTeamList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(alreadyInTeamList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">
+                                <%if(alreadyInTeamList.get(i).getDescription().length()<=30)
+                                    out.print(alreadyInTeamList.get(i).getDescription());
+                                else
+                                    out.print(alreadyInTeamList.get(i).getDescription().substring(0,30)+"...");
+                                %>
+                            </p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #e6a23c;">已加入</a>
                     </label>
@@ -109,7 +121,12 @@
                         </div>
                         <div class="weui-cell__bd" onclick="viewTeamPage(this)" id="<%out.print(appliedList.get(i).getId());%>">
                             <p><%out.print(appliedList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">
+                                <%if(appliedList.get(i).getDescription().length()<=30)
+                                out.print(appliedList.get(i).getDescription());
+                            else
+                                out.print(appliedList.get(i).getDescription().substring(0,30)+"...");%>
+                            </p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary"  style="background-color: #ce3c39;">已申请</a>
                     </label>
