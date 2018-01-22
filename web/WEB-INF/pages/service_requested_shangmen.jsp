@@ -116,12 +116,9 @@
                     </div>
                 </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
-                    </div>
-                    <br>
-                </div>
                 <%}%>
                 <!--一个订单详情结束，以上可修改-->
-            </div>
+        </div>
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
