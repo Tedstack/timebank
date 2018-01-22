@@ -145,11 +145,10 @@ public class PublishController {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
         if(isAnonymous()) {
-            map.addAttribute("currentUser", null);
-        } else {
-            UserEntity userEntity = getCurrentUser();
-            map.addAttribute("currentUser", userEntity);
+            return "publish_detail_noManager";
         }
+        UserEntity userEntity = getCurrentUser();
+        map.addAttribute("currentUser", userEntity);
         //取前十条评价
         /*List<ViewPublishOrderDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
         List<ViewPublishOrderDetailEntity> recordList = new ArrayList<ViewPublishOrderDetailEntity>();

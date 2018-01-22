@@ -75,8 +75,16 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
-                    <a id="serviceApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
-                        <%=detail.getPrice()%>时间币/小时 申请服务
+                    <a id="serviceApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/loginPage" style="color:#fff; border:0px;display: none;text-decoration:none;">
+                        <%
+                            out.print(detail.getPrice());
+                            if(detail.getServiceId() / 100 == 1)
+                                out.print("志愿者时间");
+                            else if(detail.getServiceId() / 100 == 2)
+                                out.print("元");
+                            else
+                                out.print("时间币");
+                        %>/小时 申请服务
                     </a>
                     <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
                         服务已过期，不可申请
@@ -130,16 +138,6 @@
         } else {
             $("#serviceApply-button").show();
             $("#serviceOverDate-button").hide();
-        }
-        var currentUserId = "";
-        if(<%out.print(currentUser != null);%>) {
-            currentUserId = <%=currentUser.getId()%>;
-        }
-        var publishUserId = <%out.print(detail.getUserId());%>;
-        if(currentUserId != "" && currentUserId == publishUserId){
-            $("#serviceApply-button").hide();
-            $("#serviceOverDate-button").show();
-            $("#serviceOverDate-button").html("不可申请自己的服务");
         }
     });
     Date.prototype.Format = function (fmt) { //author: meizz
