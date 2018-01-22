@@ -38,6 +38,27 @@
                 else{
                     for(Service_request_entity coins_list :list){
             %>
+            <%if("recharge".equals(coins_list.getClarify())){%>
+            <a href="<%out.print("recharge_detial?id="+coins_list.getId());%>" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" src="../img/支付.png" width="5%" >
+                </div>
+                <div class="weui-media-box__bd">
+                    <div class="weui-media-box__title">
+                        <span>微信充值</span>
+                        <span style="float: right">+<%out.print(coins_list.getPaymoney());%></span>
+                    </div>
+                    <div class="weui-media-box__info">
+                        <%
+                            Timestamp endTimestamp = coins_list.getActualEndTime();
+                            Date enddate = new Date(endTimestamp.getTime());
+                            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            out.print(bartDateFormat.format(enddate));
+                        %>
+                    </div>
+                </div>
+            </a>
+            <%}else{%>
             <a href="<%out.print("coins_details?id="+coins_list.getId()+"&clarify="+coins_list.getClarify());%>" class="weui-media-box weui-media-box_appmsg">
                 <div class="weui-media-box__hd">
                     <img class="weui-media-box__thumb" src="../img/服务名称/<%out.print(coins_list.getService_name());%>.png" width="5%" >
@@ -74,7 +95,7 @@
                     </div>
                 </div>
             </a>
-            <% } }%>
+            <% }} }%>
         </div>
     </div>
 </div>

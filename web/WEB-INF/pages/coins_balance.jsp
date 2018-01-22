@@ -24,7 +24,7 @@
 
                 <div class="weui-msg__text-area">
                     <h1 class="weui-msg__title" style="font-size: x-large">我的时间币</h1>
-                    <h2 class="weui-msg__title" style="font-size: xx-large">$ ${TimeCoin}</h2>
+                    <h2 class="weui-msg__title" style="font-size: xx-large">${TimeCoin}</h2>
                 </div>
 
                 <div class="weui-msg__opr-area">

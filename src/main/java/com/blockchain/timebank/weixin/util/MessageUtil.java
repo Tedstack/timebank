@@ -205,5 +205,41 @@ public class MessageUtil {
         return AdvancedUtil.sendTemplateMessage(template);
     }
 
+    //微信充值成功提醒
+    public static boolean RechargeTemplate(UserEntity user,RechargeEntity recharge){
+        //此处用与测试，增加微信充值模板消息提醒,暂时写在这后面模板数目增多，移到专门的类中
+        UserEntity userEntity = user;
+        String str_first = "充值通知:尊敬的"+ user.getName()+"您好：";
+        String rechargeDate = recharge.getRechargeDate().toString();
+        SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date date = null;
+        try {
+            date = bartDateFormat.parse(rechargeDate);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        String str_Date = bartDateFormat.format(date);
+        String str_type = "微信支付";
+        String str_amount = Double.toString(recharge.getTotalAmount());
+        String str_remark = "您当前的时间币余额为" + Double.toString(user.getTimeCoin());
+        List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+        templateParamList.add(new TemplateParam("first",str_first, "#173177"));
+        templateParamList.add(new TemplateParam("JFSJ", str_Date, "#173177"));
+        templateParamList.add(new TemplateParam("JFFS",str_type,"#173177"));
+        templateParamList.add(new TemplateParam("JFJE",str_amount,"#173177"));
+        templateParamList.add(new TemplateParam("REMARK",str_remark, "#173177"));
+
+        Template template = new Template();
+        template.setTemplateId("lwq0d7uaWDGj1HsoBD9NuhxITvuq-iglfxfcNRH94gk");
+        template.setToUser(user.getOpenId());
+        template.setTopColor("#173177");
+        template.setUrl("http://www.i-linli.com/timebanktest/user/recharge_detial?id="+recharge.getId());
+        template.setTemplateParamList(templateParamList);
+
+        // return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
+        return AdvancedUtil.sendTemplateMessage(template);
+    }
+
 
 }

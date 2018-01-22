@@ -7,8 +7,8 @@ import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.service.AccountService;
 import com.blockchain.timebank.service.RechargeService;
 import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.weixin.util.MessageUtil;
 import com.blockchain.timebank.weixin.util.SignUtil;
-import com.blockchain.timebank.weixin.util.TemplateUtil;
 import com.blockchain.timebank.wxpay.ConfigUtil;
 import com.blockchain.timebank.wxpay.WxPay;
 import com.blockchain.timebank.wxpay.XMLUtil;
@@ -207,7 +207,7 @@ public class RechargeController {
         RechargeEntity recharge = rechargeService.findByUuid(uuid);
         UserEntity user = getCurrentUser();
         if("success".equals(recharge.getRechargeStatus())){
-            boolean result = TemplateUtil.testTemplate(user,recharge);
+            boolean result = MessageUtil.RechargeTemplate(user,recharge);
             if(result)
                 System.out.println("模板发送成功");
         }

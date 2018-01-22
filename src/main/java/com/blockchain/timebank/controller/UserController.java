@@ -505,6 +505,12 @@ public class UserController {
             }
         }
 
+        while(iter3.hasNext()){
+            RechargeEntity record = iter3.next();
+            Service_request_entity recharge = Service_request_entity.set_recharge(record);
+            recordlist.add(recharge);
+        }
+
         if(recordlist.size()>0){
             MySortList<Service_request_entity> msList = new MySortList<Service_request_entity>();
             msList.sortByMethod(recordlist,"getActualEndTime",true);
@@ -533,6 +539,14 @@ public class UserController {
             map.addAttribute("userid", getCurrentUser().getId());
         }
         return "/coins_details";
+    }
+
+    //时间币充值明细
+    @RequestMapping(value="recharge_detial",method = RequestMethod.GET)
+    public String getRechrgeDetail(ModelMap map,@RequestParam long id){
+        RechargeEntity rechargeEntity = rechargeDao.findOne(id);
+        map.addAttribute("rechargeDetail",rechargeEntity);
+        return "/recharge_detail";
     }
 
     /**

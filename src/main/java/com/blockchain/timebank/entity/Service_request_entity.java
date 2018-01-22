@@ -170,4 +170,16 @@ public class Service_request_entity {
         request.setOrderid(FormatOrderIdUtil.format(record.getCreateTime(),record.getId()));
         return request;
     }
+
+    public static Service_request_entity set_recharge(RechargeEntity record){
+        Service_request_entity recharge = new Service_request_entity();
+        recharge.setClarify("recharge");
+        recharge.setId(record.getId());
+        BigDecimal money = BigDecimal.valueOf(record.getTotalAmount());
+        recharge.setPaymoney(money);
+        recharge.setOrderid(record.getUuid());
+        recharge.setComment(record.getRechargeStatus());
+        recharge.setActualEndTime(record.getRechargeDate());
+        return recharge;
+    }
 }
