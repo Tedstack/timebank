@@ -57,7 +57,7 @@
     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
         <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
             <div class="weui-cell__hd" style="position: relative;margin-right: 10px;" >
-                <img src="../img/teamHeadImg/<%out.print(teamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
+                <img src="../img/teamHeadImg/<%out.print(teamList.get(i).getHeadImg());%>" style="width: 50px;height: 50px;display: block">
             </div>
             <div class="weui-cell__bd">
                 <p><%out.print(teamList.get(i).getName());%></p>
@@ -93,7 +93,6 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script src="../js/utils.js"></script>
-<script type="text/javascript">back_to(document.referrer);</script>
 <script type="text/javascript">
     back_to("${pageContext.request.contextPath}/user/");
 </script>

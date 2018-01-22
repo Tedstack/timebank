@@ -35,7 +35,7 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                    <p><img src="../img/back.png" width="20" height="15"alt="">团队列表</p>
+                    <p> 团队列表</p>
                 </div>
             </div>
             <br>
@@ -47,7 +47,7 @@
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(myTeam.get(i).getId());%>>
                         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                            <img src="../img/teamHeadImg/<%out.print(myTeam.get(i).getHeadImg());%>" style="width: 50px;display: block">
+                            <img src="../img/teamHeadImg/<%out.print(myTeam.get(i).getHeadImg());%>" style="width: 50px;height: 50px;display: block">
                         </div>
                         <div class="weui-cell__bd">
                             <p><%out.print(myTeam.get(i).getName());%></p>
@@ -68,7 +68,7 @@
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
                     <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
                         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
-                            <img src="../img/teamHeadImg/<%out.print(teamList.get(i).getHeadImg());%>" style="width: 50px;display: block">
+                            <img src="../img/teamHeadImg/<%out.print(teamList.get(i).getHeadImg());%>" style="width: 50px;height: 50px;display: block">
                         </div>
                         <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
                             <p><%out.print(teamList.get(i).getName());%></p>

@@ -265,8 +265,7 @@ public class TeamController {
     // 发布活动
     @RequestMapping(value = "/publishActivity", method = RequestMethod.POST)
     @ResponseBody
-    public String publishActivity(HttpServletRequest request,
-                                  @RequestParam(value = "file1", required = false) MultipartFile file,
+    public String publishActivity(@RequestParam(value = "file1", required = false) MultipartFile file,
                                   long teamId,
                                   String activityType,
                                   boolean isPublic,
@@ -823,18 +822,16 @@ public class TeamController {
 
     @RequestMapping(value = "/createTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String createTeam(HttpServletRequest request,
-                             @RequestParam(value = "file1", required = false) MultipartFile file,
+    public String createTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_name,
-                             String describe,
+                             String team_location,
                              String content_number,
-                             String team_location) {
+                             String describe) {
         String idImg = "";
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
             File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
-            System.out.println("File path:++++"+request.getSession().getServletContext().getRealPath("/"));
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
@@ -849,7 +846,7 @@ public class TeamController {
                 newTeam.setName(team_name);
                 newTeam.setAddress(team_location);
                 long userId = getCurrentUser().getId();
-                if (content_number == null) {
+                if (content_number.equalsIgnoreCase("")) {
                     UserEntity user = userService.findUserEntityById(userId);
                     content_number = user.getPhone();
                 }
@@ -887,13 +884,12 @@ public class TeamController {
 
     @RequestMapping(value = "/modifyTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyTeam(HttpServletRequest request,
-                             @RequestParam(value = "file1", required = false) MultipartFile file,
+    public String modifyTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_id,
                              String team_name,
+                             String team_location,
                              String team_phone,
-                             String describe,
-                             String team_location) {
+                             String describe) {
         try {
             TeamEntity team = teamService.findById(Long.parseLong(team_id));
             String idImg = "";

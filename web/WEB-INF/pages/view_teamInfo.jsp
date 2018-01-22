@@ -55,6 +55,12 @@
             <p class="weui-input"><%out.print(team.getAddress());%></p>
         </div>
     </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
+        <div class="weui-cell__bd">
+            <p class="weui-input"><%out.print(team.getPhone());%></p>
+        </div>
+    </div>
     <div class="weui-panel__ft">
         <a href="${pageContext.request.contextPath}/team/myTeamMember?teamId=<%out.print(team.getId());%>" class="weui-cell weui-cell_access weui-cell_link">
             <div class="weui-cell__bd"><label class="weui-label" style="font-size: 17px;color: #1a1a1a;">团队成员</label></div>

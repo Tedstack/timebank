@@ -24,6 +24,8 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/utils.js"></script>
+    <script type="text/javascript">back_to(document.referrer);</script>
 </head>
 <body>
 <%
@@ -122,7 +124,7 @@
             <div class="weui-cells weui-cells_checkbox">
                 <label class="weui-cell weui-check__label">
                     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                        <img src="<%out.print(creator.getHeadImgUrl());%>" style="width: 50px;display: block">
+                        <img src="<%out.print(creator.getHeadImgUrl());%>" style="width: 50px;height: 50px;display: block">
                     </div>
                     <div class="weui-cell__bd">
                         <p><%out.print(creator.getName());%></p>
@@ -138,7 +140,7 @@
             <div class="weui-cells weui-cells_checkbox">
                 <label class="weui-cell weui-check__label">
                     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                        <img src="<%out.print(managerList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
+                        <img src="<%out.print(managerList.get(i).getUserHeadImg());%>" style="width: 50px;height: 50px;display: block">
                     </div>
                     <div class="weui-cell__bd">
                         <p><%out.print(managerList.get(i).getUserName());%></p>
@@ -157,7 +159,7 @@
             <div class="weui-cells weui-cells_checkbox">
                 <label class="weui-cell weui-check__label">
                     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                        <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
+                        <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;height: 50px;display: block">
                     </div>
                     <div class="weui-cell__bd">
                         <p><%out.print(userList.get(i).getUserName());%></p>
@@ -233,7 +235,6 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script src="../js/utils.js"></script>
 <script type="text/javascript">
     var index=document.getElementById("index");
     var member=document.getElementById("member");

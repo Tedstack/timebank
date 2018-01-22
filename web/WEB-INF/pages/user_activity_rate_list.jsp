@@ -22,7 +22,7 @@
 <div class="weui-tab__panel" style="color: #7ACF41;">
     <div class="weui-panel__hd">
         <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">参加活动人员</p>
+            <p> 参加活动人员</p>
         </div>
     </div>
     <div class="weui-cells">
