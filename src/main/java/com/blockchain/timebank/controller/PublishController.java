@@ -144,29 +144,20 @@ public class PublishController {
     public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
-        UserEntity userEntity = getCurrentUser();
-        map.addAttribute("currentUser", userEntity);
+        if(isAnonymous()) {
+            map.addAttribute("currentUser", null);
+        } else {
+            UserEntity userEntity = getCurrentUser();
+            map.addAttribute("currentUser", userEntity);
+        }
         //取前十条评价
-        List<ViewPublishOrderDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
+        /*List<ViewPublishOrderDetailEntity> temp = viewRecordDetailDao.findViewRecordDetailEntitiesByPublishIdAndStatus(id,OrderStatus.alreadyComplete);
         List<ViewPublishOrderDetailEntity> recordList = new ArrayList<ViewPublishOrderDetailEntity>();
         if(temp.size()<=10){
             recordList = temp;
         }else{
             recordList = temp.subList(0,10);
-        }
-
-        UserEntity user = userService.findUserEntityById(viewPublishDetailEntity.getUserId());
-        String cardID = user.getIdCard();
-        try {
-            Map<String, Object> info =  CommonUtil.getCarInfo(cardID);
-            map.addAttribute("age",info.get("age"));
-        } catch (Exception e) {
-            map.addAttribute("age",-1);
-            e.printStackTrace();
-        }
-
-        map.addAttribute("timeVol", user.getTimeVol());
-        map.addAttribute("recordList", recordList);
+        }*/
         if("volunteer".equals(type)){
             return "service_volunteer/publish_detail_volunteer";
         } else if("mutualAid".equals(type)){

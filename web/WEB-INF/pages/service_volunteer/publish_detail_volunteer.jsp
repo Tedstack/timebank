@@ -29,9 +29,6 @@
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
-    List<ViewPublishOrderDetailEntity> recordList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordList");
-    int age = (int) request.getAttribute("age");
-    double timeVol = (double) request.getAttribute("timeVol");
     UserEntity currentUser = (UserEntity) request.getAttribute("currentUser");
 %>
 
@@ -77,9 +74,20 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
+                    <%
+                        if(currentUser != null){
+                    %>
                     <a id="serviceApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
-                        <%=detail.getPrice()%>志愿者时间/小时 申请服务
+                        <%=detail.getPrice()%>时间币/小时 申请服务
                     </a>
+                    <%}else{%>
+                    <a id="serviceApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/loginPage" style="color:#fff; border:0px;display: none;text-decoration:none;">
+                        <%=detail.getPrice()%>时间币/小时 申请服务
+                    </a>
+                    <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
+                        服务已过期，不可申请
+                    </a>
+                    <%}%>
                     <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
                         服务已过期，不可申请
                     </a>
