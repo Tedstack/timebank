@@ -884,13 +884,12 @@ public class TeamController {
 
     @RequestMapping(value = "/modifyTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyTeam(HttpServletRequest request,
-                             @RequestParam(value = "file1", required = false) MultipartFile file,
+    public String modifyTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_id,
                              String team_name,
+                             String team_location,
                              String team_phone,
-                             String describe,
-                             String team_location) {
+                             String describe) {
         try {
             TeamEntity team = teamService.findById(Long.parseLong(team_id));
             String idImg = "";
