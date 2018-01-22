@@ -69,6 +69,9 @@ public class UserController {
     @Autowired
     ViewUserActivityDetailDao viewUserActivityDetailDao;
 
+    @Autowired
+    RechargeDao rechargeDao;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String userPage(ModelMap map) {
         UserEntity userEntity = getCurrentUser();
@@ -467,14 +470,19 @@ public class UserController {
         List<RechargeEntity> list = rechargeDao.findByUserId(user.getId());
         //倒序排列
         Collections.reverse(list);*/
+        //互助服务
         List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
+        //互助需求
         List<ViewRequestOrderDetailEntity> requestDetailList = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewRequestOrderDetailEntity> requestDetailList2 = viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
+        //时间币充值
+        List<RechargeEntity> rechargelist = rechargeDao.findByUserId(getCurrentUser().getId());
         recordDetailList.addAll(recordDetailList2);
         requestDetailList.addAll(requestDetailList2);
         Iterator<ViewPublishOrderDetailEntity> iter = recordDetailList.iterator();
         Iterator<ViewRequestOrderDetailEntity> iter2 = requestDetailList.iterator();
+        Iterator<RechargeEntity> iter3 =rechargelist.iterator();
         List<Service_request_entity> recordlist = new ArrayList<Service_request_entity>();
         while(iter.hasNext()){
             ViewPublishOrderDetailEntity record = iter.next();
@@ -496,6 +504,7 @@ public class UserController {
                 recordlist.add(request);
             }
         }
+
         if(recordlist.size()>0){
             MySortList<Service_request_entity> msList = new MySortList<Service_request_entity>();
             msList.sortByMethod(recordlist,"getActualEndTime",true);

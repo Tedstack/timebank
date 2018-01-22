@@ -102,21 +102,21 @@ public class RechargeController {
         Double amount = totalAmount * 100 / ConfigUtil.RMB_TO_TIMECOIN;
 
         //以下预填数据库中充值信息
-        Date date = new Date();
-        SimpleDateFormat temp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String reDate = temp.format(date);
         RechargeEntity rechargeEntity = new RechargeEntity();
         rechargeEntity.setUserId(userEntity.getId());
         rechargeEntity.setTotalAmount(totalAmount);
-        rechargeEntity.setRechargeDate(reDate);
         rechargeEntity.setRechargeStatus("submit");
         //rechargeEntity.setExtra("no");
 
-        RechargeEntity rechargeEntity2 = rechargeService.saveRechargeEntity(rechargeEntity);
-        rechargeEntity2.setUuid(rechargeEntity2.getId() + "-" + new SimpleDateFormat("yyyyMMddhhmmss").format(date));
-        rechargeService.saveRechargeEntity(rechargeEntity2);
-
-        String prePayXml = rechargeService.getUnifiedMessage(userEntity.getOpenId(), amount, rechargeEntity.getUuid(), request);
+        rechargeService.saveRechargeEntity(rechargeEntity);
+        RechargeEntity rechargeEntity2 = rechargeDao.findOne(rechargeEntity.getId());
+        Timestamp rechargeDate = rechargeEntity2.getRechargeDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String prefix = sdf.format(rechargeDate);
+        String uuid = rechargeEntity2.getId() + "-" + prefix;
+        rechargeEntity.setUuid(uuid);
+        rechargeService.saveRechargeEntity(rechargeEntity);
+        String prePayXml = rechargeService.getUnifiedMessage(userEntity.getOpenId(), amount, uuid, request);
 
         Map mp1 = WxPay.getPayMap(prePayXml);
 

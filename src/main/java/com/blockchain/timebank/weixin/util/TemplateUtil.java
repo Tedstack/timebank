@@ -14,7 +14,7 @@ public class TemplateUtil {
         //此处用与测试，增加微信充值模板消息提醒,暂时写在这后面模板数目增多，移到专门的类中
         UserEntity userEntity = user;
         String str_first = "充值通知:尊敬的"+ user.getName()+"您好：";
-        String rechargeDate = recharge.getRechargeDate();
+        String rechargeDate = recharge.getRechargeDate().toString();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date = null;
