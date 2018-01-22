@@ -3,15 +3,15 @@ package com.blockchain.timebank.util;
 import java.security.MessageDigest;
 
 /**
- * message-digest algorithm 5£¨ĞÅÏ¢-ÕªÒªËã·¨£©
+ * message-digest algorithm 5ï¼ˆä¿¡æ¯-æ‘˜è¦ç®—æ³•ï¼‰
  *
- * md5µÄ³¤¶È£¬Ä¬ÈÏÎª128bit£¬Ò²¾ÍÊÇ128¸ö 0ºÍ1µÄ ¶ş½øÖÆ´® ¡£
+ * md5çš„é•¿åº¦ï¼Œé»˜è®¤ä¸º128bitï¼Œä¹Ÿå°±æ˜¯128ä¸ª 0å’Œ1çš„ äºŒè¿›åˆ¶ä¸² ã€‚
  *
- * 128/4 = 32 »»³É 16½øÖÆ ±íÊ¾ºó£¬Îª32Î»ÁË¡£
+ * 128/4 = 32 æ¢æˆ 16è¿›åˆ¶ è¡¨ç¤ºåï¼Œä¸º32ä½äº†ã€‚
  */
 public class MD5Util {
     /**
-     * Éú³Émd5
+     * ç”Ÿæˆmd5
      *
      * @param message
      * @return
@@ -19,16 +19,16 @@ public class MD5Util {
     public static String getMD5(String message) {
         String md5str = "";
         try {
-            // 1 ´´½¨Ò»¸öÌá¹©ĞÅÏ¢ÕªÒªËã·¨µÄ¶ÔÏó£¬³õÊ¼»¯Îªmd5Ëã·¨¶ÔÏó
+            // 1 åˆ›å»ºä¸€ä¸ªæä¾›ä¿¡æ¯æ‘˜è¦ç®—æ³•çš„å¯¹è±¡ï¼Œåˆå§‹åŒ–ä¸ºmd5ç®—æ³•å¯¹è±¡
             MessageDigest md = MessageDigest.getInstance("MD5");
 
-            // 2 ½«ÏûÏ¢±ä³ÉbyteÊı×é
+            // 2 å°†æ¶ˆæ¯å˜æˆbyteæ•°ç»„
             byte[] input = message.getBytes();
 
-            // 3 ¼ÆËãºó»ñµÃ×Ö½ÚÊı×é,Õâ¾ÍÊÇÄÇ128Î»ÁË
+            // 3 è®¡ç®—åè·å¾—å­—èŠ‚æ•°ç»„,è¿™å°±æ˜¯é‚£128ä½äº†
             byte[] buff = md.digest(input);
 
-            // 4 °ÑÊı×éÃ¿Ò»×Ö½Ú£¨Ò»¸ö×Ö½ÚÕ¼°ËÎ»£©»»³É16½øÖÆÁ¬³Émd5×Ö·û´®
+            // 4 æŠŠæ•°ç»„æ¯ä¸€å­—èŠ‚ï¼ˆä¸€ä¸ªå­—èŠ‚å å…«ä½ï¼‰æ¢æˆ16è¿›åˆ¶è¿æˆmd5å­—ç¬¦ä¸²
             md5str = bytesToHex(buff);
 
         } catch (Exception e) {
@@ -38,14 +38,14 @@ public class MD5Util {
     }
 
     /**
-     * ¶ş½øÖÆ×ªÊ®Áù½øÖÆ
+     * äºŒè¿›åˆ¶è½¬åå…­è¿›åˆ¶
      *
      * @param bytes
      * @return
      */
     public static String bytesToHex(byte[] bytes) {
         StringBuffer md5str = new StringBuffer();
-        // °ÑÊı×éÃ¿Ò»×Ö½Ú»»³É16½øÖÆÁ¬³Émd5×Ö·û´®
+        // æŠŠæ•°ç»„æ¯ä¸€å­—èŠ‚æ¢æˆ16è¿›åˆ¶è¿æˆmd5å­—ç¬¦ä¸²
         int digital;
         for (int i = 0; i < bytes.length; i++) {
             digital = bytes[i];

@@ -6,6 +6,7 @@ import com.blockchain.timebank.entity.RequestEntity;
 import com.blockchain.timebank.entity.ViewRequestDetailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -22,26 +23,32 @@ public class RequestServiceImpl implements RequestService {
     @Autowired
     private RequestDao requestDao;
 
+    @Transactional(readOnly = true)
     public List<ViewRequestDetailEntity> findAllRequestDetailByType(String type) {
         return viewRequestDetailDao.findViewRequestDetailEntitiesByServiceTypeAndIsDeletedOrderByCreateTimeDesc(type, 0);
     }
 
+    @Transactional()
     public void saveRequestEntity(RequestEntity requestEntity) {
         requestDao.save(requestEntity);
     }
 
+    @Transactional(readOnly = true)
     public ViewRequestDetailEntity findDetailById(long id) {
         return viewRequestDetailDao.findViewRequestDetailEntityById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<ViewRequestDetailEntity> findUserRequestPublished(long id) {
         return viewRequestDetailDao.findViewRequestDetailEntitiesByUserIdAndIsDeleted(id, 0);
     }
 
+    @Transactional(readOnly = true)
     public RequestEntity findRequestById(long id) {
         return requestDao.findRequestEntityById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<ViewRequestDetailEntity> findAllByCondition(String type, BigDecimal upperPrice, BigDecimal lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr) {
         return viewRequestDetailDao.findViewRequestDetailEntityByConditionOrderByCreateTimeDesc(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
     }
