@@ -31,7 +31,7 @@
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item" id="return" onclick="goBack()" >
-            <p><img src="../img/back.png" width="20" height="15"alt="">团队历史活动</p>
+            <p> 团队历史活动</p>
         </div>
     </div>
     <%
