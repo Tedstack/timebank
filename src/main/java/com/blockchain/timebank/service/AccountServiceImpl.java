@@ -165,9 +165,9 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public void updateRechargeTimeCoin(String rechargeUuid ,String sign){
         RechargeEntity rechargeEntity = rechargeService.findByUuid(rechargeUuid);
+        System.out.println("rechargeentity"+rechargeEntity.getRechargeStatus());
         if("ok".equals(sign)) {
             long userid = rechargeEntity.getUserId();
-            System.out.println("userid"+userid);
             //修改用户账户中的
             UserEntity userEntity = userService.findUserEntityById(userid);
             double amount = rechargeEntity.getTotalAmount()*100 + userEntity.getTimeCoin();
