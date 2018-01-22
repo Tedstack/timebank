@@ -73,6 +73,12 @@
         </div>
     </div>
     <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="team_phone" name="team_phone" value=<%out.print(team.getPhone());%>>
+        </div>
+    </div>
+    <div class="weui-cell">
         <div class="weui-cell__hd">
             <label class="weui-label">团队介绍</label></div>
         <div class="weui-cell__bd">

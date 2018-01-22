@@ -11,5 +11,5 @@ import java.util.List;
 public interface ViewTeamDetailDao extends CrudRepository<ViewTeamDetailEntity, Long> {
     List<ViewTeamDetailEntity> findAllByDeleted(boolean isDeleted);
 
-    List<ViewTeamDetailEntity> findAllByNameLikeAndDeleted(String teamName,boolean deleted);
+    List<ViewTeamDetailEntity> findAllByNameContainingAndDeleted(String teamName,boolean deleted);
 }

@@ -27,6 +27,7 @@
     ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
     String isApplied=(String) request.getAttribute("isApplied");
+    String isAnonymous=(String) request.getAttribute("isAnonymous");
     String type=(String) request.getAttribute("type");
 %>
 <!-- 使用 -->
@@ -134,7 +135,9 @@
             <div class="con_u" style="font-size: 14px;"><%out.print(activityPublishDetail.getDescription());%></div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;text-align: center;">
-            <%if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
+            <%if(isAnonymous.equalsIgnoreCase("true")){%>
+            <p style="font-size: 20px;color: #ce3c39;"> </p>
+            <%}else if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
             <p style="font-size: 20px;color: #ce3c39;">已经报名成功</p>
             <%}else if(type.equalsIgnoreCase("0")){%>
             <a id="applyBtn" class="weui-btn weui-btn_primary">报名参与</a>
@@ -162,14 +165,6 @@
 
     var activityID='<%=activityPublishDetail.getId()%>';
     var contextPath="${pageContext.request.contextPath}";
-
-    function goBack(){
-        var type='<%=type%>';
-        if(type==='0')
-            window.location.href="${pageContext.request.contextPath}/team/teamActivities";
-        else
-            history.go(-1);
-    }
 
     function goToUserList(u){
         window.location.href="${pageContext.request.contextPath}/team/userActivityList?activityId="+activityID;

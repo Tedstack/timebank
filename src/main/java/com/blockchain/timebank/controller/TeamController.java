@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.blockchain.timebank.weixin.util.MessageUtil;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -100,7 +100,7 @@ public class TeamController {
         map.addAttribute("param", searchInput);
         if(searchInput.equalsIgnoreCase(""))
             return "all_teams";
-        List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findAllByNameLikeAndDeleted(searchInput+"%",false);
+        List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findAllByNameContainingAndDeleted("%"+searchInput+"%",false);
         //从所有用户加入的团队中找到自己已经加入的团队
         List<ViewTeamDetailEntity> myTeam = new ArrayList<ViewTeamDetailEntity>();
         List<ViewTeamDetailEntity> otherTeam = new ArrayList<ViewTeamDetailEntity>();
@@ -151,21 +151,18 @@ public class TeamController {
     @ResponseBody
     public String addUserToTeam(@RequestParam long teamId) {
         long userId = getCurrentUser().getId();
-//        boolean isSent = false;
+        boolean isSent = false;
         TeamUserEntity teamUser = new TeamUserEntity();
         teamUser.setTeamId(teamId);
         teamUser.setUserId(userId);
         teamUser.setStatus(TeamUserStatus.inApplication);
         teamUserService.addUserToTeam(teamUser);
-//            TeamEntity team = teamService.findById(teamIDList.get(i));
-//            UserEntity user = userService.findUserEntityById(team.getCreatorId());
-//            if (MessageUtil.sign_team(user, team))
-//                isSent = true;
-//            else
-//                isSent = false;
-//        if (isSent)
-//        else
-//            result.put("msg", "msgFail");
+        TeamEntity team = teamService.findById(teamId);
+        UserEntity user = userService.findUserEntityById(team.getCreatorId());
+        if (MessageUtil.sign_team(user, team))
+            System.out.println("Message send success");
+        else
+            System.out.println("Message send fail");
         return "success";
     }
 
@@ -197,9 +194,11 @@ public class TeamController {
         List<ActivityPublishEntity> activityList = activityPublishService.findAllWaitingApplyActivityPublishEntity();
         //倒序排列
         Collections.reverse(activityList);
-
+        boolean isAnonymous=isAnonymous();
         //因为使用remove方法，此处循环用倒叙
-        long currentId= getCurrentUser().getId();
+        long currentId=0000;
+        if(!isAnonymous)
+            currentId= getCurrentUser().getId();
         for (int i = activityList.size() - 1; i >= 0; i--) {
             List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityList.get(i).getId(), true);
             //判断活动已报名人数是否达到活动要求人数，已达到的活动下架不显示
@@ -210,10 +209,14 @@ public class TeamController {
 
             //活动不公开
             if (!activityList.get(i).isPublic()) {
-                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(currentId,activityList.get(i).getTeamId());
-                if(teamUser!=null){
-                    if(teamUser.getStatus()!=TeamUserStatus.alreadyEntered)
-                        activityList.remove(i);
+                if(currentId==0000)
+                    activityList.remove(i);
+                else {
+                    TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(currentId, activityList.get(i).getTeamId());
+                    if (teamUser != null) {
+                        if (teamUser.getStatus() != TeamUserStatus.alreadyEntered)
+                            activityList.remove(i);
+                    }
                 }
             }
         }
@@ -230,11 +233,15 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
         ViewUserActivityDetailEntity userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId( getCurrentUser().getId(), activityID);
         String isApplied = "false";
+        String isAnonymous="false";
+        if(isAnonymous())
+            isAnonymous="true";
         if (userActivity != null)
             isApplied = "true";
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         map.addAttribute("isApplied", isApplied);
+        map.addAttribute("isAnonymous", isAnonymous);
         map.addAttribute("type", type);
         return "activities_details";
     }
@@ -333,11 +340,12 @@ public class TeamController {
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
         userActivityService.addUserActivity(userActivityEntity);
-//        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
-//        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
-              return "ok";
-//        else
-//            return "messageFail";
+        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
+        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
+            System.out.println("Message send success");
+        else
+            System.out.println("Message send fail");
+        return "ok";
     }
 
     @RequestMapping(value = "/quitFromActivity", method = RequestMethod.POST)
@@ -756,14 +764,13 @@ public class TeamController {
     @RequestMapping(value = "/approveUser", method = RequestMethod.POST)
     @ResponseBody
     public String ApproveUser(@RequestParam String userId,@RequestParam String teamId) {
+        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
+        TeamEntity team=teamService.findById(Long.parseLong(teamId));
+        if(MessageUtil.team_join_success(user,team))
+            System.out.println("message send success");
+        else
+            System.out.println("Message send fail");
         return TeamManage(userId,teamId,"approve");
-//        String result = TeamManage(userId, teamId, "approve");
-//        UserEntity user=userService.findUserEntityById(Long.parseLong(userId));
-//        TeamEntity team=teamService.findById(Long.parseLong(teamId));
-//        if(MessageUtil.team_join_success(user,team))
-//            return result;
-//        else
-//            return "messageFail";
     }
 
     @RequestMapping(value = "/demoteManager", method = RequestMethod.POST)
@@ -884,6 +891,7 @@ public class TeamController {
                              @RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_id,
                              String team_name,
+                             String team_phone,
                              String describe,
                              String team_location) {
         try {
@@ -911,6 +919,7 @@ public class TeamController {
                     team.setName(team_name);
             }
             team.setDescription(describe);
+            team.setPhone(team_phone);
             team.setAddress(team_location);
             teamService.saveTeamEntity(team);
             return "success";

@@ -97,6 +97,9 @@
         $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
     });
 </script>
-
+<script src="../js/utils.js"></script>
+<script type="text/javascript">
+    back_to("${pageContext.request.contextPath}/index");
+</script>
 </body>
 </html>

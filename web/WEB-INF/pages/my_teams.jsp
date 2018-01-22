@@ -61,7 +61,13 @@
             </div>
             <div class="weui-cell__bd">
                 <p><%out.print(teamList.get(i).getName());%></p>
-                <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
+                <p style="font-size: 13px;color: #888888;">
+                    <%if(teamList.get(i).getDescription().length()<=30)
+                        out.print(teamList.get(i).getDescription());
+                    else
+                        out.print(teamList.get(i).getDescription().substring(0,30)+"...");
+                    %>
+                </p>
             </div>
             <% if(teamList.get(i).isDeleted()){%>
             <p class="weui-btn weui-btn_mini weui-btn_primary">已删除</p>

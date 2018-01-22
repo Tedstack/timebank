@@ -100,7 +100,7 @@
     $(function(){
         $("#deleteTeam").on('click', function () {
             var contextPath="${pageContext.request.contextPath}";
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/team/deleteTeam";
+            var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteTeam";
             var teamId=document.getElementById("deleteTeam").name;
             $.ajax({
                 type: 'POST',
