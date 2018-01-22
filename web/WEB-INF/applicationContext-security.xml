@@ -43,6 +43,7 @@
         <intercept-url pattern="/request/list" access="permitAll()"/>
         <intercept-url pattern="/request/detail" access="permitAll()"/>
         <intercept-url pattern="/team/teamActivities" access="permitAll()"/>
+        <intercept-url pattern="/team/teamActivityDetails" access="permitAll()"/>
         <intercept-url pattern="/index" access="permitAll()"/>
         <!--游客模式结束-->
         <intercept-url pattern="/register" access="permitAll()"/>
