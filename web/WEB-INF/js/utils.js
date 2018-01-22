@@ -12,7 +12,12 @@ function back_to(url){
 
                 }, false);
 
-                history.pushState(1, '', '');
+                var state = {
+                    title: "title",
+                    url: "#"
+                };
+                history.pushState(state, 'title', '#');
+
                 window.addEventListener('popstate', function (e) {
 
                     if (e.type === "popstate") {

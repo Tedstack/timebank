@@ -39,14 +39,14 @@
         <form action="${pageContext.request.contextPath}/request/add/submit" method="post" onsubmit="return check();">
             <div class="weui-cells__title">发布需求</div>
 
-            <div class="weui-cells weui-cells_form">
+            <div class="weui-cells">
 
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label class="weui-label">需求类型</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <select class="weui-select" name="serviceType">
+                        <select class="weui-select" name="serviceType" id = "addServiceType">
                             <%
                                 for (String type : types) {
                                     out.print("<option value='" + type + "'>" + type + "</option>");
@@ -129,6 +129,9 @@
                     <div class="weui-cell__bd">
                         <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入需求价格" min="0" max="200"/>
                     </div>
+                    <div class="weui-cell__ft">
+                        <span id = "priceUnit-span">志愿者时间/h</span>
+                    </div>
                 </div>
 
                 <div class="weui-cell">
@@ -179,6 +182,15 @@
         $('.weui-select:eq(0)').change(function () {
             $('.weui-name').hide();$('.weui-name').find('.weui-select').attr("name","");
             $('#'+$(this).val()).show();$('#'+$(this).val()).find('.weui-select').attr("name","serviceId");
+        });
+        $("#addServiceType").change(function () {
+            var type = $(this).val();
+            if(type === "志愿者需求"){
+                $("#priceUnit-span").html("志愿者时间/h");
+            } else if(type === "互助需求"){
+                $("#priceUnit-span").html("时间币/h");
+            } else
+                $("#priceUnit-span").html("元/h");
         });
     });
 

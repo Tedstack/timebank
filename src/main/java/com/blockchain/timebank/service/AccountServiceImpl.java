@@ -183,6 +183,7 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Transactional
     public void updateRequestOrderToComplete(long orderID) {
         //1.查询订单价格
         RequestOrderEntity order = requestOrderService.findRequestOrderEntityById(orderID);
