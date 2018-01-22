@@ -86,7 +86,8 @@ public class UserController {
             map.addAttribute("error", "输入信息不能为空");
             return "login";
         }
-        UserEntity userEntity = userService.findUserEntityByPhoneAndPassword(phone, password);
+        String MD5Password = MD5Util.getMD5(password);
+        UserEntity userEntity = userService.findUserEntityByPhoneAndPassword(phone, MD5Password);
         if (userEntity == null) {
             map.addAttribute("error", "错误的用户名或者密码");
             return "login";
@@ -94,7 +95,7 @@ public class UserController {
             userEntity.setOpenId(openID);
             userService.updateUserEntity(userEntity);
 
-            Authentication token = new UsernamePasswordAuthenticationToken(phone, password);
+            Authentication token = new UsernamePasswordAuthenticationToken(phone, MD5Password);
             SecurityContextHolder.getContext().setAuthentication(token);
             return "redirect:/index";
         }
@@ -144,7 +145,8 @@ public class UserController {
                 UserEntity userEntity = new UserEntity();
                 userEntity.setName(name);
                 userEntity.setPhone(phone);
-                userEntity.setPassword(password);
+                String MD5Password = MD5Util.getMD5(password);
+                userEntity.setPassword(MD5Password);
                 if(openID!=null){
                     userEntity.setOpenId(openID);
                 }
