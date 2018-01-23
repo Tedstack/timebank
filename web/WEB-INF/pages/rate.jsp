@@ -91,8 +91,8 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：服务非常满意，服务者的态度也很好" rows="3"></textarea>
-                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：服务非常满意，服务者的态度也很好" rows="3" maxlength="400" oninput="checkLen(this)"></textarea>
+                    <div class="weui-textarea-counter"><span id ="evaluation-count">0</span>/200</div>
                 </div>
             </div>
         </div>
@@ -137,6 +137,12 @@
     })
 </script>--%>
 <script type="text/javascript">
+    function checkLen(obj)
+    {
+        if (getLength(obj.value) > 400)
+            obj.value = limitMaxLength(obj.value, 400);
+        document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
+    }
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){

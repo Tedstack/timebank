@@ -1,5 +1,6 @@
 package com.blockchain.timebank.weixin.util;
 
+import com.blockchain.timebank.entity.PublishOrderEntity;
 import com.blockchain.timebank.entity.ViewPublishOrderDetailEntity;
 import com.blockchain.timebank.entity.ViewRequestOrderDetailEntity;
 
@@ -12,6 +13,9 @@ public class FormatOrderIdUtil {
     }
 
     public static String getRequestOrderFormatId(ViewRequestOrderDetailEntity order){
+        return format(order.getCreateTime(), order.getId());
+    }
+    public static String getPublishOrderFormatId(PublishOrderEntity order){
         return format(order.getCreateTime(), order.getId());
     }
 

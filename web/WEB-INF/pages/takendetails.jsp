@@ -2,6 +2,7 @@
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.PublishEntity" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.weixin.util.FormatOrderIdUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,7 +24,7 @@
         <div class="weui-cell__bd">
             <p>订单编号</p>
         </div>
-        <div class="weui-cell__ft"><%out.print(publishOrderEntity.getId());%></div>
+        <div class="weui-cell__ft"><%FormatOrderIdUtil.getPublishOrderFormatId(publishOrderEntity);%></div>
     </div>
 </div>
 <br>
