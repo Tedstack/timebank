@@ -21,8 +21,8 @@
 <body>
 
 <div class="weui-tab">
-    <form id="teamDetail" method="post">
     <div class="weui-tab__panel">
+        <form id="teamDetail" method="post">
         <div class="weui-panel__hd">
             <div class="weui-flex__item">
                 <p style="margin-bottom: 0px;"> 发布活动</p>
@@ -168,8 +168,8 @@
         <div style="padding: 10px; margin-bottom: 20px;">
             <a href="javascript:;" id="submitBtn" class="weui-btn weui-btn_primary">发布</a>
         </div>
+        </form>
     </div>
-    </form>
 </div>
 
 <!-- jQuery 3 -->

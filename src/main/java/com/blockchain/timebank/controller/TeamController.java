@@ -235,7 +235,7 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
         ViewUserActivityDetailEntity userActivity=null;
         if(!isAnonymous())
-            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId(getCurrentUser().getId(), activityID);
+            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityIdAndAllow(getCurrentUser().getId(), activityID,true);
         String isApplied = "false";
         if (userActivity != null && userActivity.isAllow())
             isApplied = "true";
@@ -322,8 +322,8 @@ public class TeamController {
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
 
         //判断是否重复申请
-        UserActivityEntity userActivity = userActivityService.findUserFromActivity( getCurrentUser().getId(), activityID);
-        if (userActivity != null) {
+        UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);
+        if (userActivity != null && userActivity.isAllow()) {
             return "alreadyApply";
         }
 
