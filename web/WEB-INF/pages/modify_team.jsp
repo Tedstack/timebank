@@ -77,7 +77,8 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="team_location" name="team_location" value=<%out.print(team.getAddress());%>>
+            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLen(this)"><%out.print(team.getAddress());%></textarea>
+            <div style="float:right; color:#999"><span id="team_location-count"><%out.print(team.getAddress().length());%></span>/20</div>
         </div>
     </div>
     <div class="weui-cell">
@@ -154,12 +155,8 @@
             $uploaderInput1[0].value='';
         });
         $("#modifyTeam").on('click', function (){
-            var teamName=document.getElementById("team_name").value;
-            if(teamName.length===0){
-                showAlert("团队名称不能为空！");
-                return;
-            }else if(teamName.length>12){
-                showAlert("团队名称过长！");
+            if(document.getElementById("team_name").value===""){
+                showAlert("请填写团队名称");
                 return;
             }
             var contextPath="${pageContext.request.contextPath}";
@@ -171,7 +168,7 @@
                 url: targetUrl,
                 data: formData,
                 async: false,
-                contentType: false,// 告诉jQuery不要去设置Content-Type请求头
+                contentType: false,
                 processData: false,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();

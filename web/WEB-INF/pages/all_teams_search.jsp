@@ -203,9 +203,6 @@
                 showAlert("请选择要加入的团队");
             }
         }
-         function goBack() {
-             window.location.href="${pageContext.request.contextPath}/user/";
-         }
          var $searchBar = $('#searchBar'),
              $searchResult = $('#searchResult'),
              $searchText = $('#searchText'),

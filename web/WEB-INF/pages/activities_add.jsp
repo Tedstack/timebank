@@ -241,11 +241,6 @@
                 return;
             }
 
-            if(description===""){
-                showAlert("请填写活动描述");
-                return;
-            }
-
             if(beginTime===""){
                 showAlert("请选择活动开始时间");
                 return;
@@ -297,6 +292,11 @@
 
             if(jQuery("input[id='file1']").val()===""){
                 showAlert("请上传一张活动封面");
+                return;
+            }
+
+            if(description===""){
+                showAlert("请填写活动描述");
                 return;
             }
 

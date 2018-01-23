@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.blockchain.timebank.weixin.util.MessageUtil;
-import javax.servlet.http.HttpServletRequest;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -235,9 +235,9 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
         ViewUserActivityDetailEntity userActivity=null;
         if(!isAnonymous())
-            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId( getCurrentUser().getId(), activityID);
+            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId(getCurrentUser().getId(), activityID);
         String isApplied = "false";
-        if (userActivity != null)
+        if (userActivity != null && userActivity.isAllow())
             isApplied = "true";
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
@@ -632,15 +632,20 @@ public class TeamController {
     //申请已申请的活动页面（参与活动）
     @RequestMapping(value = "/alreadyApplyActivities", method = RequestMethod.GET)
     public String alreadyApplyActivities(ModelMap map) {
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForApply, true);
+        List<ViewUserActivityDetailEntity> userActivityList_applied = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForApply, true);
         //倒序排列
-        Collections.reverse(userActivityList);
+        Collections.reverse(userActivityList_applied);
         List<ActivityPublishEntity> activityList=new ArrayList<ActivityPublishEntity>();
-        for(int i=0;i<userActivityList.size();i++)
-            activityList.add(activityPublishService.findActivityPublishEntityByID(userActivityList.get(i).getActivityId()));
-        map.addAttribute("userActivityList", userActivityList);
+        for(int i=0;i<userActivityList_applied.size();i++)
+            activityList.add(activityPublishService.findActivityPublishEntityByID(userActivityList_applied.get(i).getActivityId()));
+        List<ViewUserActivityDetailEntity> userActivityList_finished = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.alreadyTerminate, true);
+        //倒序排列
+        Collections.reverse(userActivityList_finished);
+
+        map.addAttribute("userActivityList_applied", userActivityList_applied);
+        map.addAttribute("userActivityList_finished", userActivityList_finished);
         map.addAttribute("activityList", activityList);
-        return "activities_yishenqin_volunteer";
+        return "activities_ participant";
     }
 
     //申请待执行的活动页面（参与活动）
@@ -658,15 +663,7 @@ public class TeamController {
     }
 
     //申请已完成的活动界面（参与活动）
-    @RequestMapping(value = "/alreadyCompleteActivities2", method = RequestMethod.GET)
-    public String alreadyCompleteActivities2(ModelMap map) {
-        List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.alreadyTerminate, true);
-        //倒序排列
-        Collections.reverse(userActivityList);
 
-        map.addAttribute("userActivityList", userActivityList);
-        return "activities_yiwancheng_volunteer";
-    }
 
     @RequestMapping(value = "/teamInfo", method = RequestMethod.GET)
     public String teamIndexView(ModelMap map, @RequestParam String teamId) {

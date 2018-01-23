@@ -46,7 +46,7 @@
         <div class="enterbar bar_shop border_b mt10" style="margin-bottom: 0;">
             <a href="javascript:void(0)">
                 <div class="shop-logo">
-                    <img src="../img/服务类型/志愿者服务.png" alt="">
+                    <img src="../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>" alt="">
                 </div>
                 <div class="txt"><%out.print(activityPublishDetail.getName());%></div>
             </a>

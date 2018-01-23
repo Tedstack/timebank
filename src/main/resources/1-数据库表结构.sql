@@ -513,6 +513,7 @@ CREATE VIEW view_user_activity_detail
       activityPublish.ApplyEndTime      AS ApplyEndTime,  #申请截止时间
       activityPublish.Description       AS Description,   #活动简介
       activityPublish.Status        AS Status,          #活动状态
+      activityPublish.HeadImg       AS ActivityHeadImg,   #活动头像
       team.Name                     AS TeamName,         #团队名称
       team.CreatorID                AS CreatorID        #团队创建者编号
     FROM userActivity, activityPublish ,team ,user

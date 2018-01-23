@@ -52,7 +52,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
         <div class="weui-cell__bd">
-            <p class="weui-input"><%out.print(team.getAddress());%></p>
+            <textarea readonly id="teamLocation" class="weui-textarea" name="describe" rows="2"><%out.print(team.getAddress());%></textarea>
         </div>
     </div>
     <div class="weui-cell">
