@@ -1,6 +1,7 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.entity.PublishEntity;
+import com.blockchain.timebank.entity.TechnicAuthEntity;
 import com.blockchain.timebank.entity.ViewPublishDetailEntity;
 
 import java.sql.Timestamp;
@@ -20,4 +21,8 @@ public interface PublishService {
     List<ViewPublishDetailEntity> findAllByCondition(String type, double upperPrice, double lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr);
 
     List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(String type);
+
+    List<TechnicAuthEntity> findTechnicAuthEntitiesByUserId(long currentUserId);
+
+    List<PublishEntity> findByUserIdAndCreateTimeAfter(long ID, Timestamp CreateTime);
 }
