@@ -446,6 +446,58 @@ CREATE TABLE `requestOrder` (
   CONSTRAINT `requestOrder_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `request` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='需求申请订单表';
 
+#时间银行表
+CREATE TABLE `timebank` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '货币编号',
+  `Type` VARCHAR(30) NOT NULL COMMENT '货币种类',
+  `Total` DOUBLE NOT NULL COMMENT '总额',
+  `CreateTime` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `CreateUserID` BIGINT(20) NOT NULL COMMENT '创建者编号',
+  `Description` VARCHAR(200) NULL COMMENT '货币简介',
+  `Reason` VARCHAR(200) NULL COMMENT '创建原因',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='时间银行表';
+
+#时间银行充值表
+CREATE TABLE `rechargeTimebank` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `TimebankID` BIGINT(20) NOT NULL COMMENT '货币编号',
+  `RechargeValue` DOUBLE NOT NULL COMMENT '充值总额',
+  `RechargeTime` DATETIME DEFAULT NULL COMMENT '充值时间',
+  `OperatorID` BIGINT(20) NOT NULL COMMENT '操作者编号',
+  `Reason` VARCHAR(200) NULL COMMENT '充值原因',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='时间银行表';
+ALTER TABLE `rechargeTimebank`
+  ADD KEY `TimebankID` (`TimebankID`),
+  ADD KEY `OperatorID` (`OperatorID`);
+ALTER TABLE `rechargeTimebank`
+  ADD CONSTRAINT `rechargeTimebank_ibfk_1` FOREIGN KEY (`TimebankID`) REFERENCES `timebank` (`ID`),
+  ADD CONSTRAINT `rechargeTimebank_ibfk_2` FOREIGN KEY (`OperatorID`) REFERENCES `userAuth` (`ID`);
+
+#用户账户充值表
+CREATE TABLE `rechargeUser` (
+  `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '充值编号',
+  `TimebankID` BIGINT(20) NOT NULL COMMENT '货币编号',
+  `RechargeValue` DOUBLE NOT NULL COMMENT '充值总额',
+  `RechargeTime` DATETIME DEFAULT NULL COMMENT '充值时间',
+  `OperatorID` BIGINT(20) NOT NULL COMMENT '操作者编号',
+  `UserID` BIGINT(20) NOT NULL COMMENT '被充值者编号',
+  `Reason` VARCHAR(200) NULL COMMENT '充值原因',
+  `Extra` VARCHAR(50) NULL COMMENT '其它保留字段',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='时间银行表';
+ALTER TABLE `rechargeUser`
+  ADD KEY `TimebankID` (`TimebankID`),
+  ADD KEY `OperatorID` (`OperatorID`),
+  ADD KEY `UserID` (`UserID`);
+ALTER TABLE `rechargeUser`
+  ADD CONSTRAINT `rechargeUser_ibfk_1` FOREIGN KEY (`TimebankID`) REFERENCES `timebank` (`ID`),
+  ADD CONSTRAINT `rechargeUser_ibfk_2` FOREIGN KEY (`OperatorID`) REFERENCES `userAuth` (`ID`),
+  ADD CONSTRAINT `rechargeUser_ibfk_3` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`);
+
 # 显示志愿者团体活动详细的信息视图
 CREATE VIEW view_activity_publish_detail
   AS
