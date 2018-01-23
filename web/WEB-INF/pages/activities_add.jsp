@@ -54,8 +54,8 @@
         </div>
         <div class="weui-panel__bd">
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>团队选择</p>
+                <div class="weui-cell__hd">
+                    <label class="weui-label">团队选择</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="teamOptions" class="weui-select" name="teamId">
@@ -69,8 +69,8 @@
             </div>
 
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>活动类型</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动类型</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="activityType">
@@ -81,8 +81,8 @@
             </div>
 
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>是否公开</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">是否公开</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="isPublicOptions" class="weui-select" name="isPublicOptions">
@@ -93,15 +93,16 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动名称</p></div>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动名称</label>
+                </div>
                 <div class="weui-cell__bd">
                     <input id="activityName" name="activityName" class="weui-input" type="text" placeholder="请输入活动名称"/>
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动描述</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动描述</label>
                 </div>
                 <div class="weui-cell__bd">
                     <div class="weui-cell__bd">
@@ -121,8 +122,8 @@
             %>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动开始时间</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动开始时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%=nowTime%>" placeholder="<%out.print(nowTime);%>" min="<%out.print(nowTime);%>"/>
@@ -130,8 +131,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动结束时间</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动结束时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%=nextTime%>" placeholder="<%out.print(nextTime);%>" min="<%out.print(nextTime);%>" />
@@ -139,8 +140,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>申请加入活动截至时间</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">申请加入活动截至时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="<%=nowTime%>"  min="<%out.print(nowTime);%>"/>
@@ -148,8 +149,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>参与人数</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">参与人数</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" min="1" placeholder="请输入参与人数"/>
@@ -157,8 +158,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动详细地址</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动详细地址</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="address" class="weui-input" name="address" type="text" placeholder="请输入详细地址"/>
