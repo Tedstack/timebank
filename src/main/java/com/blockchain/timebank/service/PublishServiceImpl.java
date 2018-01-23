@@ -2,6 +2,7 @@ package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.*;
 import com.blockchain.timebank.entity.PublishEntity;
+import com.blockchain.timebank.entity.TechnicAuthEntity;
 import com.blockchain.timebank.entity.UserEntity;
 import com.blockchain.timebank.entity.ViewPublishDetailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PublishServiceImpl implements PublishService {
 
     @Autowired
     SelectServiceDao selectServiceDao;
+
+    @Autowired
+    TechnicAuthDao technicAuthDao;
 
     @Transactional
     public PublishEntity savePublishEntity(PublishEntity publishEntity) {
@@ -95,5 +99,14 @@ public class PublishServiceImpl implements PublishService {
         }
         list.addAll(overTimeList);
         return list;
+    }
+
+    @Transactional(readOnly=true)
+    public List<TechnicAuthEntity> findTechnicAuthEntitiesByUserId(long currentUserId){
+        return technicAuthDao.findTechnicAuthEntitiesByUserId(currentUserId);
+    }
+
+    public List<PublishEntity> findByUserIdAndCreateTimeAfter(long ID, Timestamp CreateTime){
+        return publishDao.findByUserIdAndCreateTimeAfter(ID, CreateTime);
     }
 }

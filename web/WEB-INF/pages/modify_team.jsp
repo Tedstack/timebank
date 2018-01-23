@@ -45,7 +45,7 @@
                             </div>
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
-                                <a id="changeImg" href="javascript:">
+                                <a id="changeImg" href="javascript:" style="display:inline;">
                                     <img src="../img/teamHeadImg/<%out.print(team.getHeadImg());%>" style="width:100px;display: block">
                                 </a>
                                 <div class="weui-uploader__input-box" id="addHeadImg" style="display: none;">
@@ -77,7 +77,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
         <div class="weui-cell__bd">
-            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLen(this)"><%out.print(team.getAddress());%></textarea>
+            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLenLoc(this)"><%out.print(team.getAddress());%></textarea>
             <div style="float:right; color:#999"><span id="team_location-count"><%out.print(team.getAddress().length());%></span>/20</div>
         </div>
     </div>
@@ -155,10 +155,6 @@
             $uploaderInput1[0].value='';
         });
         $("#modifyTeam").on('click', function (){
-            if(document.getElementById("team_name").value===""){
-                showAlert("请填写团队名称");
-                return;
-            }
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
             var formData = new FormData($("#teamDetail")[0]);
@@ -181,6 +177,15 @@
                     }
                     if(data==="nameExist"){
                         showAlert("该名已被使用");
+                    }
+                    if(data==="missName"){
+                        showAlert("请填写团队名称");
+                    }
+                    if(data==="longName"){
+                        showAlert("团队名称建议不超过11个字");
+                    }
+                    if(data==="missLocation"){
+                        showAlert("请填写团队活动地点");
                     }
                     if(data==="failure"){
                         showAlert("修改失败");
@@ -208,6 +213,14 @@
             obj.value = obj.value.substring(0,maxChars);
         var curr = obj.value.length;
         document.getElementById("description-count").innerHTML = curr.toString();
+    }
+    function checkLenLoc(obj)
+    {
+        var maxChars = 20;//最多字符数
+        if (obj.value.length > maxChars)
+            obj.value = obj.value.substring(0,maxChars);
+        var curr = obj.value.length;
+        document.getElementById("team_location-count").innerHTML = curr.toString();
     }
 </script>
 </html>

@@ -137,7 +137,7 @@
             var teamName=document.getElementById("team_name").value;
             if(teamName.length>12)
             {
-                showAlert("团队名称过长！");
+                showAlert("团队名称建议不超过11个字");
                 return;
             }
             var contextPath="${pageContext.request.contextPath}";

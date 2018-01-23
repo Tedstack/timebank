@@ -12,8 +12,9 @@
     <title>申请结果</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="../js/util.js"></script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
 
 <div class="weui-msg">
     <div class="weui-msg__icon-area">

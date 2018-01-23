@@ -46,9 +46,6 @@ public class PublishController {
     @Autowired
     ViewRecordDetailDao viewRecordDetailDao;
 
-    @Autowired
-    TechnicAuthDao technicAuthDao;
-
     //服务种类页面
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
@@ -103,7 +100,16 @@ public class PublishController {
             return "publish_service_result";
         }
         UserEntity currentUser = getCurrentUser();
-        List<TechnicAuthEntity> technicAuthEntities = technicAuthDao.findTechnicAuthEntitiesByUserId(currentUser.getId());
+        List<TechnicAuthEntity> technicAuthEntities = publishService.findTechnicAuthEntitiesByUserId(currentUser.getId());
+        long current=System.currentTimeMillis();//当前时间毫秒数
+        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        Timestamp zeroTimestamp = new Timestamp(zero);
+        List<PublishEntity> publishEntities = publishService.findByUserIdAndCreateTimeAfter(currentUser.getId(),zeroTimestamp);
+        if(publishEntities.size() >= 3){
+            map.addAttribute("surplus", true);
+        } else{
+            map.addAttribute("surplus", false);
+        }
         if(technicAuthEntities != null && technicAuthEntities.size() != 0){
             map.addAttribute("isTechnicUser", true);
         } else {

@@ -15,9 +15,8 @@
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/utils.js"></script>
-    <script type="text/javascript">back_to(document.referrer);</script>
 </head>
-<body>
+<body onpageshow="normal_back();">
 <%
     List<ViewUserActivityDetailEntity> userActivityList_applied = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList_applied");
     List<ViewUserActivityDetailEntity> userActivityList_finished = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList_finished");

@@ -14,12 +14,13 @@
     <title>首页</title>
     <link rel="stylesheet" href="css/weui.css">
     <link rel="stylesheet" href="css/weui-example.css">
+    <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/jquery/jquery-3.2.1.min.js"></script>
     <script src="js/utils.js"></script>
-    <script type="text/javascript">back_exit();</script>
 <%--<link rel="stylesheet" href="css/bootstrap.min.css">--%>
     <%--<link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">--%>
 </head>
-<body>
+<body onload="back_exit();">
 
 
 <div class="weui-tab">

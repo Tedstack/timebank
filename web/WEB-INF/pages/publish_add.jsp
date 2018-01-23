@@ -28,6 +28,7 @@
         if (!map.containsKey(service.getType())) map.put(service.getType(), new ArrayList<String>());
         map.get(service.getType()).add(service.getName());
     }
+    boolean surplus = (boolean)request.getAttribute("surplus");
 %>
 
 <div class="weui-tab">
@@ -264,6 +265,10 @@
         }
         if(servicePrice < 0){
             showAlert("服务金额不能为负");
+            return false;
+        }
+        if(<%out.print(surplus);%>){
+            showAlert("每日至多可以发布3条服务<br/>您今日发布条数已达到上限！");
             return false;
         }
         return true;

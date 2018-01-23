@@ -13,9 +13,8 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/utils.js"></script>
-    <script type="text/javascript">back_to("${pageContext.request.contextPath}/user/techInfo");</script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/user/techInfo');">
 <div class="weui-msg" style="padding-top: 50%">
     <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
     <div class="weui-msg__text-area">

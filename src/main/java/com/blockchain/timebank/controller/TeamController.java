@@ -235,7 +235,7 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
         ViewUserActivityDetailEntity userActivity=null;
         if(!isAnonymous())
-            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityId(getCurrentUser().getId(), activityID);
+            userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityIdAndAllow(getCurrentUser().getId(), activityID,true);
         String isApplied = "false";
         if (userActivity != null && userActivity.isAllow())
             isApplied = "true";
@@ -322,8 +322,8 @@ public class TeamController {
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
 
         //判断是否重复申请
-        UserActivityEntity userActivity = userActivityService.findUserFromActivity( getCurrentUser().getId(), activityID);
-        if (userActivity != null) {
+        UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);
+        if (userActivity != null && userActivity.isAllow()) {
             return "alreadyApply";
         }
 
@@ -645,7 +645,7 @@ public class TeamController {
         map.addAttribute("userActivityList_applied", userActivityList_applied);
         map.addAttribute("userActivityList_finished", userActivityList_finished);
         map.addAttribute("activityList", activityList);
-        return "activities_ participant";
+        return "activities_participant";
     }
 
     //申请待执行的活动页面（参与活动）
@@ -884,6 +884,12 @@ public class TeamController {
                              String team_location,
                              String team_phone,
                              String describe) {
+        if(team_name.equalsIgnoreCase(""))
+            return "missName";
+        else if(team_name.length()>10)
+            return "longName";
+        else if(team_location.equalsIgnoreCase(""))
+            return "missLocation";
         try {
             TeamEntity team = teamService.findById(Long.parseLong(team_id));
             String idImg = "";

@@ -22,8 +22,9 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
 <%
     List<ActivityPublishEntity> activityList = (List<ActivityPublishEntity>) request.getAttribute("activityList");
 %>
@@ -96,10 +97,6 @@
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
     });
-</script>
-<script src="../js/utils.js"></script>
-<script type="text/javascript">
-    back_to("${pageContext.request.contextPath}/index");
 </script>
 </body>
 </html>

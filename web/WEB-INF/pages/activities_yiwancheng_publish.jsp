@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>
@@ -141,10 +142,6 @@
             location.href="${pageContext.request.contextPath}/team/alreadyStartedActivities";
         });
     });
-</script>
-<script src="../js/utils.js"></script>
-<script type="text/javascript">
-    back_to("${pageContext.request.contextPath}/publish/activities_category");
 </script>
 </body>
 </html>

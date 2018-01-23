@@ -17,8 +17,9 @@
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/publish/category');">
 <%
     List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
 %>
@@ -161,8 +162,6 @@
     </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script src="../js/utils.js"></script>
-<script type="text/javascript">back_to("${pageContext.request.contextPath}/publish/category");</script>
 <script type="text/javascript">
     $(function(){
         $("#navbar1").on('click', function () {

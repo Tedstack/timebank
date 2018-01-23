@@ -16,7 +16,7 @@ public class UserActivityServiceImpl implements UserActivityService {
     }
 
     public UserActivityEntity findUserFromActivity(long userID, long activityID) {
-        UserActivityEntity userActivityEntity = userActivityDao.findUserActivityEntityByActivityIdAndUserId(activityID, userID);
+        UserActivityEntity userActivityEntity = userActivityDao.findUserActivityEntityByActivityIdAndUserIdAndAllow(activityID, userID,true);
         return userActivityEntity;
     }
 
