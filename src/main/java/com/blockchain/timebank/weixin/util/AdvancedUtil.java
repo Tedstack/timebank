@@ -2,11 +2,8 @@ package com.blockchain.timebank.weixin.util;
 
 import java.util.List;
 import java.util.ArrayList;
-import com.blockchain.timebank.weixin.model.SNSUserInfo;
-import com.blockchain.timebank.weixin.model.Template;
-import com.blockchain.timebank.weixin.model.TemplateParam;
-import com.blockchain.timebank.weixin.model.WeixinOauth2Token;
-import com.blockchain.timebank.weixin.model.WeixinUser;
+
+import com.blockchain.timebank.weixin.model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -169,4 +166,28 @@ public class AdvancedUtil {
 		}
 		return result;
 	}
+
+	/*发送文本消息*/
+	public static boolean sendCustomMessage(String jsonMsg) {
+		boolean result = false;
+		String accessToken = TokenThread.accessToken;
+		// 链接
+		String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN";
+		requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken);
+		// 发送消息
+		String respJSON = CommonUtil.httpsRequest(requestUrl, "POST", jsonMsg);
+		JSONObject jsonObject = JSONObject.fromObject(respJSON);
+		if (null != jsonObject) {
+			int errorCode = jsonObject.getInt("errcode");
+			String errorMsg = jsonObject.getString("errmsg");
+			if (0 == errorCode) {
+				result = true;
+			} else {
+				System.out.println("发送成功 errcode:" + errorCode);
+			}
+		}
+		return result;
+	}
+
+
 }

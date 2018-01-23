@@ -4,6 +4,7 @@ package com.blockchain.timebank.weixin.util;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.weixin.model.Template;
 import com.blockchain.timebank.weixin.model.TemplateParam;
+import com.blockchain.timebank.weixin.model.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -239,6 +240,62 @@ public class MessageUtil {
 
         // return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
         return AdvancedUtil.sendTemplateMessage(template);
+    }
+
+    //申请结果通知
+    public static boolean apply_result(UserEntity userEntity,ViewPublishOrderDetailEntity viewPublishOrderDetailEntity){
+        /*
+        * 申请结果通知
+        *{{first.DATA}}
+          申请人：{{keyword1.DATA}}
+          申请类型：{{keyword2.DATA}}
+          {{remark.DATA}}
+        *样例
+        * 李先生，您好！
+          申请人：张三
+          申请类型：预约会见法官
+          您的申请已通过！请到个人中心查看详情
+        * */
+        Template template = new Template();
+        List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+        if("待服务".equals(viewPublishOrderDetailEntity.getStatus())) {
+            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String time = bartDateFormat.format(viewPublishOrderDetailEntity.getBeginTime()) + "-" + bartDateFormat.format(viewPublishOrderDetailEntity.getEndTime());
+            String str_first = "预约时间：" + time;
+            String applyName = viewPublishOrderDetailEntity.getApplyUserName();
+            String apply_type = viewPublishOrderDetailEntity.getServiceType() + "-" + viewPublishOrderDetailEntity.getServiceName();
+            String str_remark = "您的申请已通过，点击详情查看具体细节";
+
+            templateParamList.add(new TemplateParam("first", str_first, "#173177"));
+            templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
+            templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
+            templateParamList.add(new TemplateParam("REMARK", str_remark, "#173177"));
+        }
+        else{
+            String str_first = "非常遗憾的通知您，您预约的"+viewPublishOrderDetailEntity.getServiceName()+"服务没有通过。"+"请不要难过，邻里智助为您提供海量服务，诚邀您前去浏览";
+            String applyName = viewPublishOrderDetailEntity.getApplyUserName();
+            String apply_type = viewPublishOrderDetailEntity.getServiceType() + "-" + viewPublishOrderDetailEntity.getServiceName();
+            String str_remark = "您的申请已被拒绝，点击详情查看具体细节";
+            templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
+            templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
+            templateParamList.add(new TemplateParam("REMARK", str_remark, "#173177"));
+        }
+        template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
+        template.setToUser(userEntity.getOpenId());
+        template.setTopColor("#173177");
+        template.setUrl("http://www.i-linli.com/timebanktest/user/queryOrderWaitingService");//此处可以加入想要跳转的链接
+        template.setTemplateParamList(templateParamList);
+        return AdvancedUtil.sendTemplateMessage(template);
+
+    }
+
+    //发送文字信息
+    public static boolean TextMessage(String openid,String content) {
+        Text text = new Text();
+        text.setToUser(openid);
+        text.setMsgType("text");
+        text.setContent(content);
+        return AdvancedUtil.sendCustomMessage(text.toJSON());
     }
 
 
