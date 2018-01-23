@@ -1434,7 +1434,7 @@ a.weui-media-box:active{
   text-overflow:ellipsis;
   display:-webkit-box;
   -webkit-box-orient:vertical;
-  -webkit-line-clamp:2;
+  -webkit-line-clamp:5;
 }
 .weui-media-box__info{
   margin-top:15px;

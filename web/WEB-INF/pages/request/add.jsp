@@ -221,6 +221,7 @@
         var beginTime = document.getElementById("beginTime").value;
         var endTime = document.getElementById("endTime").value;
         var servicePrice = document.getElementById("servicePrice").value;
+        var address = document.getElementById("address").value;
 
         if(serviceDescription===""){
             showAlert("请填写需求描述");
@@ -236,6 +237,10 @@
         }
         if(servicePrice===""){
             showAlert("请填写需求价格");
+            return false;
+        }
+        if(address===""){
+            showAlert("请填写需求地址");
             return false;
         }
         if(beginTime != "" && endTime != ""){

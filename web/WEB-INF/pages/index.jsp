@@ -14,7 +14,9 @@
     <title>首页</title>
     <link rel="stylesheet" href="css/weui.css">
     <link rel="stylesheet" href="css/weui-example.css">
-    <%--<link rel="stylesheet" href="css/bootstrap.min.css">--%>
+    <script src="js/utils.js"></script>
+    <script type="text/javascript">back_exit();</script>
+<%--<link rel="stylesheet" href="css/bootstrap.min.css">--%>
     <%--<link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">--%>
 </head>
 <body>

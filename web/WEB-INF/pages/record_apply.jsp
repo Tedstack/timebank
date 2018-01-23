@@ -52,7 +52,7 @@
                         <label class="weui-label">手机号</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
+                        <input id = "user_PhoneNumer" class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
                                value="<%out.print(request.getAttribute("phone"));%>"/>
                     </div>
                 </div>
@@ -216,11 +216,20 @@
         });
     });
     function check(){
+        var phoneNumber = document.getElementById("user_PhoneNumer").value;
         var serviceAddress = document.getElementById("service_address").value;
         var beginDate = document.getElementById("service_beginTime").value.substring(0,10);
         var detailBeginDate = "<%out.print(detailEntity.getBeginDate().toString().substring(0,10));%>";
         var detailEndDate = "<%out.print(detailEntity.getEndDate().toString().substring(0,10));%>";
 
+        if(phoneNumber == ""){
+            showAlert("请填写手机号码");
+            return false;
+        }
+        if(!isPoneAvailable(phoneNumber)){
+            showAlert("请填写正确的手机号码");
+            return false;
+        }
         if(serviceAddress===""){
             showAlert("请填写上门服务地址");
             return false;
@@ -247,6 +256,24 @@
                 return false;
             }
         }
+        // 判断是否为手机号
+        function isPoneAvailable (pone) {
+            var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if (!myreg.test(pone)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // 判断是否为电话号码
+        /*function isTelAvailable (tel) {
+            var myreg = /^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/;
+            if (!myreg.test(tel)) {
+                return false;
+            } else {
+                return true;
+            }
+        }*/
         return true;
     }
 </script></body>
