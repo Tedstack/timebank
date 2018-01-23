@@ -250,9 +250,16 @@ public class TeamController {
     @RequestMapping(value = "/startPublishActivity", method = RequestMethod.GET)
     public String startPublishActivity(ModelMap map) {
         UserEntity user = getCurrentUser();
+        long current=System.currentTimeMillis();//当前时间毫秒数
+        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        Timestamp zeroTimestamp = new Timestamp(zero);
+        List<ViewActivityPublishDetailEntity> publishEntities = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndBeginTimeAfter(user.getId(),zeroTimestamp);
+        if(publishEntities.size() >= 3){
+            map.addAttribute("surplus", "true");
+        } else{
+            map.addAttribute("surplus", "false");
+        }
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
-
-        //判断是否是团队管理者，若不是则无法发布服务
         if (teamList.size() == 0) {
             map.addAttribute("msg", "notManagerUser");
             return "start_publish_activity_result";
@@ -635,16 +642,12 @@ public class TeamController {
         List<ViewUserActivityDetailEntity> userActivityList_applied = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.waitingForApply, true);
         //倒序排列
         Collections.reverse(userActivityList_applied);
-        List<ActivityPublishEntity> activityList=new ArrayList<ActivityPublishEntity>();
-        for(int i=0;i<userActivityList_applied.size();i++)
-            activityList.add(activityPublishService.findActivityPublishEntityByID(userActivityList_applied.get(i).getActivityId()));
         List<ViewUserActivityDetailEntity> userActivityList_finished = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndStatusAndAllow(getCurrentUser().getId(), ActivityStatus.alreadyTerminate, true);
         //倒序排列
         Collections.reverse(userActivityList_finished);
 
         map.addAttribute("userActivityList_applied", userActivityList_applied);
         map.addAttribute("userActivityList_finished", userActivityList_finished);
-        map.addAttribute("activityList", activityList);
         return "activities_participant";
     }
 
@@ -886,7 +889,7 @@ public class TeamController {
                              String describe) {
         if(team_name.equalsIgnoreCase(""))
             return "missName";
-        else if(team_name.length()>10)
+        else if(team_name.length()>11)
             return "longName";
         else if(team_location.equalsIgnoreCase(""))
             return "missLocation";

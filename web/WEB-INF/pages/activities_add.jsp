@@ -18,9 +18,9 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
 </head>
-<body>
-
-<div class="weui-tab">
+<%String surplus=(String) request.getAttribute("surplus");%>
+<body onload="check();">
+<div class="weui-tab" id="activity">
     <div class="weui-tab__panel">
         <form id="teamDetail" method="post">
         <div class="weui-panel__hd">
@@ -54,7 +54,7 @@
         </div>
         <div class="weui-panel__bd">
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__hd">
+                <div class="weui-cell__bh">
                     <label class="weui-label">团队选择</label>
                 </div>
                 <div class="weui-cell__bd">
@@ -141,7 +141,7 @@
 
             <div class="weui-cell">
                 <div class="weui-cell__bh">
-                    <label class="weui-label">申请加入活动截至时间</label>
+                    <label class="weui-label">申请截止时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="<%=nowTime%>"  min="<%out.print(nowTime);%>"/>
@@ -176,6 +176,15 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function check() {
+        var surplus='<%=surplus%>';
+        if(surplus==="true"){
+            showAlert("每日至多可以发布3个活动<br/>您今日发布次数已达到上限！");
+            $("input").attr("disabled",true);
+            $("textarea").attr("disabled",true);
+            document.getElementById("submitBtn").style.display="none";
+        }
+    }
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){

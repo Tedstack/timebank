@@ -20,7 +20,6 @@
 <%
     List<ViewUserActivityDetailEntity> userActivityList_applied = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList_applied");
     List<ViewUserActivityDetailEntity> userActivityList_finished = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList_finished");
-    List<ActivityPublishEntity> activityList=(List<ActivityPublishEntity>) request.getAttribute("activityList");
 %>
 <div class="weui-tab">
     <div class="weui-tab__panel">
@@ -43,7 +42,7 @@
                 <div class="weui-panel__bd" id="<%out.print(userActivityList_applied.get(i).getActivityId());%>" onclick="viewActivityDetail(this)">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/activityImg/<%out.print(activityList.get(i).getHeadImg());%>" alt="">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/activityImg/<%out.print(userActivityList_applied.get(i).getActivityHeadImg());%>" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">

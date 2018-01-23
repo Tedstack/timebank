@@ -52,9 +52,9 @@
                                     <div class="weui-uploader__bd">
                                         <ul class="weui-uploader__files" id="files1" style="margin-bottom: 0px;"></ul>
                                         <a id="changeImg" href="javascript:">
-                                            <img src="../img/teamHeadImg/<%out.print(activityPublishDetail.getHeadImg());%>" style="width:100px;display: block">
+                                            <img src="../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>" style="width:90px;height:90px;display: block">
                                         </a>
-                                        <div class="weui-uploader__input-box" id="addHeadImg" style="display: none;width: 100px;height: 110px;">
+                                        <div class="weui-uploader__input-box" id="addHeadImg" style="display: none;width:90px;height:90px;">
                                             <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
                                         </div>
                                     </div>
@@ -65,8 +65,8 @@
                 </div>
             </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>团队选择</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">团队选择</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="teamOptions" class="weui-select" name="teamOptions">
@@ -82,33 +82,33 @@
             </div>
 
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>活动类型</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动类型</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="activityType">
                         <%if(activityPublishDetail.getType().equalsIgnoreCase(ActivityType.volunteerActivity)){%>
-                        <option value="志愿者" selected="selected">志愿者</option>
-                        <option value="社区">社区</option>
+                        <option value="社区"selected="selected">娱乐活动</option>
+                        <option value="志愿者" >志愿服务</option>
                         <%}else{%>
-                        <option value="志愿者">志愿者</option>
-                        <option value="社区" selected="selected">社区</option>
+                        <option value="社区">娱乐活动</option>
+                        <option value="志愿者" selected="selected">志愿服务</option>
                         <%}%>
                     </select>
                 </div>
             </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
-                <div class="weui-cell__bd">
-                    <p>是否公开</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">是否公开</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="isPublicOptions" class="weui-select" name="isPublic">
                         <%if(activityPublishDetail.isPublic()){%>
-                        <option value="true" selected="selected">公开</option>
-                        <option value="false">不公开</option>
+                        <option value="true" selected="selected">所有人</option>
+                        <option value="false">团队成员</option>
                         <%}else{%>
-                        <option value="true">公开</option>
-                        <option value="false" selected="selected">不公开</option>
+                        <option value="true">所有人</option>
+                        <option value="false" selected="selected">团队成员</option>
                         <%}%>
                     </select>
                 </div>
@@ -119,15 +119,16 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动名称</p></div>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动名称</label>
+                </div>
                 <div class="weui-cell__bd">
                     <input id="activityName" name="activityName" class="weui-input" type="text" value=<%out.print(activityPublishDetail.getName());%>>
                 </div>
             </div>
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动描述</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动描述</label>
                 </div>
                 <div class="weui-cell__bd">
                     <div class="weui-cell__bd">
@@ -144,8 +145,8 @@
             %>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动开始时间</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动开始时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="beginTime" class="weui-input" name="beginTime" type="datetime-local" value="<%out.print(beginTime);%>" min="<%out.print(nowTime);%>"/>
@@ -153,8 +154,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动结束时间</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动结束时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="endTime" class="weui-input" name="endTime" type="datetime-local" value="<%out.print(endTime);%>" min="<%out.print(nowTime);%>" />
@@ -162,8 +163,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>申请加入活动截至时间</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">申请截止时间</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="applyEndTime" name="applyEndTime" class="weui-input" type="datetime-local" value="<%out.print(applyTime);%>"  min="<%out.print(nowTime);%>"/>
@@ -171,8 +172,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>参与人数</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">参与人数</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="count" class="weui-input" name="count" type="number" pattern="[0-9]*" value=<%out.print(activityPublishDetail.getCount());%>>
@@ -180,8 +181,8 @@
             </div>
 
             <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <p>活动详细地址</p>
+                <div class="weui-cell__bh">
+                    <label class="weui-label">活动详细地址</label>
                 </div>
                 <div class="weui-cell__bd">
                     <input id="address" class="weui-input" name="address" type="text" value=<%out.print(activityPublishDetail.getAddress());%>>
