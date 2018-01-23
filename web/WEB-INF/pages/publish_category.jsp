@@ -15,6 +15,8 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="js/utils.js"></script>
+    <script type="text/javascript">back_exit();</script>
 </head>
 <body>
 <div class="page js_show">
