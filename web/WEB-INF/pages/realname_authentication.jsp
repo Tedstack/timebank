@@ -113,6 +113,7 @@
 </div>
 
 <script type="text/javascript">
+    var contextPath="${pageContext.request.contextPath}";
     $.fn.longPress = function(fn) {
         var timeout = undefined;
         var $this = this;
@@ -252,8 +253,8 @@
         });
         function post(){
             var baseUrl = "http://" + location.host,
-                uploadUrl = baseUrl + "/timebanktest/user/uploadUserInfo",
-                notiUrl = baseUrl + "/timebanktest/user/realnameNotification";
+                uploadUrl = baseUrl + contextPath + "/user/uploadUserInfo",
+                notiUrl = baseUrl + contextPath + "/user/realnameNotification";
             var formData = new FormData($("#userForm")[0]);
             $.ajax({
                 url: uploadUrl,
