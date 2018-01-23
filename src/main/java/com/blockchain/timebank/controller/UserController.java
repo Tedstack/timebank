@@ -824,7 +824,7 @@ public class UserController {
             else{
                 Evaluation_entity entity = new Evaluation_entity() ;
                 entity.setClassify("service");
-                entity.setId(record.getId());
+                entity.setId(record.getPublishId());
                 entity.setService_name(record.getServiceName());
                 entity.setRating(record.getRating());
                 entity.setService_type(record.getServiceType());
@@ -841,7 +841,7 @@ public class UserController {
             else{
                 Evaluation_entity entity = new Evaluation_entity();
                 entity.setClassify("request");
-                entity.setId(record2.getId());
+                entity.setId(record2.getRequestId());
                 entity.setService_name(record2.getServiceName());
                 entity.setRating(record2.getRate());
                 entity.setService_type(record2.getServiceType());
