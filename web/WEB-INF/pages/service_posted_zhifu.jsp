@@ -76,6 +76,7 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
+                            <p class="weui-media-box__desc">服务项目: <%out.print(recordDetailList.get(i).getServiceName());%></p>
                             <p class="weui-media-box__desc">服务对象: <%out.print(recordDetailList.get(i).getApplyUserName());%></p>
                             <p class="weui-media-box__desc">开始时间:
                                 <%

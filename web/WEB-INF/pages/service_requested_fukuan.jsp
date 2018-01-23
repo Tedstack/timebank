@@ -109,6 +109,7 @@
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
                             <p class="weui-media-box__desc">订单号编号 <%out.print(FormatOrderIdUtil.getServiceOrderFormatId(recordDetailList.get(i)));%></p>
+                            <p class="weui-media-box__desc">服务项目: <%out.print(recordDetailList.get(i).getServiceName());%></p>
                             <p class="weui-media-box__desc">开始时间
                                 <%
                                     Timestamp beginTimestamp = recordDetailList.get(i).getActualBeginTime();

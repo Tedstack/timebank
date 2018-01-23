@@ -49,7 +49,7 @@
 
                 <div class="weui-cell">
                     <div class="weui-cell__hd">
-                        <label class="weui-label">手机号</label>
+                        <label class="weui-label">联系方式</label>
                     </div>
                     <div class="weui-cell__bd">
                         <input id = "user_PhoneNumer" class="weui-input" name="applyUserPhone" type="number" pattern="[0-9]*"
@@ -223,11 +223,11 @@
         var detailEndDate = "<%out.print(detailEntity.getEndDate().toString().substring(0,10));%>";
 
         if(phoneNumber == ""){
-            showAlert("请填写手机号码");
+            showAlert("请填写联系方式");
             return false;
         }
-        if(!isPoneAvailable(phoneNumber)){
-            showAlert("请填写正确的手机号码");
+        if(!(isPoneAvailable(phoneNumber)|| isTelAvailable(phoneNumber))){
+            showAlert("请填写正确格式的联系方式");
             return false;
         }
         if(serviceAddress===""){
@@ -266,14 +266,14 @@
             }
         }
         // 判断是否为电话号码
-        /*function isTelAvailable (tel) {
-            var myreg = /^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/;
+        function isTelAvailable (tel) {
+            var myreg = /^0\d{2,3}-?\d{7,8}$/;
             if (!myreg.test(tel)) {
                 return false;
             } else {
                 return true;
             }
-        }*/
+        }
         return true;
     }
 </script></body>

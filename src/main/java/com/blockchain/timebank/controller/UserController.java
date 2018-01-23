@@ -604,11 +604,14 @@ public class UserController {
         List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
         List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
 
-        recordDetailList.addAll(recordDetailList2);
+        if(recordDetailList2 != null)
+            recordDetailList2.addAll(recordDetailList);
+        else
+            recordDetailList2 = recordDetailList;
 
         //倒序排列
-        Collections.reverse(recordDetailList);
-        map.addAttribute("recordDetailList", recordDetailList);
+        Collections.reverse(recordDetailList2);
+        map.addAttribute("recordDetailList", recordDetailList2);
 
         return "service_posted_wancheng";
     }
@@ -656,11 +659,15 @@ public class UserController {
     public String queryAlreadyCompleteOrder(ModelMap map){
         List<ViewPublishOrderDetailEntity> recordDetailList = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyComplete);
         List<ViewPublishOrderDetailEntity> recordDetailList2 = viewRecordDetailDao.findViewRecordDetailEntitiesByApplyUserIdAndStatus(getCurrentUser().getId(), OrderStatus.alreadyRefuse);
-        recordDetailList.addAll(recordDetailList2);
+
+        if(recordDetailList2 != null)
+            recordDetailList2.addAll(recordDetailList);
+        else
+            recordDetailList2 = recordDetailList;
 
         //倒序排列
-        Collections.reverse(recordDetailList);
-        map.addAttribute("recordDetailList", recordDetailList);
+        Collections.reverse(recordDetailList2);
+        map.addAttribute("recordDetailList", recordDetailList2);
         return "service_requested_wancheng";
     }
 
