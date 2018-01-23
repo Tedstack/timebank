@@ -69,7 +69,7 @@ public class MessageUtil {
         String team_name = teamDetailEntity.getTeamName();
         String activity_name = teamDetailEntity.getName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String begin_time = bartDateFormat.format(teamDetailEntity);
+        String begin_time = bartDateFormat.format(teamDetailEntity.getBeginTime());
         String address = teamDetailEntity.getAddress();
         String str_remark = "点击详情查看具体细节";
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
