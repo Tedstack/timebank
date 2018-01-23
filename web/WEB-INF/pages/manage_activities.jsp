@@ -156,11 +156,8 @@
 
                 $("#btn"+i).on("click", function(){
                     var id = $("#"+i).attr("value");
-                    var r=confirm("确认查看该成员");
-                    if(r==true){
-                        var url = "http://"+getDomainName()+contextPath+"/team/managerUserCheckUser?userActivityID="+id;
-                        goTo(url);
-                    }
+                    var url = "http://"+getDomainName()+contextPath+"/team/managerUserCheckUser?userActivityID="+id;
+                    goTo(url);
                 });
             })(i);
         }

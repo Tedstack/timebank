@@ -49,13 +49,14 @@
             <label class="weui-label">团队名称</label>
         </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="team_name" name="team_name" placeholder="输入团队名称">
+            <input class="weui-input" id="team_name" name="team_name" placeholder="输入团队名称" maxlength="10">
         </div>
     </div>
     <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
+        <div class="weui-cell__hd"><label class="weui-label">地 点</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="team_location" name="team_location" placeholder="输入团队主要活动地点"/>
+            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLen(this)"></textarea>
+            <div style="float:right; color:#999"><span id="team_location-count">0</span>/20</div>
         </div>
     </div>
     <div class="weui-cell">
@@ -144,9 +145,13 @@
             var formData = new FormData($("#teamDetail")[0]);
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
-                return;}
+                return;
+            }
             else if(document.getElementById("team_location").value==="") {
                 showAlert("请填写团队主要活动地点");
+                return;
+            }else if(jQuery("input[id='file1']").val()===""){
+                showAlert("请上传一张团队头像");
                 return;
             }
             $.ajax({
