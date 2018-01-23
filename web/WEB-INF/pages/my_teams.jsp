@@ -19,8 +19,9 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/user/');">
 <%
     List<TeamEntity> teamList = (List<TeamEntity>) request.getAttribute("allTeamList");
 %>
@@ -92,8 +93,4 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script src="../js/utils.js"></script>
-<script type="text/javascript">
-    back_to("${pageContext.request.contextPath}/user/");
-</script>
 </html>

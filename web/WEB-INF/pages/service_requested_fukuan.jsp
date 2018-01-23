@@ -16,8 +16,9 @@
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/publish/category');">
 
 <%
     List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
@@ -178,8 +179,6 @@
     </div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script src="../js/utils.js"></script>
-<script type="text/javascript">back_to("${pageContext.request.contextPath}/publish/category");</script>
 <script type="text/javascript">
     var xmlHttpRequest;
     $(function(){

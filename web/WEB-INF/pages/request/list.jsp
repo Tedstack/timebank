@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/utils.js"></script>
-    <script type="text/javascript">back_to("${pageContext.request.contextPath}/index");</script>
     <style>
         .overtimeFlag{
             float:right;
@@ -27,7 +26,7 @@
     </style>
     <title>需求列表</title>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">
