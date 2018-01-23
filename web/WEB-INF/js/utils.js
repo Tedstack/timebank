@@ -1,5 +1,5 @@
 function back_to(url){
-    window.onload = function() {
+    window.onpageshow = function() {
         var state = {
             title: "title",
             url: "#"
@@ -16,7 +16,7 @@ function back_to(url){
 }
 
 function normal_back(){
-    window.onload = function() {
+    window.onpageshow = function() {
 
         var state = {
             title: "title",
@@ -35,7 +35,7 @@ function normal_back(){
 }
 
 function back_exit(){
-    window.onload = function() {
+    window.onpageshow = function() {
 
         var state = {
             title: "title",
@@ -48,13 +48,11 @@ function back_exit(){
             if (e.type === "popstate") {
                 if
                 (confirm("您确定要关闭本页吗？")){
-                    window.opener=null;
-                    window.open('','_self');
-                    window.close();
+                    wx.closeWindow();
                 }
-                else{}            }
+                else{}
+            }
         }, false);
 
     }
 }
-

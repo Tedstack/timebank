@@ -251,7 +251,7 @@ public class UserController {
         String idImg2 = null;
         if (file != null && !file.isEmpty()&& file2 != null && !file2.isEmpty()) {
             System.out.println("idNum"+idNum);
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/");
+            File uploadDir = new File("/home/ubuntu/timebank/picture/profile");
             if (!uploadDir.exists()){
                 uploadDir.mkdir();
             }
@@ -262,7 +262,7 @@ public class UserController {
             idImg2 = idNum + "_" + 2 + suffix2;
 
             // 构建上传目录及文件对象，不存在则自动创建
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/profile/";
+            String path = "/home/ubuntu/timebank/picture/profile";
             File imgFile = new File(path, idImg);
             File imgFile2 = new File(path, idImg2);
 
@@ -306,11 +306,11 @@ public class UserController {
         File imgFile1 = null;
         File imgFile2 = null;
         if (file3 != null && !file3.isEmpty()) {
-            File uploadDir = new File(request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/techAuth/");
+            File uploadDir = new File("/home/ubuntu/timebank/picture/techAuth");
             if (!uploadDir.exists()){
                 uploadDir.mkdir();
             }
-            String path = request.getSession().getServletContext().getRealPath("/") + "WEB-INF/img/techAuth/";
+            String path = "/home/ubuntu/timebank/picture/techAuth";
             if(file1 != null && !file1.isEmpty()) {
                 String suffix1 = file1.getOriginalFilename().substring(file1.getOriginalFilename().lastIndexOf("."));
                 techImg1 = techName + techLevel + techId + "_" + 1 + suffix1;

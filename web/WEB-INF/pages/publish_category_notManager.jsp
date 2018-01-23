@@ -14,7 +14,7 @@
     <title>服务</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
-    <script src="js/utils.js"></script>
+    <script src="../js/utils.js"></script>
     <script type="text/javascript">back_exit();</script>
 </head>
 <body>
