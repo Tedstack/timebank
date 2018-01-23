@@ -24,7 +24,7 @@
         <div class="weui-cell__bd">
             <p>订单编号</p>
         </div>
-        <div class="weui-cell__ft"><%FormatOrderIdUtil.getPublishOrderFormatId(publishOrderEntity);%></div>
+        <div class="weui-cell__ft"><%=FormatOrderIdUtil.getPublishOrderFormatId(publishOrderEntity)%></div>
     </div>
 </div>
 <br>

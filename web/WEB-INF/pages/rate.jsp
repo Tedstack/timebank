@@ -137,11 +137,25 @@
     })
 </script>--%>
 <script type="text/javascript">
+    function getLength(str) {
+        return str.replace(/[^ -~]/g, 'AA').length;
+    }
+
+    function limitMaxLength(str, maxLength) {
+        var result = [];
+        for (var i = 0; i < maxLength; i++) {
+            var char = str[i]
+            if (/[^ -~]/.test(char))
+                maxLength--;
+            result.push(char);
+        }
+        return result.join('');
+    }
     function checkLen(obj)
     {
         if (getLength(obj.value) > 400)
             obj.value = limitMaxLength(obj.value, 400);
-        document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
+        document.getElementById("evaluation-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
     var xmlHttpRequest;
     $(function(){

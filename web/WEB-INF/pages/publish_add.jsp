@@ -19,7 +19,7 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
 </head>
-<body>
+<body onload="checkSurplus()">
 
 <%
     Map<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
@@ -272,6 +272,11 @@
             return false;
         }
         return true;
+    }
+    function checkSurplus(){
+        if(<%out.print(surplus);%>){
+            showAlert("每日至多可以发布3条服务<br/>您今日发布条数已达到上限！");
+        }
     }
 </script>
 
