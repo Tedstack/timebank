@@ -27,6 +27,7 @@ public class ViewUserActivityDetailEntity {
     private Timestamp applyEndTime;
     private String description;
     private String status;
+    private String activityHeadImg;
     private String teamName;
     private Long creatorId;
 
@@ -241,6 +242,16 @@ public class ViewUserActivityDetailEntity {
     }
 
     @Basic
+    @Column(name = "ActivityHeadImg", nullable = true, length = 100)
+    public String getActivityHeadImg() {
+        return activityHeadImg;
+    }
+
+    public void setActivityHeadImg(String activityHeadImg) {
+        this.activityHeadImg = activityHeadImg;
+    }
+
+    @Basic
     @Column(name = "TeamName", nullable = false, length = 40)
     public String getTeamName() {
         return teamName;
@@ -290,6 +301,8 @@ public class ViewUserActivityDetailEntity {
         if (applyEndTime != null ? !applyEndTime.equals(that.applyEndTime) : that.applyEndTime != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (activityHeadImg != null ? !activityHeadImg.equals(that.activityHeadImg) : that.activityHeadImg != null)
+            return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
         if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
 
@@ -319,6 +332,7 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (applyEndTime != null ? applyEndTime.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (activityHeadImg != null ? activityHeadImg.hashCode() : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         result = 31 * result + (creatorId != null ? creatorId.hashCode() : 0);
         return result;
