@@ -40,9 +40,6 @@
                             <div class="weui-uploader__hd">
                                 <p class="weui-uploader__title">点击更改头像</p>
                             </div>
-                            <div class="weui-uploader__hd">
-                                <p class="weui-uploader__title" style="color: #6c757d;font-size: 17px;">(长按重新选择)</p>
-                            </div>
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
                                 <a id="changeImg" href="javascript:" style="display:inline;">
@@ -145,11 +142,7 @@
                 $uploaderInput1.parent().hide();
             }
         });
-        $uploaderFiles1.on("click", "li", function(){
-            $galleryImg.attr("style", this.getAttribute("style"));
-            $gallery.fadeIn(100);
-        });
-        $uploaderFiles1.longPress(function () {
+        $uploaderFiles1.on("click","li",function () {
             $uploaderFiles1.empty();
             $uploaderInput1.parent().show();
             $uploaderInput1[0].value='';

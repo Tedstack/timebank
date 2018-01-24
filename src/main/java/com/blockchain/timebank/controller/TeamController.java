@@ -458,11 +458,15 @@ public class TeamController {
     //带申请活动中移除报名用户
     @RequestMapping(value = "/removeApplyUser", method = RequestMethod.POST)
     @ResponseBody
-    public String removeApplyUser(ModelMap map, @RequestParam long userActivityID) {
+    public String removeApplyUser(@RequestParam long userActivityID) {
         UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
+        UserEntity user=userService.findUserEntityById(userActivityEntity.getUserId());
         userActivityEntity.setAllow(false);
         userActivityService.updateUserActivityEntity(userActivityEntity);
-
+        if(MessageUtil.TextMessage(user.getOpenId(),getRejectedMessage(userActivityEntity,user)))
+            System.out.println("Message send success");
+        else
+            System.out.println("Message send fail");
         return "ok";
     }
 
@@ -982,5 +986,14 @@ public class TeamController {
             }
         }
         return false;
+    }
+
+    private String getRejectedMessage(UserActivityEntity userActivityEntity,UserEntity user){
+        ActivityPublishEntity activity=activityPublishService.findActivityPublishEntityByID(userActivityEntity.getActivityId());
+        String sex=user.getSex();
+        String param="先生";
+        if(sex.equalsIgnoreCase("女"))
+            param="女士";
+        return "尊敬的"+user.getName()+param+",非常抱歉您报名的"+activity.getName()+"未能通过活动组织者的审核。";
     }
 }

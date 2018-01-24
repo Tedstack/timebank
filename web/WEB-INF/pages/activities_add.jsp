@@ -182,7 +182,7 @@
             showAlert("每日至多可以发布3个活动<br/>您今日发布次数已达到上限！");
             $("input").attr("disabled",true);
             $("textarea").attr("disabled",true);
-            document.getElementById("submitBtn").style.display="none";
+            document.getElementById("submitBtn").attr("disabled",true);
         }
     }
     var xmlHttpRequest;
