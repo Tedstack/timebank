@@ -55,8 +55,10 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地 点</label></div>
         <div class="weui-cell__bd">
-            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLen(this)"></textarea>
-            <div style="float:right; color:#999"><span id="team_location-count">0</span>/20</div>
+            <div class="weui-cell__bd">
+                <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLenLoc(this)"></textarea>
+                <div style="float:right; color:#999"><span id="team_location-count">0</span>/20</div>
+            </div>
         </div>
     </div>
     <div class="weui-cell">
@@ -195,6 +197,14 @@
             obj.value = obj.value.substring(0,maxChars);
         var curr = obj.value.length;
         document.getElementById("description-count").innerHTML = curr.toString();
+    }
+    function checkLenLoc(obj)
+    {
+        var maxChars = 100;//最多字符数
+        if (obj.value.length > maxChars)
+            obj.value = obj.value.substring(0,maxChars);
+        var curr = obj.value.length;
+        document.getElementById("team_location-count").innerHTML = curr.toString();
     }
 </script>
 </html>
