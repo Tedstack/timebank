@@ -89,7 +89,7 @@ public class MessageUtil {
 
     }
 
-    public static boolean sign_team(UserEntity user ,TeamEntity team){
+    public static boolean sign_team(UserEntity user,String name ,TeamEntity team){
         /*
         *申请加入团队提醒
         *{{first.DATA}}
@@ -101,7 +101,7 @@ public class MessageUtil {
           申请时间：2014年7月21日 18:36
           点击详情进入团队主页！
         * */
-        String str_first = "您已提交加入团队申请，请等待管理员审核！！";
+        String str_first = name+"提交加入团队申请，请等待管理员审核！！";
         String team_name = team.getName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String apply_time = bartDateFormat.format(new Date().getTime());
