@@ -239,6 +239,22 @@ public class RequestController {
 
         UserEntity userEntity = userService.findUserEntityById(matchEntity.getApplyUserId());
         RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
+        if(userEntity != null && viewRequestOrderDetailEntity != null) {
+            System.out.println("===========================进入判断===============================");
+            int try_num = 3;
+            while(!MessageUtil.apply_result(userEntity, viewRequestOrderDetailEntity)){
+                if (--try_num==0)
+                    break;
+            }
+
+        }
+        else if (userEntity==null){
+            System.out.println("===========================user_entity null===========================");
+        }
+        else{
+            System.out.println("===========================request_order_entity null===========================");
+        }
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("requestEntity",requestEntity);
         map.addAttribute("matchEntity",requestOrderService.findRequestOrderDetailById(matchID));

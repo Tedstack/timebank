@@ -292,6 +292,56 @@ public class MessageUtil {
 
     }
 
+    //申请结果通知
+    public static boolean apply_result(UserEntity userEntity,ViewRequestOrderDetailEntity viewRequestOrderDetailEntity){
+        /*
+        * 申请结果通知
+        *{{first.DATA}}
+          申请人：{{keyword1.DATA}}
+          申请类型：{{keyword2.DATA}}
+          {{remark.DATA}}
+        *样例
+        * 李先生，您好！
+          申请人：张三
+          申请类型：预约会见法官
+          您的申请已通过！请到个人中心查看详情
+        * */
+        Template template = new Template();
+        List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
+        if("待服务".equals(viewRequestOrderDetailEntity.getStatus())) {
+            SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String time = bartDateFormat.format(viewRequestOrderDetailEntity.getBeginTime()) + "-" + bartDateFormat.format(viewRequestOrderDetailEntity.getEndTime());
+            String str_first = "预约时间：" + time;
+            String applyName = viewRequestOrderDetailEntity.getApplyUserName();
+            String service_type = viewRequestOrderDetailEntity.getServiceType()=="volunteer"?"志愿者需求":viewRequestOrderDetailEntity.getServiceType()=="mutualAid"?"互助需求":"专业需求";
+            String apply_type = service_type + "-" + viewRequestOrderDetailEntity.getServiceName();
+            String str_remark = "您的申请已被接受，点击详情查看具体细节";
+
+            templateParamList.add(new TemplateParam("first", str_first, "#173177"));
+            templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
+            templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
+            templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
+            template.setUrl("http://www.i-linli.com/timebanktest/request/applied?tab=2");//此处可以加入想要跳转的链接
+        }
+        else{
+            String str_first = "非常遗憾的通知您，您预约的"+viewRequestOrderDetailEntity.getServiceName()+"需求已被拒绝。"+"请不要难过，邻里智助为您提供海量需求，诚邀您前去浏览";
+            String applyName = viewRequestOrderDetailEntity.getApplyUserName();
+            String apply_type = viewRequestOrderDetailEntity.getServiceType() + "-" + viewRequestOrderDetailEntity.getServiceName();
+            String str_remark = "您的申请已被拒绝，点击详情查看具体细节";
+            templateParamList.add(new TemplateParam("first", str_first, "#173177"));
+            templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
+            templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
+            templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
+            template.setUrl("http://www.i-linli.com/timebanktest/index");//此处可以加入想要跳转的链接
+        }
+        template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
+        template.setToUser(userEntity.getOpenId());
+        template.setTopColor("#173177");
+        template.setTemplateParamList(templateParamList);
+        return AdvancedUtil.sendTemplateMessage(template);
+
+    }
+
     //发送文字信息
     public static boolean TextMessage(String openid,String content) {
         Text text = new Text();
