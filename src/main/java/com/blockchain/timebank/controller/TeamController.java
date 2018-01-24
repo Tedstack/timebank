@@ -342,8 +342,7 @@ public class TeamController {
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
         userActivityService.addUserActivity(userActivityEntity);
-        UserEntity user=userService.findUserEntityById(getCurrentUser().getId());
-        if(MessageUtil.apply_success(user,viewActivityPublishDetailEntity))
+        if(MessageUtil.apply_success(userService.findUserEntityById(viewActivityPublishDetailEntity.getCreatorId()),viewActivityPublishDetailEntity))
             System.out.println("Message send success");
         else
             System.out.println("Message send fail");
