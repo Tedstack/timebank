@@ -226,13 +226,13 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                data: "userId="+userId,
+                data: "userId="+userId+"&teamId="+teamId,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();
                 },
                 success: function (data) {
                     if(data==="success"){
-                        showAlert("已同意并发送信息",function () {
+                        showAlert("已同意",function () {
                             location.reload();
                         });
                     }else if(data==="messageFail"){
