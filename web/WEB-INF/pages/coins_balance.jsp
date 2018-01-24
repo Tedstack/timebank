@@ -7,7 +7,8 @@
     <title>我的时间币</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 <div class="weui-tab">
@@ -29,7 +30,7 @@
 
                 <div class="weui-msg__opr-area">
                     <p class="weui-btn-area">
-                        <a href="${pageContext.request.contextPath}/recharge/coins_recharge" class="weui-btn weui-btn_primary">充值</a>
+                        <a href="javascript:;" class="weui-btn weui-btn_primary" id="recharge">充值</a>
                     </p>
                     <%--<p class="weui-btn-area">
                         <a href="" class="weui-btn weui-btn_default">提现</a>
@@ -38,5 +39,16 @@
             </div>
         </div>
     </div>
+</div>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $(document).on("click", "#recharge", function() {
+        var r=confirm("您正在进行充值业务，￥1=1时间币，确认是否继续");
+        if(r==true){
+            goTo(url+"/recharge/coins_recharge");
+        }
+    });
+</script>
 </body>
 </html>
