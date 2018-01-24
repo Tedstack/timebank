@@ -153,7 +153,6 @@ public class TeamController {
     @ResponseBody
     public String addUserToTeam(@RequestParam long teamId) {
         long userId = getCurrentUser().getId();
-        boolean isSent = false;
         TeamUserEntity teamUser = new TeamUserEntity();
         teamUser.setTeamId(teamId);
         teamUser.setUserId(userId);
@@ -208,7 +207,6 @@ public class TeamController {
                 activityList.remove(i);
                 continue;
             }
-
             //活动不公开
             if (!activityList.get(i).isPublic()) {
                 if(currentId==0000)

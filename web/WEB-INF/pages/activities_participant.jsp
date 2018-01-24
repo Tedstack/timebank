@@ -32,9 +32,9 @@
                 已完成
             </div>
         </div>
-        <div class="weui-tab">
+        <div class="weui-tab" style="margin-top: 50px;">
             <!--已申请的活动-->
-            <div class="weui-tab__panel" id="applied" style="margin-top: 50px;">
+            <div class="weui-tab__panel" id="applied">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
                     for (int i=0;i<userActivityList_applied.size();i++) {
