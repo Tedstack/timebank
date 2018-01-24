@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
+
 @Controller
 @RequestMapping("/team")
 public class TeamController {
@@ -342,7 +343,7 @@ public class TeamController {
         userActivityEntity.setUserId(getCurrentUser().getId());
         userActivityEntity.setAllow(true);
         userActivityService.addUserActivity(userActivityEntity);
-        if(MessageUtil.apply_success(userService.findUserEntityById(viewActivityPublishDetailEntity.getCreatorId()),viewActivityPublishDetailEntity))
+        if(MessageUtil.apply_success(userService.findUserEntityById(viewActivityPublishDetailEntity.getCreatorId()),getCurrentUser().getName(),viewActivityPublishDetailEntity))
             System.out.println("Message send success");
         else
             System.out.println("Message send fail");

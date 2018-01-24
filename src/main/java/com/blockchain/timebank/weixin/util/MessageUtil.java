@@ -27,7 +27,6 @@ public class MessageUtil {
         * 加入时间：2017-1-11 8:18:18
         *可进入我的团队查看详情
         * */
-        UserEntity userEntity = user;
         String str_first = "您已成功加入团队！";
         String team_name = team.getName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -43,12 +42,12 @@ public class MessageUtil {
         template.setTemplateId("Ak8Bbtgn2Mes6i0Hh7AAwIdc3Xb9sMxG1HE6ata943I");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("");/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://www.i-linli.com/timebanktest/teamInfo?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }
 
-    public static boolean apply_success(UserEntity user, ViewActivityPublishDetailEntity teamDetailEntity){
+    public static boolean apply_success(UserEntity user,String name, ViewActivityPublishDetailEntity teamDetailEntity){
         /*
         * 报名成功通知
         *{{first.DATA}}
@@ -65,8 +64,7 @@ public class MessageUtil {
           活动地点：步行街
           点击可查看活动详细
         * */
-        UserEntity userEntity = user;
-        String str_first = "您好，您已成功报名了志愿活动！";
+        String str_first = "您好，"+name+"已成功报名了你的活动！";
         String team_name = teamDetailEntity.getTeamName();
         String activity_name = teamDetailEntity.getName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -85,7 +83,7 @@ public class MessageUtil {
         template.setTemplateId("pSvMh9CtTUJrkkbNVbAWW0bIN2Xr5LMHEzF3zw9z05o");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("");/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://www.i-linli.com/timebanktest/team/manageActivities?activityId="+teamDetailEntity.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
 
@@ -103,7 +101,6 @@ public class MessageUtil {
           申请时间：2014年7月21日 18:36
           点击详情进入团队主页！
         * */
-        UserEntity userEntity = user;
         String str_first = "您已提交加入团队申请，请等待管理员审核！！";
         String team_name = team.getName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -119,7 +116,7 @@ public class MessageUtil {
         template.setTemplateId("kmZLKoja_RD_8Lx56tOk0t00vUrJY5zzE6i8tig6kOk");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("");/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://www.i-linli.com/timebanktest/team/myTeamMember?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }
@@ -140,7 +137,6 @@ public class MessageUtil {
           预约人姓名：小王
           预约人电话：18788888888
         * */
-        UserEntity userEntity = user;
         String str_first = "您有新的预约通知！";
         String  type_name = viewPublishOrderDetailEntity.getServiceType()+":"+viewPublishOrderDetailEntity.getServiceName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -181,7 +177,6 @@ public class MessageUtil {
           预约人姓名：小王
           预约人电话：18788888888
         */
-        UserEntity userEntity = user;
         String str_first = "您有新的预约通知！";
         String service_type = viewRequestOrderDetailEntity.getServiceType()=="volunteer"?"志愿者需求":viewRequestOrderDetailEntity.getServiceType()=="mutualAid"?"互助需求":"专业需求";
         String  type_name = service_type+":"+viewRequestOrderDetailEntity.getServiceName();
@@ -210,7 +205,6 @@ public class MessageUtil {
     //微信充值成功提醒
     public static boolean RechargeTemplate(UserEntity user,RechargeEntity recharge){
         //此处用与测试，增加微信充值模板消息提醒,暂时写在这后面模板数目增多，移到专门的类中
-        UserEntity userEntity = user;
         String str_first = "充值通知:尊敬的"+ user.getName()+"您好：";
         String rechargeDate = recharge.getRechargeDate().toString();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
