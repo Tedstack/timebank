@@ -159,9 +159,8 @@ public class TeamController {
         teamUser.setUserId(userId);
         teamUser.setStatus(TeamUserStatus.inApplication);
         teamUserService.addUserToTeam(teamUser);
-        TeamEntity team = teamService.findById(teamId);
-        UserEntity user = userService.findUserEntityById(team.getCreatorId());
-        if (MessageUtil.sign_team(user,getCurrentUser().getName(),team))
+        ViewTeamDetailEntity team=viewTeamDetailDao.findOne(teamId);
+        if(MessageUtil.TextMessage(userService.findUserEntityById(team.getCreatorId()).getOpenId(),getAppliedMessage(getCurrentUser(),team.getCreatorUserName(),team.getName())))
             System.out.println("Message send success");
         else
             System.out.println("Message send fail");
@@ -995,5 +994,9 @@ public class TeamController {
         if(sex.equalsIgnoreCase("女"))
             param="女士";
         return "尊敬的"+user.getName()+param+",非常抱歉您报名的"+activity.getName()+"未能通过活动组织者的审核。";
+    }
+
+    private String getAppliedMessage(UserEntity user,String creator_name, String teamName){
+        return "尊敬的"+creator_name+",用户"+user.getName()+"已经报名申请你的"+teamName+"团队，请你尽快处理。";
     }
 }
