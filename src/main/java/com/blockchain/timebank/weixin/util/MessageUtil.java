@@ -183,7 +183,8 @@ public class MessageUtil {
         */
         UserEntity userEntity = user;
         String str_first = "您有新的预约通知！";
-        String  type_name = viewRequestOrderDetailEntity.getServiceType()+":"+viewRequestOrderDetailEntity.getServiceName();
+        String service_type = viewRequestOrderDetailEntity.getServiceType()=="volunteer"?"志愿者需求":viewRequestOrderDetailEntity.getServiceType()=="mutualAid"?"互助需求":"专业需求";
+        String  type_name = service_type+":"+viewRequestOrderDetailEntity.getServiceName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = bartDateFormat.format(viewRequestOrderDetailEntity.getBeginTime())+"-"+bartDateFormat.format(viewRequestOrderDetailEntity.getEndTime());
         String applyName = viewRequestOrderDetailEntity.getApplyUserName();
