@@ -27,8 +27,9 @@
             color: #7ACF41
         }
     </style>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<body onpageshow="normal_back();">
 <%
     List<ViewRequestDetailEntity> requestPublished = (List<ViewRequestDetailEntity>) request.getAttribute("requestPublished");
     List<ViewRequestOrderDetailEntity> requestToConfirm = (List<ViewRequestOrderDetailEntity>) request.getAttribute("requestToConfirm");
