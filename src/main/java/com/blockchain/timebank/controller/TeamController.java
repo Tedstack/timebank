@@ -161,7 +161,7 @@ public class TeamController {
         teamUserService.addUserToTeam(teamUser);
         TeamEntity team = teamService.findById(teamId);
         UserEntity user = userService.findUserEntityById(team.getCreatorId());
-        if (MessageUtil.sign_team(user, team))
+        if (MessageUtil.sign_team(user,getCurrentUser().getName(),team))
             System.out.println("Message send success");
         else
             System.out.println("Message send fail");
