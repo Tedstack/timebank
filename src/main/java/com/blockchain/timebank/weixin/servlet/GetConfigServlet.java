@@ -22,9 +22,9 @@ public class GetConfigServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("GetConfigServlet doPost");
         String url = request.getParameter("url");
-       // String jsapi_tickec = TokenThread.jsapiTicket.getJsapiTicket();
-        String jsapi_tickec = TokenThread.jsapiTicket;
-        Map<String, String> jssdk = Sign.main(jsapi_tickec,url);
+       // String jsapi_ticket = TokenThread.jsapiTicket.getJsapiTicket();
+        String jsapi_ticket = TokenThread.jsapiTicket;
+        Map<String, String> jssdk = Sign.main(jsapi_ticket,url);
         String str = JSON.toJSONString(jssdk);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

@@ -21,7 +21,7 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to(document.referrer);">
+<body onpageshow="normal_back();">
 <%
     List<ViewTeamDetailEntity> myTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("myList");
     List<ViewTeamDetailEntity> otherTeamList=(List<ViewTeamDetailEntity>) request.getAttribute("otherList");

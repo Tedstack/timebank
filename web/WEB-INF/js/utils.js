@@ -1,9 +1,9 @@
 function back_to(url){
         var state = {
-            title: "title",
-            url: "#"
+            title: "",
+            url: ""
         };
-        history.pushState(state, 'title', '#');
+        history.pushState(state, '', '');
 
         window.addEventListener('popstate', function (e) {
 
@@ -17,10 +17,10 @@ function back_to(url){
 function normal_back(){
 
         var state = {
-            title: "title",
-            url: "#"
+            title: "",
+            url: ""
         };
-        history.pushState(state, 'title', '#');
+        history.pushState(state, '', '');
 
         window.addEventListener('popstate', function (e) {
 
@@ -32,13 +32,13 @@ function normal_back(){
 
 }
 
-$(document).ready(function () {
+function get_wx_config () {
     $.ajax({
         url : "http://www.i-linli.com/timebanktest/scanGetConfigServlet",
         type : 'post',
         dataType : 'json',
         contentType : "application/x-www-form-urlencoded; charset=utf-8",
-        async: false,
+        async: true,
         data : {
             'url' : location.href.split('#')[0]
         },
@@ -53,23 +53,23 @@ $(document).ready(function () {
             });
         }
     });
-});
+}
 
 
 function back_exit(){
-    
-    var state = {
-        title: "title",
-        url: "#"
-    };
-    history.pushState(state, 'title', '#');
+    wx.ready(function () {
+        var state = {
+            title: "",
+            url: ""
+        };
+        history.pushState(state, '', '');
 
-    window.addEventListener('popstate', function (e) {
-        if (e.type === "popstate") {
-            wx.closeWindow();
-
-        }
-    }, false);
-
-
+        window.addEventListener('popstate', function (e) {
+            if (e.type === "popstate") {
+                if(confirm("确认退出？"))
+                    wx.closeWindow();
+                else{}
+            }
+        }, false);
+    });
 }

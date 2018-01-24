@@ -26,7 +26,7 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to(document.referrer);">
+<body onpageshow="normal_back();">
 <%
     TeamEntity team=(TeamEntity) request.getAttribute("teamEntity");
     String managerName=(String) request.getAttribute("managerName");

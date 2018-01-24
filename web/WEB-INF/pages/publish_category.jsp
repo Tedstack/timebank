@@ -20,6 +20,7 @@
     <script src="../js/utils.js"></script>
 </head>
 <body onload="back_exit();">
+<script>get_wx_config();</script>
 <div class="page js_show">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
