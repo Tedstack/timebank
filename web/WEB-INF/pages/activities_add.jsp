@@ -97,7 +97,7 @@
                     <label class="weui-label">活动名称</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input id="activityName" name="activityName" class="weui-input" type="text" placeholder="请输入活动名称"/>
+                    <input id="activityName" name="activityName" class="weui-input" type="text" placeholder="请输入活动名称" maxlength="15"/>
                 </div>
             </div>
             <div class="weui-cell">
