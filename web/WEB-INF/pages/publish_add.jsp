@@ -159,7 +159,7 @@
                 <%if(!surplus){%>
                     <button class="weui-btn weui-btn_primary" type="submit">发布</button>
                 <%}else{%>
-                    <button class="weui-btn weui-btn_primary" type="submit" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">发布</button>
+                    <button class="weui-btn weui-btn_primary" type="submit" style="background-color: #999; color:#fff; border:0px;text-decoration:none;" onclick="return false;">发布</button>
                 <%}%>
             </div>
         </form>
