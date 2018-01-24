@@ -136,8 +136,8 @@ public class RecordController {
                 PublishOrderEntity insertPublishOrder = recordService.saveRecordEntity(publishOrderEntity);
                 map.addAttribute("msg","ok");
                 //发消息给发布服务的人
-                UserEntity userEntity = userDao.findUserEntityById(serviceUserId);
-                ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewPublishOrderDetailDao.findViewRecordDetailEntityById(insertPublishOrder.getId());
+                UserEntity userEntity = userService.findUserEntityById(serviceUserId);
+                ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = recordService.findViewRecordDetailEntityById(insertPublishOrder.getId());
                 if(userEntity != null && viewPublishOrderDetailEntity != null) {
                     System.out.println("===========================进入判断===============================");
                     MessageUtil.customer_appoint(userEntity, viewPublishOrderDetailEntity);
@@ -176,6 +176,8 @@ public class RecordController {
 
         UserEntity userEntity = userService.findUserEntityById(publishOrderEntity.getApplyUserId());
         PublishEntity publishEntity = publishService.findPublishEntityById(publishOrderEntity.getPublishId());
+        ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = recordService.findViewRecordDetailEntityById(publishOrderEntity.getId());
+        MessageUtil.apply_result(userEntity, viewPublishOrderDetailEntity);
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("publishEntity",publishEntity);
         map.addAttribute("publishOrderEntity", publishOrderEntity);

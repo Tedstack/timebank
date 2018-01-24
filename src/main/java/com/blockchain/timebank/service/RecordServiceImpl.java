@@ -1,7 +1,9 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.dao.RecordDao;
+import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.PublishOrderEntity;
+import com.blockchain.timebank.entity.ViewPublishOrderDetailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,9 @@ public class RecordServiceImpl implements RecordService {
 
     @Autowired
     RecordDao recordDao;
+
+    @Autowired
+    ViewRecordDetailDao viewRecordDetailDao;
 
     @Transactional(readOnly=true)
     public List<PublishOrderEntity> findAll() {
@@ -52,5 +57,10 @@ public class RecordServiceImpl implements RecordService {
     @Transactional(readOnly=true)
     public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID) {
         return recordDao.findRecordEntitiesByApplyUserIdAndServiceUserId(applyUserID,serviceUserID);
+    }
+
+    @Transactional(readOnly=true)
+    public ViewPublishOrderDetailEntity findViewRecordDetailEntityById(long ID){
+        return viewRecordDetailDao.findViewRecordDetailEntityById(ID);
     }
 }

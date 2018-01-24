@@ -9,12 +9,12 @@ import java.util.List;
 @Repository
 public interface ViewPublishDetailDao extends CrudRepository<ViewPublishDetailEntity, Long>{
 
-    public List<ViewPublishDetailEntity> findAllByServiceTypeOrderByCreateTime(String serviceType);
+    List<ViewPublishDetailEntity> findAllByServiceTypeOrderByCreateTime(String serviceType);
 
-    public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserId(long userID);
+    List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserId(long userID);
 
-    public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserIdAndIsDelete(long userID,int isDelete);
+    List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByUserIdAndIsDelete(long userID,int isDelete);
 
-    public List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(String serviceType,int isDelete);
+    List<ViewPublishDetailEntity> findViewPublishDetailEntitiesByServiceTypeAndIsDeleteOrderByCreateTime(String serviceType,int isDelete);
 
 }
