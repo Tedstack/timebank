@@ -1,24 +1,27 @@
 package com.blockchain.timebank.service;
 
 import com.blockchain.timebank.entity.PublishOrderEntity;
+import com.blockchain.timebank.entity.ViewPublishOrderDetailEntity;
 
 import java.util.List;
 
 public interface RecordService {
 
-    public List<PublishOrderEntity> findAll();
+    List<PublishOrderEntity> findAll();
 
-    public PublishOrderEntity saveRecordEntity(PublishOrderEntity publishOrderEntity);
+    PublishOrderEntity saveRecordEntity(PublishOrderEntity publishOrderEntity);
 
-    public List<PublishOrderEntity> findByApplyUserId(long ID);
+    List<PublishOrderEntity> findByApplyUserId(long ID);
 
-    public List<PublishOrderEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status);
+    List<PublishOrderEntity> findRecordEntitiesByServiceUserIdAndStatus(long serviceUserID, String status);
 
-    public PublishOrderEntity updateRecordEntity(PublishOrderEntity publishOrderEntity);
+    PublishOrderEntity updateRecordEntity(PublishOrderEntity publishOrderEntity);
 
-    public PublishOrderEntity findRecordEntityById(long ID);
+    PublishOrderEntity findRecordEntityById(long ID);
 
-    public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID, String status);
+    List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndStatus(long applyUserID, String status);
 
-    public List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID);
+    List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID);
+
+    ViewPublishOrderDetailEntity findViewRecordDetailEntityById(long ID);
 }
