@@ -270,9 +270,10 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
+            template.setUrl("http://www.i-linli.com/timebanktest/user/queryOrderWaitingService");//此处可以加入想要跳转的链接
         }
         else{
-            String str_first = "非常遗憾的通知您，您预约的"+viewPublishOrderDetailEntity.getServiceName()+"服务没有通过。"+"请不要难过，邻里智助为您提供海量服务，诚邀您前去浏览";
+            String str_first = "非常遗憾的通知您，您预约的"+viewPublishOrderDetailEntity.getServiceName()+"服务已被拒绝。"+"请不要难过，邻里智助为您提供海量服务，诚邀您前去浏览";
             String applyName = viewPublishOrderDetailEntity.getApplyUserName();
             String apply_type = viewPublishOrderDetailEntity.getServiceType() + "-" + viewPublishOrderDetailEntity.getServiceName();
             String str_remark = "您的申请已被拒绝，点击详情查看具体细节";
@@ -280,11 +281,11 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
+            template.setUrl("http://www.i-linli.com/timebanktest/index");//此处可以加入想要跳转的链接
         }
         template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
         template.setToUser(userEntity.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-linli.com/timebanktest/user/queryOrderWaitingService");//此处可以加入想要跳转的链接
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
 
