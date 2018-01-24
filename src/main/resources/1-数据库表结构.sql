@@ -744,3 +744,18 @@ CREATE VIEW `mydb`.`view_request_order_detail` AS
      AND (`mydb`.`request`.`ServiceID` = `mydb`.`service`.`ID`)
      AND (`mydb`.`requestorder`.`RequestUserID` = `requestUser`.`ID`)
      AND (`mydb`.`requestorder`.`ApplyUserID` = `applyUser`.`ID`));
+
+# 显示时间银行发行货币视图
+CREATE VIEW view_timebank_detail
+  AS
+    SELECT
+      timebank.ID                       AS ID,                #货币编号
+      timebank.Type                     AS Type,              #货币种类
+      timebank.Total                    AS Total,             #货币总额
+      timebank.CreateTime              AS CreateTime,        #创建时间
+      timebank.CreateUserID           AS CreateUserID,       #创建者编号
+      timebank.Description            AS Description,         #货币简介
+      timebank.Reason                  AS Reason,             #货币发行原因
+      userAuth.Name                     AS CreateUserName    #创建者用户名
+    FROM timebank, userAuth
+    WHERE timebank.CreateUserID = userAuth.ID;
