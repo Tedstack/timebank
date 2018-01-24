@@ -1,4 +1,3 @@
-<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -36,7 +35,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-                <div class="weui-flex__item"id="return" onclick="goBack()" >
+                <div class="weui-flex__item">
                     <p>活动详情</p>
                 </div>
             </div>
@@ -120,11 +119,12 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
-                <div class="weui-cell__bd">
-                    <p>活动地点</p>
+                <div class="weui-cell__bh">
+                    <span style="margin-right: 7px;">活动地点</span>
                 </div>
-                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getAddress());%></div>
+                <div class="weui-cell__bd">
+                    <textarea id="location" class="weui-textarea" name="location" readonly rows="3"><%out.print(activityPublishDetail.getAddress());%></textarea>
+                </div>
             </div>
         </div>
 
