@@ -294,6 +294,20 @@
                 <%
                     for (int i=0;i<requestToPay.size();i++) {
                 %>
+                <%
+                    String moneyType = null;
+                    switch ((String) requestToPay.get(i).getServiceType()){
+                        case "volunteer":
+                            moneyType = "志愿者时间";
+                            break;
+                        case "technic":
+                            moneyType = "元";
+                            break;
+                        case "mutualAid":
+                            moneyType = "时间币";
+                            break;
+                    }
+                %>
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
@@ -301,9 +315,10 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">价格 <%out.print(requestToPay.get(i).getPayMoney());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title">价格 <%out.print(requestToPay.get(i).getPayMoney() + "(" + moneyType + ")");%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
+                            <p class="weui-media-box__desc">需求项目: <%out.print(requestToPay.get(i).getServiceName());%></p>
                             <p class="weui-media-box__desc">服务对象: <%out.print(requestToPay.get(i).getApplyUserName());%></p>
                             <p class="weui-media-box__desc">开始时间:
                                 <%

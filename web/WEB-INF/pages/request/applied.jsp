@@ -248,7 +248,21 @@
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd">
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务名称/<%out.print(requestToPay.get(i).getServiceName());%>.png" alt="">
+                            <%
+                                String moneyType = null;
+                                switch ((String) requestToPay.get(i).getServiceType()){
+                                    case "volunteer":
+                                        moneyType = "志愿者时间";
+                                        break;
+                                    case "technic":
+                                        moneyType = "元";
+                                        break;
+                                    case "mutualAid":
+                                        moneyType = "时间币";
+                                        break;
+                                }
+                            %>
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务名称/<%out.print(requestToPay.get(i).getServiceName() + "(" + moneyType + ")");%>.png" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
@@ -256,22 +270,23 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">订单号编号 <%out.print(FormatOrderIdUtil.getRequestOrderFormatId(requestToPay.get(i)));%></p>
-                            <p class="weui-media-box__desc">开始时间
+                            <p class="weui-media-box__desc">订单号编号: <%out.print(FormatOrderIdUtil.getRequestOrderFormatId(requestToPay.get(i)));%></p>
+                            <p class="weui-media-box__desc">需求项目: <%out.print(requestToPay.get(i).getServiceName());%></p>
+                            <p class="weui-media-box__desc">开始时间:
                                 <%
                                     Timestamp beginTimestamp = requestToPay.get(i).getActualBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %></p>
-                            <p class="weui-media-box__desc">结束时间
+                            <p class="weui-media-box__desc">结束时间:
                                 <%
                                     Timestamp endTimestamp = requestToPay.get(i).getActualEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %></p>
-                            <p class="weui-media-box__desc">服务时长
+                            <p class="weui-media-box__desc">服务时长:
                                 <%
                                     Timestamp timestamp = requestToPay.get(i).getActualBeginTime();
                                     Timestamp timestamp2 = requestToPay.get(i).getActualEndTime();
@@ -282,7 +297,7 @@
 
                             <ul class="weui-media-box__info">
                                 <li class="weui-media-box__info__meta"><%out.print(requestToPay.get(i).getAddress());%></li>
-                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">需求人：<%out.print(requestToPay.get(i).getRequestUserName());%></li>
+                                <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">需求人:<%out.print(requestToPay.get(i).getRequestUserName());%></li>
                             </ul>
 
                         </div>

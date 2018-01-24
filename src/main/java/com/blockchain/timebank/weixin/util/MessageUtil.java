@@ -178,7 +178,7 @@ public class MessageUtil {
           预约人电话：18788888888
         */
         String str_first = "您有新的预约通知！";
-        String service_type = viewRequestOrderDetailEntity.getServiceType()=="volunteer"?"志愿者需求":viewRequestOrderDetailEntity.getServiceType()=="mutualAid"?"互助需求":"专业需求";
+        String service_type = viewRequestOrderDetailEntity.getServiceType().equals("volunteer")?"志愿者需求":viewRequestOrderDetailEntity.getServiceType().equals("mutualAid")?"互助需求":"专业需求";
         String  type_name = service_type+":"+viewRequestOrderDetailEntity.getServiceName();
         SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String time = bartDateFormat.format(viewRequestOrderDetailEntity.getBeginTime())+"-"+bartDateFormat.format(viewRequestOrderDetailEntity.getEndTime());
@@ -307,7 +307,7 @@ public class MessageUtil {
             String time = bartDateFormat.format(viewRequestOrderDetailEntity.getBeginTime()) + "-" + bartDateFormat.format(viewRequestOrderDetailEntity.getEndTime());
             String str_first = "预约时间：" + time;
             String applyName = viewRequestOrderDetailEntity.getApplyUserName();
-            String service_type = viewRequestOrderDetailEntity.getServiceType()=="volunteer"?"志愿者需求":viewRequestOrderDetailEntity.getServiceType()=="mutualAid"?"互助需求":"专业需求";
+            String service_type = viewRequestOrderDetailEntity.getServiceType().equals("volunteer")?"志愿者需求":viewRequestOrderDetailEntity.getServiceType().equals("mutualAid")?"互助需求":"专业需求";
             String apply_type = service_type + "-" + viewRequestOrderDetailEntity.getServiceName();
             String str_remark = "您的申请已被接受，点击详情查看具体细节";
 
