@@ -3,3 +3,5 @@ out/
 /timebankWeb.iml
 web/WEB-INF/pages/TestPage.html
 /target/
+/token_process/test.py
+

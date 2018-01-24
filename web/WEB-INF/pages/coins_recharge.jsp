@@ -47,7 +47,7 @@
                 <span style="color:#76b852">充值时间币须知</span>
             </div>
             <div class="weui-media-box__info">
-               <span>用户您好，目前时间币充值只用于测试,暂无提现功能<br><br>￥0.01 = 1时间币</span>
+               <span>用户您好，您在进行充值业务，暂无提现功能<br><br>￥1 = 1时间币</span>
             </div>
         </div>
     </div>

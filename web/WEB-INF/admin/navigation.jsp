@@ -182,6 +182,25 @@
                     </li>
             <%
                 }
+
+                if(roles.contains(UserAuthRole.ROLE_TIMEBANK_MANAGE)){
+            %>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseTimebank" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-bank"></i>
+                            <span class="nav-link-text">时间银行管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseTimebank">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/timebankInfo">账户信息</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/timebankPublishNew">发行新货币</a>
+                            </li>
+                        </ul>
+                    </li>
+            <%
+                }
             %>
 
 

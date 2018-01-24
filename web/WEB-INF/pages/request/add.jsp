@@ -248,10 +248,10 @@
             beginTime = beginTime.replace("T"," ");
             endTime = endTime.replace(/\-/gi,"/");
             endTime = endTime.replace("T"," ");
-            beginTime = new Date(beginTime).getTime();
+            beginTime = new Date(beginTime).getTime()+3600000;
             endTime = new Date(endTime).getTime();
             if(beginTime>endTime){
-                showAlert("需求结束时间不能早于开始时间");
+                showAlert("需求结束时间不能早于开始时间，且需间隔1个小时以上");
                 return false;
             }
         }

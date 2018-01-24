@@ -8,4 +8,5 @@ public class UserAuthRole {
     public final static String ROLE_TEAM_MANAGE = "ROLE_TEAM_MANAGE"; //志愿者团队管理
     public final static String ROLE_ACTIVITY_MANAGE = "ROLE_ACTIVITY_MANAGE"; //团队活动管理
     public final static String ROLE_USER_AUTH_MANAGE = "ROLE_USER_AUTH_MANAGE"; //后台用户管理
+    public final static String ROLE_TIMEBANK_MANAGE = "ROLE_TIMEBANK_MANAGE"; //后台用户管理
 }
