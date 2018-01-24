@@ -262,11 +262,11 @@
                                         break;
                                 }
                             %>
-                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务名称/<%out.print(requestToPay.get(i).getServiceName() + "(" + moneyType + ")");%>.png" alt="">
+                            <img class="weui-media-box__thumb" width="60" height="60"src="../img/服务名称/<%out.print(requestToPay.get(i).getServiceName());%>.png" alt="">
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">价格 <%out.print(requestToPay.get(i).getPayMoney());%></h4></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41">价格 <%out.print(requestToPay.get(i).getPayMoney() + "(" + moneyType + ")");%></h4></div>
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
