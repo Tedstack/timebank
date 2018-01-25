@@ -98,6 +98,9 @@ public class RequestController {
     //志愿者需求详细列表
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public String detailVolunteerPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
+        if(isAnonymous()) {
+            return "request/detail_anonymous";
+        }
         ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
         map.addAttribute("detail", viewRequestDetailEntity);
         UserEntity userEntity = getCurrentUser();

@@ -8,8 +8,6 @@ app = Flask(__name__)
 
 access_token = ''
 js_api_ticket = ''
-access_token_beta = ''
-js_api_ticket_beta = ''
 
 
 def get_time():
