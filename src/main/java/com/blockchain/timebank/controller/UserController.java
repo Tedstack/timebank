@@ -124,7 +124,22 @@ public class UserController {
     public String scan (ModelMap map){
         return "scan";
     }
-
+    //用户修改密码接口
+    @RequestMapping(value="/password_change",method=RequestMethod.POST)
+    @ResponseBody
+    public String passwordChange(ModelMap map,@RequestParam String phone,@RequestParam String password){
+        String status="";
+        if(userService.findUserEntityByPhone(phone)!=null){
+        UserEntity userentity=userService.findUserEntityByPhone(phone);
+        String MD5Password = MD5Util.getMD5(password);
+        userentity.setPassword(MD5Password);
+        userService.updateUserEntity(userentity);
+        status="success";}
+        else{
+            status="fail";
+        }
+        return status;
+    }
     // 注册请求接口
     @RequestMapping(value = "/register2", method = RequestMethod.POST)
     @ResponseBody
@@ -196,6 +211,14 @@ public class UserController {
 
         map.addAttribute("user",user);
         return "change_userinfo";
+    }
+    //跳转到修改密码
+    @RequestMapping(value = "/ChangePassword",method = RequestMethod.GET)
+    public String startChangePassword(ModelMap map){
+        UserEntity user = getCurrentUser();
+
+        map.addAttribute("user",user);
+        return "change_password";
     }
     //查看头像大图
     @RequestMapping(value = "/headimg",method = RequestMethod.GET)

@@ -34,7 +34,27 @@ public class IndexController {
 
         return "index";
     }
+    @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+    public String changePassword(HttpServletRequest request, ModelMap map) {
 
+        return "login_changepassword";
+    }
+//    @RequestMapping(value = "/change_Password", method = RequestMethod.GET)
+//    public String change_Password(ModelMap map,@RequestParam String phone,@RequestParam String password) {
+//        String status="";
+//        UserEntity userentity=userService.findUserEntityByPhone(phone);
+//        if(userentity.getPassword()!=null)
+//        {
+//            String MD5Password = MD5Util.getMD5(password);
+//            userentity.setPassword(MD5Password);
+//            userService.updateUserEntity(userentity);
+//            status = "success";
+//        }
+//        else {
+//            status="notregistered";
+//        }
+//        return status;
+//    }
     @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
     public String loginPage2(HttpServletRequest request, ModelMap map) {
 

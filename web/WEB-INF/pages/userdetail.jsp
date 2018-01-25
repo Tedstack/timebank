@@ -95,6 +95,14 @@
             <%out.print(userEntity.getCity());%>
         </div>
     </a>
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/ChangePassword">
+        <div class="weui-cell__bd">
+            <p>密码</p>
+        </div>
+        <div class="weui-cell__ft"style="">
+            <p>修改</p>
+        </div>
+    </a>
     <div style="background-color: #f8f8f8; height:10px;"></div>
 </div>
 

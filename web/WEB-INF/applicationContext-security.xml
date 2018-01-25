@@ -46,10 +46,12 @@
         <intercept-url pattern="/team/teamActivityDetails" access="permitAll()"/>
         <intercept-url pattern="/index" access="permitAll()"/>
         <!--游客模式结束-->
+        <intercept-url pattern="/changePassword" access="permitAll()"/>
         <intercept-url pattern="/register" access="permitAll()"/>
         <intercept-url pattern="/user/login" access="permitAll()"/>
         <intercept-url pattern="/user/register2" access="permitAll()"/>
         <intercept-url pattern="/user/register" access="permitAll()"/>
+        <intercept-url pattern="/user/password_change" access="permitAll()"/>
         <intercept-url pattern="/recharge/weixin_notify**" access="permitAll()"/>
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <form-login login-page="/loginPage" authentication-failure-url="/login?error=1"/>
