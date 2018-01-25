@@ -98,14 +98,14 @@ public class RequestController {
     //志愿者需求详细列表
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public String detailVolunteerPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
+        ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
+        map.addAttribute("detail", viewRequestDetailEntity);
+        map.addAttribute("type", type);
         if(isAnonymous()) {
             return "request/detail_anonymous";
         }
-        ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
-        map.addAttribute("detail", viewRequestDetailEntity);
         UserEntity userEntity = getCurrentUser();
         map.addAttribute("currentUser", userEntity);
-        map.addAttribute("type", type);
         return "request/detail";
     }
 
