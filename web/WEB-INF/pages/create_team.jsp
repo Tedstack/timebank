@@ -145,6 +145,7 @@
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
             var formData = new FormData($("#teamDetail")[0]);
+            var phone=document.getElementById("content_number").value;
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
                 return;
@@ -154,6 +155,9 @@
                 return;
             }else if(jQuery("input[id='file1']").val()===""){
                 showAlert("请上传一张团队头像");
+                return;
+            }else if(!isPoneAvailable(phone) && !isTelAvailable(phone)){
+                showAlert("请输入正确的手机号");
                 return;
             }
             $.ajax({
@@ -205,6 +209,22 @@
             obj.value = obj.value.substring(0,maxChars);
         var curr = obj.value.length;
         document.getElementById("team_location-count").innerHTML = curr.toString();
+    }
+    function isPoneAvailable (pone) {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(pone)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function isTelAvailable (tel) {
+        var myreg = /^0\d{2,3}-?\d{7,8}$/;
+        if (!myreg.test(tel)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 </script>
 </html>
