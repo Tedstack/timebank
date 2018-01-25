@@ -195,7 +195,10 @@
                                 <a href="${pageContext.request.contextPath}/admin/timebankInfo">账户信息</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin/timebankPublishNew">发行新货币</a>
+                                <a href="${pageContext.request.contextPath}/admin/timebankPublishNew">发行时间</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/timebankRechargeUser">用户充值</a>
                             </li>
                         </ul>
                     </li>

@@ -912,7 +912,7 @@ public class TeamController {
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);
             }
-            if (!team.getName().equalsIgnoreCase(team_name)) {
+            if (!team.getName().trim().equalsIgnoreCase(team_name)) {
                 if (checkTeamNameExist(team_name))
                     return "nameExist";
                 else

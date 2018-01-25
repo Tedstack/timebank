@@ -1,8 +1,6 @@
 package com.blockchain.timebank.service;
 
-import com.blockchain.timebank.entity.RechargeTimebankEntity;
-import com.blockchain.timebank.entity.TimebankEntity;
-import com.blockchain.timebank.entity.UserAuthEntity;
+import com.blockchain.timebank.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +20,12 @@ public class TimebankAccountServiceImpl implements TimebankAccountService {
 
     @Autowired
     RechargeTimebankService rechargeTimebankService;
+
+    @Autowired
+    RechargeUserService rechargeUserService;
+
+    @Autowired
+    UserService userService;
 
     @Transactional
     public boolean createNewCurrency(String type, double total, String description, String reason) {
@@ -56,6 +60,51 @@ public class TimebankAccountServiceImpl implements TimebankAccountService {
         rechargeTimebankEntity.setOperatorId(getCurrentUser().getId());
         rechargeTimebankEntity.setReason(rechargeReason);
         rechargeTimebankService.saveRechargeTimebankEntity(rechargeTimebankEntity);
+
+        return true;
+    }
+
+    @Transactional
+    public boolean rechargeCurrencyToUser(String userPhone, long timebankID, double rechargeValue, String rechargeReason) {
+        //1.更新用户账户和总帐户
+        TimebankEntity timebankEntity = timebankService.findTimebankEntityByID(timebankID);
+        String currencyType = timebankEntity.getType();
+        UserEntity userEntity = userService.findUserEntityByPhone(userPhone);
+        double userTotal,bankTotal;
+        if(currencyType.equals(CurrencyType.timeVol)){
+            //用户账户充值
+            userTotal = userEntity.getTimeVol();
+            userTotal = userTotal + rechargeValue;
+            userEntity.setTimeVol(userTotal);
+
+            //银行账户支出
+            bankTotal = timebankEntity.getTotal();
+            //判断账户余额是否充足
+            if(bankTotal<rechargeValue){
+                return false;
+            }
+            bankTotal = bankTotal - rechargeValue;
+            timebankEntity.setTotal(bankTotal);
+        }else if (currencyType.equals(CurrencyType.timeCoin)){
+            userTotal = userEntity.getTimeCoin();
+            userTotal = userTotal + rechargeValue;
+            userEntity.setTimeCoin(userTotal);
+        }else{
+            return false;
+        }
+        userService.updateUserEntity(userEntity);
+        timebankService.saveTimebankEntity(timebankEntity);
+
+        //2.充值记录写入数据库
+        RechargeUserEntity rechargeUserEntity = new RechargeUserEntity();
+        rechargeUserEntity.setTimebankId(timebankID);
+        rechargeUserEntity.setRechargeValue(rechargeValue);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        rechargeUserEntity.setRechargeTime(timestamp);
+        rechargeUserEntity.setOperatorId(getCurrentUser().getId());
+        rechargeUserEntity.setUserId(userEntity.getId());
+        rechargeUserEntity.setReason(rechargeReason);
+        rechargeUserService.saveRechargeUserEntity(rechargeUserEntity);
 
         return true;
     }

@@ -111,18 +111,6 @@
         }
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
-    $.fn.longPress = function(fn) {
-        var timeout = undefined;
-        var $this = this;
-        for(var i = 0;i<$this.length;i++){
-            $this[i].addEventListener('touchstart', function(event) {
-                timeout = setTimeout(fn, 500);  //长按时间超过800ms，则执行传入的方法
-            }, false);
-            $this[i].addEventListener('touchend', function(event) {
-                clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
-            }, false);
-        }
-    };
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="width:90px;height:90px;background-image:url(#url#)"></li>',
             $uploaderInput1 = $("#file1"),
@@ -151,6 +139,11 @@
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
             var formData = new FormData($("#teamDetail")[0]);
+            var phone=document.getElementById("team_phone").value;
+            if(!isPoneAvailable(phone) && !isTelAvailable(phone)){
+                showAlert("请输入正确的手机号");
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -214,6 +207,22 @@
             obj.value = obj.value.substring(0,maxChars);
         var curr = obj.value.length;
         document.getElementById("team_location-count").innerHTML = curr.toString();
+    }
+    function isPoneAvailable (pone) {
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        if (!myreg.test(pone)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function isTelAvailable (tel) {
+        var myreg = /^0\d{2,3}-?\d{7,8}$/;
+        if (!myreg.test(tel)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 </script>
 </html>
