@@ -96,6 +96,34 @@ public class TimebankManageController {
         return "../admin/timebank_recharge";
     }
 
+    @RequestMapping(value = "/timebankRechargeUser", method = RequestMethod.GET)
+    public String timebankRechargeUser(ModelMap map) {
+        map.addAttribute("timebankList", timebankService.findAll());
+        return "../admin/timebank_recharge_user";
+    }
+
+    @RequestMapping(value = "/timebankRechargeUserSubmit", method = RequestMethod.POST)
+    public String timebankRechargeUserSubmit(ModelMap map, @RequestParam String userPhone, @RequestParam long timebankID, @RequestParam double rechargeValue, @RequestParam String rechargeReason) {
+        map.addAttribute("timebankList", timebankService.findAll());
+
+        //1.输入总额合法性验证
+        if(rechargeValue<=0){
+            map.addAttribute("error", "输入有误，充值失败！");
+            return "../admin/timebank_recharge_user";
+        }
+
+        //2.写入数据库
+        boolean isSuccess = timebankAccountService.rechargeCurrencyToUser(userPhone,timebankID,rechargeValue,rechargeReason);
+
+        if(isSuccess){
+            map.addAttribute("ok", "充值成功！");
+        }else{
+            map.addAttribute("error", "输入有误，充值失败！");
+        }
+
+        return "../admin/timebank_recharge_user";
+    }
+
     private UserAuthEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {

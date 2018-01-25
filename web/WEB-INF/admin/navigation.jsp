@@ -197,6 +197,9 @@
                             <li>
                                 <a href="${pageContext.request.contextPath}/admin/timebankPublishNew">发行新货币</a>
                             </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/timebankRechargeUser">用户充值</a>
+                            </li>
                         </ul>
                     </li>
             <%

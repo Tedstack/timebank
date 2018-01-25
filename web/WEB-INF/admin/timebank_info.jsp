@@ -48,7 +48,7 @@
                         <thead>
                         <tr>
                             <th>种类</th>
-                            <th>总额</th>
+                            <th>余额</th>
                             <th>创建时间</th>
                             <th>创建者</th>
                             <th>简介</th>
