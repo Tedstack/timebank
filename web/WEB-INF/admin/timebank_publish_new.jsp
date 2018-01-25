@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>发行新货币</title>
+    <title>发行时间</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -31,13 +31,13 @@
             <li class="breadcrumb-item">
                 <a href="${pageContext.request.contextPath}/admin/index">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">发行新货币</li>
+            <li class="breadcrumb-item active">发行时间</li>
         </ol>
 
         <!-- Example Bar Chart Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-bar-chart"></i> 货币信息
+                <i class="fa fa-bar-chart"></i> 时间信息
             </div>
             <div class="card-body">
 
@@ -55,9 +55,9 @@
                 <form action="${pageContext.request.contextPath}/admin/timebankPublishNewSubmit" method="post">
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">货币类型</label>
+                        <label class="col-sm-1 col-form-label">时间池名称</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="type" placeholder="请输入类型名称" required>
+                            <input class="form-control" type="text" name="type" placeholder="请输入时间池名称" required>
                         </div>
                     </div>
 
@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">货币简介</label>
+                        <label class="col-sm-1 col-form-label">简介</label>
                         <div class="col-sm-4">
                             <textarea class="form-control" name="description" placeholder="请输入描述" rows="6" required></textarea>
                         </div>
