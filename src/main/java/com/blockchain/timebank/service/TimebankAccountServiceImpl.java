@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service("timebankAccountService")
 public class TimebankAccountServiceImpl implements TimebankAccountService {
@@ -29,6 +30,15 @@ public class TimebankAccountServiceImpl implements TimebankAccountService {
 
     @Transactional
     public boolean createNewCurrency(String type, double total, String description, String reason) {
+        //1.判断是否名称相同
+        List<TimebankEntity> timebankEntityList =  timebankService.findAll();
+        for(int i=0;i<timebankEntityList.size();i++){
+            if(timebankEntityList.get(i).getType().equals(type)){
+                return false;
+            }
+        }
+
+        //2.创建新货币
         TimebankEntity timebankEntity = new TimebankEntity();
         timebankEntity.setType(type);
         timebankEntity.setTotal(total);
