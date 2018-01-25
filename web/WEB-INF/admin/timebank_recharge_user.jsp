@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">货币选择</label>
+                        <label class="col-sm-1 col-form-label">时间池选择</label>
                         <div class="col-sm-4">
                             <select name="timebankID" class="form-control">
                                 <%

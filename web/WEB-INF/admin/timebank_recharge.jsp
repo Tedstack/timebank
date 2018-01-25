@@ -51,7 +51,7 @@
                                     <div class="card-body">
                                         <input type="hidden" name="timebankID" value="<%out.print(viewTimebankDetailEntity.getId());%>"/>
                                         <div class="form-group">
-                                            <label>货币种类</label>
+                                            <label>时间池种类</label>
                                             <label class="col-sm-4 col-form-label"><%out.print(viewTimebankDetailEntity.getType());%></label>
                                         </div>
                                         <div class="form-group">

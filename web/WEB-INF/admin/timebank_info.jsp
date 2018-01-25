@@ -47,7 +47,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>种类</th>
+                            <th>时间池名称</th>
                             <th>余额</th>
                             <th>创建时间</th>
                             <th>创建者</th>
