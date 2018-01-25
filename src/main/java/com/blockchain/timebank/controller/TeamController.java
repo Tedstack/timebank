@@ -824,11 +824,13 @@ public class TeamController {
                              String team_name,
                              String team_location,
                              String content_number,
-                             String describe) {
+                             String describe)throws IOException {
         String idImg = "";
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
+            if(file.getSize()>512*1024)
+                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -839,6 +841,7 @@ public class TeamController {
             idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
+            file.transferTo(imgFile);
             try {
                 TeamEntity newTeam = new TeamEntity();
                 newTeam.setName(team_name);
@@ -849,7 +852,6 @@ public class TeamController {
                     content_number = user.getPhone();
                 }
                 newTeam.setHeadImg(idImg);
-                file.transferTo(imgFile);
                 newTeam.setCreatorId(userId);
                 newTeam.setPhone(content_number);
                 newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
@@ -899,6 +901,8 @@ public class TeamController {
             String idImg = "";
             //判断是否需要上传头像
             if (file != null && !file.isEmpty()) {
+                if(file.getSize()>512*1024)
+                    return "hugeImg";
                 File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();

@@ -29,9 +29,6 @@
                             <div class="weui-uploader__hd">
                                 <p class="weui-uploader__title">上传头像</p>
                             </div>
-                            <div class="weui-uploader__hd">
-                                <p class="weui-uploader__title" style="color: #6c757d;font-size: 17px;">(长按重新选择)</p>
-                            </div>
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
                                 <div class="weui-uploader__input-box">
@@ -95,18 +92,6 @@
         }
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
-    $.fn.longPress = function(fn) {
-        var timeout = undefined;
-        var $this = this;
-        for(var i = 0;i<$this.length;i++){
-            $this[i].addEventListener('touchstart', function(event) {
-                timeout = setTimeout(fn, 500);  //长按时间超过800ms，则执行传入的方法
-            }, false);
-            $this[i].addEventListener('touchend', function(event) {
-                clearTimeout(timeout);  //长按时间少于800ms，不会执行传入的方法
-            }, false);
-        }
-    };
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $uploaderInput1 = $("#file1"),
@@ -127,10 +112,6 @@
             }
         });
         $uploaderFiles1.on("click", "li", function(){
-            $galleryImg.attr("style", this.getAttribute("style"));
-            $gallery.fadeIn(100);
-        });
-        $uploaderFiles1.longPress(function () {
             $uploaderFiles1.empty();
             $uploaderInput1.parent().show();
             $uploaderInput1[0].value='';
@@ -149,12 +130,8 @@
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
                 return;
-            }
-            else if(document.getElementById("team_location").value==="") {
+            }else if(document.getElementById("team_location").value==="") {
                 showAlert("请填写团队主要活动地点");
-                return;
-            }else if(jQuery("input[id='file1']").val()===""){
-                showAlert("请上传一张团队头像");
                 return;
             }else if(!isPoneAvailable(phone) && !isTelAvailable(phone)){
                 showAlert("请输入正确的手机号");
@@ -178,8 +155,10 @@
                         });
                     }else if(data==="missImg"){
                         showAlert("未上传头像");
-                    }else if(data==="nameExist") {
+                    }else if(data==="nameExist"){
                         showAlert("团队名称已被使用");
+                    }else if(data==="hugeImg"){
+                        showAlert("上传头像图片大小过大");
                     }else if(data==="failure"){
                         showAlert("创建失败");
                     }

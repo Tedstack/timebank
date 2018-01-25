@@ -161,6 +161,9 @@
                             window.location.href="${pageContext.request.contextPath}/team/myTeams"
                         });
                     }
+                    if(data==="hugeImg"){
+                        showAlert("上传头像图片大小过大");
+                    }
                     if(data==="nameExist"){
                         showAlert("该名已被使用");
                     }
