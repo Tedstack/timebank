@@ -165,44 +165,33 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-         function joinToTeam(t) {
-            var contextPath="${pageContext.request.contextPath}"
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
-            var teamId=t.id;//取要加入团队的Id
-             var check_val = [];
-             check_val.push(teamId);
-            if(check_val.length!==0){
-                $.ajax({
-                    type: 'POST',
-                    cache: false,
-                    url: targetUrl,
-                    dataType:'json',
-                    traditional:true,
-                    data: {"teamIDList":teamId},
-                    beforeSend: function (XHR) {
-                        dialogLoading = showLoading();
-                    },
-                    success: function (data) {
-                        var value = JSON.stringify(data);
-                        var dataJson = JSON.parse(value);
-
-                        if(dataJson.msg==="ok"){
-                            showAlert("申请成功",function () {
-                                location.reload();
-                            });
-                        }
-                    },
-                    error: function (xhr, type) {
-                        showAlert("加入失败");
-                    },
-                    complete: function (xhr, type) {
-                        dialogLoading.hide();
-                    }
-                });
-            }else{
-                showAlert("请选择要加入的团队");
+    function joinToTeam(t) {
+        var contextPath="${pageContext.request.contextPath}";
+        var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+        var teamId=t.id;//取要加入团队的Id
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: targetUrl,
+            data: "teamId="+teamId,
+            beforeSend: function (XHR) {
+                dialogLoading = showLoading();
+            },
+            success: function (data) {
+                if(data==="success"){
+                    showAlert("申请成功",function () {
+                        location.reload();
+                    });
+                }
+            },
+            error: function (xhr, type) {
+                showAlert("加入失败");
+            },
+            complete: function (xhr, type) {
+                dialogLoading.hide();
             }
-        }
+        });
+    }
          var $searchBar = $('#searchBar'),
              $searchResult = $('#searchResult'),
              $searchText = $('#searchText'),
