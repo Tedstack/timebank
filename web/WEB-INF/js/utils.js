@@ -68,7 +68,9 @@ function back_exit(){
             if (e.type === "popstate") {
                 if(confirm("确认退出？"))
                     wx.closeWindow();
-                else{}
+                else{
+                    history.pushState(state, '', '');
+                }
             }
         }, false);
     });

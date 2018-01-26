@@ -84,7 +84,7 @@
                             <%out.print(viewRequestDetailEntity.getServiceName());%>
                         </h4>
                         <%
-                            if(viewRequestDetailEntity.getIsComplete()==(byte) 1){
+                            if(viewRequestDetailEntity.getIsComplete() == 1){
                                 out.print("<span class='overtimeFlag'>已完成</span>");
                             }
                             else if(viewRequestDetailEntity.getEndTime().getTime() < new Date(currentTime).getTime()){

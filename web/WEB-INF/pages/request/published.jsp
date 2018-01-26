@@ -460,6 +460,20 @@
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function set_param(param,value){
+        var query = location.search.substring(1);
+        var p = new RegExp("(^|&"+param+")=[^&]*");
+        if(p.test(query)){
+            query = query.replace(p,"$1="+value);
+            location.search = '?'+query;
+        }else{
+            if(query == ''){
+                location.search = '?'+param+'='+value;
+            }else{
+                location.search = '?'+query+'&'+param+'='+value;
+            }
+        }
+    }
     $(function(){
         var panel_published = $("#published"),
             panel_to_confirm = $("#to_confirm"),
@@ -474,6 +488,7 @@
             panel_to_service.hide();
             panel_to_pay.hide();
             panel_completed.hide();
+            set_param("tab", "1");
         });
         $("#navbar2").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
@@ -483,6 +498,7 @@
             panel_to_service.hide();
             panel_to_pay.hide();
             panel_completed.hide();
+            set_param("tab", "2");
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
@@ -492,6 +508,7 @@
             panel_to_service.show();
             panel_to_pay.hide();
             panel_completed.hide();
+            set_param("tab", "3");
 
         });
         $("#navbar4").on('click', function () {
@@ -502,6 +519,7 @@
             panel_to_service.hide();
             panel_to_pay.show();
             panel_completed.hide();
+            set_param("tab", "4");
         });
         $("#navbar5").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
@@ -511,6 +529,7 @@
             panel_to_service.hide();
             panel_to_pay.hide();
             panel_completed.show();
+            set_param("tab", "5");
         });
 
         $("#navbar${pageContext.request.getParameter("tab")}").click();
