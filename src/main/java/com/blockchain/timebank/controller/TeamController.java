@@ -890,12 +890,6 @@ public class TeamController {
                              String team_location,
                              String team_phone,
                              String describe) {
-        if(team_name.equalsIgnoreCase(""))
-            return "missName";
-        else if(team_name.length()>11)
-            return "longName";
-        else if(team_location.equalsIgnoreCase(""))
-            return "missLocation";
         try {
             TeamEntity team = teamService.findById(Long.parseLong(team_id));
             String idImg = "";

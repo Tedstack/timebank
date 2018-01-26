@@ -68,7 +68,7 @@
             <label class="weui-label">团队名称</label>
         </div>
         <div class="weui-cell__bd">
-            <input class="weui-input" name="team_name" value=<%out.print(team.getName());%>>
+            <input class="weui-input" id="team_name" name="team_name" value=<%out.print(team.getName());%>>
         </div>
     </div>
     <div class="weui-cell">
@@ -139,9 +139,17 @@
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyTeam";
             var formData = new FormData($("#teamDetail")[0]);
-            var phone=document.getElementById("team_phone").value;
-            if(!isPoneAvailable(phone) && !isTelAvailable(phone)){
+            if(document.getElementById("team_name").value===""){
+                showAlert("请填写团队名称");
+                return;
+            }else if(document.getElementById("team_name").length>12){
+                showAlert("团队名称建议不超过11个字");
+                return;
+            }else if(!isPoneAvailable(document.getElementById("team_phone").value) && !isTelAvailable(document.getElementById("team_phone").value)){
                 showAlert("请输入正确的手机号");
+                return;
+            }else if(document.getElementById("team_location").value==="") {
+                showAlert("请填写团队主要活动地点");
                 return;
             }
             $.ajax({
@@ -167,14 +175,8 @@
                     if(data==="nameExist"){
                         showAlert("该名已被使用");
                     }
-                    if(data==="missName"){
-                        showAlert("请填写团队名称");
-                    }
                     if(data==="longName"){
                         showAlert("团队名称建议不超过11个字");
-                    }
-                    if(data==="missLocation"){
-                        showAlert("请填写团队活动地点");
                     }
                     if(data==="failure"){
                         showAlert("修改失败");
