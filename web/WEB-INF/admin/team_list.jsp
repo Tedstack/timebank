@@ -45,7 +45,7 @@
                         <thead>
                         <tr>
                             <th>团队名称</th>
-                            <th>团队管理者</th>
+                            <th>团队创建者</th>
                             <th>成员列表</th>
                             <th>团队简介</th>
                             <th>创建日期</th>
@@ -63,7 +63,7 @@
                                 <%=teamEntity.getName()%>
                             </td>
                             <td>
-                                <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=teamEntity.getCreatorId()%>' target='_blank' class='btn btn-link'><%=teamEntity.getManagerUserName()%></a>
+                                <a href='${pageContext.request.contextPath}/admin/userView?userId=<%=teamEntity.getCreatorId()%>' target='_blank' class='btn btn-link'><%=teamEntity.getCreatorUserName()%></a>
                             </td>
                             <td>
                                 <a href='${pageContext.request.contextPath}/admin/teamUserList?teamId=<%=teamEntity.getId()%>' target='_blank' class='btn btn-link'>查看</a>

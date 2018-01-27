@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
 <%@ page import="com.blockchain.timebank.entity.ViewTeamUserDetailEntity" %>
+<%@ page import="com.blockchain.timebank.entity.TeamUserStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,15 +70,15 @@
                             <td><%=teamUserEntity.getUserPhone()%></td>
                             <td><%=teamUserEntity.getUserSex()%></td>
                             <td><%=teamUserEntity.getUserBirth()%></td>
-                            <td><%=teamUserEntity.isLocked()?"是":"否"%></td>
+                            <td><%=teamUserEntity.getStatus()%></td>
                             <td>
                                 <%
-                                    if(teamUserEntity.isLocked()){
+                                    if(teamUserEntity.getStatus().equals(TeamUserStatus.isLocked)){
                                 %>
                                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#unlockModal" data-whatever="<%=teamUserEntity.getId()%>">解锁</button>
                                 <%
                                     }
-                                    else{
+                                    else {
                                 %>
                                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#lockModal" data-whatever="<%=teamUserEntity.getId()%>">锁定</button>
                                 <%

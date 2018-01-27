@@ -126,6 +126,8 @@ public class TeamManagerController {
         TeamUserEntity teamUserEntity = teamUserService.findById(id);
         if(isLock){
             teamUserEntity.setStatus(TeamUserStatus.isLocked);
+        }else{
+            teamUserEntity.setStatus(TeamUserStatus.alreadyEntered);
         }
 
         teamUserService.saveTeamUser(teamUserEntity);

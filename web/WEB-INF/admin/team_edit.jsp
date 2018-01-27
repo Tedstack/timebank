@@ -71,9 +71,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-1 col-form-label">管理者手机号</label>
+                        <label class="col-sm-1 col-form-label">创建者手机号</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="text" name="phone" pattern="[0-9]{11}" placeholder="请输入手机号"  value="<%=teamDetail.getManagerUserPhone()%>" required>
+                            <input class="form-control" type="text" name="phone" pattern="[0-9]{11}" placeholder="请输入手机号"  value="<%=teamDetail.getCreatorUserPhone()%>" required>
                         </div>
                     </div>
 
