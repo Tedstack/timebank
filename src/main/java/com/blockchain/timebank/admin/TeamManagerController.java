@@ -61,6 +61,7 @@ public class TeamManagerController {
             TeamEntity teamEntity = new TeamEntity();
             teamEntity.setDeleted(false);
             teamEntity.setName(name);
+            teamEntity.setPhone(phone);
             teamEntity.setCreatorId(userService.findUserEntityByPhone(phone).getId());
             teamEntity.setDescription(description);
             teamEntity.setCreateDate(new Date(System.currentTimeMillis()));
