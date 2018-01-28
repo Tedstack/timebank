@@ -58,6 +58,8 @@ public class TeamController {
     @Autowired
     ViewTeamUserDetailDao viewTeamUserDetailDao;
 
+    private Random random=new Random();
+
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
         List<TeamUserEntity> allTeamUser = teamUserService.findAll();
@@ -285,7 +287,6 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            Random random=new Random();
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String date = new java.sql.Date(System.currentTimeMillis()).toString();
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
@@ -420,7 +421,6 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            Random random=new Random();
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = Long.toString(activity.getId()) + "_ActImg_"+Integer.toString(ram) + suffix1;
@@ -835,7 +835,6 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            Random random=new Random();
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
@@ -901,7 +900,6 @@ public class TeamController {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
-                Random random=new Random();
                 int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
                 String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
                 idImg = team_name + "_headImg_" + Integer.toString(ram) + suffix1;
