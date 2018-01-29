@@ -1,4 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.ViewTimebankDetailEntity" %>
+﻿<%@ page import="com.blockchain.timebank.entity.ViewTimebankDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +51,7 @@
                                     <div class="card-body">
                                         <input type="hidden" name="timebankID" value="<%out.print(viewTimebankDetailEntity.getId());%>"/>
                                         <div class="form-group">
-                                            <label>时间池种类</label>
+                                            <label>时间池名称</label>
                                             <label class="col-sm-4 col-form-label"><%out.print(viewTimebankDetailEntity.getType());%></label>
                                         </div>
                                         <div class="form-group">
