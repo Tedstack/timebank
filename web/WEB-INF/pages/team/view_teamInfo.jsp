@@ -95,8 +95,8 @@
 <script src="../../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function checkUser() {
-        var currentUser=<%=currentUser%>;
-        var creator=<%=team.getCreatorId()%>;
+        var currentUser='<%=currentUser%>';
+        var creator='<%=team.getCreatorId()%>';
         if(currentUser!==creator){
             showAlert("非创建者无修改页面信息权限");
             document.getElementById("modifyTeam").disabled=true;
