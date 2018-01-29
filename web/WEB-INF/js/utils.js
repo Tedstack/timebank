@@ -34,7 +34,7 @@ function normal_back(){
 
 function get_wx_config () {
     $.ajax({
-        url : "http://www.i-linli.com/timebanktest/scanGetConfigServlet",
+        url : "http://www.i-huzhu.com/timebanktest/scanGetConfigServlet",
         type : 'post',
         dataType : 'json',
         contentType : "application/x-www-form-urlencoded; charset=utf-8",

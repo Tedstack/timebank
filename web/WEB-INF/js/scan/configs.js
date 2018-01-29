@@ -15,6 +15,6 @@ function getAppSecret()
 function getDomainName()
 {
     //var domainName = "www.coocir.com";
-    var domainName = "www.i-linli.com";
+    var domainName = "www.i-huzhu.com";
     return domainName;
 }
