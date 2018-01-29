@@ -411,7 +411,8 @@ CREATE TABLE `request` (
   `BeginTime` datetime NOT NULL COMMENT '服务起始时间',
   `EndTime` datetime NOT NULL COMMENT '服务结束时间',
   `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `IsComplete` tinyint(1) DEFAULT '0',
+  `IsComplete` int(11) NOT NULL DEFAULT '0',
+  `IsDeleted` int(11) NOT NULL DEFAULT '0',
   `Extra` varchar(50) DEFAULT NULL COMMENT '其他保留字段',
   PRIMARY KEY (`ID`),
   KEY `volunteerRequest_ID_index` (`ID`),
@@ -419,7 +420,7 @@ CREATE TABLE `request` (
   KEY `volunteerRequest_ibfk_2` (`ServiceID`),
   CONSTRAINT `request_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `request_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='发布需求表';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='发布需求表';
 
 #需求申请订单表
 CREATE TABLE `requestOrder` (
@@ -444,7 +445,7 @@ CREATE TABLE `requestOrder` (
   CONSTRAINT `requestOrder_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `requestOrder_ibfk_2` FOREIGN KEY (`RequestUserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `requestOrder_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `request` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='需求申请订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='需求申请订单表';
 
 #时间银行表
 CREATE TABLE `timebank` (
@@ -660,6 +661,7 @@ CREATE VIEW `mydb`.`view_request_detail` AS
     `mydb`.`request`.`EndTime` AS `EndTime`,
     `mydb`.`request`.`CreateTime` AS `CreateTime`,
     `mydb`.`request`.`IsComplete` AS `IsComplete`,
+    `mydb`.`request`.`IsDeleted` AS `IsDeleted`,
     (CASE
      WHEN
        ((100 <= `mydb`.`request`.`ServiceID`)
