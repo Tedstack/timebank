@@ -5,18 +5,19 @@
     <meta charset="UTF-8" />
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>查看团队信息</title>
-    <link rel="stylesheet" href="../css/weui.css">
-    <link rel="stylesheet" href="../css/weui-example.css">
-    <script src="../js/zepto/zepto.min.js"></script>
-    <script src="../js/zepto/weui.min.js"></script>
-    <script src="../js/scan/function.js"></script>
-    <script src="../js/scan/configs.js"></script>
-    <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../../css/weui.css">
+    <link rel="stylesheet" href="../../css/weui-example.css">
+    <script src="../../js/zepto/zepto.min.js"></script>
+    <script src="../../js/zepto/weui.min.js"></script>
+    <script src="../../js/scan/function.js"></script>
+    <script src="../../js/scan/configs.js"></script>
+    <script src="../../js/jquery/jquery-3.2.1.min.js"></script>
 </head>
-<body>
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
+    long currentUser=(long)request.getAttribute("currentUser");
 %>
+<body onload="checkUser();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
@@ -91,8 +92,17 @@
 </div>
 
 </body>
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function checkUser() {
+        var currentUser=<%=currentUser%>;
+        var creator=<%=team.getCreatorId()%>;
+        if(currentUser!==creator){
+            showAlert("非创建者无修改页面信息权限");
+            document.getElementById("modifyTeam").disabled=true;
+            document.getElementById("deleteTeam").disabled=true;
+        }
+    }
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){

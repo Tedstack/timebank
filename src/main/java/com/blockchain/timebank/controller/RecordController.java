@@ -58,10 +58,10 @@ public class RecordController {
         UserEntity userEntity = getCurrentUser();
         if(userEntity.getIsVerify()==null){
             map.addAttribute("msg", "notVerify");
-            return "apply_service_result";
+            return "team/apply_service_result";
         }else if(userEntity.getIsVerify()==0){
             map.addAttribute("msg", "failVerify");
-            return "apply_service_result";
+            return "team/apply_service_result";
         }
         map.addAttribute("detail", viewPublishDetailDao.findOne(id));
         map.addAttribute("name", userEntity.getName());
