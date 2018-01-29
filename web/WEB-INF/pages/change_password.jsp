@@ -68,8 +68,15 @@
     $("#msgbtn").on('click', function () {
         var targetUrl = "http://" + getDomainName() + contextPath + "/user/register";//复用了register的发送短信代码
         var phoneNumber = document.getElementById("phone").value;
+        var re = /^1\d{10}$/
+        if(re.test(phoneNumber))
+        {
             buttonCountdown($(this), 1000 * 60 * 3, "ss");
-            change(phoneNumber,targetUrl);
+            change(phoneNumber, targetUrl);
+        }
+        else {
+            showAlert("请输入正确的手机号");
+        }
     });
     $("#update").on('click', function () {
         var targetUrl = "http://"+getDomainName()+contextPath+"/user/password_change";
