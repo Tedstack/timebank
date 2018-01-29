@@ -695,20 +695,20 @@ CREATE VIEW `mydb`.`view_request_detail` AS
 #显示需求申请详细视图
 CREATE VIEW `mydb`.`view_request_order_detail` AS
   SELECT
-    `mydb`.`requestorder`.`ID` AS `ID`,
-    `mydb`.`requestorder`.`ApplyUserID` AS `ApplyUserID`,
+    `mydb`.`requestOrder`.`ID` AS `ID`,
+    `mydb`.`requestOrder`.`ApplyUserID` AS `ApplyUserID`,
     `applyUser`.`Name` AS `ApplyUserName`,
     `applyUser`.`Phone` AS `ApplyUserPhone`,
     `mydb`.`request`.`Address` AS `Address`,
-    `mydb`.`requestorder`.`BeginTime` AS `BeginTime`,
-    `mydb`.`requestorder`.`EndTime` AS `EndTime`,
-    `mydb`.`requestorder`.`CreateTime` AS `CreateTime`,
-    `mydb`.`requestorder`.`ActualBeginTime` AS `ActualBeginTime`,
-    `mydb`.`requestorder`.`ActualEndTime` AS `ActualEndTime`,
+    `mydb`.`requestOrder`.`BeginTime` AS `BeginTime`,
+    `mydb`.`requestOrder`.`EndTime` AS `EndTime`,
+    `mydb`.`requestOrder`.`CreateTime` AS `CreateTime`,
+    `mydb`.`requestOrder`.`ActualBeginTime` AS `ActualBeginTime`,
+    `mydb`.`requestOrder`.`ActualEndTime` AS `ActualEndTime`,
     `mydb`.`request`.`Payway` AS `PayWay`,
-    `mydb`.`requestorder`.`PayMoney` AS `PayMoney`,
-    `mydb`.`requestorder`.`Status` AS `Status`,
-    `mydb`.`requestorder`.`RequestID` AS `RequestID`,
+    `mydb`.`requestOrder`.`PayMoney` AS `PayMoney`,
+    `mydb`.`requestOrder`.`Status` AS `Status`,
+    `mydb`.`requestOrder`.`RequestID` AS `RequestID`,
     `mydb`.`request`.`Price` AS `RequestPrice`,
     `mydb`.`request`.`ServiceID` AS `ServiceID`,
     `mydb`.`request`.`IsComplete` AS `IsComplete`,
@@ -730,22 +730,22 @@ CREATE VIEW `mydb`.`view_request_order_detail` AS
          'mutualAid'
      END) AS `ServiceType`,
     `mydb`.`service`.`Name` AS `ServiceName`,
-    `mydb`.`requestorder`.`RequestUserID` AS `RequestUserID`,
+    `mydb`.`requestOrder`.`RequestUserID` AS `RequestUserID`,
     `requestUser`.`Name` AS `RequestUserName`,
     `requestUser`.`Phone` AS `RequestUserPhone`,
-    `mydb`.`requestorder`.`Rate` AS `Rate`,
-    `mydb`.`requestorder`.`Comment` AS `Comment`
+    `mydb`.`requestOrder`.`Rate` AS `Rate`,
+    `mydb`.`requestOrder`.`Comment` AS `Comment`
   FROM
-    ((((`mydb`.`requestorder`
+    ((((`mydb`.`requestOrder`
       JOIN `mydb`.`user` `requestUser`)
       JOIN `mydb`.`user` `applyUser`)
       JOIN `mydb`.`request`)
       JOIN `mydb`.`service`)
   WHERE
-    ((`mydb`.`requestorder`.`RequestID` = `mydb`.`request`.`ID`)
+    ((`mydb`.`requestOrder`.`RequestID` = `mydb`.`request`.`ID`)
      AND (`mydb`.`request`.`ServiceID` = `mydb`.`service`.`ID`)
-     AND (`mydb`.`requestorder`.`RequestUserID` = `requestUser`.`ID`)
-     AND (`mydb`.`requestorder`.`ApplyUserID` = `applyUser`.`ID`));
+     AND (`mydb`.`requestOrder`.`RequestUserID` = `requestUser`.`ID`)
+     AND (`mydb`.`requestOrder`.`ApplyUserID` = `applyUser`.`ID`));
 
 # 显示时间银行发行货币视图
 CREATE VIEW view_timebank_detail
