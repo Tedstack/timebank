@@ -29,11 +29,11 @@
         </div>
         <div class="weui-cell__bd">
             <p><%out.print(userEntity.getName());%></p>
-            <p style="font-size: 13px;color: #888888;">邻里智助ID:<%
-                if( userEntity.getQrCode()==null)
+            <p style="font-size: 13px;color: #888888;">手机号:<%
+                if( userEntity.getPhone()==null)
                     out.print("暂无");
                 else {
-                    out.print(userEntity.getQrCode());
+                    out.print(userEntity.getPhone());
                 }%></p>
         </div>
         <div class="weui-cell__ft">

@@ -24,7 +24,7 @@
 %>
 
 <div class="weui-cells__title">我的二维码</div>
-<div class="weui-cells weui-cells_form">
+<div class="weui-cells weui-cells_form" id="qrcodetest">
 
     <div class="weui-cell weui-cell_vcode">
         <div class="weui-cell__hd"><label class="weui-label">二维码</label></div>
@@ -66,6 +66,7 @@
             $('#curqrcode').text(qrcode2);
             $("#addBtn").hide();
             $("#commitBtn").hide();
+            $("#qrcodetest").hide();
 
                 var qrcode1 = new QRCode(document.getElementById("qrcode"), {
                     width : 200,//设置宽高
