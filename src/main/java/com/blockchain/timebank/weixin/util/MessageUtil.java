@@ -42,7 +42,7 @@ public class MessageUtil {
         template.setTemplateId("Ak8Bbtgn2Mes6i0Hh7AAwIdc3Xb9sMxG1HE6ata943I");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-linli.com/timebanktest/teamInfo?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://www.i-linli.com/timebanktest/team/teamInfo?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }

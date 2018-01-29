@@ -14,12 +14,12 @@
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>我的团队</title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="../css/weui.min.css" />
-    <script src="../js/zepto/zepto.min.js"></script>
-    <script src="../js/zepto/weui.min.js"></script>
-    <script src="../js/scan/configs.js"></script>
-    <script src="../js/scan/function.js"></script>
-    <script src="../js/utils.js"></script>
+    <link rel="stylesheet" href="../../css/weui.min.css" />
+    <script src="../../js/zepto/zepto.min.js"></script>
+    <script src="../../js/zepto/weui.min.js"></script>
+    <script src="../../js/scan/configs.js"></script>
+    <script src="../../js/scan/function.js"></script>
+    <script src="../../js/utils.js"></script>
 </head>
 <body onpageshow="back_to('${pageContext.request.contextPath}/user/');">
 <%
@@ -84,7 +84,7 @@
     <div class="weui-tabbar">
         <a href="${pageContext.request.contextPath}/team/createPage" class="weui-tabbar__item">
             <span style="display: inline-block;">
-                <img src="../img/add.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+                <img src="../../img/add.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
             </span>
             <p class="weui-tabbar__label">新建团队</p>
         </a>
@@ -92,5 +92,5 @@
     <%}%>
 </div>
 </body>
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../js/jquery/jquery-3.2.1.min.js"></script>
 </html>
