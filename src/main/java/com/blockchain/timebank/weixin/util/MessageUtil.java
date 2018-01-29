@@ -265,7 +265,7 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
-            template.setUrl("http://www.i-huzhu.com/timebanktest/user/queryOrderWaitingService");//此处可以加入想要跳转的链接
+            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/user/queryOrderWaitingService");//此处可以加入想要跳转的链接
         }
         else{
             String str_first = "非常遗憾的通知您，您预约的"+viewPublishOrderDetailEntity.getServiceName()+"服务已被拒绝。"+"请不要难过，邻里智助为您提供海量服务，诚邀您前去浏览";
