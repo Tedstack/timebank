@@ -6,6 +6,7 @@ import com.blockchain.timebank.dao.ViewUserActivityDetailDao;
 import com.blockchain.timebank.dao.ViewTeamUserDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.weixin.util.Configs;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -996,6 +997,6 @@ public class TeamController {
     }
 
     private String getAppliedMessage(UserEntity user,String creator_name, String teamName,long teamid){
-        return "尊敬的"+creator_name+",用户"+user.getName()+"已经报名申请你的"+teamName+"团队，请你"+"<a href=\\\"http://www.i-huzhu.com/timebanktest/team/myTeamMember?teamId="+teamid+"\\\">尽快处理。</a>";
+        return "尊敬的"+creator_name+",用户"+user.getName()+"已经报名申请你的"+teamName+"团队，请你"+"<a href=\\\"http://"+ Configs.DOMAINNAME+"/timebanktest/team/myTeamMember?teamId="+teamid+"\\\">尽快处理。</a>";
     }
 }

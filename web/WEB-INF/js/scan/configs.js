@@ -1,14 +1,14 @@
 function getAppID()
 {
     //var appID = "wxb0f6b07f01978a2a";
-    var appID = "wx1c0cd113cada8f82";
+    var appID = "wxb0f6b07f01978a2a";
     return appID;
 }
 
 function getAppSecret()
 {
     //var appSecret = "386ef712d87480fa1dc27a93995936eb";
-    var appSecret = "f03286c4132505647a6a5d69cd545bf9";
+    var appSecret = "386ef712d87480fa1dc27a93995936eb";
     return appSecret;
 }
 

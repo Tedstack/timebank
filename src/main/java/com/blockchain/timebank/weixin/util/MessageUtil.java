@@ -42,7 +42,7 @@ public class MessageUtil {
         template.setTemplateId("Ak8Bbtgn2Mes6i0Hh7AAwIdc3Xb9sMxG1HE6ata943I");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-huzhu.com/timebanktest/team/teamInfo?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/team/teamInfo?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }
@@ -83,7 +83,7 @@ public class MessageUtil {
         template.setTemplateId("pSvMh9CtTUJrkkbNVbAWW0bIN2Xr5LMHEzF3zw9z05o");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-huzhu.com/timebanktest/team/manageActivities?activityId="+teamDetailEntity.getId());/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/team/manageActivities?activityId="+teamDetailEntity.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
 
@@ -116,7 +116,7 @@ public class MessageUtil {
         template.setTemplateId("kmZLKoja_RD_8Lx56tOk0t00vUrJY5zzE6i8tig6kOk");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-huzhu.com/timebanktest/team/myTeamMember?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/team/myTeamMember?teamId="+team.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }
@@ -156,7 +156,7 @@ public class MessageUtil {
         template.setTemplateId("RNV0kGzN9THHwld16ACBN9XJDlYfCK3x2neGpf5V9bY");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-huzhu.com/timebanktest/user/queryPublishWaitingConfirm");/*此处可以加入想要跳转的链接*/
+        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/user/queryPublishWaitingConfirm");/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }
@@ -197,7 +197,7 @@ public class MessageUtil {
         template.setTemplateId("RNV0kGzN9THHwld16ACBN9XJDlYfCK3x2neGpf5V9bY");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-huzhu.com/timebanktest/request/published?tab=2");//此处可以加入想要跳转的链接
+        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/request/published?tab=2");//此处可以加入想要跳转的链接
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
     }
@@ -230,7 +230,7 @@ public class MessageUtil {
         template.setTemplateId("lwq0d7uaWDGj1HsoBD9NuhxITvuq-iglfxfcNRH94gk");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://www.i-huzhu.com/timebanktest/user/recharge_detial?id="+recharge.getId());
+        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/user/recharge_detial?id="+recharge.getId());
         template.setTemplateParamList(templateParamList);
 
         // return AdvancedUtil.sendTemplateMessage(TokenThread.accessToken.getAccessToken(), template);
@@ -276,7 +276,7 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
-            template.setUrl("http://www.i-huzhu.com/timebanktest/index");//此处可以加入想要跳转的链接
+            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/index");//此处可以加入想要跳转的链接
         }
         template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
         template.setToUser(userEntity.getOpenId());
@@ -315,7 +315,7 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
-            template.setUrl("http://www.i-huzhu.com/timebanktest/request/applied?tab=2");//此处可以加入想要跳转的链接
+            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/request/applied?tab=2");//此处可以加入想要跳转的链接
         }
         else{
             String str_first = "非常遗憾的通知您，您预约的"+viewRequestOrderDetailEntity.getServiceName()+"需求已被拒绝。"+"请不要难过，邻里智助为您提供海量需求，诚邀您前去浏览";
@@ -326,7 +326,7 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
-            template.setUrl("http://www.i-huzhu.com/timebanktest/index");//此处可以加入想要跳转的链接
+            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/index");//此处可以加入想要跳转的链接
         }
         template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
         template.setToUser(userEntity.getOpenId());
