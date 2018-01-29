@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/utils.js"></script>
     <title>服务列表</title>
     <style>
         .overtimeFlag{
@@ -27,7 +28,7 @@
         }
     </style>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
