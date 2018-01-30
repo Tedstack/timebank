@@ -151,4 +151,20 @@ public class IndexController {
         return "register";
     }
 
+    @RequestMapping(value="/share",method = RequestMethod.GET)
+    public String visitSharePage(@RequestParam String code,@RequestParam String url){
+        if(null != code){
+            WeixinOauth2Token wot = AdvancedUtil.getOAuth2AceessToken(Configs.APPID, Configs.APPSECRET, code);
+            if(wot!=null){
+                System.out.println("用户的OPENID：" + wot.getOpenId());
+                String openId = wot.getOpenId();
+                UserEntity user=userService.findUserEntityByOpenID(openId);
+                if(user!=null){
+                    return "redirect:"+url;
+                }
+                return "login";
+            }
+        }
+        return "login";
+    }
 }

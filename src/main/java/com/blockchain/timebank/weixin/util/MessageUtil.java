@@ -83,7 +83,8 @@ public class MessageUtil {
         template.setTemplateId("pSvMh9CtTUJrkkbNVbAWW0bIN2Xr5LMHEzF3zw9z05o");
         template.setToUser(user.getOpenId());
         template.setTopColor("#173177");
-        template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/team/manageActivities?activityId="+teamDetailEntity.getId());/*此处可以加入想要跳转的链接*/
+        template.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid="+Configs.APPID+"&redirect_uri=http%3A%2F%2F"+Configs.DOMAINNAME+"%2Ftimebank%2share?url="+"team/manageActivities?activityId="+teamDetailEntity.getId()+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+        //template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/team/manageActivities?activityId="+teamDetailEntity.getId());/*此处可以加入想要跳转的链接*/
         template.setTemplateParamList(templateParamList);
         return AdvancedUtil.sendTemplateMessage(template);
 
