@@ -12,17 +12,17 @@
     <meta charset="UTF-8" />
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>修改信息</title>
-    <link rel="stylesheet" href="../../css/weui.css">
-    <link rel="stylesheet" href="../../css/weui-example.css">
-    <script src="../../js/zepto/zepto.min.js"></script>
-    <script src="../../js/zepto/weui.min.js"></script>
-    <script src="../../js/scan/function.js"></script>
-    <script src="../../js/scan/configs.js"></script>
-    <script src="../../js/jquery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 </head>
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
-    long currentUser=(long)request.getAttribute("currentUser");
+    String currentUser=(String)request.getAttribute("currentUser");
 %>
 <body onload="checkUser();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
@@ -101,7 +101,7 @@
     </form>
 </div>
 </body>
-<script src="../../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function checkUser() {
         var currentUser='<%=currentUser%>';

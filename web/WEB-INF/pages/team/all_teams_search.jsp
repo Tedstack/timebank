@@ -14,11 +14,11 @@
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>搜索结果</title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="../../css/weui.min.css" />
-    <script src="../../js/zepto/zepto.min.js"></script>
-    <script src="../../js/zepto/weui.min.js"></script>
-    <script src="../../js/scan/configs.js"></script>
-    <script src="../../js/scan/function.js"></script>
+    <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/scan/function.js"></script>
 </head>
 <body>
 <%
@@ -163,7 +163,7 @@
         </div>
 </div>
 </body>
-<script src="../../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function joinToTeam(t) {
         var contextPath="${pageContext.request.contextPath}";

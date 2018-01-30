@@ -395,7 +395,7 @@ public class TeamController {
         endTime = endTime.substring(0, 10) + "T" + endTime.substring(11, 19);
         String applyTime = activityPublishDetail.getApplyEndTime().toString();
         applyTime = endTime.substring(0, 10) + "T" + applyTime.substring(11, 19);
-        map.addAttribute("currentUser",getCurrentUser().getId());
+        map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("teamList", teamList);
         map.addAttribute("beiginTime", beiginTime);
@@ -871,7 +871,7 @@ public class TeamController {
     public String goToViewTeamInfoPage(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
-        map.addAttribute("currentUser",getCurrentUser().getId());
+        map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("teamEntity", teamEntity);
         return "team/view_teamInfo";
     }
@@ -880,7 +880,7 @@ public class TeamController {
     public String goToModifyPage(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
-        map.addAttribute("currentUser",getCurrentUser().getId());
+        map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("teamEntity", teamEntity);
         return "team/modify_team";
     }

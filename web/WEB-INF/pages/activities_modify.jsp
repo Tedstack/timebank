@@ -26,7 +26,7 @@
     String beginTime=(String) request.getAttribute("beiginTime");
     String endTime=(String) request.getAttribute("endTime");
     String applyTime=(String) request.getAttribute("applyTime");
-    long currentUser=(long)request.getAttribute("currentUser");
+    String currentUser=(String)request.getAttribute("currentUser");
 %>
 <body onload="checkUser();">
 <div class="weui-tab">
