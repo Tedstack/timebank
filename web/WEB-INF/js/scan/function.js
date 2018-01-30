@@ -1,5 +1,6 @@
+document.write("<script language='javascript' src='scan/configs.js'></script>");
 var config = {
-    appid: 'wx1c0cd113cada8f82',//正式
+    appid: getAppID(),//正式
     server_url:
     {
         get_jssdk_Signature: '/Wechat/getJSSDKSignature',
