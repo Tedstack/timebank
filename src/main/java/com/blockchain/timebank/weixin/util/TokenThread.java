@@ -97,8 +97,7 @@ public class TokenThread implements Runnable {
     //从进程中获取accessToken
     private String getAccessToken(){
         //String url = "http://120.132.30.227:8686/access_token";
-        //String url = "http://localhost:8686/access_token";
-        String url = "http://"+Configs.IP+":8686/access_token";
+        String url = "http://localhost:8686/access_token";
         String result = null;
         result = sendPost(url);
         return result;
@@ -106,8 +105,7 @@ public class TokenThread implements Runnable {
     //从进程中获取JsapiTicket
     private String getJsapiTicket(){
         //String url = "http://120.132.30.227:8686/js_api_ticket";
-       // String url = "http://localhost:8686/js_api_ticket";
-        String url = "http://"+Configs.IP+":8686/js_api_ticket";
+        String url = "http://localhost:8686/js_api_ticket";
         String result = null;
         result = sendPost(url);
         return result;
