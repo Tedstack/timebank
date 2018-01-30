@@ -23,6 +23,7 @@
     <link href="../css/dj_base_838a930.css" rel="stylesheet" type="text/css">
     <link href="../css/dj_dc_content_f60f458.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.0.min.css">
+    <script src="../js/utils.js"></script>
     <style>
         .weui-cell{
             padding-left: 20px;
@@ -33,16 +34,13 @@
     </style>
     <title>已发布服务详情</title>
 </head>
-<body>
+<body onpageshow="back_to('${pageContext.request.contextPath}/user/queryPublishAlreadyPublish');">
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
 %>
 
 <div class="weui-tab">
-    <div class="weui-cell" style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-left: 5px">
-        <div id="return" onclick="history.go(-1)"><img src="../img/返回.png" style="width:20px; height:15px; display: inline-block" alt="">返回</div>
-    </div>
     <div class="weui-tab__panel">
 
         <!--以下内容在右侧显示-->
@@ -54,7 +52,7 @@
             </div>
         </div>--%>
 
-        <div class="weui-cells" style="margin-top: 40px;">
+        <div class="weui-cells" style="margin-top: 0px">
             <div class="weui-cell" style="padding-left:15px">
                 <h2 style="color:#76b852">服务详情</h2>
             </div>
@@ -66,6 +64,11 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <span class="detail-title">服务名称 ：</span><span class="detail-content"><%=detail.getServiceName()%></span>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <span class="detail-title">预留电话 ：</span><span class="detail-content"><%=detail.getUserPhone()%></span>
                 </div>
             </div>
             <div class="weui-cell">
@@ -105,16 +108,14 @@
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <span class="detail-title">预留电话 ：</span><span class="detail-content"><%=detail.getUserPhone()%></span>
-                </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
                     <span class="detail-title">服务描述 ：</span><span class="detail-content"><%=detail.getDescription()%></span>
                 </div>
             </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
+            </div>
+            <div class="weui-btn-area">
+                <a class="weui-btn weui-btn_primary" href="<%out.print("updateServiceDetail?id="+detail.getId()+"&userID="+detail.getUserId());%>">修改</a>
             </div>
         </div>
 

@@ -810,6 +810,39 @@ public class UserController {
         return "service_posted_detail";
     }
 
+    //修改已发布的服务
+    @RequestMapping(value = "/updateServiceDetail", method = RequestMethod.GET)
+    public String updateServiceDetail(ModelMap map, @RequestParam long id, @RequestParam long userID) {
+        UserEntity currentUser = getCurrentUser();
+        if(currentUser.getId() != userID) {
+            map.addAttribute("deleteMsg", "不是服务发布用户！");
+            return "service_delete_result";
+        }
+        List<PublishOrderEntity> publishOrderList = recordDao.findByPublishId(id);
+        String deleteMsg = "";
+        boolean isUpdate = true;
+        for(PublishOrderEntity record : publishOrderList){
+            String status = record.getStatus();
+            if(!"已拒绝".equals(status)){
+                if(!"已申请".equals(status)){
+                    isUpdate = false;
+                    deleteMsg="您已接受过服务，无法修改";
+                    break;
+                }else{
+                    isUpdate = false;
+                    deleteMsg="请拒绝所有申请后进行修改";
+                }
+            }
+        }
+        if(isUpdate){
+            PublishEntity publishEntity = publishService.findPublishEntityById(id);
+            map.addAttribute("detail", publishEntity);
+            return "service_update";
+        }
+        map.addAttribute("deleteMsg", deleteMsg);
+        return "service_delete_result";
+    }
+
     //删除已发布的服务
     @RequestMapping(value = "/deletePublish", method = RequestMethod.GET)
     public String deletePublishService(ModelMap map, @RequestParam long id) {
@@ -830,9 +863,9 @@ public class UserController {
             }
         }
         if(isDelete){
-            PublishEntity publishEntity = publishDao.findPublishEntityById(id);
+            PublishEntity publishEntity = publishService.findPublishEntityById(id);
             publishEntity.setIsDelete(1);
-            publishDao.save(publishEntity);
+            publishService.savePublishEntity(publishEntity);
         }
         map.addAttribute("deleteMsg", deleteMsg);
         return "service_delete_result";

@@ -194,6 +194,29 @@ public class PublishController {
         return "redirect:/publish/list";
     }
 
+    //修改服务提交接口
+    @RequestMapping(value = "/update/submit", method = RequestMethod.POST)
+    public String addSubmitPage(ModelMap map, @RequestParam long id, @RequestParam String address, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String description) {
+        try {
+            PublishEntity publishEntity = publishService.findPublishEntityById(id);
+            publishEntity.setAddress(address);
+            publishEntity.setDescription(description);
+            publishEntity.setUserId(getCurrentUser().getId());
+            publishEntity.setPrice(price);
+            Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            publishEntity.setBeginDate(new Timestamp(beginTime.getTime()));
+            publishEntity.setEndDate(new Timestamp(endTime.getTime()));
+            publishService.savePublishEntity(publishEntity);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
+        map.addAttribute("id", viewPublishDetailEntity.getId());
+        map.addAttribute("type", viewPublishDetailEntity.getServiceType());
+        return "redirect:/user/fabuDetail";
+    }
+
     @RequestMapping(value = "/selectList", method = RequestMethod.GET)
     //public String listPage(ModelMap map, @RequestParam String type, @RequestParam String[] serviceName, @RequestParam Date upperDate, @RequestParam Date lowerDate, @RequestParam String upper, @RequestParam String lower) {
     public String selectPublishList(ModelMap map, @RequestParam String type,@RequestParam String upper, @RequestParam String lower, @RequestParam String upperDate, @RequestParam String lowerDate, @RequestParam String serviceName) {
