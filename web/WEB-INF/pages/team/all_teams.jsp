@@ -14,12 +14,12 @@
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>团队列表</title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="../../css/weui.min.css" />
-    <script src="../../js/zepto/zepto.min.js"></script>
-    <script src="../../js/zepto/weui.min.js"></script>
-    <script src="../../js/scan/configs.js"></script>
-    <script src="../../js/scan/function.js"></script>
-    <script src="../../js/utils.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/weui.min.css" />
+    <script src="${pageContext.request.contextPath}/js/zepto/zepto.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/zepto/weui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scan/configs.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scan/function.js"></script>
+    <script src="${pageContext.request.contextPath}/js/utils.js"></script>
 </head>
 <body onpageshow="back_to('${pageContext.request.contextPath}/user/');">
 <%
