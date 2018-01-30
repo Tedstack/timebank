@@ -411,7 +411,8 @@ CREATE TABLE `request` (
   `BeginTime` datetime NOT NULL COMMENT '服务起始时间',
   `EndTime` datetime NOT NULL COMMENT '服务结束时间',
   `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `IsComplete` tinyint(1) DEFAULT '0',
+  `IsComplete` int(11) NOT NULL DEFAULT '0',
+  `IsDeleted` int(11) NOT NULL DEFAULT '0',
   `Extra` varchar(50) DEFAULT NULL COMMENT '其他保留字段',
   PRIMARY KEY (`ID`),
   KEY `volunteerRequest_ID_index` (`ID`),
@@ -419,7 +420,7 @@ CREATE TABLE `request` (
   KEY `volunteerRequest_ibfk_2` (`ServiceID`),
   CONSTRAINT `request_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `request_ibfk_2` FOREIGN KEY (`ServiceID`) REFERENCES `service` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='发布需求表';
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='发布需求表';
 
 #需求申请订单表
 CREATE TABLE `requestOrder` (
@@ -444,7 +445,7 @@ CREATE TABLE `requestOrder` (
   CONSTRAINT `requestOrder_ibfk_1` FOREIGN KEY (`ApplyUserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `requestOrder_ibfk_2` FOREIGN KEY (`RequestUserID`) REFERENCES `user` (`ID`),
   CONSTRAINT `requestOrder_ibfk_3` FOREIGN KEY (`RequestID`) REFERENCES `request` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='需求申请订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='需求申请订单表';
 
 #时间银行表
 CREATE TABLE `timebank` (
@@ -660,6 +661,7 @@ CREATE VIEW `mydb`.`view_request_detail` AS
     `mydb`.`request`.`EndTime` AS `EndTime`,
     `mydb`.`request`.`CreateTime` AS `CreateTime`,
     `mydb`.`request`.`IsComplete` AS `IsComplete`,
+    `mydb`.`request`.`IsDeleted` AS `IsDeleted`,
     (CASE
      WHEN
        ((100 <= `mydb`.`request`.`ServiceID`)
@@ -693,20 +695,20 @@ CREATE VIEW `mydb`.`view_request_detail` AS
 #显示需求申请详细视图
 CREATE VIEW `mydb`.`view_request_order_detail` AS
   SELECT
-    `mydb`.`requestorder`.`ID` AS `ID`,
-    `mydb`.`requestorder`.`ApplyUserID` AS `ApplyUserID`,
+    `mydb`.`requestOrder`.`ID` AS `ID`,
+    `mydb`.`requestOrder`.`ApplyUserID` AS `ApplyUserID`,
     `applyUser`.`Name` AS `ApplyUserName`,
     `applyUser`.`Phone` AS `ApplyUserPhone`,
     `mydb`.`request`.`Address` AS `Address`,
-    `mydb`.`requestorder`.`BeginTime` AS `BeginTime`,
-    `mydb`.`requestorder`.`EndTime` AS `EndTime`,
-    `mydb`.`requestorder`.`CreateTime` AS `CreateTime`,
-    `mydb`.`requestorder`.`ActualBeginTime` AS `ActualBeginTime`,
-    `mydb`.`requestorder`.`ActualEndTime` AS `ActualEndTime`,
+    `mydb`.`requestOrder`.`BeginTime` AS `BeginTime`,
+    `mydb`.`requestOrder`.`EndTime` AS `EndTime`,
+    `mydb`.`requestOrder`.`CreateTime` AS `CreateTime`,
+    `mydb`.`requestOrder`.`ActualBeginTime` AS `ActualBeginTime`,
+    `mydb`.`requestOrder`.`ActualEndTime` AS `ActualEndTime`,
     `mydb`.`request`.`Payway` AS `PayWay`,
-    `mydb`.`requestorder`.`PayMoney` AS `PayMoney`,
-    `mydb`.`requestorder`.`Status` AS `Status`,
-    `mydb`.`requestorder`.`RequestID` AS `RequestID`,
+    `mydb`.`requestOrder`.`PayMoney` AS `PayMoney`,
+    `mydb`.`requestOrder`.`Status` AS `Status`,
+    `mydb`.`requestOrder`.`RequestID` AS `RequestID`,
     `mydb`.`request`.`Price` AS `RequestPrice`,
     `mydb`.`request`.`ServiceID` AS `ServiceID`,
     `mydb`.`request`.`IsComplete` AS `IsComplete`,
@@ -728,22 +730,22 @@ CREATE VIEW `mydb`.`view_request_order_detail` AS
          'mutualAid'
      END) AS `ServiceType`,
     `mydb`.`service`.`Name` AS `ServiceName`,
-    `mydb`.`requestorder`.`RequestUserID` AS `RequestUserID`,
+    `mydb`.`requestOrder`.`RequestUserID` AS `RequestUserID`,
     `requestUser`.`Name` AS `RequestUserName`,
     `requestUser`.`Phone` AS `RequestUserPhone`,
-    `mydb`.`requestorder`.`Rate` AS `Rate`,
-    `mydb`.`requestorder`.`Comment` AS `Comment`
+    `mydb`.`requestOrder`.`Rate` AS `Rate`,
+    `mydb`.`requestOrder`.`Comment` AS `Comment`
   FROM
-    ((((`mydb`.`requestorder`
+    ((((`mydb`.`requestOrder`
       JOIN `mydb`.`user` `requestUser`)
       JOIN `mydb`.`user` `applyUser`)
       JOIN `mydb`.`request`)
       JOIN `mydb`.`service`)
   WHERE
-    ((`mydb`.`requestorder`.`RequestID` = `mydb`.`request`.`ID`)
+    ((`mydb`.`requestOrder`.`RequestID` = `mydb`.`request`.`ID`)
      AND (`mydb`.`request`.`ServiceID` = `mydb`.`service`.`ID`)
-     AND (`mydb`.`requestorder`.`RequestUserID` = `requestUser`.`ID`)
-     AND (`mydb`.`requestorder`.`ApplyUserID` = `applyUser`.`ID`));
+     AND (`mydb`.`requestOrder`.`RequestUserID` = `requestUser`.`ID`)
+     AND (`mydb`.`requestOrder`.`ApplyUserID` = `applyUser`.`ID`));
 
 # 显示时间银行发行货币视图
 CREATE VIEW view_timebank_detail

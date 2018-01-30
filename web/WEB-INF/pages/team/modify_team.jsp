@@ -20,10 +20,11 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 </head>
-<body>
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
+    String currentUser=(String)request.getAttribute("currentUser");
 %>
+<body onload="checkUser();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
     <div class="weui-panel__hd weui-cells__title">
@@ -102,6 +103,14 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function checkUser() {
+        var currentUser='<%=currentUser%>';
+        var creator='<%=team.getCreatorId()%>';
+        if(currentUser!==creator){
+            showAlert("非创建者无修改页面信息权限");
+            document.getElementById("modifyTeam").disabled=true;
+        }
+    }
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){

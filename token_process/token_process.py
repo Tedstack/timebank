@@ -18,8 +18,8 @@ def get_access_token():
     token_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET'
     js_api_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi'
 
-    app_id = 'wx1c0cd113cada8f82'
-    app_secret = 'f03286c4132505647a6a5d69cd545bf9'
+    app_id = 'wxb0f6b07f01978a2a'
+    app_secret = '386ef712d87480fa1dc27a93995936eb'
 
     global access_token, js_api_ticket
 

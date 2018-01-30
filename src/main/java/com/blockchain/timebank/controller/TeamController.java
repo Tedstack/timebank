@@ -6,6 +6,7 @@ import com.blockchain.timebank.dao.ViewUserActivityDetailDao;
 import com.blockchain.timebank.dao.ViewTeamUserDetailDao;
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.weixin.util.Configs;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -94,7 +95,7 @@ public class TeamController {
         map.addAttribute("otherList", otherTeam);
         map.addAttribute("alreadyInList", alreadyInTeam);
         map.addAttribute("appliedList", appliedTeam);
-        return "all_teams";
+        return "team/all_teams";
     }
 
     //搜索页面，效率需要改进
@@ -102,7 +103,7 @@ public class TeamController {
     public String searchTeam(ModelMap map, @RequestParam String searchInput) {
         map.addAttribute("param", searchInput);
         if(searchInput.equalsIgnoreCase(""))
-            return "all_teams";
+            return "team/all_teams";
         List<ViewTeamDetailEntity> teamList = viewTeamDetailDao.findAllByNameContainingAndDeleted("%"+searchInput+"%",false);
         //从所有用户加入的团队中找到自己已经加入的团队
         List<ViewTeamDetailEntity> myTeam = new ArrayList<ViewTeamDetailEntity>();
@@ -131,7 +132,7 @@ public class TeamController {
         map.addAttribute("otherList", otherTeam);
         map.addAttribute("alreadyInList", alreadyInTeam);
         map.addAttribute("appliedList", appliedTeam);
-        return "all_teams_search";
+        return "team/all_teams_search";
     }
 
     @RequestMapping(value = "/chosenTeam", method = RequestMethod.GET)
@@ -149,7 +150,7 @@ public class TeamController {
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
         map.addAttribute("myTeam", myTeam);
-        return "chosen_teams";
+        return "team/chosen_teams";
     }
 
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
@@ -394,6 +395,7 @@ public class TeamController {
         endTime = endTime.substring(0, 10) + "T" + endTime.substring(11, 19);
         String applyTime = activityPublishDetail.getApplyEndTime().toString();
         applyTime = endTime.substring(0, 10) + "T" + applyTime.substring(11, 19);
+        map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("teamList", teamList);
         map.addAttribute("beiginTime", beiginTime);
@@ -700,14 +702,14 @@ public class TeamController {
         map.addAttribute("userList", memberList);
         map.addAttribute("managerList", managerList);
         map.addAttribute("creator", creator);
-        return "team_info";
+        return "team/team_info";
     }
 
     @RequestMapping(value = "/myTeams", method = RequestMethod.GET)
     public String teamActivityView(ModelMap map) {
         long userId = getCurrentUser().getId();
         map.addAttribute("allTeamList", teamService.findTeamsByCreatorId(userId));
-        return "my_teams";
+        return "team/my_teams";
     }
 
     @RequestMapping(value = "/myTeamMember", method = RequestMethod.GET)
@@ -735,7 +737,7 @@ public class TeamController {
         map.addAttribute("userList", memberList);
         map.addAttribute("lockedList", lockedList);
         map.addAttribute("appliedList", appliedList);
-        return "my_team_member";
+        return "team/my_team_member";
     }
 
     @RequestMapping(value = "/myTeamHistory", method = RequestMethod.GET)
@@ -743,7 +745,7 @@ public class TeamController {
         List<ActivityPublishEntity> activityList=activityPublishService.findAllByTeamIdAndStatus(Long.parseLong(teamId),ActivityStatus.alreadyTerminate);
         map.addAttribute("activityList",activityList);
         map.addAttribute("teamId",teamId);
-        return "my_team_history";
+        return "team/my_team_history";
     }
 
     @RequestMapping(value = "/lockMember", method = RequestMethod.POST)
@@ -815,7 +817,7 @@ public class TeamController {
 
     @RequestMapping(value = "/createPage", method = RequestMethod.GET)
     public String goToCreatePage() {
-        return "create_team";
+        return "team/create_team";
     }
 
     @RequestMapping(value = "/createTeam", method = RequestMethod.POST)
@@ -869,16 +871,18 @@ public class TeamController {
     public String goToViewTeamInfoPage(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
+        map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("teamEntity", teamEntity);
-        return "view_teamInfo";
+        return "team/view_teamInfo";
     }
 
     @RequestMapping(value = "/modifyPage", method = RequestMethod.GET)
     public String goToModifyPage(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(id);
+        map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("teamEntity", teamEntity);
-        return "modify_team";
+        return "team/modify_team";
     }
 
     @RequestMapping(value = "/modifyTeam", method = RequestMethod.POST)
@@ -993,6 +997,6 @@ public class TeamController {
     }
 
     private String getAppliedMessage(UserEntity user,String creator_name, String teamName,long teamid){
-        return "尊敬的"+creator_name+",用户"+user.getName()+"已经报名申请你的"+teamName+"团队，请你"+"<a href=\\\"http://www.i-linli.com/timebanktest/team/myTeamMember?teamId="+teamid+"\\\">尽快处理。</a>";
+        return "尊敬的"+creator_name+",用户"+user.getName()+"已经报名申请你的"+teamName+"团队，请你"+"<a href=\\\"http://"+ Configs.DOMAINNAME+"/timebanktest/team/myTeamMember?teamId="+teamid+"\\\">尽快处理。</a>";
     }
 }

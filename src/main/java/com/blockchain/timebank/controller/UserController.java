@@ -95,8 +95,10 @@ public class UserController {
             map.addAttribute("error", "错误的用户名或者密码");
             return "login";
         } else {
-            userEntity.setOpenId(openID);
-            userService.updateUserEntity(userEntity);
+            if(!"null".equals(openID) && !"noID".equals(openID) && null != openID) {
+                userEntity.setOpenId(openID);
+                userService.updateUserEntity(userEntity);
+            }
 
             Authentication token = new UsernamePasswordAuthenticationToken(phone, MD5Password);
             SecurityContextHolder.getContext().setAuthentication(token);
