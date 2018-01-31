@@ -1,8 +1,7 @@
 $(document).ready(function () {
-    //document.write("<script type='text/javascript' src='configs.js'></script>");
     //获取配置信息
     $.ajax({
-        url : "http://"+getDomainName()+"/timebanktest/scanGetConfigServlet",
+        url : "http://www.i-linli.com/timebanktest/scanGetConfigServlet",
         type : 'post',
         dataType : 'json',
         contentType : "application/x-www-form-urlencoded; charset=utf-8",
