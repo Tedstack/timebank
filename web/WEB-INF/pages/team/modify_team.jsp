@@ -75,7 +75,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
         <div class="weui-cell__bd">
-            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" oninput="checkLenLoc(this)"><%out.print(team.getAddress());%></textarea>
+            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" maxlength="40" oninput="checkLenLoc(this)"><%out.print(team.getAddress());%></textarea>
             <div style="float:right; color:#999"><span id="team_location-count"><%out.print(team.getAddress().length());%></span>/20</div>
         </div>
     </div>
@@ -90,7 +90,7 @@
             <label class="weui-label">团队介绍</label></div>
         <div class="weui-cell__bd">
             <div class="weui-cell__bd">
-                <textarea id="teamDescription" class="weui-textarea" name="describe" rows="3" oninput="checkLen(this)"><%out.print(team.getDescription());%></textarea>
+                <textarea id="teamDescription" class="weui-textarea" name="describe" rows="3" maxlength="400" oninput="checkLen(this)"><%out.print(team.getDescription());%></textarea>
                 <div style="float:right; color:#999"><span id="description-count"><%out.print(team.getDescription().length());%></span>/200</div>
             </div>
         </div>
