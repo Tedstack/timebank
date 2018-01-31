@@ -86,11 +86,11 @@
        var pwdequal=false;
        var codeequal=false;
        var pwdright=false;
-        var passwordReg=/^[a-zA-Z0-9]{6,10}$/;
+        var passwordReg=/^[a-zA-Z0-9]{6,15}$/;
         if(passwordReg.test(pwd1)){
             pwdright = true;
         }else{
-            showAlert("密码必须包含字母数字和符号且不低于6位");
+            showAlert("密码必须只包含字母或数字且不低于6位");
         }
       if(pwd1===pwd2)
       {
