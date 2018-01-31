@@ -1,4 +1,4 @@
-document.write("<script language='javascript' src='js/scan/configs.js'></script>");
+document.write("<script language='javascript' src='scan/configs.js'></script>");
 function back_to(url){
         var state = {
             title: "",
