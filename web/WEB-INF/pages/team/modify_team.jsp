@@ -206,6 +206,20 @@
             add_Img.style.display="inline";
         });
     });
+    function getLength(str) {
+        return str.replace(/[^ -~]/g, 'AA').length;
+    }
+
+    function limitMaxLength(str, maxLength) {
+        var result = [];
+        for (var i = 0; i < maxLength; i++) {
+            var char = str[i]
+            if (/[^ -~]/.test(char))
+                maxLength--;
+            result.push(char);
+        }
+        return result.join('');
+    }
     function checkLen(obj)
     {
         if (getLength(obj.value) > 400)
@@ -214,8 +228,8 @@
     }
     function checkLenLoc(obj)
     {
-        if (getLength(obj.value) > 400)
-            obj.value = limitMaxLength(obj.value, 400);
+        if (getLength(obj.value) > 40)
+            obj.value = limitMaxLength(obj.value, 40);
         document.getElementById("team_location-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
     function isPoneAvailable (pone) {

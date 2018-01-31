@@ -172,7 +172,20 @@
             });
         });
     });
+    function getLength(str) {
+        return str.replace(/[^ -~]/g, 'AA').length;
+    }
 
+    function limitMaxLength(str, maxLength) {
+        var result = [];
+        for (var i = 0; i < maxLength; i++) {
+            var char = str[i]
+            if (/[^ -~]/.test(char))
+                maxLength--;
+            result.push(char);
+        }
+        return result.join('');
+    }
     function checkLen(obj)
     {
         if (getLength(obj.value) > 400)
