@@ -282,8 +282,7 @@
             success: function (data) {
                 if(data==="success"){
                     showAlert("申请成功",function () {
-                        var addUser=document.getElementById("addUser");
-                        addUser.style.display=none;
+                        location.reload();
                     });
                 }
             },

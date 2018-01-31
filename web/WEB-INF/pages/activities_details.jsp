@@ -46,7 +46,7 @@
                 <div class="shop-logo">
                     <img src="../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>" alt="">
                 </div>
-                <div class="txt"><%out.print(activityPublishDetail.getName());%></div>
+                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getName());%></div>
             </a>
         </div>
 

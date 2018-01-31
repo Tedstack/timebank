@@ -53,7 +53,7 @@
         <div class="weui-cell__hd"><label class="weui-label">地 点</label></div>
         <div class="weui-cell__bd">
             <div class="weui-cell__bd">
-                <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" onkeyup="checkLenLoc(this)"></textarea>
+                <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" oninput="checkLenLoc(this)"></textarea>
                 <div style="float:right; color:#999"><span id="team_location-count">0</span>/20</div>
             </div>
         </div>
@@ -69,7 +69,7 @@
             <label class="weui-label">团队介绍</label></div>
         <div class="weui-cell__bd">
             <div class="weui-cell__bd">
-                <textarea id="teamDescription" class="weui-textarea" name="describe" placeholder="请输入描述..." rows="3" onkeyup="checkLen(this)"></textarea>
+                <textarea id="teamDescription" class="weui-textarea" name="describe" placeholder="请输入描述..." rows="3" maxlength="200" oninput="checkLen(this)"></textarea>
                 <div style="float:right; color:#999"><span id="description-count">0</span>/200</div>
             </div>
         </div>
