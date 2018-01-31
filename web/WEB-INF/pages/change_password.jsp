@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="weui-btn-area">
-        <button class="weui-btn weui-btn_primary" id="update">发布</button>
+        <button class="weui-btn weui-btn_primary" id="update">修改</button>
     </div>
 </div>
 </body>
