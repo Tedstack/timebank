@@ -32,7 +32,10 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
-            <div class="weui-panel__hd">团队活动</div>
+            <div class="weui-panel__hd">
+                <span>团队活动</span>
+                <a href="" style="float:right">筛选</a>
+            </div>
             <div class="weui-panel__bd">
 
                 <%

@@ -175,19 +175,15 @@
 
     function checkLen(obj)
     {
-        var maxChars = 200;//最多字符数
-        if (obj.value.length > maxChars)
-            obj.value = obj.value.substring(0,maxChars);
-        var curr = obj.value.length;
-        document.getElementById("description-count").innerHTML = curr.toString();
+        if (getLength(obj.value) > 400)
+            obj.value = limitMaxLength(obj.value, 400);
+        document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
     function checkLenLoc(obj)
     {
-        var maxChars = 100;//最多字符数
-        if (obj.value.length > maxChars)
-            obj.value = obj.value.substring(0,maxChars);
-        var curr = obj.value.length;
-        document.getElementById("team_location-count").innerHTML = curr.toString();
+        if (getLength(obj.value) > 400)
+            obj.value = limitMaxLength(obj.value, 400);
+        document.getElementById("team_location-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
     function isPoneAvailable (pone) {
         var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
