@@ -23,9 +23,10 @@
     <link href="../css/dj_base_838a930.css" rel="stylesheet" type="text/css">
     <link href="../css/dj_dc_content_f60f458.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="../css/swiper-3.4.0.min.css">
+    <script src="../js/utils.js"></script>
     <title>服务详情</title>
 </head>
-<body>
+<body onpageshow="normal_back();">
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
