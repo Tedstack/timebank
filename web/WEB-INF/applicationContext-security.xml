@@ -45,6 +45,7 @@
         <intercept-url pattern="/team/teamActivities" access="permitAll()"/>
         <intercept-url pattern="/team/teamActivityDetails" access="permitAll()"/>
         <intercept-url pattern="/index" access="permitAll()"/>
+        <intercept-url pattern="/share" access="permitAll()"/>
         <!--游客模式结束-->
         <intercept-url pattern="/changePassword" access="permitAll()"/>
         <intercept-url pattern="/register" access="permitAll()"/>
