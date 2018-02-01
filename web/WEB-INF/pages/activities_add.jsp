@@ -309,6 +309,8 @@
                         showAlert("发布成功",function () {
                             goTo(targetUrl2);
                         });
+                    }else if(data==="hugeImg"){
+                        showAlert("请上传一张不大于521k的图片");
                     }else{
                         showAlert("发布失败");
                     }

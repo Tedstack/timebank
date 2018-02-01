@@ -73,7 +73,6 @@ public class PublishController {
         //判断是否是匿名登陆 游客模式
         if(isAnonymous()){
             map.addAttribute("msg", "notManagerUser");
-            return "activities_notmanager";
         }
 
         UserEntity user = getCurrentUser();
@@ -82,9 +81,9 @@ public class PublishController {
         //判断是否是团队管理者，若不是则无法发布服务
         if(teamList.size()==0){
             map.addAttribute("msg", "notManagerUser");
-            return "activities_notmanager";
+        }else {
+            map.addAttribute("msg", "ManagerUser");
         }
-
         map.addAttribute("teamList", teamList);
         return "activities";
     }

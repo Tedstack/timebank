@@ -19,6 +19,7 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
+<%String msg=(String)request.getAttribute("msg");%>
 <body onload="back_exit();">
 <script>get_wx_config();</script>
 <div class="page js_show">
@@ -82,6 +83,10 @@
 </body>
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-
+<script type="text/javascript">
+    function checkuser() {
+        
+    }
+</script>
 
 </html>

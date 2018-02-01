@@ -34,7 +34,7 @@
                 if(msg.equals("ok")){
                     out.print("发布成功");
                 }else{
-                    out.print("您不是团队管理者，暂不能发布活动");
+                    out.print("您还未建立任何团队，暂不能发布活动");
                 }
             %>
         </h2>

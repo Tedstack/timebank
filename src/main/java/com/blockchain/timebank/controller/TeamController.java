@@ -276,7 +276,7 @@ public class TeamController {
     public String publishActivity(@RequestParam(value = "file1", required = false) MultipartFile file,
                                   long teamId,
                                   String activityType,
-                                  boolean isPublic,
+                                  boolean isPublicOptions,
                                   String activityName,
                                   String description,
                                   String beginTime, String endTime, String applyEndTime,
@@ -284,6 +284,8 @@ public class TeamController {
                                   String address) {
         String idImg = "";
         if (file != null && !file.isEmpty()) {
+            if(file.getSize()>512*1024)
+                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -301,7 +303,7 @@ public class TeamController {
                     activityPublishEntity.setType(ActivityType.volunteerActivity);
                 else
                     activityPublishEntity.setType(ActivityType.communityActivity);
-                activityPublishEntity.setPublic(isPublic);
+                activityPublishEntity.setPublic(isPublicOptions);
                 activityPublishEntity.setDeleted(false);
                 activityPublishEntity.setName(activityName);
                 activityPublishEntity.setDescription(description);
@@ -419,6 +421,8 @@ public class TeamController {
         ActivityPublishEntity activity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
         String idImg="";
         if (file != null && !file.isEmpty()) {
+            if(file.getSize()>512*1024)
+                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -702,7 +706,7 @@ public class TeamController {
         map.addAttribute("userList", memberList);
         map.addAttribute("managerList", managerList);
         map.addAttribute("creator", creator);
-        return "team/team_info";
+        return "team/ team_info";
     }
 
     @RequestMapping(value = "/myTeams", method = RequestMethod.GET)
