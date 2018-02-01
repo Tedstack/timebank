@@ -115,34 +115,37 @@
 
     $(function(){
         $("#deleteTeam").on('click', function () {
-            var contextPath="${pageContext.request.contextPath}";
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteTeam";
-            var teamId=document.getElementById("deleteTeam").name;
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: targetUrl,
-                data: "teamId="+teamId,
-                beforeSend: function (XHR) {
-                    dialogLoading = showLoading();
-                },
-                success: function (data) {
-                    if(data==="success"){
-                        showAlert("删除成功",function () {
-                            window.location.href="${pageContext.request.contextPath}/team/myTeams"
-                        });
+            var r=confirm("确认移除该成员");
+            if(r==true){
+                var contextPath="${pageContext.request.contextPath}";
+                var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteTeam";
+                var teamId=document.getElementById("deleteTeam").name;
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    data: "teamId="+teamId,
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        if(data==="success"){
+                            showAlert("删除成功",function () {
+                                window.location.href="${pageContext.request.contextPath}/team/myTeams"
+                            });
+                        }
+                        if(data==="failure"){
+                            showAlert("删除失败");
+                        }
+                    },
+                    error: function (xhr, type) {
+                        showAlert("操作失败");
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
                     }
-                    if(data==="failure"){
-                        showAlert("删除失败");
-                    }
-                },
-                error: function (xhr, type) {
-                    showAlert("操作失败");
-                },
-                complete: function (xhr, type) {
-                    dialogLoading.hide();
-                }
-            });
+                });
+            }
         });
     });
 </script>
