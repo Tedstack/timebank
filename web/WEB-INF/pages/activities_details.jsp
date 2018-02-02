@@ -42,12 +42,12 @@
         </div>
         <!--以下内容在右侧显示-->
         <div class="enterbar bar_shop border_b mt10" style="margin-bottom: 0;">
-            <a href="javascript:void(0)">
+            <div>
                 <div class="shop-logo">
                     <img src="../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>" alt="">
                 </div>
-                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getName());%></div>
-            </a>
+                <p><%out.print(activityPublishDetail.getName());%></p>
+            </div>
         </div>
 
         <div class="weui-cells">

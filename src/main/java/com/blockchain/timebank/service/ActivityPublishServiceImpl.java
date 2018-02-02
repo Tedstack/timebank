@@ -6,6 +6,7 @@ import com.blockchain.timebank.entity.ActivityStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -31,6 +32,10 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
     }
 
     public List<ActivityPublishEntity> findAllByTeamIdAndStatus(long teamId,String status){return activityPublishDao.findAllByTeamIdAndStatus(teamId,status);}
+
+    public List<ActivityPublishEntity> findAllByTeamIdAndStatusAndBeginTimeAfter(long teamId, String status, Timestamp time){return activityPublishDao.findAllByTeamIdAndStatusAndBeginTimeAfter(teamId,status,time);}
+
+    public List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfter(String status, Timestamp time){return activityPublishDao.findAllByStatusAndBeginTimeAfter(status,time);}
 
     public List<ActivityPublishEntity> findAllByTeamId(long teamId){return activityPublishDao.findAllByTeamId(teamId);}
 }

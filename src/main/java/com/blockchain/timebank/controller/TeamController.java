@@ -157,7 +157,10 @@ public class TeamController {
     @ResponseBody
     public String addUserToTeam(@RequestParam long teamId) {
         long userId = getCurrentUser().getId();
-        TeamUserEntity teamUser = new TeamUserEntity();
+        TeamUserEntity teamUser;
+        teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),teamId);
+        if(teamUser==null)
+            teamUser=new TeamUserEntity();
         teamUser.setTeamId(teamId);
         teamUser.setUserId(userId);
         teamUser.setStatus(TeamUserStatus.inApplication);
@@ -176,26 +179,22 @@ public class TeamController {
         long userId =  getCurrentUser().getId();
         System.out.println("userId:" + userId);
         //用户状态是已加入
-        TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(userId, teamId, TeamUserStatus.alreadyEntered);
-        if (teamUser != null) {
+        TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(userId, teamId);
+        if (teamUser != null && (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked))) {
             teamUser.setStatus(TeamUserStatus.isDeleted);
             teamUserService.saveTeamUser(teamUser);
-            return "successs";
-        }
-        //已加入状态是被锁定
-        teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(userId, teamId, TeamUserStatus.isLocked);
-        if (teamUser != null) {
-            teamUser.setStatus(TeamUserStatus.isDeleted);
-            teamUserService.saveTeamUser(teamUser);
-            return "successs";
-        } else
+            return "success";
+        }else
             return "failure";
     }
 
     //用户查看团队活动列表
     @RequestMapping(value = "/teamActivities", method = RequestMethod.GET)
     public String activities(ModelMap map) {
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllWaitingApplyActivityPublishEntity();
+        long current=System.currentTimeMillis();//当前时间毫秒数
+        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        Timestamp zeroTimestamp = new Timestamp(zero);
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllByStatusAndBeginTimeAfter(ActivityStatus.waitingForApply,zeroTimestamp);
         //倒序排列
         Collections.reverse(activityList);
         boolean isAnonymous=isAnonymous();
@@ -329,23 +328,23 @@ public class TeamController {
     @ResponseBody
     public String applyToJoinActivity(@RequestParam long activityID) {
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
-
+        if (viewActivityPublishDetailEntity.getCreatorId() ==  getCurrentUser().getId()) {
+            return "managerError";
+        }
         //判断是否重复申请
         UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);
         if (userActivity != null && userActivity.isAllow()) {
             return "alreadyApply";
+        }else if(userActivity != null && !userActivity.isAllow()){
+            userActivity.setAllow(true);
+            userActivityService.addUserActivity(userActivity);
+        }else {
+            UserActivityEntity userActivityEntity = new UserActivityEntity();
+            userActivityEntity.setActivityId(activityID);
+            userActivityEntity.setUserId(getCurrentUser().getId());
+            userActivityEntity.setAllow(true);
+            userActivityService.addUserActivity(userActivityEntity);
         }
-
-        //判断是否是团队管理者
-        if (viewActivityPublishDetailEntity.getCreatorId() ==  getCurrentUser().getId()) {
-            return "managerError";
-        }
-
-        UserActivityEntity userActivityEntity = new UserActivityEntity();
-        userActivityEntity.setActivityId(activityID);
-        userActivityEntity.setUserId(getCurrentUser().getId());
-        userActivityEntity.setAllow(true);
-        userActivityService.addUserActivity(userActivityEntity);
         if(MessageUtil.apply_success(userService.findUserEntityById(viewActivityPublishDetailEntity.getCreatorId()),getCurrentUser().getName(),viewActivityPublishDetailEntity))
             System.out.println("Message send success");
         else
@@ -369,7 +368,10 @@ public class TeamController {
     //待申请活动的状态（发布活动）
     @RequestMapping(value = "/activitiesWaitingForApply", method = RequestMethod.GET)
     public String activitiesWaitingForApply(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(), false, ActivityStatus.waitingForApply);
+        long current=System.currentTimeMillis();//当前时间毫秒数
+        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        Timestamp zeroTimestamp = new Timestamp(zero);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatusAndBeginTimeAfter(getCurrentUser().getId(), false, ActivityStatus.waitingForApply,zeroTimestamp);
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
@@ -629,9 +631,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/managerUserCheckUser", method = RequestMethod.GET)
-    public String managerUserCheckUser(ModelMap map, @RequestParam long userActivityID) {
-        UserActivityEntity userActivityEntity = userActivityService.findUserActivityByID(userActivityID);
-        long userID = userActivityEntity.getUserId();
+    public String managerUserCheckUser(ModelMap map, @RequestParam long userID) {
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByUserIdAndAllowAndPresentAndStatus(userID, true, true, ActivityStatus.alreadyTerminate);
         for (int i = userActivityList.size() - 1; i >= 0; i--) {
             if (userActivityList.get(i).getManagerRating() == null) {
@@ -687,16 +687,20 @@ public class TeamController {
         List<ActivityPublishEntity> publicActivity = new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
         long userId = getCurrentUser().getId();
-        String isMember="false";
+        String isMember="Out";
         //判断用户在这个团队内
-        TeamUserEntity team = teamUserService.findByUserIdAndTeamIdAndStatus(userId, id, TeamUserStatus.alreadyEntered);
-        if(team!=null || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
-            isMember="true";
-        for (int i = 0; i < activityList.size(); i++) {
-            if (activityList.get(i).isPublic())
-                publicActivity.add(activityList.get(i));
-            else
-                privateActivity.add(activityList.get(i));
+        TeamUserEntity team = teamUserService.findByUserIdAndTeamId(userId, id);
+        if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
+            isMember="alreadyIn";
+        if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) || team.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
+            isMember="stillInProcess";
+        if(isMember.equalsIgnoreCase("alreadyIn")) {
+            for (int i = 0; i < activityList.size(); i++) {
+                if (activityList.get(i).isPublic())
+                    publicActivity.add(activityList.get(i));
+                else
+                    privateActivity.add(activityList.get(i));
+            }
         }
         map.addAttribute("isMember", isMember);
         map.addAttribute("publicActivity", publicActivity);
@@ -792,21 +796,16 @@ public class TeamController {
         long t_id = Long.parseLong(teamId);
         long u_id = Long.parseLong(userId);
         try {
-            TeamUserEntity teamUser = new TeamUserEntity();
+            TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(u_id, t_id);
             if (type.equalsIgnoreCase("lock")) {//锁定
-                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id, TeamUserStatus.alreadyEntered);
                 teamUser.setStatus(TeamUserStatus.isLocked);
             } else if (type.equalsIgnoreCase("unlock")) {//解锁
-                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id, TeamUserStatus.isLocked);
                 teamUser.setStatus(TeamUserStatus.alreadyEntered);
             } else if (type.equalsIgnoreCase("approve")) {//同意加入
-                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id, TeamUserStatus.inApplication);
                 teamUser.setStatus(TeamUserStatus.alreadyEntered);
             } else if (type.equalsIgnoreCase("demote")) {//解除管理员
-                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id, TeamUserStatus.alreadyEntered);
                 teamUser.setManager(false);
             } else if (type.equalsIgnoreCase("promote")) {//提升管理员
-                teamUser = teamUserService.findByUserIdAndTeamIdAndStatus(u_id, t_id, TeamUserStatus.alreadyEntered);
                 teamUser.setManager(true);
             } else//非法操作
                 return "failure";
@@ -820,7 +819,11 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/createPage", method = RequestMethod.GET)
-    public String goToCreatePage() {
+    public String goToCreatePage(ModelMap map) {
+        if(getCurrentUser().getIsVerify()==null)
+            map.addAttribute("msg","NoVerified");
+        else
+            map.addAttribute("msg","Verified");
         return "team/create_team";
     }
 

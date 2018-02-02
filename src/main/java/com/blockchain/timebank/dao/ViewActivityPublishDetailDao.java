@@ -10,6 +10,6 @@ import java.util.List;
 public interface ViewActivityPublishDetailDao extends CrudRepository<ViewActivityPublishDetailEntity, Long> {
     List<ViewActivityPublishDetailEntity> findAllByDeleted(boolean isDeleted);
     List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(long CreatorId, boolean isDeleted, String status);
-    List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByTeamIdAndDeletedAndStatus(long teamId,boolean isDeleted, String status);
+    List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatusAndBeginTimeAfter(long CreatorId, boolean isDeleted, String status,Timestamp time);
     List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdAndBeginTimeAfter(long CreatorId,Timestamp BeginTime);
 }

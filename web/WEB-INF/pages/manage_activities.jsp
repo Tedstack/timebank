@@ -99,7 +99,7 @@
                 <button id="<%=i%>" value="<%=userActivityList.get(i).getId()%>" class="weui-btn weui-btn_mini weui-btn_primary">移除</button>
             </div>
             <div class="weui-cell__ft" style="padding: 10px;">
-                <button id="btn<%=i%>" value="<%=userActivityList.get(i).getId()%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</button>
+                <button id="btn<%=i%>" value="<%=userActivityList.get(i).getUserId()%>" class="weui-btn weui-btn_mini weui-btn_primary">查看</button>
             </div>
         </div>
         <%}%>
@@ -156,7 +156,7 @@
 
                 $("#btn"+i).on("click", function(){
                     var id = $("#"+i).attr("value");
-                    var url = "http://"+getDomainName()+contextPath+"/team/managerUserCheckUser?userActivityID="+id;
+                    var url = "http://"+getDomainName()+contextPath+"/team/managerUserCheckUser?userID="+id;
                     goTo(url);
                 });
             })(i);

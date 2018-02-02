@@ -126,7 +126,7 @@
             },
             success: function (data) {
                 if(data==="success"){
-                    showAlert("退出成功",function () {
+                    showAlert("退出成功",function() {
                         location.reload();
                     });
                 }

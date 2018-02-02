@@ -58,15 +58,15 @@
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
             <label class="weui-cell weui-check__label" for=<%out.print(ManagerList.get(i).getId());%>>
-                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;" onclick="checkUser(this)" id=<%out.print(ManagerList.get(i).getId());%> >
                     <img src="<%out.print(ManagerList.get(i).getHeadImgUrl());%>" style="width: 50px;height: 50px;display: block">
                 </div>
-                <div class="weui-cell__bd">
+                <div class="weui-cell__bd" onclick="checkUser(this)" id=<%out.print(ManagerList.get(i).getId());%>>
                     <p><%out.print(ManagerList.get(i).getName());%></p>
                     <%if(ManagerList.get(i).getBirth()!=null){%>
                     <p style="font-size: 13px;color: #888888;"><%out.print(ManagerList.get(i).getBirth());%></p><%}%>
                 </div>
-                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demoteManager(this)" style="background-color: #ecc30a" onclick="approve(this)" id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
+                <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="demoteManager(this)" style="background-color: #ecc30a"  id=<%out.print(ManagerList.get(i).getId());%>>降级</a>
             </label>
         </div>
     </div>
@@ -78,10 +78,10 @@
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
             <label class="weui-cell weui-check__label" for=<%out.print(appliedList.get(i).getId());%>>
-                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <div class="weui-cell__hd" style="position: relative;margin-right: 10px;" onclick="checkUser(this) id=<%out.print(appliedList.get(i).getId());%>">
                     <img src="<%out.print(appliedList.get(i).getHeadImgUrl());%>" style="width: 50px;height: 50px;display: block">
                 </div>
-                <div class="weui-cell__bd">
+                <div class="weui-cell__bd" onclick="checkUser(this)" id=<%out.print(appliedList.get(i).getId());%>>
                     <p><%out.print(appliedList.get(i).getName());%></p>
                     <%if(appliedList.get(i).getBirth()!=null){%>
                     <p style="font-size: 13px;color: #888888;"><%out.print(appliedList.get(i).getBirth());%></p><%}%>
@@ -101,10 +101,10 @@
 <div class="weui-panel__bd">
     <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
         <label class="weui-cell weui-check__label" for=<%out.print(teamUserList.get(i).getId());%>>
-            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;" onclick="checkUser(this)" id=<%out.print(teamUserList.get(i).getId());%>>
                 <img src="<%out.print(teamUserList.get(i).getHeadImgUrl());%>" style="width: 50px;height: 50px;display: block">
             </div>
-            <div class="weui-cell__bd">
+            <div class="weui-cell__bd" onclick="checkUser(this)" id=<%out.print(teamUserList.get(i).getId());%>>
                 <p><%out.print(teamUserList.get(i).getName());%></p>
                 <%if(teamUserList.get(i).getBirth()!=null){%>
                 <p style="font-size: 13px;color: #888888;"><%out.print(teamUserList.get(i).getBirth());%></p><%}%>
@@ -125,10 +125,10 @@
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
             <label class="weui-cell weui-check__label" for=<%out.print(lockedUserList.get(i).getId());%>>
-                <a class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <a class="weui-cell__hd" style="position: relative;margin-right: 10px;"  onclick="checkUser(this)" id=<%out.print(lockedUserList.get(i).getId());%>>
                     <img src="<%out.print(lockedUserList.get(i).getHeadImgUrl());%>" style="width: 50px;height: 50px;display: block">
                 </a>
-                <div class="weui-cell__bd">
+                <div class="weui-cell__bd" onclick="checkUser(this)" id=<%out.print(lockedUserList.get(i).getId());%>>
                     <p><%out.print(lockedUserList.get(i).getName());%></p>
                     <%if(lockedUserList.get(i).getBirth()!=null){%>
                     <p style="font-size: 13px;color: #888888;"><%out.print(lockedUserList.get(i).getBirth());%></p><%}%>
@@ -316,6 +316,11 @@
                 }
             });
         }
+    }
+    function checkUser(User) {
+        var userId=User.id;
+        window.location.href="${pageContext.request.contextPath}/team/managerUserCheckUser?userID="+userId;
+        goTo(url);
     }
 </script>
 </html>

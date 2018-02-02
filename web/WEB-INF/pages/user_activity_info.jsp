@@ -27,14 +27,17 @@
                 <span>历史评价</span>
             </div>
             <%
-                for (int i=0;i<userActivityList.size();i++) {
+                if(userActivityList.size()>0){
+                    for (int i=0;i<userActivityList.size();i++) {
             %>
             <div class="con_u">服务评分:<%out.print(userActivityList.get(i).getManagerRating());%></div>
             <div class="con_u"><%out.print(userActivityList.get(i).getManagerComment());%></div>
             <div style="background-color: #f8f8f8; height:10px;"></div>
             <%
                 }
-            %>
+             }else{%>
+            <div class="con_u">该用户暂未参加任何活动</div>
+            <%}%>
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@ public interface TeamUserService {
 
     TeamUserEntity findById(long id);
 
-    TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamID,String status);
+    TeamUserEntity findByUserIdAndTeamId(long userId,long teamID);
 
     TeamUserEntity findByUserIdAndTeamIdAndStatusNot(long userId,long teamID,String status);
 

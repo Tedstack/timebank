@@ -61,7 +61,7 @@
                 <label class="weui-label">团队名称</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" name="team_id" value=<%out.print(team.getId());%>>
+                <input class="weui-input" maxlength="11" name="team_id" value=<%out.print(team.getId());%>>
             </div>
         </div>
     <div class="weui-cell">
@@ -151,7 +151,7 @@
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
                 return;
-            }else if(document.getElementById("team_name").length>12){
+            }else if(document.getElementById("team_name").value.length>12){
                 showAlert("团队名称建议不超过11个字");
                 return;
             }else if(!isPoneAvailable(document.getElementById("team_phone").value) && !isTelAvailable(document.getElementById("team_phone").value)){

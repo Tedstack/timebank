@@ -109,7 +109,7 @@
             <div class="weui-panel__bd">
                 <div class="weui-form-preview__hd">
                     <div class="weui-form-preview__item">
-                        <%if(isMember.equalsIgnoreCase("false")){%>
+                        <%if(isMember.equalsIgnoreCase("Out")){%>
                         <a id="addUser" onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
                         <%}%>
                     </div>
@@ -200,7 +200,7 @@
         <div style="background-color: #f8f8f8; height:10px;"></div>
         <%}%>
         <%
-            if(isMember.equalsIgnoreCase("true")){
+            if(isMember.equalsIgnoreCase("alreadyIn")){
             for(int i=0;i<privateActivity.size();i++){
         %>
         <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(privateActivity.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">

@@ -10,8 +10,6 @@ import java.util.List;
 public interface TeamUserDao extends CrudRepository<TeamUserEntity, Long> {
     List<TeamUserEntity> findByTeamId(long teamID);
 
-    TeamUserEntity findByUserIdAndTeamIdAndStatus(long userId,long teamId,String Status);
-
     TeamUserEntity findByUserIdAndTeamId(long userId,long teamId);
 
     TeamUserEntity findByUserIdAndTeamIdAndStatusNot(long userId,long teamId,String Status);
