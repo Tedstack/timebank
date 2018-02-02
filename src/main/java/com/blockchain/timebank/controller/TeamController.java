@@ -332,7 +332,7 @@ public class TeamController {
 
         //判断是否重复申请
         UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);
-        if (userActivity != null && userActivity.isAllow()) {
+        if (userActivity != null) {
             return "alreadyApply";
         }
 
