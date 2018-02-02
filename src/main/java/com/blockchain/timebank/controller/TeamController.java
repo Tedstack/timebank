@@ -689,7 +689,7 @@ public class TeamController {
         long userId = getCurrentUser().getId();
         String isMember="false";
         //判断用户在这个团队内
-        TeamUserEntity team = teamUserService.findByUserIdAndTeamIdAndStatusNot(userId, id, TeamUserStatus.isDeleted);
+        TeamUserEntity team = teamUserService.findByUserIdAndTeamIdAndStatus(userId, id, TeamUserStatus.alreadyEntered);
         if(team!=null || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
             isMember="true";
         for (int i = 0; i < activityList.size(); i++) {
@@ -706,7 +706,7 @@ public class TeamController {
         map.addAttribute("userList", memberList);
         map.addAttribute("managerList", managerList);
         map.addAttribute("creator", creator);
-        return "team/ team_info";
+        return "team/team_info";
     }
 
     @RequestMapping(value = "/myTeams", method = RequestMethod.GET)

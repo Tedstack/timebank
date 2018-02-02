@@ -141,7 +141,7 @@
     }
     function viewTeamPage(t) {
         var teamId=t.id;
-        window.location.href="${pageContext.request.contextPath}/team/teamIndex?tab=1&teamId="+teamId;
+        window.location.href="${pageContext.request.contextPath}/team/teamInfo?teamId="+teamId;
     }
 </script>
 </html>
