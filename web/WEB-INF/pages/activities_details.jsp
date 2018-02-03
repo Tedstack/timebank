@@ -28,6 +28,9 @@
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
     String isApplied=(String) request.getAttribute("isApplied");
     String type=(String) request.getAttribute("type");
+    Date nowDate = new Date();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+    String nowTime = formatter.format(nowDate);
 %>
 <!-- 使用 -->
 
@@ -175,39 +178,40 @@
 
     $(function(){
         $("#applyBtn").on('click',function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: targetUrl,
-                data: "activityID=" + activityID,
-                beforeSend: function (XHR) {
-                    dialogLoading = showLoading();
-                },
-                success: function (data) {
-                    if(data==="ok"){
-                        showAlert("申请成功",function () {
-                            location.reload();
-                        });
-                    }else if(data==="upperLimit"){
-                        showAlert("活动名额已满，停止报名");
-                    }else if(data==="managerError"){
-                        showAlert("团队管理员不能报名自己发布的活动");
-                    }else if(data==="alreadyApply"){
-                        showAlert("您已申请参加此活动");
-                    }else if(data==="messageFail"){
-                        showAlert("消息发送失败");
-                    }else{
-                        showAlert("申请失败");
+            var nowTime='<%=nowTime%>';
+            var applyEndTime='<%=activityPublishDetail.getApplyEndTime()%>';
+            if(nowTime<applyEndTime)
+                showAlert("该活动已过报名截止时间");
+            else{var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    data: "activityID=" + activityID,
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        if(data==="ok"){
+                            showAlert("申请成功",function () {
+                                location.reload();
+                            });
+                        }else if(data==="managerError"){
+                            showAlert("团队管理员不能报名自己发布的活动");
+                        }else if(data==="alreadyApply"){
+                            showAlert("您已申请参加此活动");
+                        }else{
+                            showAlert("申请失败");
+                        }
+                    },
+                    error: function (xhr, type) {
+                        showAlert("失败");
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
                     }
-                },
-                error: function (xhr, type) {
-                    showAlert("失败");
-                },
-                complete: function (xhr, type) {
-                    dialogLoading.hide();
-                }
-            });
+                });
+            }
         });
         $("#quitBtn").on('click',function () {
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/quitFromActivity";

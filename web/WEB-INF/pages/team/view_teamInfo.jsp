@@ -99,8 +99,8 @@
         var creator='<%=team.getCreatorId()%>';
         if(currentUser!==creator){
             showAlert("非创建者无修改页面信息权限");
-            document.getElementById("modifyTeam").disabled=true;
-            document.getElementById("deleteTeam").disabled=true;
+            document.getElementById("modifyTeam").style.display="none";
+            document.getElementById("deleteTeam").style.display="none";
         }
     }
     var xmlHttpRequest;

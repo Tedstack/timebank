@@ -692,7 +692,7 @@ public class TeamController {
         TeamUserEntity team = teamUserService.findByUserIdAndTeamId(userId, id);
         if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
             isMember="alreadyIn";
-        if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) || team.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
+        else if(team!=null && (team.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) || team.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication)))
             isMember="stillInProcess";
         if(isMember.equalsIgnoreCase("alreadyIn")) {
             for (int i = 0; i < activityList.size(); i++) {

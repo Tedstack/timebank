@@ -148,7 +148,7 @@
             (function(i) {
                 $("#"+i).on("click", function(){
                     var id = $("#"+i).attr("value");
-                    var r=confirm("确认移除该成员");
+                    var r=confirm("确认移除该成员？");
                     if(r==true){
                         post(id);
                     }
@@ -163,12 +163,16 @@
         }
 
         $("#terminateApplyBtn").on('click',function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: targetUrl,
+            var userList='<%=userActivityList.size()%>';
+            if(userList==='0')
+                showAlert("还没有任何人报名该活动！");
+            else{
+                var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
+                var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
                     //dataType:'JSONP',
                     data: "activityID=" + activityId,
                     beforeSend: function (XHR) {
@@ -190,6 +194,7 @@
                         dialogLoading.hide();
                     }
                 });
+            }
         });
 
         function post(userActivityID){
