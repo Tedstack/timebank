@@ -73,6 +73,7 @@ public class PublishController {
         //判断是否是匿名登陆 游客模式
         if(isAnonymous()){
             map.addAttribute("msg", "notManagerUser");
+            return "activities";
         }
 
         UserEntity user = getCurrentUser();
