@@ -829,7 +829,7 @@ public class TeamController {
 
     @RequestMapping(value = "/createTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String createTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
+    public String createTeam(@RequestParam(value = "headImg", required = false) MultipartFile file,
                              String team_name,
                              String team_location,
                              String content_number,
@@ -838,7 +838,7 @@ public class TeamController {
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>512*1024)
+            if(file.getSize()>1024*1024)
                 return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
             if (!uploadDir.exists()) {

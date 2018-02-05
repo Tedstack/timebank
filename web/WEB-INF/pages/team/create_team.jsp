@@ -11,6 +11,7 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
 <body>
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
@@ -117,7 +118,9 @@
             $uploaderInput1[0].value='';
         });
         $("#create").on('click', function (){
+            // var fileObj = document.getElementById("file1").files[0];
             var teamName=document.getElementById("team_name").value;
+            var formData = new FormData($("#teamDetail")[0]);
             if(teamName.length>12)
             {
                 showAlert("团队名称建议不超过11个字");
@@ -125,7 +128,6 @@
             }
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
-            var formData = new FormData($("#teamDetail")[0]);
             var phone=document.getElementById("content_number").value;
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
@@ -137,6 +139,17 @@
                 showAlert("请输入正确的手机号");
                 return;
             }
+            // if(fileObj.size/1024 > 1025) { //大于1M，进行压缩上传
+            //     photoCompress(fileObj, {
+            //         quality: 0.2
+            //     }, function(base64Codes){
+            //         //console.log("压缩后：" + base.length / 1024 + " " + base);
+            //         var bl = convertBase64UrlToBlob(base64Codes);
+            //         formData.append("headImg", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+            //     });
+            // }else{ //小于等于1M 原图上传
+            //     formData.append("headImg", fileObj); // 文件对象
+            // }
             $.ajax({
                 type: 'POST',
                 cache: false,
