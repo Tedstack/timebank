@@ -170,8 +170,6 @@
                         showAlert("未上传头像");
                     }else if(data==="nameExist"){
                         showAlert("团队名称已被使用");
-                    }else if(data==="hugeImg"){
-                        showAlert("上传头像图片大小过大");
                     }else if(data==="failure"){
                         showAlert("创建失败");
                     }

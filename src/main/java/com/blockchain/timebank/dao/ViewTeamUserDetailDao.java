@@ -10,4 +10,5 @@ import java.util.List;
 public interface ViewTeamUserDetailDao extends CrudRepository<ViewTeamUserDetailEntity, Long> {
     List<ViewTeamUserDetailEntity> findAllByTeamId(long teamId);
     List<ViewTeamUserDetailEntity> findAllByTeamIdAndIsManagerAndStatus(long teamId,boolean isManager,String status);
+    List<ViewTeamUserDetailEntity> findAllByUserIdAndIsManager(long userId,boolean IsManager);
 }

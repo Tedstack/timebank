@@ -16,8 +16,8 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
 </head>
-<%String surplus=(String) request.getAttribute("surplus");%>
-<body onload="check();">
+<%--<%String surplus=(String) request.getAttribute("surplus");%>--%>
+<body>
 <div class="weui-tab" id="activity">
     <div class="weui-tab__panel">
         <form id="teamDetail" method="post">
@@ -171,15 +171,15 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    function check() {
-        var surplus='<%=surplus%>';
-        if(surplus==="true"){
-            showAlert("每日至多可以发布3个活动<br/>您今日发布次数已达到上限！");
-            $("input").attr("disabled",true);
-            $("textarea").attr("disabled",true);
-            document.getElementById("submitBtn").attr("disabled",true);
-        }
-    }
+    <%--function check() {--%>
+        <%--var surplus='<%=surplus%>';--%>
+        <%--if(surplus==="true"){--%>
+            <%--showAlert("每日至多可以发布3个活动<br/>您今日发布次数已达到上限！");--%>
+            <%--$("input").attr("disabled",true);--%>
+            <%--$("textarea").attr("disabled",true);--%>
+            <%--document.getElementById("submitBtn").attr("disabled",true);--%>
+        <%--}--%>
+    <%--}--%>
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
@@ -309,14 +309,13 @@
                         showAlert("发布成功",function () {
                             goTo(targetUrl2);
                         });
-                    }else if(data==="hugeImg"){
-                        showAlert("请上传一张不大于521k的图片");
-                    }else{
+                    }
+                    if(data==="error"){
                         showAlert("发布失败");
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("发布失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();
