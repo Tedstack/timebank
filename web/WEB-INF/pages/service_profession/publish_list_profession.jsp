@@ -17,8 +17,10 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/utils.js"></script>
-    <title>服务列表</title>
+    <script src="${pageContext.request.contextPath}/js/utils.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scan/function.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scan/configs.js"></script>
+    <title>服务柜台</title>
     <style>
         .overtimeFlag{
             float:right;
@@ -32,6 +34,22 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
+
+            <div class="weui-cells">
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">服务类型</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="serviceType" id="serviceType">
+                            <option value="志愿者服务">志愿者服务</option>
+                            <option value="互助服务">互助服务</option>
+                            <option value="专业服务" selected="selected">专业服务</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="weui-panel__hd">
                 <span><%out.print(request.getAttribute("type"));%></span>
                 <a href="${pageContext.request.contextPath}/publish/select?type=<%out.print(request.getAttribute("type"));%>" style="float:right">筛选</a>
@@ -74,23 +92,40 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">首页</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">服务柜台</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/user/queryOrderAlreadyApply" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">服务</p>
+            <p class="weui-tabbar__label" style="margin:0px">我预约的服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">活动</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">我</p>
+            <p class="weui-tabbar__label" style="margin:0px">我发布的需求</p>
         </a>
     </div>
 </div>
+
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var contextPath="${pageContext.request.contextPath}";
+    $(document).ready(function () {
+        $("#serviceType").change(function () {
+            var type = $(this).val();
+            if(type === "志愿者服务"){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=志愿者服务";
+                goTo(targetUrl);
+            } else if(type === "互助服务"){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=互助服务";
+                goTo(targetUrl);
+            } else if(type === "专业服务"){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=专业服务";
+                goTo(targetUrl);
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

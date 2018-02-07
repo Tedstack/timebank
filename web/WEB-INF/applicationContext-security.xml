@@ -44,8 +44,12 @@
         <intercept-url pattern="/request/detail" access="permitAll()"/>
         <intercept-url pattern="/team/teamActivities" access="permitAll()"/>
         <intercept-url pattern="/team/teamActivityDetails" access="permitAll()"/>
+        <intercept-url pattern="/team/teamList" access="permitAll()"/>
+        <intercept-url pattern="/team/addUserToTeam" access="permitAll()"/>
+        <intercept-url pattern="/team/applyToJoinActivity" access="permitAll()"/>
         <intercept-url pattern="/index" access="permitAll()"/>
         <intercept-url pattern="/share" access="permitAll()"/>
+        <intercept-url pattern="/navigate" access="permitAll()"/>
         <!--游客模式结束-->
         <intercept-url pattern="/changePassword" access="permitAll()"/>
         <intercept-url pattern="/register" access="permitAll()"/>

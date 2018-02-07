@@ -15,7 +15,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <script src="../js/utils.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}/js/utils.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scan/function.js"></script>
+    <script src="${pageContext.request.contextPath}/js/scan/configs.js"></script>
     <style>
         .overtimeFlag{
             float:right;
@@ -24,12 +27,47 @@
             line-height:57px;
         }
     </style>
-    <title>需求列表</title>
+    <title>需求柜台</title>
 </head>
 <body onpageshow="back_to('${pageContext.request.contextPath}/index');">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">
+
+            <div class="weui-cells">
+                <div class="weui-cell weui-cell_select weui-cell_select-after">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">需求类型</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="requestType" id="requestType">
+                            <%
+                                String value = (String) request.getAttribute("type");
+                                if(value.equals("volunteer")){
+                            %>
+                                <option value="志愿者需求" selected="selected">志愿者需求</option>
+                                <option value="互助需求">互助需求</option>
+                                <option value="专业需求">专业需求</option>
+                            <%
+                                }else if(value.equals("mutualAid")){
+                            %>
+                                <option value="志愿者需求">志愿者需求</option>
+                                <option value="互助需求" selected="selected">互助需求</option>
+                                <option value="专业需求">专业需求</option>
+                            <%
+                            }else if(value.equals("technic")){
+                            %>
+                                <option value="志愿者需求">志愿者需求</option>
+                                <option value="互助需求">互助需求</option>
+                                <option value="专业需求" selected="selected">专业需求</option>
+                            <%
+                                }
+                            %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="weui-panel__hd">
                 <span>
                     <%
@@ -108,23 +146,40 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/list?type=volunteer" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">需求柜台</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">服务</p>
+            <p class="weui-tabbar__label">我承接的需求</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/user/queryPublishAlreadyPublish" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">活动</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
+            <p class="weui-tabbar__label">我发布的服务</p>
         </a>
     </div>
 </div>
+
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var contextPath="${pageContext.request.contextPath}";
+    $(document).ready(function () {
+        $("#requestType").change(function () {
+            var type = $(this).val();
+            if(type === "志愿者需求"){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/request/list?type=volunteer";
+                goTo(targetUrl);
+            } else if(type === "互助需求"){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/request/list?type=mutualAid";
+                goTo(targetUrl);
+            } else if(type === "专业需求"){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/request/list?type=technic";
+                goTo(targetUrl);
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

@@ -75,21 +75,17 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">所有</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/team/alreadyApplyActivities" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">服务</p>
+            <p class="weui-tabbar__label">已申请的</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
+            <p class="weui-tabbar__label">我创建的</p>
         </a>
     </div>
 </div>
@@ -98,7 +94,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
+        $('.weui-tabbar:eq(0)').find('a:eq(0)').addClass("weui-bar__item_on");
     });
 </script>
 </body>

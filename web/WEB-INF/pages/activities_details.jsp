@@ -180,9 +180,11 @@
         $("#applyBtn").on('click',function () {
             var nowTime='<%=nowTime%>';
             var applyEndTime='<%=activityPublishDetail.getApplyEndTime()%>';
-            if(nowTime<applyEndTime)
+            if(nowTime>applyEndTime)
                 showAlert("该活动已过报名截止时间");
-            else{var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
+            else{
+                var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
+                var targetUrl2 = "http://"+getDomainName()+contextPath+"/loginPage";
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -200,6 +202,8 @@
                             showAlert("团队管理员不能报名自己发布的活动");
                         }else if(data==="alreadyApply"){
                             showAlert("您已申请参加此活动");
+                        }else if(data==="isAnonymous"){
+                            goTo(targetUrl2);
                         }else{
                             showAlert("申请失败");
                         }
