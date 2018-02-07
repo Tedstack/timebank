@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
+    <script src="../js/scan/function.js"></script>
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" media="all">
