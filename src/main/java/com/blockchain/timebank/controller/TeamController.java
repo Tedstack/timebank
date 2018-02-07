@@ -70,6 +70,15 @@ public class TeamController {
         List<ViewTeamDetailEntity> alreadyInTeam = new ArrayList<ViewTeamDetailEntity>();
         List<Long> appliedTeamList = new ArrayList<Long>();
         List<ViewTeamDetailEntity> appliedTeam = new ArrayList<ViewTeamDetailEntity>();
+
+        if(isAnonymous()){
+            map.addAttribute("myList", myTeam);
+            map.addAttribute("otherList", viewTeamDetailDao.findAllByDeleted(false));
+            map.addAttribute("alreadyInList", alreadyInTeam);
+            map.addAttribute("appliedList", appliedTeam);
+            return "team/all_teams";
+        }
+
         long currentId = getCurrentUser().getId();
         //从所有用户加入的团队中找到自己已经加入的团队
         for (int i = 0; i < allTeamUser.size(); i++) {
@@ -156,6 +165,11 @@ public class TeamController {
     @RequestMapping(value = "/addUserToTeam", method = RequestMethod.POST)
     @ResponseBody
     public String addUserToTeam(@RequestParam long teamId) {
+        //判断是否匿名登陆，是则重新登陆
+        if(isAnonymous()){
+            return "isAnonymous";
+        }
+
         long userId = getCurrentUser().getId();
         TeamUserEntity teamUser;
         teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),teamId);
@@ -327,6 +341,11 @@ public class TeamController {
     @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
     @ResponseBody
     public String applyToJoinActivity(@RequestParam long activityID) {
+        //判断是否匿名登陆，是则重新登陆
+        if(isAnonymous()){
+            return "isAnonymous";
+        }
+
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if (viewActivityPublishDetailEntity.getCreatorId() ==  getCurrentUser().getId()) {
             return "managerError";
