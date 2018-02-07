@@ -264,22 +264,24 @@ public class TeamController {
     @RequestMapping(value = "/startPublishActivity", method = RequestMethod.GET)
     public String startPublishActivity(ModelMap map) {
         UserEntity user = getCurrentUser();
-        long current=System.currentTimeMillis();//当前时间毫秒数
-        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
-        Timestamp zeroTimestamp = new Timestamp(zero);
-        List<ViewActivityPublishDetailEntity> publishEntities = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndBeginTimeAfter(user.getId(),zeroTimestamp);
-        if(publishEntities.size() >= 3){
-            map.addAttribute("surplus", "true");
-        } else{
-            map.addAttribute("surplus", "false");
-        }
+//        long current=System.currentTimeMillis();//当前时间毫秒数
+//        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+//        Timestamp zeroTimestamp = new Timestamp(zero);
+//        List<ViewActivityPublishDetailEntity> publishEntities = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndBeginTimeAfter(user.getId(),zeroTimestamp);
+//        if(publishEntities.size() >= 3){
+//            map.addAttribute("surplus", "true");
+//        } else{
+//            map.addAttribute("surplus", "false");
+//        }
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
-        if (teamList.size() == 0) {
+        List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndIsManager(user.getId(),true);
+        if (teamList.size() == 0 && manageTeamList.size()==0) {
             map.addAttribute("msg", "notManagerUser");
             return "start_publish_activity_result";
         }
 
         map.addAttribute("teamList", teamList);
+        map.addAttribute("manageTeamList", manageTeamList);
         return "activities_add";
     }
 
@@ -297,7 +299,7 @@ public class TeamController {
                                   String address) {
         String idImg = "";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>512*1024)
+            if(file.getSize()>1024*1024)
                 return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
@@ -306,7 +308,7 @@ public class TeamController {
             int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
             String date = new java.sql.Date(System.currentTimeMillis()).toString();
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = Long.toString(getCurrentUser().getId()) + "_ActImg_"+date+"_"+Integer.toString(ram) + suffix1;
+            idImg = Long.toString(teamId) + "_ActImg_"+date+"_"+Integer.toString(ram) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             try {
@@ -442,8 +444,6 @@ public class TeamController {
         ActivityPublishEntity activity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
         String idImg="";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>512*1024)
-                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -924,7 +924,7 @@ public class TeamController {
             String idImg = "";
             //判断是否需要上传头像
             if (file != null && !file.isEmpty()) {
-                if(file.getSize()>512*1024)
+                if(file.getSize()>1024*1024)
                     return "hugeImg";
                 File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
                 if (!uploadDir.exists()) {
@@ -933,7 +933,7 @@ public class TeamController {
                 int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
                 String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
                 idImg = team_name + "_headImg_" + Integer.toString(ram) + suffix1;
-                String path = "/home/ubuntu/timebank/picture/teamHeadImg";
+                String path = "/home/ubuntu/timebank/picture/teamHeadImg/";
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);

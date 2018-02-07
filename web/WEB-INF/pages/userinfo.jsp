@@ -74,7 +74,7 @@
         <div class="weui-cell__ft"style="color: #7ACF41"><%out.print(userEntity.getTimeCoin());%></div>
     </a>
 
-    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/volunteer_coin">
+    <a class="weui-cell weui-cell_access" href="${pageContext.request.contextPath}/user/timebankinfo">
         <div class="weui-cell__hd"><img src="../img/userdetails/志愿者.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
         <div class="weui-cell__bd">
             <p>志愿者时间</p>
