@@ -214,6 +214,13 @@ public class UserController {
         map.addAttribute("user",user);
         return "change_userinfo";
     }
+    //跳转到个人信息中的时间银行
+    @RequestMapping(value = "/timebankinfo",method = RequestMethod.GET)
+    public String timebankinfo(ModelMap map){
+        UserEntity user = getCurrentUser();
+        map.addAttribute("user",user);
+        return "timebank";
+    }
     //跳转到修改密码
     @RequestMapping(value = "/ChangePassword",method = RequestMethod.GET)
     public String startChangePassword(ModelMap map){
