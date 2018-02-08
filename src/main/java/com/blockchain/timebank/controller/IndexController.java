@@ -59,7 +59,7 @@ public class IndexController {
     @RequestMapping(value = "/loginPage", method = RequestMethod.GET)
     public String loginPage2(HttpServletRequest request, ModelMap map) {
 
-        return "login";
+        return "auto_login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -87,17 +87,14 @@ public class IndexController {
                     String country=snsUserInfo.getCountry();
                     String province=snsUserInfo.getProvince();
                     String city=snsUserInfo.getCity();
-                   String nickname=snsUserInfo.getNickName();
+                    String nickname=snsUserInfo.getNickName();
 
                     System.out.println("======nickName:"+nickname+"======headImgUrl:"+url);
                     int sex=snsUserInfo.getSex();
                     String sex1;
-                    if(sex==1)
-                    {
+                    if(sex==1) {
                         sex1="男";
-                    }
-                    else
-                    {
+                    } else {
                         sex1="女";
                     }
                     userEntity.setCountry(country);
@@ -173,7 +170,6 @@ public class IndexController {
     public String navigate(RedirectAttributes attributes, HttpServletRequest request, ModelMap map, @RequestParam String code, @RequestParam String target){
         System.out.println("授权码："+ code);
         String openIDValue = "noID";
-        boolean isAutoLogin = false;
         // 用户同意授权
         if(null != code) {
             // 用code换取access_token（同时会得到OpenID）
@@ -215,7 +211,6 @@ public class IndexController {
                     userService.updateUserEntity(userEntity);
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
                     SecurityContextHolder.getContext().setAuthentication(token);
-                    isAutoLogin = true;
                 }else{
                     SecurityContextHolder.getContext().setAuthentication(null);
                 }
@@ -223,12 +218,7 @@ public class IndexController {
         }
 
         if(target.equals("userinfo")){
-            if(isAutoLogin){
-                return "redirect:/user/";
-            }else{
-                map.addAttribute("openID",openIDValue);
-                return "login";
-            }
+            return "redirect:/user/";
         }
 
         if(target.equals("timebank")){
