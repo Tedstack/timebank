@@ -105,7 +105,7 @@ public class PublishController {
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
         List<PublishEntity> publishEntities = publishService.findByUserIdAndCreateTimeAfter(currentUser.getId(),zeroTimestamp);
-        if(publishEntities.size() >= 3){
+        if(publishEntities.size() >= 100){
             map.addAttribute("surplus", true);
         } else{
             map.addAttribute("surplus", false);
