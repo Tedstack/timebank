@@ -59,6 +59,11 @@
                                 ${value.name}
                             </option>
                         </c:forEach>
+                        <c:forEach var="value" items="${manageTeamList}">
+                            <option value="${value.id}">
+                                    ${value.teamName}
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
