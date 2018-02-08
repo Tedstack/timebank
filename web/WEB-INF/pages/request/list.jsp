@@ -29,7 +29,7 @@
     </style>
     <title>需求柜台</title>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/index');">--%>
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">

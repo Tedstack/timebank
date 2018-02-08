@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/weui.min.css"/>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">--%>
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>

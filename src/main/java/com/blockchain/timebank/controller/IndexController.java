@@ -219,12 +219,11 @@ public class IndexController {
         }
 
         if(target.equals("userinfo")){
-            System.out.println("userinfo跳转");
             return "redirect:/user/";
         }
 
-        if(target.equals("userinfo")){
-            return "redirect:/user/";
+        if(target.equals("timebank")){
+            return "redirect:/user/timebankinfo";
         }
         if(target.equals("activities")){
             return "redirect:/team/teamActivities";

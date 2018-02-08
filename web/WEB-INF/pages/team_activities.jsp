@@ -2,13 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
-  Created by IntelliJ IDEA.
-  User: bobo9978
-  Date: 2017/12/7
-  Time: 18:27
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,7 +18,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/index');">--%>
 <%
     List<ActivityPublishEntity> activityList = (List<ActivityPublishEntity>) request.getAttribute("activityList");
 %>

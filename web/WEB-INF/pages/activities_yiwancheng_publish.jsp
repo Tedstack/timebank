@@ -17,7 +17,7 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">--%>
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>
