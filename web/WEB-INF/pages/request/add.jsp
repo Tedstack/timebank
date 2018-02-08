@@ -153,17 +153,17 @@
 
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/request/list?type=volunteer" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">需求柜台</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">服务柜台</p>
         </a>
-        <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/user/queryOrderAlreadyApply" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我承接的需求</p>
+            <p class="weui-tabbar__label" style="margin:0px">我预约的服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/user/queryPublishAlreadyPublish" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我发布的服务</p>
+            <p class="weui-tabbar__label" style="margin:0px">我发布的需求</p>
         </a>
     </div>
 </div>
@@ -173,7 +173,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
+//        $('.weui-tabbar:eq(0)').find('a:eq(1)').addClass("weui-bar__item_on");
         $('.weui-name:gt(0)').hide();$('.weui-name:gt(0)').find('.weui-select').attr("name","");
         $('.weui-select:eq(0)').change(function () {
             $('.weui-name').hide();$('.weui-name').find('.weui-select').attr("name","");
