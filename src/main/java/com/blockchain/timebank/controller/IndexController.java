@@ -173,6 +173,7 @@ public class IndexController {
     public String navigate(RedirectAttributes attributes, HttpServletRequest request, ModelMap map, @RequestParam String code, @RequestParam String target){
         System.out.println("授权码："+ code);
         String openIDValue = "noID";
+        boolean isAutoLogin = false;
         // 用户同意授权
         if(null != code) {
             // 用code换取access_token（同时会得到OpenID）
@@ -214,12 +215,20 @@ public class IndexController {
                     userService.updateUserEntity(userEntity);
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
                     SecurityContextHolder.getContext().setAuthentication(token);
+                    isAutoLogin = true;
+                }else{
+                    SecurityContextHolder.getContext().setAuthentication(null);
                 }
             }
         }
 
         if(target.equals("userinfo")){
-            return "redirect:/user/";
+            if(isAutoLogin){
+                return "redirect:/user/";
+            }else{
+                map.addAttribute("openID",openIDValue);
+                return "login";
+            }
         }
 
         if(target.equals("timebank")){

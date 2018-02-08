@@ -102,7 +102,7 @@ public class UserController {
 
             Authentication token = new UsernamePasswordAuthenticationToken(phone, MD5Password);
             SecurityContextHolder.getContext().setAuthentication(token);
-            return "redirect:/index";
+            return "redirect:/user/";
         }
     }
 
