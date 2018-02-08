@@ -36,7 +36,7 @@
     </div>
     <div class="weui-msg__opr-area">
         <p class="weui-btn-area">
-            <a href="${pageContext.request.contextPath}/index" class="weui-btn weui-btn_primary">返回首页</a>
+            <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-btn weui-btn_primary">返回首页</a>
         </p>
     </div>
 </div>
