@@ -43,7 +43,7 @@
     </style>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="normal_back();">
+<body>
 <div class="main-container">
     <div class="main-content">
 <div class="page">

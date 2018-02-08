@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/publish/category');">
+<body>
 <div class="main-container">
     <div class="main-content">
 <div class="page">

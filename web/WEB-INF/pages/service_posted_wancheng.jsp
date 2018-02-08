@@ -38,7 +38,7 @@
         }
     </style>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/publish/category');">
+<body>
 <%
     List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
 %>

@@ -30,7 +30,7 @@
             left:50%;
             align-content: center;
             background: #b4d145;
-            border-radius: 50%;
+            border-radius: 47%;
             text-align: center;
             margin-left: -20px;
             padding: 10px 10px;

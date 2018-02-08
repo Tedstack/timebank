@@ -30,7 +30,7 @@
             left:50%;
             align-content: center;
             background: #b4d145;
-            border-radius: 50%;
+            border-radius: 47%;
             text-align: center;
             margin-left: -20px;
             padding: 10px 10px;
@@ -133,4 +133,10 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+        goTo(url+"/team/createPage");
+    });
+</script>
 </html>

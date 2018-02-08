@@ -39,7 +39,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/publish/category');">
+<body>
 <%
     List<ViewPublishDetailEntity> publishList = (List<ViewPublishDetailEntity>) request.getAttribute("publishList");
 %>
