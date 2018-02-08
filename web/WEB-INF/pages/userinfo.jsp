@@ -90,6 +90,7 @@
             </c:choose>
         </div>
     </a>
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <%--<div style="background-color: #f8f8f8; height:10px;"></div>--%>
     <%--<div class="weui-cell">--%>
         <%--<div class="weui-cell__bd">--%>

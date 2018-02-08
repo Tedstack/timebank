@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
     <script src="${pageContext.request.contextPath}/js/utils.js"></script>
     <script src="${pageContext.request.contextPath}/js/scan/function.js"></script>
     <script src="${pageContext.request.contextPath}/js/scan/configs.js"></script>
@@ -26,10 +28,27 @@
             color:#848c99;
             line-height:57px;
         }
+        .float-button {
+            position: fixed; //关键
+        padding: 10px 10px;
+            height: 60px;
+            width: 60px;
+            bottom: 60px;
+            left:47%;
+            line-height: 100%;
+            align-content: center;
+            background: #b4d145;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: -20px;
+            padding: 10px 10px;
+        }
     </style>
     <title>需求柜台</title>
 </head>
 <%--<body onpageshow="back_to('${pageContext.request.contextPath}/index');">--%>
+<div class="main-container">
+    <div class="main-content">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">
@@ -160,9 +179,17 @@
         </a>
     </div>
 </div>
+    </div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
+</div>
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+        goTo(url+"/publish/add");
+    });
     var contextPath="${pageContext.request.contextPath}";
     $(document).ready(function () {
         $("#requestType").change(function () {

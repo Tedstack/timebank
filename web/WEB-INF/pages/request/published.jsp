@@ -22,9 +22,26 @@
     <title>已发布</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
     <style>
         .weui-bar__item_on{
             color: #7ACF41
+        }
+        .float-button {
+            position: fixed; //关键
+        padding: 10px 10px;
+            height: 60px;
+            width: 60px;
+            bottom: 60px;
+            left:47%;
+            line-height: 100%;
+            align-content: center;
+            background: #b4d145;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: -20px;
+            padding: 10px 10px;
         }
     </style>
     <script src="../js/utils.js"></script>
@@ -38,6 +55,8 @@
     List<ViewRequestOrderDetailEntity> requestCompleted = (List<ViewRequestOrderDetailEntity>) request.getAttribute("requestCompleted");
 
 %>
+<div class="main-container">
+    <div class="main-content">
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-navbar">
@@ -436,7 +455,6 @@
 
         </div>
         </div>
-    </div>
 
     <div class="weui-tabbar" style="height: 50px">
         <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-tabbar__item">
@@ -454,8 +472,16 @@
     </div>
 
 </div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
+</div>
+
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+        goTo(url+"/request/add");
+    });
     $(function(){
         var panel_published = $("#published"),
             panel_to_confirm = $("#to_confirm"),

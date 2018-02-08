@@ -20,11 +20,29 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/utils.js"></script>
+    <style>
+        .float-button {
+            position: fixed; //关键
+        padding: 10px 10px;
+            height: 60px;
+            width: 60px;
+            bottom: 60px;
+            left:50%;
+            align-content: center;
+            background: #b4d145;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: -20px;
+            padding: 10px 10px;
+        }
+    </style>
 </head>
-<%--<body onpageshow="back_to('${pageContext.request.contextPath}/user/');">--%>
+<body>
 <%
     List<TeamEntity> teamList = (List<TeamEntity>) request.getAttribute("allTeamList");
 %>
+<div class="main-container">
+    <div class="main-content">
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item">
@@ -108,6 +126,10 @@
         </a>
     </div>
     <%}%>
+</div>
+        </div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>

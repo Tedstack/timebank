@@ -19,15 +19,33 @@
     <title>已预约</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
     <style>
         .weui-bar__item_on{
             color: #7ACF41
+        }
+        .float-button {
+            position: fixed; //关键
+        padding: 10px 10px;
+            height: 60px;
+            width: 60px;
+            bottom: 60px;
+            left:47%;
+            line-height: 100%;
+            align-content: center;
+            background: #b4d145;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: -20px;
+            padding: 10px 10px;
         }
     </style>
     <script src="../js/utils.js"></script>
 </head>
 <body onpageshow="normal_back();">
-
+<div class="main-container">
+    <div class="main-content">
 <div class="page">
     <%
         List<ViewRequestOrderDetailEntity> requestApplied = (List<ViewRequestOrderDetailEntity>) request.getAttribute("requestApplied");
@@ -410,8 +428,16 @@
         </a>
     </div>
 </div>
+    </div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
+</div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+        goTo(url+"/publish/add");
+    });
     $(function(){
         var panel_applied = $("#applied"),
             panel_to_service = $("#to_service"),

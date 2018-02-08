@@ -14,11 +14,30 @@
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/utils.js"></script>
+    <style>
+        .float-button {
+            position: fixed; //关键
+        padding: 10px 10px;
+            height: 60px;
+            width: 60px;
+            bottom: 60px;
+            left:47%;
+            line-height: 100%;
+            align-content: center;
+            background: #b4d145;
+            border-radius: 50%;
+            text-align: center;
+            margin-left: -20px;
+            padding: 10px 10px;
+        }
+    </style>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/publish/category');">
+<body>
 
 <%
     List<ViewPublishOrderDetailEntity> recordDetailList = (List<ViewPublishOrderDetailEntity>) request.getAttribute("recordDetailList");
@@ -56,7 +75,8 @@
         return sb.toString();
     }
 %>
-
+<div class="main-container">
+    <div class="main-content">
 <div class="page">
     <div class="page__bd" style="height: 100%;">
             <%--<div class="weui-cell"style="font-size: 15px;background-color: #f8f8f8;position:fixed;width:100%;z-index:1000;padding-bottom:0px">
@@ -174,8 +194,17 @@
         </a>
     </div>
 </div>
+    </div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
+</div>
+</body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+        goTo(url+"/request/add");
+    });
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
