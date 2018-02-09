@@ -115,7 +115,7 @@
 
     $(function(){
         $("#deleteTeam").on('click', function () {
-            var r=confirm("确认移除该成员");
+            var r=confirm("确认解散该团队?");
             if(r==true){
                 var contextPath="${pageContext.request.contextPath}";
                 var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteTeam";
