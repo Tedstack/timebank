@@ -105,7 +105,7 @@ public class IndexController {
                     userService.updateUserEntity(userEntity);
                     Authentication token = new UsernamePasswordAuthenticationToken(userEntity.getPhone(), userEntity.getPassword());
                     SecurityContextHolder.getContext().setAuthentication(token);
-                    return "redirect:/index";
+                    return "redirect:/user/";
                 }
                 map.addAttribute("openID",openId);
             }else{
