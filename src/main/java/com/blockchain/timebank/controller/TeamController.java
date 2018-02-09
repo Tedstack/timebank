@@ -848,7 +848,7 @@ public class TeamController {
 
     @RequestMapping(value = "/createTeam", method = RequestMethod.POST)
     @ResponseBody
-    public String createTeam(@RequestParam(value = "headImg", required = false) MultipartFile file,
+    public String createTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_name,
                              String team_location,
                              String content_number,
