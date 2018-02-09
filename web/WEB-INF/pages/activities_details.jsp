@@ -180,7 +180,7 @@
         $("#applyBtn").on('click',function () {
             var nowTime='<%=nowTime%>';
             var applyEndTime='<%=bartDateFormat3.format(date3)%>';
-            if(nowTime<applyEndTime)
+            if(nowTime>applyEndTime)
                 showAlert("该活动已过报名截止时间");
             else{
                 var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
