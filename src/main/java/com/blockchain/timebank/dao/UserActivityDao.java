@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserActivityDao extends CrudRepository<UserActivityEntity, Long> {
-    UserActivityEntity findUserActivityEntityByActivityIdAndUserIdAndAllow(long activityID, long userID,boolean isAllow);
+    UserActivityEntity findUserActivityEntityByActivityIdAndUserId(long activityID, long userID);
 }

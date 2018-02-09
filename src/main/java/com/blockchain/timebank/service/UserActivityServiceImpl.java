@@ -18,7 +18,7 @@ public class UserActivityServiceImpl implements UserActivityService {
 
     @Transactional(readOnly=true)
     public UserActivityEntity findUserFromActivity(long userID, long activityID) {
-        UserActivityEntity userActivityEntity = userActivityDao.findUserActivityEntityByActivityIdAndUserIdAndAllow(activityID, userID,true);
+        UserActivityEntity userActivityEntity = userActivityDao.findUserActivityEntityByActivityIdAndUserId(activityID, userID);
         return userActivityEntity;
     }
 
@@ -26,7 +26,7 @@ public class UserActivityServiceImpl implements UserActivityService {
     public UserActivityEntity findUserActivityByID(long userActivityID) {
         return userActivityDao.findOne(userActivityID);
     }
-    
+
     public UserActivityEntity updateUserActivityEntity(UserActivityEntity userActivityEntity) {
         return userActivityDao.save(userActivityEntity);
     }
