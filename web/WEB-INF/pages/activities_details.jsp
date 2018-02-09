@@ -29,7 +29,7 @@
     String isApplied=(String) request.getAttribute("isApplied");
     String type=(String) request.getAttribute("type");
     Date nowDate = new Date();
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String nowTime = formatter.format(nowDate);
 %>
 <!-- 使用 -->
@@ -179,7 +179,7 @@
     $(function(){
         $("#applyBtn").on('click',function () {
             var nowTime='<%=nowTime%>';
-            var applyEndTime='<%=activityPublishDetail.getApplyEndTime()%>';
+            var applyEndTime='<%=bartDateFormat3.format(date3)%>';
             if(nowTime<applyEndTime)
                 showAlert("该活动已过报名截止时间");
             else{
