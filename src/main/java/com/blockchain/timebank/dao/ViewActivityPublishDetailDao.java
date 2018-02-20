@@ -12,5 +12,5 @@ public interface ViewActivityPublishDetailDao extends CrudRepository<ViewActivit
     List<ViewActivityPublishDetailEntity> findAllByDeleted(boolean isDeleted);
     List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(long CreatorId, boolean isDeleted, String status);
     List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatusAndBeginTimeAfter(long CreatorId, boolean isDeleted, String status,Timestamp time);
-    List<ViewActivityPublishDetailEntity> findAllByNameContainingAndStatusAndDeletedAndBeginTimeAfterAndEndTimeBefore(String name,String status,boolean isDeleted,Timestamp beginTime,Timestamp endTime);
+    List<ViewActivityPublishDetailEntity> findAllByNameContainingAndDeletedAndBeginTimeAfterAndEndTimeBefore(String name,boolean isDeleted,Timestamp beginTime,Timestamp endTime);
 }

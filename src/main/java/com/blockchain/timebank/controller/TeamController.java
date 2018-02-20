@@ -24,6 +24,7 @@ import com.blockchain.timebank.weixin.util.MessageUtil;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -981,6 +982,11 @@ public class TeamController {
         return "user_activities_list";
     }
 
+    @RequestMapping(value="/teamAvitivitySelect",method = RequestMethod.GET)
+    public String goToActivitySelectPage(){
+        return "activities_select";
+    }
+
     private UserEntity getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (userDetails != null) {
@@ -989,6 +995,39 @@ public class TeamController {
         } else {
             return null;
         }
+    }
+
+    @RequestMapping(value = "/activitySearch", method = RequestMethod.GET)
+    public String activities(ModelMap map,String activityName,String beginTime,String endTime) throws ParseException {
+        long currentId=getCurrentUser().getId();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = sdf.parse(beginTime);
+        Date endDate = sdf.parse(endTime);
+        Timestamp BeginTime = new Timestamp(startDate.getTime());
+        Timestamp EndTime = new Timestamp(endDate.getTime());
+        List<ViewActivityPublishDetailEntity> activityList=viewActivityPublishDetailDao.findAllByNameContainingAndDeletedAndBeginTimeAfterAndEndTimeBefore(activityName,false,BeginTime,EndTime);
+        //倒序排列
+        Collections.reverse(activityList);
+        //因为使用remove方法，此处循环用倒叙
+        for (int i = activityList.size() - 1; i >= 0; i--) {
+            List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityList.get(i).getId(), true);
+            //判断活动已报名人数是否达到活动要求人数，已达到的活动下架不显示
+            if (userActivityList.size() >= activityList.get(i).getCount()) {
+                activityList.remove(i);
+                continue;
+            }
+            //活动不公开
+            if (!activityList.get(i).isPublic()) {
+                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatusNot(currentId, activityList.get(i).getTeamId(), TeamUserStatus.isDeleted);
+                if (teamUser != null) {
+                    if (teamUser.getStatus() != TeamUserStatus.alreadyEntered)
+                        activityList.remove(i);
+                }
+            }
+        }
+
+        map.addAttribute("activityList", activityList);
+        return "team_activities_select";
     }
 
     private boolean checkTeamNameExist(String teamName) {
