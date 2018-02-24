@@ -18,23 +18,6 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
 <%
     List<ViewActivityPublishDetailEntity> activityList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityList");
@@ -45,7 +28,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-                <span>团队活动</span>
+                <span>活动搜索</span>
             </div>
             <div class="weui-panel__bd">
 
