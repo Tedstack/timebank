@@ -855,6 +855,7 @@ public class TeamController {
                              String content_number,
                              String describe)throws IOException {
         String idImg = "";
+        UserEntity user=getCurrentUser();
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
@@ -874,13 +875,10 @@ public class TeamController {
                 TeamEntity newTeam = new TeamEntity();
                 newTeam.setName(team_name);
                 newTeam.setAddress(team_location);
-                long userId = getCurrentUser().getId();
-                if (content_number.equalsIgnoreCase("")) {
-                    UserEntity user = userService.findUserEntityById(userId);
+                if (content_number.equalsIgnoreCase(""))
                     content_number = user.getPhone();
-                }
                 newTeam.setHeadImg(idImg);
-                newTeam.setCreatorId(userId);
+                newTeam.setCreatorId(user.getId());
                 newTeam.setPhone(content_number);
                 newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
                 newTeam.setDeleted(false);

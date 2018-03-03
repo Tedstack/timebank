@@ -17,7 +17,7 @@
     <script src="../js/scan/configs.js"></script>
 </head>
 <%--<%String surplus=(String) request.getAttribute("surplus");%>--%>
-<body>
+<body onload="check();">
 <div class="weui-tab" id="activity">
     <div class="weui-tab__panel">
         <form id="teamDetail" method="post">
@@ -176,7 +176,7 @@
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    <%--function check() {--%>
+    function check() {
         <%--var surplus='<%=surplus%>';--%>
         <%--if(surplus==="true"){--%>
             <%--showAlert("每日至多可以发布3个活动<br/>您今日发布次数已达到上限！");--%>
@@ -184,7 +184,7 @@
             <%--$("textarea").attr("disabled",true);--%>
             <%--document.getElementById("submitBtn").attr("disabled",true);--%>
         <%--}--%>
-    <%--}--%>
+    }
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
