@@ -14,7 +14,7 @@
     <script src="../js/utils.js"></script>
 </head>
 <body onload="checkVerify()">
-<div class="weui-cells weui-cells_form" style="margin-top: 0px;"> 
+<div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
     <div class="weui-panel__hd weui-cells__title">
         <div class="weui-flex__item"id="return" onclick="history.go(-1)" >

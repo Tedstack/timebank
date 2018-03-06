@@ -35,7 +35,7 @@
             background: #b4d145;
             border-radius: 47%;
             text-align: center;
-            margin-left: -20px;
+            margin-left: -25px;
             padding: 10px 10px;
         }
     </style>
