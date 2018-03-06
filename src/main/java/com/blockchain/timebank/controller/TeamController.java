@@ -149,16 +149,22 @@ public class TeamController {
     public String chosenTeamListPage(ModelMap map) {
         List<TeamUserEntity> allTeamUser = teamUserService.findAll();
         List<Long> alreadyInTeamList = new ArrayList<Long>();
+        List<Long> managerTeamList = new ArrayList<Long>();
         long currentId =  getCurrentUser().getId();
         for (int i = 0; i < allTeamUser.size(); i++) {
             if (allTeamUser.get(i).getUserId() == currentId) {
-                if (allTeamUser.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || allTeamUser.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.isLocked))
-                    alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
+                if (allTeamUser.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || allTeamUser.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.isLocked)){
+                    if(allTeamUser.get(i).isManager())
+                        managerTeamList.add(allTeamUser.get(i).getTeamId());
+                    else
+                        alreadyInTeamList.add(allTeamUser.get(i).getTeamId());
+                }
             }
         }
         List<TeamEntity> myTeam = teamService.findTeamsByCreatorId(currentId);
         map.addAttribute("list", viewTeamDetailDao.findAllByDeleted(false));
         map.addAttribute("alreadyInList", alreadyInTeamList);
+        map.addAttribute("managerTeamList", managerTeamList);
         map.addAttribute("myTeam", myTeam);
         return "team/chosen_teams";
     }
@@ -698,7 +704,7 @@ public class TeamController {
     @RequestMapping(value = "/teamInfo", method = RequestMethod.GET)
     public String teamIndexView(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
-        TeamEntity teamEntity = teamService.findById(id);
+        TeamEntity teamEntity = teamService.findById(Long.parseLong(teamId));
         UserEntity Manager = userService.findUserEntityById(teamEntity.getCreatorId());
         UserEntity creator = userService.findUserEntityById(teamEntity.getCreatorId());
         List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,false,TeamUserStatus.alreadyEntered);
@@ -708,6 +714,9 @@ public class TeamController {
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
         long userId = getCurrentUser().getId();
         String isMember="Out";
+        String isCreator="false";
+        if(userId==creator.getId())
+            isCreator="true";
         //判断用户在这个团队内
         TeamUserEntity team = teamUserService.findByUserIdAndTeamId(userId, id);
         if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
@@ -723,6 +732,7 @@ public class TeamController {
             }
         }
         map.addAttribute("isMember", isMember);
+        map.addAttribute("isCreator", isCreator);
         map.addAttribute("publicActivity", publicActivity);
         map.addAttribute("privateActivity", privateActivity);
         map.addAttribute("teamEntity", teamEntity);

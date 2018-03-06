@@ -111,6 +111,8 @@
                     <div class="weui-form-preview__item">
                         <%if(isMember.equalsIgnoreCase("Out")){%>
                         <a id="addUser" onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
+                        <%}else if(request.getAttribute("isCreator").equals("true")){%>
+                        <a href="${pageContext.request.contextPath}/team/viewTeamInfoPage?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="width: 200px;">查看</a>
                         <%}%>
                     </div>
                 </div>

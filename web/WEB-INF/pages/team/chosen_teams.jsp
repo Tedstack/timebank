@@ -44,6 +44,7 @@
 <%
     List<ViewTeamDetailEntity> teamList = (List<ViewTeamDetailEntity>) request.getAttribute("list");
     List<Long> alreadyInTeamList = (List<Long>) request.getAttribute("alreadyInList");
+    List<Long> managerTeamList = (List<Long>) request.getAttribute("managerTeamList");
     List<TeamEntity> myTeam=(List<TeamEntity>) request.getAttribute("myTeam");
 %>
 <div class="main-container">
@@ -57,27 +58,67 @@
                 </div>
             </div>
             <br>
-            <p style="font-size: 13px;color: #1a1a1a;margin-bottom: 10px;margin-left: 5px;">我创建的团队</p>
-            <%
-                for (int i=0;i<myTeam.size();i++) {
-            %>
-            <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(myTeam.get(i).getId());%>">
+            <div class="weui-cell weui-cell_access" style="margin-bottom: 5px;" id="myTeam" onclick="showList(this);">
+                <div class="weui-cell__bd">
+                    <span style="vertical-align: middle">创建的团队</span>
+                </div>
+                <span style="vertical-align: middle;color: #d0d0d0;"><%out.print(myTeam.size());%></span>
+                <div class="weui-cell__ft"></div>
+            </div>
+            <div style="display: none;margin-bottom: 5px;" id="myTeamList">
+                <%for (int i=0;i<myTeam.size();i++) {%>
+                <div class="weui-panel__bd" onclick="viewTeamPage(this)" id="<%out.print(myTeam.get(i).getId());%>">
+                    <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
+                        <label class="weui-cell weui-check__label" for=<%out.print(myTeam.get(i).getId());%>>
+                            <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                                <img src="../img/teamHeadImg/<%out.print(myTeam.get(i).getHeadImg());%>" style="width: 50px;height: 50px;display: block">
+                            </div>
+                            <div class="weui-cell__bd">
+                                <p><%out.print(myTeam.get(i).getName());%></p>
+                                <p style="font-size: 13px;color: #888888;"><%out.print(myTeam.get(i).getDescription());%></p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+            <div class="weui-cell weui-cell_access" style="margin-bottom: 5px;" id="manageTeam" onclick="showList(this);">
+                <div class="weui-cell__bd">
+                    <span style="vertical-align: middle">管理的团队</span>
+                </div>
+                <span style="vertical-align: middle;color: #d0d0d0;"><%out.print(managerTeamList.size());%></span>
+                <div class="weui-cell__ft"></div>
+            </div>
+            <div style="display: none;margin-bottom: 5px;" id="manageTeamList">
+            <%for (int i=0;i<teamList.size();i++) {
+                    if(managerTeamList.contains(teamList.get(i).getId())){%>
+            <div class="weui-panel__bd">
                 <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
-                    <label class="weui-cell weui-check__label" for=<%out.print(myTeam.get(i).getId());%>>
-                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                            <img src="../img/teamHeadImg/<%out.print(myTeam.get(i).getHeadImg());%>" style="width: 50px;height: 50px;display: block">
+                    <label class="weui-cell weui-check__label" for=<%out.print(teamList.get(i).getId());%>>
+                        <div class="weui-cell__hd" style="position: relative;margin-right: 10px;"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
+                            <img src="../img/teamHeadImg/<%out.print(teamList.get(i).getHeadImg());%>" style="width: 50px;height: 50px;display: block">
                         </div>
-                        <div class="weui-cell__bd">
-                            <p><%out.print(myTeam.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(myTeam.get(i).getDescription());%></p>
+                        <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
+                            <p><%out.print(teamList.get(i).getName());%></p>
+                            <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
                         </div>
+                        <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="quitFromTeam(this)" id=<%out.print(teamList.get(i).getId());%>>退出</a>
                     </label>
                 </div>
             </div>
             <%
+                    }
                 }
             %>
-            <p style="font-size: 13px;color: #1a1a1a;margin-top: 10px;margin-bottom: 10px;margin-left: 5px;">我加入的团队</p>
+            </div>
+            <div class="weui-cell weui-cell_access" style="margin-bottom: 5px;" id="alreadyInTeam" onclick="showList(this);">
+                <div class="weui-cell__bd">
+                    <span style="vertical-align: middle">参加的团队</span>
+                </div>
+                <span style="vertical-align: middle;color: #d0d0d0;"><%out.print(alreadyInTeamList.size());%></span>
+                <div class="weui-cell__ft"></div>
+            </div>
+            <div style="display: none;margin-bottom: 5px;" id="alreadyInTeamList">
             <%
                 for (int i=0;i<teamList.size();i++) {
                     if(alreadyInTeamList.contains(teamList.get(i).getId())){
@@ -174,6 +215,18 @@
     function viewTeamPage(t) {
         var teamId=t.id;
         window.location.href="${pageContext.request.contextPath}/team/teamInfo?teamId="+teamId;
+    }
+    function showList(t) {
+        var id=t.id+"List";
+        var display=document.getElementById(id).style.display;
+        if(display==="none") {
+            document.getElementById(id).style.display = "block";
+            document.getElementById(t.id).style.backgroundColor="aliceblue";
+        }
+        else {
+            document.getElementById(id).style.display = "none";
+            document.getElementById(t.id).style.backgroundColor="white";
+        }
     }
 </script>
 </html>
