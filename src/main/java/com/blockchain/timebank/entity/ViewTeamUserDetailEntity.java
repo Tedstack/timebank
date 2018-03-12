@@ -1,9 +1,6 @@
 package com.blockchain.timebank.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -23,7 +20,7 @@ public class ViewTeamUserDetailEntity {
     private String userHeadImg;
     private boolean teamDeleted;
 
-    @Basic
+    @Id
     @Column(name = "ID", nullable = false)
     public long getId() {
         return id;
