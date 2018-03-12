@@ -1,7 +1,4 @@
-<%@ page import="com.blockchain.timebank.entity.PublishOrderEntity" %>
-<%@ page import="com.blockchain.timebank.entity.PublishEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.ViewPublishOrderDetailEntity" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
@@ -17,26 +14,10 @@
     <title>待确认</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <link rel="stylesheet" href="../css/Item.css"/>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
 <body>
 <%

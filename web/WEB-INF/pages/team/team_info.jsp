@@ -64,7 +64,7 @@
                 </tr>
             </table>
     </div>
-    <div class="page__bd" style="height: 100%;margin-top: 15px;">
+    <div class="page__bd" style="margin-top: 15px;">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__bd">
                     <div class="weui-form-preview__hd">
@@ -106,17 +106,23 @@
                     </div>
                 </div>
             </div>
+            <%if(isMember.equalsIgnoreCase("Out")){%>
             <div class="weui-panel__bd">
                 <div class="weui-form-preview__hd">
                     <div class="weui-form-preview__item">
-                        <%if(isMember.equalsIgnoreCase("Out")){%>
                         <a id="addUser" onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
-                        <%}else if(request.getAttribute("isCreator").equals("true")){%>
-                        <a href="${pageContext.request.contextPath}/team/viewTeamInfoPage?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="width: 200px;">查看</a>
-                        <%}%>
                     </div>
                 </div>
             </div>
+            <%}else if(request.getAttribute("isCreator").equals("true")){%>
+            <div class="weui-panel__bd">
+                <div class="weui-form-preview__hd">
+                    <div class="weui-form-preview__item">
+                        <a href="${pageContext.request.contextPath}/team/viewTeamInfoPage?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="width: 200px;">查看</a>
+                    </div>
+                </div>
+            </div>
+            <%}%>
         </div>
     </div>
     </div>

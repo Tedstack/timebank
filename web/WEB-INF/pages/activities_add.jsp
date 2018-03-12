@@ -16,7 +16,13 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
 </head>
-<%--<%String surplus=(String) request.getAttribute("surplus");%>--%>
+<%
+    //String surplus=(String) request.getAttribute("surplus");
+    response.setHeader("Pragma","No-cache");
+    response.setHeader("Cache-Control","no-cache");
+    response.setDateHeader("Expires", 0);
+    response.flushBuffer();
+%>
 <body onload="check();">
 <div class="weui-tab" id="activity">
     <div class="weui-tab__panel">
@@ -82,12 +88,12 @@
 
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bh">
-                    <label class="weui-label">是否公开</label>
+                    <label class="weui-label">活动对象</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="isPublicOptions" class="weui-select" name="isPublicOptions">
-                        <option value="true">所有人</option>
                         <option value="false">团队成员</option>
+                        <option value="true">对外公开</option>
                     </select>
                 </div>
             </div>

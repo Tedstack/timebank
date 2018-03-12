@@ -55,7 +55,6 @@
 
         <div class="weui-cells">
             <div class="weui-cell">
-                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>活动名称</p>
                 </div>
@@ -71,7 +70,6 @@
             </div>
 
             <div class="weui-cell">
-                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>开始时间</p>
                 </div>
@@ -85,7 +83,6 @@
                 </div>
             </div>
             <div class="weui-cell">
-                <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
                     <p>结束时间</p>
                 </div>

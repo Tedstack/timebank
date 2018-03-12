@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/Item.css"/>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="${pageContext.request.contextPath}/js/utils.js"></script>
@@ -29,21 +30,6 @@
             font-size:16px;
             color:#848c99;
             margin-top: 28px;
-        }
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
         }
     </style>
 </head>

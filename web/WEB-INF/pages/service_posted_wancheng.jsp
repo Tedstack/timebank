@@ -16,27 +16,12 @@
     <title>已完成</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/Item.css"/>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
-    </style>
+
 </head>
 <body>
 <%

@@ -21,14 +21,15 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
 </head>
-<body>
 <%
     String teamId= (String)request.getAttribute("teamId");
     List<UserEntity> ManagerList=(List<UserEntity>) request.getAttribute("ManagerList");
     List<UserEntity> teamUserList=(List<UserEntity>) request.getAttribute("userList");
     List<UserEntity> lockedUserList=(List<UserEntity>) request.getAttribute("lockedList");
     List<UserEntity> appliedList=(List<UserEntity>) request.getAttribute("appliedList");
+    String isCreator=(String)request.getAttribute("isCreator");
 %>
+<body onload="checkAuth();">
 <div class="page">
     <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
         <div class="weui-flex__item">
@@ -143,6 +144,14 @@
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    function checkAuth() {
+        var isCreator=<%=isCreator%>;
+        if(isCreator!=="true"){
+            showAlert("非创建者无修改页面信息权限",function () {
+                history.go(-1);
+            });
+        }
+    }
     var xmlHttpRequest;
     var teamId=<%=teamId%>;
     $(function(){

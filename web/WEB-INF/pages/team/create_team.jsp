@@ -13,6 +13,11 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
+<%  response.setHeader("Pragma","No-cache");
+    response.setHeader("Cache-Control","no-cache");
+    response.setDateHeader("Expires", 0);
+    response.flushBuffer();
+%>
 <body onload="checkVerify()">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
@@ -50,13 +55,30 @@
             <input class="weui-input" id="team_name" name="team_name" placeholder="输入团队名称" maxlength="10">
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">地 点</label></div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__bh">
+            <label class="weui-label">活动区域</label>
+        </div>
         <div class="weui-cell__bd">
-            <div class="weui-cell__bd">
-                <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" maxlength="40" oninput="checkLenLoc(this)"></textarea>
-                <div style="float:right; color:#999"><span id="team_location-count">0</span>/20</div>
-            </div>
+            <select id="team_address" class="weui-select" name="team_address">
+                <option value="不限">不限</option>
+                <option value="黄浦区">黄浦区</option>
+                <option value="徐汇区">徐汇区</option>
+                <option value="长宁区">长宁区</option>
+                <option value="静安区">静安区</option>
+                <option value="普陀区">普陀区</option>
+                <option value="虹口区">虹口区</option>
+                <option value="杨浦区">杨浦区</option>
+                <option value="宝山区">宝山区</option>
+                <option value="闵行区">闵行区</option>
+                <option value="嘉定区">嘉定区</option>
+                <option value="浦东新区">浦东新区</option>
+                <option value="松江区">松江区</option>
+                <option value="金山区">金山区</option>
+                <option value="青浦区">青浦区</option>
+                <option value="奉贤区">奉贤区</option>
+                <option value="崇明区">崇明区</option>
+            </select>
         </div>
     </div>
     <div class="weui-cell">
@@ -126,7 +148,6 @@
             $uploaderInput1[0].value='';
         });
         $("#create").on('click', function (){
-            // var fileObj = document.getElementById("file1").files[0];
             var teamName=document.getElementById("team_name").value;
             var formData = new FormData($("#teamDetail")[0]);
             if(teamName.length>12)
@@ -140,24 +161,10 @@
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
                 return;
-            }else if(document.getElementById("team_location").value==="") {
-                showAlert("请填写团队主要活动地点");
-                return;
             }else if(!isPoneAvailable(phone) && !isTelAvailable(phone)){
                 showAlert("请输入正确的手机号");
                 return;
             }
-            // if(fileObj.size/1024 > 1025) { //大于1M，进行压缩上传
-            //     photoCompress(fileObj, {
-            //         quality: 0.2
-            //     }, function(base64Codes){
-            //         //console.log("压缩后：" + base.length / 1024 + " " + base);
-            //         var bl = convertBase64UrlToBlob(base64Codes);
-            //         formData.append("headImg", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
-            //     });
-            // }else{ //小于等于1M 原图上传
-            //     formData.append("headImg", fileObj); // 文件对象
-            // }
             $.ajax({
                 type: 'POST',
                 cache: false,

@@ -85,7 +85,7 @@
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="activityType">
                         <%if(activityPublishDetail.getType().equalsIgnoreCase(ActivityType.volunteerActivity)){%>
-                        <option value="社区"selected="selected">娱乐活动</option>
+                        <option value="社区" selected="selected">娱乐活动</option>
                         <option value="志愿者" >志愿服务</option>
                         <%}else{%>
                         <option value="社区">娱乐活动</option>
@@ -200,8 +200,9 @@
         var currentUser='<%=currentUser%>';
         var creator='<%=activityPublishDetail.getCreatorId()%>';
         if(currentUser!==creator){
-            showAlert("非创建者无修改页面信息权限");
-            document.getElementById("submitBtn").disabled=true;
+            showAlert("非创建者无修改页面信息权限",function () {
+                history.go(-1);
+            });
         }
     }
     var xmlHttpRequest;

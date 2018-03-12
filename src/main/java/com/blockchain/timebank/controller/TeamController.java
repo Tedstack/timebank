@@ -281,7 +281,7 @@ public class TeamController {
 //            map.addAttribute("surplus", "false");
 //        }
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
-        List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndIsManager(user.getId(),true);
+        List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndManagerAndTeamDeleted(user.getId(),true,false);
         if (teamList.size() == 0 && manageTeamList.size()==0) {
             map.addAttribute("msg", "notManagerUser");
             return "start_publish_activity_result";
@@ -707,8 +707,8 @@ public class TeamController {
         TeamEntity teamEntity = teamService.findById(Long.parseLong(teamId));
         UserEntity Manager = userService.findUserEntityById(teamEntity.getCreatorId());
         UserEntity creator = userService.findUserEntityById(teamEntity.getCreatorId());
-        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,false,TeamUserStatus.alreadyEntered);
-        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,true,TeamUserStatus.alreadyEntered);
+        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndManagerAndStatus(id,false,TeamUserStatus.alreadyEntered);
+        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndManagerAndStatus(id,true,TeamUserStatus.alreadyEntered);
         List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, ActivityStatus.alreadyTerminate);
         List<ActivityPublishEntity> publicActivity = new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
@@ -753,6 +753,7 @@ public class TeamController {
     @RequestMapping(value = "/myTeamMember", method = RequestMethod.GET)
     public String myTeamMemberView(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
+        long creatorId=teamService.findById(id).getCreatorId();
         List<TeamUserEntity> userList = teamUserService.findAllUsersOfOneTeam(id);//only find user id
         List<UserEntity> memberList = new ArrayList<UserEntity>();
         List<UserEntity> ManagerList = new ArrayList<UserEntity>();
@@ -770,12 +771,21 @@ public class TeamController {
             else if (userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
                 appliedList.add(user);
         }
+        if(getCurrentUser().getId()==creatorId)
+            map.addAttribute("isCreator","true");
+        else
+            map.addAttribute("isCreator","false");
         map.addAttribute("teamId",teamId);
         map.addAttribute("ManagerList", ManagerList);
         map.addAttribute("userList", memberList);
         map.addAttribute("lockedList", lockedList);
         map.addAttribute("appliedList", appliedList);
         return "team/my_team_member";
+    }
+
+    @RequestMapping(value = "/myTeamMessage", method = RequestMethod.GET)
+    public String myTeamMessageView(ModelMap map, @RequestParam String teamId) {
+        return "my_team_message";
     }
 
     @RequestMapping(value = "/myTeamHistory", method = RequestMethod.GET)
@@ -861,7 +871,7 @@ public class TeamController {
     @ResponseBody
     public String createTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_name,
-                             String team_location,
+                             String team_address,
                              String content_number,
                              String describe)throws IOException {
         String idImg = "";
@@ -884,7 +894,7 @@ public class TeamController {
             try {
                 TeamEntity newTeam = new TeamEntity();
                 newTeam.setName(team_name);
-                newTeam.setAddress(team_location);
+                newTeam.setAddress(team_address);
                 if (content_number.equalsIgnoreCase(""))
                     content_number = user.getPhone();
                 newTeam.setHeadImg(idImg);

@@ -27,6 +27,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     public TeamEntity addTeamEntity(TeamEntity team){ return teamDao.save(team);}
+
     @Transactional(readOnly=true)
     public List<TeamEntity> findTeamsByCreatorId(long CreatorId) {
         return teamDao.findTeamEntitiesByCreatorIdAndDeleted(CreatorId,false);
