@@ -19,6 +19,7 @@ public class ViewUserActivityDetailEntity {
     private Double userRating;
     private String userComment;
     private long teamId;
+    private Long publishUserId;
     private String name;
     private Timestamp beginTime;
     private Timestamp endTime;
@@ -162,6 +163,16 @@ public class ViewUserActivityDetailEntity {
     }
 
     @Basic
+    @Column(name = "PublishUserID", nullable = true)
+    public Long getPublishUserId() {
+        return publishUserId;
+    }
+
+    public void setPublishUserId(Long publishUserId) {
+        this.publishUserId = publishUserId;
+    }
+
+    @Basic
     @Column(name = "Name", nullable = false, length = 40)
     public String getName() {
         return name;
@@ -294,6 +305,8 @@ public class ViewUserActivityDetailEntity {
             return false;
         if (userRating != null ? !userRating.equals(that.userRating) : that.userRating != null) return false;
         if (userComment != null ? !userComment.equals(that.userComment) : that.userComment != null) return false;
+        if (publishUserId != null ? !publishUserId.equals(that.publishUserId) : that.publishUserId != null)
+            return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
         if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
@@ -324,6 +337,7 @@ public class ViewUserActivityDetailEntity {
         result = 31 * result + (userRating != null ? userRating.hashCode() : 0);
         result = 31 * result + (userComment != null ? userComment.hashCode() : 0);
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
+        result = 31 * result + (publishUserId != null ? publishUserId.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
