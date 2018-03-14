@@ -50,7 +50,7 @@
         </div>
     </div>
     <div id="index" tyle="display: block;">
-    <div style="margin-top:100px;text-align:center;">
+    <div style="margin-top:60px;text-align:center;">
             <br>
             <table align="center" cellpadding="0" style="margin:auto">
                 <tr>
@@ -104,6 +104,14 @@
                         <label class="weui-form-preview__label"><li style="font-size: 15px;">简介</li></label>
                         <em class="weui-form-preview__value" style="font-size: 15px;"><%out.print(team.getDescription());%></em>
                     </div>
+                </div>
+            </div>
+            <div class="weui-panel__bd">
+                <div class="weui-form-preview__hd">
+                    <a href="${pageContext.request.contextPath}/team/teamComment?teamId=<%out.print(team.getId());%>" class="weui-form-preview__item">
+                        <label class="weui-form-preview__label"><li style="font-size: 15px;">历史评价</li></label>
+                        <img src="../img/more.png" width="20" height="20" style="width: 6%;">
+                    </a>
                 </div>
             </div>
             <%if(isMember.equalsIgnoreCase("Out")){%>

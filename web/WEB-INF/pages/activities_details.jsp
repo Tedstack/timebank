@@ -118,13 +118,11 @@
                     %>
                 </div>
             </div>
-            <div class="weui-cell">
-                <div class="weui-cell__bh">
-                    <span style="margin-right: 7px;">活动地点</span>
-                </div>
+            <div class="weui-cell" id="<%out.print(activityPublishDetail.getTeamId());%>" onclick="viewTeamInfo(this)">
                 <div class="weui-cell__bd">
-                    <textarea id="location" class="weui-textarea" name="location" readonly rows="3"><%out.print(activityPublishDetail.getAddress());%></textarea>
+                    <p>活动地点</p>
                 </div>
+                <div class="weui-cell__ft"><%out.print(activityPublishDetail.getAddress());%></div>
             </div>
         </div>
 
@@ -177,9 +175,13 @@
         $("#applyBtn").on('click',function () {
             var nowTime='<%=nowTime%>';
             var applyEndTime='<%=bartDateFormat3.format(date3)%>';
+            var alreadyApplied='<%=userActivityList.size()%>';
+            var count='<%=activityPublishDetail.getCount()%>';
             if(nowTime>applyEndTime)
                 showAlert("该活动已过报名截止时间");
-            else{
+            else if(alreadyApplied===count){
+                showAlert("该活动报名人数已满");
+            }else{
                 var targetUrl = "http://"+getDomainName()+contextPath+"/team/applyToJoinActivity";
                 var targetUrl2 = "http://"+getDomainName()+contextPath+"/loginPage";
                 $.ajax({

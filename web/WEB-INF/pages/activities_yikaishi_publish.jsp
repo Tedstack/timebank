@@ -64,9 +64,9 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(activityDetailList.get(i).getName());%></h4></div>
-                                <div class="weui-flex__item"display="none"></div>
-                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item" diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(activityDetailList.get(i).getName());%></h4></div>
+                                <div class="weui-flex__item" display="none"></div>
+                                <div class="weui-flex__item" display="none"></div>
                             </div>
                             <p class="weui-media-box__desc">活动团队：<%out.print(activityDetailList.get(i).getTeamName());%></p>
                             <p class="weui-media-box__desc">活动地点：<%out.print(activityDetailList.get(i).getAddress());%></p>
@@ -76,10 +76,10 @@
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <div class="weui-flex">
-                            <div class="weui-flex__item"diaplay="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item" diaplay="none"></div>
+                            <div class="weui-flex__item" display="none"></div>
+                            <div class="weui-flex__item" display="none"></div>
+                            <div class="weui-flex__item" display="none"></div>
                             <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/prepareTerminateActivity?activityID=<%out.print(activityDetailList.get(i).getId());%>">结束</a></div>
                         </div>
                     </div>

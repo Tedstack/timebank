@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>管理活动</title>
+    <title>结束活动</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -135,7 +135,7 @@
         $("#terminateActivityBtn").on('click', function () {
 
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyStartedActivities";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyCompleteActivities";
 
             $.ajax({
                 type: 'POST',
@@ -161,7 +161,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("操作失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

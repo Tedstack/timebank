@@ -37,7 +37,6 @@
             <div class="weui-panel__hd">
                 <div class="weui-flex js_category">
                     <p style="margin-right: 250px;">  团队列表</p>
-                    <p style="float: right">  创 建</p>
                 </div>
             </div>
             <div class="container" id="container">

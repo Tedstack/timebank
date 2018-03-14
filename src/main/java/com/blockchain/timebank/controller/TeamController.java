@@ -354,7 +354,7 @@ public class TeamController {
         if(isAnonymous()){
             return "isAnonymous";
         }
-
+        //管理员不能报名自己管理的活动
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if (viewActivityPublishDetailEntity.getCreatorId() ==  getCurrentUser().getId()) {
             return "managerError";
@@ -399,6 +399,7 @@ public class TeamController {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
+        //用户为团队创建者的Activity
         List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatusAndBeginTimeAfter(getCurrentUser().getId(), false, ActivityStatus.waitingForApply,zeroTimestamp);
         //倒序排列
         Collections.reverse(activityDetailList);
@@ -698,9 +699,7 @@ public class TeamController {
         return "activities_daizhixing_volunteer";
     }
 
-    //申请已完成的活动界面（参与活动）
-
-
+    //团队详情页面
     @RequestMapping(value = "/teamInfo", method = RequestMethod.GET)
     public String teamIndexView(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
@@ -990,6 +989,47 @@ public class TeamController {
             System.out.println(e.toString());
             return "failure";
         }
+    }
+
+    @RequestMapping(value = "/deleteActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteActivity(@RequestParam String activityId) {
+        try {
+            ActivityPublishEntity activityPublishEntity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
+            activityPublishEntity.setDeleted(true);
+            activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+            List<UserActivityEntity> userList=userActivityService.findAllByActivityId(Long.parseLong(activityId));
+            for(int i=0;i<userList.size();i++){
+                userList.get(i).setAllow(false);
+                userActivityService.updateUserActivityEntity(userList.get(i));
+            }
+            return "success";
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return "failure";
+        }
+    }
+
+    @RequestMapping(value="/teamComment",method = RequestMethod.GET)
+    public String viewTeamComment(ModelMap map, @RequestParam String teamId){
+        long ID=Long.parseLong(teamId);
+        List<ViewUserActivityDetailEntity> userList=new ArrayList<ViewUserActivityDetailEntity>();
+        double all_rate=0;
+        int num_comment=0;
+        //find all userActivity record
+        List<ViewUserActivityDetailEntity> userActivityList=viewUserActivityDetailDao.findAllByTeamId(ID);
+        for(int i=0;i<userActivityList.size();i++){
+            if(userActivityList.get(i).getUserComment()!=null){
+                userList.add(userActivityList.get(i));
+                all_rate+=userActivityList.get(i).getUserRating();
+                num_comment++;
+            }
+        }
+        all_rate=(double) Math.round(all_rate/num_comment * 100) / 100;
+        map.addAttribute("HeadImg",teamService.findById(ID).getHeadImg());
+        map.addAttribute("averageRate",String.valueOf(all_rate));
+        map.addAttribute("userList",userList);
+        return "team/team_comment_list";
     }
 
     //need promote

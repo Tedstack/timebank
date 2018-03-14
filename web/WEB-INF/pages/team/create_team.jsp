@@ -84,7 +84,7 @@
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="content_number" type="number" maxlength="11" pattern="[0-9]*" name="content_number" placeholder="默认注册手机号"/>
+            <input class="weui-input" id="content_number" type="number" maxlength="11" pattern="[0-9]*" name="content_number" placeholder="默认为注册手机号"/>
         </div>
     </div>
     <div class="weui-cell">
@@ -218,27 +218,19 @@
             obj.value = limitMaxLength(obj.value, 400);
         document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
-    function checkLenLoc(obj)
-    {
-        if (getLength(obj.value) > 40)
-            obj.value = limitMaxLength(obj.value, 40);
-        document.getElementById("team_location-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
-    }
     function isPoneAvailable (pone) {
         var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!myreg.test(pone)) {
-            return false;
-        } else {
+        if(pone!=="") {
+            return myreg.test(pone);
+        }else
             return true;
-        }
     }
     function isTelAvailable (tel) {
         var myreg = /^0\d{2,3}-?\d{7,8}$/;
-        if (!myreg.test(tel)) {
-            return false;
-        } else {
+        if(tel!=="") {
+            return myreg.test(tel);
+        }else
             return true;
-        }
     }
 </script>
 </html>
