@@ -1384,7 +1384,7 @@ i.weui-tabbar__icon,
           transform-origin:0 100%;
   -webkit-transform:scaleY(0.5);
           transform:scaleY(0.5);
-  left:15px;
+  left:0;
 }
 .weui-media-box{
   padding:15px;

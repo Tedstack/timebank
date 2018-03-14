@@ -1,8 +1,8 @@
 .float-button {
     position: fixed; //关键
     padding: 10px 10px;
-    height: 55px;
-    width: 55px;
+    height: 50px;
+    width: 50px;
     bottom: 60px;
     left:50%;
     align-content: center;
