@@ -79,7 +79,7 @@
                             else
                                 out.print("元");
                         %>
-                        /小时 申请服务
+                        /小时 申请需求
                     </a>
                     <a id="requestOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
                         需求已过期，不可申请

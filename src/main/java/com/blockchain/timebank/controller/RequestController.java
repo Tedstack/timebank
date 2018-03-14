@@ -3,6 +3,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.util.MySortList;
 import com.blockchain.timebank.weixin.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -499,5 +500,12 @@ public class RequestController {
             }
         }
         return false;
+    }
+
+    @RequestMapping(value = "/evaluation_request", method = RequestMethod.GET)
+    public String evaluation_request(ModelMap map,@RequestParam long userId) {
+        List<Evaluation_entity> recordlist = requestOrderService.getEvaluationList(userId);
+        map.addAttribute("recordlist",recordlist);
+        return "history_evaluation";
     }
 }
