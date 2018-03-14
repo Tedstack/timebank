@@ -311,6 +311,7 @@ ALTER TABLE `teamUser`
 # activityPublish 团体活动表
 CREATE TABLE `activityPublish` (
   `ID` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `PublishUserID` BIGINT(20) NOT NULL COMMENT '发布者编号',
   `TeamID` BIGINT(20) NOT NULL COMMENT '志愿者团体编号',
   `Name` VARCHAR(40) NOT NULL COMMENT '活动名称',
   `Type` VARCHAR(50) NOT NULL COMMENT '活动类型',
@@ -504,6 +505,7 @@ CREATE VIEW view_activity_publish_detail
   AS
     SELECT
       activityPublish.ID                AS ID,            #编号
+      activityPublish.PublishUserID    AS PublishUserID,  #发布者编号
       activityPublish.TeamID            AS TeamID,        #志愿者团体编号
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.Type              AS Type,          #活动类型
@@ -558,7 +560,8 @@ CREATE VIEW view_user_activity_detail
       userActivity.ManagerComment   AS ManagerComment,    #管理者评价参与者
       userActivity.UserRating       AS UserRating,      #参与者对活动评分
       userActivity.UserComment     AS UserComment,      #参与者评价活动
-      activityPublish.TeamID        AS TeamID,          #活动团队编队
+      activityPublish.TeamID        AS TeamID,          #活动团队编号
+      activityPublish.PublishUserID    AS PublishUserID,  #活动发布者编号
       activityPublish.Name              AS Name,          #活动名称
       activityPublish.BeginTime         AS BeginTime,     #活动开始时间
       activityPublish.EndTime           AS EndTime,       #活动结束时间
