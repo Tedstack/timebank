@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>待申请</title>
+    <title>待报名</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css"/>
@@ -36,7 +36,7 @@
             </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
-                    待申请
+                    待报名
                 </div>
                 <div class="weui-navbar__item"id="navbar2">
                     待执行

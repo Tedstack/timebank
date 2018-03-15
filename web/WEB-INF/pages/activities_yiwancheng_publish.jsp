@@ -38,7 +38,7 @@
             </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item "id="navbar1">
-                    待申请
+                    待报名
                 </div>
                 <div class="weui-navbar__item"id="navbar2">
                     待执行
