@@ -39,7 +39,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="margin-bottom: 50px">
 
-            <div class="weui-cells">
+            <%--<div class="weui-cells">
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label class="weui-label">需求类型</label>
@@ -71,6 +71,49 @@
                         </select>
                     </div>
                 </div>
+            </div>--%>
+
+            <div class="weui-navbar" style="position:fixed;">
+                <%
+                    String value = (String) request.getAttribute("type");
+                    if(value.equals("volunteer")){
+                %>
+                    <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
+                        志愿者需求
+                    </div>
+                    <div class="weui-navbar__item"id="navbar2">
+                        互助需求
+                    </div>
+                    <div class="weui-navbar__item"id="navbar3">
+                        专业需求
+                    </div>
+                <%
+                }else if(value.equals("mutualAid")){
+                %>
+                    <div class="weui-navbar__item"id="navbar1">
+                        志愿者需求
+                    </div>
+                    <div class="weui-navbar__item weui-bar__item_on"id="navbar2">
+                        互助需求
+                    </div>
+                    <div class="weui-navbar__item"id="navbar3">
+                        专业需求
+                    </div>
+                <%
+                }else if(value.equals("technic")){
+                %>
+                    <div class="weui-navbar__item"id="navbar1">
+                        志愿者需求
+                    </div>
+                    <div class="weui-navbar__item"id="navbar2">
+                        互助需求
+                    </div>
+                    <div class="weui-navbar__item weui-bar__item_on"id="navbar3">
+                        专业需求
+                    </div>
+                <%
+                    }
+                %>
             </div>
 
             <div class="weui-panel__hd">
@@ -177,7 +220,7 @@
         goTo(url+"/publish/add");
     });
     var contextPath="${pageContext.request.contextPath}";
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         $("#requestType").change(function () {
             var type = $(this).val();
             if(type === "志愿者需求"){
@@ -191,6 +234,23 @@
                 goTo(targetUrl);
             }
         });
+    });*/
+
+    $(function(){
+        $("#navbar1").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/request/list?type=volunteer";
+            goTo(targetUrl);
+        });
+        $("#navbar2").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/request/list?type=mutualAid";
+            goTo(targetUrl);
+
+        });
+        $("#navbar3").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/request/list?type=technic";
+            goTo(targetUrl);
+        });
+
     });
 </script>
 

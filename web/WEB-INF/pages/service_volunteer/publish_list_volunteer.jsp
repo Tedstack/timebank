@@ -40,7 +40,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
 
-            <div class="weui-cells">
+            <%--<div class="weui-cells">
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label class="weui-label">服务类型</label>
@@ -52,6 +52,17 @@
                             <option value="专业服务">专业服务</option>
                         </select>
                     </div>
+                </div>
+            </div>--%>
+            <div class="weui-navbar" style="position:fixed;">
+                <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
+                    志愿者服务
+                </div>
+                <div class="weui-navbar__item"id="navbar2">
+                    互助服务
+                </div>
+                <div class="weui-navbar__item"id="navbar3">
+                    专业服务
                 </div>
             </div>
 
@@ -124,7 +135,7 @@
         goTo(url+"/request/add");
     });
     var contextPath="${pageContext.request.contextPath}";
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         $("#serviceType").change(function () {
             var type = $(this).val();
             if(type === "志愿者服务"){
@@ -138,6 +149,23 @@
                 goTo(targetUrl);
             }
         });
+    });*/
+
+    $(function(){
+        $("#navbar1").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=志愿者服务";
+            goTo(targetUrl);
+        });
+        $("#navbar2").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=互助服务";
+            goTo(targetUrl);
+
+        });
+        $("#navbar3").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=专业服务";
+            goTo(targetUrl);
+        });
+
     });
 </script>
 </html>
