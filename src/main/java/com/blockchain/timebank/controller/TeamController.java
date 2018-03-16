@@ -215,7 +215,7 @@ public class TeamController {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllByStatusAndBeginTimeAfter(ActivityStatus.waitingForApply,zeroTimestamp);
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllByStatusAndBeginTimeAfterAndDeleted(ActivityStatus.waitingForApply,zeroTimestamp,false);
         //倒序排列
         Collections.reverse(activityList);
         boolean isAnonymous=isAnonymous();
@@ -399,8 +399,7 @@ public class TeamController {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        //用户为团队创建者的Activity
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdOrPublishUserIdAndDeletedAndStatusAndBeginTimeAfter(getCurrentUser().getId(), getCurrentUser().getId(),false, ActivityStatus.waitingForApply,zeroTimestamp);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByDeletedAndStatusAndBeginTimeAfterAndCreatorIdOrPublishUserId(false, ActivityStatus.waitingForApply,zeroTimestamp,getCurrentUser().getId(),getCurrentUser().getId());
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);

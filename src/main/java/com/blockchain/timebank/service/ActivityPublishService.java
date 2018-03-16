@@ -19,7 +19,7 @@ public interface ActivityPublishService {
 
     List<ActivityPublishEntity> findAllByTeamIdAndStatusAndBeginTimeAfter(long teamId, String status, Timestamp time);
 
-    List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfter(String status, Timestamp time);
+    List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfterAndDeleted(String status, Timestamp time,boolean isDeleted);
 
     List<ActivityPublishEntity> findAllByTeamId(long ID);
 }

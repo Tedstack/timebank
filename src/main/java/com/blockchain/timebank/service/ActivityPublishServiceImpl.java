@@ -42,7 +42,7 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
     public List<ActivityPublishEntity> findAllByTeamIdAndStatusAndBeginTimeAfter(long teamId, String status, Timestamp time){return activityPublishDao.findAllByTeamIdAndStatusAndBeginTimeAfter(teamId,status,time);}
 
     @Transactional(readOnly=true)
-    public List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfter(String status, Timestamp time){return activityPublishDao.findAllByStatusAndBeginTimeAfter(status,time);}
+    public List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfterAndDeleted(String status, Timestamp time,boolean IsDeleted){return activityPublishDao.findAllByStatusAndBeginTimeAfterAndDeleted(status,time,IsDeleted);}
 
     @Transactional(readOnly=true)
     public List<ActivityPublishEntity> findAllByTeamId(long teamId){return activityPublishDao.findAllByTeamId(teamId);}

@@ -102,7 +102,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function checkVerify() {
-        var msg=<%request.getAttribute("msg");%>;
+        var msg='<%request.getAttribute("msg");%>';
         if(msg==="NoVerified"){
             showAlert("未完成实名认证",function () {
                 window.location.href="${pageContext.request.contextPath}/user/startRealNameAuth";

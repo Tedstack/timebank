@@ -11,6 +11,6 @@ import java.util.List;
 public interface ViewActivityPublishDetailDao extends CrudRepository<ViewActivityPublishDetailEntity, Long> {
     List<ViewActivityPublishDetailEntity> findAllByDeleted(boolean isDeleted);
     List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdOrPublishUserIdAndDeletedAndStatus(long CreatorId, long publisherId,boolean isDeleted, String status);
-    List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByCreatorIdOrPublishUserIdAndDeletedAndStatusAndBeginTimeAfter(long CreatorId,long publisherId, boolean isDeleted, String status,Timestamp time);
+    List<ViewActivityPublishDetailEntity> findViewActivityPublishDetailEntitiesByDeletedAndStatusAndBeginTimeAfterAndCreatorIdOrPublishUserId(boolean isDeleted, String status,Timestamp time,long CreatorId,long publisherId);
     List<ViewActivityPublishDetailEntity> findAllByNameContainingAndDeletedAndBeginTimeAfterAndEndTimeBefore(String name,boolean isDeleted,Timestamp beginTime,Timestamp endTime);
 }
