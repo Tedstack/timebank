@@ -18,10 +18,10 @@
 </head>
 <%
     //String surplus=(String) request.getAttribute("surplus");
-    response.setHeader("Pragma","No-cache");
-    response.setHeader("Cache-Control","no-cache");
-    response.setDateHeader("Expires", 0);
-    response.flushBuffer();
+//    response.setHeader("Pragma","No-cache");
+//    response.setHeader("Cache-Control","no-cache");
+//    response.setDateHeader("Expires", 0);
+//    response.flushBuffer();
 %>
 <body onload="check();">
 <div class="weui-tab" id="activity">

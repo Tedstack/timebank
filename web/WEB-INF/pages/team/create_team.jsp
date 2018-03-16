@@ -13,11 +13,6 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<%  response.setHeader("Pragma","No-cache");
-    response.setHeader("Cache-Control","no-cache");
-    response.setDateHeader("Expires", 0);
-    response.flushBuffer();
-%>
 <body onload="checkVerify()">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
