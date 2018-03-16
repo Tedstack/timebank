@@ -250,6 +250,7 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/scan/refundRobot.js"></script>
 <script type="text/javascript">
     var index=document.getElementById("index");
     var member=document.getElementById("member");
@@ -310,6 +311,24 @@
             }
         });
     }
+    wx.ready(function (){
+        // 获取"分享给朋友圈"按钮点击状态及自定义分享内容接口  
+        wx.onMenuShareTimeline({
+            title: '<%=team.getName()%>', // 分享标题  
+            link: '${pageContext.request.contextPath}/team/teamInfo?teamId=<%out.print(team.getId());%>',
+            imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>' // 分享图标  
+        });
+
+
+        // 获取"分享给好友"按钮点击状态及自定义分享内容接口  
+        wx.onMenuShareAppMessage({
+            title: '<%=team.getName()%>', // 分享标题  
+            desc: '<%=team.getDescription()%>', // 分享描述  
+            link: '${pageContext.request.contextPath}/team/teamInfo?teamId=<%out.print(team.getId());%>',
+            imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>', // 分享图标  
+            type: 'link' // 分享类型,music、video或link，不填默认为link  
+        });
+    });
 </script>
 <script type="text/javascript">
 </script>

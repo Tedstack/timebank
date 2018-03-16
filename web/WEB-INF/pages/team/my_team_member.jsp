@@ -145,7 +145,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function checkAuth() {
-        var isCreator=<%=isCreator%>;
+        var isCreator='<%=isCreator%>';
         if(isCreator!=="true"){
             showAlert("非创建者无修改页面信息权限",function () {
                 history.go(-1);

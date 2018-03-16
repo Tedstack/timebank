@@ -14,7 +14,6 @@ function getAppSecret()
 
 function getDomainName()
 {
-    var domainName = "www.i-huzhu.com";
-    //var domainName = "www.i-linli.com";
+    var domainName = "localhost:8080";
     return domainName;
 }
