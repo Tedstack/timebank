@@ -71,6 +71,9 @@ public class RequestController {
                                 @RequestParam String address) {
         try {
             UserEntity user =  getCurrentUser();
+            if(serviceId / 100 == 1 && user.getTimeVol() < price.doubleValue()){
+                return "request/request_publish_result";
+            }
             RequestEntity requestEntity = new RequestEntity();
             requestEntity.setAddress(address);
             requestEntity.setDescription(description);
