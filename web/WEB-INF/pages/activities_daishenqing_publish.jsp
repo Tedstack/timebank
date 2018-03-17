@@ -52,7 +52,8 @@
             <div class="weui-tab__panel" style="padding-bottom: 60px;padding-top: 0px;">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    for (int i=0;i<activityDetailList.size();i++) {
+                    for (int i=0;i<activityDetailList.size();i++){
+                    if(!activityDetailList.get(i).isDeleted()){
                 %>
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
@@ -108,7 +109,7 @@
                     </div>
                 </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
-                <%}%>
+                <%}}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
             <!--weui-tab_panel的结束位置-->

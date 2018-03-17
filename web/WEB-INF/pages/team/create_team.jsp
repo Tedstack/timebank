@@ -13,7 +13,7 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onload="checkVerify()">
+<body onload="checkVerify();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
     <div class="weui-panel__hd weui-cells__title">
@@ -102,7 +102,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function checkVerify() {
-        var msg='<%request.getAttribute("msg");%>';
+        var msg='<%=request.getAttribute("msg")%>';
         if(msg==="NoVerified"){
             showAlert("未完成实名认证",function () {
                 window.location.href="${pageContext.request.contextPath}/user/startRealNameAuth";
