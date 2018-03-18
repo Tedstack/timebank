@@ -149,7 +149,6 @@
                 showAlert("还没有任何人报名该活动！");
             else{
                 var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
-                var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -162,7 +161,7 @@
                     success: function (data) {
                         if(data==="ok"){
                             showAlert("结束报名成功",function () {
-                                goTo(targetUrl2);
+                                window.location.reload();
                             });
                         }else{
                             showAlert("结束报名失败");

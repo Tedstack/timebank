@@ -3,6 +3,7 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.ActivityStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -36,10 +37,7 @@
             </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
-                    待报名
-                </div>
-                <div class="weui-navbar__item"id="navbar2">
-                    待执行
+                    报名中
                 </div>
                 <div class="weui-navbar__item"id="navbar4">
                     已开始
@@ -104,7 +102,11 @@
                             <%}else{%>
                             <div class="weui-flex__item"display="none"></div>
                             <%}%>
+                            <%if(activityDetailList.get(i).getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply)){%>
                             <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
+                            <%}else{%>
+                            <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: orange;" href="${pageContext.request.contextPath}/team/prepareStartActivity?activityID=<%out.print(activityDetailList.get(i).getId());%>">开始</a>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -145,11 +147,6 @@
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="${pageContext.request.contextPath}/team/activitiesWaitingForApply";
-        });
-        $("#navbar2").on('click', function () {
-            $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/team/activitiesWaitingToExecute";
-
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');

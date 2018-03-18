@@ -399,13 +399,14 @@ public class TeamController {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByDeletedAndStatusAndBeginTimeAfterAndCreatorIdOrPublishUserId(false, ActivityStatus.waitingForApply,zeroTimestamp,getCurrentUser().getId(),getCurrentUser().getId());
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findAllByConditionWithTime(getCurrentUser().getId(),ActivityStatus.waitingForApply,zeroTimestamp);
+        List<ViewActivityPublishDetailEntity> activityDetailList_excute = viewActivityPublishDetailDao.findAllByConditionWithTime(getCurrentUser().getId(),ActivityStatus.waitingForExecute,zeroTimestamp);
         //倒序排列
+        activityDetailList.addAll(activityDetailList_excute);
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
         return "activities_daishenqing_publish";
     }
-
     //发布者管理待报名的活动
     @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
     public String manageActivities(ModelMap map, @RequestParam long activityId) {
@@ -516,14 +517,7 @@ public class TeamController {
     }
 
     //待执行团队活动页面（发布活动）
-    @RequestMapping(value = "/activitiesWaitingToExecute", method = RequestMethod.GET)
-    public String activitiesWaitingToExecute(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdOrPublishUserIdAndDeletedAndStatus(getCurrentUser().getId(),getCurrentUser().getId(), false, ActivityStatus.waitingForExecute);
-        //倒序排列
-        Collections.reverse(activityDetailList);
-        map.addAttribute("activityDetailList", activityDetailList);
-        return "activities_daizhixing_publish";
-    }
+
 
     // 发布者开始执行活动、勾选实际参与人员页面
     @RequestMapping(value = "/prepareStartActivity", method = RequestMethod.GET)
@@ -558,7 +552,7 @@ public class TeamController {
     //已开始团队活动页面（发布活动）
     @RequestMapping(value = "/alreadyStartedActivities", method = RequestMethod.GET)
     public String alreadyStartedActivities(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdOrPublishUserIdAndDeletedAndStatus(getCurrentUser().getId(),getCurrentUser().getId(), false, ActivityStatus.alreadyStart);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findAllByCondition(getCurrentUser().getId(),ActivityStatus.alreadyStart);
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
@@ -600,7 +594,7 @@ public class TeamController {
     //申请已完成团队活动页面（发布活动）
     @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
     public String alreadyCompleteActivities(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdOrPublishUserIdAndDeletedAndStatus(getCurrentUser().getId(),getCurrentUser().getId(), false, ActivityStatus.alreadyTerminate);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findAllByCondition(getCurrentUser().getId(),ActivityStatus.alreadyTerminate);
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
