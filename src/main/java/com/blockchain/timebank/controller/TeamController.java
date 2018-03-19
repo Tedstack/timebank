@@ -405,7 +405,7 @@ public class TeamController {
         activityDetailList.addAll(activityDetailList_excute);
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
-        return "activities_daishenqing_publish";
+        return "activities_being_applied";
     }
     //发布者管理待报名的活动
     @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)

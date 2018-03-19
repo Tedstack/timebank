@@ -251,17 +251,27 @@
         wx.onMenuShareTimeline({
             title: '<%=activityPublishDetail.getName()%>', // 分享标题  
             link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID=<%out.print(activityPublishDetail.getId());%>',
-            imgUrl: '../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>' // 分享图标  
+            imgUrl: '../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>',// 分享图标
+            success: function () {
+                showAlert("分享成功！");
+            },
+            cancel: function () {
+                showAlert("已取消分享");
+            }
         });
-
-
         // 获取"分享给好友"按钮点击状态及自定义分享内容接口  
         wx.onMenuShareAppMessage({
             title: '<%=activityPublishDetail.getName()%>', // 分享标题  
             desc: '<%=activityPublishDetail.getDescription()%>', // 分享描述  
             link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID=<%out.print(activityPublishDetail.getId());%>',
             imgUrl: '../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>', // 分享图标  
-            type: 'link' // 分享类型,music、video或link，不填默认为link  
+            type: 'link',// 分享类型,music、video或link，不填默认为link
+            success: function () {
+                showAlert("分享成功！");
+            },
+            cancel: function () {
+                showAlert("已取消分享");
+            }
         });
     });
 </script>
