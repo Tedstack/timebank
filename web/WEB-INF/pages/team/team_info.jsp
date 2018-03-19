@@ -25,7 +25,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/utils.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body onpageshow="normal_back();">
 <%
@@ -312,12 +312,16 @@
             }
         });
     }
+    var title='<%=team.getName()%>';
+    var Id='<%=team.getId()%>';
+    var headImgUrl='<%=team.getHeadImg()%>';
+    var descr='<%=team.getDescription()%>';
     wx.ready(function (){
         // 获取"分享给朋友圈"按钮点击状态及自定义分享内容接口  
         wx.onMenuShareTimeline({
-            title: '<%=team.getName()%>', // 分享标题  
-            link: '${pageContext.request.contextPath}/team/teamInfo?teamId=<%out.print(team.getId());%>',
-            imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>', // 分享图标
+            title: title, // 分享标题  
+            link: '${pageContext.request.contextPath}/team/teamInfo?teamId='+Id,
+            imgUrl: '../img/teamHeadImg/'+headImgUrl, // 分享图标
             success: function () {
                 showAlert("分享成功！");
             },
@@ -329,10 +333,10 @@
 
         // 获取"分享给好友"按钮点击状态及自定义分享内容接口  
         wx.onMenuShareAppMessage({
-            title: '<%=team.getName()%>', // 分享标题  
-            desc: '<%=team.getDescription()%>', // 分享描述  
-            link: '${pageContext.request.contextPath}/team/teamInfo?teamId=<%out.print(team.getId());%>',
-            imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>', // 分享图标  
+            title: title, // 分享标题  
+            desc: descr, // 分享描述  
+            link: '${pageContext.request.contextPath}/team/teamInfo?teamId='+Id,
+            imgUrl: '../img/teamHeadImg/'+headImgUrl, // 分享图标  
             type: 'link', // 分享类型,music、video或link，不填默认为link  
             success: function () {
                 showAlert("分享成功！");

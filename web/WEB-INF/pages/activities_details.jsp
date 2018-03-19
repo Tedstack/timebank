@@ -22,7 +22,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/refundRobot.js"></script>
     <script src="../js/utils.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body onpageshow="normal_back();">
 <%
@@ -247,12 +247,15 @@
             });
         });
     });
+    var title='<%=activityPublishDetail.getName()%>';
+    var headImgUrl='<%=activityPublishDetail.getHeadImg()%>';
+    var descr='<%=activityPublishDetail.getDescription()%>';
     wx.ready(function (){
         // 获取"分享给朋友圈"按钮点击状态及自定义分享内容接口  
         wx.onMenuShareTimeline({
-            title: '<%=activityPublishDetail.getName()%>', // 分享标题  
-            link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID=<%out.print(activityPublishDetail.getId());%>',
-            imgUrl: '../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>',// 分享图标
+            title: title, // 分享标题  
+            link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID,
+            imgUrl: '../img/activityImg/'+headImgUrl,// 分享图标
             success: function () {
                 showAlert("分享成功！");
             },
@@ -262,10 +265,10 @@
         });
         // 获取"分享给好友"按钮点击状态及自定义分享内容接口  
         wx.onMenuShareAppMessage({
-            title: '<%=activityPublishDetail.getName()%>', // 分享标题  
-            desc: '<%=activityPublishDetail.getDescription()%>', // 分享描述  
-            link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID=<%out.print(activityPublishDetail.getId());%>',
-            imgUrl: '../img/activityImg/<%out.print(activityPublishDetail.getHeadImg());%>', // 分享图标  
+            title: title, // 分享标题  
+            desc: descr, // 分享描述  
+            link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID,
+            imgUrl: '../img/activityImg/'+headImgUrl, // 分享图标  
             type: 'link',// 分享类型,music、video或link，不填默认为link
             success: function () {
                 showAlert("分享成功！");
