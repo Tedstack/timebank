@@ -22,6 +22,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/refundRobot.js"></script>
     <script src="../js/utils.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body onpageshow="normal_back();">
 <%

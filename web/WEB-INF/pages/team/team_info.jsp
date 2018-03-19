@@ -25,6 +25,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/utils.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body onpageshow="normal_back();">
 <%
@@ -316,7 +317,13 @@
         wx.onMenuShareTimeline({
             title: '<%=team.getName()%>', // 分享标题  
             link: '${pageContext.request.contextPath}/team/teamInfo?teamId=<%out.print(team.getId());%>',
-            imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>' // 分享图标  
+            imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>', // 分享图标
+            success: function () {
+                showAlert("分享成功！");
+            },
+            cancel: function () {
+                showAlert("已取消分享");
+            }   
         });
 
 
@@ -326,7 +333,13 @@
             desc: '<%=team.getDescription()%>', // 分享描述  
             link: '${pageContext.request.contextPath}/team/teamInfo?teamId=<%out.print(team.getId());%>',
             imgUrl: '../img/teamHeadImg/<%out.print(team.getHeadImg());%>', // 分享图标  
-            type: 'link' // 分享类型,music、video或link，不填默认为link  
+            type: 'link', // 分享类型,music、video或link，不填默认为link  
+            success: function () {
+                showAlert("分享成功！");
+            },
+            cancel: function () {
+                showAlert("已取消分享");
+            }
         });
     });
 </script>
