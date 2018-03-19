@@ -121,7 +121,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/team/createPage");
+        goTo(url+"/team/createPage?timestamp="+(new Date()).valueOf());
     });
 </script>
 </html>

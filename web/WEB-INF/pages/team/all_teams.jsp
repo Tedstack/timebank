@@ -10,8 +10,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>团队列表</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
@@ -196,7 +195,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-            goTo(url+"/team/createPage");
+            goTo(url+"/team/createPage?timestamp="+(new Date()).valueOf());
     });
     var xmlHttpRequest;
     $(function(){

@@ -111,7 +111,7 @@
                 <div class="weui-form-preview__hd">
                     <a href="${pageContext.request.contextPath}/team/teamComment?teamId=<%out.print(team.getId());%>" class="weui-form-preview__item">
                         <label class="weui-form-preview__label"><li style="font-size: 15px;">历史评价</li></label>
-                        <img src="../img/more.png" width="20" height="20" style="width: 6%;">
+                        <img src="../img/more.png" width="40" height="40" style="width: 6%;">
                     </a>
                 </div>
             </div>

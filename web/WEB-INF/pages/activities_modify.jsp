@@ -311,7 +311,7 @@
                 return;
             }
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/activities_category";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingForApply";
             $.ajax({
                 type: 'POST',
                 cache: false,

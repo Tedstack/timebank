@@ -126,7 +126,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/team/startPublishActivity");
+        goTo(url+"/team/startPublishActivity?timestamp="+(new Date()).valueOf());
     });
     $(function(){
         $("#navbar1").on('click', function () {

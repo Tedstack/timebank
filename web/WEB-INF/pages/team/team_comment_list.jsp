@@ -34,8 +34,8 @@
                 <p class="page__desc" style="margin-bottom: 6px;">综合评分: <%out.print(averageRate);%></p>
                 <div class="weui-flex__item">
                     <div class="weui-flex__item">
-                        <div id="app">
-                            <el-rate v-model="value3" show-text>
+                        <div id="app" >
+                            <el-rate v-model="value3" show-text disabled>
                             </el-rate>
                         </div>
                     </div>
