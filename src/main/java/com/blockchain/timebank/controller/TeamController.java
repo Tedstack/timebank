@@ -303,11 +303,9 @@ public class TeamController {
                                   String description,
                                   String beginTime, String endTime, String applyEndTime,
                                   int count,
-                                  String address) {
-        String idImg = "";
+                                  String address) throws IOException {
+        String idImg = "团队.png";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>1024*1024)
-                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -318,30 +316,31 @@ public class TeamController {
             idImg = Long.toString(teamId) + "_ActImg_"+date+"_"+Integer.toString(ram) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
-            try {
-                ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
-                activityPublishEntity.setTeamId(teamId);
-                if (activityType.equalsIgnoreCase("志愿者"))
-                    activityPublishEntity.setType(ActivityType.volunteerActivity);
-                else
-                    activityPublishEntity.setType(ActivityType.communityActivity);
-                activityPublishEntity.setPublic(isPublicOptions);
-                activityPublishEntity.setDeleted(false);
-                activityPublishEntity.setName(activityName);
-                activityPublishEntity.setDescription(description);
-                activityPublishEntity.setHeadImg(idImg);
-                file.transferTo(imgFile);
-                activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
-                activityPublishEntity.setBeginTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " ")).getTime()));
-                activityPublishEntity.setEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " ")).getTime()));
-                activityPublishEntity.setApplyEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " ")).getTime()));
-                activityPublishEntity.setAddress(address);
-                activityPublishEntity.setCount(count);
-                activityPublishService.saveActivityPublishEntity(activityPublishEntity);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "error";
-            }
+            file.transferTo(imgFile);
+        }
+        try {
+            ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+            activityPublishEntity.setTeamId(teamId);
+            if (activityType.equalsIgnoreCase("志愿者"))
+                activityPublishEntity.setType(ActivityType.volunteerActivity);
+            else
+                activityPublishEntity.setType(ActivityType.communityActivity);
+            activityPublishEntity.setPublic(isPublicOptions);
+            activityPublishEntity.setDeleted(false);
+            activityPublishEntity.setName(activityName);
+            activityPublishEntity.setDescription(description);
+            activityPublishEntity.setHeadImg(idImg);
+
+            activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
+            activityPublishEntity.setBeginTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " ")).getTime()));
+            activityPublishEntity.setEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " ")).getTime()));
+            activityPublishEntity.setApplyEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " ")).getTime()));
+            activityPublishEntity.setAddress(address);
+            activityPublishEntity.setCount(count);
+            activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
         }
         return "ok";
     }
@@ -867,13 +866,11 @@ public class TeamController {
                              String team_address,
                              String content_number,
                              String describe)throws IOException {
-        String idImg = "";
+        String idImg = "团队.png";
         UserEntity user=getCurrentUser();
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>1024*1024)
-                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -884,25 +881,24 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
-            try {
-                TeamEntity newTeam = new TeamEntity();
-                newTeam.setName(team_name);
-                newTeam.setAddress(team_address);
-                if (content_number.equalsIgnoreCase(""))
-                    content_number = user.getPhone();
-                newTeam.setHeadImg(idImg);
-                newTeam.setCreatorId(user.getId());
-                newTeam.setPhone(content_number);
-                newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
-                newTeam.setDeleted(false);
-                newTeam.setDescription(describe);
-                teamService.addTeamEntity(newTeam);
-                return "success";
-            } catch (Exception e) {
-                return "failure";
-            }
         }
-        return "missImg";
+        try {
+            TeamEntity newTeam = new TeamEntity();
+            newTeam.setName(team_name);
+            newTeam.setAddress(team_address);
+            if (content_number.equalsIgnoreCase(""))
+                content_number = user.getPhone();
+            newTeam.setHeadImg(idImg);
+            newTeam.setCreatorId(user.getId());
+            newTeam.setPhone(content_number);
+            newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
+            newTeam.setDeleted(false);
+            newTeam.setDescription(describe);
+            teamService.addTeamEntity(newTeam);
+            return "success";
+        } catch (Exception e) {
+            return "failure";
+        }
     }
 
     @RequestMapping(value = "/viewTeamInfoPage", method = RequestMethod.GET)

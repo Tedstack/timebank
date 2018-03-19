@@ -31,11 +31,14 @@
                     <div class="weui-flex__item weui-flex justify align">
                         <div class="weui-uploader">
                             <div class="weui-uploader__hd">
-                                <p class="weui-uploader__title">上传头像</p>
+                                <p id="head-intro" class="weui-uploader__title">单击选择个性头像</p>
                             </div>
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
-                                <div class="weui-uploader__input-box">
+                                <a id="changeImg" href="javascript:" style="display:inline;">
+                                    <img src="../img/teamHeadImg/团队.png" style="width:90px;height:90px;display: block">
+                                </a>
+                                <div class="weui-uploader__input-box" id="addHeadImg" style="width:90px;height:90px;display: none;">
                                     <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
                                 </div>
                             </div>
@@ -145,6 +148,14 @@
             $uploaderInput1.parent().show();
             $uploaderInput1[0].value='';
         });
+        $("#changeImg").on('click', function (){
+            var pre_Img=document.getElementById("changeImg");
+            var add_Img=document.getElementById("addHeadImg");
+            pre_Img.style.display="none";
+            add_Img.style.display="inline";
+            var obj = document.getElementById("head-intro");
+            obj.innerHTML= "请上传头像";
+        });
         $("#create").on('click', function (){
             var teamName=document.getElementById("team_name").value;
             var formData = new FormData($("#teamDetail")[0]);
@@ -179,8 +190,6 @@
                         showAlert("创建成功",function () {
                             window.location.href="${pageContext.request.contextPath}/team/myTeams";
                         });
-                    }else if(data==="missImg"){
-                        showAlert("未上传头像");
                     }else if(data==="nameExist"){
                         showAlert("团队名称已被使用");
                     }else if(data==="failure"){

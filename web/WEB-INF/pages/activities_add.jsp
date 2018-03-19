@@ -39,11 +39,14 @@
                         <div class="weui-flex__item weui-flex justify align">
                             <div class="weui-uploader">
                                 <div class="weui-uploader__hd" style="margin-bottom: 0px;">
-                                    <p class="weui-uploader__title" style="margin: 0 0 0 0;">添加活动封面</p>
+                                    <p id="head-intro" class="weui-uploader__title" style="margin: 0 0 0 0;">点击选择个性封面</p>
                                 </div>
                                 <div class="weui-uploader__bd">
-                                    <ul class="weui-uploader__files" id="files1" style="margin-bottom: 0px;"></ul>
-                                    <div class="weui-uploader__input-box" style="width: 100px;height: 110px;">
+                                    <ul class="weui-uploader__files" id="files1"></ul>
+                                    <a id="changeImg" href="javascript:" style="display:inline;">
+                                        <img src="../img/activityImg/活动.png" style="width:90px;height:90px;display: block">
+                                    </a>
+                                    <div class="weui-uploader__input-box" id="addHeadImg" style="width:90px;height:90px;display: none;">
                                         <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
                                     </div>
                                 </div>
@@ -226,6 +229,14 @@
             $uploaderInput1.parent().show();
             $uploaderInput1[0].value='';
         });
+        $("#changeImg").on('click', function (){
+            var pre_Img=document.getElementById("changeImg");
+            var add_Img=document.getElementById("addHeadImg");
+            pre_Img.style.display="none";
+            add_Img.style.display="inline";
+            var obj = document.getElementById("head-intro");
+            obj.innerHTML= "请上传头像";
+        });
         $("#submitBtn").on('click',function () {
             var activityType=$("#activityType ").val();
             var activityName = $('#activityName').val();
@@ -287,11 +298,6 @@
                 return;
             } else if(applyEndTime<nowTime){
                 showAlert("报名截止时间不合法！");
-                return;
-            }
-
-            if(jQuery("input[id='file1']").val()===""){
-                showAlert("请上传一张活动封面");
                 return;
             }
 
