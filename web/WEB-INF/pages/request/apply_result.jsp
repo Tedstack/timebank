@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/util.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
+<body>
 
 <div class="weui-msg">
     <div class="weui-msg__icon-area">

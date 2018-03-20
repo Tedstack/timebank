@@ -27,7 +27,7 @@
     <script src="../js/utils.js"></script>
     <title>服务详情</title>
 </head>
-<body onpageshow="normal_back();">
+<body>
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");

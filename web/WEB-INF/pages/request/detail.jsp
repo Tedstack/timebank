@@ -20,7 +20,7 @@
     <script src="../js/utils.js"></script>
     <title>需求详情</title>
 </head>
-<body onpageshow="normal_back();">
+<body>
 
 <%
     ViewRequestDetailEntity detail = (ViewRequestDetailEntity) request.getAttribute("detail");

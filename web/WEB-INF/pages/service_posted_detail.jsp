@@ -34,7 +34,7 @@
     </style>
     <title>已发布服务详情</title>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/user/queryPublishAlreadyPublish');">
+<body>
 
 <%
     ViewPublishDetailEntity detail = (ViewPublishDetailEntity) request.getAttribute("detail");
