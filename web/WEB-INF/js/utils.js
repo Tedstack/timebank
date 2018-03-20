@@ -6,7 +6,7 @@ function get_wx_config () {
         }
     });
     $.ajax({
-        url : "http://localhost:8080/timebanktest/scanGetConfigServlet",
+        url : "http://www.i-linli.com/timebanktest/scanGetConfigServlet",
         type : 'post',
         dataType : 'json',
         contentType : "application/x-www-form-urlencoded; charset=utf-8",
