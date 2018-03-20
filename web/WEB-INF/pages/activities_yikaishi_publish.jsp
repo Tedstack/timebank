@@ -21,7 +21,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<%--<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">--%>
+<body>
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>

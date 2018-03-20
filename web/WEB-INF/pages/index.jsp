@@ -20,7 +20,7 @@
 <%--<link rel="stylesheet" href="css/bootstrap.min.css">--%>
     <%--<link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">--%>
 </head>
-<body onload="back_exit();">
+<body>
 <script>get_wx_config();</script>
 
 <div class="weui-tab">

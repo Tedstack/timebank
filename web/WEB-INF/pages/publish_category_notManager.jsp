@@ -18,7 +18,7 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onload="back_exit();">
+<body>
 <script>get_wx_config();</script>
 <div class="page">
     <div class="page__bd" style="height: 100%;">

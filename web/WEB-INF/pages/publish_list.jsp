@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/index');">
+<body>
 
 
 <div class="weui-tab">

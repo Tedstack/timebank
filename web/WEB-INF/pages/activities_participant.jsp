@@ -19,7 +19,7 @@
     <script src="../js/scan/configs.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="normal_back();">
+<body>
 <%
     List<ViewUserActivityDetailEntity> userActivityList_applied = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList_applied");
     List<ViewUserActivityDetailEntity> userActivityList_finished = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList_finished");

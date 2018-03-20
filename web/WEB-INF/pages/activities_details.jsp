@@ -23,7 +23,7 @@
     <script src="../js/utils.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
-<body onpageshow="normal_back();">
+<body>
 <script>get_wx_config();</script>
 <%
     ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
