@@ -48,11 +48,6 @@
             <p class="page__desc">你还没有自己的小团队</p>
         </div>
     </div>
-    <div style="text-align:center;margin-top: 40px;height:100px;">
-        <div style="margin:50px;">
-            <a href="${pageContext.request.contextPath}/team/createPage" class="weui-btn weui-btn_plain-default">创建自己的团队</a>
-        </div>
-    </div>
 </div>
 <%} else{
     for (int i=0;i<teamList.size();i++) {

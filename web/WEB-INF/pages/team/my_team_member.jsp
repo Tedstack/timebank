@@ -148,7 +148,7 @@
         var isCreator='<%=isCreator%>';
         if(isCreator!=="true"){
             showAlert("非创建者无修改页面信息权限",function () {
-                history.go(-1);
+                $('a').removeAttr('onclick');
             });
         }
     }

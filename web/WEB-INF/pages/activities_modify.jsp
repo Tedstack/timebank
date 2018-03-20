@@ -200,9 +200,14 @@
     function checkUser() {
         var currentUser='<%=currentUser%>';
         var creator='<%=activityPublishDetail.getCreatorId()%>';
+        var actStatus='<%=activityPublishDetail.isDeleted()%>';
         if(currentUser!==creator){
             showAlert("非创建者无修改页面信息权限",function () {
-                history.go(-1);
+                $('a').removeAttr('onclick');
+            });
+        }else if(actStatus!==false){
+            showAlert("该活动已经被删除",function () {
+                $('a').removeAttr('onclick');
             });
         }
     }
