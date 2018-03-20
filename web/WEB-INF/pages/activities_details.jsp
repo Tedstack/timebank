@@ -250,34 +250,8 @@
     var title='<%=activityPublishDetail.getName()%>';
     var headImgUrl='<%=activityPublishDetail.getHeadImg()%>';
     var descr='<%=activityPublishDetail.getDescription()%>';
-    wx.ready(function (){
-        // 获取"分享给朋友圈"按钮点击状态及自定义分享内容接口  
-        wx.onMenuShareTimeline({
-            title: title, // 分享标题  
-            link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID,
-            imgUrl: '../img/activityImg/'+headImgUrl,// 分享图标
-            success: function () {
-                showAlert("分享成功！");
-            },
-            cancel: function () {
-                showAlert("已取消分享");
-            }
-        });
-        // 获取"分享给好友"按钮点击状态及自定义分享内容接口  
-        wx.onMenuShareAppMessage({
-            title: title, // 分享标题  
-            desc: descr, // 分享描述  
-            link: '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID,
-            imgUrl: '../img/activityImg/'+headImgUrl, // 分享图标  
-            type: 'link',// 分享类型,music、video或link，不填默认为link
-            success: function () {
-                showAlert("分享成功！");
-            },
-            cancel: function () {
-                showAlert("已取消分享");
-            }
-        });
-    });
+    var link = '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID;
+    share(title, link, descr);
 </script>
 </body>
 </html>
