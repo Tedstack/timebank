@@ -22,7 +22,7 @@ function get_wx_config () {
 }
 
 //增加分享链接到微信朋友圈和分享给朋友
-function share(){
+function share(share_title,share_link,share_imgUrl,share_descr){
     wx.ready(function(){
         wx.checkJsApi({
             jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
@@ -32,9 +32,9 @@ function share(){
         });
         // wx.hideOptionMenu();
         wx.onMenuShareTimeline({
-            title: '测试',
-            link: 'http://www.i-linli.com/timebanktest/team/teamList',
-            imgUrl: 'http://www.i-linli.com/timebanktest/img/activityImg/活动.png',
+            title: share_title,
+            link: share_link,
+            imgUrl: 'http://www.i-linli.com/timebanktest/img/'+share_imgUrl,
             success: function () {
                 alert('分享到朋友圈成功');
                 },
@@ -44,10 +44,10 @@ function share(){
         });
 
         wx.onMenuShareAppMessage({
-            title: '测试',
-            desc: '测试' ,
-            link: 'http://www.i-linli.com/timebanktest/team/teamList' ,
-            imgUrl: 'http://www.i-linli.com/timebanktest/img/activityImg/活动.png',
+            title: share_title,
+            desc: share_descr ,
+            link: share_link ,
+            imgUrl: 'http://www.i-linli.com/timebanktest/img/'+share_imgUrl,
             trigger: function (res) {
                 // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
             },

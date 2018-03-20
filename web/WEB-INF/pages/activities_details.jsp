@@ -247,11 +247,11 @@
             });
         });
     });
-    <%--var title='<%=activityPublishDetail.getName()%>';--%>
-    <%--var headImgUrl='<%=activityPublishDetail.getHeadImg()%>';--%>
-    <%--var descr='<%=activityPublishDetail.getDescription()%>';--%>
-    <%--var link = '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID;--%>
-    share();
+    var title='<%=activityPublishDetail.getName()%>';
+    var headImgUrl='activityImg/'+'<%=activityPublishDetail.getHeadImg()%>';
+    var descr='<%=activityPublishDetail.getDescription()%>';
+    var link = '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID;
+    share(title,link,headImgUrl,descr);
 </script>
 </body>
 </html>
