@@ -94,8 +94,8 @@ function share(title,link,desc){
             }
         });
         wx.onMenuShareAppMessage({
-            title:title,
-            desc: desc ,
+            title:'活动链接测试',
+            desc: '这是一个分享活动链接的测试' ,
             link: link ,
             imgUrl: '',
             trigger: function (res) {
