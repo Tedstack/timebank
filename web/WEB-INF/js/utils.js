@@ -26,40 +26,36 @@ function get_wx_config () {
 function share(){
     wx.ready(function(){
         // wx.hideOptionMenu();
-        document.querySelector('#onMenuShareTimeline').onclick = function () {
-            wx.onMenuShareTimeline({
-                title: '测试',
-                link: 'http://www.i-linli.com/timebanktest/team/teamList',
-                imgUrl: 'http://www.i-linli.com/timebanktest/img/activityImg/活动.png',
-                success: function () {
-                    alert('分享到朋友圈成功');
+        wx.onMenuShareTimeline({
+            title: '测试',
+            link: 'http://www.i-linli.com/timebanktest/team/teamList',
+            imgUrl: 'http://www.i-linli.com/timebanktest/img/activityImg/活动.png',
+            success: function () {
+                alert('分享到朋友圈成功');
                 },
-                cancel: function () {
-                    alert('你没有分享到朋友圈');
-                }
-            });
-        };
+            cancel: function () {
+                alert('你没有分享到朋友圈');
+            }
+        });
 
-        document.querySelector('#onMenuShareAppMessage').onclick = function () {
-            wx.onMenuShareAppMessage({
-                title: '测试',
-                desc: '测试' ,
-                link: 'http://www.i-linli.com/timebanktest/team/teamList' ,
-                imgUrl: 'http://www.i-linli.com/timebanktest/img/activityImg/活动.png',
-                trigger: function (res) {
-                    // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+        wx.onMenuShareAppMessage({
+            title: '测试',
+            desc: '测试' ,
+            link: 'http://www.i-linli.com/timebanktest/team/teamList' ,
+            imgUrl: 'http://www.i-linli.com/timebanktest/img/activityImg/活动.png',
+            trigger: function (res) {
+                // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+            },
+            success: function (res) {
+                alert('分享给朋友成功');
                 },
-                success: function (res) {
-                    alert('分享给朋友成功');
+            cancel: function (res) {
+                alert('你没有分享给朋友');
                 },
-                cancel: function (res) {
-                    alert('你没有分享给朋友');
-                },
-                fail: function (res) {
-                    alert(JSON.stringify(res));
-                }
-            });
-        };
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
     });
 }
 function photoCompress(file,w,objDiv){
