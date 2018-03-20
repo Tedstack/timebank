@@ -30,7 +30,6 @@
             color: #7ACF41
         }
     </style>
-    <script src="../js/utils.js"></script>
 </head>
 <body>
 <%

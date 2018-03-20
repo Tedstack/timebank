@@ -16,6 +16,8 @@
     <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="http://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
     <link href="../css/bootstrap-touch-slider.css" rel="stylesheet" media="all">
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
     <style>
         .button {
             background-color: #4CAF50; /* Green */
@@ -97,5 +99,10 @@
             goTo(url+"/recharge/coins_recharge");
         }
     });
+
+    $("#tixian").click(function(){
+        showAlert("提现请至中山北路3671弄500号-师大一村活动中心");
+    });
+
 </script>
 </html>

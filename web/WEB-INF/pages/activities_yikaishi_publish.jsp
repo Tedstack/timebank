@@ -16,17 +16,11 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
-    <link rel="stylesheet" href="../css/Item.css"/>
-    <script src="../js/scan/function.js"></script>
-    <script src="../js/scan/configs.js"></script>
-    <script src="../js/utils.js"></script>
 </head>
 <body>
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>
-<div class="main-container">
-    <div class="main-content">
 <div class="weui-tab">
     <div class="weui-tab__panel" style="height: 100%;padding-top: 0px;">
         <div class="weui-panel weui-panel_access">
@@ -39,7 +33,10 @@
             </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item "id="navbar1">
-                    报名中
+                    待申请
+                </div>
+                <div class="weui-navbar__item "id="navbar2">
+                    待执行
                 </div>
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar4">
                     已开始
@@ -61,9 +58,9 @@
                         </div>
                         <div class="weui-media-box__bd">
                             <div class="weui-flex">
-                                <div class="weui-flex__item" diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(activityDetailList.get(i).getName());%></h4></div>
-                                <div class="weui-flex__item" display="none"></div>
-                                <div class="weui-flex__item" display="none"></div>
+                                <div class="weui-flex__item"diaplay="none"><h4 class="weui-media-box__title"style="color: #7ACF41"><%out.print(activityDetailList.get(i).getName());%></h4></div>
+                                <div class="weui-flex__item"display="none"></div>
+                                <div class="weui-flex__item"display="none"></div>
                             </div>
                             <p class="weui-media-box__desc">活动团队：<%out.print(activityDetailList.get(i).getTeamName());%></p>
                             <p class="weui-media-box__desc">活动地点：<%out.print(activityDetailList.get(i).getAddress());%></p>
@@ -73,10 +70,10 @@
                 <div class="weui-cell">
                     <div class="weui-cell__bd">
                         <div class="weui-flex">
-                            <div class="weui-flex__item" diaplay="none"></div>
-                            <div class="weui-flex__item" display="none"></div>
-                            <div class="weui-flex__item" display="none"></div>
-                            <div class="weui-flex__item" display="none"></div>
+                            <div class="weui-flex__item"diaplay="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
+                            <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"> <a class="weui-btn weui-btn_mini weui-btn_primary" href="${pageContext.request.contextPath}/team/prepareTerminateActivity?activityID=<%out.print(activityDetailList.get(i).getId());%>">结束</a></div>
                         </div>
                     </div>
@@ -89,34 +86,35 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">所有</p>
+            <p class="weui-tabbar__label">首页</p>
         </a>
-        <a href="${pageContext.request.contextPath}/team/alreadyApplyActivities" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">已申请的</p>
+            <p class="weui-tabbar__label">服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">我创建的</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
+            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我</p>
         </a>
     </div>
-</div>
-    </div>
-    <button class="float-button" style="font-size: xx-large;" id="create">+
-    </button>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var url='${pageContext.request.contextPath}';
-    $("#create").on("click", function() {
-        goTo(url+"/team/startPublishActivity?timestamp="+(new Date()).valueOf());
-    });
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="${pageContext.request.contextPath}/team/activitiesWaitingForApply";
+        });
+        $("#navbar2").on('click', function () {
+            $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
+            location.href="${pageContext.request.contextPath}/team/activitiesWaitingToExecute";
+
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');

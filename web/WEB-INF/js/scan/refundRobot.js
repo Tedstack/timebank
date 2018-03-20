@@ -35,7 +35,7 @@ $(document).ready(function () {
         },
         error: function (xhr, type) {
             showAlert("代码修改中！");
-        },
+        }
     });
 });
 

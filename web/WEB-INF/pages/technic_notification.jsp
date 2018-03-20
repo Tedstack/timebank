@@ -12,7 +12,6 @@
     <title>提交审核</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <script src="../js/utils.js"></script>
 </head>
 <body>
 <div class="weui-msg" style="padding-top: 50%">

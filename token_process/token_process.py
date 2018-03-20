@@ -74,12 +74,12 @@ def get_access_token():
             time.sleep(60)
 
 
-@app.route('/access_token')
+@app.route('/access_token', methods=['POST'])
 def return_access_token():
     return make_response(access_token)
 
 
-@app.route('/js_api_ticket')
+@app.route('/js_api_ticket', methods=['POST'])
 def return_js_api_ticket():
     return make_response(js_api_ticket)
 

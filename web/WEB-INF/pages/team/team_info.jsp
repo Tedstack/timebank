@@ -24,8 +24,6 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
-    <script src="../js/utils.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body>
 <%
@@ -51,7 +49,7 @@
         </div>
     </div>
     <div id="index" tyle="display: block;">
-    <div style="margin-top:60px;text-align:center;">
+    <div style="margin-top:100px;text-align:center;">
             <br>
             <table align="center" cellpadding="0" style="margin:auto">
                 <tr>
@@ -65,7 +63,7 @@
                 </tr>
             </table>
     </div>
-    <div class="page__bd" style="margin-top: 15px;">
+    <div class="page__bd" style="height: 100%;margin-top: 15px;">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__bd">
                     <div class="weui-form-preview__hd">
@@ -109,29 +107,15 @@
             </div>
             <div class="weui-panel__bd">
                 <div class="weui-form-preview__hd">
-                    <a href="${pageContext.request.contextPath}/team/teamComment?teamId=<%out.print(team.getId());%>" class="weui-form-preview__item">
-                        <label class="weui-form-preview__label"><li style="font-size: 15px;">历史评价</li></label>
-                        <img src="../img/more.png" width="40" height="40" style="width: 6%;">
-                    </a>
-                </div>
-            </div>
-            <%if(isMember.equalsIgnoreCase("Out")){%>
-            <div class="weui-panel__bd">
-                <div class="weui-form-preview__hd">
                     <div class="weui-form-preview__item">
+                        <%if(isMember.equalsIgnoreCase("Out")){%>
                         <a id="addUser" onclick="joinToTeam()" class="weui-btn weui-btn_plain-default" style="width: 200px;">加入</a>
-                    </div>
-                </div>
-            </div>
-            <%}else if(request.getAttribute("isCreator").equals("true")){%>
-            <div class="weui-panel__bd">
-                <div class="weui-form-preview__hd">
-                    <div class="weui-form-preview__item">
+                        <%}else if(request.getAttribute("isCreator").equals("true")){%>
                         <a href="${pageContext.request.contextPath}/team/viewTeamInfoPage?teamId=<%out.print(team.getId());%>" class="weui-btn weui-btn_plain-default" style="width: 200px;">查看</a>
+                        <%}%>
                     </div>
                 </div>
             </div>
-            <%}%>
         </div>
     </div>
     </div>
@@ -251,7 +235,6 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script src="../js/scan/refundRobot.js"></script>
 <script type="text/javascript">
     var index=document.getElementById("index");
     var member=document.getElementById("member");
@@ -312,40 +295,6 @@
             }
         });
     }
-    var title='<%=team.getName()%>';
-    var Id='<%=team.getId()%>';
-    var headImgUrl='<%=team.getHeadImg()%>';
-    var descr='<%=team.getDescription()%>';
-    wx.ready(function (){
-        // 获取"分享给朋友圈"按钮点击状态及自定义分享内容接口  
-        wx.onMenuShareTimeline({
-            title: title, // 分享标题  
-            link: '${pageContext.request.contextPath}/team/teamInfo?teamId='+Id,
-            imgUrl: '../img/teamHeadImg/'+headImgUrl, // 分享图标
-            success: function () {
-                showAlert("分享成功！");
-            },
-            cancel: function () {
-                showAlert("已取消分享");
-            }   
-        });
-
-
-        // 获取"分享给好友"按钮点击状态及自定义分享内容接口  
-        wx.onMenuShareAppMessage({
-            title: title, // 分享标题  
-            desc: descr, // 分享描述  
-            link: '${pageContext.request.contextPath}/team/teamInfo?teamId='+Id,
-            imgUrl: '../img/teamHeadImg/'+headImgUrl, // 分享图标  
-            type: 'link', // 分享类型,music、video或link，不填默认为link  
-            success: function () {
-                showAlert("分享成功！");
-            },
-            cancel: function () {
-                showAlert("已取消分享");
-            }
-        });
-    });
 </script>
 <script type="text/javascript">
 </script>

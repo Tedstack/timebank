@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/utils.js"></script>
 </head>
 <body>
 
