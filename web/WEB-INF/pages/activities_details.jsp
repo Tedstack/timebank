@@ -20,7 +20,6 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
-    <script src="../js/scan/refundRobot.js"></script>
     <script src="../js/utils.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
