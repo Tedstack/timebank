@@ -17,9 +17,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="../js/utils.js"></script>
     <title>需求详情</title>
 </head>
-<body>
+<body onpageshow="normal_back();">
 
 <%
     ViewRequestDetailEntity detail = (ViewRequestDetailEntity) request.getAttribute("detail");

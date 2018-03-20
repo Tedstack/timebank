@@ -15,11 +15,12 @@
     <link rel="stylesheet" href="css/weui.css">
     <link rel="stylesheet" href="css/weui-example.css">
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <script src="js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/utils.js"></script>
 <%--<link rel="stylesheet" href="css/bootstrap.min.css">--%>
     <%--<link rel="stylesheet" href="css/bootstrap-touch-slider.css" media="all">--%>
 </head>
-<body>
+<body onload="back_exit();">
 <script>get_wx_config();</script>
 
 <div class="weui-tab">
@@ -186,7 +187,7 @@
         <p class="weui-tabbar__label">我</p>
     </a>
 </div>
-</div>
+
 
 
 <script src="js/jquery/jquery-3.2.1.min.js"></script>

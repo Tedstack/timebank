@@ -10,29 +10,32 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
     <title>团队列表</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <link rel="stylesheet" href="../css/Item.css"/>
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/user/');">--%>
 <%
     List<ViewTeamDetailEntity> myTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("myList");
     List<ViewTeamDetailEntity> otherTeamList=(List<ViewTeamDetailEntity>) request.getAttribute("otherList");
     List<ViewTeamDetailEntity> alreadyInTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("alreadyInList");
     List<ViewTeamDetailEntity> appliedList=(List<ViewTeamDetailEntity>) request.getAttribute("appliedList");
 %>
+<div class="main-container">
+    <div class="main-content">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-                <div class="weui-flex__item">
-                    <p>  团队列表</p>
+                <div class="weui-flex js_category">
+                    <p style="margin-right: 250px;">  团队列表</p>
                 </div>
             </div>
             <div class="container" id="container">
@@ -163,23 +166,37 @@
             </div>
         </div>
     <div class="weui-tabbar">
-            <a class="weui-tabbar__item weui-bar__item_on">
+            <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item weui-bar__item_on">
                 <span style="display: inline-block;">
                     <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                 </span>
-                <p class="weui-tabbar__label">所有团队</p>
+                <p class="weui-tabbar__label">所有</p>
             </a>
             <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
                 <span style="display: inline-block;">
                     <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                 </span>
-                <p class="weui-tabbar__label">已加入团队</p>
+                <p class="weui-tabbar__label">已加入</p>
+            </a>
+            <a href="${pageContext.request.contextPath}/team/myTeams" class="weui-tabbar__item">
+                <span style="display: inline-block;">
+                    <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
+                </span>
+                <p class="weui-tabbar__label">我创建的</p>
             </a>
         </div>
+	</div>
+	</div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
 </div>
 </body>
-<script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+            goTo(url+"/team/createPage?timestamp="+(new Date()).valueOf());
+    });
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
@@ -193,6 +210,7 @@
     function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/loginPage";
             var teamId=t.id;//取要加入团队的Id
             $.ajax({
                 type: 'POST',
@@ -207,6 +225,8 @@
                         showAlert("申请成功",function () {
                             location.reload();
                         });
+                    }else if(data==="isAnonymous"){
+                        goTo(targetUrl2);
                     }
                 },
                 error: function (xhr, type) {

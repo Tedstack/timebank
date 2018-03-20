@@ -23,8 +23,8 @@
     <script src="../js/utils.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
-<body>
-<script> get_wx_config();share(); </script>
+<body onpageshow="normal_back();">
+<script>get_wx_config();</script>
 <%
     ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
@@ -251,6 +251,7 @@
     <%--var headImgUrl='<%=activityPublishDetail.getHeadImg()%>';--%>
     <%--var descr='<%=activityPublishDetail.getDescription()%>';--%>
     <%--var link = '${pageContext.request.contextPath}/team/teamActivityDetails?type=0&activityID='+activityID;--%>
+    share();
 </script>
 </body>
 </html>

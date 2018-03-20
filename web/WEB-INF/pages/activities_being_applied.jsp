@@ -3,21 +3,28 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.blockchain.timebank.entity.ActivityStatus" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>待申请</title>
+    <title>待报名</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/Item.css"/>
+    <script src="../js/scan/function.js"></script>
+    <script src="../js/scan/configs.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">--%>
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>
+<div class="main-container">
+    <div class="main-content">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access" style="height: 100%;">
@@ -30,10 +37,7 @@
             </div>
             <div class="weui-navbar">
                 <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
-                    待申请
-                </div>
-                <div class="weui-navbar__item"id="navbar2">
-                    待执行
+                    报名中
                 </div>
                 <div class="weui-navbar__item"id="navbar4">
                     已开始
@@ -46,7 +50,8 @@
             <div class="weui-tab__panel" style="padding-bottom: 60px;padding-top: 0px;">
                 <!--以下为界面显示部分，需要循环的部分，以下可修改-->
                 <%
-                    for (int i=0;i<activityDetailList.size();i++) {
+                    for (int i=0;i<activityDetailList.size();i++){
+                    if(!activityDetailList.get(i).isDeleted()){
                 %>
                 <div class="weui-panel__bd">
                     <div class="weui-media-box weui-media-box_appmsg">
@@ -91,53 +96,57 @@
                                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 String nowTime = formatter.format(nowDate);
                                 Timestamp beiginTime = activityDetailList.get(i).getBeginTime();
-                                if(formatter.format(beiginTime).compareTo(nowTime)>=0){
+                                if(formatter.format(beiginTime).compareTo(nowTime)>=0 && activityDetailList.get(i).getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply)){
                             %>
                             <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/modifyActivityPage?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a">修改</a></div>
                             <%}else{%>
                             <div class="weui-flex__item"display="none"></div>
                             <%}%>
+                            <%if(activityDetailList.get(i).getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply)){%>
                             <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
+                            <%}else{%>
+                            <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: orange;" href="${pageContext.request.contextPath}/team/prepareStartActivity?activityID=<%out.print(activityDetailList.get(i).getId());%>">开始</a>
+                            <%}%>
                         </div>
                     </div>
                 </div>
                 <div style="background-color: #f8f8f8; height:10px;"></div>
-                <%}%>
+                <%}}%>
                 <!--一个订单详情结束，以上可修改-->
             </div>
             <!--weui-tab_panel的结束位置-->
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
+            <p class="weui-tabbar__label">所有</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
-            <img src="../img/服务.png" alt="" class="weui-tabbar__icon weui-bar__item_on">
-            <p class="weui-tabbar__label" >服务</p>
+        <a href="${pageContext.request.contextPath}/team/alreadyApplyActivities" class="weui-tabbar__item">
+            <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">已申请的</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">我创建的</p>
         </a>
     </div>
 </div>
+    </div>
+    <button class="float-button" style="font-size: xx-large;" id="create">+
+    </button>
+</div>
+</body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $("#create").on("click", function() {
+        goTo(url+"/team/startPublishActivity?timestamp="+(new Date()).valueOf());
+    });
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="${pageContext.request.contextPath}/team/activitiesWaitingForApply";
-        });
-        $("#navbar2").on('click', function () {
-            $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
-            location.href="${pageContext.request.contextPath}/team/activitiesWaitingToExecute";
-
         });
         $("#navbar3").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
@@ -151,5 +160,4 @@
         });
     });
 </script>
-</body>
 </html>

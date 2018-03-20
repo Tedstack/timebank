@@ -33,7 +33,7 @@
         }
     </style>
 </head>
-<body>
+<%--<body onpageshow="back_to('${pageContext.request.contextPath}/index');">--%>
 <div class="main-container">
     <div class="main-content">
 <div class="weui-tab">
