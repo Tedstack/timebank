@@ -1,10 +1,4 @@
 function get_wx_config () {
-    wx.checkJsApi({
-        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-        success: function(res) {
-            alert(res);
-        }
-    });
     $.ajax({
         url : "http://www.i-linli.com/timebanktest/scanGetConfigServlet",
         type : 'post',
@@ -30,6 +24,12 @@ function get_wx_config () {
 //增加分享链接到微信朋友圈和分享给朋友
 function share(){
     wx.ready(function(){
+        wx.checkJsApi({
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+            success: function(res) {
+                alert(res);
+            }
+        });
         // wx.hideOptionMenu();
         wx.onMenuShareTimeline({
             title: '测试',
