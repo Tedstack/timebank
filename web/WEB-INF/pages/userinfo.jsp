@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
-<body>
-<script>get_wx_config();</script>
+<body onload="get_wx_config()">
 <div class="weui-tab__panel">
     <%
         UserEntity userEntity = (UserEntity) request.getAttribute("user");
