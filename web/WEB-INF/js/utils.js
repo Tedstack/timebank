@@ -1,4 +1,10 @@
 function get_wx_config () {
+    wx.checkJsApi({
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+        success: function(res) {
+            alert(res);
+        }
+    });
     $.ajax({
         url : "http://localhost:8080/timebanktest/scanGetConfigServlet",
         type : 'post',
@@ -17,7 +23,6 @@ function get_wx_config () {
                 signature : data.signature,
                 jsApiList : ['onMenuShareTimeline', 'onMenuShareAppMessage']
             });
-            share();
         }
     });
 }
