@@ -27,7 +27,7 @@
     <div class="weui-panel weui-panel_access">
 
         <div class="weui-panel__hd">
-            <span>我的历史评价信息</span>
+            <span>历史评价信息</span>
         </div>
         <div class="weui-panel__bd">
             <%

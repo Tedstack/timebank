@@ -32,8 +32,9 @@
     <form id="activityDetail" method="post">
     <div class="weui-tab__panel">
         <div class="weui-panel__hd">
-            <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
-                <p><img src="../img/返回.png" width="20" height="15"alt="">活动更改</p>
+            <div class="weui-flex js_category" id="return">
+                <p style="margin-right: 240px;">更改活动</p>
+                <a id="delete" style="float: right">删除活动</a>
             </div>
         </div>
         <div class="weui-panel__bd">
@@ -85,7 +86,7 @@
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="activityType">
                         <%if(activityPublishDetail.getType().equalsIgnoreCase(ActivityType.volunteerActivity)){%>
-                        <option value="社区"selected="selected">娱乐活动</option>
+                        <option value="社区" selected="selected">娱乐活动</option>
                         <option value="志愿者" >志愿服务</option>
                         <%}else{%>
                         <option value="社区">娱乐活动</option>
@@ -199,9 +200,15 @@
     function checkUser() {
         var currentUser='<%=currentUser%>';
         var creator='<%=activityPublishDetail.getCreatorId()%>';
+        var actStatus='<%=activityPublishDetail.isDeleted()%>';
         if(currentUser!==creator){
-            showAlert("非创建者无修改页面信息权限");
-            document.getElementById("submitBtn").disabled=true;
+            showAlert("非创建者无修改页面信息权限",function () {
+                $('a').removeAttr('onclick');
+            });
+        }else if(actStatus!==false){
+            showAlert("该活动已经被删除",function () {
+                $('a').removeAttr('onclick');
+            });
         }
     }
     var xmlHttpRequest;
@@ -308,9 +315,8 @@
                 showAlert("申请加入活动时间不能晚于活动结束时间");
                 return;
             }
-
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/modifyActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/publish/activities_category";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingForApply";
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -340,6 +346,42 @@
                     dialogLoading.hide();
                 }
             });
+        });
+    });
+
+    $(function(){
+        $("#delete").on('click', function () {
+            var r=confirm("确认删除该活动?");
+            if(r==true){
+                var contextPath="${pageContext.request.contextPath}";
+                var targetUrl = "http://"+getDomainName()+contextPath+"/team/deleteActivity";
+                var activityId=<%=activityPublishDetail.getId()%>;
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    data: "activityId="+activityId,
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        if(data==="success"){
+                            showAlert("删除成功",function () {
+                                window.location.href="${pageContext.request.contextPath}/team/activitiesWaitingForApply"
+                            });
+                        }
+                        if(data==="failure"){
+                            showAlert("删除失败");
+                        }
+                    },
+                    error: function (xhr, type) {
+                        showAlert("操作失败");
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
+                    }
+                });
+            }
         });
     });
 </script>

@@ -3,6 +3,7 @@ package com.blockchain.timebank.controller;
 
 import com.blockchain.timebank.entity.*;
 import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.util.MySortList;
 import com.blockchain.timebank.weixin.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -70,6 +71,9 @@ public class RequestController {
                                 @RequestParam String address) {
         try {
             UserEntity user =  getCurrentUser();
+            if(serviceId / 100 == 1 && user.getTimeVol() < price.doubleValue()){
+                return "request/request_publish_result";
+            }
             RequestEntity requestEntity = new RequestEntity();
             requestEntity.setAddress(address);
             requestEntity.setDescription(description);
@@ -499,5 +503,12 @@ public class RequestController {
             }
         }
         return false;
+    }
+
+    @RequestMapping(value = "/evaluation_request", method = RequestMethod.GET)
+    public String evaluation_request(ModelMap map,@RequestParam long userId) {
+        List<Evaluation_entity> recordlist = requestOrderService.getEvaluationList(userId);
+        map.addAttribute("recordlist",recordlist);
+        return "history_evaluation";
     }
 }

@@ -1,5 +1,6 @@
 package com.blockchain.timebank.service;
 
+import com.blockchain.timebank.entity.Evaluation_entity;
 import com.blockchain.timebank.entity.ViewRequestOrderDetailEntity;
 import com.blockchain.timebank.entity.RequestOrderEntity;
 
@@ -31,4 +32,6 @@ public interface RequestOrderService {
     List<RequestOrderEntity> findByRequestId(long id);
 
     ViewRequestOrderDetailEntity findRequestOrderDetailById(long id);
+
+    List<Evaluation_entity> getEvaluationList(long userId);
 }

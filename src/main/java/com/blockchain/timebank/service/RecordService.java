@@ -1,5 +1,6 @@
 package com.blockchain.timebank.service;
 
+import com.blockchain.timebank.entity.Evaluation_entity;
 import com.blockchain.timebank.entity.PublishOrderEntity;
 import com.blockchain.timebank.entity.ViewPublishOrderDetailEntity;
 
@@ -24,4 +25,6 @@ public interface RecordService {
     List<PublishOrderEntity> findRecordEntitiesByApplyUserIdAndServiceUserId(long applyUserID, long serviceUserID);
 
     ViewPublishOrderDetailEntity findViewRecordDetailEntityById(long ID);
+
+    List<Evaluation_entity> getEvaluationList(long userId);
 }

@@ -215,7 +215,7 @@ public class TeamController {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllByStatusAndBeginTimeAfter(ActivityStatus.waitingForApply,zeroTimestamp);
+        List<ActivityPublishEntity> activityList = activityPublishService.findAllByStatusAndBeginTimeAfterAndDeleted(ActivityStatus.waitingForApply,zeroTimestamp,false);
         //倒序排列
         Collections.reverse(activityList);
         boolean isAnonymous=isAnonymous();
@@ -281,7 +281,7 @@ public class TeamController {
 //            map.addAttribute("surplus", "false");
 //        }
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
-        List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndIsManager(user.getId(),true);
+        List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndManagerAndTeamDeleted(user.getId(),true,false);
         if (teamList.size() == 0 && manageTeamList.size()==0) {
             map.addAttribute("msg", "notManagerUser");
             return "start_publish_activity_result";
@@ -303,11 +303,9 @@ public class TeamController {
                                   String description,
                                   String beginTime, String endTime, String applyEndTime,
                                   int count,
-                                  String address) {
-        String idImg = "";
+                                  String address) throws IOException {
+        String idImg = "团队.png";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>1024*1024)
-                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -318,30 +316,31 @@ public class TeamController {
             idImg = Long.toString(teamId) + "_ActImg_"+date+"_"+Integer.toString(ram) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
-            try {
-                ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
-                activityPublishEntity.setTeamId(teamId);
-                if (activityType.equalsIgnoreCase("志愿者"))
-                    activityPublishEntity.setType(ActivityType.volunteerActivity);
-                else
-                    activityPublishEntity.setType(ActivityType.communityActivity);
-                activityPublishEntity.setPublic(isPublicOptions);
-                activityPublishEntity.setDeleted(false);
-                activityPublishEntity.setName(activityName);
-                activityPublishEntity.setDescription(description);
-                activityPublishEntity.setHeadImg(idImg);
-                file.transferTo(imgFile);
-                activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
-                activityPublishEntity.setBeginTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " ")).getTime()));
-                activityPublishEntity.setEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " ")).getTime()));
-                activityPublishEntity.setApplyEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " ")).getTime()));
-                activityPublishEntity.setAddress(address);
-                activityPublishEntity.setCount(count);
-                activityPublishService.saveActivityPublishEntity(activityPublishEntity);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "error";
-            }
+            file.transferTo(imgFile);
+        }
+        try {
+            ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
+            activityPublishEntity.setTeamId(teamId);
+            if (activityType.equalsIgnoreCase("志愿者"))
+                activityPublishEntity.setType(ActivityType.volunteerActivity);
+            else
+                activityPublishEntity.setType(ActivityType.communityActivity);
+            activityPublishEntity.setPublic(isPublicOptions);
+            activityPublishEntity.setDeleted(false);
+            activityPublishEntity.setName(activityName);
+            activityPublishEntity.setDescription(description);
+            activityPublishEntity.setHeadImg(idImg);
+
+            activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
+            activityPublishEntity.setBeginTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " ")).getTime()));
+            activityPublishEntity.setEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " ")).getTime()));
+            activityPublishEntity.setApplyEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(applyEndTime.replace("T", " ")).getTime()));
+            activityPublishEntity.setAddress(address);
+            activityPublishEntity.setCount(count);
+            activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
         }
         return "ok";
     }
@@ -354,7 +353,7 @@ public class TeamController {
         if(isAnonymous()){
             return "isAnonymous";
         }
-
+        //管理员不能报名自己管理的活动
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if (viewActivityPublishDetailEntity.getCreatorId() ==  getCurrentUser().getId()) {
             return "managerError";
@@ -393,20 +392,21 @@ public class TeamController {
         return "ok";
     }
 
-    //待申请活动的状态（发布活动）
+    //待报名活动的状态（发布活动）
     @RequestMapping(value = "/activitiesWaitingForApply", method = RequestMethod.GET)
     public String activitiesWaitingForApply(ModelMap map) {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatusAndBeginTimeAfter(getCurrentUser().getId(), false, ActivityStatus.waitingForApply,zeroTimestamp);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findAllByConditionWithTime(getCurrentUser().getId(),ActivityStatus.waitingForApply,zeroTimestamp);
+        List<ViewActivityPublishDetailEntity> activityDetailList_excute = viewActivityPublishDetailDao.findAllByConditionWithTime(getCurrentUser().getId(),ActivityStatus.waitingForExecute,zeroTimestamp);
         //倒序排列
+        activityDetailList.addAll(activityDetailList_excute);
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
-        return "activities_daishenqing_publish";
+        return "activities_being_applied";
     }
-
-    //发布者管理待申请的活动
+    //发布者管理待报名的活动
     @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
     public String manageActivities(ModelMap map, @RequestParam long activityId) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityId);
@@ -471,6 +471,7 @@ public class TeamController {
                 activity.setType(ActivityType.communityActivity);
             activity.setPublic(isPublic);
             activity.setName(activityName);
+            activity.setPublishUserId(getCurrentUser().getId());
             activity.setDescription(description);
             activity.setStatus(ActivityStatus.waitingForApply);
             Date beginDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));
@@ -515,14 +516,7 @@ public class TeamController {
     }
 
     //待执行团队活动页面（发布活动）
-    @RequestMapping(value = "/activitiesWaitingToExecute", method = RequestMethod.GET)
-    public String activitiesWaitingToExecute(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(), false, ActivityStatus.waitingForExecute);
-        //倒序排列
-        Collections.reverse(activityDetailList);
-        map.addAttribute("activityDetailList", activityDetailList);
-        return "activities_daizhixing_publish";
-    }
+
 
     // 发布者开始执行活动、勾选实际参与人员页面
     @RequestMapping(value = "/prepareStartActivity", method = RequestMethod.GET)
@@ -557,7 +551,7 @@ public class TeamController {
     //已开始团队活动页面（发布活动）
     @RequestMapping(value = "/alreadyStartedActivities", method = RequestMethod.GET)
     public String alreadyStartedActivities(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(), false, ActivityStatus.alreadyStart);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findAllByCondition(getCurrentUser().getId(),ActivityStatus.alreadyStart);
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
@@ -599,7 +593,7 @@ public class TeamController {
     //申请已完成团队活动页面（发布活动）
     @RequestMapping(value = "/alreadyCompleteActivities", method = RequestMethod.GET)
     public String alreadyCompleteActivities(ModelMap map) {
-        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndDeletedAndStatus(getCurrentUser().getId(), false, ActivityStatus.alreadyTerminate);
+        List<ViewActivityPublishDetailEntity> activityDetailList = viewActivityPublishDetailDao.findAllByCondition(getCurrentUser().getId(),ActivityStatus.alreadyTerminate);
         //倒序排列
         Collections.reverse(activityDetailList);
         map.addAttribute("activityDetailList", activityDetailList);
@@ -698,17 +692,15 @@ public class TeamController {
         return "activities_daizhixing_volunteer";
     }
 
-    //申请已完成的活动界面（参与活动）
-
-
+    //团队详情页面
     @RequestMapping(value = "/teamInfo", method = RequestMethod.GET)
     public String teamIndexView(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
         TeamEntity teamEntity = teamService.findById(Long.parseLong(teamId));
         UserEntity Manager = userService.findUserEntityById(teamEntity.getCreatorId());
         UserEntity creator = userService.findUserEntityById(teamEntity.getCreatorId());
-        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,false,TeamUserStatus.alreadyEntered);
-        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndIsManagerAndStatus(id,true,TeamUserStatus.alreadyEntered);
+        List<ViewTeamUserDetailEntity> memberList =viewTeamUserDetailDao.findAllByTeamIdAndManagerAndStatus(id,false,TeamUserStatus.alreadyEntered);
+        List<ViewTeamUserDetailEntity> managerList =viewTeamUserDetailDao.findAllByTeamIdAndManagerAndStatus(id,true,TeamUserStatus.alreadyEntered);
         List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, ActivityStatus.alreadyTerminate);
         List<ActivityPublishEntity> publicActivity = new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
@@ -753,6 +745,7 @@ public class TeamController {
     @RequestMapping(value = "/myTeamMember", method = RequestMethod.GET)
     public String myTeamMemberView(ModelMap map, @RequestParam String teamId) {
         long id = Long.parseLong(teamId);
+        long creatorId=teamService.findById(id).getCreatorId();
         List<TeamUserEntity> userList = teamUserService.findAllUsersOfOneTeam(id);//only find user id
         List<UserEntity> memberList = new ArrayList<UserEntity>();
         List<UserEntity> ManagerList = new ArrayList<UserEntity>();
@@ -770,12 +763,21 @@ public class TeamController {
             else if (userList.get(i).getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
                 appliedList.add(user);
         }
+        if(getCurrentUser().getId()==creatorId)
+            map.addAttribute("isCreator","true");
+        else
+            map.addAttribute("isCreator","false");
         map.addAttribute("teamId",teamId);
         map.addAttribute("ManagerList", ManagerList);
         map.addAttribute("userList", memberList);
         map.addAttribute("lockedList", lockedList);
         map.addAttribute("appliedList", appliedList);
         return "team/my_team_member";
+    }
+
+    @RequestMapping(value = "/myTeamMessage", method = RequestMethod.GET)
+    public String myTeamMessageView(ModelMap map, @RequestParam String teamId) {
+        return "my_team_message";
     }
 
     @RequestMapping(value = "/myTeamHistory", method = RequestMethod.GET)
@@ -861,16 +863,14 @@ public class TeamController {
     @ResponseBody
     public String createTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_name,
-                             String team_location,
+                             String team_address,
                              String content_number,
                              String describe)throws IOException {
-        String idImg = "";
+        String idImg = "团队.png";
         UserEntity user=getCurrentUser();
         if (checkTeamNameExist(team_name))
             return "nameExist";
         if (file != null && !file.isEmpty()) {
-            if(file.getSize()>1024*1024)
-                return "hugeImg";
             File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
@@ -881,25 +881,24 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
-            try {
-                TeamEntity newTeam = new TeamEntity();
-                newTeam.setName(team_name);
-                newTeam.setAddress(team_location);
-                if (content_number.equalsIgnoreCase(""))
-                    content_number = user.getPhone();
-                newTeam.setHeadImg(idImg);
-                newTeam.setCreatorId(user.getId());
-                newTeam.setPhone(content_number);
-                newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
-                newTeam.setDeleted(false);
-                newTeam.setDescription(describe);
-                teamService.addTeamEntity(newTeam);
-                return "success";
-            } catch (Exception e) {
-                return "failure";
-            }
         }
-        return "missImg";
+        try {
+            TeamEntity newTeam = new TeamEntity();
+            newTeam.setName(team_name);
+            newTeam.setAddress(team_address);
+            if (content_number.equalsIgnoreCase(""))
+                content_number = user.getPhone();
+            newTeam.setHeadImg(idImg);
+            newTeam.setCreatorId(user.getId());
+            newTeam.setPhone(content_number);
+            newTeam.setCreateDate(new java.sql.Date(System.currentTimeMillis()));
+            newTeam.setDeleted(false);
+            newTeam.setDescription(describe);
+            teamService.addTeamEntity(newTeam);
+            return "success";
+        } catch (Exception e) {
+            return "failure";
+        }
     }
 
     @RequestMapping(value = "/viewTeamInfoPage", method = RequestMethod.GET)
@@ -980,6 +979,47 @@ public class TeamController {
             System.out.println(e.toString());
             return "failure";
         }
+    }
+
+    @RequestMapping(value = "/deleteActivity", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteActivity(@RequestParam String activityId) {
+        try {
+            ActivityPublishEntity activityPublishEntity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
+            activityPublishEntity.setDeleted(true);
+            activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+            List<UserActivityEntity> userList=userActivityService.findAllByActivityId(Long.parseLong(activityId));
+            for(int i=0;i<userList.size();i++){
+                userList.get(i).setAllow(false);
+                userActivityService.updateUserActivityEntity(userList.get(i));
+            }
+            return "success";
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return "failure";
+        }
+    }
+
+    @RequestMapping(value="/teamComment",method = RequestMethod.GET)
+    public String viewTeamComment(ModelMap map, @RequestParam String teamId){
+        long ID=Long.parseLong(teamId);
+        List<ViewUserActivityDetailEntity> userList=new ArrayList<ViewUserActivityDetailEntity>();
+        double all_rate=0;
+        int num_comment=0;
+        //find all userActivity record
+        List<ViewUserActivityDetailEntity> userActivityList=viewUserActivityDetailDao.findAllByTeamId(ID);
+        for(int i=0;i<userActivityList.size();i++){
+            if(userActivityList.get(i).getUserComment()!=null){
+                userList.add(userActivityList.get(i));
+                all_rate+=userActivityList.get(i).getUserRating();
+                num_comment++;
+            }
+        }
+        all_rate=(double) Math.round(all_rate/num_comment * 100) / 100;
+        map.addAttribute("HeadImg",teamService.findById(ID).getHeadImg());
+        map.addAttribute("averageRate",String.valueOf(all_rate));
+        map.addAttribute("userList",userList);
+        return "team/team_comment_list";
     }
 
     //need promote

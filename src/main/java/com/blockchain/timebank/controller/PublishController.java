@@ -4,10 +4,8 @@ import com.blockchain.timebank.dao.TechnicAuthDao;
 import com.blockchain.timebank.dao.ViewPublishDetailDao;
 import com.blockchain.timebank.dao.ViewRecordDetailDao;
 import com.blockchain.timebank.entity.*;
-import com.blockchain.timebank.service.TeamService;
-import com.blockchain.timebank.service.PublishService;
-import com.blockchain.timebank.service.ServiceService;
-import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.service.*;
+import com.blockchain.timebank.util.MySortList;
 import com.blockchain.timebank.weixin.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,6 +30,9 @@ public class PublishController {
     PublishService publishService;
 
     @Autowired
+    RecordService recordService;
+
+    @Autowired
     ServiceService serviceService;
 
     @Autowired
@@ -50,7 +51,7 @@ public class PublishController {
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public String categoryPage(ModelMap map) {
         //判断是否时匿名登陆 游客模式
-        if(isAnonymous()){
+        if (isAnonymous()) {
             map.addAttribute("msg", "notManagerUser");
             return "publish_category_notManager";
         }
@@ -59,7 +60,7 @@ public class PublishController {
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
 
         //判断是否是团队管理者，若不是则无法发布服务
-        if(teamList.size()==0){
+        if (teamList.size() == 0) {
             map.addAttribute("msg", "notManagerUser");
             return "publish_category_notManager";
         }
@@ -67,11 +68,12 @@ public class PublishController {
         map.addAttribute("teamList", teamList);
         return "publish_category";
     }
+
     //活动发布申请页面
     @RequestMapping(value = "/activities_category", method = RequestMethod.GET)
     public String activities_categoryPage(ModelMap map) {
         //判断是否是匿名登陆 游客模式
-        if(isAnonymous()){
+        if (isAnonymous()) {
             map.addAttribute("msg", "notManagerUser");
             return "activities";
         }
@@ -80,37 +82,38 @@ public class PublishController {
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
 
         //判断是否是团队管理者，若不是则无法发布服务
-        if(teamList.size()==0){
+        if (teamList.size() == 0) {
             map.addAttribute("msg", "notManagerUser");
-        }else {
+        } else {
             map.addAttribute("msg", "ManagerUser");
         }
         map.addAttribute("teamList", teamList);
         return "activities";
     }
+
     //发布服务页面
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addPage(ModelMap map) {
-        UserEntity user =  getCurrentUser();
-        if(user.getIsVerify()==null){
+        UserEntity user = getCurrentUser();
+        if (user.getIsVerify() == null) {
             map.addAttribute("msg", "notVerify");
             return "publish_service_result";
-        }else if(user.getIsVerify()==0){
+        } else if (user.getIsVerify() == 0) {
             map.addAttribute("msg", "failVerify");
             return "publish_service_result";
         }
         UserEntity currentUser = getCurrentUser();
         List<TechnicAuthEntity> technicAuthEntities = publishService.findTechnicAuthEntitiesByUserId(currentUser.getId());
-        long current=System.currentTimeMillis();//当前时间毫秒数
-        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        long current = System.currentTimeMillis();//当前时间毫秒数
+        long zero = current / (1000 * 3600 * 24) * (1000 * 3600 * 24) - TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        List<PublishEntity> publishEntities = publishService.findByUserIdAndCreateTimeAfter(currentUser.getId(),zeroTimestamp);
-        if(publishEntities.size() >= 100){
+        List<PublishEntity> publishEntities = publishService.findByUserIdAndCreateTimeAfter(currentUser.getId(), zeroTimestamp);
+        if (publishEntities.size() >= 100) {
             map.addAttribute("surplus", true);
-        } else{
+        } else {
             map.addAttribute("surplus", false);
         }
-        if(technicAuthEntities != null && technicAuthEntities.size() != 0){
+        if (technicAuthEntities != null && technicAuthEntities.size() != 0) {
             map.addAttribute("isTechnicUser", true);
         } else {
             map.addAttribute("isTechnicUser", false);
@@ -127,11 +130,11 @@ public class PublishController {
         map.addAttribute("list", list);
         map.addAttribute("type", type);
         //return "publish_list";
-        if("志愿者服务".equals(type)){
+        if ("志愿者服务".equals(type)) {
             return "service_volunteer/publish_list_volunteer";
-        } else if("互助服务".equals(type)){
+        } else if ("互助服务".equals(type)) {
             return "service_mutualAid/publish_list_mutualAid";
-        } else{
+        } else {
             return "service_profession/publish_list_profession";
         }
     }
@@ -150,7 +153,7 @@ public class PublishController {
     public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewPublishDetailEntity viewPublishDetailEntity = viewPublishDetailDao.findOne(id);
         map.addAttribute("detail", viewPublishDetailEntity);
-        if(isAnonymous()) {
+        if (isAnonymous()) {
             return "publish_detail_noManager";
         }
         UserEntity userEntity = getCurrentUser();
@@ -163,11 +166,11 @@ public class PublishController {
         }else{
             recordList = temp.subList(0,10);
         }*/
-        if("volunteer".equals(type)){
+        if ("volunteer".equals(type)) {
             return "service_volunteer/publish_detail_volunteer";
-        } else if("mutualAid".equals(type)){
+        } else if ("mutualAid".equals(type)) {
             return "service_mutualAid/publish_detail_mutualAid";
-        } else{
+        } else {
             return "service_profession/publish_detail_profession";
         }
     }
@@ -219,7 +222,7 @@ public class PublishController {
 
     @RequestMapping(value = "/selectList", method = RequestMethod.GET)
     //public String listPage(ModelMap map, @RequestParam String type, @RequestParam String[] serviceName, @RequestParam Date upperDate, @RequestParam Date lowerDate, @RequestParam String upper, @RequestParam String lower) {
-    public String selectPublishList(ModelMap map, @RequestParam String type,@RequestParam String upper, @RequestParam String lower, @RequestParam String upperDate, @RequestParam String lowerDate, @RequestParam String serviceName) {
+    public String selectPublishList(ModelMap map, @RequestParam String type, @RequestParam String upper, @RequestParam String lower, @RequestParam String upperDate, @RequestParam String lowerDate, @RequestParam String serviceName) {
         try {
             double upperPrice = Double.valueOf(upper);
             double lowerPrice = Double.valueOf(lower);
@@ -237,9 +240,9 @@ public class PublishController {
             Date currentDate = new Date();
             String currentTime = sdf.format(currentDate);
             Iterator iterator = list.iterator();
-            while(iterator.hasNext()){
-                ViewPublishDetailEntity viewPublishDetailEntity = (ViewPublishDetailEntity)iterator.next();
-                if(viewPublishDetailEntity!=null && viewPublishDetailEntity.getEndDate().getTime() < new Date().getTime()){
+            while (iterator.hasNext()) {
+                ViewPublishDetailEntity viewPublishDetailEntity = (ViewPublishDetailEntity) iterator.next();
+                if (viewPublishDetailEntity != null && viewPublishDetailEntity.getEndDate().getTime() < new Date().getTime()) {
                     iterator.remove();
                     overTimeList.add(viewPublishDetailEntity);
                 }
@@ -248,14 +251,14 @@ public class PublishController {
             System.out.println(list == null);
             map.addAttribute("list", list);
             map.addAttribute("type", type);
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if("志愿者服务".equals(type)){
+        if ("志愿者服务".equals(type)) {
             return "service_volunteer/publish_list_volunteer";
-        } else if("互助服务".equals(type)){
+        } else if ("互助服务".equals(type)) {
             return "service_mutualAid/publish_list_mutualAid";
-        } else{
+        } else {
             return "service_profession/publish_list_profession";
         }
     }
@@ -271,15 +274,23 @@ public class PublishController {
         }
     }
 
-    private boolean isAnonymous(){
+    private boolean isAnonymous() {
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             System.out.println("isAnonymous:" + grantedAuthority.getAuthority());
-            if(grantedAuthority.getAuthority().equals("ROLE_ANONYMOUS")){
+            if (grantedAuthority.getAuthority().equals("ROLE_ANONYMOUS")) {
                 return true;
             }
         }
         return false;
     }
 
+    //服务具体评价
+    @RequestMapping(value = "/evaluation_service", method = RequestMethod.GET)
+    public String evaluation_service(ModelMap map, @RequestParam long userId) {
+        List<ViewPublishOrderDetailEntity> servicelist = viewRecordDetailDao.findViewRecordDetailEntitiesByServiceUserIdAndStatus(userId, OrderStatus.alreadyComplete);
+        List<Evaluation_entity> recordlist = recordService.getEvaluationList(userId);
+        map.addAttribute("recordlist", recordlist);
+        return "history_evaluation";
+    }
 }

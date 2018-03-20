@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 @Table(name = "view_activity_publish_detail", schema = "mydb", catalog = "")
 public class ViewActivityPublishDetailEntity {
     private long id;
+    private Long publishUserId;
     private long teamId;
     private String name;
     private String type;
@@ -31,6 +32,16 @@ public class ViewActivityPublishDetailEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "PublishUserID", nullable = true)
+    public Long getPublishUserId() {
+        return publishUserId;
+    }
+
+    public void setPublishUserId(Long publishUserId) {
+        this.publishUserId = publishUserId;
     }
 
     @Basic
@@ -195,6 +206,8 @@ public class ViewActivityPublishDetailEntity {
         if (count != that.count) return false;
         if (isPublic != that.isPublic) return false;
         if (isDeleted != that.isDeleted) return false;
+        if (publishUserId != null ? !publishUserId.equals(that.publishUserId) : that.publishUserId != null)
+            return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (headImg != null ? !headImg.equals(that.headImg) : that.headImg != null) return false;
@@ -213,6 +226,7 @@ public class ViewActivityPublishDetailEntity {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (publishUserId != null ? publishUserId.hashCode() : 0);
         result = 31 * result + (int) (teamId ^ (teamId >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);

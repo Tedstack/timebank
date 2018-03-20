@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>创建团队</title>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/zepto/zepto.min.js"></script>
@@ -13,7 +16,7 @@
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
 </head>
-<body onload="checkVerify()">
+<body onload="checkVerify();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
     <form id="teamDetail" method="post">
     <div class="weui-panel__hd weui-cells__title">
@@ -28,11 +31,14 @@
                     <div class="weui-flex__item weui-flex justify align">
                         <div class="weui-uploader">
                             <div class="weui-uploader__hd">
-                                <p class="weui-uploader__title">上传头像</p>
+                                <p id="head-intro" class="weui-uploader__title">单击选择个性头像</p>
                             </div>
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
-                                <div class="weui-uploader__input-box">
+                                <a id="changeImg" href="javascript:" style="display:inline;">
+                                    <img src="../img/teamHeadImg/团队.png" style="width:90px;height:90px;display: block">
+                                </a>
+                                <div class="weui-uploader__input-box" id="addHeadImg" style="width:90px;height:90px;display: none;">
                                     <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
                                 </div>
                             </div>
@@ -50,19 +56,36 @@
             <input class="weui-input" id="team_name" name="team_name" placeholder="输入团队名称" maxlength="10">
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">地 点</label></div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__bh">
+            <label class="weui-label">活动区域</label>
+        </div>
         <div class="weui-cell__bd">
-            <div class="weui-cell__bd">
-                <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" maxlength="40" oninput="checkLenLoc(this)"></textarea>
-                <div style="float:right; color:#999"><span id="team_location-count">0</span>/20</div>
-            </div>
+            <select id="team_address" class="weui-select" name="team_address">
+                <option value="不限">不限</option>
+                <option value="黄浦区">黄浦区</option>
+                <option value="徐汇区">徐汇区</option>
+                <option value="长宁区">长宁区</option>
+                <option value="静安区">静安区</option>
+                <option value="普陀区">普陀区</option>
+                <option value="虹口区">虹口区</option>
+                <option value="杨浦区">杨浦区</option>
+                <option value="宝山区">宝山区</option>
+                <option value="闵行区">闵行区</option>
+                <option value="嘉定区">嘉定区</option>
+                <option value="浦东新区">浦东新区</option>
+                <option value="松江区">松江区</option>
+                <option value="金山区">金山区</option>
+                <option value="青浦区">青浦区</option>
+                <option value="奉贤区">奉贤区</option>
+                <option value="崇明区">崇明区</option>
+            </select>
         </div>
     </div>
     <div class="weui-cell">
         <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
         <div class="weui-cell__bd">
-            <input class="weui-input" id="content_number" type="number" maxlength="11" pattern="[0-9]*" name="content_number" placeholder="默认注册手机号"/>
+            <input class="weui-input" id="content_number" type="number" maxlength="11" pattern="[0-9]*" name="content_number" placeholder="默认为注册手机号"/>
         </div>
     </div>
     <div class="weui-cell">
@@ -85,7 +108,7 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function checkVerify() {
-        var msg=<%request.getAttribute("msg");%>;
+        var msg='<%=request.getAttribute("msg")%>';
         if(msg==="NoVerified"){
             showAlert("未完成实名认证",function () {
                 window.location.href="${pageContext.request.contextPath}/user/startRealNameAuth";
@@ -125,8 +148,15 @@
             $uploaderInput1.parent().show();
             $uploaderInput1[0].value='';
         });
+        $("#changeImg").on('click', function (){
+            var pre_Img=document.getElementById("changeImg");
+            var add_Img=document.getElementById("addHeadImg");
+            pre_Img.style.display="none";
+            add_Img.style.display="inline";
+            var obj = document.getElementById("head-intro");
+            obj.innerHTML= "请上传头像";
+        });
         $("#create").on('click', function (){
-            // var fileObj = document.getElementById("file1").files[0];
             var teamName=document.getElementById("team_name").value;
             var formData = new FormData($("#teamDetail")[0]);
             if(teamName.length>12)
@@ -140,24 +170,10 @@
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
                 return;
-            }else if(document.getElementById("team_location").value==="") {
-                showAlert("请填写团队主要活动地点");
-                return;
             }else if(!isPoneAvailable(phone) && !isTelAvailable(phone)){
                 showAlert("请输入正确的手机号");
                 return;
             }
-            // if(fileObj.size/1024 > 1025) { //大于1M，进行压缩上传
-            //     photoCompress(fileObj, {
-            //         quality: 0.2
-            //     }, function(base64Codes){
-            //         //console.log("压缩后：" + base.length / 1024 + " " + base);
-            //         var bl = convertBase64UrlToBlob(base64Codes);
-            //         formData.append("headImg", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
-            //     });
-            // }else{ //小于等于1M 原图上传
-            //     formData.append("headImg", fileObj); // 文件对象
-            // }
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -174,8 +190,6 @@
                         showAlert("创建成功",function () {
                             window.location.href="${pageContext.request.contextPath}/team/myTeams";
                         });
-                    }else if(data==="missImg"){
-                        showAlert("未上传头像");
                     }else if(data==="nameExist"){
                         showAlert("团队名称已被使用");
                     }else if(data==="failure"){
@@ -211,27 +225,19 @@
             obj.value = limitMaxLength(obj.value, 400);
         document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
     }
-    function checkLenLoc(obj)
-    {
-        if (getLength(obj.value) > 40)
-            obj.value = limitMaxLength(obj.value, 40);
-        document.getElementById("team_location-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
-    }
     function isPoneAvailable (pone) {
         var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!myreg.test(pone)) {
-            return false;
-        } else {
+        if(pone!=="") {
+            return myreg.test(pone);
+        }else
             return true;
-        }
     }
     function isTelAvailable (tel) {
         var myreg = /^0\d{2,3}-?\d{7,8}$/;
-        if (!myreg.test(tel)) {
-            return false;
-        } else {
+        if(tel!=="") {
+            return myreg.test(tel);
+        }else
             return true;
-        }
     }
 </script>
 </html>

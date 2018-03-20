@@ -17,7 +17,7 @@ public interface ActivityPublishDao extends CrudRepository<ActivityPublishEntity
 
     List<ActivityPublishEntity> findAllByTeamIdAndStatusAndBeginTimeAfter(long teamId, String status, Timestamp time);
 
-    List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfter(String status, Timestamp time);
+    List<ActivityPublishEntity> findAllByStatusAndBeginTimeAfterAndDeleted(String status, Timestamp time,boolean IsDeleted);
 
     List<ActivityPublishEntity> findAllByTeamId(long teamId);
 }

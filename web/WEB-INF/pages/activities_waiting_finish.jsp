@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>管理活动</title>
+    <title>结束活动</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -112,24 +112,6 @@
     </div>
 </div>
 
-<div class="weui-tabbar" style="height: 50px">
-    <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
-        <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">首页</p>
-    </a>
-    <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
-        <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">服务</p>
-    </a>
-    <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
-        <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
-    </a>
-    <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-        <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">我</p>
-    </a>
-</div>
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
@@ -153,7 +135,7 @@
         $("#terminateActivityBtn").on('click', function () {
 
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateActivity";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyStartedActivities";
+            var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/alreadyCompleteActivities";
 
             $.ajax({
                 type: 'POST',
@@ -179,7 +161,7 @@
                     }
                 },
                 error: function (xhr, type) {
-                    showAlert("操作失败");
+                    showAlert("失败");
                 },
                 complete: function (xhr, type) {
                     dialogLoading.hide();

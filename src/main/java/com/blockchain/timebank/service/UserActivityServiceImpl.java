@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserActivityServiceImpl implements UserActivityService {
 
@@ -25,6 +27,11 @@ public class UserActivityServiceImpl implements UserActivityService {
     @Transactional(readOnly=true)
     public UserActivityEntity findUserActivityByID(long userActivityID) {
         return userActivityDao.findOne(userActivityID);
+    }
+
+    @Transactional(readOnly=true)
+    public List<UserActivityEntity> findAllByActivityId(long activityId){
+        return userActivityDao.findAllByActivityId(activityId);
     }
 
     public UserActivityEntity updateUserActivityEntity(UserActivityEntity userActivityEntity) {

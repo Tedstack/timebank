@@ -92,7 +92,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/team/startPublishActivity");
+        goTo(url+"/team/startPublishActivity?timestamp="+(new Date()).valueOf());
     });
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(0)').addClass("weui-bar__item_on");

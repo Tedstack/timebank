@@ -1,4 +1,8 @@
 <%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewTeamDetailEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   Created by IntelliJ IDEA.
@@ -23,6 +27,7 @@
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
     String currentUser=(String)request.getAttribute("currentUser");
+    List<String> areaList = Arrays.asList("不限","黄浦区","徐汇区","长宁区","静安区","普陀区","虹口区","杨浦区","宝山区","闵行区","嘉定区","浦东新区","松江区","金山区","青浦区","奉贤区","崇明区");
 %>
 <body onload="checkUser();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">
@@ -72,11 +77,20 @@
             <input class="weui-input" id="team_name" name="team_name" value=<%out.print(team.getName());%>>
         </div>
     </div>
-    <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__bh">
+            <label class="weui-label">活动区域</label>
+        </div>
         <div class="weui-cell__bd">
-            <textarea id="team_location" class="weui-textarea" name="team_location" placeholder="请输入活动地点..." rows="2" maxlength="40" oninput="checkLenLoc(this)"><%out.print(team.getAddress());%></textarea>
-            <div style="float:right; color:#999"><span id="team_location-count"><%out.print(team.getAddress().length());%></span>/20</div>
+            <select id="team_address" class="weui-select" name="team_address">
+                <%for(int i=0;i<areaList.size();i++){
+                   if(areaList.get(i).equalsIgnoreCase(team.getAddress())){%>
+                       <option selected="selected" value="<%out.print(areaList.get(i));%>"><%out.print(areaList.get(i));%></option>
+                   <%}else{%>
+                       <option value="<%out.print(areaList.get(i));%>"><%out.print(areaList.get(i));%></option>
+                  <%}
+                }%>
+            </select>
         </div>
     </div>
     <div class="weui-cell">
@@ -107,8 +121,9 @@
         var currentUser='<%=currentUser%>';
         var creator='<%=team.getCreatorId()%>';
         if(currentUser!==creator){
-            showAlert("非创建者无修改页面信息权限");
-            document.getElementById("modifyTeam").disabled=true;
+            showAlert("非创建者无修改页面信息权限",function () {
+                $('a').removeAttr('onclick');
+            });
         }
     }
     var xmlHttpRequest;
@@ -156,9 +171,6 @@
                 return;
             }else if(!isPoneAvailable(document.getElementById("team_phone").value) && !isTelAvailable(document.getElementById("team_phone").value)){
                 showAlert("请输入正确的手机号");
-                return;
-            }else if(document.getElementById("team_location").value==="") {
-                showAlert("请填写团队主要活动地点");
                 return;
             }
             $.ajax({

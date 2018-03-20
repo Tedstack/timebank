@@ -86,6 +86,14 @@
             </div>
         </div>
 
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <a style="color:#76b852" href="${pageContext.request.contextPath}/publish/evaluation_service?userId=<%=detail.getUserId()%>">查看历史评价</a>
+                </div>
+            </div>
+        </div>
+
         <div class="block block_tcxq mt10">
             <div class="title">
                 <span style="color:#76b852">申请须知</span>

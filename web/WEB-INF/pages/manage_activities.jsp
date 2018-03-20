@@ -107,25 +107,6 @@
     </div>
 </div>
 
-<div class="weui-tabbar" style="height: 50px">
-    <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
-        <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">首页</p>
-    </a>
-    <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
-        <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">服务</p>
-    </a>
-    <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
-        <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
-    </a>
-    <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-        <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-        <p class="weui-tabbar__label">我</p>
-    </a>
-</div>
-
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
@@ -168,7 +149,6 @@
                 showAlert("还没有任何人报名该活动！");
             else{
                 var targetUrl = "http://"+getDomainName()+contextPath+"/team/terminateApplyActivity";
-                var targetUrl2 = "http://"+getDomainName()+contextPath+"/team/activitiesWaitingToExecute";
                 $.ajax({
                     type: 'POST',
                     cache: false,
@@ -181,7 +161,7 @@
                     success: function (data) {
                         if(data==="ok"){
                             showAlert("结束报名成功",function () {
-                                goTo(targetUrl2);
+                                window.location.reload();
                             });
                         }else{
                             showAlert("结束报名失败");

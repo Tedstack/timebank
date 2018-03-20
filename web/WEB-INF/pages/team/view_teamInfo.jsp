@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">地点</label></div>
+        <div class="weui-cell__hd"><label class="weui-label">活动区域</label></div>
         <div class="weui-cell__bd">
             <textarea readonly id="teamLocation" class="weui-textarea" name="describe" rows="2"><%out.print(team.getAddress());%></textarea>
         </div>
@@ -97,10 +97,15 @@
     function checkUser() {
         var currentUser='<%=currentUser%>';
         var creator='<%=team.getCreatorId()%>';
+        var teamStatus='<%=team.isDeleted()%>';
         if(currentUser!==creator){
-            showAlert("非创建者无修改页面信息权限");
-            document.getElementById("modifyTeam").style.display="none";
-            document.getElementById("deleteTeam").style.display="none";
+            showAlert("非创建者无修改页面信息权限",function () {
+                $('a').removeAttr('onclick');
+            });
+        }else if(teamStatus!==false){
+            showAlert("该团队已经被删除",function () {
+                $('a').removeAttr('onclick');
+            });
         }
     }
     var xmlHttpRequest;

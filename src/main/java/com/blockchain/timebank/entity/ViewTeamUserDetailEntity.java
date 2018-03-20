@@ -18,9 +18,10 @@ public class ViewTeamUserDetailEntity {
     private String userSex;
     private Date userBirth;
     private String userHeadImg;
+    private boolean teamDeleted;
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     public long getId() {
         return id;
     }
@@ -30,7 +31,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "TeamID")
+    @Column(name = "TeamID", nullable = false)
     public long getTeamId() {
         return teamId;
     }
@@ -40,7 +41,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserID")
+    @Column(name = "UserID", nullable = false)
     public long getUserId() {
         return userId;
     }
@@ -50,7 +51,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "Status")
+    @Column(name = "Status", nullable = false, length = 50)
     public String getStatus() {
         return status;
     }
@@ -60,17 +61,17 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "IsManager")
-    public boolean getIsManager() {
+    @Column(name = "IsManager", nullable = false)
+    public boolean isManager() {
         return isManager;
     }
 
-    public void setIsManager(boolean isManager) {
-        this.isManager = isManager;
+    public void setManager(boolean manager) {
+        isManager = manager;
     }
 
     @Basic
-    @Column(name = "CreatorID")
+    @Column(name = "CreatorID", nullable = true)
     public Long getCreatorId() {
         return creatorId;
     }
@@ -80,7 +81,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "TeamName")
+    @Column(name = "TeamName", nullable = false, length = 40)
     public String getTeamName() {
         return teamName;
     }
@@ -90,7 +91,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserName")
+    @Column(name = "UserName", nullable = true, length = 20)
     public String getUserName() {
         return userName;
     }
@@ -100,7 +101,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserPhone")
+    @Column(name = "UserPhone", nullable = false, length = 20)
     public String getUserPhone() {
         return userPhone;
     }
@@ -110,7 +111,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserSex")
+    @Column(name = "UserSex", nullable = true, length = 10)
     public String getUserSex() {
         return userSex;
     }
@@ -120,7 +121,7 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserBirth")
+    @Column(name = "UserBirth", nullable = true)
     public Date getUserBirth() {
         return userBirth;
     }
@@ -130,13 +131,23 @@ public class ViewTeamUserDetailEntity {
     }
 
     @Basic
-    @Column(name = "UserHeadImg")
+    @Column(name = "UserHeadImg", nullable = true, length = 255)
     public String getUserHeadImg() {
         return userHeadImg;
     }
 
     public void setUserHeadImg(String userHeadImg) {
         this.userHeadImg = userHeadImg;
+    }
+
+    @Basic
+    @Column(name = "TeamDeleted", nullable = false)
+    public boolean isTeamDeleted() {
+        return teamDeleted;
+    }
+
+    public void setTeamDeleted(boolean teamDeleted) {
+        this.teamDeleted = teamDeleted;
     }
 
     @Override
@@ -150,6 +161,7 @@ public class ViewTeamUserDetailEntity {
         if (teamId != that.teamId) return false;
         if (userId != that.userId) return false;
         if (isManager != that.isManager) return false;
+        if (teamDeleted != that.teamDeleted) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (creatorId != null ? !creatorId.equals(that.creatorId) : that.creatorId != null) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
@@ -176,6 +188,7 @@ public class ViewTeamUserDetailEntity {
         result = 31 * result + (userSex != null ? userSex.hashCode() : 0);
         result = 31 * result + (userBirth != null ? userBirth.hashCode() : 0);
         result = 31 * result + (userHeadImg != null ? userHeadImg.hashCode() : 0);
+        result = 31 * result + (teamDeleted ? 1 : 0);
         return result;
     }
 }

@@ -1,0 +1,14 @@
+.float-button {
+    position: fixed; //关键
+    padding: 10px 10px;
+    height: 50px;
+    width: 50px;
+    bottom: 60px;
+    left:50%;
+    align-content: center;
+    background: #b4d145;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: -25px;
+    padding: 6px 10px;
+}

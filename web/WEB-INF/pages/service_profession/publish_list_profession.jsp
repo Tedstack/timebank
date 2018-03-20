@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/Item.css"/>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="${pageContext.request.contextPath}/js/utils.js"></script>
@@ -30,21 +31,6 @@
             color:#848c99;
             margin-top: 28px;
         }
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
     </style>
 </head>
 <%--<body onpageshow="back_to('${pageContext.request.contextPath}/index');">--%>
@@ -54,7 +40,7 @@
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
 
-            <div class="weui-cells">
+            <%--<div class="weui-cells">
                 <div class="weui-cell weui-cell_select weui-cell_select-after">
                     <div class="weui-cell__hd">
                         <label class="weui-label">服务类型</label>
@@ -66,6 +52,17 @@
                             <option value="专业服务" selected="selected">专业服务</option>
                         </select>
                     </div>
+                </div>
+            </div>--%>
+            <div class="weui-navbar" style="position:fixed;">
+                <div class="weui-navbar__item"id="navbar1">
+                    志愿者服务
+                </div>
+                <div class="weui-navbar__item"id="navbar2">
+                    互助服务
+                </div>
+                <div class="weui-navbar__item weui-bar__item_on"id="navbar3">
+                    专业服务
                 </div>
             </div>
 
@@ -138,7 +135,7 @@
         goTo(url+"/request/add");
     });
     var contextPath="${pageContext.request.contextPath}";
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         $("#serviceType").change(function () {
             var type = $(this).val();
             if(type === "志愿者服务"){
@@ -152,6 +149,23 @@
                 goTo(targetUrl);
             }
         });
+    });*/
+
+    $(function(){
+        $("#navbar1").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=志愿者服务";
+            goTo(targetUrl);
+        });
+        $("#navbar2").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=互助服务";
+            goTo(targetUrl);
+
+        });
+        $("#navbar3").on('click', function () {
+            var targetUrl = "http://"+getDomainName()+contextPath+"/publish/list?type=专业服务";
+            goTo(targetUrl);
+        });
+
     });
 </script>
 
