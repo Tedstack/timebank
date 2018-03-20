@@ -10,7 +10,7 @@ function get_wx_config () {
         },
         success : function(data) {
             wx.config({
-                debug : false,
+                debug : true,
                 appId : data.appId,
                 timestamp : data.timestamp,
                 nonceStr : data.nonceStr,
