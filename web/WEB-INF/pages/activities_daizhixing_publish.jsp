@@ -10,33 +10,11 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/weui.min.css" />
-    <script src="../js/scan/function.js"></script>
-    <script src="../js/scan/configs.js"></script>
-    <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
-<%--<body onpageshow="back_to('${pageContext.request.contextPath}/publish/activities_category');">--%>
+<body>
 <%
     List<ViewActivityPublishDetailEntity> activityDetailList = (List<ViewActivityPublishDetailEntity>) request.getAttribute("activityDetailList");
 %>
-<div class="main-container">
-    <div class="main-content">
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
@@ -102,30 +80,26 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">所有</p>
+            <p class="weui-tabbar__label">首页</p>
         </a>
-        <a href="${pageContext.request.contextPath}/team/alreadyApplyActivities" class="weui-tabbar__item">
-            <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">已申请的</p>
+        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
+            <img src="../img/服务.png" alt="" class="weui-tabbar__icon weui-bar__item_on">
+            <p class="weui-tabbar__label" >服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">我创建的</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
+            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我</p>
         </a>
     </div>
-</div>
-    </div>
-    <button class="float-button" style="font-size: xx-large;" id="create">+
-    </button>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var url='${pageContext.request.contextPath}';
-    $("#create").on("click", function() {
-        goTo(url+"/team/startPublishActivity");
-    });
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');

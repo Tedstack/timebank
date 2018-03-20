@@ -14,30 +14,9 @@
     <title>已预约</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
-    <script src="../js/scan/function.js"></script>
-    <script src="../js/scan/configs.js"></script>
-    <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
 <body>
-<div class="main-container">
-    <div class="main-content">
+
 <div class="page">
 
     <div class="page__bd" style="height: 100%;">
@@ -124,31 +103,26 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">服务柜台</p>
+            <p class="weui-tabbar__label">首页</p>
         </a>
-        <a href="${pageContext.request.contextPath}/user/queryOrderAlreadyApply" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">我预约的服务</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">我发布的需求</p>
+            <p class="weui-tabbar__label">活动</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
+            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我</p>
         </a>
     </div>
 </div>
-    </div>
-    <button class="float-button" style="font-size: xx-large;" id="create">+
-    </button>
-</div>
-</body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var url='${pageContext.request.contextPath}';
-    $("#create").on("click", function() {
-        goTo(url+"/request/add");
-    });
     $(function(){
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
@@ -170,4 +144,6 @@
         });
     });
 </script>
+
+</body>
 </html>

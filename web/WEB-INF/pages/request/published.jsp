@@ -44,9 +44,8 @@
             padding: 10px 10px;
         }
     </style>
-    <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="normal_back();">
+<body>
 <%
     List<ViewRequestDetailEntity> requestPublished = (List<ViewRequestDetailEntity>) request.getAttribute("requestPublished");
     List<ViewRequestOrderDetailEntity> requestToConfirm = (List<ViewRequestOrderDetailEntity>) request.getAttribute("requestToConfirm");

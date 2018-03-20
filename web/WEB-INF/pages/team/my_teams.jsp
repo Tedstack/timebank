@@ -19,30 +19,11 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
-    <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:50%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 47%;
-            text-align: center;
-            margin-left: -25px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
 <body>
 <%
     List<TeamEntity> teamList = (List<TeamEntity>) request.getAttribute("allTeamList");
 %>
-<div class="main-container">
-    <div class="main-content">
 <div class="page">
     <div class="weui-panel__hd">
         <div class="weui-flex__item">
@@ -100,43 +81,15 @@
 </div>
 <%}%>
     <div class="weui-tabbar">
-        <%--<a href="${pageContext.request.contextPath}/team/createPage" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/team/createPage" class="weui-tabbar__item">
             <span style="display: inline-block;">
                 <img src="../img/add.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
             </span>
             <p class="weui-tabbar__label">新建团队</p>
-        </a>--%>
-        <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item">
-            <span style="display: inline-block;position: relative;">
-                <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-            </span>
-            <p class="weui-tabbar__label">所有</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
-            <span style="display: inline-block;position: relative;">
-                <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-            </span>
-            <p class="weui-tabbar__label">已加入</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/team/myTeams" class="weui-tabbar__item weui-bar__item_on">
-            <span style="display: inline-block;">
-                <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-            </span>
-            <p class="weui-tabbar__label">我创建的</p>
         </a>
     </div>
     <%}%>
 </div>
-        </div>
-    <button class="float-button" style="font-size: xx-large;" id="create">+
-    </button>
-</div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-    var url='${pageContext.request.contextPath}';
-    $("#create").on("click", function() {
-        goTo(url+"/team/createPage");
-    });
-</script>
 </html>

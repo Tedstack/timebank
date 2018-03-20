@@ -19,33 +19,14 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
-    <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:50%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 47%;
-            text-align: center;
-            margin-left: -25px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
-<%--<body onpageshow="back_to('${pageContext.request.contextPath}/user/');">--%>
+<body>
 <%
     List<ViewTeamDetailEntity> myTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("myList");
     List<ViewTeamDetailEntity> otherTeamList=(List<ViewTeamDetailEntity>) request.getAttribute("otherList");
     List<ViewTeamDetailEntity> alreadyInTeamList = (List<ViewTeamDetailEntity>) request.getAttribute("alreadyInList");
     List<ViewTeamDetailEntity> appliedList=(List<ViewTeamDetailEntity>) request.getAttribute("appliedList");
 %>
-<div class="main-container">
-    <div class="main-content">
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
@@ -182,37 +163,23 @@
             </div>
         </div>
     <div class="weui-tabbar">
-            <a href="${pageContext.request.contextPath}/team/teamList" class="weui-tabbar__item weui-bar__item_on">
+            <a class="weui-tabbar__item weui-bar__item_on">
                 <span style="display: inline-block;">
                     <img src="../img/Green_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                 </span>
-                <p class="weui-tabbar__label">所有</p>
+                <p class="weui-tabbar__label">所有团队</p>
             </a>
             <a href="${pageContext.request.contextPath}/team/chosenTeam" class="weui-tabbar__item">
                 <span style="display: inline-block;">
                     <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
                 </span>
-                <p class="weui-tabbar__label">已加入</p>
-            </a>
-            <a href="${pageContext.request.contextPath}/team/myTeams" class="weui-tabbar__item">
-                <span style="display: inline-block;">
-                    <img src="../img/white_star.png" alt="" class="weui-tabbar__icon" style="width: 30px;display: block">
-                </span>
-                <p class="weui-tabbar__label">我创建的</p>
+                <p class="weui-tabbar__label">已加入团队</p>
             </a>
         </div>
-	</div>
-	</div>
-    <button class="float-button" style="font-size: xx-large;" id="create">+
-    </button>
 </div>
 </body>
-<script src="${pageContext.request.contextPath}/js/jquery/jquery-3.2.1.min.js"></script>
+<script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var url='${pageContext.request.contextPath}';
-    $("#create").on("click", function() {
-            goTo(url+"/team/createPage");
-    });
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
@@ -226,7 +193,6 @@
     function joinToTeam(t) {
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/addUserToTeam";
-            var targetUrl2 = "http://"+getDomainName()+contextPath+"/loginPage";
             var teamId=t.id;//取要加入团队的Id
             $.ajax({
                 type: 'POST',
@@ -241,8 +207,6 @@
                         showAlert("申请成功",function () {
                             location.reload();
                         });
-                    }else if(data==="isAnonymous"){
-                        goTo(targetUrl2);
                     }
                 },
                 error: function (xhr, type) {

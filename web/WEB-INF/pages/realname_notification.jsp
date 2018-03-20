@@ -12,9 +12,8 @@
     <title>我的信息</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="back_to('${pageContext.request.contextPath}/user/');">
+<body>
 <div class="weui-msg">
     <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
     <div class="weui-msg__text-area">

@@ -24,9 +24,8 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
     <script src="../js/scan/function.js"></script>
-    <script src="../js/utils.js"></script>
 </head>
-<body onpageshow="normal_back();">
+<body>
 <%
     TeamEntity team=(TeamEntity) request.getAttribute("teamEntity");
     String managerName=(String) request.getAttribute("managerName");

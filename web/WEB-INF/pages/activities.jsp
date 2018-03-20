@@ -17,10 +17,8 @@
     <link rel="stylesheet" href="../css/weui-example.css">
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-    <script src="../js/utils.js"></script>
 </head>
-<%String msg=(String)request.getAttribute("msg");%>
-<body onload="back_exit();">
+<body>
 <script>get_wx_config();</script>
 <div class="page js_show">
     <div class="page__bd" style="height: 100%;">
@@ -83,10 +81,6 @@
 </body>
 
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-    function checkuser() {
-        
-    }
-</script>
+
 
 </html>

@@ -2,7 +2,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
+  Created by IntelliJ IDEA.
+  User: bobo9978
+  Date: 2017/12/7
+  Time: 18:27
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,38 +22,16 @@
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
-    <script src="../js/utils.js"></script>
-    <style>
-        .float-button {
-            position: fixed; //关键
-        padding: 10px 10px;
-            height: 60px;
-            width: 60px;
-            bottom: 60px;
-            left:47%;
-            line-height: 100%;
-            align-content: center;
-            background: #b4d145;
-            border-radius: 50%;
-            text-align: center;
-            margin-left: -20px;
-            padding: 10px 10px;
-        }
-    </style>
 </head>
-<%--<body onpageshow="back_to('${pageContext.request.contextPath}/index');">--%>
+<body>
 <%
     List<ActivityPublishEntity> activityList = (List<ActivityPublishEntity>) request.getAttribute("activityList");
 %>
-<div class="main-container">
-    <div class="main-content">
+
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
-            <div class="weui-panel__hd">
-                <span>团队活动</span>
-                <a href="${pageContext.request.contextPath}/team/teamAvitivitySelect" style="float:right">筛选</a>
-            </div>
+            <div class="weui-panel__hd">团队活动</div>
             <div class="weui-panel__bd">
 
                 <%
@@ -87,34 +71,31 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/team/teamActivities" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">所有</p>
+            <p class="weui-tabbar__label">首页</p>
         </a>
-        <a href="${pageContext.request.contextPath}/team/alreadyApplyActivities" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">已申请的</p>
+            <p class="weui-tabbar__label">服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/team/activitiesWaitingForApply" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我创建的</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;">活动</p>
+        </a>
+        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
+            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我</p>
         </a>
     </div>
 </div>
-    </div>
-    <button class="float-button" style="font-size: xx-large;" id="create">+
-    </button>
-</div>
-</body>
+
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-    var url='${pageContext.request.contextPath}';
-    $("#create").on("click", function() {
-        goTo(url+"/team/startPublishActivity");
-    });
     $(document).ready(function () {
-        $('.weui-tabbar:eq(0)').find('a:eq(0)').addClass("weui-bar__item_on");
+        $('.weui-tabbar:eq(0)').find('a:eq(2)').addClass("weui-bar__item_on");
     });
 </script>
+</body>
 </html>
