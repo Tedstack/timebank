@@ -21,7 +21,7 @@
     String headImg=(String)request.getAttribute("HeadImg");
     String averageRate=(String)request.getAttribute("averageRate");
     List<ViewUserActivityDetailEntity> userList=(List<ViewUserActivityDetailEntity>)request.getAttribute("userList");
-    List<String> comment=Arrays.asList("吐槽","失望","一般","满意","点赞");
+    List<String> comment=Arrays.asList("no","吐槽","失望","一般","满意","点赞");
 %>
 <div class="weui-tab__panel">
     <div class="weui-cells__title" style="color: #ce3c39;text-align:center;font-size: small;font-weight: bold">团 队 评 价</div>
@@ -51,7 +51,7 @@
                 <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
             </div>
             <div class="weui-cell__bd">
-                <p style="font-size: 13px;color: #888888;"><%out.print(comment.get((int) Math.ceil(userList.get(i).getUserRating())));%></p>
+                <p style="font-size: 13px;color: #888888;"><%out.print(comment.get(userList.get(i).getUserRating().intValue()));%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(userList.get(i).getUserComment());%></p>
             </div>
         </div>
