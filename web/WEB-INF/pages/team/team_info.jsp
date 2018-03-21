@@ -316,7 +316,7 @@
     var title='<%=team.getName()%>';
     var headImgUrl='teamHeadImg/'+'<%=team.getHeadImg()%>';
     var descr='<%=team.getDescription()%>';
-    var link = 'team/teamActivityDetails?type=0&activityID='+'<%=team.getId()%>';
+    var link = 'team/teamInfo?teamId='+'<%=team.getId()%>';
     share(title,link,headImgUrl,descr);
 </script>
 <script type="text/javascript">
