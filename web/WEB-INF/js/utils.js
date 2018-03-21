@@ -1,4 +1,5 @@
 function get_wx_config () {
+    console.log(new Date().toLocaleTimeString());
     $.ajax({
         url : "http://www.i-linli.com/timebanktest/scanGetConfigServlet",
         type : 'post',
@@ -9,6 +10,7 @@ function get_wx_config () {
             'url' : location.href.split('#')[0]
         },
         success : function(data) {
+            console.log(new Date().toLocaleTimeString());
             wx.config({
                 debug : true,
                 appId : data.appId,
@@ -27,7 +29,7 @@ function share(share_title,share_link,share_imgUrl,share_descr){
         wx.checkJsApi({
             jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
             success: function(res) {
-                alert(res);
+                console.log(res);
             }
         });
         // wx.hideOptionMenu();
