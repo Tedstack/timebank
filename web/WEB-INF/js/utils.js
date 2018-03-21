@@ -12,7 +12,7 @@ function get_wx_config () {
         success : function(data) {
             console.log(new Date().toLocaleTimeString());
             wx.config({
-                debug : true,
+                debug : false,
                 appId : data.appId,
                 timestamp : data.timestamp,
                 nonceStr : data.nonceStr,
