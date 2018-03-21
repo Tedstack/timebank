@@ -161,7 +161,7 @@
                     success: function (data) {
                         if(data==="ok"){
                             showAlert("结束报名成功",function () {
-                                window.location.reload();
+                                goTo("http://"+getDomainName()+contextPath+"/team/activitiesWaitingForApply");
                             });
                         }else{
                             showAlert("结束报名失败");
