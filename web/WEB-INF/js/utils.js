@@ -35,7 +35,7 @@ function share(share_title,share_link,share_imgUrl,share_descr){
         // wx.hideOptionMenu();
         wx.onMenuShareTimeline({
             title: share_title,
-            link: share_link,
+            link: 'http://www.i-linli.com/timebanktest/' + share_link,
             imgUrl: 'http://www.i-linli.com/timebanktest/img/'+share_imgUrl,
             success: function () {
                 alert('分享到朋友圈成功');
@@ -48,7 +48,7 @@ function share(share_title,share_link,share_imgUrl,share_descr){
         wx.onMenuShareAppMessage({
             title: share_title,
             desc: share_descr ,
-            link: share_link ,
+            link: 'http://www.i-linli.com/timebanktest/' + share_link ,
             imgUrl: 'http://www.i-linli.com/timebanktest/img/'+share_imgUrl,
             trigger: function (res) {
                 // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
