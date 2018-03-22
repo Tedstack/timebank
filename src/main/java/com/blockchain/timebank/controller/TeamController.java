@@ -203,6 +203,7 @@ public class TeamController {
         TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamId(userId, teamId);
         if (teamUser != null && (teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked))) {
             teamUser.setStatus(TeamUserStatus.isDeleted);
+            teamUser.setManager(false);
             teamUserService.saveTeamUser(teamUser);
             return "success";
         }else
@@ -767,7 +768,7 @@ public class TeamController {
             map.addAttribute("isCreator","true");
         else
             map.addAttribute("isCreator","false");
-        map.addAttribute("teamId",teamId);
+        map.addAttribute("team",teamService.findById(id));
         map.addAttribute("ManagerList", ManagerList);
         map.addAttribute("userList", memberList);
         map.addAttribute("lockedList", lockedList);

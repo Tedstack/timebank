@@ -200,14 +200,15 @@
     function checkUser() {
         var currentUser='<%=currentUser%>';
         var creator='<%=activityPublishDetail.getCreatorId()%>';
+        var publisherId='<%=activityPublishDetail.getPublishUserId()%>';
         var actStatus='<%=activityPublishDetail.isDeleted()%>';
-        if(currentUser!==creator){
-            showAlert("非创建者无修改页面信息权限",function () {
-                $('a').removeAttr('onclick');
+        if(currentUser!==creator || currentUser!==publisherId){
+            showAlert("无权限修改页面信息",function () {
+                $('a').removeAttr('href');
             });
-        }else if(actStatus!==false){
+        }else if(actStatus!=='false'){
             showAlert("该活动已经被删除",function () {
-                $('a').removeAttr('onclick');
+                $('a').removeAttr('href');
             });
         }
     }

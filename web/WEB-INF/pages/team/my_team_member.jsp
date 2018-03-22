@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
+<%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
 <%--
   Created by IntelliJ IDEA.
   User: weiyi
@@ -22,7 +23,7 @@
     <script src="../js/scan/function.js"></script>
 </head>
 <%
-    String teamId= (String)request.getAttribute("teamId");
+    TeamEntity team= (TeamEntity)request.getAttribute("team");
     List<UserEntity> ManagerList=(List<UserEntity>) request.getAttribute("ManagerList");
     List<UserEntity> teamUserList=(List<UserEntity>) request.getAttribute("userList");
     List<UserEntity> lockedUserList=(List<UserEntity>) request.getAttribute("lockedList");
@@ -146,14 +147,20 @@
 <script type="text/javascript">
     function checkAuth() {
         var isCreator='<%=isCreator%>';
+        var teamStatus='<%=team.isDeleted()%>';
         if(isCreator!=="true"){
             showAlert("非创建者无修改页面信息权限",function () {
-                $('a').removeAttr('onclick');
+                $('a').removeAttr('href');
+            });
+        }
+        if(teamStatus!=='false'){
+            showAlert("该团队已经被删除",function () {
+                $('a').removeAttr('href');
             });
         }
     }
     var xmlHttpRequest;
-    var teamId=<%=teamId%>;
+    var teamId=<%=team.getId()%>;
     $(function(){
         if(window.XMLHttpRequest){
             xmlHttpRequest=new XMLHttpRequest();

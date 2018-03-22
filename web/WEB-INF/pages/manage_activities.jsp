@@ -184,7 +184,6 @@
                 type: 'POST',
                 cache: false,
                 url: targetUrl,
-                //dataType:'JSONP',
                 data: "userActivityID=" + userActivityID,
                 beforeSend: function (XHR) {
                     dialogLoading = showLoading();

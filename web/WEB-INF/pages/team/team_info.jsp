@@ -71,7 +71,7 @@
             <div class="weui-panel__bd">
                     <div class="weui-form-preview__hd">
                         <div class="weui-form-preview__item">
-                            <label class="weui-form-preview__label"><li style="font-size: 15px;">创始时间</li></label>
+                            <label class="weui-form-preview__label"><li style="font-size: 15px;">创建时间</li></label>
                             <em class="weui-form-preview__value" style="font-size: 15px;"><%out.print(team.getCreateDate().toString());%></em>
                         </div>
                     </div>
@@ -254,6 +254,12 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script src="../js/scan/refundRobot.js"></script>
 <script type="text/javascript">
+    function showCheck() {
+        var teamStatus='<%=team.isDeleted()%>';
+        if(teamStatus!=='false'){
+            showAlert("该团队已经被删除！");
+        }
+    }
     var index=document.getElementById("index");
     var member=document.getElementById("member");
     var activity=document.getElementById("activity");

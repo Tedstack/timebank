@@ -120,9 +120,15 @@
     function checkUser() {
         var currentUser='<%=currentUser%>';
         var creator='<%=team.getCreatorId()%>';
+        var teamStatus='<%=team.isDeleted()%>';
         if(currentUser!==creator){
             showAlert("非创建者无修改页面信息权限",function () {
-                $('a').removeAttr('onclick');
+                $('a').removeAttr('href');
+            });
+        }
+        if(teamStatus!=='false'){
+            showAlert("该团队已经被删除",function () {
+                $('a').removeAttr('href');
             });
         }
     }

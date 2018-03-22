@@ -51,7 +51,7 @@
                 <img src="<%out.print(userList.get(i).getUserHeadImg());%>" style="width: 50px;display: block">
             </div>
             <div class="weui-cell__bd">
-                <p style="font-size: 13px;color: #888888;"><%out.print(comment.get((int) Math.ceil(userList.get(i).getUserRating())));%></p>
+                <p style="font-size: 13px;color: #888888;"><%out.print(comment.get(userList.get(i).getUserRating().intValue()));%></p>
                 <p style="font-size: 13px;color: #888888;"><%out.print(userList.get(i).getUserComment());%></p>
             </div>
         </div>
