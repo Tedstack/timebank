@@ -258,6 +258,7 @@
         var teamStatus='<%=team.isDeleted()%>';
         if(teamStatus!=='false'){
             showAlert("该团队已经被删除！");
+            $('a').removeAttr('href').removeAttr('id');
         }
     }
     var index=document.getElementById("index");

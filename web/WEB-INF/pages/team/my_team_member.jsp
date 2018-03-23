@@ -149,14 +149,12 @@
         var isCreator='<%=isCreator%>';
         var teamStatus='<%=team.isDeleted()%>';
         if(isCreator!=="true"){
-            showAlert("非创建者无修改页面信息权限",function () {
-                $('a').removeAttr('href');
-            });
+            showAlert("非创建者无修改页面信息权限");
+            $('a').removeAttr('href').removeAttr('id');
         }
         if(teamStatus!=='false'){
-            showAlert("该团队已经被删除",function () {
-                $('a').removeAttr('href');
-            });
+            showAlert("该团队已经被删除");
+            $('a').removeAttr('href').removeAttr('id');
         }
     }
     var xmlHttpRequest;

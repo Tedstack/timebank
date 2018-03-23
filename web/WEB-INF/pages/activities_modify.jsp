@@ -188,7 +188,7 @@
             </div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;">
-            <a id="submitBtn" class="weui-btn weui-btn_primary">确认修改</a>
+            <a href="javascript:;" id="submitBtn" class="weui-btn weui-btn_primary">确认修改</a>
         </div>
     </div>
     </form>
@@ -202,14 +202,13 @@
         var creator='<%=activityPublishDetail.getCreatorId()%>';
         var publisherId='<%=activityPublishDetail.getPublishUserId()%>';
         var actStatus='<%=activityPublishDetail.isDeleted()%>';
-        if(currentUser!==creator || currentUser!==publisherId){
-            showAlert("无权限修改页面信息",function () {
-                $('a').removeAttr('href');
-            });
-        }else if(actStatus!=='false'){
-            showAlert("该活动已经被删除",function () {
-                $('a').removeAttr('href');
-            });
+        if(currentUser!==creator && currentUser!==publisherId){
+            showAlert("无权限修改页面信息");
+            $('a').removeAttr('href').removeAttr('id');
+        }
+        if(actStatus!=='false'){
+            showAlert("该活动已经被删除");
+            $('a').removeAttr('href').removeAttr('id');
         }
     }
     var xmlHttpRequest;
