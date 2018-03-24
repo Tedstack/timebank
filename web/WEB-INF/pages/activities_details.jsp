@@ -42,7 +42,7 @@
             <div class="weui-panel__hd">
                 <div class="weui-flex__item">
                     <p style="display: inline;">活动详情</p>
-                    <img src="../img/分享.png" style="width: 20px;display: block">
+                    <img src="../img/分享.png" style="width: 20px;display: inline;">
                 </div>
             </div>
         </div>

@@ -40,19 +40,25 @@
     String isMember=(String) request.getAttribute("isMember");
 %>
 <div class="page">
-    <div class="weui-navbar">
-        <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
-            团队信息
+    <div class="weui-panel__hd weui-cells__title" style="margin-top: 0px;">
+        <div class="weui-flex__item"id="return" onclick="history.go(-1)" >
+            <p style="display: inline;">团队信息</p>
+            <img src="../img/分享.png" style="width: 20px;display: inline;">
         </div>
-        <div class="weui-navbar__item"id="navbar2">
+    </div>
+    <div class="weui-navbar" style="position:static;">
+        <div class="weui-navbar__item weui-bar__item_on" id="navbar1">
+            团队简介
+        </div>
+        <div class="weui-navbar__item" id="navbar2">
             团队成员
         </div>
-        <div class="weui-navbar__item"id="navbar3">
+        <div class="weui-navbar__item" id="navbar3">
             历史活动
         </div>
     </div>
     <div id="index" tyle="display: block;">
-    <div style="margin-top:60px;text-align:center;">
+    <div style="text-align:center;">
             <br>
             <table align="center" cellpadding="0" style="margin:auto">
                 <tr>
@@ -62,7 +68,6 @@
                     <td width="5"></td>
                     <td align="center" width="100">
                         <p style="font-size: 20px;display: inline"><%out.print(team.getName());%></p>
-                        <img src="../img/分享.png" style="width: 20px;display: inline">
                     </td>
                 </tr>
             </table>
