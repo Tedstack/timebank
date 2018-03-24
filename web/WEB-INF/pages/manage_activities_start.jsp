@@ -77,6 +77,22 @@
     <div id="startActivityBtn" class=" weui-btn weui-btn_primary" style="padding-right: 1px;padding-left: 1px;margin-left: 10px;margin-right: 10px">开始活动</div>
 </div>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script>
+    function onBridgeReady() {
+        WeixinJSBridge.call('hideOptionMenu');
+    }
+
+    if (typeof WeixinJSBridge === "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+</script>
 <script type="text/javascript">
     var xmlHttpRequest;
     $(function(){

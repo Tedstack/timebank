@@ -144,6 +144,22 @@
 </div>
 </body>
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+<script>
+    function onBridgeReady() {
+        WeixinJSBridge.call('hideOptionMenu');
+    }
+
+    if (typeof WeixinJSBridge === "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    } else {
+        onBridgeReady();
+    }
+</script>
 <script type="text/javascript">
     function checkAuth() {
         var isCreator='<%=isCreator%>';
