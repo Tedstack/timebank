@@ -41,7 +41,8 @@
         <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
                 <div class="weui-flex__item">
-                    <p>活动详情</p>
+                    <p style="display: inline;">活动详情</p>
+                    <img src="../img/分享.png" style="width: 20px;display: block">
                 </div>
             </div>
         </div>

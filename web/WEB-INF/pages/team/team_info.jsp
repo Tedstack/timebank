@@ -18,7 +18,6 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
     <title>团队信息</title>
-    <link rel="shortcut icon" href="../img/分享.png" />
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
     <script src="../js/zepto/zepto.min.js"></script>
@@ -62,7 +61,8 @@
                     </td>
                     <td width="5"></td>
                     <td align="center" width="100">
-                        <p style="font-size: 20px;"><%out.print(team.getName());%></p>
+                        <p style="font-size: 20px;display: inline"><%out.print(team.getName());%></p>
+                        <img src="../img/分享.png" style="width: 20px;display: inline">
                     </td>
                 </tr>
             </table>
