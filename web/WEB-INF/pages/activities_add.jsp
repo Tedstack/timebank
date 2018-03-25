@@ -69,7 +69,7 @@
                             </option>
                         </c:forEach>
                         <c:forEach var="value" items="${manageTeamList}">
-                            <option value="${value.id}">
+                            <option value="${value.teamId}">
                                     ${value.teamName}
                             </option>
                         </c:forEach>
