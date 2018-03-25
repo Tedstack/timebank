@@ -331,7 +331,7 @@ public class TeamController {
             activityPublishEntity.setName(activityName);
             activityPublishEntity.setDescription(description);
             activityPublishEntity.setHeadImg(idImg);
-
+            activityPublishEntity.setPublishUserId(getCurrentUser().getId());
             activityPublishEntity.setStatus(ActivityStatus.waitingForApply);
             activityPublishEntity.setBeginTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " ")).getTime()));
             activityPublishEntity.setEndTime(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(endTime.replace("T", " ")).getTime()));

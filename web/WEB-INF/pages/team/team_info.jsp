@@ -143,7 +143,7 @@
     </div>
     </div>
     <div id="member" style="display: none;">
-        <div class="weui-panel__bd" style="margin : 80px 0px 10px 0px;">
+        <div class="weui-panel__bd" style="margin : 20px 0px 10px 0px;">
             <div class="weui-cells weui-cells_checkbox">
                 <label class="weui-cell weui-check__label">
                     <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
@@ -193,7 +193,7 @@
         </div>
         <%}%>
     </div>
-    <div id="activity" style="margin : 80px 0px 10px 0px;display: none;">
+    <div id="activity" style="margin : 20px 0px 10px 0px;display: none;">
         <%for(int i=0;i<publicActivity.size();i++){%>
         <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(publicActivity.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
