@@ -194,6 +194,9 @@
             <%--document.getElementById("submitBtn").attr("disabled",true);--%>
         <%--}--%>
     }
+    $("#beginTime").change(function(){
+        document.getElementById("applyEndTime").value=document.getElementById("beginTime").value;
+    });
     var xmlHttpRequest;
     $(function(){
         if(window.XMLHttpRequest){
