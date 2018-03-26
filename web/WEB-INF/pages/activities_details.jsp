@@ -115,7 +115,7 @@
             <div class="weui-cell">
                 <!--<div class="weui-cell__hd"><img src="../img/暂时使用商家.png" alt="" style="width:20px;margin-right:5px;display:block"></div>-->
                 <div class="weui-cell__bd">
-                    <p>申请结束时间</p>
+                    <p>报名截止时间</p>
                 </div>
                 <div class="weui-cell__ft">
                     <%
