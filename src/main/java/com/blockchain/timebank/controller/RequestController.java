@@ -329,7 +329,65 @@ public class RequestController {
         return "request/delete_detail";
     }
 
-        @RequestMapping(value = "/publishDetail", method = RequestMethod.GET)
+    //修改已发布的需求
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String update(ModelMap map, @RequestParam long id, @RequestParam long userID) {
+        UserEntity currentUser = getCurrentUser();
+        if(currentUser.getId() != userID) {
+            map.addAttribute("deleteMsg", "不是需求发布用户！");
+            return "request/delete_detail";
+        }
+        List<RequestOrderEntity> requestOrderEntities = requestOrderService.findByRequestId(id);
+        String deleteMsg = "";
+        boolean isUpdate = true;
+        for(RequestOrderEntity requestOrderEntity : requestOrderEntities){
+            String status = requestOrderEntity.getStatus();
+            if(!"已拒绝".equals(status)){
+                if(!"已申请".equals(status)){
+                    isUpdate = false;
+                    deleteMsg="您已接受过服务，无法修改";
+                    break;
+                }else{
+                    isUpdate = false;
+                    deleteMsg="请拒绝所有申请后进行修改";
+                }
+            }
+        }
+        if(isUpdate){
+            RequestEntity requestEntity = requestService.findRequestById(id);
+            map.addAttribute("detail", requestEntity);
+            return "request/update";
+        }
+        map.addAttribute("deleteMsg", deleteMsg);
+        return "request/delete_detail";
+    }
+
+
+    //修改服务提交接口
+    @RequestMapping(value = "/update/submit", method = RequestMethod.POST)
+    public String addSubmitPage(ModelMap map, @RequestParam long id, @RequestParam String address, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String description) {
+        try {
+            RequestEntity requestEntity = requestService.findRequestById(id);
+            requestEntity.setAddress(address);
+            requestEntity.setDescription(description);
+            requestEntity.setUserId(getCurrentUser().getId());
+            requestEntity.setPrice(new BigDecimal(price));
+            Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+            requestEntity.setBeginTime(new Timestamp(beginTime.getTime()));
+            requestEntity.setEndTime(new Timestamp(endTime.getTime()));
+            requestService.saveRequestEntity(requestEntity);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(id);
+        map.addAttribute("id", viewRequestOrderDetailEntity.getId());
+        map.addAttribute("type", viewRequestOrderDetailEntity.getServiceType());
+        return "redirect:/request/publishDetail";
+    }
+
+
+    @RequestMapping(value = "/publishDetail", method = RequestMethod.GET)
     public String detailPage(ModelMap map, @RequestParam long id, @RequestParam String type) {
         ViewRequestDetailEntity viewRequestDetailEntity = requestService.findDetailById(id);
         map.addAttribute("detail", viewRequestDetailEntity);
