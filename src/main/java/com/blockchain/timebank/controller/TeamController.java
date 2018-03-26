@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.blockchain.timebank.weixin.util.MessageUtil;
-
+import com.blockchain.timebank.util.imgReducer;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+import java.util.List;
 
 
 @Controller
@@ -61,6 +61,7 @@ public class TeamController {
     ViewTeamUserDetailDao viewTeamUserDetailDao;
 
     private Random random=new Random();
+    private imgReducer reducer=new imgReducer();
 
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
@@ -324,6 +325,10 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
+            if(file.getSize()/1024>=1024){
+                reducer.imgReduce("/home/ubuntu/timebank/picture/activityImg/"+idImg,"/home/ubuntu/timebank/picture/activityImg/"+idImg,500,500,null);
+                System.out.println("zip complete");
+            }
         }
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
@@ -471,6 +476,10 @@ public class TeamController {
             File imgFile = new File(path, idImg);
             activity.setHeadImg(idImg);
             file.transferTo(imgFile);
+            if(file.getSize()/1024>=1024){
+                reducer.imgReduce("/home/ubuntu/timebank/picture/activityImg/"+idImg,"/home/ubuntu/timebank/picture/activityImg/"+idImg,500,500,null);
+                System.out.println("zip complete");
+            }
         }
         try {
             activity.setTeamId(teamOptions);
@@ -890,6 +899,10 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
+            if(file.getSize()/1024>=1024){
+                reducer.imgReduce("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,"/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,500,500,null);
+                System.out.println("zip complete");
+            }
         }
         try {
             TeamEntity newTeam = new TeamEntity();
@@ -954,6 +967,10 @@ public class TeamController {
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);
+                if(file.getSize()/1024>=1024){
+                    reducer.imgReduce("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,"/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,500,500,null);
+                    System.out.println("zip complete");
+                }
             }
             if (!team.getName().trim().equalsIgnoreCase(team_name)) {
                 if (checkTeamNameExist(team_name))
