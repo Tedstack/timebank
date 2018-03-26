@@ -129,7 +129,6 @@
                 String nowTime = formatter.format(nowDate);
                 String nextTime = formatter.format(nextDate);
             %>
-
             <div class="weui-cell">
                 <div class="weui-cell__bh">
                     <label class="weui-label">活动开始时间</label>
@@ -207,7 +206,6 @@
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
     var contextPath="${pageContext.request.contextPath}";
-    var nowTime='<%=nowTime%>';
     $(function(){
         var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#)"></li>',
             $uploaderInput1 = $("#file1"),
@@ -291,15 +289,12 @@
             if(beginTime>endTime){
                 showAlert("活动结束时间不能早于活动开始时间");
                 return;
-            }else if(beginTime<nowTime){
-                showAlert("开始时间不合法！");
-                return;
             }
 
             if(applyEndTime>endTime){
                 showAlert("申请加入活动时间不能晚于活动结束时间");
                 return;
-            } else if(applyEndTime<nowTime){
+            } else if(applyEndTime>endTime){
                 showAlert("报名截止时间不合法！");
                 return;
             }
@@ -329,6 +324,9 @@
                         showAlert("发布成功",function () {
                             goTo(targetUrl2);
                         });
+                    }
+                    if(data==="WrongApplyTime"){
+                        showAlert("报名截至时间不能小于当前时间");
                     }
                     if(data==="error"){
                         showAlert("发布失败");

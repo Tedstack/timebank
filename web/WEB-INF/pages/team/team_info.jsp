@@ -20,6 +20,7 @@
     <title>团队信息</title>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="../css/weui.min.css" />
+    <link rel="stylesheet" href="../css/Item.css"/>
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/configs.js"></script>
@@ -193,7 +194,7 @@
         </div>
         <%}%>
     </div>
-    <div id="activity" style="margin : 20px 0px 10px 0px;display: none;">
+    <div id="activity" style="margin-top:25px;display: none;">
         <%for(int i=0;i<publicActivity.size();i++){%>
         <a href="${pageContext.request.contextPath}/team/teamActivityDetails?type=1&activityID=<%out.print(publicActivity.get(i).getId());%>" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
@@ -221,7 +222,7 @@
                 </ul>
             </div>
         </a>
-        <div style="background-color: #f8f8f8; height:10px;"></div>
+        <div style="background-color: #E0E0E0; height:10px;"></div>
         <%}%>
         <%
             if(isMember.equalsIgnoreCase("alreadyIn")){

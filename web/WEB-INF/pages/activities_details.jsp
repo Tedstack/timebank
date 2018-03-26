@@ -71,7 +71,12 @@
                 <div class="weui-cell__ft"><%out.print(activityPublishDetail.getTeamName());%></div>
                 <img src="../img/more.png" width="20" height="20" style="width: 6%;">
             </div>
-
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <p>联系方式</p>
+                </div>
+                <div class="weui-cell__ft"><%out.print(request.getAttribute("phone"));%></div>
+            </div>
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>开始时间</p>
@@ -121,6 +126,7 @@
                     %>
                 </div>
             </div>
+
             <div class="weui-cell" id="<%out.print(activityPublishDetail.getTeamId());%>" onclick="viewTeamInfo(this)">
                 <div class="weui-cell__bd">
                     <p>活动地点</p>
@@ -220,32 +226,35 @@
             }
         });
         $("#quitBtn").on('click',function () {
-            var targetUrl = "http://"+getDomainName()+contextPath+"/team/quitFromActivity";
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: targetUrl,
-                //dataType:'JSONP',
-                data: "activityID=" + activityID,
-                beforeSend: function (XHR) {
-                    dialogLoading = showLoading();
-                },
-                success: function (data) {
-                    if(data==="ok"){
-                        showAlert("退出成功",function () {
-                            window.location.href="${pageContext.request.contextPath}/team/alreadyApplyActivities";
-                        });
-                    }else{
-                        showAlert("退出失败");
+            var r=confirm("确认退出该活动?");
+            if(r==true){
+                var targetUrl = "http://"+getDomainName()+contextPath+"/team/quitFromActivity";
+                $.ajax({
+                    type: 'POST',
+                    cache: false,
+                    url: targetUrl,
+                    //dataType:'JSONP',
+                    data: "activityID=" + activityID,
+                    beforeSend: function (XHR) {
+                        dialogLoading = showLoading();
+                    },
+                    success: function (data) {
+                        if(data==="ok"){
+                            showAlert("退出成功",function () {
+                                window.location.href="${pageContext.request.contextPath}/team/alreadyApplyActivities";
+                            });
+                        }else{
+                            showAlert("退出失败");
+                        }
+                    },
+                    error: function (xhr, type) {
+                        showAlert("申请失败");
+                    },
+                    complete: function (xhr, type) {
+                        dialogLoading.hide();
                     }
-                },
-                error: function (xhr, type) {
-                    showAlert("申请失败");
-                },
-                complete: function (xhr, type) {
-                    dialogLoading.hide();
-                }
-            });
+                });
+            }
         });
     });
     var title='<%=activityPublishDetail.getName()%>';

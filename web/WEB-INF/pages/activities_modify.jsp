@@ -5,6 +5,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.blockchain.timebank.entity.TeamEntity" %>
+<%@ page import="com.blockchain.timebank.entity.ViewTeamUserDetailEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,6 +23,7 @@
 <%
     ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
     List<TeamEntity> teamList=(List<TeamEntity>) request.getAttribute("teamList");
+    List<ViewTeamUserDetailEntity> manageTeamList=(List<ViewTeamUserDetailEntity>)request.getAttribute("manageTeamList");
     String beginTime=(String) request.getAttribute("beiginTime");
     String endTime=(String) request.getAttribute("endTime");
     String applyTime=(String) request.getAttribute("applyTime");
@@ -74,7 +76,13 @@
                         <%}else{%>
                         <option value=<%out.print(teamList.get(i).getId());%>><%out.print(teamList.get(i).getName());%></option>
                         <%}
-                        }%>
+                        }
+                        for(int j=0;j<manageTeamList.size();j++){
+                        if(manageTeamList.get(j).getTeamId()==activityPublishDetail.getTeamId()){%>
+                        <option value=<%out.print(manageTeamList.get(j).getTeamId());%> selected="selected"><%out.print(manageTeamList.get(j).getTeamName());%></option>
+                        <%}else{%>
+                        <option value=<%out.print(manageTeamList.get(j).getTeamId());%> ><%out.print(manageTeamList.get(j).getTeamName());%></option>
+                        <%}%>
                     </select>
                 </div>
             </div>

@@ -221,7 +221,7 @@ public class TeamController {
         Collections.reverse(activityList);
         boolean isAnonymous=isAnonymous();
         //因为使用remove方法，此处循环用倒叙
-        long currentId=0000;
+        long currentId=0;
         if(!isAnonymous)
             currentId= getCurrentUser().getId();
         for (int i = activityList.size() - 1; i >= 0; i--) {
@@ -233,14 +233,14 @@ public class TeamController {
             }
             //活动不公开
             if (!activityList.get(i).isPublic()) {
-                if(currentId==0000)
+                if(isAnonymous)//游客登录
                     activityList.remove(i);
                 else {
-                    TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatusNot(currentId, activityList.get(i).getTeamId(),TeamUserStatus.isDeleted);
-                    if (teamUser != null) {
-                        if (teamUser.getStatus() != TeamUserStatus.alreadyEntered)
-                            activityList.remove(i);
-                    }
+                    TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(currentId,activityList.get(i).getTeamId());
+                    if(teamUser==null)
+                        activityList.remove(i);
+                    else if(teamUser.getStatus()!=TeamUserStatus.alreadyEntered)
+                        activityList.remove(i);
                 }
             }
         }
@@ -255,6 +255,7 @@ public class TeamController {
 
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
+        String phone=teamService.findById(activityPublishDetail.getTeamId()).getPhone();
         ViewUserActivityDetailEntity userActivity=null;
         if(!isAnonymous())
             userActivity = viewUserActivityDetailDao.findViewUserActivityDetailEntityByUserIdAndActivityIdAndAllow(getCurrentUser().getId(), activityID,true);
@@ -265,6 +266,7 @@ public class TeamController {
         map.addAttribute("userActivityList", userActivityList);
         map.addAttribute("isApplied", isApplied);
         map.addAttribute("type", type);
+        map.addAttribute("phone",phone);
         return "activities_details";
     }
 
@@ -305,7 +307,11 @@ public class TeamController {
                                   String beginTime, String endTime, String applyEndTime,
                                   int count,
                                   String address) throws IOException {
-        String idImg = "团队.png";
+        String idImg = "活动.png";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        String nowTime = formatter.format(new Date());
+        if(applyEndTime.compareTo(nowTime)<=0)
+            return "WrongApplyTime";
         if (file != null && !file.isEmpty()) {
             File uploadDir = new File("/home/ubuntu/timebank/picture/activityImg/");
             if (!uploadDir.exists()) {
@@ -356,7 +362,7 @@ public class TeamController {
         }
         //管理员不能报名自己管理的活动
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
-        if (viewActivityPublishDetailEntity.getCreatorId() ==  getCurrentUser().getId()) {
+        if (viewActivityPublishDetailEntity.getPublishUserId() ==  getCurrentUser().getId()) {
             return "managerError";
         }
         //判断是否重复申请
@@ -421,6 +427,7 @@ public class TeamController {
     @RequestMapping(value = "/modifyActivityPage", method = RequestMethod.GET)
     public String goToModifyPage(ModelMap map, @RequestParam long activityId) {
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(getCurrentUser().getId());
+        List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndManagerAndTeamDeleted(getCurrentUser().getId(),true,false);
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityId);
         String beiginTime = activityPublishDetail.getBeginTime().toString();
         beiginTime = beiginTime.substring(0, 10) + "T" + beiginTime.substring(11, 19);
@@ -431,6 +438,7 @@ public class TeamController {
         map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("teamList", teamList);
+        map.addAttribute("manageTeamList",manageTeamList);
         map.addAttribute("beiginTime", beiginTime);
         map.addAttribute("endTime", endTime);
         map.addAttribute("applyTime", applyTime);
@@ -925,7 +933,7 @@ public class TeamController {
     public String modifyTeam(@RequestParam(value = "file1", required = false) MultipartFile file,
                              String team_id,
                              String team_name,
-                             String team_location,
+                             String team_address,
                              String team_phone,
                              String describe) {
         try {
@@ -955,7 +963,7 @@ public class TeamController {
             }
             team.setDescription(describe);
             team.setPhone(team_phone);
-            team.setAddress(team_location);
+            team.setAddress(team_address);
             teamService.saveTeamEntity(team);
             return "success";
         } catch (Exception e) {
