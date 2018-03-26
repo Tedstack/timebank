@@ -82,7 +82,8 @@
                         <option value=<%out.print(manageTeamList.get(j).getTeamId());%> selected="selected"><%out.print(manageTeamList.get(j).getTeamName());%></option>
                         <%}else{%>
                         <option value=<%out.print(manageTeamList.get(j).getTeamId());%> ><%out.print(manageTeamList.get(j).getTeamName());%></option>
-                        <%}%>
+                        <%}
+                        }%>
                     </select>
                 </div>
             </div>
