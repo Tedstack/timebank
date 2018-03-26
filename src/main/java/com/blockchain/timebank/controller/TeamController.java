@@ -325,10 +325,10 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
-            if(file.getSize()/1024>=1024){
-                reducer.imgReduce("/home/ubuntu/timebank/picture/activityImg/"+idImg,"/home/ubuntu/timebank/picture/activityImg/"+idImg,500,500,null);
-                System.out.println("zip complete");
-            }
+//            if(file.getSize()/1024>=1024){
+//                reducer.imgReduce("/home/ubuntu/timebank/picture/activityImg/"+idImg,"/home/ubuntu/timebank/picture/activityImg/"+idImg,500,500,null);
+//                System.out.println("zip complete");
+//            }
         }
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
@@ -439,7 +439,7 @@ public class TeamController {
         String endTime = activityPublishDetail.getEndTime().toString();
         endTime = endTime.substring(0, 10) + "T" + endTime.substring(11, 19);
         String applyTime = activityPublishDetail.getApplyEndTime().toString();
-        applyTime = endTime.substring(0, 10) + "T" + applyTime.substring(11, 19);
+        applyTime = applyTime.substring(0, 10) + "T" + applyTime.substring(11, 19);
         map.addAttribute("currentUser",Long.toString(getCurrentUser().getId()));
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("teamList", teamList);
@@ -476,10 +476,10 @@ public class TeamController {
             File imgFile = new File(path, idImg);
             activity.setHeadImg(idImg);
             file.transferTo(imgFile);
-            if(file.getSize()/1024>=1024){
-                reducer.imgReduce("/home/ubuntu/timebank/picture/activityImg/"+idImg,"/home/ubuntu/timebank/picture/activityImg/"+idImg,500,500,null);
-                System.out.println("zip complete");
-            }
+//            if(file.getSize()/1024>=1024){
+//                reducer.imgReduce("/home/ubuntu/timebank/picture/activityImg/"+idImg,"/home/ubuntu/timebank/picture/activityImg/"+idImg,500,500,null);
+//                System.out.println("zip complete");
+//            }
         }
         try {
             activity.setTeamId(teamOptions);
@@ -899,10 +899,10 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
-            if(file.getSize()/1024>=1024){
-                reducer.imgReduce("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,"/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,500,500,null);
-                System.out.println("zip complete");
-            }
+//            if(file.getSize()/1024>=1024){
+//                reducer.imgReduce("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,"/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,500,500,null);
+//                System.out.println("zip complete");
+//            }
         }
         try {
             TeamEntity newTeam = new TeamEntity();
@@ -954,8 +954,8 @@ public class TeamController {
             String idImg = "";
             //判断是否需要上传头像
             if (file != null && !file.isEmpty()) {
-                if(file.getSize()>1024*1024)
-                    return "hugeImg";
+//                if(file.getSize()>1024*1024)
+//                    return "hugeImg";
                 File uploadDir = new File("/home/ubuntu/timebank/picture/teamHeadImg");
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
@@ -967,10 +967,10 @@ public class TeamController {
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);
-                if(file.getSize()/1024>=1024){
-                    reducer.imgReduce("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,"/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,500,500,null);
-                    System.out.println("zip complete");
-                }
+//                if(file.getSize()/1024>=1024){
+//                    reducer.imgReduce("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,"/home/ubuntu/timebank/picture/teamHeadImg/"+idImg,500,500,null);
+//                    System.out.println("zip complete");
+//                }
             }
             if (!team.getName().trim().equalsIgnoreCase(team_name)) {
                 if (checkTeamNameExist(team_name))
