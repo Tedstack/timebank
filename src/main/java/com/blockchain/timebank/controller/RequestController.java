@@ -480,7 +480,7 @@ public class RequestController {
     public String requestUserStartPay(ModelMap map,@RequestParam long matchID){
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
         if(viewRequestOrderDetailEntity.getRequestUserId()!=getCurrentUser().getId())
-            return "redirect:index";
+            return "redirect:../user";
         if(viewRequestOrderDetailEntity.getStatus().equals(OrderStatus.alreadyComplete))
             return "redirect:published?tab=4";
 
