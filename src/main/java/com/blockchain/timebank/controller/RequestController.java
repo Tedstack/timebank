@@ -365,17 +365,17 @@ public class RequestController {
 
     //修改服务提交接口
     @RequestMapping(value = "/update/submit", method = RequestMethod.POST)
-    public String addSubmitPage(ModelMap map, @RequestParam long id, @RequestParam String address, @RequestParam String beginDate, @RequestParam String endDate, @RequestParam double price, @RequestParam String description) {
+    public String addSubmitPage(ModelMap map, @RequestParam long id, @RequestParam String address, @RequestParam String beginTime, @RequestParam String endTime, @RequestParam double price, @RequestParam String description) {
         try {
             RequestEntity requestEntity = requestService.findRequestById(id);
             requestEntity.setAddress(address);
             requestEntity.setDescription(description);
             requestEntity.setUserId(getCurrentUser().getId());
             requestEntity.setPrice(new BigDecimal(price));
-            Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-            requestEntity.setBeginTime(new Timestamp(beginTime.getTime()));
-            requestEntity.setEndTime(new Timestamp(endTime.getTime()));
+            Date beginDateTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginTime);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endDateTime = new SimpleDateFormat("yyyy-MM-dd").parse(endTime);
+            requestEntity.setBeginTime(new Timestamp(beginDateTime.getTime()));
+            requestEntity.setEndTime(new Timestamp(endDateTime.getTime()));
             requestService.saveRequestEntity(requestEntity);
         } catch (ParseException e) {
             e.printStackTrace();
