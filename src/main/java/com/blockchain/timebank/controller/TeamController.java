@@ -474,7 +474,7 @@ public class TeamController {
             activity.setHeadImg(idImg);
             file.transferTo(imgFile);
             if(file.getSize()/1024>=512)
-                Thumbnails.of(path+idImg).size(500,500).toFile(path+idImg);
+                Thumbnails.of("/home/ubuntu/timebank/picture/activityImg/"+idImg).size(500,500).toFile("/home/ubuntu/timebank/picture/activityImg/"+idImg);
         }
         try {
             activity.setTeamId(teamOptions);
@@ -895,7 +895,7 @@ public class TeamController {
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
             if(file.getSize()/1024>=512)
-                Thumbnails.of(path+idImg).size(500,500).toFile(path+idImg);
+                Thumbnails.of("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg).size(500,500).toFile("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg);
         }
         try {
             TeamEntity newTeam = new TeamEntity();
@@ -954,12 +954,12 @@ public class TeamController {
                 int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
                 String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
                 idImg = team_name + "_headImg_" + Integer.toString(ram) + suffix1;
-                String path = "/home/ubuntu/timebank/picture/teamHeadImg/";
+                String path = "/home/ubuntu/timebank/picture/teamHeadImg";
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);
                 if(file.getSize()/1024>=512)
-                    Thumbnails.of(path+idImg).size(500,500).toFile(path+idImg);
+                    Thumbnails.of("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg).size(500,500).toFile("/home/ubuntu/timebank/picture/teamHeadImg/"+idImg);
             }
             if (!team.getName().trim().equalsIgnoreCase(team_name)) {
                 if (checkTeamNameExist(team_name))
