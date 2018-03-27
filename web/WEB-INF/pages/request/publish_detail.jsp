@@ -148,7 +148,7 @@
             <div class="weui-cell__bd"></div>
         </div>
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_primary" href="<%out.print("request/update?id="+detail.getId()+"&userID="+detail.getUserId());%>">修改</a>
+            <a class="weui-btn weui-btn_primary" href="<%out.print("update?id="+detail.getId()+"&userID="+detail.getUserId());%>">修改</a>
         </div>
 
         <article class="weui-article">
