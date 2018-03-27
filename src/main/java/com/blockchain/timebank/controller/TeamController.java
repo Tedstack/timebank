@@ -324,7 +324,7 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
-            if(file.getSize()/1024>=1024)
+            if(file.getSize()/1024>=512)
                 Thumbnails.of("/home/ubuntu/timebank/picture/activityImg/"+idImg).size(500,500).toFile("/home/ubuntu/timebank/picture/activityImg/"+idImg);
         }
         try {
@@ -473,7 +473,7 @@ public class TeamController {
             File imgFile = new File(path, idImg);
             activity.setHeadImg(idImg);
             file.transferTo(imgFile);
-            if(file.getSize()/1024>=1024)
+            if(file.getSize()/1024>=512)
                 Thumbnails.of(path+idImg).size(500,500).toFile(path+idImg);
         }
         try {
@@ -894,7 +894,7 @@ public class TeamController {
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
-            if(file.getSize()/1024>=1024)
+            if(file.getSize()/1024>=512)
                 Thumbnails.of(path+idImg).size(500,500).toFile(path+idImg);
         }
         try {
@@ -958,7 +958,7 @@ public class TeamController {
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
                 file.transferTo(imgFile);
-                if(file.getSize()/1024>=1024)
+                if(file.getSize()/1024>=512)
                     Thumbnails.of(path+idImg).size(500,500).toFile(path+idImg);
             }
             if (!team.getName().trim().equalsIgnoreCase(team_name)) {
