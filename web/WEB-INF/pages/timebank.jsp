@@ -32,6 +32,10 @@
             cursor: pointer;
         }
         .button5 {border-radius: 50%;}
+        a{
+            text-decoration: none;
+            color:#333;
+        }
     </style>
 </head>
 <body>
@@ -61,24 +65,28 @@
         </td>
     </tr>
 </table>
-<div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>志愿者服务时间</p>
+<a href="../user/queryVolPublishAlComplete">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>志愿者服务时间</p>
+        </div>
+        <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%></div>
     </div>
-    <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%></div>
-</div>
+</a>
 <div class="weui-cell">
     <div class="weui-cell__bd">
         <p>互助服务时间</p>
     </div>
     <div class="weui-cell__ft">暂无</div>
 </div>
-<div class="weui-cell">
-    <div class="weui-cell__bd">
-        <p>时间币(时)</p>
+<a href="../user/coins_list">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>时间币(时)</p>
+        </div>
+        <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%></div>
     </div>
-    <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%></div>
-</div>
+</a>
 <div class="weui-cell">
     <div class="weui-cell__bd">
         <p>我的服务评价分</p>
