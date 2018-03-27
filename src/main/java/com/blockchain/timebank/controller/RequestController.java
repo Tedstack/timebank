@@ -482,7 +482,7 @@ public class RequestController {
         if(viewRequestOrderDetailEntity.getRequestUserId()!=getCurrentUser().getId())
             return "redirect:index";
         if(viewRequestOrderDetailEntity.getStatus().equals(OrderStatus.alreadyComplete))
-            return "redirect:request/published?tab=4";
+            return "redirect:published?tab=4";
 
         map.addAttribute("viewMatchDetailEntity", viewRequestOrderDetailEntity);
         return "request/paydetail";
