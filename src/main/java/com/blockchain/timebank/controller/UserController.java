@@ -761,7 +761,10 @@ public class UserController {
     @RequestMapping(value = "/applyUserStartPay",method = RequestMethod.GET)
     public String applyUserStartPay(ModelMap map,@RequestParam long recordID){
         ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = viewRecordDetailDao.findViewRecordDetailEntityById(recordID);
-
+        if(viewPublishOrderDetailEntity.getApplyUserId()!=getCurrentUser().getId())
+            return "redirect:../user";
+        if(viewPublishOrderDetailEntity.getStatus().equals(OrderStatus.alreadyComplete))
+            return "redirect:/queryOrderAlreadyComplete";
         map.addAttribute("viewPublishOrderDetailEntity", viewPublishOrderDetailEntity);
         return "service_posted_paydetails";
     }

@@ -246,8 +246,13 @@
             endTime = endTime.replace("T"," ");
             beginTime = new Date(beginTime).getTime()+3600000;
             endTime = new Date(endTime).getTime();
+            var nowTime = new Date().getTime() + 3600000;
             if(beginTime>endTime){
                 showAlert("需求结束时间不能早于开始时间，且需间隔1个小时以上");
+                return false;
+            }
+            if(nowTime>beginTime){
+                showAlert("需求开始时间不能早于当前时间");
                 return false;
             }
         }
