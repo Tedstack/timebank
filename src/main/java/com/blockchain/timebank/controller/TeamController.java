@@ -237,9 +237,10 @@ public class TeamController {
                     activityList.remove(i);
                 else {
                     TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(currentId,activityList.get(i).getTeamId());
-                    if(teamUser==null)
+                    TeamEntity team=teamService.findById(activityList.get(i).getTeamId());
+                    if(teamUser==null && currentId!=team.getCreatorId())
                         activityList.remove(i);
-                    else if(teamUser.getStatus()!=TeamUserStatus.alreadyEntered)
+                    else if(teamUser!=null && !teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
                         activityList.remove(i);
                 }
             }

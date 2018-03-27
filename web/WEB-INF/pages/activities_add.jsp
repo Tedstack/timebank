@@ -16,13 +16,6 @@
     <script src="../js/scan/function.js"></script>
     <script src="../js/scan/configs.js"></script>
 </head>
-<%
-    //String surplus=(String) request.getAttribute("surplus");
-//    response.setHeader("Pragma","No-cache");
-//    response.setHeader("Cache-Control","no-cache");
-//    response.setDateHeader("Expires", 0);
-//    response.flushBuffer();
-%>
 <body onload="check();">
 <div class="weui-tab" id="activity">
     <div class="weui-tab__panel">
@@ -116,7 +109,7 @@
                 <div class="weui-cell__bd">
                     <div class="weui-cell__bd">
                         <textarea id="description" class="weui-textarea" name="description" placeholder="请输入描述" rows="3"></textarea>
-                        <%--<div class="weui-textarea-counter"><span>0</span>/200</div>--%>
+                        <div class="weui-textarea-counter"><span>0</span>/200</div>
                     </div>
                 </div>
             </div>

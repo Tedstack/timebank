@@ -127,7 +127,7 @@
                 </div>
             </div>
 
-            <div class="weui-cell" id="<%out.print(activityPublishDetail.getTeamId());%>" onclick="viewTeamInfo(this)">
+            <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <p>活动地点</p>
                 </div>
@@ -171,7 +171,7 @@
     var activityID='<%=activityPublishDetail.getId()%>';
     var contextPath="${pageContext.request.contextPath}";
 
-    function goToUserList(u){
+    function goToUserList(){
         window.location.href="${pageContext.request.contextPath}/team/userActivityList?activityId="+activityID;
     }
 
@@ -259,7 +259,7 @@
     });
     var title='<%=activityPublishDetail.getName()%>';
     var headImgUrl='activityImg/'+'<%=activityPublishDetail.getHeadImg()%>';
-    var descr='<%=activityPublishDetail.getDescription()%>';
+    var descr='<%=activityPublishDetail.getDescription().replaceAll("\r|\n","")%>';
     var link = 'team/teamActivityDetails?type=0&activityID='+activityID;
     share(title,link,headImgUrl,descr);
 </script>

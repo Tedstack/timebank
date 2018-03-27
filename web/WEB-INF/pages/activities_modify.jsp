@@ -106,15 +106,15 @@
             </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__bh">
-                    <label class="weui-label">是否公开</label>
+                    <label class="weui-label">活动对象</label>
                 </div>
                 <div class="weui-cell__bd">
                     <select id="isPublicOptions" class="weui-select" name="isPublic">
                         <%if(activityPublishDetail.isPublic()){%>
-                        <option value="true" selected="selected">所有人</option>
+                        <option value="true" selected="selected">对外公开</option>
                         <option value="false">团队成员</option>
                         <%}else{%>
-                        <option value="true">所有人</option>
+                        <option value="true">对外公开</option>
                         <option value="false" selected="selected">团队成员</option>
                         <%}%>
                     </select>
