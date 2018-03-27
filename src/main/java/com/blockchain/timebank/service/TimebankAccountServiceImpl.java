@@ -96,9 +96,9 @@ public class TimebankAccountServiceImpl implements TimebankAccountService {
             bankTotal = bankTotal - rechargeValue;
             timebankEntity.setTotal(bankTotal);
         }else if (currencyType.equals(CurrencyType.timeCoin)){
-            userTotal = userEntity.getTimeCoin();
-            userTotal = userTotal + rechargeValue;
-            userEntity.setTimeCoin(userTotal);
+            //userTotal = userEntity.getTimeCoin();
+            //userTotal = userTotal + rechargeValue;
+            //userEntity.setTimeCoin(userTotal);
         }else{
             return false;
         }
