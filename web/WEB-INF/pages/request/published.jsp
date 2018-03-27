@@ -469,6 +469,15 @@
         goTo(url+"/request/add");
     });
     $(function(){
+        var isPageHide = false;
+        window.addEventListener('pageshow', function () {
+            if (isPageHide) {
+                window.location.reload();
+            }
+        });
+        window.addEventListener('pagehide', function () {
+            isPageHide = true;
+        });
         var panel_published = $("#published"),
             panel_to_confirm = $("#to_confirm"),
             panel_to_service = $("#to_service"),
