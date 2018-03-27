@@ -277,7 +277,7 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
-            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/index");//此处可以加入想要跳转的链接
+            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/publish/list?type=志愿者服务");//此处可以加入想要跳转的链接
         }
         template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
         template.setToUser(userEntity.getOpenId());
@@ -327,7 +327,7 @@ public class MessageUtil {
             templateParamList.add(new TemplateParam("keyword1", applyName, "#173177"));
             templateParamList.add(new TemplateParam("keyword2", apply_type, "#173177"));
             templateParamList.add(new TemplateParam("remark", str_remark, "#173177"));
-            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/index");//此处可以加入想要跳转的链接
+            template.setUrl("http://"+Configs.DOMAINNAME+"/timebanktest/request/list?type=volunteer");//此处可以加入想要跳转的链接
         }
         template.setTemplateId("r3Y2DyaqXeUAqQRxzV8FfjNiXxA8Fax_7MTSx9Tu1hM");
         template.setToUser(userEntity.getOpenId());
