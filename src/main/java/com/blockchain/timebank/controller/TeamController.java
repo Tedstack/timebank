@@ -318,10 +318,10 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String date = new java.sql.Date(System.currentTimeMillis()).toString();
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = Long.toString(teamId) + "_ActImg_"+date+"_"+Integer.toString(ram) + suffix1;
+            idImg = Long.toString(teamId) + "_ActImg_"+date+"_"+Long.toString(timestamp.getTime()) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
@@ -467,9 +467,9 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = Long.toString(activity.getId()) + "_ActImg_"+Integer.toString(ram) + suffix1;
+            idImg = Long.toString(activity.getId()) + "_ActImg_"+Long.toString(timestamp.getTime()) + suffix1;
             String path = "/home/ubuntu/timebank/picture/activityImg/";
             File imgFile = new File(path, idImg);
             activity.setHeadImg(idImg);
@@ -889,9 +889,9 @@ public class TeamController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            idImg = team_name + "_headImg_"+ Integer.toString(ram) + suffix1;
+            idImg = Long.toString(user.getId()) + "_headImg_"+ Long.toString(timestamp.getTime()) + suffix1;
             String path = "/home/ubuntu/timebank/picture/teamHeadImg";
             File imgFile = new File(path, idImg);
             file.transferTo(imgFile);
@@ -952,9 +952,9 @@ public class TeamController {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
-                int ram = random.nextInt(999999)%(999999-100000+1) + 100000;
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 String suffix1 = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-                idImg = team_name + "_headImg_" + Integer.toString(ram) + suffix1;
+                idImg = Long.toString(getCurrentUser().getId()) + "_headImg_" + Long.toString(timestamp.getTime()) + suffix1;
                 String path = "/home/ubuntu/timebank/picture/teamHeadImg";
                 File imgFile = new File(path, idImg);
                 team.setHeadImg(idImg);
