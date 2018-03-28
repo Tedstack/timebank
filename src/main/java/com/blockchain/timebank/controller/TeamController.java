@@ -308,7 +308,7 @@ public class TeamController {
                                   String beginTime, String endTime, String applyEndTime,
                                   int count,
                                   String address) throws IOException {
-        String idImg = "活动.png";
+        String idImg = "activity.png";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         String nowTime = formatter.format(new Date());
         if(applyEndTime.compareTo(nowTime)<=0)
@@ -880,7 +880,7 @@ public class TeamController {
                              String team_address,
                              String content_number,
                              String describe)throws IOException {
-        String idImg = "团队.png";
+        String idImg = "team.png";
         UserEntity user=getCurrentUser();
         if (checkTeamNameExist(team_name))
             return "nameExist";

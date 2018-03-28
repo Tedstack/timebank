@@ -36,7 +36,7 @@
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="files1"></ul>
                                 <a id="changeImg" href="javascript:" style="display:inline;">
-                                    <img src="../img/teamHeadImg/团队.png" style="width:90px;height:90px;display: block">
+                                    <img src="../img/teamHeadImg/team.png" style="width:90px;height:90px;display: block">
                                 </a>
                                 <div class="weui-uploader__input-box" id="addHeadImg" style="width:90px;height:90px;display: none;">
                                     <input id="file1" name="file1" class="weui-uploader__input" type="file" accept="image/*">
