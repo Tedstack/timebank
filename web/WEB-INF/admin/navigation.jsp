@@ -104,6 +104,20 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRequestPublish" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-paper-plane"></i>
+                            <span class="nav-link-text">需求发布管理</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseRequestPublish">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/requestList">已发布需求列表</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/requestAdd">后台发布需求</a>
+                            </li>
+                        </ul>
+                    </li>
             <%
                 }
 
