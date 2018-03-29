@@ -155,11 +155,11 @@
         </a>
         <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我承接的需求</p>
+            <p class="weui-tabbar__label">承接的需求</p>
         </a>
-        <a href="${pageContext.request.contextPath}/user/queryPublishAlreadyPublish" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">我发布的服务</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">发布的需求</p>
         </a>
     </div>
 </div>
@@ -171,7 +171,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/publish/add");
+        goTo(url+"/request/add");
     });
     $(function(){
         $("#navbar1").on('click', function () {
