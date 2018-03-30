@@ -60,8 +60,6 @@ public class TeamController {
     @Autowired
     ViewTeamUserDetailDao viewTeamUserDetailDao;
 
-    private Random random=new Random();
-
     @RequestMapping(value = "/teamList", method = RequestMethod.GET)
     public String teamListPage(ModelMap map) {
         List<TeamUserEntity> allTeamUser = teamUserService.findAll();
@@ -216,37 +214,31 @@ public class TeamController {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
         Timestamp zeroTimestamp = new Timestamp(zero);
-        List<ActivityPublishEntity> activityList = activityPublishService.findAllByStatusAndBeginTimeAfterAndDeleted(ActivityStatus.waitingForApply,zeroTimestamp,false);
-        //倒序排列
-        Collections.reverse(activityList);
-        boolean isAnonymous=isAnonymous();
-        //因为使用remove方法，此处循环用倒叙
-        long currentId=0;
-        if(!isAnonymous)
-            currentId= getCurrentUser().getId();
-        for (int i = activityList.size() - 1; i >= 0; i--) {
-            List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityList.get(i).getId(), true);
-            //判断活动已报名人数是否达到活动要求人数，已达到的活动下架不显示
-            if (userActivityList.size() >= activityList.get(i).getCount()) {
-                activityList.remove(i);
-                continue;
-            }
-            //活动不公开
-            if (!activityList.get(i).isPublic()) {
-                if(isAnonymous)//游客登录
-                    activityList.remove(i);
-                else {
-                    TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(currentId,activityList.get(i).getTeamId());
-                    TeamEntity team=teamService.findById(activityList.get(i).getTeamId());
-                    if(teamUser==null && currentId!=team.getCreatorId())
-                        activityList.remove(i);
-                    else if(teamUser!=null && !teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
-                        activityList.remove(i);
-                }
-            }
+        //可报名活动
+        List<ActivityPublishEntity> apply_activityList = activityPublishService.findAllByStatusAndBeginTimeAfterAndDeleted(ActivityStatus.waitingForApply,zeroTimestamp,false);
+        for(int i=0;i<apply_activityList.size();i++){
+            List<ViewUserActivityDetailEntity> userlist = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(apply_activityList.get(i).getId(),true);
+            if(userlist!=null && userlist.size()==apply_activityList.get(i).getCount())
+                apply_activityList.get(i).setStatus("报名结束");
+            else
+                apply_activityList.get(i).setStatus("可报名");
         }
+        //准备开始进行的活动
+        List<ActivityPublishEntity> ready_activityList = activityPublishService.findAllByStatusAndDeleted(ActivityStatus.waitingForExecute,false);
+        //准备开始进行的活动
+        List<ActivityPublishEntity> excute_activityList = activityPublishService.findAllByStatusAndDeleted(ActivityStatus.alreadyStart,false);
+        //准备开始进行的活动
+        List<ActivityPublishEntity> terminate_activityList = activityPublishService.findAllByStatusAndDeleted(ActivityStatus.alreadyTerminate,false);
 
-        map.addAttribute("activityList", activityList);
+        //倒序排列
+        Collections.reverse(apply_activityList);
+        Collections.reverse(ready_activityList);
+        Collections.reverse(excute_activityList);
+        Collections.reverse(terminate_activityList);
+        ready_activityList.addAll(excute_activityList);
+        map.addAttribute("apply_activityList",apply_activityList);
+        map.addAttribute("process_activityList",ready_activityList);
+        map.addAttribute("terminate_activityList",terminate_activityList);
         return "team_activities";
     }
 
@@ -275,15 +267,15 @@ public class TeamController {
     @RequestMapping(value = "/startPublishActivity", method = RequestMethod.GET)
     public String startPublishActivity(ModelMap map) {
         UserEntity user = getCurrentUser();
-//        long current=System.currentTimeMillis();//当前时间毫秒数
-//        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
-//        Timestamp zeroTimestamp = new Timestamp(zero);
-//        List<ViewActivityPublishDetailEntity> publishEntities = viewActivityPublishDetailDao.findViewActivityPublishDetailEntitiesByCreatorIdAndBeginTimeAfter(user.getId(),zeroTimestamp);
-//        if(publishEntities.size() >= 3){
-//            map.addAttribute("surplus", "true");
-//        } else{
-//            map.addAttribute("surplus", "false");
-//        }
+        long current=System.currentTimeMillis();//当前时间毫秒数
+        long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        Timestamp zeroTimestamp = new Timestamp(zero);
+        List<ViewActivityPublishDetailEntity> publishEntities = viewActivityPublishDetailDao.findAllByConditionWithTime(user.getId(),ActivityStatus.waitingForApply,zeroTimestamp);
+        if(publishEntities.size() >= 10){
+            map.addAttribute("surplus", "true");
+        } else{
+            map.addAttribute("surplus", "false");
+        }
         List<TeamEntity> teamList = teamService.findTeamsByCreatorId(user.getId());
         List<ViewTeamUserDetailEntity> manageTeamList=viewTeamUserDetailDao.findAllByUserIdAndManagerAndTeamDeleted(user.getId(),true,false);
         if (teamList.size() == 0 && manageTeamList.size()==0) {
@@ -331,7 +323,7 @@ public class TeamController {
         try {
             ActivityPublishEntity activityPublishEntity = new ActivityPublishEntity();
             activityPublishEntity.setTeamId(teamId);
-            if (activityType.equalsIgnoreCase("志愿者"))
+            if (activityType.equalsIgnoreCase("志愿服务"))
                 activityPublishEntity.setType(ActivityType.volunteerActivity);
             else
                 activityPublishEntity.setType(ActivityType.communityActivity);
@@ -420,8 +412,9 @@ public class TeamController {
     @RequestMapping(value = "/manageActivities", method = RequestMethod.GET)
     public String manageActivities(ModelMap map, @RequestParam long activityId) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityId);
+        if(!activityPublishDetail.getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply))
+            return "redirect:/team/activitiesWaitingForApply";
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityId, true);
-
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         return "manage_activities";
@@ -536,6 +529,8 @@ public class TeamController {
     @RequestMapping(value = "/prepareStartActivity", method = RequestMethod.GET)
     public String startActivities(ModelMap map, @RequestParam long activityID) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
+        if(!activityPublishDetail.getStatus().equalsIgnoreCase(ActivityStatus.waitingForExecute))
+            return "redirect:/team/activitiesWaitingForApply";
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
 
         map.addAttribute("activityPublishDetail", activityPublishDetail);
@@ -576,6 +571,8 @@ public class TeamController {
     @RequestMapping(value = "/prepareTerminateActivity", method = RequestMethod.GET)
     public String prepareTerminateActivity(ModelMap map, @RequestParam long activityID) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
+        if(!activityPublishDetail.getStatus().equalsIgnoreCase(ActivityStatus.alreadyStart))
+            return "redirect:/team/alreadyStartedActivities";
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllowAndPresent(activityID, true, true);
 
         map.addAttribute("activityPublishDetail", activityPublishDetail);

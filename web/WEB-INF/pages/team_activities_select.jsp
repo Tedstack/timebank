@@ -12,7 +12,6 @@
     <title>搜素结果</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/zepto/zepto.min.js"></script>
     <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/scan/function.js"></script>

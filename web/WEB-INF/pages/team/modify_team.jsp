@@ -27,7 +27,7 @@
 <%
     TeamEntity team=(TeamEntity)request.getAttribute("teamEntity");
     String currentUser=(String)request.getAttribute("currentUser");
-    List<String> areaList = Arrays.asList("不限","黄浦区","徐汇区","长宁区","静安区","普陀区","虹口区","杨浦区","宝山区","闵行区","嘉定区","浦东新区","松江区","金山区","青浦区","奉贤区","崇明区");
+    List<String> areaList = Arrays.asList("普陀区","黄浦区","徐汇区","长宁区","静安区","虹口区","杨浦区","宝山区","闵行区","嘉定区","浦东新区","松江区","金山区","青浦区","奉贤区","崇明区","不限");
 %>
 <body onload="checkUser();">
 <div class="weui-cells weui-cells_form" style="margin-top: 0px;">

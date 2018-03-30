@@ -9,7 +9,7 @@ public interface ActivityPublishService {
 
     List<ActivityPublishEntity> findAllByDeleted(boolean isDeleted);
 
-    List<ActivityPublishEntity> findAllWaitingApplyActivityPublishEntity();
+    List<ActivityPublishEntity> findAllByStatusAndDeleted(String status, boolean isDeleted);
 
     ActivityPublishEntity saveActivityPublishEntity(ActivityPublishEntity activityPublishEntity);
 

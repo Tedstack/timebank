@@ -64,23 +64,23 @@
                                 <div class="weui-flex__item"display="none"></div>
                                 <div class="weui-flex__item"display="none"></div>
                             </div>
-                            <p class="weui-media-box__desc">活动团队：<%out.print(activityDetailList.get(i).getTeamName());%></p>
-                            <p class="weui-media-box__desc">活动开始时间：
+                            <h class="weui-media-box__desc">活动团队：<%out.print(activityDetailList.get(i).getTeamName());%></h>
+                            <h class="weui-media-box__desc">活动开始时间：
                                 <%
                                     Timestamp beginTimestamp = activityDetailList.get(i).getBeginTime();
                                     Date date = new Date(beginTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat.format(date));
                                 %>
-                            </p>
-                            <p class="weui-media-box__desc">活动结束时间：
+                            </h>
+                            <h class="weui-media-box__desc">活动结束时间：
                                 <%
                                     Timestamp endTimestamp = activityDetailList.get(i).getEndTime();
                                     Date date2 = new Date(endTimestamp.getTime());
                                     SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                     out.print(bartDateFormat2.format(date2));
                                 %>
-                            </p>
+                            </h>
                             <p class="weui-media-box__desc">活动地点：<%out.print(activityDetailList.get(i).getAddress());%></p>
                         </div>
                     </div>
@@ -91,8 +91,8 @@
                             <div class="weui-flex__item"diaplay="none"></div>
                             <div class="weui-flex__item"display="none"></div>
                             <div class="weui-flex__item"display="none"></div>
-                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/modifyActivityPage?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a">修改</a></div>
                             <%if(activityDetailList.get(i).getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply)){%>
+                            <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/modifyActivityPage?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: whitesmoke;color: #1a1a1a">修改</a></div>
                             <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/team/manageActivities?activityId=<%out.print(activityDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">管理</a></div>
                             <%}else{%>
                             <a class="weui-btn weui-btn_mini weui-btn_primary" style="background-color: orange;" href="${pageContext.request.contextPath}/team/prepareStartActivity?activityID=<%out.print(activityDetailList.get(i).getId());%>">开始</a>

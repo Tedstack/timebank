@@ -76,8 +76,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select id="activityType" class="weui-select" name="activityType">
-                        <option value="社区">娱乐活动</option>
-                        <option value="志愿者">志愿服务</option>
+                        <option value="娱乐活动">娱乐活动</option>
+                        <option value="志愿服务">志愿服务</option>
                     </select>
                 </div>
             </div>
@@ -178,13 +178,13 @@
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     function check() {
-        <%--var surplus='<%=surplus%>';--%>
-        <%--if(surplus==="true"){--%>
-            <%--showAlert("每日至多可以发布3个活动<br/>您今日发布次数已达到上限！");--%>
-            <%--$("input").attr("disabled",true);--%>
-            <%--$("textarea").attr("disabled",true);--%>
-            <%--document.getElementById("submitBtn").attr("disabled",true);--%>
-        <%--}--%>
+        var surplus='<%=request.getAttribute("surplus")%>';
+        if(surplus==="true"){
+            showAlert("每日至多可以发布10个活动<br/>您今日发布次数已达到上限！");
+            $("input").attr("disabled",true);
+            $("textarea").attr("disabled",true);
+            document.getElementById("submitBtn").attr("disabled",true);
+        }
     }
     $("#beginTime").change(function(){
         document.getElementById("applyEndTime").value=document.getElementById("beginTime").value;

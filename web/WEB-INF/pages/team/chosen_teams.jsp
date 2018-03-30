@@ -86,7 +86,9 @@
                         </div>
                         <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
                             <p><%out.print(teamList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">创办人：<%out.print(teamList.get(i).getCreatorUserName());%></p>
+                            <p style="font-size: 13px;color: #888888;">创办时间：<%out.print(teamList.get(i).getCreateDate());%></p>
+                            <p style="font-size: 13px;color: #888888;">活动区域：<%out.print(teamList.get(i).getAddress());%></p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="quitFromTeam(this)" id=<%out.print(teamList.get(i).getId());%>>退出</a>
                     </label>
@@ -117,7 +119,9 @@
                         </div>
                         <div class="weui-cell__bd"  onclick="viewTeamPage(this)" id="<%out.print(teamList.get(i).getId());%>">
                             <p><%out.print(teamList.get(i).getName());%></p>
-                            <p style="font-size: 13px;color: #888888;"><%out.print(teamList.get(i).getDescription());%></p>
+                            <p style="font-size: 13px;color: #888888;">创办人：<%out.print(teamList.get(i).getCreatorUserName());%></p>
+                            <p style="font-size: 13px;color: #888888;">创办时间：<%out.print(teamList.get(i).getCreateDate());%></p>
+                            <p style="font-size: 13px;color: #888888;">活动区域：<%out.print(teamList.get(i).getAddress());%></p>
                         </div>
                         <a class="weui-btn weui-btn_mini weui-btn_primary" onclick="quitFromTeam(this)" id=<%out.print(teamList.get(i).getId());%>>退出</a>
                     </label>

@@ -62,12 +62,11 @@
         </div>
         <div class="weui-cell__bd">
             <select id="team_address" class="weui-select" name="team_address">
-                <option value="不限">不限</option>
+                <option value="普陀区">普陀区</option>
                 <option value="黄浦区">黄浦区</option>
                 <option value="徐汇区">徐汇区</option>
                 <option value="长宁区">长宁区</option>
                 <option value="静安区">静安区</option>
-                <option value="普陀区">普陀区</option>
                 <option value="虹口区">虹口区</option>
                 <option value="杨浦区">杨浦区</option>
                 <option value="宝山区">宝山区</option>
@@ -79,6 +78,7 @@
                 <option value="青浦区">青浦区</option>
                 <option value="奉贤区">奉贤区</option>
                 <option value="崇明区">崇明区</option>
+                <option value="不限">不限</option>
             </select>
         </div>
     </div>

@@ -22,8 +22,8 @@ public class ActivityPublishServiceImpl implements ActivityPublishService {
     }
 
     @Transactional(readOnly=true)
-    public List<ActivityPublishEntity> findAllWaitingApplyActivityPublishEntity() {
-        return (List<ActivityPublishEntity>)activityPublishDao.findByDeletedAndStatus(false, ActivityStatus.waitingForApply);
+    public List<ActivityPublishEntity> findAllByStatusAndDeleted(String status, boolean isDeleted) {
+        return activityPublishDao.findByDeletedAndStatus(isDeleted, status);
     }
 
     public ActivityPublishEntity saveActivityPublishEntity(ActivityPublishEntity activityPublishEntity) {
