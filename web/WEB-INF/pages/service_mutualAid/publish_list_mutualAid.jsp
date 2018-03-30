@@ -114,11 +114,11 @@
         </a>
         <a href="${pageContext.request.contextPath}/user/queryOrderAlreadyApply" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">我预约的服务</p>
+            <p class="weui-tabbar__label" style="margin:0px">预约的服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/user/queryPublishAlreadyPublish" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="margin:0px">我发布的需求</p>
+            <p class="weui-tabbar__label" style="margin:0px">发布的服务</p>
         </a>
     </div>
 </div>
@@ -132,7 +132,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/request/add");
+        goTo(url+"/publish/add");
     });
     var contextPath="${pageContext.request.contextPath}";
     /*$(document).ready(function () {

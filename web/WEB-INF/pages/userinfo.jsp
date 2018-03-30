@@ -13,9 +13,40 @@
     <title>我的信息</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
+    <link rel="stylesheet" href="../css/weui.css">
+    <link rel="stylesheet" href="../css/weui-example.css">
+    <script src="../js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/scan/function.js"></script>
+    <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="http://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+    <link href="../css/bootstrap-touch-slider.css" rel="stylesheet" media="all">
+    <script src="../js/zepto/zepto.min.js"></script>
+    <script src="../js/zepto/weui.min.js"></script>
     <script src="../js/jquery/jquery-3.2.1.min.js"></script>
     <script src="../js/utils.js"></script>
     <script charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button5 {border-radius: 50%;}
+        a{
+            text-decoration: none;
+            color:#333;
+        }
+    </style>
 </head>
 <%--<body onload="back_exit();">--%>
 <script>get_wx_config();</script>
@@ -91,6 +122,39 @@
         </div>
     </a>
     <div style="background-color: #f8f8f8; height:10px;"></div>
+    <a href="../user/queryVolPublishAlComplete">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>志愿者服务时间</p>
+            </div>
+            <div class="weui-cell__ft"><%out.print(userEntity.getTimeVol());%></div>
+        </div>
+    </a>
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>互助服务时间</p>
+        </div>
+        <div class="weui-cell__ft">暂无</div>
+    </div>
+    <a href="../user/coins_list">
+        <div class="weui-cell">
+            <div class="weui-cell__bd">
+                <p>时间币(时)</p>
+            </div>
+            <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%></div>
+        </div>
+    </a>
+    <table>
+        <tr>
+            <td>
+                <button class="button button5" style="margin: 20px 35px;float:left;padding:20px 30px" id="recharge">时间币充值</button>
+            </td>
+            <td>
+                <button class="button button5" style="margin: 20px 35px;float:right;padding:20px 30px;background-color: #a2958a" id="tixian">时间币提现</button>
+            </td>
+        </tr>
+    </table>
+    <div style="background-color: #f8f8f8; height:10px;"></div>
     <%--<div style="background-color: #f8f8f8; height:10px;"></div>--%>
     <%--<div class="weui-cell">--%>
         <%--<div class="weui-cell__bd">--%>
@@ -111,8 +175,20 @@
 
 <!-- jQuery 3 -->
 <script src="../js/jquery/jquery-3.2.1.min.js"></script>
-
-<script>
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript">
+    var url='${pageContext.request.contextPath}';
+    $(document).on("click", "#recharge", function() {
+        var r=confirm("您正在进行充值业务，￥1=1时间币，确认是否继续");
+        if(r==true){
+            goTo(url+"/recharge/coins_recharge");
+        }
+    });
+    $("#tixian").click(function(){
+        showAlert("提现请至中山北路3671弄500号-师大一村活动中心");
+    });
     $(document).ready(function () {
         $('.weui-tabbar:eq(0)').find('a:eq(3)').addClass("weui-bar__item_on");
     });
