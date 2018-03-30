@@ -213,15 +213,20 @@ public class TeamController {
     public String activities(ModelMap map) {
         long current=System.currentTimeMillis();//当前时间毫秒数
         long zero=current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        Timestamp nowTime = new Timestamp(System.currentTimeMillis());
         Timestamp zeroTimestamp = new Timestamp(zero);
         //可报名活动
         List<ActivityPublishEntity> apply_activityList = activityPublishService.findAllByStatusAndBeginTimeAfterAndDeleted(ActivityStatus.waitingForApply,zeroTimestamp,false);
         for(int i=0;i<apply_activityList.size();i++){
-            List<ViewUserActivityDetailEntity> userlist = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(apply_activityList.get(i).getId(),true);
-            if(userlist!=null && userlist.size()==apply_activityList.get(i).getCount())
-                apply_activityList.get(i).setStatus("报名结束");
-            else
-                apply_activityList.get(i).setStatus("可报名");
+            if(nowTime.after(apply_activityList.get(i).getApplyEndTime()))
+                apply_activityList.get(i).setStatus("已过报名时间");
+            else {
+                List<ViewUserActivityDetailEntity> userlist = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(apply_activityList.get(i).getId(), true);
+                if (userlist != null && userlist.size() == apply_activityList.get(i).getCount())
+                    apply_activityList.get(i).setStatus("报名结束");
+                else
+                    apply_activityList.get(i).setStatus("可报名");
+            }
         }
         //准备开始进行的活动
         List<ActivityPublishEntity> ready_activityList = activityPublishService.findAllByStatusAndDeleted(ActivityStatus.waitingForExecute,false);

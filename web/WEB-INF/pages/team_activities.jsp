@@ -44,7 +44,7 @@
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%
                             out.print(apply_activityList.get(i).getName());
-                            if(apply_activityList.get(i).isPublic())
+                            if(!apply_activityList.get(i).isPublic())
                                 out.print("(私有)");
                         %>
                         </h4>
@@ -88,7 +88,7 @@
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%
                             out.print(process_activityList.get(i).getName());
-                            if(process_activityList.get(i).isPublic())
+                            if(!process_activityList.get(i).isPublic())
                                 out.print("(私有)");
                         %>
                         </h4>
@@ -111,7 +111,7 @@
                             <li class="weui-media-box__info__meta">活动地点：<%out.print(process_activityList.get(i).getAddress());%></li>
                         </ul>
                         <ul class="weui-media-box__info">
-                            <h style="color: orange;font-size: 10px;">
+                            <h style="color: orange;font-size: 10px;,">
                                 <%
                                     out.print("正在进行中");
                                 %>
@@ -132,7 +132,7 @@
                     <div class="weui-media-box__bd">
                         <h4 class="weui-media-box__title"><%
                             out.print(terminate_activityList.get(i).getName());
-                            if(terminate_activityList.get(i).isPublic())
+                            if(!terminate_activityList.get(i).isPublic())
                                 out.print("(私有)");
                         %>
                         </h4>
