@@ -999,6 +999,15 @@ public class TeamController {
                 activityList.get(i).setDeleted(true);
                 activityPublishService.saveActivityPublishEntity(activityList.get(i));
             }
+            String message=teamDeleteMessage(Team.getName());
+            List<TeamUserEntity> userList=teamUserService.findAllUsersOfOneTeam(Long.parseLong(teamId));
+            for(int i=0;i<userList.size();i++){
+                UserEntity user=userService.findUserEntityById(userList.get(i).getUserId());
+                if(MessageUtil.TextMessage(user.getOpenId(),message))
+                    System.out.println("Message send success");
+                else
+                    System.out.println("Message send fail");
+            }
             return "success";
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -1013,10 +1022,16 @@ public class TeamController {
             ActivityPublishEntity activityPublishEntity=activityPublishService.findActivityPublishEntityByID(Long.parseLong(activityId));
             activityPublishEntity.setDeleted(true);
             activityPublishService.saveActivityPublishEntity(activityPublishEntity);
+            String message=activityDeleteMessage(activityPublishEntity.getName());
             List<UserActivityEntity> userList=userActivityService.findAllByActivityId(Long.parseLong(activityId));
             for(int i=0;i<userList.size();i++){
+                UserEntity user=userService.findUserEntityById(userList.get(i).getUserId());
                 userList.get(i).setAllow(false);
                 userActivityService.updateUserActivityEntity(userList.get(i));
+                if(MessageUtil.TextMessage(user.getOpenId(),message))
+                    System.out.println("Message send success");
+                else
+                    System.out.println("Message send fail");
             }
             return "success";
         } catch (Exception e) {
@@ -1123,5 +1138,12 @@ public class TeamController {
 
     private String getAppliedMessage(UserEntity user,String creator_name, String teamName,long teamid){
         return "尊敬的"+creator_name+",用户"+user.getName()+"已经报名申请你的"+teamName+"团队，请你"+"<a href=\\\"http://"+ Configs.DOMAINNAME+"/timebanktest/team/myTeamMember?teamId="+teamid+"\\\">尽快处理。</a>";
+    }
+
+    private String teamDeleteMessage(String teamName){
+        return "尊敬的用户,非常抱歉您参加的团队："+teamName+"已经被创始人解散。";
+    }
+    private String activityDeleteMessage(String activityName){
+        return "尊敬的用户,非常抱歉您报名参加的活动："+activityName+"已经被管理员删除。";
     }
 }
