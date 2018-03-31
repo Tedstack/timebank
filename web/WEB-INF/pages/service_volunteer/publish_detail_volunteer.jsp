@@ -72,12 +72,13 @@
                     </span>
                 </div>
             </div>
+            <%--
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <img  class="weui-media-box__thumb" style="width:32px; display:inline" src="../img/littleicon/价格.png">
                     <span><%=detail.getPrice()%>志愿者时间/小时</span>
                 </div>
-            </div>
+            </div>--%>
             <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
