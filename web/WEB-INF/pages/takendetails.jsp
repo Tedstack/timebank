@@ -77,9 +77,14 @@
             <span class="weui-form-preview__value"><%out.print(publishEntity.getPrice());%></span>
         </p>
     </div>
+    <%--
     <div class="weui-form-preview__ft">
+        <%if(publishOrderEntity.getStatus().equals("待服务")){%>
         <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="${pageContext.request.contextPath}/user/queryPublishWaitingConfirm">返回</a>
-    </div>
+        <%} else{%>
+        <a class="weui-form-preview__btn weui-form-preview__btn_primary" href="${pageContext.request.contextPath}/user/queryPublishWaitingConfirm">返回</a>
+        <%}%>
+    </div>--%>
 </div>
 </body>
 </html>

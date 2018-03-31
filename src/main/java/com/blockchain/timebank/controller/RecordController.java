@@ -174,10 +174,40 @@ public class RecordController {
             recordService.updateRecordEntity(publishOrderEntity);
         }
 
+        if(handle.equals("cancel")){
+            publishOrderEntity.setStatus(OrderStatus.alreadyCancel);
+            recordService.updateRecordEntity(publishOrderEntity);
+        }
+
         UserEntity userEntity = userService.findUserEntityById(publishOrderEntity.getApplyUserId());
         PublishEntity publishEntity = publishService.findPublishEntityById(publishOrderEntity.getPublishId());
         ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = recordService.findViewRecordDetailEntityById(publishOrderEntity.getId());
-        MessageUtil.apply_result(userEntity, viewPublishOrderDetailEntity);
+        if(handle.equals("cancel")) {
+            String text = "您好，您预约的" + viewPublishOrderDetailEntity.getServiceName()+ "服务已被" + viewPublishOrderDetailEntity.getServiceUserName() + "用户取消！";
+            MessageUtil.TextMessage(userEntity.getOpenId(), text);
+        } else {
+            MessageUtil.apply_result(userEntity, viewPublishOrderDetailEntity);
+        }
+        map.addAttribute("userEntity",userEntity);
+        map.addAttribute("publishEntity",publishEntity);
+        map.addAttribute("publishOrderEntity", publishOrderEntity);
+        return "takendetails";
+    }
+
+    //预约服务者取消订单
+    @RequestMapping(value = "/cancelApplicantService", method = RequestMethod.GET)
+    public String cancelApplicantService(ModelMap map,@RequestParam long recordID,@RequestParam String handle){
+        PublishOrderEntity publishOrderEntity = recordService.findRecordEntityById(recordID);
+        if(handle.equals("cancel")){
+            publishOrderEntity.setStatus(OrderStatus.alreadyCancel);
+            recordService.updateRecordEntity(publishOrderEntity);
+        }
+
+        UserEntity userEntity = userService.findUserEntityById(publishOrderEntity.getServiceUserId());
+        PublishEntity publishEntity = publishService.findPublishEntityById(publishOrderEntity.getPublishId());
+        ViewPublishOrderDetailEntity viewPublishOrderDetailEntity = recordService.findViewRecordDetailEntityById(publishOrderEntity.getId());
+        String text = "您好，预约您" + viewPublishOrderDetailEntity.getServiceName()+ "服务的" + viewPublishOrderDetailEntity.getApplyUserName() + "用户已取消预约！";
+        MessageUtil.TextMessage(userEntity.getOpenId(), text);
         map.addAttribute("userEntity",userEntity);
         map.addAttribute("publishEntity",publishEntity);
         map.addAttribute("publishOrderEntity", publishOrderEntity);

@@ -7,5 +7,6 @@ public class OrderStatus {
     public static final String waitingPay = "待支付";
     public static final String alreadyComplete = "已完成";
     public static final String alreadyRefuse = "已拒绝";
+    public static final String alreadyCancel = "已取消";
 
 }

@@ -92,8 +92,16 @@
                         <div class="weui-cell__bd">
                             <%if(recordDetailList.get(i).getEndTime().getTime() < new Date().getTime()){%>
                                 <p class="weui-tabbar__label" style="float:right;color:#999;font-size:16px">申请已过期</p>
-                            <%}else {%>
-                                <p class="weui-tabbar__label" style="float:right;color:#76b852;font-size:16px">等待接受申请</p>
+                            <%}else if(recordDetailList.get(i).getEndTime().getTime() + 24 * 60 * 60 * 1000 > new Date().getTime() ){%>
+                            <div class="weui-flex">
+                                <div class="weui-flex__item" display="none"></div>
+                                <div class="weui-flex__item" display="none"></div>
+                                <div class="weui-flex__item" display="none"></div>
+                                <div class="weui-flex__item" display="none"></div>
+                                <div class="weui-flex__item"><a href="${pageContext.request.contextPath}/record/cancelApplicantService?handle=cancel&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">取消</a></div>
+                            </div>
+                            <%}else{%>
+                                <p class="weui-tabbar__label" style="float:right;color:#999;font-size:16px">不足24小时，不可取消</p>
                             <%}%>
                         </div>
                     </div>

@@ -120,7 +120,11 @@
                                 out.print(convertedMoney);
                             %>
                         </p></div>
-                        <div class="weui-flex__item"display="none"></div>
+                        <div class="weui-flex__item">
+                            <%if(recordDetailList.get(i).getActualBeginTime()==null){%>
+                                <a href="${pageContext.request.contextPath}/record/handleApplicantRecord?handle=cancel&recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_default">取消</a>
+                            <%}%>
+                        </div>
                         <%--<div class="weui-flex__item"display="none"></div>--%>
                         <div class="weui-flex__item">
                             <a href="${pageContext.request.contextPath}/user/serviceUserStartScan?recordID=<%out.print(recordDetailList.get(i).getId());%>" class="weui-btn weui-btn_mini weui-btn_primary">
@@ -169,6 +173,15 @@
         goTo(url+"/request/add");
     });
     $(function(){
+        var isPageHide = false;
+        window.addEventListener('pageshow', function () {
+            if (isPageHide) {
+                window.location.reload();
+            }
+        });
+        window.addEventListener('pagehide', function () {
+            isPageHide = true;
+        });
         $("#navbar1").on('click', function () {
             $(this).addClass('weui-bar__item_on').siblings('.weui-bar__item_on').removeClass('weui-bar__item_on');
             location.href="queryPublishAlreadyPublish";
