@@ -356,6 +356,7 @@ public class TeamController {
     @RequestMapping(value = "/applyToJoinActivity", method = RequestMethod.POST)
     @ResponseBody
     public String applyToJoinActivity(@RequestParam long activityID) {
+        long userId=getCurrentUser().getId();
         //判断是否匿名登陆，是则重新登陆
         if(isAnonymous()){
             return "isAnonymous";
@@ -364,6 +365,12 @@ public class TeamController {
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if (viewActivityPublishDetailEntity.getPublishUserId() ==  getCurrentUser().getId()) {
             return "managerError";
+        }
+        //判断是否为私有活动报名权限
+        if(!viewActivityPublishDetailEntity.isPublic()){
+            TeamUserEntity teamUserEntity=teamUserService.findByUserIdAndTeamId(userId,viewActivityPublishDetailEntity.getTeamId());
+            if(teamUserEntity==null || !teamUserEntity.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
+                return "publicError";
         }
         //判断是否重复申请
         UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);
@@ -375,7 +382,7 @@ public class TeamController {
         }else {
             UserActivityEntity userActivityEntity = new UserActivityEntity();
             userActivityEntity.setActivityId(activityID);
-            userActivityEntity.setUserId(getCurrentUser().getId());
+            userActivityEntity.setUserId(userId);
             userActivityEntity.setAllow(true);
             userActivityService.addUserActivity(userActivityEntity);
         }
@@ -1065,7 +1072,6 @@ public class TeamController {
 
     @RequestMapping(value = "/activitySearch", method = RequestMethod.GET)
     public String activities(ModelMap map,String activityName,String beginTime,String endTime) throws ParseException {
-        long currentId=getCurrentUser().getId();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = sdf.parse(beginTime);
         Date endDate = sdf.parse(endTime);
@@ -1075,23 +1081,11 @@ public class TeamController {
         //倒序排列
         Collections.reverse(activityList);
         //因为使用remove方法，此处循环用倒叙
-        for (int i = activityList.size() - 1; i >= 0; i--) {
-            List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityList.get(i).getId(), true);
-            //判断活动已报名人数是否达到活动要求人数，已达到的活动下架不显示
-            if (userActivityList.size() >= activityList.get(i).getCount()) {
+        Timestamp nowTime=new Timestamp(System.currentTimeMillis());
+        for(int i=0;i<activityList.size();i++){
+            if(activityList.get(i).getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply) && nowTime.after(activityList.get(i).getBeginTime()))//过期活动移除
                 activityList.remove(i);
-                continue;
-            }
-            //活动不公开
-            if (!activityList.get(i).isPublic()) {
-                TeamUserEntity teamUser = teamUserService.findByUserIdAndTeamIdAndStatusNot(currentId, activityList.get(i).getTeamId(), TeamUserStatus.isDeleted);
-                if (teamUser != null) {
-                    if (teamUser.getStatus() != TeamUserStatus.alreadyEntered)
-                        activityList.remove(i);
-                }
-            }
         }
-
         map.addAttribute("activityList", activityList);
         return "team_activities_select";
     }

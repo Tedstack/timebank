@@ -62,12 +62,12 @@
                                 SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 out.print(bartDateFormat2.format(date2));
                             %></h>
-                        <ul class="weui-media-box__info">
+                        <ul class="weui-media-box__info" style="margin-top: 5px;">
                             <li class="weui-media-box__info__meta" style="margin-bottom: 6px;">报名人数：<%out.print(apply_activityList.get(i).getCount());%></li>
                             <li class="weui-media-box__info__meta">活动地点：<%out.print(apply_activityList.get(i).getAddress());%></li>
                         </ul>
                         <ul class="weui-media-box__info">
-                            <h style="color: #00DB00;font-size: 10px;">
+                            <h style="color: #00DB00;font-size: 15px;">
                                 <%
                                     out.print(apply_activityList.get(i).getStatus());
                                 %>
@@ -106,12 +106,12 @@
                                 SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 out.print(bartDateFormat2.format(date2));
                             %></h>
-                        <ul class="weui-media-box__info">
+                        <ul class="weui-media-box__info" style="margin-top: 5px;">
                             <li class="weui-media-box__info__meta" style="margin-bottom: 6px;">报名人数：<%out.print(process_activityList.get(i).getCount());%></li>
                             <li class="weui-media-box__info__meta">活动地点：<%out.print(process_activityList.get(i).getAddress());%></li>
                         </ul>
                         <ul class="weui-media-box__info">
-                            <h style="color: orange;font-size: 10px;,">
+                            <h style="color: orange;font-size: 15px;,">
                                 <%
                                     out.print("正在进行中");
                                 %>
@@ -150,12 +150,12 @@
                                 SimpleDateFormat bartDateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                                 out.print(bartDateFormat2.format(date2));
                             %></h>
-                        <ul class="weui-media-box__info">
+                        <ul class="weui-media-box__info" style="margin-top: 5px;">
                             <li class="weui-media-box__info__meta" style="margin-bottom: 6px;">报名人数：<%out.print(terminate_activityList.get(i).getCount());%></li>
                             <li class="weui-media-box__info__meta">活动地点：<%out.print(terminate_activityList.get(i).getAddress());%></li>
                         </ul>
                         <ul class="weui-media-box__info">
-                            <h style="color: #6C6C6C;font-size: 10px;">
+                            <h style="color: #6C6C6C;font-size: 15px;">
                                 <%
                                     out.print("已结束");
                                 %>

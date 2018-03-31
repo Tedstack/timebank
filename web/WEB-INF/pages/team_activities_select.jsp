@@ -39,7 +39,11 @@
                         <img class="weui-media-box__thumb" src="../img/activityImg/<%out.print(activityList.get(i).getHeadImg());%>" alt="">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title"><%out.print(activityList.get(i).getName());%></h4>
+                        <h4 class="weui-media-box__title"><%
+                            out.print(activityList.get(i).getName());
+                            if(!activityList.get(i).isPublic())
+                                out.print("(私有)");
+                        %></h4>
                         <p class="weui-media-box__desc">开始时间:
                             <%
                                 Timestamp beginTimestamp = activityList.get(i).getBeginTime();
@@ -58,14 +62,14 @@
                             <li class="weui-media-box__info__meta" style="margin-bottom: 6px;">报名人数：<%out.print(activityList.get(i).getCount());%></li>
                             <li class="weui-media-box__info__meta">活动地点：<%out.print(activityList.get(i).getAddress());%></li>
                         </ul>
-                        <ul class="weui-media-box__info">
-                            <p style="color: orange;">
+                        <ul class="weui-media-box__info" style="margin-top: 5px;">
+                            <p style="color: orange;font-size: 15px;">
                                 <%
                                     String status=activityList.get(i).getStatus();
                                     Timestamp applyTime = activityList.get(i).getApplyEndTime();
                                     Timestamp nowTime=new Timestamp(System.currentTimeMillis());
                                     if(status.equalsIgnoreCase(ActivityStatus.waitingForApply) && applyTime.after(nowTime))
-                                        out.print("可报名");
+                                        out.print("报名中");
                                     else if(status.equalsIgnoreCase(ActivityStatus.waitingForExecute) || status.equalsIgnoreCase(ActivityStatus.alreadyStart))
                                         out.print("进行中");
                                     else

@@ -1,15 +1,6 @@
-<%@ page import="com.blockchain.timebank.entity.ActivityPublishEntity" %>
-<%@page import="java.util.Map" %>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.List" %>
-<%@page import="java.util.ArrayList" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: lenovo
-  Date: 2017/12/21
-  Time: 15:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -73,11 +64,16 @@
                         <input id='select-activityName' class="weui-input" style="height: 50px;line-height: 34px;display: inline-block;width:40%;" placeholder="活动名称">
                     </div>
                 </div>
+                <%
+                    Date nowDate = new Date();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                    String nowTime = formatter.format(nowDate);
+                %>
                 <div class="weui-media-box weui-media-box_text">
                     <div style="margin-left: 15px">
                         <span style="color:#76b852">活动时间</span>
                         <div style="margin: 10px;margin-bottom: 30px">
-                            <input id='select-begintime' class="weui-input" type="date" style="height: 50px;line-height: 34px;display: inline-block;width:40%;float: left" placeholder="开始时间">
+                            <input id='select-begintime' class="weui-input" type="date" value="<%=nowTime%>" style="height: 50px;line-height: 34px;display: inline-block;width:40%;float: left" placeholder="开始时间">
                             <span style="margin:0 auto; vertical-align:middle">--</span>
                             <input id='select-endtime' class="weui-input" type="date" style="height: 50px;line-height: 34px;display: inline-block;width:40%;float: right" placeholder="结束时间">
                         </div>
@@ -127,8 +123,6 @@
             var activityName=$('#select-activityName').val();
             var beginTime=$('#select-begintime').val();
             var endTime=$('#select-endtime').val();
-            if(beginTime==="")
-                beginTime="2000-01-01";
             if(endTime==="")
                 endTime="2100-01-01";
             location.href="${pageContext.request.contextPath}/team/activitySearch?activityName="+ activityName +"&beginTime="+ beginTime + "&endTime=" + endTime;
