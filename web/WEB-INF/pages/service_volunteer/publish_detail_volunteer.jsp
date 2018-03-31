@@ -73,10 +73,16 @@
                 </div>
             </div>
             <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <img  class="weui-media-box__thumb" style="width:32px; display:inline" src="../img/littleicon/价格.png">
+                    <span><%=detail.getPrice()%>志愿者时间/小时</span>
+                </div>
+            </div>
+            <div class="weui-cell">
                 <div class="weui-cell__bd"></div>
                 <div class="weui-cell__ft">
                     <a id="serviceApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/record/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
-                        <%=detail.getPrice()%>志愿者时间/小时 申请服务
+                        预约服务
                     </a>
                     <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
                         服务已过期，不可申请

@@ -139,6 +139,7 @@
                     }
                 });
             }else if(type === professionService){
+                showAlert("请扫描对方微信收款二维码进行支付");
                 wx.scanQRCode(
                     {
                         needResult: 0,
