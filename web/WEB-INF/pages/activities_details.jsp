@@ -30,6 +30,7 @@
     ViewActivityPublishDetailEntity activityPublishDetail = (ViewActivityPublishDetailEntity) request.getAttribute("activityPublishDetail");
     List<ViewUserActivityDetailEntity> userActivityList = (List<ViewUserActivityDetailEntity>) request.getAttribute("userActivityList");
     String isApplied=(String) request.getAttribute("isApplied");
+    String isMember=(String) request.getAttribute("isMember");
     String type=(String) request.getAttribute("type");
     Date nowDate = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -143,7 +144,9 @@
             <div class="con_u" style="font-size: 14px;"><%out.print(activityPublishDetail.getDescription());%></div>
         </div>
         <div style="padding: 10px; margin-bottom: 20px;text-align: center;">
-            <%if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
+            <%if(isMember.equalsIgnoreCase("false")){%>
+            <p style="font-size: 20px;color: #ce3c39;">该活动你无权报名</p>
+            <%}else if(isApplied.equalsIgnoreCase("true") && type.equalsIgnoreCase("0")){%>
             <p style="font-size: 20px;color: #ce3c39;">已经报名成功</p>
             <%}else if(type.equalsIgnoreCase("0") && activityPublishDetail.getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply)){%>
             <a id="applyBtn" class="weui-btn weui-btn_primary">报名参与</a>
@@ -209,8 +212,6 @@
                             });
                         }else if(data==="managerError"){
                             showAlert("团队管理员不能报名自己发布的活动");
-                        }else if(data==="publicError"){
-                            showAlert("该活动为私有活动，您不能报名");
                         }else if(data==="alreadyApply"){
                             showAlert("您已申请参加此活动");
                         }else if(data==="isAnonymous"){

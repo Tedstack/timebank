@@ -250,8 +250,15 @@ public class TeamController {
     // 团队活动详情页面
     @RequestMapping(value = "/teamActivityDetails", method = RequestMethod.GET)
     public String teamActivityDetails(ModelMap map, @RequestParam String type, @RequestParam long activityID) {
-
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
+        String isMember="true";//用于判断用户是否有权利申请该活动
+        if(!activityPublishDetail.isPublic()){
+            TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),activityPublishDetail.getTeamId());
+            if(teamUser==null)
+                isMember="false";
+            else if(!teamUser.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
+                isMember="false";
+        }
         List<ViewUserActivityDetailEntity> userActivityList = viewUserActivityDetailDao.findViewUserActivityDetailEntitiesByActivityIdAndAllow(activityID, true);
         String phone=teamService.findById(activityPublishDetail.getTeamId()).getPhone();
         ViewUserActivityDetailEntity userActivity=null;
@@ -263,6 +270,7 @@ public class TeamController {
         map.addAttribute("activityPublishDetail", activityPublishDetail);
         map.addAttribute("userActivityList", userActivityList);
         map.addAttribute("isApplied", isApplied);
+        map.addAttribute("isMember", isMember);
         map.addAttribute("type", type);
         map.addAttribute("phone",phone);
         return "activities_details";
@@ -365,12 +373,6 @@ public class TeamController {
         ViewActivityPublishDetailEntity viewActivityPublishDetailEntity = viewActivityPublishDetailDao.findOne(activityID);
         if (viewActivityPublishDetailEntity.getPublishUserId() ==  getCurrentUser().getId()) {
             return "managerError";
-        }
-        //判断是否为私有活动报名权限
-        if(!viewActivityPublishDetailEntity.isPublic()){
-            TeamUserEntity teamUserEntity=teamUserService.findByUserIdAndTeamId(userId,viewActivityPublishDetailEntity.getTeamId());
-            if(teamUserEntity==null || !teamUserEntity.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered))
-                return "publicError";
         }
         //判断是否重复申请
         UserActivityEntity userActivity = userActivityService.findUserFromActivity(getCurrentUser().getId(), activityID);

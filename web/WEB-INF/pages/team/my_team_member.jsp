@@ -55,7 +55,7 @@
 <%}
     if(ManagerList.size()>0){
         %>
-    <p style="font-size: 13px;color: #888888;margin-left:3px;margin-bottom: 5px;">管理员</p>
+    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;margin-left: 15px;">管理员</p>
     <%for(int i=0;i<ManagerList.size();i++){%>
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
@@ -75,7 +75,7 @@
     <%}
     }
     if(appliedList.size()>0){%>
-    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;">申请成员</p>
+    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;margin-left: 15px;">申请成员</p>
     <%for(int i=0;i<appliedList.size();i++){%>
     <div class="weui-panel__bd">
         <div class="weui-cells weui-cells_checkbox" style="margin-top:0px;">
@@ -96,7 +96,7 @@
     }
     if(teamUserList.size()>0)
     {%>
-    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;">已有成员</p>
+    <p style="font-size: 13px;color: #888888;margin-top: 5px;margin-bottom: 5px;margin-left: 15px;">已有成员</p>
     <%
     for (int i=0;i<teamUserList.size();i++) {
 %>
