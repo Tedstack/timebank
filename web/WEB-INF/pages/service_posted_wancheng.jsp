@@ -149,17 +149,17 @@
         </div>
     </div>
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/request/list?type=volunteer" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/publish/list?type=志愿者服务" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">需求柜台</p>
+            <p class="weui-tabbar__label" >服务柜台</p>
         </a>
-        <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/user/queryOrderAlreadyApply" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">承接的需求</p>
+            <p class="weui-tabbar__label" style="margin:0px">预约的服务</p>
         </a>
-        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/user/queryPublishAlreadyPublish" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">发布的需求</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">发布的服务</p>
         </a>
     </div>
 </div>
@@ -171,7 +171,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/request/add");
+        goTo(url+"/publish/add");
     });
     $(function(){
         $("#navbar1").on('click', function () {
