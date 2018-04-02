@@ -27,7 +27,7 @@
     List<ServiceEntity> list = (List<ServiceEntity>) request.getAttribute("service_list");
     ArrayList<Long> serviceId = new ArrayList<>();
     ArrayList<String> serviceName = new ArrayList<>();
-    String[] types = {"志愿者需求", "专业需求", "互助需求"};
+    String[] types = {"义工需求", "专业需求", "互助需求"};
     for (ServiceEntity service : list) {
         serviceId.add(service.getId());
         serviceName.add(service.getName());
@@ -181,7 +181,7 @@
         });
         $("#addServiceType").change(function () {
             var type = $(this).val();
-            if(type === "志愿者需求"){
+            if(type === "义工需求"){
                 $("#priceUnit-span").html("志愿者时间/h");
             } else if(type === "互助需求"){
                 $("#priceUnit-span").html("时间币/h");

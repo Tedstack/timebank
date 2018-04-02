@@ -79,7 +79,7 @@
                     if(value.equals("volunteer")){
                 %>
                     <div class="weui-navbar__item weui-bar__item_on"id="navbar1">
-                        志愿者需求
+                        义工需求
                     </div>
                     <div class="weui-navbar__item"id="navbar2">
                         互助需求
@@ -91,7 +91,7 @@
                 }else if(value.equals("mutualAid")){
                 %>
                     <div class="weui-navbar__item"id="navbar1">
-                        志愿者需求
+                        义工需求
                     </div>
                     <div class="weui-navbar__item weui-bar__item_on"id="navbar2">
                         互助需求
@@ -103,7 +103,7 @@
                 }else if(value.equals("technic")){
                 %>
                     <div class="weui-navbar__item"id="navbar1">
-                        志愿者需求
+                        义工需求
                     </div>
                     <div class="weui-navbar__item"id="navbar2">
                         互助需求
