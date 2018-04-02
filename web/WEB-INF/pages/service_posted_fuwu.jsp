@@ -170,7 +170,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $("#create").on("click", function() {
-        goTo(url+"/request/add");
+        goTo(url+"/publish/add");
     });
     $(function(){
         var isPageHide = false;
