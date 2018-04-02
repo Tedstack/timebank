@@ -20,6 +20,7 @@ import com.blockchain.timebank.weixin.util.VerificationMessageSend;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -167,6 +168,8 @@ public class UserController {
                 userEntity.setPhone(phone);
                 String MD5Password = MD5Util.getMD5(password);
                 userEntity.setPassword(MD5Password);
+                userEntity.setRegisterDate(new Date(System.currentTimeMillis()));
+                userEntity.setTimeCoin(10);
                 if(openID!=null){
                     userEntity.setOpenId(openID);
                 }

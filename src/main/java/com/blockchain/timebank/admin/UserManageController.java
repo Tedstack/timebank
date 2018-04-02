@@ -176,6 +176,7 @@ public class UserManageController {
         userEntity.setBirth(birth);
         userEntity.setQrCode(QRCode);
         userEntity.setRegisterDate(new Date(System.currentTimeMillis()));
+        userEntity.setTimeCoin(10);
         userService.updateUserEntity(userEntity);
         map.addAttribute("ok", "添加成功，用户初始密码为注册身份证的后6位！");
         return "../admin/user_add";
