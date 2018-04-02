@@ -119,10 +119,10 @@
                         <label class="weui-label">服务价格</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input style="display: none" value="1" id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
+                        <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入服务价格"/>
                     </div>
                     <div class="weui-cell__ft">
-                        <span id = "priceUnit-span">1志愿者时间/h</span>
+                        <span id = "priceUnit-span">时间币/h</span>
                     </div>
                 </div>
 
@@ -195,7 +195,7 @@
         });
        $("#addServiceType").change(function () {
            var type = $(this).val();
-           if(type === "志愿者服务"){
+           if(type === "义工服务"){
                $("#priceUnit-span").html("1志愿者时间/h");
                $("#servicePrice").hide();
                document.getElementById("servicePrice").value = "1";
