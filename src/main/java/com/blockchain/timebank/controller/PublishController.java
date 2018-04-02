@@ -119,6 +119,11 @@ public class PublishController {
             map.addAttribute("isTechnicUser", false);
         }
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getType().equals("志愿者服务")){
+                list.get(i).setType("义工服务");
+            }
+        }
         map.addAttribute("service_list", list);
         return "publish_add";
     }
