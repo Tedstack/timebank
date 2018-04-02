@@ -152,7 +152,7 @@
             <a id="applyBtn" class="weui-btn weui-btn_primary">报名参与</a>
             <%}else if(type.equalsIgnoreCase("1")){%>
             <a style="display:none;" id="applyBtn" class="weui-btn weui-btn_primary"></a>
-            <%}else{%>
+            <%}else if(activityPublishDetail.getStatus().equalsIgnoreCase(ActivityStatus.waitingForApply)){%>
             <a style="background-color: #ce3c39;" id="quitBtn" class="weui-btn weui-btn_primary">退出</a>
             <%}%>
         </div>
