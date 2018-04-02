@@ -33,7 +33,7 @@
                 <span>团队活动</span>
                 <a href="${pageContext.request.contextPath}/team/teamAvitivitySelect" style="float:right">筛选</a>
             </div>
-            <div class="weui-panel__bd" id="waitingForApply">
+            <div class="weui-panel__bd">
                 <%
                     for (int i=0;i<apply_activityList.size();i++) {
                 %>
@@ -76,8 +76,6 @@
                     </div>
                 </a>
                 <%}%>
-            </div>
-            <div class="weui-panel__bd" id="alreadyInProcess">
                 <%
                     for (int i=0;i<process_activityList.size();i++) {
                 %>
@@ -120,8 +118,6 @@
                     </div>
                 </a>
                 <%}%>
-            </div>
-            <div class="weui-panel__bd" id="alreadyFinished">
                 <%
                     for (int i=0;i<terminate_activityList.size();i++) {
                 %>
