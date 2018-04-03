@@ -189,6 +189,9 @@ public class PublishController {
             publishEntity.setDescription(description);
             publishEntity.setUserId(getCurrentUser().getId());
             publishEntity.setPrice(price);
+            if(serviceType.equals("义工服务")){
+                serviceType = "志愿者服务";
+            }
             publishEntity.setServiceId(serviceService.findFirstByTypeAndName(serviceType, serviceName).getId());//serviceId
             Date beginTime = new SimpleDateFormat("yyyy-MM-dd").parse(beginDate);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
             Date endTime = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
