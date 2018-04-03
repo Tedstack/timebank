@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>志愿者币不足</title>
+    <title>志愿者时间不足</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -23,7 +23,7 @@
         <i class='weui-icon-warn weui-icon_msg'></i>
     </div>
     <div class="weui-msg__text-area">
-        <label class="weui-msg__title" id="status">志愿者币余额不足！</label>
+        <label class="weui-msg__title" id="status">志愿者时间余额不足！</label>
     </div>
 </div>
 

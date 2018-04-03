@@ -14,4 +14,5 @@ public interface RequestService {
     List<ViewRequestDetailEntity> findUserRequestPublished(long id);
     RequestEntity findRequestById(long id);
     List<ViewRequestDetailEntity> findAllByCondition(String type, BigDecimal upperPrice, BigDecimal lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr);
+    long findTodayCountByUserId(long id);
 }

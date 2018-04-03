@@ -54,6 +54,9 @@ public class RequestController {
         }else if(user.getIsVerify()==0){
             map.addAttribute("msg", "failVerify");
             return "request/fail_page";
+        }else if(requestService.findTodayCountByUserId(user.getId()) > 5){
+            map.addAttribute("msg", "match_today_limit");
+            return "request/fail_page";
         }
         List<ServiceEntity> list = serviceService.findAllServiceEntity();
         map.addAttribute("service_list", list);
@@ -72,7 +75,7 @@ public class RequestController {
         try {
             UserEntity user =  getCurrentUser();
             if(serviceId / 100 == 1 && user.getTimeVol() < price.doubleValue()){
-                return "request/request_publish_result";
+                return "request/add_result";
             }
             RequestEntity requestEntity = new RequestEntity();
             requestEntity.setAddress(address);

@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -51,5 +49,13 @@ public class RequestServiceImpl implements RequestService {
     @Transactional(readOnly = true)
     public List<ViewRequestDetailEntity> findAllByCondition(String type, BigDecimal upperPrice, BigDecimal lowerPrice, Timestamp upperTime, Timestamp lowerTime, String[] serviceNameArr) {
         return viewRequestDetailDao.findViewRequestDetailEntityByConditionOrderByCreateTimeDesc(type, upperPrice, lowerPrice, upperTime, lowerTime, serviceNameArr);
+    }
+
+    @Transactional(readOnly = true)
+    public long findTodayCountByUserId(long id) {
+        long current = System.currentTimeMillis()+TimeZone.getDefault().getRawOffset();
+        long start = current/(1000*3600*24)*(1000*3600*24)-TimeZone.getDefault().getRawOffset();
+        long end = start+24*60*60*1000;
+        return requestDao.countAllByUserIdAndCreateTimeBetween(id, new Timestamp(start), new Timestamp(end));
     }
 }

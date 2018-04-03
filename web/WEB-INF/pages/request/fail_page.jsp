@@ -44,6 +44,9 @@
                 if(msg.equals("applierNotTechVerify")){
                     out.print("申请专业需求前，请认证专业技能");
                 }
+                if(msg.equals("match_today_limit")){
+                    out.print("一天只能发布5条需求");
+                }
             %>
         </h2>
     </div>
@@ -51,6 +54,8 @@
         <p class="weui-btn-area">
             <%if(msg.equals("applierNotTechVerify")){%>
             <a href="${pageContext.request.contextPath}/user/techInfo" class="weui-btn weui-btn_primary">前往专业技能认证</a>
+            <%}else if(msg.equals("match_today_limit")){%>
+            <a href="${pageContext.request.contextPath}/request/list?type=volunteer" class="weui-btn weui-btn_primary">返回需求柜台</a>
             <%}else{%>
             <a href="${pageContext.request.contextPath}/user/startRealNameAuth" class="weui-btn weui-btn_primary">前往实名认证</a>
             <%}%>
