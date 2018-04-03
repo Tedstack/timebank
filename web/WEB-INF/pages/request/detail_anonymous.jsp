@@ -69,16 +69,17 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <a id="requestApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/request/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
-                        <%=detail.getPrice()%>
+                        <% if(!detail.getServiceType().equals("volunteer"))
+                            out.print(detail.getPrice());%>
                         <%
                             if(detail.getServiceType().equals("volunteer"))
-                                out.print("志愿者时间");
+                                out.print("");
                             else if(detail.getServiceType().equals("mutualAid"))
-                                out.print("互助时间");
+                                out.print("互助时间/小时 ");
                             else
-                                out.print("元");
+                                out.print("元/小时 ");
                         %>
-                        /小时 申请服务
+                        申请需求
                     </a>
                     <a id="requestOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
                         需求已过期，不可申请
@@ -103,21 +104,17 @@
     </div>
 
     <div class="weui-tabbar" style="height: 50px">
-        <a href="${pageContext.request.contextPath}/index" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/list?type=volunteer" class="weui-tabbar__item">
             <img src="../img/首页.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">首页</p>
+            <p class="weui-tabbar__label" style="font-size: 10px;color: #28a921;margin:0px">需求柜台</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/applied?tab=1" class="weui-tabbar__item">
             <img src="../img/服务.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">服务</p>
+            <p class="weui-tabbar__label">承接的需求</p>
         </a>
-        <a href="${pageContext.request.contextPath}/publish/activities_category" class="weui-tabbar__item">
+        <a href="${pageContext.request.contextPath}/request/published?tab=1" class="weui-tabbar__item">
             <img src="../img/活动.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">活动</p>
-        </a>
-        <a href="${pageContext.request.contextPath}/user/" class="weui-tabbar__item">
-            <img src="../img/我的.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我</p>
+            <p class="weui-tabbar__label">发布的需求</p>
         </a>
     </div>
 </div>

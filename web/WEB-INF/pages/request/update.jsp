@@ -84,13 +84,18 @@
                         <label class="weui-label">需求价格</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input id="servicePrice-update" class="weui-input" name="price" type="number" pattern="[0-9]*" value="<%=detail.getPrice()%>" placeholder="请输入价格"/>
+                        <%
+                        if(detail.getServiceId() / 100 == 1){
+                        out.print("<input id=\"servicePrice-update\" value=\"1\" class=\"weui-input\" name=\"price\" type=\"number\" pattern=\"[0-9]*\" placeholder=\"请输入需求价格\" min=\"0\" max=\"200\" style=\"display:none\"/>\n");
+                        } else{
+                        out.print("<input id=\"servicePrice-update\" class=\"weui-input\" name=\"price\" type=\"number\" pattern=\"[0-9]*\" placeholder=\"请输入需求价格\" min=\"0\" max=\"200\"/>\n");
+                        }%>
                     </div>
                     <div class="weui-cell__ft">
                     <span id = "priceUnit-span">
                         <%
                             if(detail.getServiceId() / 100 == 1){
-                                out.print("志愿者时间");
+                                out.print("1志愿者时间");
                             } else if(detail.getServiceId() / 100 == 3){
                                 out.print("互助时间");
                             } else{
@@ -121,8 +126,7 @@
     $(document).ready(function () {
         var address = $("#area-select").attr("value");
         $("#area-select option[value='"+address+"']").attr("selected","selected");
-    })
-
+    });
     function check() {
         var serviceDescription = document.getElementById("serviceDescription-update").value;
         var beginDate = document.getElementById("beginDate-update").value;

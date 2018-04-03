@@ -70,16 +70,17 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <a id="requestApply-button" class="weui-btn weui-btn_primary" href="${pageContext.request.contextPath}/request/apply?id=<%=detail.getId()%>" style="color:#fff; border:0px;display: none;text-decoration:none;">
-                        <%=detail.getPrice()%>
+                        <% if(!detail.getServiceType().equals("volunteer"))
+                            out.print(detail.getPrice());%>
                         <%
                             if(detail.getServiceType().equals("volunteer"))
-                                out.print("志愿者时间");
+                                out.print("");
                             else if(detail.getServiceType().equals("mutualAid"))
-                                out.print("互助时间");
+                                out.print("互助时间/小时 ");
                             else
-                                out.print("元");
+                                out.print("元/小时 ");
                         %>
-                        /小时 申请需求
+                        申请需求
                     </a>
                     <a id="requestOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">
                         需求已过期，不可申请

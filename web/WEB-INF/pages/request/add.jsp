@@ -127,7 +127,7 @@
                     <div class="weui-cell__hd">
                         <label class="weui-label">需求价格</label></div>
                     <div class="weui-cell__bd">
-                        <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入需求价格" min="0" max="200"/>
+                        <input id="servicePrice" value="1" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="请输入需求价格" min="0" max="200" style="display:none"/>
                     </div>
                     <div class="weui-cell__ft">
                         <span id = "priceUnit-span">志愿者时间/h</span>
@@ -182,11 +182,18 @@
         $("#addServiceType").change(function () {
             var type = $(this).val();
             if(type === "义工需求"){
-                $("#priceUnit-span").html("志愿者时间/h");
+                $("#priceUnit-span").html("1志愿者时间/h");
+                $("#servicePrice").hide();
+                $("#servicePrice").val(1);
             } else if(type === "互助需求"){
                 $("#priceUnit-span").html("互助时间/h");
-            } else
+                $("#servicePrice").show();
+                $("#servicePrice").removeAttr('value');
+            } else {
                 $("#priceUnit-span").html("元/h");
+                $("#servicePrice").show();
+                $("#servicePrice").removeAttr('value');
+            }
         });
     });
 
