@@ -443,7 +443,7 @@ public class RequestController {
     @ResponseBody
     public String requestApplyUserCompleteScan(ModelMap map,@RequestParam String qrcode,@RequestParam long matchID){
         String status = "";
-        UserEntity requestUser = userService.findUserEntityByQrCode(qrcode);
+        UserEntity requestUser = userService.findUserEntityByOpenID(qrcode);
         RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
         if(matchEntity.getRequestUserId()!=requestUser.getId()){
             status = "notOneself";
