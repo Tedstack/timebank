@@ -726,7 +726,7 @@ public class UserController {
     @ResponseBody
     public String serviceUserCompleteFirstScan(ModelMap map,@RequestParam String qrcode,@RequestParam long recordID){
         String status = "";
-        UserEntity applyUser = userService.findUserEntityByQrCode(qrcode);
+        UserEntity applyUser = userService.findUserEntityByOpenID(qrcode);
         PublishOrderEntity record = recordService.findRecordEntityById(recordID);
         if(record.getApplyUserId()!=applyUser.getId()){
             status = "notOneself";
