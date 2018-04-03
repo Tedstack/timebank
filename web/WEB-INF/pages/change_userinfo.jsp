@@ -59,7 +59,7 @@
         xmlHttpRequest.open("GET","AjaxServlet",true);
     });
 
-    var qrcode2='<%=user.getQrCode()%>';
+    var qrcode2='<%=user.getOpenId()%>';
     var contextPath="${pageContext.request.contextPath}";
     $(function(){
         if((qrcode2!=='null')&&(qrcode2!=="")){
