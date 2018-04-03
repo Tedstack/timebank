@@ -75,7 +75,7 @@
                             if(detail.getServiceType().equals("volunteer"))
                                 out.print("志愿者时间");
                             else if(detail.getServiceType().equals("mutualAid"))
-                                out.print("时间币");
+                                out.print("互助时间");
                             else
                                 out.print("元");
                         %>

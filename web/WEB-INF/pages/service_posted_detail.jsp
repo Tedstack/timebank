@@ -99,7 +99,7 @@
                 if("志愿者服务".equals(detail.getServiceType())){
                     out.print("志愿者时间");
                 } else if("互助服务".equals(detail.getServiceType())){
-                    out.print("时间币");
+                    out.print("互助时间");
                 } else{
                     out.print("元");
                 }

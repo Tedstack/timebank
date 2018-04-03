@@ -42,7 +42,7 @@ public class WxPayUtil {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time = df.format(new Date()).replaceAll("-", "").replaceAll(":", "").replaceAll(" ", "");
         String openid = getOpenId();
-        String body = "时间币充值";
+        String body = "互助时间充值";
         String out_trade_no = time + getUserId();
         double total_fee = getUserFee();
         String spbill_create_ip = getUserIP();

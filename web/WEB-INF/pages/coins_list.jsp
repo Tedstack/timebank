@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的时间币</title>
+    <title>我的互助时间</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -25,7 +25,7 @@
     <div class="weui-panel">
 
         <div class="weui-panel__hd">
-            <span>时间币明细</span>
+            <span>互助时间明细</span>
         </div>
 
         <div class="weui-panel__bd">

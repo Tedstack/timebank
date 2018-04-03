@@ -69,7 +69,7 @@ public class RechargeController {
     }
 
 
-    //申请查看时间币余额页面   无需修改
+    //申请查看互助时间余额页面   无需修改
     @RequestMapping(value = "/coins_balance", method = RequestMethod.GET)
     public String getCoinBalance(ModelMap map) {
         UserEntity user = getCurrentUser();
@@ -78,7 +78,7 @@ public class RechargeController {
     }
 
 
-    //时间币充值页面
+    //互助时间充值页面
 
     @RequestMapping(value = "/coins_recharge", method = RequestMethod.GET)
     public String getRechargePage(ModelMap map) {
@@ -162,7 +162,7 @@ public class RechargeController {
 
 
                 /**
-                 * 这里是充值成功后的事务处理：给用户增加时间币
+                 * 这里是充值成功后的事务处理：给用户增加互助时间
                  * 此处最好修改成事务处理模式
                  *
                  */
@@ -176,7 +176,7 @@ public class RechargeController {
                     userService.saveUserEntity(curUser);
                 }
 */
-               //更新充值记录表和用户时间币字段
+               //更新充值记录表和用户互助时间字段
                accountService.updateRechargeTimeCoin(uuid,payStatus);
 
 

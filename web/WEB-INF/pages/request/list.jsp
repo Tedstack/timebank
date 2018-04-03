@@ -132,7 +132,7 @@
                                 break;
                             case "mutualAid":
                                 type = "互助需求";
-                                moneyType = "时间币";
+                                moneyType = "互助时间";
                                 break;
                         }
                         out.print(type);

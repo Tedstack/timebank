@@ -58,10 +58,10 @@
 <table>
     <tr>
         <td>
-            <button class="button button5" style="margin: 20px 35px;float:left;padding:20px 30px" id="recharge">时间币充值</button>
+            <button class="button button5" style="margin: 20px 35px;float:left;padding:20px 30px" id="recharge">互助时间充值</button>
         </td>
         <td>
-            <button class="button button5" style="margin: 20px 35px;float:right;padding:20px 30px;background-color: #a2958a" id="tixian">时间币提现</button>
+            <button class="button button5" style="margin: 20px 35px;float:right;padding:20px 30px;background-color: #a2958a" id="tixian">互助时间提现</button>
         </td>
     </tr>
 </table>
@@ -82,7 +82,7 @@
 <a href="../user/coins_list">
     <div class="weui-cell">
         <div class="weui-cell__bd">
-            <p>时间币(时)</p>
+            <p>互助时间(时)</p>
         </div>
         <div class="weui-cell__ft"><%out.print(userEntity.getTimeCoin());%></div>
     </div>
@@ -102,7 +102,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $(document).on("click", "#recharge", function() {
-        var r=confirm("您正在进行充值业务，￥1=1时间币，确认是否继续");
+        var r=confirm("您正在进行充值业务，￥1=1互助时间，确认是否继续");
         if(r==true){
             goTo(url+"/recharge/coins_recharge");
         }

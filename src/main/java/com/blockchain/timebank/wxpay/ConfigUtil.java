@@ -17,7 +17,7 @@ public class ConfigUtil {
     public final static String SIGN_TYPE = "MD5";//签名加密方式
     public final static String NOTIFY_URL = "http://"+ Configs.DOMAINNAME+"/timebanktest/recharge/weixin_notify";//异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。
     public final static String TRADE_TYPE_JS = "JSAPI";
-    public final static int RMB_TO_TIMECOIN = 100;  //表示一块钱可以买多少个时间币
+    public final static int RMB_TO_TIMECOIN = 100;  //表示一块钱可以买多少个互助时间
     public final static String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";//统一下单地址
 
    /* public static String getAPPID() {

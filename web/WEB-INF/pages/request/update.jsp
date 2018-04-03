@@ -92,7 +92,7 @@
                             if(detail.getServiceId() / 100 == 1){
                                 out.print("志愿者时间");
                             } else if(detail.getServiceId() / 100 == 3){
-                                out.print("时间币");
+                                out.print("互助时间");
                             } else{
                                 out.print("元");
                             }

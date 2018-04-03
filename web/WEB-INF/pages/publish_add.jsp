@@ -200,7 +200,7 @@
                $("#servicePrice").hide();
                document.getElementById("servicePrice").value = "1";
            } else if(type === "互助服务"){
-               $("#priceUnit-span").html("时间币/h");
+               $("#priceUnit-span").html("互助时间/h");
                document.getElementById("servicePrice").value="";
                $("#servicePrice").show();
            } else {

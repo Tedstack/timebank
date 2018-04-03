@@ -43,7 +43,7 @@
                                 if(request.getAttribute("type").toString().equals("志愿者服务")){
                                     out.print("（志愿者时间）");
                                 }else{
-                                    out.print("（时间币）");
+                                    out.print("（互助时间）");
                                 }
                             %>
                         </div>

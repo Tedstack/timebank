@@ -103,7 +103,7 @@
                                     else if (recordDetailList.get(i).getServiceId() / 100 == 2)
                                         out.print("（元）");
                                     else
-                                        out.print("（时间币)");
+                                        out.print("（互助时间)");
                                 %>
                             </p>
                             <p class="weui-media-box__desc">服务人员 : <%out.print(recordDetailList.get(i).getServiceUserName());%></p>

@@ -262,7 +262,7 @@
                                         moneyType = "元";
                                         break;
                                     case "mutualAid":
-                                        moneyType = "时间币";
+                                        moneyType = "互助时间";
                                         break;
                                 }
                             %>

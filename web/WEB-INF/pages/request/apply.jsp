@@ -111,7 +111,7 @@
                                     out.print("（志愿者时间）");
                                     break;
                                 case "互助需求":
-                                    out.print("（时间币）");
+                                    out.print("（互助时间）");
                                     break;
                                 case "专业需求":
                                     out.print("（元）");
@@ -138,7 +138,7 @@
                                     out.print("（志愿者时间）");
                                     break;
                                 case "互助需求":
-                                    out.print("（时间币）");
+                                    out.print("（互助时间）");
                                     break;
                                 case "专业需求":
                                     out.print("（元）");

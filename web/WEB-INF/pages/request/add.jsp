@@ -184,7 +184,7 @@
             if(type === "义工需求"){
                 $("#priceUnit-span").html("志愿者时间/h");
             } else if(type === "互助需求"){
-                $("#priceUnit-span").html("时间币/h");
+                $("#priceUnit-span").html("互助时间/h");
             } else
                 $("#priceUnit-span").html("元/h");
         });

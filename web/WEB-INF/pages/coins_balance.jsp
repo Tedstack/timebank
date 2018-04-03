@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>我的时间币</title>
+    <title>我的互助时间</title>
     <link rel="stylesheet" href="../css/weui.css">
     <link rel="stylesheet" href="../css/weui-example.css">
     <script src="../js/zepto/weui.min.js"></script>
@@ -14,8 +14,8 @@
 <div class="weui-tab">
     <div class="weui-panel">
         <div class="weui-panel__hd">
-            <span>时间币</span>
-            <a href="${pageContext.request.contextPath}/user/coins_list" style="float:right;text-decoration: none">时间币明细</a>
+            <span>互助时间</span>
+            <a href="${pageContext.request.contextPath}/user/coins_list" style="float:right;text-decoration: none">互助时间明细</a>
         </div>
         <div class="weui-cell__bd">
             <div class="weui-msg">
@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="weui-msg__text-area">
-                    <h1 class="weui-msg__title" style="font-size: x-large">我的时间币</h1>
+                    <h1 class="weui-msg__title" style="font-size: x-large">我的互助时间</h1>
                     <h2 class="weui-msg__title" style="font-size: xx-large">${TimeCoin}</h2>
                 </div>
 
@@ -44,7 +44,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $(document).on("click", "#recharge", function() {
-        var r=confirm("您正在进行充值业务，￥1=1时间币，确认是否继续");
+        var r=confirm("您正在进行充值业务，￥1=1互助时间，确认是否继续");
         if(r===true){
             goTo(url+"/recharge/coins_recharge");
         }

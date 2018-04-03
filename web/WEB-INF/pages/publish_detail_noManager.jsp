@@ -83,7 +83,7 @@
                             else if(detail.getServiceId() / 100 == 2)
                                 out.print("元");
                             else
-                                out.print("时间币");
+                                out.print("互助时间");
                         %>/小时 申请服务
                     </a>
                     <a id="serviceOverDate-button" class="weui-btn weui-btn_plain-default" style="background-color: #999; color:#fff; border:0px;display: none;text-decoration:none;" onclick="return false;">

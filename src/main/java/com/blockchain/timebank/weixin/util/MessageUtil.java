@@ -219,7 +219,7 @@ public class MessageUtil {
         String str_Date = bartDateFormat.format(date);
         String str_type = "微信支付";
         String str_amount = Double.toString(recharge.getTotalAmount());
-        String str_remark = "您当前的时间币余额为" + Double.toString(user.getTimeCoin());
+        String str_remark = "您当前的互助时间余额为" + Double.toString(user.getTimeCoin());
         List<TemplateParam> templateParamList = new ArrayList<TemplateParam>();
         templateParamList.add(new TemplateParam("first",str_first, "#173177"));
         templateParamList.add(new TemplateParam("JFSJ", str_Date, "#173177"));

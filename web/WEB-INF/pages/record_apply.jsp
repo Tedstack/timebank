@@ -113,7 +113,7 @@
                                     out.print("志愿者时间");
 
                                 } else if(detailEntity.getServiceType().equals("互助服务")){
-                                    out.print("时间币");
+                                    out.print("互助时间");
                                 }else{
                                     out.print("元");
                                 }
@@ -144,7 +144,7 @@
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
                                 out.print("（志愿者时间/h）");
                             } else if(detailEntity.getServiceType().equals("互助服务")){
-                                out.print("（时间币/h）");
+                                out.print("（互助时间/h）");
                             } else{
                                 out.print("（元/h）");
                             }
@@ -164,7 +164,7 @@
                             if (detailEntity.getServiceType().equals("志愿者服务")) {
                                 out.print("（志愿者时间）");
                             } else if(detailEntity.getServiceType().equals("互助服务")){
-                                out.print("（时间币）");
+                                out.print("（互助时间）");
                             } else{
                                 out.print("（元）");
                             }

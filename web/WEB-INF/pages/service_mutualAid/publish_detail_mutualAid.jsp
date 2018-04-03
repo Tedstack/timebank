@@ -76,7 +76,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <img  class="weui-media-box__thumb" style="width:32px; display:inline" src="../img/littleicon/价格.png">
-                    <span><%=detail.getPrice()%>时间币/小时</span>
+                    <span><%=detail.getPrice()%>互助时间/小时</span>
                 </div>
             </div>
             <div class="weui-cell">

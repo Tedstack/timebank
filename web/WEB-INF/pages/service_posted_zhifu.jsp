@@ -76,7 +76,7 @@
                                         else if(recordDetailList.get(i).getServiceId() / 100 == 2)
                                             unit="元";
                                         else
-                                            unit="时间币";
+                                            unit="互助时间";
                                         out.print("（"+ unit +"）");
                                     %></h4></div>
                                 <div class="weui-flex__item"display="none"></div>

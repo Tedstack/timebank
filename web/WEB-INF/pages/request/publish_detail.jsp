@@ -119,7 +119,7 @@
                     if("volunteer".equals(detail.getServiceType())){
                         out.print("志愿者时间");
                     } else if("mutualAid".equals(detail.getServiceType())){
-                        out.print("时间币");
+                        out.print("互助时间");
                     } else{
                         out.print("元");
                     }

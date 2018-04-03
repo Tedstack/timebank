@@ -396,7 +396,7 @@ public class UserController {
     }
 
 
-    //申请充值时间币页面
+    //申请充值互助时间页面
     @RequestMapping(value = "/pay", method = RequestMethod.GET)
     public String coinpay(ModelMap map) {
         return "pay";
@@ -498,7 +498,7 @@ public class UserController {
         return "volCoin_detail";
     }
 
-    //时间币列表
+    //互助时间列表
     @RequestMapping(value = "/coins_list", method = RequestMethod.GET)
     public String getCoinList(ModelMap map){
         /*UserEntity user=getCurrentUser();
@@ -511,7 +511,7 @@ public class UserController {
         //互助需求
         List<ViewRequestOrderDetailEntity> requestDetailList = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewRequestOrderDetailEntity> requestDetailList2 = viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        //时间币充值
+        //互助时间充值
         List<RechargeEntity> rechargelist = rechargeDao.findByUserId(getCurrentUser().getId());
         recordDetailList.addAll(recordDetailList2);
         requestDetailList.addAll(requestDetailList2);
@@ -554,7 +554,7 @@ public class UserController {
         map.addAttribute("userid",getCurrentUser().getId());
         return "coins_list";
     }
-    //时间币明细
+    //互助时间明细
     @RequestMapping(value = "/coins_details",method = RequestMethod.GET)
     public String getCoinDetail(ModelMap map,@RequestParam long id,@RequestParam String clarify){
        /* RechargeEntity rechargeEntity = rechargeDao.findOne(id);
@@ -576,7 +576,7 @@ public class UserController {
         return "/coins_details";
     }
 
-    //时间币充值明细
+    //互助时间充值明细
     @RequestMapping(value="recharge_detial",method = RequestMethod.GET)
     public String getRechrgeDetail(ModelMap map,@RequestParam long id){
         RechargeEntity rechargeEntity = rechargeDao.findOne(id);
@@ -798,7 +798,7 @@ public class UserController {
         accountService.updateOrderToComplete(recordID);
     }
 
-    //申请志愿者或互助服务的用户支付志愿者币或时间币
+    //申请志愿者或互助服务的用户支付志愿者币或互助时间
     @RequestMapping(value = "/applyUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
     public void applyUserPayTimeCoin(ModelMap map,@RequestParam long recordID) {

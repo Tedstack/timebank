@@ -117,7 +117,7 @@
                                     if (publishDetail.getServiceType().equals("志愿者服务")) {
                                         out.print("<option value='"+ PayWay.PAY_WAY_TIME_VOL +"'>志愿者币V</option>");
                                     } else {
-                                        out.print("<option value='"+ PayWay.PAY_WAY_TIME_COIN +"'>时间币C</option>");
+                                        out.print("<option value='"+ PayWay.PAY_WAY_TIME_COIN +"'>互助时间C</option>");
                                     }
                                 %>
                             </select>
@@ -143,7 +143,7 @@
                                 if (publishDetail.getServiceType().equals("志愿者服务")) {
                                     out.print("（志愿者币V/h）");
                                 } else {
-                                    out.print("（时间币C/h）");
+                                    out.print("（互助时间C/h）");
                                 }
                             %></span>
                         </div>
@@ -157,7 +157,7 @@
                                 if (publishDetail.getServiceType().equals("志愿者服务")) {
                                     out.print("（志愿者币V/h）");
                                 } else {
-                                    out.print("（时间币C/h）");
+                                    out.print("（互助时间C/h）");
                                 }
                             %></span>
                         </div>

@@ -47,7 +47,7 @@
                             <th>姓名</th>
                             <th>手机号</th>
                             <th>志愿者币</th>
-                            <th>时间币</th>
+                            <th>互助时间</th>
                             <th>时间</th>
                             <th>注册时间</th>
                             <th>操作</th>
@@ -76,7 +76,7 @@
                             <td><%=userEntity.getPhone()%>
                             </td>
                             <td><%=userEntity.getTimeVol()%>（志愿者币V）</td>
-                            <td><%=userEntity.getTimeCoin()%>（时间币C）</td>
+                            <td><%=userEntity.getTimeCoin()%>（互助时间C）</td>
                             <td><a href="javascript:void(0)">查看</a></td>
                             <td>
                                 <%

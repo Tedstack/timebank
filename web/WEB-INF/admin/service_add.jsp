@@ -90,7 +90,7 @@
                         <label class="col-sm-1 col-form-label">服务收费方式</label>
                         <div class="col-sm-2">
                             <select name="price_type" id="price_type" class="form-control">
-                                <option value="时间币">时间币</option>
+                                <option value="互助时间">互助时间</option>
                             </select>
                         </div>
                     </div>

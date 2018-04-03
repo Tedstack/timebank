@@ -95,7 +95,7 @@
                         %>
                         <div style="color: #7ACF41;">
                             <%
-                                out.print(viewPublishEntity.getPrice()+"时间币/小时");
+                                out.print(viewPublishEntity.getPrice()+"互助时间/小时");
                             %></div>
                         <div><p class="weui-media-box__desc">
                             <%out.print(viewPublishEntity.getUserName());%> &nbsp;&nbsp;&nbsp;

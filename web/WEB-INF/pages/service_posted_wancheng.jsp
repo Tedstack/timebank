@@ -87,7 +87,7 @@
                                             if(recordDetailList.get(i).getPayWay() == 1)
                                                 out.print(recordDetailList.get(i).getPayMoney()+"志愿者时间");
                                             else if(recordDetailList.get(i).getPayWay() == 2)
-                                                out.print(recordDetailList.get(i).getPayMoney()+"时间币");
+                                                out.print(recordDetailList.get(i).getPayMoney()+"互助时间");
                                             else
                                                 out.print(recordDetailList.get(i).getPayMoney()+"元");
                                         }else{
