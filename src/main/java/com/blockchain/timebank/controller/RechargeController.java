@@ -78,7 +78,7 @@ public class RechargeController {
     }
 
 
-    //互助时间充值页面
+    //时间币充值页面
 
     @RequestMapping(value = "/coins_recharge", method = RequestMethod.GET)
     public String getRechargePage(ModelMap map) {

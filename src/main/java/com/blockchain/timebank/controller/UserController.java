@@ -511,7 +511,7 @@ public class UserController {
         //互助需求
         List<ViewRequestOrderDetailEntity> requestDetailList = viewRequestOrderDetailDao.findViewRequestOrderDetailByApplyUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
         List<ViewRequestOrderDetailEntity> requestDetailList2 = viewRequestOrderDetailDao.findViewRequestOrderDetailEntitiesByRequestUserIdAndStatus(getCurrentUser().getId(),OrderStatus.alreadyComplete);
-        //互助时间充值
+        //时间币充值
         List<RechargeEntity> rechargelist = rechargeDao.findByUserId(getCurrentUser().getId());
         recordDetailList.addAll(recordDetailList2);
         requestDetailList.addAll(requestDetailList2);
@@ -576,7 +576,7 @@ public class UserController {
         return "/coins_details";
     }
 
-    //互助时间充值明细
+    //时间币充值明细
     @RequestMapping(value="recharge_detial",method = RequestMethod.GET)
     public String getRechrgeDetail(ModelMap map,@RequestParam long id){
         RechargeEntity rechargeEntity = rechargeDao.findOne(id);

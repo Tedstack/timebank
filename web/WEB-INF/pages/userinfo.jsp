@@ -147,10 +147,10 @@
     <table>
         <tr>
             <td>
-                <button class="button button5" style="margin: 20px 35px;float:left;padding:20px 30px" id="recharge">互助时间充值</button>
+                <button class="button button5" style="margin: 20px 35px;float:left;padding:20px 30px" id="recharge">时间币充值</button>
             </td>
             <td>
-                <button class="button button5" style="margin: 20px 35px;float:right;padding:20px 30px;background-color: #a2958a" id="tixian">互助时间提现</button>
+                <button class="button button5" style="margin: 20px 35px;float:right;padding:20px 30px;background-color: #a2958a" id="tixian">时间币提现</button>
             </td>
         </tr>
     </table>
