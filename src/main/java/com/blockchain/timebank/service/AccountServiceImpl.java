@@ -170,7 +170,8 @@ public class AccountServiceImpl implements AccountService {
             long userid = rechargeEntity.getUserId();
             //修改用户账户中的
             UserEntity userEntity = userService.findUserEntityById(userid);
-            double amount = rechargeEntity.getTotalAmount()+ userEntity.getTimeCoin();
+            BigDecimal totalAmount = new BigDecimal(rechargeEntity.getTotalAmount()/15);
+            double amount = totalAmount.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + userEntity.getTimeCoin();
             userEntity.setTimeCoin(amount);
             userService.updateUserEntity(userEntity);
             //修改recharge表的支付状态

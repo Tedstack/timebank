@@ -102,7 +102,7 @@
 <script type="text/javascript">
     var url='${pageContext.request.contextPath}';
     $(document).on("click", "#recharge", function() {
-        var r=confirm("您正在进行充值业务，￥1=1互助时间，确认是否继续");
+        var r=confirm("您正在进行充值业务，￥15=1互助时间，确认是否继续");
         if(r==true){
             goTo(url+"/recharge/coins_recharge");
         }

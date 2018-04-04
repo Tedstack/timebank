@@ -47,7 +47,7 @@
                 <span style="color:#76b852">充值互助时间须知</span>
             </div>
             <div class="weui-media-box__info">
-               <span>用户您好，您在进行充值业务，暂无提现功能<br><br>￥1 = 1互助时间</span>
+               <span>用户您好，您在进行充值业务，暂无提现功能<br><br>￥15 = 1互助时间</span>
             </div>
         </div>
     </div>
