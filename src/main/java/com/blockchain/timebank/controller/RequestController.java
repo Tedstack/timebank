@@ -513,16 +513,16 @@ public class RequestController {
     //志愿者需求的用户支付志愿者币
     @RequestMapping(value = "/requestUserPayTimeVol",method = RequestMethod.POST)
     @ResponseBody
-    public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID) {
+    public void requestUserPayTimeVol(ModelMap map,@RequestParam long matchID, @RequestParam BigDecimal price) {
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
         if(viewRequestOrderDetailEntity.getServiceType().equals("volunteer")){
             if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
-                accountService.payRequestTimeVol(matchID);
+                accountService.payRequestTimeVol(matchID, price);
             }
         }
         else if(viewRequestOrderDetailEntity.getServiceType().equals("mutualAid")){
             if(getCurrentUser().getId()== viewRequestOrderDetailEntity.getRequestUserId()){
-                accountService.payRequestTimeCoin(matchID);
+                accountService.payRequestTimeCoin(matchID, price);
             }
         }
 

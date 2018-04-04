@@ -1,5 +1,7 @@
 package com.blockchain.timebank.service;
 
+import java.math.BigDecimal;
+
 public interface AccountService {
 
     void payTimeVol(long recordID);
@@ -8,9 +10,9 @@ public interface AccountService {
 
     void updateOrderToComplete(long recordID);
 
-    void payRequestTimeVol(long matchID);
+    void payRequestTimeVol(long matchID, BigDecimal price);
 
-    void payRequestTimeCoin(long matchID);
+    void payRequestTimeCoin(long matchID, BigDecimal price);
 
     void updateRequestOrderToComplete(long recordID);
 

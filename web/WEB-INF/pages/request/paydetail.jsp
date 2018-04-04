@@ -37,13 +37,14 @@
             break;
     }
 
-    String volunteerService = "志愿者需求";
 %>
 
 <div class="weui-form-preview">
     <div class="weui-form-preview__hd">
         <label class="weui-form-preview__label">付款金额:</label>
-        <em class="weui-form-preview__value" style="color: #7ACF41"><%out.print(matchDetail.getPayMoney());%></em>
+        <em class="weui-form-preview__value" style="color: #7ACF41">
+            <input id="servicePrice" class="weui-input" name="price" type="number" pattern="[0-9]*" placeholder="<%out.print(matchDetail.getPayMoney());%>" min="0" step="0.01" style="text-align:right"/>
+        </em>
     </div>
     <div class="weui-form-preview__bd">
         <p>
@@ -110,13 +111,17 @@
             var volunteerService = 'volunteer';
             var mutualHelpService = 'mutualAid';
             var professionService = 'technic';
+            var price = <%out.print(matchDetail.getPayMoney());%>;
+            if($("#servicePrice").val() !== ""){
+                price = $("#servicePrice").val();
+            }
             if(type === volunteerService || type === mutualHelpService){
                 $.ajax({
                     type: 'POST',
                     cache: false,
                     url: targetUrl,
                     //dataType:'JSONP',
-                    data: "matchID=" + matchID,
+                    data: "matchID=" + matchID + "?price=" + price,
                     beforeSend: function (XHR) {
                         dialogLoading = showLoading();
                     },
@@ -137,7 +142,7 @@
                     }
                 });
             }else if(type === professionService){
-                if(confirm("请扫描对方微信收款码支付<%out.print(matchDetail.getPayMoney());%>元")){
+                if(confirm("请扫描对方微信收款码支付" + price + "元")){
                     wx.scanQRCode(
                         {
                             needResult: 0,
