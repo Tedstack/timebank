@@ -131,7 +131,11 @@ public class AccountServiceImpl implements AccountService {
         //5.更改需求状态
         RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
         requestEntity.setIsComplete(1);
-        requestService.saveRequestEntity(requestEntity);
+        try {
+            requestService.saveRequestEntity(requestEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Transactional
@@ -166,7 +170,11 @@ public class AccountServiceImpl implements AccountService {
         //5.更改需求状态
         RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
         requestEntity.setIsComplete(1);
-        requestService.saveRequestEntity(requestEntity);
+        try {
+            requestService.saveRequestEntity(requestEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -4,6 +4,7 @@ import com.blockchain.timebank.dao.ViewRequestDetailDao;
 import com.blockchain.timebank.dao.RequestDao;
 import com.blockchain.timebank.entity.RequestEntity;
 import com.blockchain.timebank.entity.ViewRequestDetailEntity;
+import com.blockchain.timebank.entity.ViewRequestOrderDetailEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,17 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Transactional()
-    public void saveRequestEntity(RequestEntity requestEntity) {
+    public void saveRequestEntity(RequestEntity requestEntity) throws Exception {
+        List<ViewRequestDetailEntity> requestEntities = findUserRequestPublished(requestEntity.getId());
+        for(ViewRequestDetailEntity eachEntity: requestEntities){
+            if(!(eachEntity.getBeginTime().getTime()>requestEntity.getEndTime().getTime() ||
+                    eachEntity.getEndTime().getTime()<requestEntity.getBeginTime().getTime() ||
+                    eachEntity.getId() == requestEntity.getId() ||
+                    eachEntity.getIsComplete() == 1 ||
+                    eachEntity.getIsDeleted() == 1)){
+                throw new Exception("time conflict");
+            }
+        }
         requestDao.save(requestEntity);
     }
 

@@ -47,6 +47,9 @@
                 if(msg.equals("match_today_limit")){
                     out.print("一天只能发布5条需求");
                 }
+                if(msg.equals("time_conflict")){
+                out.print("当前时间段已经发布了其他需求");
+                }
             %>
         </h2>
     </div>

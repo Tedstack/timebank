@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RequestService {
     List<ViewRequestDetailEntity> findAllRequestDetailByType(String type);
-    void saveRequestEntity(RequestEntity volunteerRequestEntity);
+    void saveRequestEntity(RequestEntity volunteerRequestEntity) throws Exception;
     ViewRequestDetailEntity findDetailById(long id);
     List<ViewRequestDetailEntity> findUserRequestPublished(long id);
     RequestEntity findRequestById(long id);

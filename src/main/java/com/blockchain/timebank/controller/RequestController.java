@@ -94,6 +94,11 @@ public class RequestController {
         }
         catch (ParseException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            if(e.getMessage().equals("time conflict")){
+                map.addAttribute("msg", "time_conflict");
+                return "request/fail_page";
+            }
         }
 
         List<ViewRequestDetailEntity> viewRequestDetailEntities = requestService.findAllRequestDetailByType(getServiceTypeById(serviceId));
@@ -237,36 +242,34 @@ public class RequestController {
     @RequestMapping(value = "/handleRequestMatch", method = RequestMethod.GET)
     public String handleRequestMatch(ModelMap map,@RequestParam long matchID,@RequestParam String handle){
         RequestOrderEntity matchEntity = requestOrderService.findRequestOrderEntityById(matchID);
+        List<ViewRequestOrderDetailEntity> allUserRequestOrders = requestOrderService.findUserRequestToConfirm(matchEntity.getRequestUserId());
         if(handle.equals("refuse")){
             matchEntity.setStatus(OrderStatus.alreadyRefuse);
-            requestOrderService.updateRequestOrderEntity(matchEntity);
+            requestOrderService.saveRequestOrderEntity(matchEntity);
+            UserEntity userEntity = userService.findUserEntityById(matchEntity.getApplyUserId());
+            ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
+            MessageUtil.apply_result(userEntity, viewRequestOrderDetailEntity);
         }
 
-        if(handle.equals("confirm")){
-            matchEntity.setStatus(OrderStatus.waitingService);
-            requestOrderService.updateRequestOrderEntity(matchEntity);
-        }
+        else {
+            for (ViewRequestOrderDetailEntity eachEntity : allUserRequestOrders) {
+                if (eachEntity.getId() == matchEntity.getId()) {
+                    matchEntity.setStatus(OrderStatus.waitingService);
+                    requestOrderService.saveRequestOrderEntity(matchEntity);
+                } else {
+                    RequestOrderEntity tempEntity = requestOrderService.findRequestOrderEntityById(eachEntity.getId());
+                    tempEntity.setStatus(OrderStatus.alreadyRefuse);
+                    requestOrderService.saveRequestOrderEntity(tempEntity);
+                }
 
-        UserEntity userEntity = userService.findUserEntityById(matchEntity.getApplyUserId());
-        RequestEntity requestEntity = requestService.findRequestById(matchEntity.getRequestId());
-        ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
-        if(userEntity != null && viewRequestOrderDetailEntity != null) {
-            System.out.println("===========================进入判断===============================");
-            int try_num = 3;
-            while(!MessageUtil.apply_result(userEntity, viewRequestOrderDetailEntity)){
-                if (--try_num==0)
-                    break;
+                UserEntity userEntity = userService.findUserEntityById(eachEntity.getApplyUserId());
+                ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(matchID);
+                MessageUtil.apply_result(userEntity, viewRequestOrderDetailEntity);
             }
+        }
 
-        }
-        else if (userEntity==null){
-            System.out.println("===========================user_entity null===========================");
-        }
-        else{
-            System.out.println("===========================request_order_entity null===========================");
-        }
-        map.addAttribute("userEntity",userEntity);
-        map.addAttribute("requestEntity",requestEntity);
+        map.addAttribute("userEntity",userService.findUserEntityById(matchEntity.getApplyUserId()));
+        map.addAttribute("requestEntity",requestService.findRequestById(matchEntity.getRequestId()));
         map.addAttribute("matchEntity",requestOrderService.findRequestOrderDetailById(matchID));
 
         return "request/taken_detail";
@@ -326,7 +329,11 @@ public class RequestController {
         if(isDelete){
             RequestEntity requestEntity = requestService.findRequestById(id);
             requestEntity.setIsDeleted(1);
-            requestService.saveRequestEntity(requestEntity);
+            try {
+                requestService.saveRequestEntity(requestEntity);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         map.addAttribute("deleteMsg", deleteMsg);
         return "request/delete_detail";
@@ -382,6 +389,11 @@ public class RequestController {
             requestService.saveRequestEntity(requestEntity);
         } catch (ParseException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            if(e.getMessage().equals("time conflict")){
+                map.addAttribute("msg", "time_conflict");
+                return "request/fail_page";
+            }
         }
         ViewRequestOrderDetailEntity viewRequestOrderDetailEntity = requestOrderService.findRequestOrderDetailById(id);
         map.addAttribute("id", viewRequestOrderDetailEntity.getId());
