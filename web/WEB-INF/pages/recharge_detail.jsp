@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>充值明細</title>
+    <title>充值明细</title>
     <!-- 引入 WeUI -->
     <link rel="stylesheet" href="../css/weui.min.css" />
 </head>
@@ -38,7 +38,7 @@
                   </div>
                   <div class="weui-cell">
                       <div class="weui-cell__bd">
-                          <p>充值金额：</p>
+                          <p>充值时间币：</p>
                       </div>
                       <div class="weui-cell__ft"><%=rechargeEntity.getTotalAmount()%></div>
                   </div>
