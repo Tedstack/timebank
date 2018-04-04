@@ -46,7 +46,7 @@
                 <div class="weui-media-box__bd">
                     <div class="weui-media-box__title">
                         <span>微信充值</span>
-                        <span style="float: right">+<%out.print(coins_list.getPaymoney());%></span>
+                        <span style="float: right"><%out.print(coins_list.getPaymoney());%></span>
                     </div>
                     <div class="weui-media-box__info">
                         <%

@@ -99,7 +99,7 @@ public class RechargeController {
     @ResponseBody
     public String getRechargeSubmit(ModelMap map, HttpServletRequest request, @RequestParam Double totalAmount) throws IOException {
         UserEntity userEntity = getCurrentUser();
-        Double amount = totalAmount * 100 / ConfigUtil.RMB_TO_TIMECOIN;
+        Double amount = totalAmount * 100 / ConfigUtil.RMB_TO_TIMECOIN * 15;
 
         //以下预填数据库中充值信息
         RechargeEntity rechargeEntity = new RechargeEntity();

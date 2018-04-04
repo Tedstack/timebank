@@ -25,9 +25,9 @@
             </div>
 
             <div class="weui-msg__text-area">
-                <h1 class="weui-msg__title" style="font-size: x-large"><b>充值金额</b></h1>
+                <h1 class="weui-msg__title" style="font-size: x-large"><b>充值时间币</b></h1>
                 <div class="weui-cell">
-                    <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large">￥</label></div>
+                    <div class="weui-cell__hd"><label class="weui-label" style="font-size: xx-large"></label></div>
                     <div class="weui-cell__bd">
                         <input class="weui-input" type="number" id="totalAmount" name="totalAmount" style="font-size: xx-large"  placeholder="0.00" step="0.01" min="0.01" required/>
 
@@ -62,13 +62,13 @@
             var amount = $("#totalAmount").val();
            // alert(url + "/recharge/coins_recharge_submit" + amount);
             if(amount ===""){
-                alert("请输入充值金额");
+                alert("请输入充值时间币数量");
                 return;
             }else if(amount <"0.01") {
-                alert("请输入有效金额");
+                alert("请输入有效时间币数量");
                 return;
             }else if(!reg.test(amount)){
-                alert("请您输入正确的金额（只包含两位小数）");
+                alert("请您输入正确的时间币数量（只包含两位小数）");
                 return;
             }
             $.post(
