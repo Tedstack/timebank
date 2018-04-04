@@ -283,7 +283,7 @@
     }
     function checkSurplus(){
         if(<%out.print(surplus);%>){
-            showAlert("每日至多可以发布100条服务<br/>您今日发布条数已达到上限！");
+            showAlert("每日至多可以发布5条服务<br/>您今日发布条数已达到上限！");
         }
     }
 </script>
