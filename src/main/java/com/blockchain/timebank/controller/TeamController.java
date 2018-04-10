@@ -251,7 +251,9 @@ public class TeamController {
     public String teamActivityDetails(ModelMap map, @RequestParam String type, @RequestParam long activityID) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
         String isMember="true";//用于判断用户是否有权利申请该活动
-        if(!activityPublishDetail.isPublic() && !isAnonymous()){
+        if(!activityPublishDetail.isPublic() && isAnonymous())
+            isMember="false";
+        if(!activityPublishDetail.isPublic()){
             TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),activityPublishDetail.getTeamId());
             if(teamUser==null)
                 isMember="false";
