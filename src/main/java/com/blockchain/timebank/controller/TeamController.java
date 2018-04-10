@@ -253,7 +253,7 @@ public class TeamController {
         String isMember="true";//用于判断用户是否有权利申请该活动
         if(!activityPublishDetail.isPublic() && isAnonymous())
             isMember="false";
-        if(!activityPublishDetail.isPublic()){
+        else if(!activityPublishDetail.isPublic()){
             TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),activityPublishDetail.getTeamId());
             if(teamUser==null)
                 isMember="false";
