@@ -174,7 +174,6 @@ public class TeamController {
         if(isAnonymous()){
             return "isAnonymous";
         }
-
         long userId = getCurrentUser().getId();
         TeamUserEntity teamUser;
         teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),teamId);
@@ -252,7 +251,7 @@ public class TeamController {
     public String teamActivityDetails(ModelMap map, @RequestParam String type, @RequestParam long activityID) {
         ViewActivityPublishDetailEntity activityPublishDetail = viewActivityPublishDetailDao.findOne(activityID);
         String isMember="true";//用于判断用户是否有权利申请该活动
-        if(!activityPublishDetail.isPublic()){
+        if(!activityPublishDetail.isPublic() && !isAnonymous()){
             TeamUserEntity teamUser=teamUserService.findByUserIdAndTeamId(getCurrentUser().getId(),activityPublishDetail.getTeamId());
             if(teamUser==null)
                 isMember="false";
