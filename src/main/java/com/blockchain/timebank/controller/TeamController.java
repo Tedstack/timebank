@@ -730,25 +730,28 @@ public class TeamController {
         List<ActivityPublishEntity> activityList = activityPublishService.findAllByTeamIdAndStatus(id, ActivityStatus.alreadyTerminate);
         List<ActivityPublishEntity> publicActivity = new ArrayList<ActivityPublishEntity>();
         List<ActivityPublishEntity> privateActivity = new ArrayList<ActivityPublishEntity>();
-        long userId = getCurrentUser().getId();
+        //将活动分类，分为共有活动集与私有活动集合
+        for (int i = 0; i < activityList.size(); i++) {
+            if (activityList.get(i).isPublic())
+                publicActivity.add(activityList.get(i));
+            else
+                privateActivity.add(activityList.get(i));
+        }
+        long userId=0;
+        if(!isAnonymous())
+            userId = getCurrentUser().getId();
         String isMember="Out";
         String isCreator="false";
         if(userId==creator.getId())
             isCreator="true";
-        //判断用户在这个团队内
+        //判断用户在这个团队内的状态
         TeamUserEntity team = teamUserService.findByUserIdAndTeamId(userId, id);
         if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.alreadyEntered) || teamEntity.getCreatorId().equals(getCurrentUser().getId()))
             isMember="alreadyIn";
-        else if(team!=null && (team.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked) || team.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication)))
+        else if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.inApplication))
             isMember="stillInProcess";
-        if(isMember.equalsIgnoreCase("alreadyIn")) {
-            for (int i = 0; i < activityList.size(); i++) {
-                if (activityList.get(i).isPublic())
-                    publicActivity.add(activityList.get(i));
-                else
-                    privateActivity.add(activityList.get(i));
-            }
-        }
+        else if(team!=null && team.getStatus().equalsIgnoreCase(TeamUserStatus.isLocked))
+            isMember="locked";
         map.addAttribute("isMember", isMember);
         map.addAttribute("isCreator", isCreator);
         map.addAttribute("publicActivity", publicActivity);
