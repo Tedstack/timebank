@@ -159,14 +159,13 @@
         $("#create").on('click', function (){
             var teamName=document.getElementById("team_name").value;
             var formData = new FormData($("#teamDetail")[0]);
-            if(teamName.length>12)
-            {
-                showAlert("团队名称建议不超过11个字");
-                return;
-            }
             var contextPath="${pageContext.request.contextPath}";
             var targetUrl = "http://"+getDomainName()+contextPath+"/team/createTeam";
             var phone=document.getElementById("content_number").value;
+            if(teamName.length>12) {
+                showAlert("团队名称建议不超过11个字");
+                return;
+            }
             if(document.getElementById("team_name").value===""){
                 showAlert("请填写团队名称");
                 return;

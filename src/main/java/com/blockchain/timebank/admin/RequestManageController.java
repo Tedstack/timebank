@@ -74,8 +74,7 @@ public class RequestManageController {
             requestEntity.setRequesterPhone(requestUser.getPhone());
             requestEntity.setPayway(1);
             requestService.saveRequestEntity(requestEntity);
-
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

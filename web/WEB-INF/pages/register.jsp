@@ -93,7 +93,7 @@
     $("#create").on('click', function () {
         var targetUrl = "http://"+getDomainName()+contextPath+"/user/register2";
         var targetUrl2 = "http://"+getDomainName()+contextPath+"/login";
-        var re = /^1\d{10}$/
+        var re = /^1\d{10}$/;
         var passwordReg=/^[a-zA-Z0-9]{6,15}$/;
         var temp1=document.getElementById("pwd1").value;
         var temp2=document.getElementById("pwd2").value;

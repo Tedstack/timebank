@@ -25,7 +25,7 @@
             <div class="weui-cell__bd">
                 <div class="weui-flex">
                     <div class="weui-flex__item"diaplay="none">
-                        <p>服务评分</p>
+                        <p>参与评分</p>
                     </div>
                     <div class="weui-flex__item">
                         <div class="weui-flex__item">
@@ -45,7 +45,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <%if(type.equalsIgnoreCase("0")){%>
-                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：服务非常满意，服务者的态度也很好" rows="3"></textarea>
+                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：活动表现积极，乐于帮助其他同伴" rows="3"></textarea>
                     <%}else{%>
                     <textarea name="text" class="weui-textarea" id="text" rows="3"><%out.print(userActivityEntity.getManagerComment());%></textarea>
                     <%}%>
