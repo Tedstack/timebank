@@ -45,9 +45,9 @@
             <div class="weui-cell">
                 <div class="weui-cell__bd">
                     <%if(type.equalsIgnoreCase("0")){%>
-                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：活动表现积极，乐于帮助其他同伴" rows="3"></textarea>
+                    <textarea name="text" class="weui-textarea" id="text" placeholder="例：活动表现积极，乐于帮助其他同伴" rows="3" oninput="checkLen(this)"></textarea>
                     <%}else{%>
-                    <textarea name="text" class="weui-textarea" id="text" rows="3"><%out.print(userActivityEntity.getManagerComment());%></textarea>
+                    <textarea name="text" class="weui-textarea" id="text" rows="3" oninput="checkLen(this)"><%out.print(userActivityEntity.getManagerComment());%></textarea>
                     <%}%>
                     <div class="weui-textarea-counter"><span>0</span>/200</div>
                 </div>
@@ -154,5 +154,11 @@
             });
         });
     });
+    function checkLen(obj)
+    {
+        if (getLength(obj.value) > 400)
+            obj.value = limitMaxLength(obj.value, 400);
+        document.getElementById("description-count").innerHTML = Math.ceil(getLength(obj.value)/2).toString();
+    }
 </script>
 </html>

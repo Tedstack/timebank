@@ -1055,10 +1055,13 @@ public class TeamController {
         //find all userActivity record
         List<ViewUserActivityDetailEntity> userActivityList=viewUserActivityDetailDao.findAllByTeamId(ID);
         for(int i=0;i<userActivityList.size();i++){
-            if(userActivityList.get(i).getUserComment()!=null){
-                userList.add(userActivityList.get(i));
+            if(userActivityList.get(i).getUserRating()!=null){
                 all_rate+=userActivityList.get(i).getUserRating();
                 num_comment++;
+                if(userActivityList.get(i).getUserComment()==null){
+                    userActivityList.get(i).setUserComment("暂无具体评价");
+                }
+                userList.add(userActivityList.get(i));
             }
         }
         all_rate=(double) Math.round(all_rate/num_comment * 100) / 100;
