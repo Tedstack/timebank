@@ -7,6 +7,7 @@ import com.blockchain.timebank.service.TeamService;
 import com.blockchain.timebank.service.TechnicAuthService;
 import com.blockchain.timebank.service.UserAuthService;
 import com.blockchain.timebank.service.UserService;
+import com.blockchain.timebank.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -154,7 +155,7 @@ public class UserManageController {
 
 
     @RequestMapping(value = "/userAddSubmit", method = RequestMethod.POST)
-    public String userAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam(required = false) String idCard, @RequestParam(required = false) String sex, @RequestParam(required = false) Date birth, @RequestParam(required = false) String QRCode) {
+    public String userAddSubmit(ModelMap map, @RequestParam String name, @RequestParam String phone, @RequestParam String idCard, @RequestParam String sex, @RequestParam String QRCode) {
         if (phone.equals("") || name.equals("")) {
             map.addAttribute("error", "姓名和手机号不能为空");
             return "../admin/user_add";
@@ -168,13 +169,35 @@ public class UserManageController {
             return "../admin/user_add";
         }
         UserEntity userEntity = new UserEntity();
+        String defaultStr = "";
         userEntity.setName(name);
         userEntity.setPhone(phone);
-        userEntity.setIdCard(idCard);
-        userEntity.setPassword(idCard.substring(12, idCard.length()));
+        if(!(idCard.equals(defaultStr))){
+            userEntity.setIdCard(idCard);
+            String MD5Password = MD5Util.getMD5(idCard.substring(12, idCard.length()));
+            userEntity.setPassword(MD5Password);
+
+            SimpleDateFormat cardBirth = new SimpleDateFormat("yyyyMMdd");
+            try {
+                Date birthDate = new Date(cardBirth.parse(idCard.substring(6, 14)).getTime());
+                userEntity.setBirth(birthDate);
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
+
+        }
+
+        //userEntity.setPassword(idCard.substring(12, idCard.length()));
         userEntity.setSex(sex);
-        userEntity.setBirth(birth);
-        userEntity.setQrCode(QRCode);
+
+        /*if(birth!=null){
+            userEntity.setBirth(birth);
+        }*/
+
+        if(!(QRCode.equals(defaultStr))){
+            userEntity.setQrCode(QRCode);
+        }
+
         userEntity.setRegisterDate(new Date(System.currentTimeMillis()));
         userEntity.setTimeCoin(10);
         userService.updateUserEntity(userEntity);

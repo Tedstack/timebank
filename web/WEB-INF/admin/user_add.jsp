@@ -57,7 +57,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>身份证号</label>
-                                            <input class="form-control" type="text" value="" id="idCard" name="idCard" placeholder="请输入身份证号" required>
+                                            <input class="form-control" type="text" value="" id="idCard" name="idCard" placeholder="请输入身份证号">
                                         </div>
                                         <div class="form-group">
                                             <label>性别</label> <br>
@@ -68,13 +68,13 @@
                                                 <input type="radio" name="sex" value="女"> 女
                                             </label>
                                         </div>
-                                        <div class="form-group">
+                                        <%--<div class="form-group">
                                             <label>出生年月</label>
-                                            <input class="form-control" type="date" value="" id="birth" name="birth" placeholder="请输入出生年月" required>
-                                        </div>
+                                            <input class="form-control" type="date" value="" id="birth" name="birth" placeholder="请输入出生年月">
+                                        </div>--%>
                                         <div class="form-group">
                                             <label>卡号</label>
-                                            <input class="form-control" type="text" value="" name="QRCode" placeholder="请输入要绑定的卡号" required>
+                                            <input class="form-control" type="text" value="" name="QRCode" placeholder="请输入要绑定的卡号">
                                         </div>
 
                                         <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-block">添加</button>
