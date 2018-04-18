@@ -84,8 +84,8 @@
                             </td>
                             <td><%=detailEntity.getPrice()%></td>
                             <td><%=detailEntity.getAddress()%></td>
-                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(detailEntity.getBeginTime()));%></td>
-                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(detailEntity.getEndTime()));%></td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getBeginTime()));%></td>
+                            <td><%out.print(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(detailEntity.getEndTime()));%></td>
                             <td>
                                 <%
                                     if (request.getAttribute("link_publishView") != null) {

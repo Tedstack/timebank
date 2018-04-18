@@ -180,11 +180,11 @@
         $(document).ready(function () {
             $('.ui-name:gt(0)').hide();
             $('.ui-name:gt(0)').find("select").attr("name", "");
-            $('#service_type').change(function () {
+            $('#request_type').change(function () {
                 $('.ui-name').hide();
                 $('.ui-name').find("select").attr("name", "");
                 $('#' + $(this).val()).show();
-                $('#' + $(this).val()).find("select").attr("name", "serviceName");
+                $('#' + $(this).val()).find("select").attr("name", "requestName");
             });
         });
     </script>
