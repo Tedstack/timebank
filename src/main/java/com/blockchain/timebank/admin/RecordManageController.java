@@ -73,7 +73,8 @@ public class RecordManageController {
             publishOrderEntity.setApplyUserName(applyUserName);
             publishOrderEntity.setApplyUserPhone(applyUserPhone);
             publishOrderEntity.setApplyAddress(address);
-            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(beginTime);
+            //Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(beginTime.replace("T", " "));//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
             publishOrderEntity.setBeginTime(new Timestamp(date.getTime()));
             publishOrderEntity.setEndTime(new Timestamp(date.getTime() + serveTime * 60 * 60 * 1000));
             publishOrderEntity.setPayWay(payWay);

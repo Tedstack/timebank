@@ -2,6 +2,8 @@
 <%@ page import="com.blockchain.timebank.entity.UserEntity" %>
 <%@ page import="com.blockchain.timebank.entity.ViewPublishDetailEntity" %>
 <%@ page import="com.blockchain.timebank.entity.PayWay" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +23,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -83,10 +86,20 @@
                         </div>
                     </div>
 
+                    <%
+                        Date nowDate = new Date();
+                        Date nextDate = new Date();
+                        nextDate.setTime(nextDate.getTime() + 3600000);
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String nowTime = formatter.format(nowDate);
+                        String nextTime = formatter.format(nextDate);
+                    %>
+
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">开始时间</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="datetime-local" name="beginTime" placeholder="请输入地址">
+                            <%--<input class="form-control" type="datetime-local" name="beginTime" placeholder="请输入时间">--%>
+                            <input size="16" type="text" name="beginTime" value="<%=nowTime%>" readonly class="form_datetime" required>
                         </div>
                     </div>
 
@@ -177,6 +190,7 @@
 
     <jsp:include page="footer.jsp"/>
 
+    <script src="${pageContext.request.contextPath}/js/jquery/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -189,6 +203,7 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap-datetimepicker.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -197,6 +212,9 @@
                 $('#sumPrice').text(sum);
             });
         });
+    </script>
+    <script type="text/javascript">
+        $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
     </script>
 </div>
 </body>
