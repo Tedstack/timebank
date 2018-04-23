@@ -20,6 +20,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap-datetimepicker.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -123,15 +124,18 @@
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">开始时间</label>
+
                         <div class="col-sm-4">
-                            <input class="form-control" type="datetime-local" name="beginTime" value="<%=nowTime%>" required>
+                            <%--<input class="form-control" type="datetime-local" name="beginTime" value="<%=nowTime%>" required>--%>
+                            <input size="16" type="text" name="beginTime" value="<%=nowTime%>" readonly class="form_datetime" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-1 col-form-label">结束时间</label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="datetime-local" name="endTime" value="<%=nextTime%>" required>
+                            <%--<input class="form-control" type="datetime-local" name="endTime" value="<%=nextTime%>" required>--%>
+                            <input size="16" type="text" name="endTime" value="<%=nextTime%>" readonly class="form_datetime" required>
                         </div>
                     </div>
 
@@ -163,6 +167,7 @@
 
     <jsp:include page="footer.jsp"/>
 
+    <script src="${pageContext.request.contextPath}/js/jquery/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -175,6 +180,7 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap-datetimepicker.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -187,6 +193,10 @@
                 $('#' + $(this).val()).find("select").attr("name", "requestName");
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss'});
     </script>
 </div>
 </body>

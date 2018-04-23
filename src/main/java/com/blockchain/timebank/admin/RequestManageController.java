@@ -64,8 +64,8 @@ public class RequestManageController {
             requestEntity.setServiceId(serviceService.findFirstByTypeAndName(requestType, requestName).getId());
             requestEntity.setUserId(requestUser.getId());
             requestEntity.setDescription(description);
-            Date beginDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(beginTime);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-            Date endDateTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(endTime);
+            Date beginDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(beginTime);//SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+            Date endDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endTime);
             requestEntity.setBeginTime(new Timestamp(beginDateTime.getTime()));
             requestEntity.setEndTime(new Timestamp(endDateTime.getTime()));
             requestEntity.setPrice(price);
